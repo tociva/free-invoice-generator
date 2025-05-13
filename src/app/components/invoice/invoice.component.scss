@@ -2,15 +2,25 @@
   justify-content: center;
   font-weight: 600;
 }
+
 ::ng-deep .ag-header {
   display: none !important;
 }
-.customer-card {
-  max-width: 400px;
+
+.card-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
   margin: 24px;
+}
+
+.customer-card,
+.invoice-details-card {
+  max-width: 400px;
+  flex: 1 1 400px;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   border: 1px solid #e0e0e0;
 }
 
@@ -21,4 +31,17 @@
   font-weight: 600;
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.ag-theme-alpine {
+  max-height: unset !important;
+}
+
+::ng-deep .ag-cell {
+  max-width: 200px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+::ng-deep.ag-body-horizontal-scroll-viewport {
+    overflow-x: hidden !important;
 }

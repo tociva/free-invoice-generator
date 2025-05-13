@@ -1,17 +1,40 @@
-<mat-card class="customer-card">
+<div class="card-layout">
+
+  <!-- Customer Details Card -->
+  <mat-card class="customer-card">
+    <mat-card-header>
+      <mat-card-title class="card-title">Customer Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ag-grid-angular
+        class="ag-theme-alpine address-grid"
+        style="width: 100%;"
+        [rowData]="customerRowData"
+        [columnDefs]="customerColumnDefs"
+        [domLayout]="'autoHeight'"
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions">
+      </ag-grid-angular>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Invoice Details Card -->
+  <mat-card class="invoice-details-card">
   <mat-card-header>
-    <mat-card-title class="card-title">Customer Details</mat-card-title>
+    <mat-card-title class="card-title">Invoice Details</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <ag-grid-angular
-      class="ag-theme-alpine address-grid"
+      class="ag-theme-alpine"
       style="width: 100%;"
-      [rowData]="customerRowData"
-      [columnDefs]="customerColumnDefs"
+      [rowData]="invoiceRowData"
+      [columnDefs]="invoiceColumnDefs"
       [domLayout]="'autoHeight'"
       [defaultColDef]="defaultColDef"
       [gridOptions]="gridOptions">
     </ag-grid-angular>
   </mat-card-content>
 </mat-card>
+
+</div>
