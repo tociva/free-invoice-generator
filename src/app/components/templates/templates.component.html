@@ -1,0 +1,50 @@
+<div class="template-header">
+  <h2>Invoice Templates</h2>
+  <button mat-icon-button (click)="goBack()" aria-label="Back">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<div class="template-grid">
+  <mat-card *ngFor="let template of templates" class="template-card">
+    <mat-card-title>{{ template.name }}</mat-card-title>
+    <mat-card-content>
+      <div [ngSwitch]="template.id" class="template-preview">
+
+        <!-- Template A -->
+        <div *ngSwitchCase="'templateA'" class="preview-box preview-blue">
+          <h3>Happiest Valley Farms</h3>
+          <p><strong>Invoice #1234</strong> | November 30, 2022</p>
+          <table>
+            <thead><tr><th>Qty</th><th>Item</th><th>Description</th><th>Price</th></tr></thead>
+            <tbody><tr><td>10</td><td>123</td><td>Baby chicks</td><td>$5.00</td></tr></tbody>
+          </table>
+        </div>
+
+        <!-- Template B -->
+        <div *ngSwitchCase="'templateB'" class="preview-box preview-red">
+          <h3>Invoice No. 1234</h3>
+          <p>[Company Name] | [Address] | [Phone]</p>
+          <table>
+            <thead><tr><th>Quantity</th><th>Description</th><th>Unit Price</th><th>Total</th></tr></thead>
+            <tbody><tr><td>-</td><td>-</td><td>-</td><td>-</td></tr></tbody>
+          </table>
+        </div>
+
+        <!-- Template C -->
+        <div *ngSwitchCase="'templateC'" class="preview-box preview-gray">
+          <h3>INVOICE</h3>
+          <p>[Your Company Slogan]</p>
+          <table>
+            <thead><tr><th>QTY</th><th>Description</th><th>Price</th><th>Total</th></tr></thead>
+            <tbody><tr><td>-</td><td>-</td><td>-</td><td>-</td></tr></tbody>
+          </table>
+        </div>
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="useTemplate(template.id)">Use this template</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title>
+    Create Invoice
+   <button mat-icon-button (click)="goBack()" aria-label="Back">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+  </mat-card-title>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field appearance="fill">
+        <mat-label>Client Name</mat-label>
+        <input matInput placeholder="Enter client name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Invoice Date</mat-label>
+        <input matInput type="date">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" placeholder="Enter amount">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Generate Invoice</button>
+    </form>
+  </mat-card-content>
+</mat-card>
