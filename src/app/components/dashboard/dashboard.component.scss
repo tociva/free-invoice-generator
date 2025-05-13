@@ -1,3 +1,5 @@
+@use '../../../styles/variables' as *;
+
 .navbar {
   position: sticky;
   top: 0;
@@ -24,7 +26,8 @@ a.mat-button.active-link {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
+
 .custom-navbar {
-  background-color: #B0E0E6;
-  color: white;
+  background-color: $primary-color;
+  color: $on-primary-color;
 }
