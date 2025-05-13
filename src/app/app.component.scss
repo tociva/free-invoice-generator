@@ -1,0 +1,33 @@
+@use '../styles/variables' as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-container {
+  padding: 16px;
+}
+
+a.mat-button.active-link {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.custom-navbar {
+  background-color: $primary-color;
+  color: $on-primary-color;
+}
