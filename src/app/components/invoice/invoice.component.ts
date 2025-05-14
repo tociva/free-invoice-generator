@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.component';
 
 @Component({
   selector: 'app-invoice',
@@ -25,8 +28,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatIconModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule
-  ],
+],
 })
 export class InvoiceComponent {
   gridOptions: GridOptions = {
@@ -38,7 +43,7 @@ export class InvoiceComponent {
     sortable: false,
     resizable: false,
     suppressMenu: true,
-    editable: false
+    editable: true
   };
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
@@ -59,24 +64,48 @@ export class InvoiceComponent {
     { label: 'Mobile', value: '1234567890' }
   ];
 
-  invoiceColumnDefs: ColDef<FormColumnDef>[] = [
-  { field: 'label', headerName: '', width: 160 },
-  { field: 'value', headerName: '', width: 240, editable: true }
+ invoiceColumnDefs: ColDef<FormColumnDef>[] = [
+  { field: 'label', headerName: '', width: 150 },
+  {
+    field: 'value',
+    headerName: '',
+    width: 200,
+    editable: true,
+    cellEditorSelector: (params) => {
+      const dateFields = ['Invoice Date', 'Due Date'];
+      const dropdownFields = ['Currency', 'Tax Option'];
+
+      if (dateFields.includes(params.data.label)) {
+        return { component: DatePickerCellEditor };
+      }
+
+      if (dropdownFields.includes(params.data.label)) {
+        return {
+          component: 'agSelectCellEditor',
+          params: {
+            values:
+              params.data.label === 'Currency'
+                ? ['(₹) Indian Rupee', '($) US Dollar']
+                : ['CGST/SGST', 'IGST']
+          }
+        };
+      }
+
+      return undefined;
+    }
+  }
 ];
 
-invoiceRowData: FormColumnDef[] = [
-  { label: 'Auto Numbering', value: 'true' },
-  { label: 'Invoice Number', value: 'INV-1001' },
-  { label: 'Invoice Date', value: '2025-03-31' },
-  { label: 'Due Date', value: '2025-04-07' },
-  { label: 'Currency', value: '(₹) Indian Rupee' },
-  { label: 'Delivery State', value: '32-Kerala' },
-  { label: 'Tax Option', value: 'CGST/SGST' },
-  { label: 'Item Description', value: 'true' },
-  { label: 'Show Discount', value: 'true' },
-  { label: 'Journal Ref', value: '' }
-];
 
 
-
+  invoiceRowData: FormColumnDef[] = [
+    { label: 'Invoice Number', value: 'INV-1001' },
+    { label: 'Invoice Date', value: '2025-03-31' },
+    { label: 'Due Date', value: '2025-04-07' },
+    { label: 'Currency', value: '(₹) Indian Rupee' },
+    { label: 'Delivery State', value: '32-Kerala' },
+    { label: 'Tax Option', value: 'CGST/SGST' },
+    { label: 'Item Description', value: 'true' },
+    { label: 'Show Discount', value: 'true' },
+  ];
 } 
