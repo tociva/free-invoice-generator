@@ -31,3 +31,7 @@ a.mat-button.active-link {
   background-color: $primary-color;
   color: $on-primary-color;
 }
+
+::ng-deep.mdc-button__label{
+  color: white;
+}
