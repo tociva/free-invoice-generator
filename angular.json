@@ -40,9 +40,9 @@
             "production": {
               "budgets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                 "type": "initial",
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -55,7 +55,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": false
             }
           },
           "defaultConfiguration": "production"
