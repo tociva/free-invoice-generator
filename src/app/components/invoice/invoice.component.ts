@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { FormColumnDef } from '../../../util/form-column-def.type';
@@ -12,7 +12,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
 import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-invoice',
@@ -20,6 +23,7 @@ import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.compone
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss'],
   imports: [
+    CommonModule,
     AgGridModule,
     MatCardModule,
     MatFormFieldModule,
@@ -30,10 +34,27 @@ import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.compone
     MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatStepperModule
 ],
 })
 export class InvoiceComponent {
+  customerForm: FormGroup;
+  invoiceForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.customerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.invoiceForm = this.fb.group({
+      invoiceDate: ['', Validators.required],
+      dueDate: ['', Validators.required]
+    });
+  }
+
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowHeight: 30,
@@ -64,39 +85,37 @@ export class InvoiceComponent {
     { label: 'Mobile', value: '1234567890' }
   ];
 
- invoiceColumnDefs: ColDef<FormColumnDef>[] = [
-  { field: 'label', headerName: '', width: 150 },
-  {
-    field: 'value',
-    headerName: '',
-    width: 200,
-    editable: true,
-    cellEditorSelector: (params) => {
-      const dateFields = ['Invoice Date', 'Due Date'];
-      const dropdownFields = ['Currency', 'Tax Option'];
+  invoiceColumnDefs: ColDef<FormColumnDef>[] = [
+    { field: 'label', headerName: '', width: 150 },
+    {
+      field: 'value',
+      headerName: '',
+      width: 200,
+      editable: true,
+      cellEditorSelector: (params) => {
+        const dateFields = ['Invoice Date', 'Due Date'];
+        const dropdownFields = ['Currency', 'Tax Option'];
 
-      if (dateFields.includes(params.data.label)) {
-        return { component: DatePickerCellEditor };
+        if (dateFields.includes(params.data.label)) {
+          return { component: DatePickerCellEditor };
+        }
+
+        if (dropdownFields.includes(params.data.label)) {
+          return {
+            component: 'agSelectCellEditor',
+            params: {
+              values:
+                params.data.label === 'Currency'
+                  ? ['(₹) Indian Rupee', '($) US Dollar']
+                  : ['CGST/SGST', 'IGST']
+            }
+          };
+        }
+
+        return undefined;
       }
-
-      if (dropdownFields.includes(params.data.label)) {
-        return {
-          component: 'agSelectCellEditor',
-          params: {
-            values:
-              params.data.label === 'Currency'
-                ? ['(₹) Indian Rupee', '($) US Dollar']
-                : ['CGST/SGST', 'IGST']
-          }
-        };
-      }
-
-      return undefined;
     }
-  }
-];
-
-
+  ];
 
   invoiceRowData: FormColumnDef[] = [
     { label: 'Invoice Number', value: 'INV-1001' },
@@ -106,6 +125,27 @@ export class InvoiceComponent {
     { label: 'Delivery State', value: '32-Kerala' },
     { label: 'Tax Option', value: 'CGST/SGST' },
     { label: 'Item Description', value: 'true' },
-    { label: 'Show Discount', value: 'true' },
+    { label: 'Show Discount', value: 'true' }
   ];
-} 
+
+  submitInvoice() {
+    console.log('Invoice submitted:', {
+      customer: this.customerForm.value,
+      invoice: this.invoiceForm.value,
+    });
+  }
+
+  templates = [
+  { id: 'templateA', name: 'Classic Blue', description: 'Professional layout with blue header' },
+  { id: 'templateB', name: 'Minimal Red', description: 'Clean red-bordered layout' },
+  { id: 'templateC', name: 'Corporate Gray', description: 'Neutral theme with strong grid' }
+];
+
+selectedTemplate: any = null;
+
+selectTemplate(template: any) {
+  this.selectedTemplate = template;
+  console.log('Selected template:', template);
+}
+
+}
