@@ -15,6 +15,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.component';
 import { CommonModule } from '@angular/common';
+import { CheckboxCellRendererComponent } from './checkbox-cell-renderer.component';
+
 
 
 @Component({
@@ -91,21 +93,29 @@ export class InvoiceComponent {
       field: 'value',
       headerName: '',
       width: 200,
-      editable: true,
+      editable: false,
+      cellRendererSelector: (params) => {
+        const label = params.data?.label ?? '';
+        const checkboxFields = ['Item Description', 'Show Discount'];
+        return checkboxFields.includes(label)
+          ? { component: CheckboxCellRendererComponent }
+          : undefined;
+      },
       cellEditorSelector: (params) => {
+        const label = params.data?.label ?? '';
         const dateFields = ['Invoice Date', 'Due Date'];
         const dropdownFields = ['Currency', 'Tax Option'];
 
-        if (dateFields.includes(params.data.label)) {
+        if (dateFields.includes(label)) {
           return { component: DatePickerCellEditor };
         }
 
-        if (dropdownFields.includes(params.data.label)) {
+        if (dropdownFields.includes(label)) {
           return {
             component: 'agSelectCellEditor',
             params: {
               values:
-                params.data.label === 'Currency'
+                label === 'Currency'
                   ? ['(₹) Indian Rupee', '($) US Dollar']
                   : ['CGST/SGST', 'IGST']
             }
@@ -136,16 +146,15 @@ export class InvoiceComponent {
   }
 
   templates = [
-  { id: 'templateA', name: 'Classic Blue', description: 'Professional layout with blue header' },
-  { id: 'templateB', name: 'Minimal Red', description: 'Clean red-bordered layout' },
-  { id: 'templateC', name: 'Corporate Gray', description: 'Neutral theme with strong grid' }
-];
+    { id: 'templateA', name: 'Classic Blue', description: 'Professional layout with blue header' },
+    { id: 'templateB', name: 'Minimal Red', description: 'Clean red-bordered layout' },
+    { id: 'templateC', name: 'Corporate Gray', description: 'Neutral theme with strong grid' }
+  ];
 
-selectedTemplate: any = null;
+  selectedTemplate: any = null;
 
-selectTemplate(template: any) {
-  this.selectedTemplate = template;
-  console.log('Selected template:', template);
-}
-
+  selectTemplate(template: any) {
+    this.selectedTemplate = template;
+    console.log('Selected template:', template);
+  }
 }
