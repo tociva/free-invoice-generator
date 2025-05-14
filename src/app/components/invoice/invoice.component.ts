@@ -1,23 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { FormColumnDef } from '../../../util/form-column-def.type';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatStepperModule } from '@angular/material/stepper';
 import { DatePickerCellEditor } from '../invoice/date-picker-cell-editor.component';
-import { CommonModule } from '@angular/common';
 import { CheckboxCellRendererComponent } from './checkbox-cell-renderer.component';
-
-
 
 @Component({
   selector: 'app-invoice',
@@ -32,8 +28,6 @@ import { CheckboxCellRendererComponent } from './checkbox-cell-renderer.componen
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule,
-    MatSlideToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
@@ -42,20 +36,6 @@ import { CheckboxCellRendererComponent } from './checkbox-cell-renderer.componen
 ],
 })
 export class InvoiceComponent {
-  customerForm: FormGroup;
-  invoiceForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.customerForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
-    });
-
-    this.invoiceForm = this.fb.group({
-      invoiceDate: ['', Validators.required],
-      dueDate: ['', Validators.required]
-    });
-  }
 
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
@@ -66,7 +46,7 @@ export class InvoiceComponent {
     sortable: false,
     resizable: false,
     suppressMenu: true,
-    editable: true
+    editable: false
   };
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
@@ -93,7 +73,11 @@ export class InvoiceComponent {
       field: 'value',
       headerName: '',
       width: 200,
-      editable: false,
+      editable: (params) => {
+        const label = params.data?.label ?? '';
+        const editableFields = ['Invoice Number', 'Invoice Date', 'Due Date', 'Currency', 'Delivery State', 'Tax Option'];
+        return editableFields.includes(label);
+      },
       cellRendererSelector: (params) => {
         const label = params.data?.label ?? '';
         const checkboxFields = ['Item Description', 'Show Discount'];
@@ -104,24 +88,10 @@ export class InvoiceComponent {
       cellEditorSelector: (params) => {
         const label = params.data?.label ?? '';
         const dateFields = ['Invoice Date', 'Due Date'];
-        const dropdownFields = ['Currency', 'Tax Option'];
 
         if (dateFields.includes(label)) {
           return { component: DatePickerCellEditor };
         }
-
-        if (dropdownFields.includes(label)) {
-          return {
-            component: 'agSelectCellEditor',
-            params: {
-              values:
-                label === 'Currency'
-                  ? ['(₹) Indian Rupee', '($) US Dollar']
-                  : ['CGST/SGST', 'IGST']
-            }
-          };
-        }
-
         return undefined;
       }
     }
@@ -137,24 +107,4 @@ export class InvoiceComponent {
     { label: 'Item Description', value: 'true' },
     { label: 'Show Discount', value: 'true' }
   ];
-
-  submitInvoice() {
-    console.log('Invoice submitted:', {
-      customer: this.customerForm.value,
-      invoice: this.invoiceForm.value,
-    });
-  }
-
-  templates = [
-    { id: 'templateA', name: 'Classic Blue', description: 'Professional layout with blue header' },
-    { id: 'templateB', name: 'Minimal Red', description: 'Clean red-bordered layout' },
-    { id: 'templateC', name: 'Corporate Gray', description: 'Neutral theme with strong grid' }
-  ];
-
-  selectedTemplate: any = null;
-
-  selectTemplate(template: any) {
-    this.selectedTemplate = template;
-    console.log('Selected template:', template);
-  }
 }
