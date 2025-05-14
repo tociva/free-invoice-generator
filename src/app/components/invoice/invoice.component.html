@@ -1,8 +1,7 @@
 <mat-horizontal-stepper [linear]="false">
   <!-- Step 1: Fill out the invoice -->
-  <mat-step [stepControl]="customerForm">
-    <form [formGroup]="customerForm">
-      <ng-template matStepLabel>Fill out the invoice</ng-template>
+  <mat-step>
+    <ng-template matStepLabel>Fill out the invoice</ng-template>
 
       <div class="card-layout" style="display: flex; flex-wrap: wrap; gap: 24px;">
         <!-- Customer Details -->
@@ -45,7 +44,6 @@
       <div style="margin-top: 24px;">
         <button mat-raised-button class="next" color="primary" matStepperNext>Next</button>
       </div>
-    </form>
   </mat-step>
 
   <!-- Step 2: Select a template -->
@@ -69,7 +67,7 @@
     <ng-template matStepLabel>Preview and Download</ng-template>
     <div style="margin-top: 16px;">
       <button mat-raised-button class="back" matStepperPrevious>Back</button>
-      <button mat-raised-button class="submit" color="accent" (click)="submitInvoice()">Submit</button>
+      <button mat-raised-button class="submit" color="accent">Submit</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
