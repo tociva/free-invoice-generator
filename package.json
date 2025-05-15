@@ -1,7 +1,6 @@
 {
-  "name": "free-invoice-templates",
+  "name": "free-invoice-generator",
   "version": "0.0.0",
-  "license": "MIT",
   "engines": {
     "node": "22.x"
   },
@@ -14,17 +13,17 @@
   },
   "private": true,
   "dependencies": {
-    "@ag-grid-community/client-side-row-model": "^32.3.5",
-    "@angular/cdk": "^19.2.15",
+    "@angular/cdk": "19.2.15",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/forms": "^19.2.0",
-    "@angular/material": "^19.2.15",
+    "@angular/material": "19.2.15",
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "ag-grid-angular": "^33.2.4",
+    "@ngrx/store": "19.2.0",
+    "ag-grid-angular": "^33.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

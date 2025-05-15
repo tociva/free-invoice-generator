@@ -1,7 +1,13 @@
-<mat-toolbar class="custom-navbar">
-  <span class="navbar-title">Free Invoice Creator</span>
+<mat-toolbar class="daybook-navbar">
+  <span class="navbar-title" (click)="navigateToSpecificPage('/')">Free Invoice Generator by Daybook.Cloud</span>
   <span class="spacer"></span>
-  <a mat-button routerLink="/" class="menu-button" routerLinkActive="active-link">Create Invoice</a>
-  <a mat-button routerLink="/templates" class="menu-button" routerLinkActive="active-link">Templates</a>
+  <a mat-button (click)="navigateToSpecificPage('/')" class="menu-button">Home</a>
+  <a mat-button (click)="navigateToSpecificPage('/invoice')" class="menu-button">Create Invoice</a>
+  <a mat-button (click)="navigateToSpecificPage('/templates')" class="menu-button">Templates</a>
 </mat-toolbar>
-<router-outlet></router-outlet>  
+<div class="content">
+  <router-outlet></router-outlet>  
+</div>
+<div class="footer">
+  <p>© 2025 Daybook.Cloud</p>
+</div>
