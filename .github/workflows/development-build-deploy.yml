@@ -2,14 +2,12 @@ name: Build and Deploy to Development
 
 on:
   pull_request:
-    branches: [main]
-    types: [closed]  # Only run when PR is closed
-
-  workflow_dispatch:  # Allow manual runs
+    types: [closed]
+    branches: [master]  # 👈 Will run only when a PR is merged into master
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
-    if: github.event.pull_request.merged == true  # ✅ Only continue if PR was merged
     runs-on: ubuntu-latest
     environment: development
 
@@ -25,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Angular (development config)
-        run: npm run build --configuration development
+      - name: Build Angular App (production)
+        run: npm run build --configuration production  # 🔥 Production build
 
       - name: Install Wrangler CLI
         run: npm install -g wrangler
