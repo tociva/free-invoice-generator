@@ -2,36 +2,38 @@ name: Build and Deploy to Development
 
 on:
   push:
-    branches: [main]   # change or add more branches if needed
+    branches: [main]
+
+  workflow_dispatch: 
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: development        # 🔑 use secrets scoped to “development”
+    environment: development
 
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-    - name: Set up Node 22
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build Angular (development config)
-      run: npm run build --configuration development
+      - name: Build Angular (development config)
+        run: npm run build --configuration development
 
-    - name: Install Wrangler CLI
-      run: npm install -g wrangler
+      - name: Install Wrangler CLI
+        run: npm install -g wrangler
 
-    - name: Deploy to Cloudflare Pages
-      run: |
-        wrangler pages deploy dist/<your-angular-project-name> \
-          --project-name ${{ secrets.CF_PROJECT_NAME }} \
-          --branch main
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+      - name: Deploy to Cloudflare Pages
+        run: |
+          wrangler pages deploy dist/<your-angular-project-name> \
+            --project-name ${{ secrets.CF_PROJECT_NAME }} \
+            --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
