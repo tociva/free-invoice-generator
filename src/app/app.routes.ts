@@ -1,8 +1,22 @@
 import { Routes } from '@angular/router';
-import { InvoiceComponent } from './components/invoice/invoice.component';
-import { TemplatesComponent } from './components/templates/templates.component';
 
 export const routes: Routes = [
-  { path: '', component: InvoiceComponent },
-  { path: 'templates', component: TemplatesComponent }
+  {
+    path: '',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./components/home/home.component').then(m => m.HomeComponent)
+  },
+  {
+    path: 'invoice',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./components/invoice/invoice.component').then(m => m.InvoiceComponent)
+  },
+  {
+    path: 'templates',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./components/templates/templates.component').then(m => m.TemplatesComponent)
+  }
 ];
