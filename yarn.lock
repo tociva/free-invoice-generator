@@ -2,22 +2,6 @@
 # yarn lockfile v1
 
 
-"@ag-grid-community/client-side-row-model@^32.3.5":
-  version "32.3.5"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-32.3.5.tgz#e1a7e6f03150312d3163554ec570b7dd977d2ca8"
-  integrity sha512-dTAko9W0E914BMVfDBcresQfDZZPiVVmkbS2iRwDPX0erqYT2/nkuXXVh5If1LFnAqM1q5EQTZDZaLXDv2GO7Q==
-  dependencies:
-    "@ag-grid-community/core" "32.3.5"
-    tslib "^2.3.0"
-
-"@ag-grid-community/core@32.3.5":
-  version "32.3.5"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-32.3.5.tgz#4cdccd92ec722a68b24ce841cd863cd97a36791e"
-  integrity sha512-RGL3RyPCKC4R2fcG1gXdk7rs+CXig23wufTFJfbE46aQDxg941ww07G0cDS5Z5u/6btM9GJkxlwcR0JVEI003A==
-  dependencies:
-    ag-charts-types "10.3.5"
-    tslib "^2.3.0"
-
 "@ampproject/remapping@2.3.0", "@ampproject/remapping@^2.2.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.3.0.tgz#ed441b6fa600072520ce18b43d2c8cc8caecc7f4"
@@ -162,7 +146,7 @@
   optionalDependencies:
     lmdb "3.2.6"
 
-"@angular/cdk@^19.2.15":
+"@angular/cdk@19.2.15":
   version "19.2.15"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-19.2.15.tgz#99ba286873e8a4b6b83dd0f395e6314dd1f049fc"
   integrity sha512-srM0O4oVPvMIbv1m+fU3D0X2ZK0Q7raggCD7jcb+d+pXoPESqI91Hn8FIhA2OCbw0vJWJ/Mly8lskmIb8RNLcQ==
@@ -235,7 +219,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/material@^19.2.15":
+"@angular/material@19.2.15":
   version "19.2.15"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-19.2.15.tgz#0fc3a79f6d96fcf06de9f6ef1edef1b252241b85"
   integrity sha512-5IRzspYwzG58nz9/uJwGpaeFymaVveylIg8A+7SyYjAASFkdDUdI2hQn8TPRiP3AhGRSSx80BShYrcYwTZseYA==
@@ -1680,6 +1664,13 @@
     "@napi-rs/nice-win32-ia32-msvc" "1.0.1"
     "@napi-rs/nice-win32-x64-msvc" "1.0.1"
 
+"@ngrx/store@19.2.0":
+  version "19.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-19.2.0.tgz#940fde6bc0fd4ae5c20bb4de53417b31b35db6dd"
+  integrity sha512-k2n/jLJZ75Z5rd5vPa2mXPYG/On2rFLiNdrccs9Dw2r+oJosORMlN5TbdsGHhVDFfjzbY9a7JbHUE3YOa69gqw==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@19.2.11":
   version "19.2.11"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-19.2.11.tgz#a4be69b513a617fc3908ef717f786b79398ced1b"
@@ -2518,17 +2509,12 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-ag-charts-types@10.3.5:
-  version "10.3.5"
-  resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-10.3.5.tgz#3f3c849de0dcbe2c7db9d44f698698de6040a8bc"
-  integrity sha512-DtvV+IS4RlocGV2IcaQOe/eM6eBGGCvkLnwxGkDxKa8ddxivv90fwlfPxK0O5XnVectiKtWFfOw35Cm0k+4vMw==
-
 ag-charts-types@11.3.0:
   version "11.3.0"
   resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-11.3.0.tgz#5f57fd56f0a230e751daa75f28528791b675f29f"
   integrity sha512-FXyk24PizYS4QoPTk7FVaFDgvmZYBQo6sgl5n3lkHugTNTZBtwBmN3i4JnBXgNjGDB6Q05MRkoBA2rvW8rPBag==
 
-ag-grid-angular@^33.2.4:
+ag-grid-angular@^33.3.0:
   version "33.3.0"
   resolved "https://registry.yarnpkg.com/ag-grid-angular/-/ag-grid-angular-33.3.0.tgz#e226eb68ca85015b0978a4430e5bd8ee14833081"
   integrity sha512-rEWKkMbxoeikvV7bP0EnEo+SDq7B1gl+3aTDRXOywDtunbtTGX1VpBIDMI5bDpM/t5/v1brls8xqLBJnacYrRw==
