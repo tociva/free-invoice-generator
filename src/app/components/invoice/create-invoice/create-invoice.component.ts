@@ -5,22 +5,25 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import { AgGridModule } from 'ag-grid-angular';
 import { DatePickerCellEditor } from '../../common/date-picker-cell-editor/date-picker-cell-editor.component';
 import { CheckboxCellRendererComponent } from '../../common/checkbox-cell-renderer/checkbox-cell-renderer.component';
+import { CountryAutocompleteEditorComponent } from '../../common/country-autocomplete-editor/country-autocomplete-editor.component';
 
 @Component({
   selector: 'app-create-invoice',
+  standalone: true,
   imports: [
     AgGridModule,
     MatCardModule,
+
   ],
   templateUrl: './create-invoice.component.html',
-  styleUrl: './create-invoice.component.scss',
-  standalone: true
+  styleUrl: './create-invoice.component.scss'
 })
 export class CreateInvoiceComponent {
 
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowHeight: 30,
+    singleClickEdit: true
   };
 
   defaultColDef = {
@@ -32,7 +35,17 @@ export class CreateInvoiceComponent {
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150 },
-    { field: 'value', headerName: '', width: 200, editable: true }
+    {
+      field: 'value',
+      headerName: '',
+      width: 200,
+      editable: true,
+      cellEditorSelector: (params) => {
+        return params.data?.label === 'Country'
+          ? { component: CountryAutocompleteEditorComponent }
+          : undefined;
+      }
+    }
   ];
 
   customerRowData: FormColumnDef[] = [
@@ -77,6 +90,7 @@ export class CreateInvoiceComponent {
       }
     }
   ];
+
   invoiceRowData: FormColumnDef[] = [
     { label: 'Invoice Number', value: 'INV-1001' },
     { label: 'Invoice Date', value: '2025-03-31' },
@@ -88,4 +102,3 @@ export class CreateInvoiceComponent {
     { label: 'Show Discount', value: 'true' }
   ];
 }
-
