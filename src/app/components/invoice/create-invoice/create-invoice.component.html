@@ -26,4 +26,23 @@
             </ag-grid-angular>
         </mat-card-content>
     </mat-card>
+
+     <!-- Item Deatils -->
+    <mat-card class="Item-details-card" style="flex: 1 1 100%;">
+  <mat-card-header>
+    <mat-card-title class="card-title">Item Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="itemdetailsRowData"
+      [columnDefs]="itemdetailsColumnDefs"
+      [domLayout]="'autoHeight'"
+      [defaultColDef]="defaultColDef"
+      [gridOptions]="gridOptions"
+      (cellClicked)="onCellClicked($event)"
+      (cellValueChanged)="onCellValueChanged($event)">
+    </ag-grid-angular>
+  </mat-card-content>
+</mat-card>
 </div>
