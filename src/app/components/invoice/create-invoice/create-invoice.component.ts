@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
-import { ColDef, GridOptions } from 'ag-grid-community';
 import { AgGridModule } from 'ag-grid-angular';
-import { DatePickerCellEditor } from '../../common/date-picker-cell-editor/date-picker-cell-editor.component';
+import { ColDef, GetRowIdParams, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { CheckboxCellRendererComponent } from '../../common/checkbox-cell-renderer/checkbox-cell-renderer.component';
-import { CountryAutocompleteEditorComponent } from '../../common/country-autocomplete-editor/country-autocomplete-editor.component';
-
+import { DatePickerCellEditor } from '../../common/date-picker-cell-editor/date-picker-cell-editor.component';
+import { CreateInvoiceCustomerComponent, CustomerFormItem } from './create-invoice-customer.component';
+import { loadCountries } from '../store/actions/country.actions';
 @Component({
   selector: 'app-create-invoice',
   standalone: true,
@@ -18,7 +18,8 @@ import { CountryAutocompleteEditorComponent } from '../../common/country-autocom
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.scss'
 })
-export class CreateInvoiceComponent {
+export class CreateInvoiceComponent extends CreateInvoiceCustomerComponent {
+
 
   gridOptions: GridOptions = {
     domLayout: 'autoHeight',
@@ -40,25 +41,22 @@ export class CreateInvoiceComponent {
       headerName: '',
       width: 200,
       editable: true,
-      cellEditorSelector: (params) => {
-        return params.data?.label === 'Country'
-          ? { component: CountryAutocompleteEditorComponent }
-          : undefined;
-      }
+      cellEditorSelector: this.findCustomerEditorComponent,
+      cellRendererSelector: CreateInvoiceCustomerComponent.findCellRenderer,
     }
   ];
 
   customerRowData: FormColumnDef[] = [
-    { label: 'Name', value: 'Tociva Technologies' },
-    { label: 'Line 1', value: '123 Main St' },
-    { label: 'Line 2', value: 'St.Louis, MO' },
-    { label: 'Street', value: 'Carolina St' },
-    { label: 'City', value: 'St.Louis,' },
-    { label: 'Postal Code', value: '63101' },
-    { label: 'State', value: 'Missouri' },
-    { label: 'Country', value: 'United States' },
-    { label: 'E-Mail', value: 'info@tociva.com' },
-    { label: 'Mobile', value: '1234567890' }
+    { label: CustomerFormItem.NAME, value: 'Tociva Technologies' },
+    { label: CustomerFormItem.LINE1, value: '123 Main St' },
+    { label: CustomerFormItem.LINE2, value: 'St.Louis, MO' },
+    { label: CustomerFormItem.STREET, value: 'Carolina St' },
+    { label: CustomerFormItem.CITY, value: 'St.Louis,' },
+    { label: CustomerFormItem.ZIP, value: '63101' },
+    { label: CustomerFormItem.STATE, value: 'Missouri' },
+    { label: CustomerFormItem.COUNTRY, value: {name: 'United States'} },
+    { label: CustomerFormItem.EMAIL, value: 'info@tociva.com' },
+    { label: CustomerFormItem.MOBILE, value: '1234567890' }
   ];
 
   invoiceColumnDefs: ColDef<FormColumnDef>[] = [
@@ -101,4 +99,19 @@ export class CreateInvoiceComponent {
     { label: 'Item Description', value: 'true' },
     { label: 'Show Discount', value: 'true' }
   ];
+
+  ngOnInit(): void {
+    this.store.dispatch(loadCountries());
+  }
+
+  onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
+    this.customerGridApi = params.api;
+  }
+
+  getRowId = (params: GetRowIdParams<FormColumnDef>) => {
+
+    const data = params?.data;
+    return data?.label ?? '';
+
+  };
 }

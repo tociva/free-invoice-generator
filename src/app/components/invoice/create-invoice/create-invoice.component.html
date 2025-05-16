@@ -7,7 +7,9 @@
         <mat-card-content>
             <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
                 [rowData]="customerRowData" [columnDefs]="customerColumnDefs" [domLayout]="'autoHeight'"
-                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions">
+                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+                (gridReady)="onCustomerGridReady($event)"
+                [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
     </mat-card>

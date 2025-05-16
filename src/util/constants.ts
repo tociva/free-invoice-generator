@@ -1,0 +1,1 @@
+export const OPTIONS_COUNT = 10;
