@@ -1,4 +1,4 @@
 export interface FormColumnDef {
   label: string;
-  value: string;
+  value: unknown;
 }
