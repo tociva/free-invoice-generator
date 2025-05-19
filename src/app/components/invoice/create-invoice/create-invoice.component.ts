@@ -90,6 +90,14 @@ export class CreateInvoiceComponent extends CreateInvoiceCustomerComponent {
         if (dateFields.includes(label)) {
           return { component: DatePickerCellEditor };
         }
+         if (label === 'Tax Option') {
+    return {
+      component: 'agSelectCellEditor',
+      params: {
+        values: ['CGST/SGST', 'IGST', 'No Tax']
+      }
+    };
+  }
         return undefined;
       }
     }
@@ -112,7 +120,7 @@ export class CreateInvoiceComponent extends CreateInvoiceCustomerComponent {
       field: 'item',
       flex: 2,
       editable: true,
-      cellEditor: ItemCellEditorComponent, // custom editor with placeholder
+      cellEditor: ItemCellEditorComponent,
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value && params.value.trim() !== ''
           ? params.value
