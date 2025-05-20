@@ -4,7 +4,7 @@ import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/labe
 import { CheckboxCellRendererComponent } from "../../common/checkbox-cell-renderer/checkbox-cell-renderer.component";
 import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-picker-cell-editor.component";
 import { Currency } from "../store/model/country.model";
-
+import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
   INVOICE_DATE = 'Invoice Date',
@@ -16,7 +16,7 @@ export enum InvoiceDetailsFormItem {
   SHOW_DISCOUNT = 'Show Discount',
 }
 
-export class CreateInvoiceDetailsComponent {
+export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
 
