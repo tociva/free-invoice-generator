@@ -1,4 +1,4 @@
-import { GridApi, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { Country } from '../store/model/country.model';
 import { Observable } from 'rxjs';
@@ -11,6 +11,8 @@ import { OPTIONS_COUNT } from '../../../../util/constants';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
+
 export enum CustomerFormItem {
     NAME = 'Name',
     MOBILE = 'Mobile',
@@ -24,10 +26,49 @@ export enum CustomerFormItem {
     ZIP = 'Zip',
     COUNTRY = 'Country',
 }
-export class CreateInvoiceCustomerComponent {
+export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponent {
 
   public customerGridApi!: GridApi<FormColumnDef>;
-  public store = inject<Store<CountryState>>(Store);
+
+  private findCustomerEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
+    
+    switch (params.data.label) {
+
+    case CustomerFormItem.COUNTRY:
+      return this.findCountryEditorComponent(params.data.value);
+
+    }
+
+    return {
+      component: null
+    };
+
+  };
+
+  customerColumnDefs: ColDef<FormColumnDef>[] = [
+    { field: 'label', headerName: '', width: 150 },
+    {
+      field: 'value',
+      headerName: '',
+      width: 200,
+      editable: true,
+      cellEditorSelector: this.findCustomerEditorComponent,
+      cellRendererSelector: CreateInvoiceCustomerComponent.findCustomerCellRenderer,
+    }
+  ];
+
+  customerRowData: FormColumnDef[] = [
+    { label: CustomerFormItem.NAME, value: 'Tociva Technologies' },
+    { label: CustomerFormItem.LINE1, value: '123 Main St' },
+    { label: CustomerFormItem.LINE2, value: 'St.Louis, MO' },
+    { label: CustomerFormItem.STREET, value: 'Carolina St' },
+    { label: CustomerFormItem.CITY, value: 'St.Louis,' },
+    { label: CustomerFormItem.ZIP, value: '63101' },
+    { label: CustomerFormItem.STATE, value: 'Missouri' },
+    { label: CustomerFormItem.COUNTRY, value: { name: 'India' } },
+    { label: CustomerFormItem.EMAIL, value: 'info@tociva.com' },
+    { label: CustomerFormItem.MOBILE, value: '1234567890' }
+  ];
 
   private fetchCountries = (val?: string | Country): Observable<Country[]> => {
     return this.store.select(selectAllCountries).pipe(
@@ -50,13 +91,13 @@ export class CreateInvoiceCustomerComponent {
     );
   };
 
-  private handleOptionSelected = (val: Country): void => {
+  private handleCountryOptionSelected = (val: Country): void => {
     const rowNode = this.customerGridApi.getRowNode(CustomerFormItem.COUNTRY);
     if (rowNode) {
       rowNode.data = { label: CustomerFormItem.COUNTRY, value: val };
     }
+    this.changeCurrency(val.currency);
   };
-  
 
 
   private findCountryEditorComponent = (_valueP: unknown) => ({
@@ -64,11 +105,11 @@ export class CreateInvoiceCustomerComponent {
     params: {
       optionsFetcher: this.fetchCountries,
       displayWith: displayAutoCompleteWithName,
-      onOptionSelected: this.handleOptionSelected
+      onOptionSelected: this.handleCountryOptionSelected
     }
   });
 
-  public static findCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
+  private static findCustomerCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
 
     if (!params.data?.value) {
 
@@ -88,18 +129,7 @@ export class CreateInvoiceCustomerComponent {
   
   };
 
-  public findCustomerEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
-    
-      switch (params.data.label) {
-  
-      case CustomerFormItem.COUNTRY:
-        return this.findCountryEditorComponent(params.data.value);
-  
-      }
-  
-      return {
-        component: null
-      };
-  
-  };
+  onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
+    this.customerGridApi = params.api;
+  }
 }
