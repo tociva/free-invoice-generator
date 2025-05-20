@@ -46,4 +46,20 @@
     </ag-grid-angular>
   </mat-card-content>
 </mat-card>
+
+<!-- Summary of Invoice-->
+<div class="summary-box" >
+ <mat-card class="Summary-of-Invoice-card" style="flex: 1 1 48%;">
+        <!-- <mat-card-header>
+            <mat-card-title class="card-title">Summary of Invoice</mat-card-title>
+        </mat-card-header> -->
+        <mat-card-content>
+            <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
+                [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+                (cellValueChanged)="onSummaryCellValueChanged($event)">
+            </ag-grid-angular>
+        </mat-card-content>
+    </mat-card>
+</div>
 </div>
