@@ -5,6 +5,7 @@ import { GetRowIdParams, GridOptions } from 'ag-grid-community';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { loadCountries } from '../store/actions/country.actions';
 import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
+import { loadCurrencies } from '../store/actions/currency.actions';
 @Component({
   selector: 'app-create-invoice',
   standalone: true,
@@ -105,6 +106,7 @@ export class CreateInvoiceComponent extends CreateInvoiceCustomerComponent {
 
   ngOnInit(): void {
     this.store.dispatch(loadCountries());
+    this.store.dispatch(loadCurrencies());
   }
 
   getRowId = (params: GetRowIdParams<FormColumnDef>) => {

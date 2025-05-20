@@ -8,6 +8,20 @@ export interface CountryState {
 
 export const initialCountryState: CountryState = {
   countries: [],
-  selectedCountry: null,
+  selectedCountry: {
+    name: 'India',
+    code: '91',
+    iso: 'IN',
+    currency: {
+      name: 'Indian Rupee',
+      html: '&#8377;',
+      unicode: '20B9',
+      decimal: 2
+    },
+    dateformat: {
+      name: '31-01-2022',
+      value: 'DD-MM-YYYY'
+    }
+  },
   error: null
 };
