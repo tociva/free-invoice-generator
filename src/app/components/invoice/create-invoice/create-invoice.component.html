@@ -22,7 +22,8 @@
         <mat-card-content>
             <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceRowData"
                 [columnDefs]="invoiceColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
-                [gridOptions]="gridOptions">
+                [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
+                [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
     </mat-card>

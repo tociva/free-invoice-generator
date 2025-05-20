@@ -1,10 +1,5 @@
-export interface Currency {
-    name: string;
-    html: string;
-    unicode: string;
-    decimal: number;
-  }
-  
+import { Currency } from "./currency.model";
+
   export interface DateFormat {
     name: string;
     value: string;
