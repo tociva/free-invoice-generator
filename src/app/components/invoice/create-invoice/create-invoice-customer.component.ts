@@ -29,7 +29,6 @@ export enum CustomerFormItem {
 export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponent {
 
   public customerGridApi!: GridApi<FormColumnDef>;
-  public store = inject<Store<CountryState>>(Store);
 
   private findCustomerEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     

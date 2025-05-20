@@ -1,5 +1,8 @@
 import { ColDef, GridApi, GridReadyEvent } from "ag-grid-community";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
+import { CountryState } from "../store/state/country.state";
+import { Store } from "@ngrx/store";
+import { inject } from "@angular/core";
 
 export enum InvoiceItemsFormItem {
   ITEM_TOTAL = 'Item Total',
@@ -11,6 +14,9 @@ export enum InvoiceItemsFormItem {
 }
 
 export class CreateInvoiceSummaryComponent {
+
+
+  public store = inject<Store<CountryState>>(Store);
 
   public summaryGridApi!: GridApi<FormColumnDef>;
 
