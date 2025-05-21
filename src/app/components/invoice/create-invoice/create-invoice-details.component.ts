@@ -138,7 +138,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   
   };
 
-  invoiceRowData: FormColumnDef[] = [
+  override invoiceRowData: FormColumnDef[] = [
     { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: 'INV-1001' },
     { label: InvoiceDetailsFormItem.INVOICE_DATE, value: '2025-03-31' },
     { label: InvoiceDetailsFormItem.DUE_DATE, value: '2025-04-07' },
