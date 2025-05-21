@@ -6,9 +6,10 @@ import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { Country } from '../store/model/country.model';
-import { selectAllCountries } from '../store/selectors/country.selectors';
+import { selectAllCountries, selectSelectedCountry } from '../store/selectors/country.selectors';
 import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
 import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
+import { selectSelectedOrganization } from '../store/selectors/organization.selectors';
 
 export enum MyDetailsFormItem {
     NAME = 'Name',
@@ -54,18 +55,7 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
     }
   ];
 
-  myDetailsRowData: FormColumnDef[] = [
-    { label: MyDetailsFormItem.NAME, value: 'Tociva Technologies' },
-    { label: MyDetailsFormItem.LINE1, value: '123 Main St' },
-    { label: MyDetailsFormItem.LINE2, value: 'St.Louis, MO' },
-    { label: MyDetailsFormItem.STREET, value: 'Carolina St' },
-    { label: MyDetailsFormItem.CITY, value: 'St.Louis,' },
-    { label: MyDetailsFormItem.ZIP, value: '63101' },
-    { label: MyDetailsFormItem.STATE, value: 'Missouri' },
-    { label: MyDetailsFormItem.COUNTRY, value: { name: 'India' } },
-    { label: MyDetailsFormItem.EMAIL, value: 'info@tociva.com' },
-    { label: MyDetailsFormItem.MOBILE, value: '1234567890' }
-  ];
+  myDetailsRowData: FormColumnDef[] = [];
 
   handleMyDetailsCountryOptionSelected = (val: Country): void => {
       const rowNode = this.myDetailsGridApi.getRowNode(MyDetailsFormItem.COUNTRY);
@@ -105,5 +95,25 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.myDetailsGridApi = params.api;
+
+    this.store.select(selectSelectedOrganization).subscribe((organization) => {
+      if (organization) {
+        this.store.select(selectSelectedCountry).subscribe((country) => {
+          this.myDetailsRowData = [
+            { label: MyDetailsFormItem.NAME, value: organization.name },
+            { label: MyDetailsFormItem.LINE1, value: organization.line1 },
+            { label: MyDetailsFormItem.LINE2, value: organization.line2 },
+            { label: MyDetailsFormItem.STREET, value: organization.street },
+            { label: MyDetailsFormItem.CITY, value: organization.city },
+            { label: MyDetailsFormItem.ZIP, value: organization.zip },
+            { label: MyDetailsFormItem.STATE, value: organization.state },
+            { label: MyDetailsFormItem.COUNTRY, value: country },
+            { label: MyDetailsFormItem.EMAIL, value: organization.email },
+            { label: MyDetailsFormItem.MOBILE, value: organization.mobile },
+            { label: MyDetailsFormItem.GSTIN, value: organization.gstin },
+          ];
+        });
+      }
+    });
   }
 }
