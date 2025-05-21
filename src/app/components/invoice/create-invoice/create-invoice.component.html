@@ -20,8 +20,8 @@
             <mat-card-title class="card-title">Invoice Details</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceRowData"
-                [columnDefs]="invoiceColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
+            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceDetailsRowData"
+                [columnDefs]="invoiceDetailsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
                 [getRowId]="getRowId"
                 (cellValueChanged)="onInvoiceDetailsCellValueChanged($event)">
@@ -43,7 +43,6 @@
       [defaultColDef]="defaultColDef"
       [gridOptions]="gridOptions"
       (cellClicked)="onCellClicked($event)"
-      (gridReady)="onInvoiceDetailsGridReady($event)"
       (cellValueChanged)="onCellValueChanged($event)">
     </ag-grid-angular>
   </mat-card-content>
