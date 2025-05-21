@@ -1,5 +1,5 @@
 import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from "ag-grid-community";
-import { map, Observable } from "rxjs";
+import { map, Observable, of } from "rxjs";
 import { OPTIONS_COUNT } from "../../../../util/constants";
 import { displayAutoCompleteWithName } from "../../../../util/daybook.util";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
@@ -8,9 +8,8 @@ import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/labe
 import { CheckboxCellRendererComponent } from "../../common/checkbox-cell-renderer/checkbox-cell-renderer.component";
 import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-picker-cell-editor.component";
 import { Currency } from "../store/model/currency.model";
-import { selectAllCountries } from "../store/selectors/country.selectors";
-import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
 import { selectAllCurrencies } from "../store/selectors/currency.selectors";
+import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
   INVOICE_DATE = 'Invoice Date',
@@ -46,6 +45,15 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     );
   };
 
+  private fetchTaxOptions = (val?: string): Observable<string[]> => {
+    const options = ['CGST/SGST', 'IGST', 'Non Taxable'];
+    if(!val?.trim()) {
+      return of(options);
+    }
+    const filterVal = val.toLowerCase();
+    return of(options.filter(option => option.toLowerCase().indexOf(filterVal) !== -1));
+  };
+
   private handleCurrencyOptionSelected = (val: Currency): void => {
     const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
     if (rowNode) {
@@ -61,7 +69,14 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
       onOptionSelected: this.handleCurrencyOptionSelected
     }
   });
-  
+
+  private findTaxOptionEditorComponent = (_valueP: unknown) => ({
+    component: AutoCompleteEditorComponent<string>,
+    params: {
+      optionsFetcher: this.fetchTaxOptions,
+      displayWith: (params: string) => params,
+    }
+  });
   private findDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     
     switch (params.data.label) {
@@ -72,6 +87,9 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
     case InvoiceDetailsFormItem.CURRENCY:
       return this.findCurrencyEditorComponent(params.data.value);
+
+      case InvoiceDetailsFormItem.TAX_OPTION:
+        return this.findTaxOptionEditorComponent(params.data.value);
 
     }
 
@@ -120,7 +138,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   
   };
 
-  invoiceRowData: FormColumnDef[] = [
+  override invoiceRowData: FormColumnDef[] = [
     { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: 'INV-1001' },
     { label: InvoiceDetailsFormItem.INVOICE_DATE, value: '2025-03-31' },
     { label: InvoiceDetailsFormItem.DUE_DATE, value: '2025-04-07' },

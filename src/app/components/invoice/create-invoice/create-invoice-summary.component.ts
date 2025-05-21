@@ -9,7 +9,7 @@ export enum InvoiceItemsFormItem {
   DISCOUNT = 'Discount',
   SUB_TOTAL = 'Sub Total',
   TAX = 'Tax',
-  ROUND_OFF = 'Rount Off',
+  ROUND_OFF = 'Round Off',
   GRAND_TOTAL = 'Grand Total',
 }
 
@@ -22,7 +22,13 @@ export class CreateInvoiceSummaryComponent {
 
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150 },
-    { field: 'value', headerName: '', width: 200, editable: true }
+    { field: 'value', headerName: '', width: 200, editable: true ,
+      valueFormatter: (params) => {
+      const val = Number(params.value);
+      if (isNaN(val)) return '';
+      return val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2);
+    }
+    }
   ];
 
   summaryRowData: FormColumnDef[] = [

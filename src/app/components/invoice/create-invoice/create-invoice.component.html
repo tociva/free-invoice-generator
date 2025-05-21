@@ -23,7 +23,8 @@
             <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceRowData"
                 [columnDefs]="invoiceColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
-                [getRowId]="getRowId">
+                [getRowId]="getRowId"
+                (cellValueChanged)="onInvoiceDetailsCellValueChanged($event)">
             </ag-grid-angular>
         </mat-card-content>
     </mat-card>
@@ -42,6 +43,7 @@
       [defaultColDef]="defaultColDef"
       [gridOptions]="gridOptions"
       (cellClicked)="onCellClicked($event)"
+      (gridReady)="onInvoiceDetailsGridReady($event)"
       (cellValueChanged)="onCellValueChanged($event)">
     </ag-grid-angular>
   </mat-card-content>
@@ -63,3 +65,4 @@
     </mat-card>
 </div>
 </div>
+
