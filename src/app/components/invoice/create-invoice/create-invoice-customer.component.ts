@@ -6,8 +6,9 @@ import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { Country } from '../store/model/country.model';
-import { selectAllCountries } from '../store/selectors/country.selectors';
+import { selectAllCountries, selectSelectedCountry } from '../store/selectors/country.selectors';
 import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
+import { selectSelectedCustomer } from '../store/selectors/customer.selectors';
 
 export enum CustomerFormItem {
     NAME = 'Name',
@@ -53,18 +54,7 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
     }
   ];
 
-  customerRowData: FormColumnDef[] = [
-    { label: CustomerFormItem.NAME, value: 'Tociva Technologies' },
-    { label: CustomerFormItem.LINE1, value: '123 Main St' },
-    { label: CustomerFormItem.LINE2, value: 'St.Louis, MO' },
-    { label: CustomerFormItem.STREET, value: 'Carolina St' },
-    { label: CustomerFormItem.CITY, value: 'St.Louis,' },
-    { label: CustomerFormItem.ZIP, value: '63101' },
-    { label: CustomerFormItem.STATE, value: 'Missouri' },
-    { label: CustomerFormItem.COUNTRY, value: { name: 'India' } },
-    { label: CustomerFormItem.EMAIL, value: 'info@tociva.com' },
-    { label: CustomerFormItem.MOBILE, value: '1234567890' }
-  ];
+  customerRowData: FormColumnDef[] = [];
 
   fetchCountries = (val?: string | Country): Observable<Country[]> => {
     return this.store.select(selectAllCountries).pipe(
@@ -127,5 +117,24 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
 
   onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.customerGridApi = params.api;
+    this.store.select(selectSelectedCustomer).subscribe((customer) => {
+      if (customer) {
+        this.store.select(selectSelectedCountry).subscribe((country) => {
+          this.customerRowData = [
+            { label: CustomerFormItem.NAME, value: customer.name },
+            { label: CustomerFormItem.LINE1, value: customer.line1 },
+            { label: CustomerFormItem.LINE2, value: customer.line2 },
+            { label: CustomerFormItem.STREET, value: customer.street },
+            { label: CustomerFormItem.CITY, value: customer.city },
+            { label: CustomerFormItem.ZIP, value: customer.zip },
+            { label: CustomerFormItem.STATE, value: customer.state },
+            { label: CustomerFormItem.COUNTRY, value: country },
+            { label: CustomerFormItem.EMAIL, value: customer.email },
+            { label: CustomerFormItem.MOBILE, value: customer.mobile },
+            { label: CustomerFormItem.GSTIN, value: customer.gstin }
+        ];
+        });
+      }
+    });
   }
 }

@@ -6,7 +6,7 @@ import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { loadCountries } from '../store/actions/country.actions';
 import { loadCurrencies } from '../store/actions/currency.actions';
 import { CreateInvoiceMyDetailsComponent } from './create-invoice-my-details.component';
-
+import { loadOrganization } from '../store/actions/organization.action';
 @Component({
   selector: 'app-create-invoice',
   standalone: true,
@@ -133,6 +133,7 @@ export class CreateInvoiceComponent extends CreateInvoiceMyDetailsComponent {
   ngOnInit(): void {
     this.store.dispatch(loadCountries());
     this.store.dispatch(loadCurrencies());
+    this.store.dispatch(loadOrganization());
   }
 
   getRowId = (params: GetRowIdParams<FormColumnDef>) => {

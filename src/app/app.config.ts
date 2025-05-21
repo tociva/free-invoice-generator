@@ -8,6 +8,8 @@ import { CountryEffects } from './components/invoice/store/effects/country.effec
 import { CurrencyEffects } from './components/invoice/store/effects/currency.effects';
 import { countryReducer } from './components/invoice/store/reducer/country.reducer';
 import { currencyReducer } from './components/invoice/store/reducer/currency.reducer';
+import { organizationReducer } from './components/invoice/store/reducer/organization.reducer';
+import { customerReducer } from './components/invoice/store/reducer/customer.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +17,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({
       country: countryReducer,
-      currency: currencyReducer
+      currency: currencyReducer,
+      organization: organizationReducer,
+      customer: customerReducer
     }),
     provideEffects([CountryEffects, CurrencyEffects]),
     provideNativeDateAdapter()
