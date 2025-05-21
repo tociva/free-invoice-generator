@@ -1,8 +1,9 @@
-<input type="text" #autoGridInput class="auto-grid-completer" [formControl]="autoControl"
+<input type="text" matInput #autoGridInput class="auto-grid-completer" [formControl]="autoControl"
   [matAutocomplete]="autoGridCompleter">
 <mat-autocomplete #autoGridCompleter="matAutocomplete" [displayWith]="displayWith" autoActiveFirstOption
   (optionSelected)="onOptionSelected($event)">
-  <mat-option *ngFor="let option of optionsObservable$ | async" [value]="option">
+  <mat-option *ngFor="let option of optionsObservable$ | async" [value]="option"
+  (mousedown)="onOptionClicked(option)">
     {{displayWith(option)}}
   </mat-option>
 </mat-autocomplete>
