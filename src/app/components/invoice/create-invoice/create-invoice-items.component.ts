@@ -13,6 +13,8 @@ import { FormColumnDef } from "../../../../util/form-column-def.type";
 
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   columnApi!: { setColumnDefs: (defs: any) => void };
+  itemDescriptionEnabled = false;
+  discountEnabled = false;
 
 
   @Input()
@@ -39,7 +41,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
             cellClass: (params: CellClassParams) =>
               !params.value?.trim() ? 'item-placeholder' : ''
           },
-          ...(this.isItemDescriptionEnabled() ? [
+          ...(this.itemDescriptionEnabled ? [
             {
               headerName: 'Description',
               field: 'discription',
@@ -55,7 +57,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       }
     ];
 
-    if (this.isDiscountEnabled()) {
+    if (this.discountEnabled) {
       baseCols.push({
         headerName: 'Discount',
         children: [
@@ -126,11 +128,6 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
         grand_total: null
       }
     ];
-
-  isDiscountEnabled(): boolean {
-    const discountToggle = this.invoiceRowData.find(r => r.label === 'Show Discount');
-    return discountToggle?.value === 'true';
-  }
   getTaxOption(): string {
     const taxOption = this.invoiceRowData.find(r => r.label === 'Tax Option');
     return typeof taxOption?.value === 'string' ? taxOption.value : '';
@@ -146,9 +143,5 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       this.currentTaxOption = taxOption;
       this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
     }
-  }
-  isItemDescriptionEnabled(): boolean {
-    const descToggle = this.invoiceRowData.find(r => r.label === 'Item Description');
-    return descToggle?.value === 'true';
   }
 }
