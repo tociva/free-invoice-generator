@@ -12,7 +12,7 @@ import { FormColumnDef } from "../../../../util/form-column-def.type";
 })
 
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
- columnApi!: { setColumnDefs: (defs: any) => void };
+  columnApi!: { setColumnDefs: (defs: any) => void };
 
 
   @Input()
@@ -39,6 +39,15 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
             cellClass: (params: CellClassParams) =>
               !params.value?.trim() ? 'item-placeholder' : ''
           },
+          ...(this.isItemDescriptionEnabled() ? [
+            {
+              headerName: 'Description',
+              field: 'discription',
+              flex: 1,
+              editable: true,
+              cellClass: 'right-align'
+            }
+          ] : []),
           { headerName: 'Price', field: 'price', flex: 1, editable: true, cellClass: 'right-align' },
           { headerName: 'Quantity', field: 'quantity', flex: 1, editable: true, cellClass: 'right-align' },
           { headerName: 'Item Total', field: 'total', flex: 1, cellClass: 'right-align' }
@@ -91,32 +100,32 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   }
 
   itemdetailsRowData: {
-  item: string;
-  price: number | null;
-  quantity: number | null;
-  total: number | null;
-  discount: number | null;
-  value: number | null;
-  sub_total: number | null;
-  cgst: number | null;
-  sgst: number | null;
-  igst: number | null;
-  grand_total: number | null;
-}[] = [
-  {
-    item: '',
-    price: null,
-    quantity: null,
-    total: null,
-    discount: null,
-    value: null,
-    sub_total: null,
-    cgst: null,
-    sgst: null,
-    igst: null,
-    grand_total: null
-  }
-];
+    item: string;
+    price: number | null;
+    quantity: number | null;
+    total: number | null;
+    discount: number | null;
+    value: number | null;
+    sub_total: number | null;
+    cgst: number | null;
+    sgst: number | null;
+    igst: number | null;
+    grand_total: number | null;
+  }[] = [
+      {
+        item: '',
+        price: null,
+        quantity: null,
+        total: null,
+        discount: null,
+        value: null,
+        sub_total: null,
+        cgst: null,
+        sgst: null,
+        igst: null,
+        grand_total: null
+      }
+    ];
 
   isDiscountEnabled(): boolean {
     const discountToggle = this.invoiceRowData.find(r => r.label === 'Show Discount');
@@ -127,15 +136,19 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     return typeof taxOption?.value === 'string' ? taxOption.value : '';
   }
   onInvoiceDetailsCellValueChanged(event: any): void {
-  if (event.data.label === 'Tax Option') {
-    this.updateTaxOption();
+    if (event.data.label === 'Tax Option') {
+      this.updateTaxOption();
+    }
   }
-}
   updateTaxOption(): void {
-  const taxOption = this.getTaxOption();
-  if (taxOption !== this.currentTaxOption) {
-    this.currentTaxOption = taxOption;
-    this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
+    const taxOption = this.getTaxOption();
+    if (taxOption !== this.currentTaxOption) {
+      this.currentTaxOption = taxOption;
+      this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
+    }
   }
-}
+  isItemDescriptionEnabled(): boolean {
+    const descToggle = this.invoiceRowData.find(r => r.label === 'Item Description');
+    return descToggle?.value === 'true';
+  }
 }
