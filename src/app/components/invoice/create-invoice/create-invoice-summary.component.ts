@@ -22,13 +22,7 @@ export class CreateInvoiceSummaryComponent {
 
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150 },
-    { field: 'value', headerName: '', width: 200, editable: true ,
-      valueFormatter: (params) => {
-      const val = Number(params.value);
-      if (isNaN(val)) return '';
-      return val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2);
-    }
-    }
+    { field: 'value', headerName: '', width: 200, editable: true ,}
   ];
 
   summaryRowData: FormColumnDef[] = [
