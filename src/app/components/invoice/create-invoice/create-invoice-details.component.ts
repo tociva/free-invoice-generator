@@ -100,11 +100,11 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   };
 
   private handleItemDescriptionToggle = (val: boolean) => {
-    console.log('handleItemDescriptionToggle', val);
+    this.itemDescriptionEnabled = val;
   };
 
   private handleShowDiscountToggle = (val: boolean) => {
-    console.log('handleShowDiscountToggle', val);
+    this.discountEnabled = val;
   };
 
   private findDetailsCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
