@@ -14,8 +14,8 @@
   max-width: 400px;
   flex: 1 1 400px;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
+  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  // border: 1px solid #e0e0e0;
 }
 
 .card-title {
@@ -43,10 +43,9 @@
 .Summary-of-Invoice-card{
   max-width: 400px;
   flex: 1 1 48%;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
-  display: flex;
+  // border-radius: 12px;
+  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  // border: 1px solid #e0e0e0;
   justify-content: flex-end;
 }
 .summary-box{

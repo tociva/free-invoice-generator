@@ -1,6 +1,6 @@
 <div class="card-layout" style="display: flex; flex-wrap: wrap; gap: 24px;">
     <!-- Customer Details -->
-    <mat-card class="customer-card" style="flex: 1 1 48%;">
+        <div class="customer-card" style="flex: 1 1 48%;">
         <mat-card-header>
             <mat-card-title class="card-title">Customer Details</mat-card-title>
         </mat-card-header>
@@ -12,10 +12,10 @@
                 [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
-    </mat-card>
+        </div>
 
     <!-- Invoice Details -->
-    <mat-card class="invoice-details-card" style="flex: 1 1 48%;">
+    <div class="invoice-details-card" style="flex: 1 1 48%;">
         <mat-card-header>
             <mat-card-title class="card-title">Invoice Details</mat-card-title>
         </mat-card-header>
@@ -27,10 +27,10 @@
                 (cellValueChanged)="onInvoiceDetailsCellValueChanged($event)">
             </ag-grid-angular>
         </mat-card-content>
-    </mat-card>
+    </div>
 
      <!-- Item Deatils -->
-    <mat-card class="Item-details-card" style="flex: 1 1 100%;">
+    <div class="Item-details-card" style="flex: 1 1 100%;">
   <mat-card-header>
     <mat-card-title class="card-title">Item Details</mat-card-title>
   </mat-card-header>
@@ -47,11 +47,11 @@
       (cellValueChanged)="onCellValueChanged($event)">
     </ag-grid-angular>
   </mat-card-content>
-</mat-card>
+</div>
 
 <!-- Summary of Invoice-->
 <div class="summary-box" >
- <mat-card class="Summary-of-Invoice-card" style="flex: 1 1 48%;">
+ <div class="Summary-of-Invoice-card" style="flex: 1 1 48%;">
         <!-- <mat-card-header>
             <mat-card-title class="card-title">Summary of Invoice</mat-card-title>
         </mat-card-header> -->
@@ -62,7 +62,7 @@
                 (cellValueChanged)="onSummaryCellValueChanged($event)">
             </ag-grid-angular>
         </mat-card-content>
-    </mat-card>
+    </div>
 </div>
 </div>
 
