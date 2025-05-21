@@ -66,7 +66,7 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
     { label: CustomerFormItem.MOBILE, value: '1234567890' }
   ];
 
-  private fetchCountries = (val?: string | Country): Observable<Country[]> => {
+  fetchCountries = (val?: string | Country): Observable<Country[]> => {
     return this.store.select(selectAllCountries).pipe(
       map((countries) => {
 
@@ -87,7 +87,7 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
     );
   };
 
-  private handleCountryOptionSelected = (val: Country): void => {
+  handleCountryOptionSelected = (val: Country): void => {
     const rowNode = this.customerGridApi.getRowNode(CustomerFormItem.COUNTRY);
     if (rowNode) {
       rowNode.data = { label: CustomerFormItem.COUNTRY, value: val };
