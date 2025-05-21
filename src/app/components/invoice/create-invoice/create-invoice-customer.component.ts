@@ -1,16 +1,12 @@
 import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
-import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
-import { Country } from '../store/model/country.model';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { CountryState } from '../store/state/country.state';
-import { inject } from '@angular/core';
-import { selectAllCountries } from '../store/selectors/country.selectors';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { OPTIONS_COUNT } from '../../../../util/constants';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { Country } from '../store/model/country.model';
+import { selectAllCountries } from '../store/selectors/country.selectors';
 import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
 
 export enum CustomerFormItem {

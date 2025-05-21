@@ -55,7 +55,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   };
 
   private handleCurrencyOptionSelected = (val: Currency): void => {
-    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
+    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);   
     if (rowNode) {
       rowNode.data = { label: InvoiceDetailsFormItem.CURRENCY, value: val };
     }
@@ -99,7 +99,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
   };
 
-  invoiceColumnDefs: ColDef<FormColumnDef>[] = [
+  invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150 },
     {
       field: 'value',
@@ -138,7 +138,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   
   };
 
-  override invoiceRowData: FormColumnDef[] = [
+  invoiceDetailsRowData: FormColumnDef[] = [
     { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: 'INV-1001' },
     { label: InvoiceDetailsFormItem.INVOICE_DATE, value: '2025-03-31' },
     { label: InvoiceDetailsFormItem.DUE_DATE, value: '2025-04-07' },
@@ -159,6 +159,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   }
 
   changeCurrency(val: Currency): void {
+
     const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
     if (rowNode) {
       const updated = { ...rowNode.data, value: val };
