@@ -4,8 +4,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { GetRowIdParams, GridOptions } from 'ag-grid-community';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { loadCountries } from '../store/actions/country.actions';
-import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
 import { loadCurrencies } from '../store/actions/currency.actions';
+import { CreateInvoiceMyDetailsComponent } from './create-invoice-my-details.component';
 
 @Component({
   selector: 'app-create-invoice',
@@ -17,7 +17,7 @@ import { loadCurrencies } from '../store/actions/currency.actions';
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.scss'
 })
-export class CreateInvoiceComponent extends CreateInvoiceCustomerComponent {
+export class CreateInvoiceComponent extends CreateInvoiceMyDetailsComponent {
   showDiscount = false;
   showSummary = false;
 

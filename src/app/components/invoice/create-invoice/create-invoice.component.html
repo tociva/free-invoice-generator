@@ -1,6 +1,21 @@
 <div class="card-layout" style="display: flex; flex-wrap: wrap; gap: 24px;">
+    <!-- My Details -->
+    <div class="customer-card" style="flex: 1 1 48%;">
+        <mat-card-header>
+            <mat-card-title class="card-title">My Details</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
+                [rowData]="myDetailsRowData" [columnDefs]="myDetailsColumnDefs" [domLayout]="'autoHeight'"
+                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+                (gridReady)="onMyDetailsGridReady($event)"
+                [getRowId]="getRowId">
+            </ag-grid-angular>
+        </mat-card-content>
+    </div>
+
     <!-- Customer Details -->
-        <div class="customer-card" style="flex: 1 1 48%;">
+    <div class="customer-card" style="flex: 1 1 48%;">
         <mat-card-header>
             <mat-card-title class="card-title">Customer Details</mat-card-title>
         </mat-card-header>
@@ -12,7 +27,7 @@
                 [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
-        </div>
+    </div>
 
     <!-- Invoice Details -->
     <div class="invoice-details-card" style="flex: 1 1 48%;">
