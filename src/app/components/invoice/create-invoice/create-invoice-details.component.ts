@@ -5,7 +5,7 @@ import { displayAutoCompleteWithName } from "../../../../util/daybook.util";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
 import { AutoCompleteEditorComponent } from "../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component";
 import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
-import { CheckboxCellRendererComponent } from "../../common/checkbox-cell-renderer/checkbox-cell-renderer.component";
+import { CheckboxColumnRendererComponent } from "../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component";
 import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-picker-cell-editor.component";
 import { Currency } from "../store/model/currency.model";
 import { selectAllCurrencies } from "../store/selectors/currency.selectors";
@@ -99,24 +99,15 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
   };
 
-  invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150 },
-    {
-      field: 'value',
-      headerName: '',
-      width: 200,
-      editable: (params) => {
-        const label = params.data?.label ?? '';
-        const editableFields = [InvoiceDetailsFormItem.INVOICE_NUMBER, InvoiceDetailsFormItem.INVOICE_DATE, InvoiceDetailsFormItem.DUE_DATE, InvoiceDetailsFormItem.CURRENCY, InvoiceDetailsFormItem.DELIVERY_STATE, InvoiceDetailsFormItem.TAX_OPTION];
-        return editableFields.includes(label as InvoiceDetailsFormItem);
-      },
-      cellRendererSelector: CreateInvoiceDetailsComponent.findDetailsCellRenderer,
-      cellEditorSelector: this.findDetailsEditorComponent,
-    }
-  ];
+  private handleItemDescriptionToggle = (val: boolean) => {
+    console.log('handleItemDescriptionToggle', val);
+  };
 
+  private handleShowDiscountToggle = (val: boolean) => {
+    console.log('handleShowDiscountToggle', val);
+  };
 
-  private static findDetailsCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
+  private findDetailsCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
 
     if (!params.data?.value) {
 
@@ -130,13 +121,31 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
       return {component: LabelColumnRendererComponent,
         params: {labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}`}};
     case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
+      return {component: CheckboxColumnRendererComponent, params: {selected: false, onToggle: this.handleItemDescriptionToggle}};
+
     case InvoiceDetailsFormItem.SHOW_DISCOUNT:
-      return {component: CheckboxCellRendererComponent, value: false};
+      return {component: CheckboxColumnRendererComponent, params: {selected: false, onToggle: this.handleShowDiscountToggle}};
 
     }
     return params.data.value;
   
   };
+
+  invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
+    { field: 'label', headerName: '', width: 150 },
+    {
+      field: 'value',
+      headerName: '',
+      width: 200,
+      editable: (params) => {
+        const label = params.data?.label ?? '';
+        const editableFields = [InvoiceDetailsFormItem.INVOICE_NUMBER, InvoiceDetailsFormItem.INVOICE_DATE, InvoiceDetailsFormItem.DUE_DATE, InvoiceDetailsFormItem.CURRENCY, InvoiceDetailsFormItem.DELIVERY_STATE, InvoiceDetailsFormItem.TAX_OPTION];
+        return editableFields.includes(label as InvoiceDetailsFormItem);
+      },
+      cellRendererSelector: this.findDetailsCellRenderer,
+      cellEditorSelector: this.findDetailsEditorComponent,
+    }
+  ];
 
   invoiceDetailsRowData: FormColumnDef[] = [
     { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: 'INV-1001' },
