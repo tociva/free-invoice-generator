@@ -17,7 +17,7 @@ interface NgGridAutoCompleteInput<T> {
 
 @Component({
   selector: 'app-auto-complete-editor',
-  imports: [CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule,],
   templateUrl: './auto-complete-editor.component.html',
   styleUrl: './auto-complete-editor.component.scss'
 })
@@ -62,6 +62,16 @@ export class AutoCompleteEditorComponent<T> implements ICellEditorAngularComp {
     if (this._onOptionSelected) {
 
       this._onOptionSelected(event.option.value);
+
+    }
+
+  }
+
+  onOptionClicked(option: T) {
+
+    if (this._onOptionSelected) {
+
+      this._onOptionSelected(option);
 
     }
 
