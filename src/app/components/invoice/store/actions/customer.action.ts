@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Customer } from '../model/customer.model';
+import { Country } from '../model/country.model';
 export const loadCustomer = createAction('[Customer] Load Customer');
 export const loadCustomerSuccess = createAction(
   '[Customer] Load Customer Success',
@@ -13,4 +14,9 @@ export const loadCustomerFailure = createAction(
 export const selectCustomer = createAction(
   '[Customer] Select Customer',
     props<{ customer: Customer }>()
+);
+
+export const setCustomerCountry = createAction(
+  '[Customer] Set Customer Country',
+  props<{ country: Country }>()
 );

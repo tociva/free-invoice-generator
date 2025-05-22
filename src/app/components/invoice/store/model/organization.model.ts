@@ -1,3 +1,5 @@
+import { Country } from "./country.model";
+
 export interface Organization {
     name: string;
     mobile: string;
@@ -9,4 +11,5 @@ export interface Organization {
     city: string;
     state: string;
     zip: string;
+    country: Country;
 }

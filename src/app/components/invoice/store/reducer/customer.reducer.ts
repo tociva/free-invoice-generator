@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { selectCustomer } from '../actions/customer.action';
+import { selectCustomer, setCustomerCountry } from '../actions/customer.action';
 import { initialCustomerState } from '../state/customer.state';
 export const customerReducer = createReducer(
   initialCustomerState,
@@ -7,5 +7,9 @@ export const customerReducer = createReducer(
   on(selectCustomer, (state, { customer }) => ({
     ...state,
     selectedCustomer: customer
+  })),
+  on(setCustomerCountry, (state, { country }) => ({
+    ...state,
+    selectedCustomer: { ...state.selectedCustomer, country }
   }))
 );

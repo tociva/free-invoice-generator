@@ -5,7 +5,6 @@ import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.componen
 import { FormColumnDef } from "../../../../util/form-column-def.type";
 import { InvoiceDetailsFormItem } from './create-invoice-details.component';
 
-
 @Component({
   selector: 'app-create-invoice-items',
   standalone: true,
@@ -13,6 +12,7 @@ import { InvoiceDetailsFormItem } from './create-invoice-details.component';
 })
 
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
+  
   columnApi!: { setColumnDefs: (defs: any) => void };
   itemDescriptionEnabled = false;
   discountEnabled = false;
@@ -150,20 +150,6 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     }
   }
   public handleTaxOptionToggle = (option: string): void => {
-  this.cgstSgstEnabled = option === 'CGST/SGST';
-  this.igstEnabled = option === 'IGST';
-
-  this.itemdetailsRowData = this.itemdetailsRowData.map(row => {
-    const hasValidPriceQty = Number(row.price) > 0 && Number(row.quantity) > 0;
-    return {
-      ...row,
-      cgst: option === 'CGST/SGST' && hasValidPriceQty ? 9 : null,
-      sgst: option === 'CGST/SGST' && hasValidPriceQty ? 9 : null,
-      igst: option === 'IGST' && hasValidPriceQty ? 18 : null,
-    };
-  });
-
-  this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
-};
+  };
 
 }
