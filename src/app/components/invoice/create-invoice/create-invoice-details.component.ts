@@ -10,6 +10,7 @@ import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-
 import { Currency } from "../store/model/currency.model";
 import { selectAllCurrencies } from "../store/selectors/currency.selectors";
 import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
+import { selectAllTaxes } from "../store/selectors/tax.selectors";
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
   INVOICE_DATE = 'Invoice Date',
@@ -46,12 +47,15 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   };
 
   private fetchTaxOptions = (val?: string): Observable<string[]> => {
-    const options = ['CGST/SGST', 'IGST', 'Non Taxable'];
-    if (!val?.trim()) {
-      return of(options);
-    }
-    const filterVal = val.toLowerCase();
-    return of(options.filter(option => option.toLowerCase().indexOf(filterVal) !== -1));
+    return this.store.select(selectAllTaxes).pipe(
+      map((taxes) => {
+        if (!val?.trim()) {
+          return taxes;
+        }
+        const filterVal = val.toLowerCase();
+        return taxes.filter(option => option.toLowerCase().indexOf(filterVal) !== -1);
+      })
+    );
   };
 
   private handleCurrencyOptionSelected = (val: Currency): void => {

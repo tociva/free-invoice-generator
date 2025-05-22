@@ -10,6 +10,8 @@ import { countryReducer } from './components/invoice/store/reducer/country.reduc
 import { currencyReducer } from './components/invoice/store/reducer/currency.reducer';
 import { organizationReducer } from './components/invoice/store/reducer/organization.reducer';
 import { customerReducer } from './components/invoice/store/reducer/customer.reducer';
+import { TaxEffects } from './components/invoice/store/effects/tax.effects';
+import { taxReducer } from './components/invoice/store/reducer/tax.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,9 +21,10 @@ export const appConfig: ApplicationConfig = {
       country: countryReducer,
       currency: currencyReducer,
       organization: organizationReducer,
-      customer: customerReducer
+      customer: customerReducer,
+      tax: taxReducer
     }),
-    provideEffects([CountryEffects, CurrencyEffects]),
+    provideEffects([CountryEffects, CurrencyEffects, TaxEffects]),
     provideNativeDateAdapter()
   ]
 };

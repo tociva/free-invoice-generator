@@ -7,6 +7,7 @@ import { loadCountries } from '../store/actions/country.actions';
 import { loadCurrencies } from '../store/actions/currency.actions';
 import { CreateInvoiceMyDetailsComponent } from './create-invoice-my-details.component';
 import { loadOrganization } from '../store/actions/organization.action';
+import { loadTaxes } from '../store/actions/tax.actions';
 @Component({
   selector: 'app-create-invoice',
   standalone: true,
@@ -134,6 +135,7 @@ export class CreateInvoiceComponent extends CreateInvoiceMyDetailsComponent {
     this.store.dispatch(loadCountries());
     this.store.dispatch(loadCurrencies());
     this.store.dispatch(loadOrganization());
+    this.store.dispatch(loadTaxes());
   }
 
   getRowId = (params: GetRowIdParams<FormColumnDef>) => {
