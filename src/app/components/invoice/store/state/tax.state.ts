@@ -5,7 +5,7 @@ export interface TaxState {
 }
 
 export const initialTaxState: TaxState = {
-  taxes: [],
+  taxes: ['SGST/CGST', 'IGST', 'Non Taxable'],
   selectedTax: null,
   error: null
 };

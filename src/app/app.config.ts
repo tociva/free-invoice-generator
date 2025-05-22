@@ -12,6 +12,7 @@ import { organizationReducer } from './components/invoice/store/reducer/organiza
 import { customerReducer } from './components/invoice/store/reducer/customer.reducer';
 import { TaxEffects } from './components/invoice/store/effects/tax.effects';
 import { taxReducer } from './components/invoice/store/reducer/tax.reducer';
+import { invoiceDetailsReducer } from './components/invoice/store/reducer/invoice-details.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,7 @@ export const appConfig: ApplicationConfig = {
       currency: currencyReducer,
       organization: organizationReducer,
       customer: customerReducer,
+      invoiceDetails: invoiceDetailsReducer,
       tax: taxReducer
     }),
     provideEffects([CountryEffects, CurrencyEffects, TaxEffects]),
