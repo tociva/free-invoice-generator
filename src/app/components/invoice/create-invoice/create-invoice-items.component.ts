@@ -3,6 +3,7 @@ import { ItemCellEditorComponent } from "../../common/item-cell-editor/item-cell
 import { CellClassParams, ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from "ag-grid-community";
 import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.component";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
+import { InvoiceDetailsFormItem } from './create-invoice-details.component';
 
 
 @Component({
@@ -15,13 +16,15 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   columnApi!: { setColumnDefs: (defs: any) => void };
   itemDescriptionEnabled = false;
   discountEnabled = false;
-
+  public cgstSgstEnabled = false;
+  public igstEnabled = false;
 
   @Input()
   invoiceRowData: FormColumnDef[] = [];
 
   ngOnChanges(): void {
-    this.updateTaxOption();
+    const taxOpt = this.getTaxOption();
+    this.handleTaxOptionToggle(taxOpt);
   }
 
   currentTaxOption: string = '';
@@ -67,8 +70,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
         ]
       });
     }
-    const taxOption = this.currentTaxOption || this.getTaxOption();
-    if (taxOption === 'CGST/SGST') {
+    if (this.cgstSgstEnabled) {
       baseCols.push({
         headerName: 'Tax',
         children: [
@@ -77,7 +79,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
           { headerName: 'Grand Total', field: 'grand_total', flex: 1, cellClass: 'right-align' }
         ]
       });
-    } else if (taxOption === 'IGST') {
+    } else if (this.igstEnabled) {
       baseCols.push({
         headerName: 'Tax',
         children: [
@@ -133,15 +135,35 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     return typeof taxOption?.value === 'string' ? taxOption.value : '';
   }
   onInvoiceDetailsCellValueChanged(event: any): void {
-    if (event.data.label === 'Tax Option') {
-      this.updateTaxOption();
+    if (event.data.label === InvoiceDetailsFormItem.TAX_OPTION) {
+      const newValue = event.data.value as string;
+      this.handleTaxOptionToggle(newValue);
     }
   }
-  updateTaxOption(): void {
+   updateTaxOption(): void {
     const taxOption = this.getTaxOption();
     if (taxOption !== this.currentTaxOption) {
       this.currentTaxOption = taxOption;
+      this.cgstSgstEnabled = taxOption === 'CGST/SGST';
+      this.igstEnabled = taxOption === 'IGST';
       this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
     }
   }
+  public handleTaxOptionToggle = (option: string): void => {
+  this.cgstSgstEnabled = option === 'CGST/SGST';
+  this.igstEnabled = option === 'IGST';
+
+  this.itemdetailsRowData = this.itemdetailsRowData.map(row => {
+    const hasValidPriceQty = Number(row.price) > 0 && Number(row.quantity) > 0;
+    return {
+      ...row,
+      cgst: option === 'CGST/SGST' && hasValidPriceQty ? 9 : null,
+      sgst: option === 'CGST/SGST' && hasValidPriceQty ? 9 : null,
+      igst: option === 'IGST' && hasValidPriceQty ? 18 : null,
+    };
+  });
+
+  this.columnApi?.setColumnDefs(this.itemdetailsColumnDefs);
+};
+
 }
