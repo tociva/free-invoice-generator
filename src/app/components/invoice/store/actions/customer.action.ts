@@ -15,8 +15,3 @@ export const selectCustomer = createAction(
   '[Customer] Select Customer',
     props<{ customer: Customer }>()
 );
-
-export const setCustomerCountry = createAction(
-  '[Customer] Set Customer Country',
-  props<{ country: Country }>()
-);

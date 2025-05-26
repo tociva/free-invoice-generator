@@ -13,6 +13,11 @@ import { customerReducer } from './components/invoice/store/reducer/customer.red
 import { TaxEffects } from './components/invoice/store/effects/tax.effects';
 import { taxReducer } from './components/invoice/store/reducer/tax.reducer';
 import { invoiceDetailsReducer } from './components/invoice/store/reducer/invoice-details.reducer';
+import { CustomerEffects } from './components/invoice/store/effects/customer.effects';
+import { InvoiceDetailsEffects } from './components/invoice/store/effects/invoice-details.effects';
+import { dateFormatReducer } from './components/invoice/store/reducer/date-format.reducer';
+import { DateFormatEffects } from './components/invoice/store/effects/date-format.effects';
+import { invoiceReducer } from './components/invoice/store/reducer/invoice.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,12 +26,14 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       country: countryReducer,
       currency: currencyReducer,
+      dateFormat: dateFormatReducer,
       organization: organizationReducer,
       customer: customerReducer,
       invoiceDetails: invoiceDetailsReducer,
-      tax: taxReducer
+      tax: taxReducer,
+      invoice: invoiceReducer
     }),
-    provideEffects([CountryEffects, CurrencyEffects, TaxEffects]),
+    provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, CustomerEffects, InvoiceDetailsEffects]),
     provideNativeDateAdapter()
   ]
 };

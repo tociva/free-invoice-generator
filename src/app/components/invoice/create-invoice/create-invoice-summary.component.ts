@@ -3,6 +3,7 @@ import { FormColumnDef } from "../../../../util/form-column-def.type";
 import { CountryState } from "../store/state/country.state";
 import { Store } from "@ngrx/store";
 import { inject } from "@angular/core";
+import { selectInvoice } from "../store/selectors/invoice.selectors";
 
 export enum InvoiceItemsFormItem {
   ITEM_TOTAL = 'Item Total',
@@ -20,21 +21,24 @@ export class CreateInvoiceSummaryComponent {
 
   public summaryGridApi!: GridApi<FormColumnDef>;
 
+  public summaryRowData: FormColumnDef[] = [];
+
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150 },
     { field: 'value', headerName: '', width: 200, editable: true ,}
   ];
 
-  summaryRowData: FormColumnDef[] = [
-    { label: InvoiceItemsFormItem.ITEM_TOTAL, value: '' },
-    { label: InvoiceItemsFormItem.DISCOUNT, value: '' },
-    { label: InvoiceItemsFormItem.SUB_TOTAL, value: '' },
-    { label: InvoiceItemsFormItem.TAX, value: '' },
-    { label: InvoiceItemsFormItem.ROUND_OFF, value: '' },
-    { label: InvoiceItemsFormItem.GRAND_TOTAL, value: '' }
-  ];
-
   onSummaryGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.summaryGridApi = params.api;
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      this.summaryRowData = [
+        { label: InvoiceItemsFormItem.ITEM_TOTAL, value: invoice.itemTotal },
+        { label: InvoiceItemsFormItem.DISCOUNT, value: invoice.discountTotal },
+        { label: InvoiceItemsFormItem.SUB_TOTAL, value: invoice.subTotal },
+        { label: InvoiceItemsFormItem.TAX, value: invoice.taxTotal },
+        { label: InvoiceItemsFormItem.ROUND_OFF, value: invoice.roundOff },
+        { label: InvoiceItemsFormItem.GRAND_TOTAL, value: invoice.grandTotal },
+      ];
+    });
   }
 }

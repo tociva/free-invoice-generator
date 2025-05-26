@@ -3,9 +3,9 @@ import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setOrganizationCountry } from '../store/actions/organization.action';
+import { setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
-import { selectSelectedOrganization } from '../store/selectors/organization.selectors';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
 
 export enum MyDetailsFormItem {
@@ -21,7 +21,7 @@ export enum MyDetailsFormItem {
     ZIP = 'Zip',
     COUNTRY = 'Country',
 }
-export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerComponent {
+export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerComponent {
 
   public myDetailsGridApi!: GridApi<FormColumnDef>;
   
@@ -50,10 +50,9 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
       width: 200,
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
-      cellRendererSelector: CreateInvoiceMyDetailsComponent.findMyDetailsCellRenderer,
+      cellRendererSelector: CreateInvoiceOrganizationComponent.findMyDetailsCellRenderer,
     }
   ];
-
 
   handleMyDetailsCountryOptionSelected = (val: Country): void => {
     this.store.dispatch(setOrganizationCountry({ country: val }));
@@ -90,18 +89,19 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.myDetailsGridApi = params.api;
-    this.store.select(selectSelectedOrganization).subscribe((organization) => {
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      const {organization} = invoice;
       this.myDetailsRowData = [
         { label: MyDetailsFormItem.NAME, value: organization.name },
-        { label: MyDetailsFormItem.LINE1, value: organization.line1 },
-        { label: MyDetailsFormItem.LINE2, value: organization.line2 },
+        { label: MyDetailsFormItem.LINE1, value: organization.addressLine1 },
+        { label: MyDetailsFormItem.LINE2, value: organization.addressLine2 },
         { label: MyDetailsFormItem.STREET, value: organization.street },
         { label: MyDetailsFormItem.CITY, value: organization.city },
-        { label: MyDetailsFormItem.ZIP, value: organization.zip },
+        { label: MyDetailsFormItem.ZIP, value: organization.zipCode },
         { label: MyDetailsFormItem.STATE, value: organization.state },
         { label: MyDetailsFormItem.COUNTRY, value: organization.country },
         { label: MyDetailsFormItem.EMAIL, value: organization.email },
-        { label: MyDetailsFormItem.MOBILE, value: organization.mobile },
+        { label: MyDetailsFormItem.MOBILE, value: organization.phone },
         { label: MyDetailsFormItem.GSTIN, value: organization.gstin },
       ];
     });

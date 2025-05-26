@@ -16,10 +16,15 @@ export const initialInvoiceDetailsState: InvoiceDetailsState = {
       unicode: '20B9',
       decimal: 2
     },
+    decimalPlaces: 2,
     deliveryState: 'Missouri',
     taxOption: 'Non Taxable',
     itemDescription: true,
-    showDiscount: true
+    showDiscount: true,
+    dateformat: {
+      name: '31-01-2022',
+      value: 'DD-MM-YYYY'
+    }
   },
   error: null
 };

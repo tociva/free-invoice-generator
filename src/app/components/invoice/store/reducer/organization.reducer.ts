@@ -9,9 +9,4 @@ export const organizationReducer = createReducer(
     ...state,
     selectedOrganization: organization
   })),
-
-  on(OrganizationActions.setOrganizationCountry, (state, { country }) => ({
-    ...state,
-    organization: { ...state.organization, country }
-  }))
 );

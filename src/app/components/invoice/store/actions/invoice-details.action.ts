@@ -14,3 +14,8 @@ export const selectInvoiceDetails = createAction(
   '[InvoiceDetails] Select InvoiceDetails',
     props<{ invoiceDetails: InvoiceDetails }>()
 );
+
+export const setInvoiceDetailsDecimalPlaces = createAction(
+  '[InvoiceDetails] Set InvoiceDetails Decimal Places',
+  props<{ decimalPlaces: number }>()
+);
