@@ -2,7 +2,7 @@ import { Currency } from '../model/currency.model';
 
 export interface CurrencyState {
   currencies: Currency[];
-  selectedCurrency: Currency | null;
+  selectedCurrency: Currency;
   error: string | null;
 }
 

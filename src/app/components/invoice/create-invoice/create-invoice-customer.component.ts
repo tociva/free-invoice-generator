@@ -5,10 +5,10 @@ import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setCustomerCountry } from '../store/actions/customer.action';
+import { setCustomerCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectAllCountries } from '../store/selectors/country.selectors';
-import { selectSelectedCustomer } from '../store/selectors/customer.selectors';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
 
 export enum CustomerFormItem {
@@ -114,18 +114,19 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
 
   onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.customerGridApi = params.api;
-    this.store.select(selectSelectedCustomer).subscribe((customer) => {
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      const {customer} = invoice;
       this.customerRowData = [
         { label: CustomerFormItem.NAME, value: customer.name },
-        { label: CustomerFormItem.LINE1, value: customer.line1 },
-        { label: CustomerFormItem.LINE2, value: customer.line2 },
+        { label: CustomerFormItem.LINE1, value: customer.addressLine1 },
+        { label: CustomerFormItem.LINE2, value: customer.addressLine2 },
         { label: CustomerFormItem.STREET, value: customer.street },
         { label: CustomerFormItem.CITY, value: customer.city },
-        { label: CustomerFormItem.ZIP, value: customer.zip },
+        { label: CustomerFormItem.ZIP, value: customer.zipCode },
         { label: CustomerFormItem.STATE, value: customer.state },
         { label: CustomerFormItem.COUNTRY, value: customer.country },
         { label: CustomerFormItem.EMAIL, value: customer.email },
-        { label: CustomerFormItem.MOBILE, value: customer.mobile },
+        { label: CustomerFormItem.MOBILE, value: customer.phone },
         { label: CustomerFormItem.GSTIN, value: customer.gstin }
       ];
     });
