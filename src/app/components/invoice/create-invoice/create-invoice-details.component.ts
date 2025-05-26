@@ -15,6 +15,7 @@ import { selectInvoice } from "../store/selectors/invoice.selectors";
 import { selectAllTaxes } from "../store/selectors/tax.selectors";
 import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
 import { setInvoiceCurrency, setInvoiceDateFormat, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
+import { TaxOption } from "../store/model/invoice.model";
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -125,7 +126,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   });
 
 
-  private handleTaxOptionChange = (option: string): void => {
+  private handleTaxOptionChange = (option: TaxOption): void => {
     this.store.dispatch(setInvoiceTaxOption({ option }));
   };
   
@@ -145,11 +146,11 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
       case InvoiceDetailsFormItem.TAX_OPTION:
         return {
-          component: AutoCompleteEditorComponent<string>,
+          component: AutoCompleteEditorComponent<TaxOption>,
           params: {
             optionsFetcher: this.fetchTaxOptions,
-            displayWith: (params: string) => params,
-            onOptionSelected: (val: string) => this.handleTaxOptionChange(val)
+            displayWith: (params: TaxOption) => params,
+            onOptionSelected: (val: TaxOption) => this.handleTaxOptionChange(val)
           }
         };
     }

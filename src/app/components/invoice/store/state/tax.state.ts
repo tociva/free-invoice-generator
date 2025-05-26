@@ -1,3 +1,5 @@
+import { TaxOption } from "../model/invoice.model";
+
 export interface TaxState {
   taxes: string[];
   selectedTax: string | null;
@@ -5,7 +7,7 @@ export interface TaxState {
 }
 
 export const initialTaxState: TaxState = {
-  taxes: ['SGST/CGST', 'IGST', 'Non Taxable'],
+  taxes: [TaxOption.CGST_SGST, TaxOption.IGST, TaxOption.NON_TAXABLE],
   selectedTax: null,
   error: null
 };

@@ -2,6 +2,12 @@ import { Country } from "./country.model";
 import { Currency } from "./currency.model";
 import { DateFormat } from "./date-format.model";
 
+export enum TaxOption {
+  CGST_SGST = 'CGST & SGST',
+  IGST = 'IGST',
+  NON_TAXABLE = 'Non Taxable',
+}
+
 export interface InvoiceItem {
   name: string;
   description: string;
@@ -42,7 +48,7 @@ export interface Invoice {
   currency: Currency;
   decimalPlaces: number;
   dateFormat: DateFormat;
-  taxOption: string;
+  taxOption: TaxOption;
   hasItemDescription: boolean;
   hasItemDiscount: boolean;
   deliveryState: string;
