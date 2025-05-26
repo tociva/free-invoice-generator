@@ -1,4 +1,4 @@
-import { Invoice } from '../model/invoice.model';
+import { Invoice, TaxOption } from '../model/invoice.model';
 
 export interface InvoiceState {
   invoice: Invoice;
@@ -18,7 +18,7 @@ export const initialInvoiceState: InvoiceState = {
     },
     decimalPlaces: 2,
     deliveryState: 'Kerala',
-    taxOption: 'Non Taxable',
+    taxOption: TaxOption.NON_TAXABLE,
     hasItemDescription: true,
     hasItemDiscount: false,
     dateFormat: {
@@ -80,8 +80,8 @@ export const initialInvoiceState: InvoiceState = {
       gstin: '1234567890'
     },
     items: [{
-      name: 'Item 1',
-      description: 'Item 1 Description',
+      name: 'ACME Product 1',
+      description: 'ACME Product 1 Description',
       quantity: 1,
       price: 100,
       itemTotal: 100,

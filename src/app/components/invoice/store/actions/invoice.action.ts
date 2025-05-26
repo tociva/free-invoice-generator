@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Invoice } from '../model/invoice.model';
+import { Invoice, TaxOption } from '../model/invoice.model';
 import { Country } from '../model/country.model';
 import { DateFormat } from '../model/date-format.model';
 import { Currency } from '../model/currency.model';
@@ -39,7 +39,7 @@ export const setInvoiceCurrency = createAction(
 
 export const setInvoiceTaxOption = createAction(
   '[Invoice] Set Invoice Tax Option',
-  props<{ option: string }>()
+  props<{ option: TaxOption }>()
 );
 
 export const setInvoiceItemDescription = createAction(

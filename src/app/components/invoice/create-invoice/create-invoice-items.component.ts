@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CellClassParams, ColDef, ColGroupDef, ICellRendererParams, ValueFormatterParams } from "ag-grid-community";
-import { FormColumnDef } from "../../../../util/form-column-def.type";
-import { ItemCellEditorComponent } from "../../common/item-cell-editor/item-cell-editor.component";
+import { ColDef, GridApi, GridReadyEvent, ColGroupDef } from "ag-grid-community";
 import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.component";
+import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 @Component({
   selector: 'app-create-invoice-items',
@@ -11,93 +11,83 @@ import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.componen
 })
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   
-  columnApi!: { setColumnDefs: (defs: any) => void };
-  public cgstSgstEnabled = false;
-  public igstEnabled = false;
+  itemsDefaultColDef: ColDef<InvoiceItem> = {
+    editable: true,
+    width: 150,
+    resizable: false,
+    sortable: false,
+    filter: false,
+    floatingFilter: false,
+  };
+  itemsColumnDefs: ColDef<InvoiceItem>[] = [];
 
-  invoiceRowData: FormColumnDef[] = [];
+  itemsRowData: InvoiceItem[] = [];
 
-  get itemdetailsColumnDefs(): (ColDef | ColGroupDef)[] {
-    const baseCols: (ColDef | ColGroupDef)[] = [
-      {
-        headerName: 'Item Details',
+  itemsGridApi!: GridApi<InvoiceItem>;
+
+  private createItemsColumnDefs(invoice: Invoice): void {
+    const itemsColumnDefsTemp: Array<ColGroupDef<InvoiceItem>> = [];
+    const itemColumns:ColGroupDef<InvoiceItem> = {
+      headerName: 'Item Details',
+      children: [
+        { field: 'name', headerName: 'Name', width: 400 },
+        { field: 'price', headerName: 'Price' },
+        { field: 'quantity', headerName: 'Quantity' },
+        { field: 'itemTotal', headerName: 'Item Total' },
+      ]
+    }
+    if (invoice.hasItemDescription) {
+      itemColumns.children.splice(1, 0, { field: 'description', headerName: 'Description', width: 400 });
+    }
+    
+    itemsColumnDefsTemp.push(itemColumns);
+    if(invoice.hasItemDiscount) {
+      itemsColumnDefsTemp.push({
+        headerName: 'Discount',
         children: [
-          {
-            headerName: 'Item',
-            field: 'item',
-            flex: 2,
-            editable: true,
-            cellEditor: ItemCellEditorComponent,
-            valueFormatter: (params: ValueFormatterParams) =>
-              params.value?.trim() || 'Enter item here',
-            cellClass: (params: CellClassParams) =>
-              !params.value?.trim() ? 'item-placeholder' : ''
-          },
-          { headerName: 'Price', field: 'price', flex: 1, editable: true, cellClass: 'right-align' },
-          { headerName: 'Quantity', field: 'quantity', flex: 1, editable: true, cellClass: 'right-align' },
-          { headerName: 'Item Total', field: 'total', flex: 1, cellClass: 'right-align' }
-        ]
-      }
-    ];
-    if (this.cgstSgstEnabled) {
-      baseCols.push({
-        headerName: 'Tax',
-        children: [
-          { headerName: 'CGST', field: 'cgst', flex: 1, editable: true, cellClass: 'right-align' },
-          { headerName: 'SGST', field: 'sgst', flex: 1, editable: true, cellClass: 'right-align' },
-          { headerName: 'Grand Total', field: 'grand_total', flex: 1, cellClass: 'right-align' }
-        ]
-      });
-    } else if (this.igstEnabled) {
-      baseCols.push({
-        headerName: 'Tax',
-        children: [
-          { headerName: 'IGST', field: 'igst', flex: 1, editable: true, cellClass: 'right-align' },
-          { headerName: 'Grand Total', field: 'grand_total', flex: 1, editable: true, cellClass: 'right-align' }
+          { field: 'discPercentage', headerName: 'Percentage' },
+          { field: 'discountAmount', headerName: 'Discount Amount' },
+          { field: 'subTotal', headerName: 'Sub Total' },
         ]
       });
     }
-    baseCols.push({
+    if(invoice.taxOption === TaxOption.CGST_SGST) {
+      itemsColumnDefsTemp.push({
+        headerName: 'Tax',
+        children: [
+          { field: 'tax1Percentage', headerName: 'CGST %' },
+          { field: 'tax1Amount', headerName: 'CGST Amount' },
+          { field: 'tax2Percentage', headerName: 'SGST %' },
+          { field: 'tax2Amount', headerName: 'SGST Amount' },
+          { field: 'taxTotal', headerName: 'Tax Total' },
+        ]
+      });
+    } else if(invoice.taxOption === TaxOption.IGST) {
+      itemsColumnDefsTemp.push({
+        headerName: 'Tax',
+        children: [
+          { field: 'tax1Percentage', headerName: 'IGST %' },
+          { field: 'tax1Amount', headerName: 'IGST Amount' },
+          { field: 'taxTotal', headerName: 'Tax Total' },
+        ]
+      });
+    }
+    itemsColumnDefsTemp.push({
       headerName: '',
-      field: 'delete',
-      flex: 0.5,
-      cellRenderer: (params: ICellRendererParams) => {
-        const rowCount = params.api.getDisplayedRowCount();
-        return rowCount === 1
-          ? ''
-          : `<button class="delete-btn" data-clear="true" aria-label="Delete">
-          <span class="material-icons" style="color: red;">delete</span></button>`;
-      }
+      children: [
+        { field: 'grandTotal', headerName: 'Grand Total' },
+      ]
     });
-    return baseCols;
+    this.itemsColumnDefs = itemsColumnDefsTemp;
   }
 
-  itemdetailsRowData: {
-    item: string;
-    price: number | null;
-    quantity: number | null;
-    total: number | null;
-    discount: number | null;
-    value: number | null;
-    sub_total: number | null;
-    cgst: number | null;
-    sgst: number | null;
-    igst: number | null;
-    grand_total: number | null;
-  }[] = [
-      {
-        item: '',
-        price: null,
-        quantity: null,
-        total: null,
-        discount: null,
-        value: null,
-        sub_total: null,
-        cgst: null,
-        sgst: null,
-        igst: null,
-        grand_total: null
-      }
-    ];
+  onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
+    this.itemsGridApi = params.api;
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      this.createItemsColumnDefs(invoice);
+      this.itemsRowData = invoice.items;
+      this.itemsGridApi.sizeColumnsToFit();
+    });
+  }
 
 }
