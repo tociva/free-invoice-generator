@@ -10,8 +10,3 @@ export const loadCountriesFailure = createAction(
   '[Country] Load Countries Failure',
   props<{ error: string }>()
 );
-
-export const setOrganizationCountry = createAction(
-  '[Country] Set Organization Country',
-  props<{ country: Country }>()
-);
