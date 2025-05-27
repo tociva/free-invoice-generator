@@ -9,7 +9,6 @@ import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.componen
 
 type InvoiceItemWithAction = InvoiceItem & {action?: string};
 
-const NUMBER_CELL_WIDTH = 60;
 @Component({
   selector: 'app-create-invoice-items',
   standalone: true,
@@ -30,6 +29,13 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   itemsRowData: InvoiceItem[] = [];
 
   itemsGridApi!: GridApi<InvoiceItem>;
+
+  itemsGridWidth = '1000px';
+
+  private numberCellWidth = 60;
+
+  private nameCellWidth = 300;
+
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const { oldValue, data } = params;
@@ -75,10 +81,10 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     const itemColumns: ColGroupDef<InvoiceItemWithAction> = {
       headerName: 'Item Details',
       children: [
-        this.createItemLabelColumn('name', 'Name', 'Click here to add item name', true, 400, this.handleNameCellValueChanged),
-        this.createItemLabelColumn('price', 'Price', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-        this.createItemLabelColumn('quantity', 'Quantity', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-        this.createItemLabelColumn('itemTotal', 'Item Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
+        this.createItemLabelColumn('name', 'Name', 'Click here to add item name', true, this.nameCellWidth, this.handleNameCellValueChanged),
+        this.createItemLabelColumn('price', 'Price', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+        this.createItemLabelColumn('quantity', 'Quantity', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+        this.createItemLabelColumn('itemTotal', 'Item Total', '', false, this.numberCellWidth, this.handleItemCellValueChanged)
       ]
     };
   
@@ -86,7 +92,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemColumns.children.splice(
         1,
         0,
-        this.createItemLabelColumn('description', 'Description', 'Click here to add description', true, 400, this.handleItemCellValueChanged)
+        this.createItemLabelColumn('description', 'Description', 'Click here to add description', true, this.nameCellWidth, this.handleItemCellValueChanged)
       );
     }
   
@@ -96,9 +102,9 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemsColumnDefsTemp.push({
         headerName: 'Discount',
         children: [
-          this.createItemLabelColumn('discPercentage', 'Percentage', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('discountAmount', 'Discount Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('subTotal', 'Sub Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
+          this.createItemLabelColumn('discPercentage', 'Percentage', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('discountAmount', 'Discount Amount', '', false, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('subTotal', 'Sub Total', '', false, this.numberCellWidth, this.handleItemCellValueChanged)
         ]
       });
     }
@@ -107,20 +113,20 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemsColumnDefsTemp.push({
         headerName: 'Tax',
         children: [
-          this.createItemLabelColumn('tax1Percentage', 'CGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('tax1Amount', 'CGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('tax2Percentage', 'SGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('tax2Amount', 'SGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
+          this.createItemLabelColumn('tax1Percentage', 'CGST %', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax1Amount', 'CGST Amount', '', false, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax2Percentage', 'SGST %', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax2Amount', 'SGST Amount', '', false, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, this.numberCellWidth, this.handleItemCellValueChanged)
         ]
       });
     } else if (invoice.taxOption === TaxOption.IGST) {
       itemsColumnDefsTemp.push({
         headerName: 'Tax',
         children: [
-          this.createItemLabelColumn('tax1Percentage', 'IGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('tax1Amount', 'IGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
-          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
+          this.createItemLabelColumn('tax1Percentage', 'IGST %', '', true, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax1Amount', 'IGST Amount', '', false, this.numberCellWidth, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, this.numberCellWidth, this.handleItemCellValueChanged)
         ]
       });
     }
@@ -128,11 +134,12 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     itemsColumnDefsTemp.push({
       headerName: '',
       children: [
-        this.createItemLabelColumn('grandTotal', 'Grand Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+        this.createItemLabelColumn('grandTotal', 'Grand Total', '', false, this.numberCellWidth, this.handleItemCellValueChanged),
         {
           field: 'action',
           editable: false,
-          headerName: 'Action',
+          headerName: '',
+          width: 80,
           cellRenderer: IconColumnRendererComponent,
           cellRendererParams: {
             icon: 'delete',
@@ -149,10 +156,22 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     this.itemsColumnDefs = itemsColumnDefsTemp;
   }
   
+  private setNumberCellWidth(invoice: Invoice): void {
+    this.numberCellWidth = 110 - (invoice.hasItemDiscount ? 25 : 0);
+    const extraColumns = invoice.hasItemDiscount ? 3 : 0;
+    if(invoice.taxOption === TaxOption.CGST_SGST) {
+      this.itemsGridWidth = `${600 + this.numberCellWidth * (9 + extraColumns) + 50 + 35}px`;
+    } else if(invoice.taxOption === TaxOption.IGST) {
+      this.itemsGridWidth = `${600 + this.numberCellWidth * (7 + extraColumns) + 50 + 35}px`;
+    } else if (invoice.taxOption === TaxOption.NON_TAXABLE) {
+      this.itemsGridWidth = `${600 + this.numberCellWidth * (4 + extraColumns) + 50 + 35}px`;
+    }
+  }
 
   onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
     this.itemsGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
+      this.setNumberCellWidth(invoice);
       this.createItemsColumnDefs(invoice);
       const items = invoice.items.map((item) => ({
         ...item,

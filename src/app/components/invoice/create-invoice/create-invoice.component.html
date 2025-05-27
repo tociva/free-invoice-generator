@@ -50,6 +50,7 @@
   </mat-card-header>
   <mat-card-content>
     <ag-grid-angular
+    [style.width]="itemsGridWidth"
       class="ag-theme-alpine"
       [rowData]="itemsRowData"
       [columnDefs]="itemsColumnDefs"
@@ -64,19 +65,16 @@
 
 <!-- Summary of Invoice-->
 <div class="summary-box" >
- <div class="Summary-of-Invoice-card" style="flex: 1 1 48%;">
-        <!-- <mat-card-header>
-            <mat-card-title class="card-title">Summary of Invoice</mat-card-title>
-        </mat-card-header> -->
-        <mat-card-content>
-            <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
-                [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
-                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-                (gridReady)="onSummaryGridReady($event)"
-                [getRowId]="getRowId">
-            </ag-grid-angular>
-        </mat-card-content>
-    </div>
+<div class="Summary-of-Invoice-card" style="margin-right: 110px;">
+    <mat-card-content>
+        <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
+            [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+            [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+            (gridReady)="onSummaryGridReady($event)"
+            [getRowId]="getRowId">
+        </ag-grid-angular>
+    </mat-card-content>
+</div>
 </div>
 </div>
 
