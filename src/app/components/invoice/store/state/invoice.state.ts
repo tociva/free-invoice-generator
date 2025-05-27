@@ -18,7 +18,7 @@ export const initialInvoiceState: InvoiceState = {
     },
     decimalPlaces: 2,
     deliveryState: 'Kerala',
-    taxOption: TaxOption.NON_TAXABLE,
+    taxOption: TaxOption.CGST_SGST,
     hasItemDescription: true,
     hasItemDiscount: false,
     dateFormat: {

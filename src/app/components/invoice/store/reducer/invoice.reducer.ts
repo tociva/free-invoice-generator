@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as InvoiceAction from '../actions/invoice.action'
 import { initialInvoiceState } from '../state/invoice.state';
+import { reCalculateInvoice } from '../../../../../util/invoice.util';
 export const invoiceReducer = createReducer(
   initialInvoiceState,
 
@@ -52,20 +53,22 @@ export const invoiceReducer = createReducer(
         if(nItem.quantity === 0) {
           return { ...nItem, quantity: 1, itemTotal: nItem.price };
         }
-        return {...nItem, itemTotal: nItem.price * nItem.quantity};
       }
-      return {...itm, itemTotal: itm.price * itm.quantity};
+      return {...itm, ...item};
     });
-
-    const updatedInvoice = {
-      ...state.invoice,
-      items: updatedItems,
-    };
+    const invoice = reCalculateInvoice({...state.invoice, items: updatedItems});
   
     return {
       ...state,
-      invoice: updatedInvoice,
+      invoice,
     };
-  })
+  }),
+  on(InvoiceAction.updateInvoiceSummaryRoundOff, (state, { roundOff }) => {
+    const grandTotal = state.invoice.subTotal + state.invoice.taxTotal + roundOff;
+    return {
+    ...state,
+    invoice: { ...state.invoice, roundOff, grandTotal }
+  }}
+)
   
 );
