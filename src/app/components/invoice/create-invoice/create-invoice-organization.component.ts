@@ -1,15 +1,12 @@
 import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
-import { map, Observable } from 'rxjs';
-import { OPTIONS_COUNT } from '../../../../util/constants';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
-import { selectAllCountries, selectSelectedCountry } from '../store/selectors/country.selectors';
-import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
-import { selectSelectedOrganization } from '../store/selectors/organization.selectors';
 
 export enum MyDetailsFormItem {
     NAME = 'Name',
@@ -24,9 +21,11 @@ export enum MyDetailsFormItem {
     ZIP = 'Zip',
     COUNTRY = 'Country',
 }
-export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerComponent {
+export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerComponent {
 
   public myDetailsGridApi!: GridApi<FormColumnDef>;
+  
+  myDetailsRowData: FormColumnDef[] = [];
 
   private findMyDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     
@@ -51,18 +50,13 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
       width: 200,
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
-      cellRendererSelector: CreateInvoiceMyDetailsComponent.findMyDetailsCellRenderer,
+      cellRendererSelector: CreateInvoiceOrganizationComponent.findMyDetailsCellRenderer,
     }
   ];
 
-  myDetailsRowData: FormColumnDef[] = [];
-
   handleMyDetailsCountryOptionSelected = (val: Country): void => {
-      const rowNode = this.myDetailsGridApi.getRowNode(MyDetailsFormItem.COUNTRY);
-      if (rowNode) {
-        rowNode.data = { label: MyDetailsFormItem.COUNTRY, value: val };
-      }
-    };
+    this.store.dispatch(setOrganizationCountry({ country: val }));
+  };
 
   private findMyDetailsCountryEditorComponent = (_valueP: unknown) => ({
     component: AutoCompleteEditorComponent<Country>,
@@ -95,25 +89,21 @@ export class CreateInvoiceMyDetailsComponent extends CreateInvoiceCustomerCompon
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.myDetailsGridApi = params.api;
-
-    this.store.select(selectSelectedOrganization).subscribe((organization) => {
-      if (organization) {
-        this.store.select(selectSelectedCountry).subscribe((country) => {
-          this.myDetailsRowData = [
-            { label: MyDetailsFormItem.NAME, value: organization.name },
-            { label: MyDetailsFormItem.LINE1, value: organization.line1 },
-            { label: MyDetailsFormItem.LINE2, value: organization.line2 },
-            { label: MyDetailsFormItem.STREET, value: organization.street },
-            { label: MyDetailsFormItem.CITY, value: organization.city },
-            { label: MyDetailsFormItem.ZIP, value: organization.zip },
-            { label: MyDetailsFormItem.STATE, value: organization.state },
-            { label: MyDetailsFormItem.COUNTRY, value: country },
-            { label: MyDetailsFormItem.EMAIL, value: organization.email },
-            { label: MyDetailsFormItem.MOBILE, value: organization.mobile },
-            { label: MyDetailsFormItem.GSTIN, value: organization.gstin },
-          ];
-        });
-      }
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      const {organization} = invoice;
+      this.myDetailsRowData = [
+        { label: MyDetailsFormItem.NAME, value: organization.name },
+        { label: MyDetailsFormItem.LINE1, value: organization.addressLine1 },
+        { label: MyDetailsFormItem.LINE2, value: organization.addressLine2 },
+        { label: MyDetailsFormItem.STREET, value: organization.street },
+        { label: MyDetailsFormItem.CITY, value: organization.city },
+        { label: MyDetailsFormItem.ZIP, value: organization.zipCode },
+        { label: MyDetailsFormItem.STATE, value: organization.state },
+        { label: MyDetailsFormItem.COUNTRY, value: organization.country },
+        { label: MyDetailsFormItem.EMAIL, value: organization.email },
+        { label: MyDetailsFormItem.MOBILE, value: organization.phone },
+        { label: MyDetailsFormItem.GSTIN, value: organization.gstin },
+      ];
     });
   }
 }

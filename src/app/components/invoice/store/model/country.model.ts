@@ -1,10 +1,6 @@
 import { Currency } from "./currency.model";
+import { DateFormat } from "./date-format.model";
 
-  export interface DateFormat {
-    name: string;
-    value: string;
-  }
-  
   export interface Country {
     name: string;
     code: string;

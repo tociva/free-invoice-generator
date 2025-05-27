@@ -14,9 +14,4 @@ export const currencyReducer = createReducer(
     ...state,
     error
   })),
-
-  on(CurrencyActions.selectCurrency, (state, { currency }) => ({
-    ...state,
-    selectedCurrency: currency
-  }))
 );

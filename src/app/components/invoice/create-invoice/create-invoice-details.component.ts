@@ -1,15 +1,22 @@
 import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from "ag-grid-community";
-import { map, Observable, of } from "rxjs";
+import { map, Observable } from "rxjs";
 import { OPTIONS_COUNT } from "../../../../util/constants";
 import { displayAutoCompleteWithName } from "../../../../util/daybook.util";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
 import { AutoCompleteEditorComponent } from "../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component";
-import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
 import { CheckboxColumnRendererComponent } from "../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component";
+import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
 import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-picker-cell-editor.component";
 import { Currency } from "../store/model/currency.model";
+import { DateFormat } from "../store/model/date-format.model";
 import { selectAllCurrencies } from "../store/selectors/currency.selectors";
+import { selectAllDateFormats } from "../store/selectors/date-format.selectors";
+import { selectInvoice } from "../store/selectors/invoice.selectors";
+import { selectAllTaxes } from "../store/selectors/tax.selectors";
 import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
+import { setInvoiceCurrency, setInvoiceDateFormat, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
+import { TaxOption } from "../store/model/invoice.model";
+
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
   INVOICE_DATE = 'Invoice Date',
@@ -19,11 +26,24 @@ export enum InvoiceDetailsFormItem {
   TAX_OPTION = 'Tax Option',
   ITEM_DESCRIPTION = 'Item Description',
   SHOW_DISCOUNT = 'Show Discount',
+  DECIMAL_PLACES = 'Decimal Places',
+  DATE_FORMAT = 'Date Format',
 }
 
 export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
+  
+  invoiceDetailsRowData: FormColumnDef[] = [];
+
+  private changeCurrency(val: Currency): void {
+
+    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
+    if (rowNode) {
+      const updated = { ...rowNode.data, value: val };
+      rowNode.setData(updated as FormColumnDef);
+    }
+  }
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
     return this.store.select(selectAllCurrencies).pipe(
@@ -45,20 +65,43 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     );
   };
 
+  private fetchDateFormats = (val?: string | DateFormat): Observable<DateFormat[]> => {
+    return this.store.select(selectAllDateFormats).pipe(
+      map((dateFormats) => {
+        if (val && typeof val === 'object') {
+          return [];
+        }
+
+        if (!val?.trim()) {
+          return dateFormats.slice(0, OPTIONS_COUNT);
+        }
+
+        const filterVal = val.toLowerCase();
+        return dateFormats
+          .filter((dateFormat) => dateFormat.name.toLowerCase().startsWith(filterVal))
+          .slice(0, OPTIONS_COUNT);
+      })
+    );
+  };
+
   private fetchTaxOptions = (val?: string): Observable<string[]> => {
-    const options = ['CGST/SGST', 'IGST', 'Non Taxable'];
-    if (!val?.trim()) {
-      return of(options);
-    }
-    const filterVal = val.toLowerCase();
-    return of(options.filter(option => option.toLowerCase().indexOf(filterVal) !== -1));
+    return this.store.select(selectAllTaxes).pipe(
+      map((taxes) => {
+        if (!val?.trim()) {
+          return taxes;
+        }
+        const filterVal = val.toLowerCase();
+        return taxes.filter(option => option.toLowerCase().indexOf(filterVal) !== -1);
+      })
+    );
   };
 
   private handleCurrencyOptionSelected = (val: Currency): void => {
-    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
-    if (rowNode) {
-      rowNode.data = { label: InvoiceDetailsFormItem.CURRENCY, value: val };
-    }
+    this.store.dispatch(setInvoiceCurrency({ currency: val }));
+  };
+
+  private handleDateFormatOptionSelected = (val: DateFormat): void => {
+    this.store.dispatch(setInvoiceDateFormat({ dateFormat: val }));
   };
 
   private findCurrencyEditorComponent = (_valueP: unknown) => ({
@@ -70,13 +113,23 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     }
   });
 
-  private findTaxOptionEditorComponent = (_valueP: unknown) => ({
-    component: AutoCompleteEditorComponent<string>,
+  private findDateFormatEditorComponent = (_valueP: unknown) => ({
+    component: AutoCompleteEditorComponent<DateFormat>,
     params: {
-      optionsFetcher: this.fetchTaxOptions,
-      displayWith: (params: string) => params,
+      optionsFetcher: this.fetchDateFormats,
+      displayWith: (params: DateFormat) => {
+        if(!params) {return '';}
+        return params.value;
+    },
+      onOptionSelected: this.handleDateFormatOptionSelected
     }
   });
+
+
+  private handleTaxOptionChange = (option: TaxOption): void => {
+    this.store.dispatch(setInvoiceTaxOption({ option }));
+  };
+  
   private findDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
 
     switch (params.data.label) {
@@ -88,13 +141,16 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
       case InvoiceDetailsFormItem.CURRENCY:
         return this.findCurrencyEditorComponent(params.data.value);
 
+      case InvoiceDetailsFormItem.DATE_FORMAT:
+        return this.findDateFormatEditorComponent(params.data.value);
+
       case InvoiceDetailsFormItem.TAX_OPTION:
         return {
-          component: AutoCompleteEditorComponent<string>,
+          component: AutoCompleteEditorComponent<TaxOption>,
           params: {
             optionsFetcher: this.fetchTaxOptions,
-            displayWith: (params: string) => params,
-            onOptionSelected: (val: string) => this.handleTaxOptionToggle(val)
+            displayWith: (params: TaxOption) => params,
+            onOptionSelected: (val: TaxOption) => this.handleTaxOptionChange(val)
           }
         };
     }
@@ -106,21 +162,17 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   };
 
   private handleItemDescriptionToggle = (val: boolean) => {
-    this.itemDescriptionEnabled = val;
+    this.store.dispatch(setInvoiceItemDescription({ itemDescription: val }));
   };
 
   private handleShowDiscountToggle = (val: boolean) => {
-    this.discountEnabled = val;
+    this.store.dispatch(setInvoiceShowDiscount({ showDiscount: val }));
   };
 
   private findDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
 
-    if (!params.data?.value) {
-
-      return '';
-
-    }
-    switch (params.data.label) {
+    
+    switch (params.data?.label) {
 
       case InvoiceDetailsFormItem.CURRENCY:
         const cur = params.data.value as Currency;
@@ -128,70 +180,68 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
           component: LabelColumnRendererComponent,
           params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
         };
+      case InvoiceDetailsFormItem.DATE_FORMAT:
+        const dateFormat = params.data.value as DateFormat;
+        return {
+          component: LabelColumnRendererComponent,
+          params: { labelValue: dateFormat.value }
+        };
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
-        return { component: CheckboxColumnRendererComponent, params: { selected: false, onToggle: this.handleItemDescriptionToggle } };
+        return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleItemDescriptionToggle } };
 
       case InvoiceDetailsFormItem.SHOW_DISCOUNT:
-        return { component: CheckboxColumnRendererComponent, params: { selected: false, onToggle: this.handleShowDiscountToggle } };
+        return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
+
+    }
+    if (!params.data?.value) {
+
+      return '';
 
     }
     return params.data.value;
 
   };
 
-  get invoiceDetailsColumnDefs(): ColDef<FormColumnDef>[] {
-    return [
-      { field: 'label', headerName: '', width: 150 },
-      {
-        field: 'value',
-        headerName: '',
-        width: 200,
-        editable: (params) => {
-          const label = params.data?.label ?? '';
-          const editableFields = [
-            InvoiceDetailsFormItem.INVOICE_NUMBER,
-            InvoiceDetailsFormItem.INVOICE_DATE,
-            InvoiceDetailsFormItem.DUE_DATE,
-            InvoiceDetailsFormItem.CURRENCY,
-            InvoiceDetailsFormItem.DELIVERY_STATE,
-            InvoiceDetailsFormItem.TAX_OPTION
-          ];
-          return editableFields.includes(label as InvoiceDetailsFormItem);
-        },
-        cellRendererSelector: this.findDetailsCellRenderer,
-        cellEditorSelector: this.findDetailsEditorComponent,
-      }
-    ];
-  }
-
-  invoiceDetailsRowData: FormColumnDef[] = [
-    { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: 'INV-1001' },
-    { label: InvoiceDetailsFormItem.INVOICE_DATE, value: '2025-03-31' },
-    { label: InvoiceDetailsFormItem.DUE_DATE, value: '2025-04-07' },
+  invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
+    { field: 'label', headerName: '', width: 150 },
     {
-      label: InvoiceDetailsFormItem.CURRENCY, value: {
-        name: 'Indian Rupee',
-        html: '&#8377;',
-        unicode: '20B9',
-        decimal: 2
-      }
-    },
-    { label: InvoiceDetailsFormItem.DELIVERY_STATE, value: 'Kerala' },
-    { label: InvoiceDetailsFormItem.TAX_OPTION, value: 'Non Taxable' },
-    { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: 'true' },
-    { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: 'true' }
+      field: 'value',
+      headerName: '',
+      width: 200,
+      editable: (params) => {
+        const label = params.data?.label ?? '';
+        const editableFields = [
+          InvoiceDetailsFormItem.INVOICE_NUMBER,
+          InvoiceDetailsFormItem.INVOICE_DATE,
+          InvoiceDetailsFormItem.DUE_DATE,
+          InvoiceDetailsFormItem.CURRENCY,
+          InvoiceDetailsFormItem.DELIVERY_STATE,
+          InvoiceDetailsFormItem.TAX_OPTION,
+          InvoiceDetailsFormItem.DECIMAL_PLACES,
+          InvoiceDetailsFormItem.DATE_FORMAT,
+        ];
+        return editableFields.includes(label as InvoiceDetailsFormItem);
+      },
+      cellRendererSelector: this.findDetailsCellRenderer,
+      cellEditorSelector: this.findDetailsEditorComponent,
+    }
   ];
 
   onInvoiceDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.detailsGridApi = params.api;
-  }
-
-  changeCurrency(val: Currency): void {
-
-    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
-    if (rowNode) {
-      const updated = { ...rowNode.data, value: val };
-      rowNode.setData(updated as FormColumnDef);
-    }
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      this.invoiceDetailsRowData = [
+        { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: invoice.number },
+        { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
+        { label: InvoiceDetailsFormItem.DUE_DATE, value: invoice.dueDate },
+        { label: InvoiceDetailsFormItem.CURRENCY, value: invoice.currency },
+        { label: InvoiceDetailsFormItem.DECIMAL_PLACES, value: invoice.decimalPlaces },
+        { label: InvoiceDetailsFormItem.DELIVERY_STATE, value: invoice.deliveryState },
+        { label: InvoiceDetailsFormItem.TAX_OPTION, value: invoice.taxOption },
+        { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
+        { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
+        { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
+      ];
+    });
   }
 }

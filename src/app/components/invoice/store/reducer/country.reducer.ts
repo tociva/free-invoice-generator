@@ -14,10 +14,5 @@ export const countryReducer = createReducer(
   on(CountryActions.loadCountriesFailure, (state, { error }) => ({
     ...state,
     error
-  })),
-
-  on(CountryActions.selectCountry, (state, { country }) => ({
-    ...state,
-    selectedCountry: country
   }))
 );

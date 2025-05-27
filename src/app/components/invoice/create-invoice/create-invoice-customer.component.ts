@@ -5,10 +5,11 @@ import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { setCustomerCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
-import { selectAllCountries, selectSelectedCountry } from '../store/selectors/country.selectors';
+import { selectAllCountries } from '../store/selectors/country.selectors';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
-import { selectSelectedCustomer } from '../store/selectors/customer.selectors';
 
 export enum CustomerFormItem {
     NAME = 'Name',
@@ -77,12 +78,8 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
     );
   };
 
-  handleCountryOptionSelected = (val: Country): void => {
-    const rowNode = this.customerGridApi.getRowNode(CustomerFormItem.COUNTRY);
-    if (rowNode) {
-      rowNode.data = { label: CustomerFormItem.COUNTRY, value: val };
-    }
-    this.changeCurrency(val.currency);
+  handleCustomerCountryOptionSelected = (val: Country): void => {
+    this.store.dispatch(setCustomerCountry({ country: val }));
   };
 
 
@@ -91,7 +88,7 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
     params: {
       optionsFetcher: this.fetchCountries,
       displayWith: displayAutoCompleteWithName,
-      onOptionSelected: this.handleCountryOptionSelected
+      onOptionSelected: this.handleCustomerCountryOptionSelected
     }
   });
 
@@ -117,24 +114,21 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
 
   onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.customerGridApi = params.api;
-    this.store.select(selectSelectedCustomer).subscribe((customer) => {
-      if (customer) {
-        this.store.select(selectSelectedCountry).subscribe((country) => {
-          this.customerRowData = [
-            { label: CustomerFormItem.NAME, value: customer.name },
-            { label: CustomerFormItem.LINE1, value: customer.line1 },
-            { label: CustomerFormItem.LINE2, value: customer.line2 },
-            { label: CustomerFormItem.STREET, value: customer.street },
-            { label: CustomerFormItem.CITY, value: customer.city },
-            { label: CustomerFormItem.ZIP, value: customer.zip },
-            { label: CustomerFormItem.STATE, value: customer.state },
-            { label: CustomerFormItem.COUNTRY, value: country },
-            { label: CustomerFormItem.EMAIL, value: customer.email },
-            { label: CustomerFormItem.MOBILE, value: customer.mobile },
-            { label: CustomerFormItem.GSTIN, value: customer.gstin }
-        ];
-        });
-      }
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      const {customer} = invoice;
+      this.customerRowData = [
+        { label: CustomerFormItem.NAME, value: customer.name },
+        { label: CustomerFormItem.LINE1, value: customer.addressLine1 },
+        { label: CustomerFormItem.LINE2, value: customer.addressLine2 },
+        { label: CustomerFormItem.STREET, value: customer.street },
+        { label: CustomerFormItem.CITY, value: customer.city },
+        { label: CustomerFormItem.ZIP, value: customer.zipCode },
+        { label: CustomerFormItem.STATE, value: customer.state },
+        { label: CustomerFormItem.COUNTRY, value: customer.country },
+        { label: CustomerFormItem.EMAIL, value: customer.email },
+        { label: CustomerFormItem.MOBILE, value: customer.phone },
+        { label: CustomerFormItem.GSTIN, value: customer.gstin }
+      ];
     });
   }
 }
