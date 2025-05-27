@@ -66,3 +66,8 @@ export const updateInvoiceItem = createAction(
   '[Invoice] Update Invoice Item',
   props<{ index: number, item: InvoiceItem }>()
 );
+
+export const updateInvoiceSummaryRoundOff = createAction(
+  '[Invoice] Update Invoice Summary Round Off',
+  props<{ roundOff: number }>()
+);

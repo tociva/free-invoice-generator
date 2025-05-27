@@ -9,6 +9,7 @@ import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.componen
 
 type InvoiceItemWithAction = InvoiceItem & {action?: string};
 
+const NUMBER_CELL_WIDTH = 60;
 @Component({
   selector: 'app-create-invoice-items',
   standalone: true,
@@ -17,7 +18,7 @@ type InvoiceItemWithAction = InvoiceItem & {action?: string};
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   
   itemsDefaultColDef: ColDef<InvoiceItemWithAction> = {
-    editable: true,
+    editable: false,
     width: 150,
     resizable: false,
     sortable: false,
@@ -31,7 +32,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   itemsGridApi!: GridApi<InvoiceItem>;
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
-    const { newValue, oldValue, data } = params;
+    const { oldValue, data } = params;
     if(oldValue.trim().length) {
       return;
     }
@@ -43,111 +44,111 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     this.store.dispatch(updateInvoiceItem({index: rowIndex, item: params.data}));
   }
 
+  private createItemLabelColumn(
+    field: keyof InvoiceItem,
+    headerName: string,
+    placeholder = '',
+    editable = false,
+    width?: number,
+    onCellValueChanged?: (event: any) => void
+  ): ColDef<InvoiceItemWithAction> {
+    return {
+      field,
+      headerName,
+      width,
+      editable,
+      cellRenderer: LabelColumnRendererComponent,
+      cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
+        const value = params.data?.[field];
+        const labelValue = typeof value === 'string' ? value.trim() : value?.toString();
+        return {
+          labelValue: labelValue && labelValue !== '0' ? labelValue : placeholder
+        };
+      },
+      onCellValueChanged
+    };
+  }
+
   private createItemsColumnDefs(invoice: Invoice): void {
     const itemsColumnDefsTemp: Array<ColGroupDef<InvoiceItemWithAction>> = [];
-    const itemColumns:ColGroupDef<InvoiceItemWithAction> = {
+  
+    const itemColumns: ColGroupDef<InvoiceItemWithAction> = {
       headerName: 'Item Details',
       children: [
-        { field: 'name', headerName: 'Name', width: 400, 
-          cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.name?.trim();
-          return {
-            labelValue: Boolean(labelValue) ? labelValue : 'Click here to add item name'
-          }
-        },
-        onCellValueChanged: this.handleNameCellValueChanged,
-      },
-        { field: 'price', headerName: 'Price' ,cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.price?.toString();
-          return {
-            labelValue: Number(labelValue) ? labelValue : ''
-          }
-        },
-        onCellValueChanged: this.handleItemCellValueChanged,
-      },
-        { field: 'quantity', headerName: 'Quantity', cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.quantity?.toString();
-          return {
-            labelValue: Number(labelValue) ? labelValue : ''
-          }
-        },
-        onCellValueChanged: this.handleItemCellValueChanged,
-      },
-        { field: 'itemTotal', headerName: 'Item Total' ,cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.itemTotal?.toString();
-          return {
-            labelValue: Number(labelValue) ? labelValue : ''
-          }
-        },
-        onCellValueChanged: this.handleItemCellValueChanged,
-      },
+        this.createItemLabelColumn('name', 'Name', 'Click here to add item name', true, 400, this.handleNameCellValueChanged),
+        this.createItemLabelColumn('price', 'Price', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+        this.createItemLabelColumn('quantity', 'Quantity', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+        this.createItemLabelColumn('itemTotal', 'Item Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
       ]
-    }
+    };
+  
     if (invoice.hasItemDescription) {
-      itemColumns.children.splice(1, 0, { field: 'description', headerName: 'Description', width: 400,
-        cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.description?.trim();
-          return {
-            labelValue: Boolean(labelValue) ? labelValue : 'Click here to add description'
-          }
-        },
-        onCellValueChanged: this.handleItemCellValueChanged,
-      });
+      itemColumns.children.splice(
+        1,
+        0,
+        this.createItemLabelColumn('description', 'Description', 'Click here to add description', true, 400, this.handleItemCellValueChanged)
+      );
     }
-    
+  
     itemsColumnDefsTemp.push(itemColumns);
-    if(invoice.hasItemDiscount) {
+  
+    if (invoice.hasItemDiscount) {
       itemsColumnDefsTemp.push({
         headerName: 'Discount',
         children: [
-          { field: 'discPercentage', headerName: 'Percentage' },
-          { field: 'discountAmount', headerName: 'Discount Amount' },
-          { field: 'subTotal', headerName: 'Sub Total' },
+          this.createItemLabelColumn('discPercentage', 'Percentage', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('discountAmount', 'Discount Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('subTotal', 'Sub Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
         ]
       });
     }
-    if(invoice.taxOption === TaxOption.CGST_SGST) {
+  
+    if (invoice.taxOption === TaxOption.CGST_SGST) {
       itemsColumnDefsTemp.push({
         headerName: 'Tax',
         children: [
-          { field: 'tax1Percentage', headerName: 'CGST %' },
-          { field: 'tax1Amount', headerName: 'CGST Amount' },
-          { field: 'tax2Percentage', headerName: 'SGST %' },
-          { field: 'tax2Amount', headerName: 'SGST Amount' },
-          { field: 'taxTotal', headerName: 'Tax Total' },
+          this.createItemLabelColumn('tax1Percentage', 'CGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax1Amount', 'CGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax2Percentage', 'SGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax2Amount', 'SGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
         ]
       });
-    } else if(invoice.taxOption === TaxOption.IGST) {
+    } else if (invoice.taxOption === TaxOption.IGST) {
       itemsColumnDefsTemp.push({
         headerName: 'Tax',
         children: [
-          { field: 'tax1Percentage', headerName: 'IGST %' },
-          { field: 'tax1Amount', headerName: 'IGST Amount' },
-          { field: 'taxTotal', headerName: 'Tax Total' },
+          this.createItemLabelColumn('tax1Percentage', 'IGST %', '', true, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('tax1Amount', 'IGST Amount', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+          this.createItemLabelColumn('taxTotal', 'Tax Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged)
         ]
       });
     }
+  
     itemsColumnDefsTemp.push({
       headerName: '',
       children: [
-        { field: 'grandTotal', headerName: 'Grand Total', cellRenderer: LabelColumnRendererComponent, cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
-          const labelValue = params.data?.grandTotal?.toString();
-          return {
-            labelValue: Number(labelValue) ? labelValue : ''
+        this.createItemLabelColumn('grandTotal', 'Grand Total', '', false, NUMBER_CELL_WIDTH, this.handleItemCellValueChanged),
+        {
+          field: 'action',
+          editable: false,
+          headerName: 'Action',
+          cellRenderer: IconColumnRendererComponent,
+          cellRendererParams: {
+            icon: 'delete',
+            customClass: 'icon-danger',
+            iconClickListener: (rowId: string) => {
+              const rowIndex = Number(rowId);
+              this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
+            }
           }
-        } },
-        { field: 'action', editable: false, headerName: 'Action', cellRenderer: IconColumnRendererComponent, cellRendererParams: {
-          icon: 'delete',
-          customClass: 'icon-danger',
-          iconClickListener: (rowId: string) => {
-            const rowIndex = Number(rowId);
-            this.store.dispatch(deleteInvoiceItem({index: rowIndex}));
-          }
-        } },
+        }
       ]
     });
+  
     this.itemsColumnDefs = itemsColumnDefsTemp;
   }
+  
 
   onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
     this.itemsGridApi = params.api;
