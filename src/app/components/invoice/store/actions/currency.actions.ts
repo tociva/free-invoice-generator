@@ -10,8 +10,3 @@ export const loadCurrenciesFailure = createAction(
   '[Currency] Load Currencies Failure',
   props<{ error: string }>()
 );
-
-export const selectCurrency = createAction(
-  '[Currency] Select Currency',
-  props<{ currency: Currency }>()
-);

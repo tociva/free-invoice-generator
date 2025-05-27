@@ -2,7 +2,7 @@
     <!-- My Details -->
     <div class="customer-card" style="flex: 1 1 48%;">
         <mat-card-header>
-            <mat-card-title class="card-title">My Details</mat-card-title>
+            <mat-card-title class="card-title">My Organization</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
@@ -38,8 +38,7 @@
             <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceDetailsRowData"
                 [columnDefs]="invoiceDetailsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
-                [getRowId]="getRowId"
-                (cellValueChanged)="onInvoiceDetailsCellValueChanged($event)">
+                [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
     </div>
@@ -52,13 +51,13 @@
   <mat-card-content>
     <ag-grid-angular
       class="ag-theme-alpine"
-      [rowData]="itemdetailsRowData"
-      [columnDefs]="itemdetailsColumnDefs"
+      [rowData]="itemsRowData"
+      [columnDefs]="itemsColumnDefs"
       [domLayout]="'autoHeight'"
-      [defaultColDef]="defaultColDef"
+      [defaultColDef]="itemsDefaultColDef"
       [gridOptions]="gridOptions"
-      (cellClicked)="onCellClicked($event)"
-      (cellValueChanged)="onCellValueChanged($event)">
+      (gridReady)="onItemsGridReady($event)"
+      >
     </ag-grid-angular>
   </mat-card-content>
 </div>
@@ -73,7 +72,8 @@
             <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
                 [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
                 [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-                (cellValueChanged)="onSummaryCellValueChanged($event)">
+                (gridReady)="onSummaryGridReady($event)"
+                [getRowId]="getRowId">
             </ag-grid-angular>
         </mat-card-content>
     </div>

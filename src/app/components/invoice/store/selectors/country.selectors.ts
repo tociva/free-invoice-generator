@@ -8,11 +8,6 @@ export const selectAllCountries = createSelector(
   state => state.countries
 );
 
-export const selectSelectedCountry = createSelector(
-  selectCountryFeature,
-  state => state.selectedCountry
-);
-
 export const selectCountryError = createSelector(
   selectCountryFeature,
   state => state.error

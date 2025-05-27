@@ -5,10 +5,15 @@ export const selectOrganizationFeature = createFeatureSelector<OrganizationState
 
 export const selectSelectedOrganization = createSelector(
   selectOrganizationFeature,
-  state => state.selectedOrganization
+  state => state.organization
 );
 
 export const selectOrganizationError = createSelector(
   selectOrganizationFeature,
   state => state.error
+);
+
+export const selectOrganizationCountry = createSelector(
+  selectOrganizationFeature,
+  state => state.organization.country
 );

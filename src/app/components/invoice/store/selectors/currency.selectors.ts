@@ -8,11 +8,6 @@ export const selectAllCurrencies = createSelector(
   (state: CurrencyState) => state.currencies
 );
 
-export const selectSelectedCurrency = createSelector(
-  selectCurrencyFeature,
-  (state: CurrencyState) => state.selectedCurrency
-);
-
 export const selectCurrencyError = createSelector(
   selectCurrencyFeature,
   (state: CurrencyState) => state.error

@@ -7,5 +7,5 @@ export const customerReducer = createReducer(
   on(selectCustomer, (state, { customer }) => ({
     ...state,
     selectedCustomer: customer
-  }))
+  })),
 );
