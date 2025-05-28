@@ -1,6 +1,7 @@
 ::ng-deep .no-header .ag-header {
   display: none !important;
 }
+
 .card-layout {
   display: flex;
   flex-wrap: wrap;
@@ -10,7 +11,8 @@
 }
 
 .customer-card,
-.invoice-details-card {
+.invoice-details-card,
+.my-organization-card {
   max-width: 400px;
   flex: 1 1 400px;
   border-radius: 12px;
@@ -36,11 +38,13 @@
   align-items: center;
   justify-content: center;
 }
+
 ::ng-deep .item-placeholder {
   color: #9e9e9e;
   font-style: italic;
 }
-.Summary-of-Invoice-card{
+
+.Summary-of-Invoice-card {
   max-width: 400px;
   flex: 1 1 48%;
   // border-radius: 12px;
@@ -48,8 +52,28 @@
   // border: 1px solid #e0e0e0;
   justify-content: flex-end;
 }
-.summary-box{
+
+.summary-box {
   justify-content: right;
   display: flex;
   width: 100%;
+}
+
+.title {
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.item-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  .summary-box {
+    justify-content: right;
+  }
+}
+
+::ng-deep .ag-header-cell-label {
+  overflow: visible;
 }
