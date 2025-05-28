@@ -33,7 +33,7 @@
             <span class="card-title">Invoice Details</span>
         </div>
         <div>
-            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceDetailsRowData"
+            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;"
                 [columnDefs]="invoiceDetailsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)" [getRowId]="getRowId">
             </ag-grid-angular>
