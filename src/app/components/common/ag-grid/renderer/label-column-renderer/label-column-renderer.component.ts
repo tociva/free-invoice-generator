@@ -24,7 +24,7 @@ export class LabelColumnRendererComponent implements ICellRendererAngularComp {
   multiLine = false;
 
   // eslint-disable-next-line class-methods-use-this
-  refresh = (_params: ICellRendererParams): boolean => false;
+  refresh = (_params: ICellRendererParams): boolean => true;
 
   agInit(params: ICellRendererParams<{ id: string }> & LabelColumn): void {
 
