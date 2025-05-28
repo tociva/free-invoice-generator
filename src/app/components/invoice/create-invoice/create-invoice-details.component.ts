@@ -1,21 +1,23 @@
-import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from "ag-grid-community";
+import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from "ag-grid-community";
+import dayjs from 'dayjs';
 import { map, Observable } from "rxjs";
 import { OPTIONS_COUNT } from "../../../../util/constants";
 import { displayAutoCompleteWithName } from "../../../../util/daybook.util";
 import { FormColumnDef } from "../../../../util/form-column-def.type";
 import { AutoCompleteEditorComponent } from "../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component";
+import { DatePickerEditorComponent } from "../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component";
 import { CheckboxColumnRendererComponent } from "../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component";
 import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
-import { DatePickerCellEditor } from "../../common/date-picker-cell-editor/date-picker-cell-editor.component";
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
 import { Currency } from "../store/model/currency.model";
 import { DateFormat } from "../store/model/date-format.model";
+import { TaxOption } from "../store/model/invoice.model";
 import { selectAllCurrencies } from "../store/selectors/currency.selectors";
 import { selectAllDateFormats } from "../store/selectors/date-format.selectors";
 import { selectInvoice } from "../store/selectors/invoice.selectors";
 import { selectAllTaxes } from "../store/selectors/tax.selectors";
 import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
-import { setInvoiceCurrency, setInvoiceDateFormat, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
-import { TaxOption } from "../store/model/invoice.model";
+
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -33,17 +35,6 @@ export enum InvoiceDetailsFormItem {
 export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
-  
-  invoiceDetailsRowData: FormColumnDef[] = [];
-
-  private changeCurrency(val: Currency): void {
-
-    const rowNode = this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.CURRENCY);
-    if (rowNode) {
-      const updated = { ...rowNode.data, value: val };
-      rowNode.setData(updated as FormColumnDef);
-    }
-  }
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
     return this.store.select(selectAllCurrencies).pipe(
@@ -136,7 +127,12 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
-        return { component: DatePickerCellEditor };
+        return { component: DatePickerEditorComponent,
+          params: {
+            format: (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value,
+            value: params.data.value
+          }
+         };
 
       case InvoiceDetailsFormItem.CURRENCY:
         return this.findCurrencyEditorComponent(params.data.value);
@@ -191,6 +187,12 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
 
       case InvoiceDetailsFormItem.SHOW_DISCOUNT:
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
+      case InvoiceDetailsFormItem.INVOICE_DATE:
+      case InvoiceDetailsFormItem.DUE_DATE:
+        const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
+        const date = params.data?.value as Date;
+        const dateText = dayjs(date).format(dateFormatText);
+        return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
 
     }
     if (!params.data?.value) {
@@ -200,6 +202,25 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     }
     return params.data.value;
 
+  };
+
+  private handleInvoiceDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
+    switch (event.data.label) {
+      case InvoiceDetailsFormItem.INVOICE_DATE:
+        const newDate = new Date(event.newValue);
+        const oldDate = new Date(event.oldValue);
+        if (newDate.getTime() !== oldDate.getTime()) {
+          this.store.dispatch(setInvoiceDate({ date: newDate }));
+        }
+        break;
+      case InvoiceDetailsFormItem.DUE_DATE:
+        const newDueDate = new Date(event.newValue);
+        const oldDueDate = new Date(event.oldValue);
+        if (newDueDate.getTime() !== oldDueDate.getTime()) {
+          this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
+        }
+        break;
+    }
   };
 
   invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
@@ -224,13 +245,14 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
       },
       cellRendererSelector: this.findDetailsCellRenderer,
       cellEditorSelector: this.findDetailsEditorComponent,
+      onCellValueChanged: this.handleInvoiceDetailsCellValueChanged
     }
   ];
 
   onInvoiceDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.detailsGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
-      this.invoiceDetailsRowData = [
+      const invoiceDetailsRowData: FormColumnDef[] = [
         { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: invoice.number },
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
         { label: InvoiceDetailsFormItem.DUE_DATE, value: invoice.dueDate },
@@ -242,6 +264,20 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
         { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
         { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
       ];
+      const allRows = this.detailsGridApi.getDisplayedRowCount();
+      const existingData = [];
+
+      for (let i = 0; i < allRows; i++) {
+        const rowNode = this.detailsGridApi.getDisplayedRowAtIndex(i);
+        if (rowNode?.data) {
+          existingData.push(rowNode.data);
+        }
+      }
+
+      this.detailsGridApi.applyTransaction({
+        remove: existingData,
+        add: invoiceDetailsRowData,
+      });
     });
   }
 }

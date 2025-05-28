@@ -64,11 +64,19 @@ export const invoiceReducer = createReducer(
     };
   }),
   on(InvoiceAction.updateInvoiceSummaryRoundOff, (state, { roundOff }) => {
-    const grandTotal = state.invoice.subTotal + state.invoice.taxTotal + roundOff;
-    return {
+      const grandTotal = state.invoice.subTotal + state.invoice.taxTotal + roundOff;
+      return {
+      ...state,
+      invoice: { ...state.invoice, roundOff, grandTotal }
+    }}
+  ),
+  on(InvoiceAction.setInvoiceDate, (state, { date }) => ({
     ...state,
-    invoice: { ...state.invoice, roundOff, grandTotal }
-  }}
-)
+    invoice: { ...state.invoice, date }
+  })),
+  on(InvoiceAction.setInvoiceDueDate, (state, { dueDate }) => ({
+    ...state,
+    invoice: { ...state.invoice, dueDate }
+  }))
   
 );
