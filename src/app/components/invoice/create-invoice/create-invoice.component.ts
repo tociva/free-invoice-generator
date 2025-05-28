@@ -26,7 +26,7 @@ export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent {
     rowHeight: 30,
     singleClickEdit: true,
     enableBrowserTooltips: true,
-    stopEditingWhenCellsLoseFocus: true,
+    stopEditingWhenCellsLoseFocus: false,
   };
 
   defaultColDef = {
