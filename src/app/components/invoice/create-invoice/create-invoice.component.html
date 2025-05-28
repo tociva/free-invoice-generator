@@ -35,7 +35,7 @@
             <mat-card-title class="card-title">Invoice Details</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceDetailsRowData"
+            <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;"
                 [columnDefs]="invoiceDetailsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
                 [getRowId]="getRowId">

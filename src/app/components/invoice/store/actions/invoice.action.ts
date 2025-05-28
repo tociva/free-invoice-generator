@@ -71,3 +71,13 @@ export const updateInvoiceSummaryRoundOff = createAction(
   '[Invoice] Update Invoice Summary Round Off',
   props<{ roundOff: number }>()
 );
+
+export const setInvoiceDate = createAction(
+  '[Invoice] Set Invoice Date',
+  props<{ date: Date }>()
+);
+
+export const setInvoiceDueDate = createAction(
+  '[Invoice] Set Invoice Due Date',
+  props<{ dueDate: Date }>()
+);
