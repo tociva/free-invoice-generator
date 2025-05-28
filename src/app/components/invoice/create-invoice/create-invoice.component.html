@@ -1,80 +1,66 @@
 <div class="card-layout" style="display: flex; flex-wrap: wrap; gap: 24px;">
     <!-- My Details -->
-    <div class="customer-card" style="flex: 1 1 48%;">
-        <mat-card-header>
-            <mat-card-title class="card-title">My Organization</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+    <div class="my-organization-card" style="flex: 1 1 48%;">
+        <div class="title">
+            <span class="card-title">My Organization</span>
+        </div>
+        <div>
             <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
                 [rowData]="myDetailsRowData" [columnDefs]="myDetailsColumnDefs" [domLayout]="'autoHeight'"
-                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-                (gridReady)="onMyDetailsGridReady($event)"
+                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onMyDetailsGridReady($event)"
                 [getRowId]="getRowId">
             </ag-grid-angular>
-        </mat-card-content>
+        </div>
     </div>
 
     <!-- Customer Details -->
     <div class="customer-card" style="flex: 1 1 48%;">
-        <mat-card-header>
-            <mat-card-title class="card-title">Customer Details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+        <div class="title">
+            <span class="card-title">Customer Details</span>
+        </div>
+        <div>
             <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
                 [rowData]="customerRowData" [columnDefs]="customerColumnDefs" [domLayout]="'autoHeight'"
-                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-                (gridReady)="onCustomerGridReady($event)"
+                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onCustomerGridReady($event)"
                 [getRowId]="getRowId">
             </ag-grid-angular>
-        </mat-card-content>
+        </div>
     </div>
 
     <!-- Invoice Details -->
     <div class="invoice-details-card" style="flex: 1 1 48%;">
-        <mat-card-header>
-            <mat-card-title class="card-title">Invoice Details</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+        <div class="title">
+            <span class="card-title">Invoice Details</span>
+        </div>
+        <div>
             <ag-grid-angular class="ag-theme-alpine no-header" style="width: 100%;" [rowData]="invoiceDetailsRowData"
                 [columnDefs]="invoiceDetailsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
-                [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)"
-                [getRowId]="getRowId">
+                [gridOptions]="gridOptions" (gridReady)="onInvoiceDetailsGridReady($event)" [getRowId]="getRowId">
             </ag-grid-angular>
-        </mat-card-content>
+        </div>
     </div>
 
-     <!-- Item Deatils -->
-    <div class="Item-details-card" style="flex: 1 1 100%;">
-  <mat-card-header>
-    <mat-card-title class="card-title">Item Details</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <ag-grid-angular
-    [style.width]="itemsGridWidth"
-      class="ag-theme-alpine"
-      [rowData]="itemsRowData"
-      [columnDefs]="itemsColumnDefs"
-      [domLayout]="'autoHeight'"
-      [defaultColDef]="itemsDefaultColDef"
-      [gridOptions]="gridOptions"
-      (gridReady)="onItemsGridReady($event)"
-      >
-    </ag-grid-angular>
-  </mat-card-content>
-</div>
+    <!-- Item Deatils -->
+    <div class="item-summary">
+        <div class="Item-details-card" style="flex: 1 1 100%;">
+            <div class="title">
+                <span class="card-title">Item Details</span>
+            </div>
+            <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [rowData]="itemsRowData"
+                [columnDefs]="itemsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef"
+                [gridOptions]="gridOptions" (gridReady)="onItemsGridReady($event)">
+            </ag-grid-angular>
+        </div>
 
-<!-- Summary of Invoice-->
-<div class="summary-box" >
-<div class="Summary-of-Invoice-card" style="margin-right: 110px;">
-    <mat-card-content>
-        <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
-            [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
-            [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-            (gridReady)="onSummaryGridReady($event)"
-            [getRowId]="getRowId">
-        </ag-grid-angular>
-    </mat-card-content>
+        <!-- Summary of Invoice-->
+        <div class="summary-box">
+            <div class="Summary-of-Invoice-card">
+                <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
+                    [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+                    [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
+                    [getRowId]="getRowId">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-
