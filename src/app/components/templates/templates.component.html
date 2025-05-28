@@ -1,1 +1,11 @@
-<p>templates works!</p>
+<div *ngIf="!selectedTemplate" class="template-list">
+  <div *ngFor="let template of templates" class="template-card" (click)="onTemplateSelect(template)">
+    <img [src]="template.thumbnail" alt="{{template.name}}" class="template-thumbnail" />
+    <div class="template-name">{{ template.name }}</div>
+  </div>
+</div>
+
+<div *ngIf="selectedTemplate" class="template-preview">
+  <button (click)="onBack()" class="back-button">Back to Templates</button>
+  <iframe #iframe style="width: 100%; height: 600px; border: none;"></iframe>
+</div>
