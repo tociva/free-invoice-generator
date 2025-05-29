@@ -117,6 +117,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       field,
       headerName,
       width,
+      editable:true,
       cellRenderer: LabelColumnRendererComponent,
       cellRendererParams: (params: ICellRendererParams<InvoiceItem>) => {
         const value = params.data?.[field];
