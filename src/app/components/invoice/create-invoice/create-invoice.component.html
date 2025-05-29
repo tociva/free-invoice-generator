@@ -46,7 +46,7 @@
             <div class="title">
                 <span class="card-title">Item Details</span>
             </div>
-            <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [rowData]="itemsRowData"
+            <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine"
                 [columnDefs]="itemsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef"
                 [gridOptions]="gridOptions" (gridReady)="onItemsGridReady($event)">
             </ag-grid-angular>
@@ -56,7 +56,7 @@
         <div class="summary-box">
             <div class="Summary-of-Invoice-card">
                 <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 94%;"
-                    [rowData]="summaryRowData" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+                    [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
                     [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
                     [getRowId]="getRowId">
                 </ag-grid-angular>
