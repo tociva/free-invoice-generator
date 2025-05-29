@@ -6,6 +6,8 @@ import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/labe
 import { selectInvoice } from "../store/selectors/invoice.selectors";
 import { CountryState } from "../store/state/country.state";
 import { updateInvoiceSummaryRoundOff } from "../store/actions/invoice.action";
+import { DEFAULT_DECIMAL_PLACES } from "../../../../util/constants";
+import { numberToFixedDecimal } from "../../../../util/invoice.util";
 
 export enum InvoiceSummaryFormItem {
   ITEM_TOTAL = 'Item Total',
@@ -23,14 +25,10 @@ export class CreateInvoiceSummaryComponent {
 
   public summaryGridApi!: GridApi<FormColumnDef>;
 
-  public summaryRowData: FormColumnDef[] = [];
-
   private static findSummaryCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
 
-    const numVal = Number(params.data?.value);
-    const value = numVal === 0 ? '' : numVal;
       return {component: LabelColumnRendererComponent,
-        params: {labelValue: value}};
+        params: {labelValue: params.data?.value ?? '', labelClass: 'content-label-right'}};
   
   };
 
@@ -56,14 +54,29 @@ export class CreateInvoiceSummaryComponent {
   onSummaryGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.summaryGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
-      this.summaryRowData = [
-        { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: invoice.itemTotal },
-        { label: InvoiceSummaryFormItem.DISCOUNT, value: invoice.discountTotal },
-        { label: InvoiceSummaryFormItem.SUB_TOTAL, value: invoice.subTotal },
-        { label: InvoiceSummaryFormItem.TAX, value: invoice.taxTotal },
-        { label: InvoiceSummaryFormItem.ROUND_OFF, value: invoice.roundOff },
-        { label: InvoiceSummaryFormItem.GRAND_TOTAL, value: invoice.grandTotal },
+      const decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+      const summaryRowData:FormColumnDef[] = [
+        { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: numberToFixedDecimal(invoice.itemTotal, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.DISCOUNT, value: numberToFixedDecimal(invoice.discountTotal, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.SUB_TOTAL, value: numberToFixedDecimal(invoice.subTotal, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.TAX, value: numberToFixedDecimal(invoice.taxTotal, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.ROUND_OFF, value: numberToFixedDecimal(invoice.roundOff, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.GRAND_TOTAL, value: numberToFixedDecimal(invoice.grandTotal, decimalPlaces) },
       ];
+      const allRows = this.summaryGridApi.getDisplayedRowCount();
+      const existingData = [];
+
+      for (let i = 0; i < allRows; i++) {
+        const rowNode = this.summaryGridApi.getDisplayedRowAtIndex(i);
+        if (rowNode?.data) {
+          existingData.push(rowNode.data);
+        }
+      }
+
+      this.summaryGridApi.applyTransaction({
+        remove: existingData,
+        add: summaryRowData,
+      });
     });
   }
 }

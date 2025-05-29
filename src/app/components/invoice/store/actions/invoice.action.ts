@@ -81,3 +81,8 @@ export const setInvoiceDueDate = createAction(
   '[Invoice] Set Invoice Due Date',
   props<{ dueDate: Date }>()
 );
+
+export const setInvoiceDecimalPlaces = createAction(
+  '[Invoice] Set Invoice Decimal Places',
+  props<{ decimalPlaces: number }>()
+);
