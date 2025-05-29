@@ -8,7 +8,7 @@ import { AutoCompleteEditorComponent } from "../../common/ag-grid/editor/auto-co
 import { DatePickerEditorComponent } from "../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component";
 import { CheckboxColumnRendererComponent } from "../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component";
 import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
 import { Currency } from "../store/model/currency.model";
 import { DateFormat } from "../store/model/date-format.model";
 import { TaxOption } from "../store/model/invoice.model";
@@ -218,6 +218,13 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
         const oldDueDate = new Date(event.oldValue);
         if (newDueDate.getTime() !== oldDueDate.getTime()) {
           this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
+        }
+        break;
+      case InvoiceDetailsFormItem.DECIMAL_PLACES:
+        const newDecimalPlaces = Number(event.newValue);
+        const oldDecimalPlaces = Number(event.oldValue);
+        if (newDecimalPlaces !== oldDecimalPlaces) {
+          this.store.dispatch(setInvoiceDecimalPlaces({ decimalPlaces: newDecimalPlaces }));
         }
         break;
     }

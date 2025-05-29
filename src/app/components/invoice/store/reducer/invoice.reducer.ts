@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import * as InvoiceAction from '../actions/invoice.action'
 import { initialInvoiceState } from '../state/invoice.state';
-import { reCalculateInvoice } from '../../../../../util/invoice.util';
+import { currencyToFixedNumber, formatItemValues, reCalculateInvoice } from '../../../../../util/invoice.util';
+import { DEFAULT_DECIMAL_PLACES } from '../../../../../util/constants';
 export const invoiceReducer = createReducer(
   initialInvoiceState,
 
@@ -46,15 +47,18 @@ export const invoiceReducer = createReducer(
     ...state,
     invoice: { ...state.invoice, items: [...state.invoice.items, item] }
   })),
-  on(InvoiceAction.updateInvoiceItem, (state, { index, item }) => {
-    const updatedItems = state.invoice.items.map((itm, idx) =>{
+  on(InvoiceAction.updateInvoiceItem, (state, { index, item: itemNew }) => {
+
+    const decimalPlaces = state.invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+    const updatedItems = state.invoice.items.map((itmOld, idx) =>{
       if(idx === index) {
-        const nItem = {...itm, ...item};
+        const nItem = {...itmOld, ...itemNew};
         if(nItem.quantity === 0) {
-          return { ...nItem, quantity: 1, itemTotal: nItem.price };
+          return formatItemValues({ ...nItem, quantity: 1, price: nItem.price ?? 0, itemTotal: nItem.price ?? 0 }, decimalPlaces);
         }
+        return formatItemValues(nItem, decimalPlaces);
       }
-      return {...itm, ...item};
+      return formatItemValues(itmOld, decimalPlaces);
     });
     const invoice = reCalculateInvoice({...state.invoice, items: updatedItems});
   
@@ -64,10 +68,12 @@ export const invoiceReducer = createReducer(
     };
   }),
   on(InvoiceAction.updateInvoiceSummaryRoundOff, (state, { roundOff }) => {
-      const grandTotal = state.invoice.subTotal + state.invoice.taxTotal + roundOff;
+    const decimalPlaces = state.invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+    const nRoundOff = currencyToFixedNumber(roundOff, decimalPlaces);
+    const grandTotal = currencyToFixedNumber(state.invoice.subTotal + state.invoice.taxTotal + nRoundOff, decimalPlaces);
       return {
       ...state,
-      invoice: { ...state.invoice, roundOff, grandTotal }
+      invoice: { ...state.invoice, roundOff: nRoundOff, grandTotal }
     }}
   ),
   on(InvoiceAction.setInvoiceDate, (state, { date }) => ({
@@ -77,6 +83,13 @@ export const invoiceReducer = createReducer(
   on(InvoiceAction.setInvoiceDueDate, (state, { dueDate }) => ({
     ...state,
     invoice: { ...state.invoice, dueDate }
-  }))
+  })),
+  on(InvoiceAction.setInvoiceDecimalPlaces, (state, { decimalPlaces }) => {
+    const invoice = reCalculateInvoice({...state.invoice, decimalPlaces});
+    return {
+      ...state,
+      invoice,
+    };
+  })
   
 );
