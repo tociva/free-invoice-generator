@@ -1,77 +1,20 @@
-.template-list {
+.iframe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.template-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
 }
-
-.template-card {
-  cursor: pointer;
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-.template-thumbnail {
-  max-width: 150px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.template-preview {
-  margin-top: 20px;
-}
-
-.back-button {
-  margin-bottom: 10px;
-  padding: 5px 10px;
-  font-size: 14px;
-}
-.preview-wrapper {
-  max-width: 800px;
-  margin: auto;
-  overflow: hidden;
-
-  img {
-    max-width: 200px;  // Set the max width for logo images
-    height: auto;
-    display: block;
-  }
-
-  .logo {
-    max-width: 200px !important;
-    height: auto !important;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-}
-.preview-wrapper {
-  max-width: 800px;       /* Control overall width */
-  margin: 0 auto;         /* Center the content */
-  padding: 20px;          /* Add padding */
-  background-color: white;/* Background for clarity */
-
-  /* Reset body and container inside injected HTML */
-  * {
-    box-sizing: border-box;
-  }
-
-  body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-family: Arial, sans-serif;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .logo {
-    max-width: 200px !important; /* Fix big logo issue */
-  }
-}
-

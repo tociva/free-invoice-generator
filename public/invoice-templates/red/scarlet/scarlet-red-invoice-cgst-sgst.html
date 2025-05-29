@@ -5,13 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invoice Template</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      color: #333;
-      background-color: #fff;
-    }
-
+    html, body {
+    transform: scale(0.5);         /* Adjust scale to fit inside iframe */
+    transform-origin: top left;
+    width: 200%;                   /* Compensate for the scaling */
+    height: 200%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    color: #333;
+    background-color: #fff;
+  }
+    
     h1 {
       text-align: center;
       color: #b22222; /* crimson red */

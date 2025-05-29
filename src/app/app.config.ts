@@ -18,6 +18,7 @@ import { InvoiceDetailsEffects } from './components/invoice/store/effects/invoic
 import { dateFormatReducer } from './components/invoice/store/reducer/date-format.reducer';
 import { DateFormatEffects } from './components/invoice/store/effects/date-format.effects';
 import { invoiceReducer } from './components/invoice/store/reducer/invoice.reducer';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,6 +35,7 @@ export const appConfig: ApplicationConfig = {
       invoice: invoiceReducer
     }),
     provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, CustomerEffects, InvoiceDetailsEffects]),
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
+    provideHttpClient()
   ]
 };

@@ -1,0 +1,24 @@
+[
+    {
+        "theme": "simple-scarlet-red-",
+        "name": "Simple Scarlet Red",
+        "description": "Simple invoice templates for daybook.cloud in scarlet red theme",
+        "items": [
+            {
+                "name": "Scarlet Red CGST-SGST",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html",
+                "tags": ["simple","cgst", "sgst", "scarlet", "red"]
+            },
+            {
+                "name": "Scarlet Red IGST",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-igst.html",
+                "tags": ["simple","igst", "scarlet", "red"]
+            },
+            {
+                "name": "Scarlet Red Non Taxable",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-non-taxable.html",
+                "tags": ["simple","non-taxable", "scarlet", "red"]
+            }
+        ]
+    }
+]
