@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invoice Template</title>
-  <style>
+   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 40px;
@@ -14,7 +14,7 @@
 
     h1 {
       text-align: center;
-      color: #1e3a8a; /* deep blue */
+      color: #98FB98	;
       margin-bottom: 30px;
       font-size: 36px;
       font-weight: bold;
@@ -27,7 +27,7 @@
     }
 
     .logo-circle {
-      background-color: #1e3a8a;
+      background-color: #98FB98;
       color: white;
       width: 100px;
       height: 100px;
@@ -39,7 +39,6 @@
       font-size: 18px;
       user-select: none;
     }
-    
 
     .sender-info, .billing-info, .invoice-info {
       margin-bottom: 25px;
@@ -63,11 +62,11 @@
     }
 
     table thead th {
-      background-color: #1e3a8a;
+      background-color: #98FB98;
       color: white;
       padding: 12px 10px;
       text-align: left;
-      border-bottom: 3px solid #1e40af; /* darker blue */
+      border-bottom: 3px solid #98FB98;
     }
 
     table tbody td {
@@ -76,7 +75,7 @@
     }
 
     table tbody tr:hover {
-      background-color: #f0f8ff; /* light blue background on hover */
+      background-color: #f0fff7;
     }
 
     .totals p {
@@ -91,7 +90,7 @@
     .totals p.total {
       font-weight: bold;
       font-size: 20px;
-      border-top: 2px solid #1e3a8a;
+      border-top: 2px solid #98FB98;
       padding-top: 10px;
     }
 
@@ -102,7 +101,7 @@
     }
 
     .terms h3 {
-      color: #1e3a8a;
+      color: #98FB98;
       margin-bottom: 10px;
     }
   </style>
@@ -112,7 +111,7 @@
   <h1>INVOICE</h1>
  <div class="header">
     <!-- Optional: Place a logo inside the blue circle -->
-     <img src="assets/logo.png" alt="Company Logo" class="logo-image" />
+    <div class="logo-circle">LOGO</div>
  </div>
 
   <div class="sender-info">
@@ -142,7 +141,6 @@
               <th>Item</th>
               <th>Quantity</th>
               <th>Price per unit</th>
-              <th>GST</th>
               <th>Amount</th>
           </tr>
       </thead>
@@ -152,12 +150,10 @@
               <td>#</td>
               <td>$0.00</td>
               <td>$0.00</td>
-              <td>$0.00</td>
           </tr>
           <tr>
               <td>Item 2</td>
               <td>#</td>
-              <td>$0.00</td>
               <td>$0.00</td>
               <td>$0.00</td>
           </tr>
@@ -166,14 +162,12 @@
               <td>#</td>
               <td>$0.00</td>
               <td>$0.00</td>
-              <td>$0.00</td>
           </tr>
       </tbody>
   </table>
 
   <div class="totals">
       <p>Subtotal <span>$0.00</span></p>
-      <p>Tax 0.00% <span>$0.00</span></p>
       <p>Fees <span>$0.00</span></p>
       <p>Discounts <span>$0.00</span></p>
       <p class="total">TOTAL <span>$0.00</span></p>
