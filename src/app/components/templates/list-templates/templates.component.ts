@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Template } from '../store/model/template.model';
 import { Store } from '@ngrx/store';
-import { TemplateState } from '../store/state/template.state';
 import { loadTemplates } from '../store/actions/template.actions';
-import { selectAllTemplates } from '../store/selectors/template.selector';
+import { TemplateItem } from '../store/model/template.model';
+import { selectPaginatedTemplateItems } from '../store/selectors/template.selector';
+import { TemplateState } from '../store/state/template.state';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-templates',
@@ -17,13 +19,38 @@ export class TemplatesComponent {
 
   private store = inject<Store<TemplateState>>(Store);
   
-  templates: Template[] = [];
+  templates: TemplateItem[] = [];
 
+  private safeHtmlMap: Record<string, SafeHtml> = {};
+
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient
+  ) {}
+  
+  private fetchAndSanitizeHtml(path: string): void {
+    this.http.get(path, { responseType: 'text' }).subscribe({
+      next: (html: string) => {
+        this.safeHtmlMap[path] = this.sanitizer.bypassSecurityTrustHtml(html);
+      },
+      error: (error) => {
+        console.error(`Failed to load HTML from ${path}`, error);
+      }
+    });
+  }
 
   ngOnInit() {
     this.store.dispatch(loadTemplates());
-    this.store.select(selectAllTemplates).subscribe((templates) => {
+    this.store.select(selectPaginatedTemplateItems).subscribe((templates) => {
       this.templates = templates;
+      this.templates.forEach((item) => {
+        this.fetchAndSanitizeHtml(item.path);
+      });
     });
+  }
+
+  findSafeHtml(path: string) {
+    return this.safeHtmlMap[path] || null;
   }
 }
