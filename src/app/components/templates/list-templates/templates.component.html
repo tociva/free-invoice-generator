@@ -1,5 +1,5 @@
 <div class="iframe-grid">
-  <div *ngFor="let item of templates" class="template-container">
+  <div *ngFor="let item of paginatedTemplates" class="template-container">
     <h4>{{ item.name }}</h4>
     <iframe
       [attr.srcdoc]="findSafeHtml(item.path)"
@@ -11,4 +11,11 @@
       style="border: 1px solid #ccc; border-radius: 8px;"
     ></iframe>
   </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>

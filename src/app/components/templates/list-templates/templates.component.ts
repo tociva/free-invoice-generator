@@ -16,19 +16,33 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule]
 })
 export class TemplatesComponent {
-
   private store = inject<Store<TemplateState>>(Store);
-  
   templates: TemplateItem[] = [];
+  paginatedTemplates: TemplateItem[] = [];
 
   private safeHtmlMap: Record<string, SafeHtml> = {};
 
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalPages = 0;
 
   constructor(
     private sanitizer: DomSanitizer,
     private http: HttpClient
   ) {}
-  
+
+  ngOnInit() {
+    this.store.dispatch(loadTemplates());
+    this.store.select(selectPaginatedTemplateItems).subscribe((templates) => {
+      this.templates = templates;
+      this.totalPages = Math.ceil(this.templates.length / this.itemsPerPage);
+      this.updatePaginatedTemplates();
+      this.templates.forEach((item) => {
+        this.fetchAndSanitizeHtml(item.path);
+      });
+    });
+  }
+
   private fetchAndSanitizeHtml(path: string): void {
     this.http.get(path, { responseType: 'text' }).subscribe({
       next: (html: string) => {
@@ -40,33 +54,41 @@ export class TemplatesComponent {
     });
   }
 
-  ngOnInit() {
-    this.store.dispatch(loadTemplates());
-    this.store.select(selectPaginatedTemplateItems).subscribe((templates) => {
-      this.templates = templates;
-      this.templates.forEach((item) => {
-        this.fetchAndSanitizeHtml(item.path);
-      });
-    });
+  findSafeHtml(path: string) {
+    const rawHtml = this.safeHtmlMap[path] || '';
+    const wrapperStyle = `
+      <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          transform: scale(0.5);
+          transform-origin: top left;
+          width: 200%;
+          height: 200%;
+          overflow: hidden;
+        }
+      </style>
+    `;
+    return this.sanitizer.bypassSecurityTrustHtml(wrapperStyle + rawHtml);
   }
 
-  findSafeHtml(path: string) {
-    const rawHtml =  this.safeHtmlMap[path] || null;
-      const wrapperStyle = `
-        <style>
-          html, body {
-            margin: 0;
-            padding: 0;
-            transform: scale(0.5);
-            transform-origin: top left;
-            width: 200%;
-            height: 200%;
-            overflow: hidden;
-          }
-        </style>
-      `;
-      const finalHtml = wrapperStyle + rawHtml;
-      return this.sanitizer.bypassSecurityTrustHtml(finalHtml);
-    
+  updatePaginatedTemplates() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedTemplates = this.templates.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedTemplates();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedTemplates();
+    }
   }
 }
