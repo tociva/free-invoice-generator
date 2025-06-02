@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TemplateService } from '../../services/template.service';
-import { Template } from '../../../util/template.type';
-import { SafeUrlPipe } from '../common/pipes/safe-url.pipe';
-import { firstValueFrom } from 'rxjs';
+import { Template } from '../../../../util/template.type';
 
 @Component({
   selector: 'app-templates',
@@ -16,12 +13,9 @@ export class TemplatesComponent {
 
   templates: Template[] = [];
 
-  constructor(private templateService: TemplateService) {}
 
   ngOnInit() {
-    this.templateService.fetchAllTemplates().subscribe(templates => {
-      this.templates = templates;
-    });
+    
   }
 
   async convertTemplateToHtml(path: string) {
