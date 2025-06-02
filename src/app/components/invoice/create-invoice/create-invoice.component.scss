@@ -77,3 +77,31 @@
 ::ng-deep .ag-header-cell-label {
   overflow: visible;
 }
+
+/* Item Details Group */
+::ng-deep.ag-header-cell.item-details-group,
+::ng-deep.ag-header-group-cell.item-details-group,
+::ng-deep.ag-cell.item-details-group {
+ background-color: #FAFAF0; /* Light cyan */
+}
+/* Discount Group */
+::ng-deep .ag-header-cell.discount-group,
+::ng-deep.ag-header-group-cell.discount-group,
+::ng-deep.ag-cell.discount-group {
+  background-color: #FFFDD0; /* Light orange */
+}
+/* Tax Group */
+::ng-deep.ag-header-cell.tax-group,
+::ng-deep.ag-header-group-cell.tax-group,
+::ng-deep.ag-cell.tax-group {
+  background-color:	#FAF0E6; /* Light green */
+}
+::ng-deep.ag-header-cell.grand-total-group,
+::ng-deep.ag-header-group-cell.grand-total-group,
+::ng-deep.ag-cell.grand-total-group {
+  background-color:#FFF5EE; /* Light green */
+}
+::ng-deep.ag-header-cell-comp-wrapper{
+  justify-content: center;
+  
+}
