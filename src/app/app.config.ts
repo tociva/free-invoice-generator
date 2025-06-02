@@ -9,11 +9,9 @@ import { CurrencyEffects } from './components/invoice/store/effects/currency.eff
 import { countryReducer } from './components/invoice/store/reducer/country.reducer';
 import { currencyReducer } from './components/invoice/store/reducer/currency.reducer';
 import { organizationReducer } from './components/invoice/store/reducer/organization.reducer';
-import { customerReducer } from './components/invoice/store/reducer/customer.reducer';
 import { TaxEffects } from './components/invoice/store/effects/tax.effects';
 import { taxReducer } from './components/invoice/store/reducer/tax.reducer';
 import { invoiceDetailsReducer } from './components/invoice/store/reducer/invoice-details.reducer';
-import { CustomerEffects } from './components/invoice/store/effects/customer.effects';
 import { InvoiceDetailsEffects } from './components/invoice/store/effects/invoice-details.effects';
 import { dateFormatReducer } from './components/invoice/store/reducer/date-format.reducer';
 import { DateFormatEffects } from './components/invoice/store/effects/date-format.effects';
@@ -29,12 +27,11 @@ export const appConfig: ApplicationConfig = {
       currency: currencyReducer,
       dateFormat: dateFormatReducer,
       organization: organizationReducer,
-      customer: customerReducer,
       invoiceDetails: invoiceDetailsReducer,
       tax: taxReducer,
       invoice: invoiceReducer
     }),
-    provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, CustomerEffects, InvoiceDetailsEffects]),
+    provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, InvoiceDetailsEffects]),
     provideNativeDateAdapter(),
     provideHttpClient()
   ]
