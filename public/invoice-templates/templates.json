@@ -1,0 +1,68 @@
+[
+    {
+        "theme": "simple-scarlet-red-",
+        "name": "Simple Scarlet Red",
+        "description": "Simple invoice templates for daybook.cloud in scarlet red theme",
+        "items": [
+            {
+                "name": "Scarlet Red CGST-SGST",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html",
+                "tags": ["simple","cgst", "sgst", "scarlet", "red"]
+            },
+            {
+                "name": "Scarlet Red IGST",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-igst.html",
+                "tags": ["simple","igst", "scarlet", "red"]
+            },
+            {
+                "name": "Scarlet Red Non Taxable",
+                "path": "invoice-templates/red/scarlet/scarlet-red-invoice-non-taxable.html",
+                "tags": ["simple","non-taxable", "scarlet", "red"]
+            }
+        ]
+    },
+    {
+        "theme": "simple-royal-blue-",
+        "name": "Simple royal blue",
+        "description": "Simple invoice templates for daybook.cloud in royal blue theme",
+        "items": [
+            {
+                "name": " Royal Blue CGST-SGST",
+                "path": "invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html",
+                "tags": ["simple","cgst", "sgst", "royal-blue", "blue"]
+            },
+            {
+                "name": "Royal Blue IGST",
+                "path": "invoice-templates/blue/royal-blue/blue-invoice-igst.html",
+                "tags": ["simple","igst", "royal-blue", "blue"]
+            },
+            {
+                "name": "Royal Blue Non Taxable",
+                "path": "invoice-templates/blue/royal-blue/blue-invoice-non-taxable.html",
+                "tags": ["simple","non-taxable", "scarlet", "red"]
+            }
+        ]
+    },
+    {
+        "theme": "simple-pale-green-",
+        "name": "Simple Pale Green",
+        "description": "Simple invoice templates for daybook.cloud in pale green theme",
+        "items": [
+            {
+                "name": "Pale Green CGST-SGST",
+                "path": "invoice-templates/green/pale-green/green-invoice-cgst-sgst.html",
+                "tags": ["simple","cgst", "sgst", "pale-green", "green"]
+            },
+            {
+                "name": "Pale Green IGST",
+                "path": "invoice-templates/green/pale-green/green-invoice-igst.html",
+                "tags": ["simple","igst", "pale-green", "green"]
+            },
+            {
+                "name": "Pale Green Non Taxable",
+                "path": "invoice-templates/green/pale-green/green-invoice-non-taxable.html",
+                "tags": ["simple","non-taxable", "pale-green", "green"]
+            }
+        ]
+    }
+]

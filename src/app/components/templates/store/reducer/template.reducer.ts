@@ -1,0 +1,27 @@
+import { createReducer, on } from '@ngrx/store';
+import * as TemplateActions from '../actions/template.actions';
+import { initialTemplateState } from '../state/template.state';
+
+export const templateReducer = createReducer(
+  initialTemplateState,
+
+  on(TemplateActions.setPagination, (state, { currentPage, pageSize }) => ({
+    ...state,
+    currentPage,
+    pageSize
+  })),
+  
+  on(TemplateActions.loadTemplatesSuccess, (state, { templates, templateItems }) => ({
+    ...state,
+    templates,
+    templateItems,
+    totalCount: templateItems.length,
+    error: null
+  })),
+
+  on(TemplateActions.loadTemplatesFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+);
