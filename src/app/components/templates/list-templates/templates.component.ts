@@ -51,6 +51,22 @@ export class TemplatesComponent {
   }
 
   findSafeHtml(path: string) {
-    return this.safeHtmlMap[path] || null;
+    const rawHtml =  this.safeHtmlMap[path] || null;
+      const wrapperStyle = `
+        <style>
+          html, body {
+            margin: 0;
+            padding: 0;
+            transform: scale(0.5);
+            transform-origin: top left;
+            width: 200%;
+            height: 200%;
+            overflow: hidden;
+          }
+        </style>
+      `;
+      const finalHtml = wrapperStyle + rawHtml;
+      return this.sanitizer.bypassSecurityTrustHtml(finalHtml);
+    
   }
 }
