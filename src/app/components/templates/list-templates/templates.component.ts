@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Template } from '../../../../util/template.type';
+import { Component, inject } from '@angular/core';
+import { Template } from '../store/model/template.model';
+import { Store } from '@ngrx/store';
+import { TemplateState } from '../store/state/template.state';
+import { loadTemplates } from '../store/actions/template.actions';
+import { selectAllTemplates } from '../store/selectors/template.selector';
 
 @Component({
   selector: 'app-templates',
@@ -11,17 +15,15 @@ import { Template } from '../../../../util/template.type';
 })
 export class TemplatesComponent {
 
+  private store = inject<Store<TemplateState>>(Store);
+  
   templates: Template[] = [];
 
 
   ngOnInit() {
-    
-  }
-
-  async convertTemplateToHtml(path: string) {
-    // const template = await firstValueFrom(this.templateService.fetchTemplate(path));
-    // console.log(template);
-    // return template;
-    return 'sdfsd';
+    this.store.dispatch(loadTemplates());
+    this.store.select(selectAllTemplates).subscribe((templates) => {
+      this.templates = templates;
+    });
   }
 }
