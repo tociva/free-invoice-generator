@@ -17,6 +17,6 @@ export const routes: Routes = [
     path: 'templates',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./components/templates/templates.component').then(m => m.TemplatesComponent)
+      import('./components/templates/list-templates/templates.component').then(m => m.TemplatesComponent)
   }
 ];

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice Template</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .header,
+      .sender-info,
+      .billing-info,
+      .invoice-info,
+      .totals,
+      .terms {
+        page-break-inside: avoid;
+      }
+
+      table {
+        page-break-inside: auto;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tfoot {
+        display: table-footer-group;
+      }
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #b22222;
+      margin-bottom: 30px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-circle {
+      background-color: #b22222;
+      color: white;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    .logo-circle img {
+      max-width: 60%;
+      max-height: 60%;
+    }
+
+    .sender-info, .billing-info, .invoice-info {
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .billing-info strong {
+      font-size: 18px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .invoice-info p {
+      margin: 3px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      table-layout: fixed;
+    }
+
+    table thead th {
+      background-color: #b22222;
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 3px solid #a52a2a;
+    }
+
+    table tbody td {
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    table tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 400px;
+      margin-left: auto;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      border-top: 2px solid #b22222;
+      padding-top: 10px;
+    }
+
+    .terms {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .terms h3 {
+      color: #b22222;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>INVOICE</h1>
+  <div class="header">
+    <div class="logo-circle">
+      <img src="data:image/png;base64,iVBORw" alt="Logo" />
+    </div>
+  </div>
+
+  <div class="sender-info">
+    <p>Your name/business name</p>
+    <p>Your address</p>
+    <p>Your phone number</p>
+    <p>Your email</p>
+  </div>
+
+  <div class="billing-info">
+    <strong>Bill to:</strong><br />
+    Buyer name/business name<br />
+    Buyer address<br />
+    Buyer phone number<br />
+    Buyer email<br />
+  </div>
+
+  <div class="invoice-info">
+    <p><strong>Invoice number:</strong> ########</p>
+    <p><strong>Invoice date:</strong> MM/DD/YYYY</p>
+    <p><strong>Payment due:</strong> MM/DD/YYYY</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price per unit</th>
+        <th>IGST</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Item 1</td>
+        <td>#</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+      </tr>
+      <tr>
+        <td>Item 2</td>
+        <td>#</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+      </tr>
+      <tr>
+        <td>Item 3</td>
+        <td>#</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+        <td>$0.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <p>Subtotal <span>$0.00</span></p>
+    <p>Tax 0.00% <span>$0.00</span></p>
+    <p>Fees <span>$0.00</span></p>
+    <p>Discounts <span>$0.00</span></p>
+    <p class="total">TOTAL <span>$0.00</span></p>
+  </div>
+
+  <div class="terms">
+    <h3>Terms and conditions</h3>
+    <p><em>Terms and conditions go here</em></p>
+  </div>
+</body>
+</html>

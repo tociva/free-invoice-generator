@@ -8,16 +8,14 @@ import { CountryEffects } from './components/invoice/store/effects/country.effec
 import { CurrencyEffects } from './components/invoice/store/effects/currency.effects';
 import { countryReducer } from './components/invoice/store/reducer/country.reducer';
 import { currencyReducer } from './components/invoice/store/reducer/currency.reducer';
-import { organizationReducer } from './components/invoice/store/reducer/organization.reducer';
-import { customerReducer } from './components/invoice/store/reducer/customer.reducer';
 import { TaxEffects } from './components/invoice/store/effects/tax.effects';
 import { taxReducer } from './components/invoice/store/reducer/tax.reducer';
-import { invoiceDetailsReducer } from './components/invoice/store/reducer/invoice-details.reducer';
-import { CustomerEffects } from './components/invoice/store/effects/customer.effects';
-import { InvoiceDetailsEffects } from './components/invoice/store/effects/invoice-details.effects';
 import { dateFormatReducer } from './components/invoice/store/reducer/date-format.reducer';
 import { DateFormatEffects } from './components/invoice/store/effects/date-format.effects';
 import { invoiceReducer } from './components/invoice/store/reducer/invoice.reducer';
+import { provideHttpClient } from '@angular/common/http';
+import { templateReducer } from './components/templates/store/reducer/template.reducer';
+import { TemplateEffects } from './components/templates/store/effects/tempate.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,13 +25,12 @@ export const appConfig: ApplicationConfig = {
       country: countryReducer,
       currency: currencyReducer,
       dateFormat: dateFormatReducer,
-      organization: organizationReducer,
-      customer: customerReducer,
-      invoiceDetails: invoiceDetailsReducer,
       tax: taxReducer,
-      invoice: invoiceReducer
+      invoice: invoiceReducer,
+      template: templateReducer
     }),
-    provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, CustomerEffects, InvoiceDetailsEffects]),
-    provideNativeDateAdapter()
+    provideEffects([CountryEffects, CurrencyEffects, DateFormatEffects, TaxEffects, TemplateEffects]),
+    provideNativeDateAdapter(),
+    provideHttpClient()
   ]
 };
