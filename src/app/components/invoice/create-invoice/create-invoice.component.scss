@@ -82,28 +82,24 @@
 ::ng-deep.ag-header-cell.item-details-group,
 ::ng-deep.ag-header-group-cell.item-details-group,
 ::ng-deep.ag-cell.item-details-group {
-  background-color: #f1fcfd; /* Light cyan */
+ background-color: #E0F1F4; /* Light cyan */
 }
 /* Discount Group */
 ::ng-deep .ag-header-cell.discount-group,
 ::ng-deep.ag-header-group-cell.discount-group,
 ::ng-deep.ag-cell.discount-group {
-  background-color: #dee8f1; /* Light orange */
+  background-color: #ebf2f3; /* Light orange */
 }
-
 /* Tax Group */
 ::ng-deep.ag-header-cell.tax-group,
 ::ng-deep.ag-header-group-cell.tax-group,
 ::ng-deep.ag-cell.tax-group {
-  background-color: #dbe0f3; /* Light green */
-}
-::ng-deep .ag-header-cell, .ag-header-group-cell {
-  border-right: 1px solid #ccc;
+  background-color:	#e3edf0; /* Light green */
 }
 ::ng-deep.ag-header-cell.grand-total-group,
 ::ng-deep.ag-header-group-cell.grand-total-group,
 ::ng-deep.ag-cell.grand-total-group {
-  background-color: #e7e9ee; /* Light green */
+  background-color:#eaf7f8; /* Light green */
 }
 ::ng-deep.ag-header-cell-comp-wrapper{
   justify-content: center;
