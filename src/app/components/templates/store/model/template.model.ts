@@ -3,7 +3,6 @@ import { SafeHtml } from "@angular/platform-browser";
 export interface TemplateItem {
   name: string;
   path: string;
-  html: SafeHtml;
 }
 
 export interface Template {

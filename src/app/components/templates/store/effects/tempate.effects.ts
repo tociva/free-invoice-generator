@@ -12,20 +12,20 @@ export class TemplateEffects {
 
 
   loadTemplates$ = createEffect(() =>
-      this.actions$.pipe(
-        ofType(TemplateActions.loadTemplates),
-        mergeMap(() =>
-          this.http.get<Template[]>('/invoice-templates/templates.json').pipe( // update with your actual endpoint
-            map((templates: Template[]) =>
-              TemplateActions.loadTemplatesSuccess({ templates })
-            ),
-            catchError(error =>
-              of(TemplateActions.loadTemplatesFailure({ error: error.message }))
-            )
+    this.actions$.pipe(
+      ofType(TemplateActions.loadTemplates),
+      mergeMap(() =>
+        this.http.get<Template[]>('/invoice-templates/templates.json').pipe(
+          map((templates: Template[]) => {
+            const templateItems = templates.flatMap(template => template.items);
+            return TemplateActions.loadTemplatesSuccess({ templates, templateItems });
+          }),
+          catchError(error =>
+            of(TemplateActions.loadTemplatesFailure({ error: error.message }))
           )
         )
       )
-    );
-    
+    )
+  );
 
 }
