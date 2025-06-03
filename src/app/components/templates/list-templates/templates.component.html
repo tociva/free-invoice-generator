@@ -1,4 +1,27 @@
-<div class="iframe-grid">
+<div class="layout-container">
+  <!-- Filter Sidebar -->
+  <mat-card class="filter-panel">
+    <mat-form-field appearance="fill" class="filter-input">
+      <mat-label>Search by name</mat-label>
+      <input matInput [(ngModel)]="filterText" (ngModelChange)="onFilterInput($event)" />
+    </mat-form-field>
+
+    <h4>Tax Option</h4>
+    <div *ngFor="let tax of taxOptions">
+      <mat-checkbox [checked]="selectedTaxTypes.includes(tax)" (change)="toggleTaxType(tax)">{{ tax }}</mat-checkbox>
+    </div>
+
+    <h4>Color Option</h4>
+    <div *ngFor="let color of colorOptions">
+      <mat-checkbox [checked]="selectedColors.includes(color)" (change)="toggleColor(color)">{{ color }}</mat-checkbox>
+    </div>
+
+   <a class="clear-filters-link" (click)="clearFilters()">Clear Filters</a>
+  </mat-card>
+
+  <!-- Content Area -->
+  <div class="content-area">
+    <div class="iframe-grid">
   <div *ngFor="let item of paginatedTemplates" class="template-container">
     <h4>{{ item.name }}</h4>
     <iframe
@@ -13,9 +36,11 @@
   </div>
 </div>
 
-<!-- Pagination Controls -->
-<div class="pagination-controls">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    <mat-paginator [length]="totalItems"
+                   [pageSize]="itemsPerPage"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   color="primary">
+    </mat-paginator>
+  </div>
 </div>
