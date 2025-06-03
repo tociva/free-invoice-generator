@@ -19,9 +19,9 @@ import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
-  selector: 'app-templates',
-  templateUrl: './templates.component.html',
-  styleUrls: ['./templates.component.scss'],
+  selector: 'app-list-templates',
+  templateUrl: './list-templates.component.html',
+  styleUrls: ['./list-templates.component.scss'],
   standalone: true,
   imports: [
   CommonModule, FormsModule, MatPaginatorModule,
@@ -29,7 +29,7 @@ import { MatCardModule } from '@angular/material/card';
   MatButtonModule, MatCardModule
 ]
 })
-export class TemplatesComponent {
+export class ListTemplatesComponent {
   private store = inject<Store<TemplateState>>(Store);
   templates: TemplateItem[] = [];
   filteredTemplates: TemplateItem[] = [];
