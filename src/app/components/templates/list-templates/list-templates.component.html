@@ -22,10 +22,10 @@
   <!-- Content Area -->
   <div class="content-area">
     <div class="iframe-grid">
-  <div *ngFor="let item of paginatedTemplates" class="template-container">
+  <div *ngFor="let item of templates" class="template-container">
     <h4>{{ item.name }}</h4>
     <iframe
-      [attr.srcdoc]="findSafeHtml(item.path)"
+      [attr.srcdoc]="item.html"
       [attr.title]="item.name"
       [attr.aria-label]="'Preview of ' + item.name"
       width="100%"
