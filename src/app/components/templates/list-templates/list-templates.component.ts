@@ -17,8 +17,9 @@ import { selectPageSize, selectPaginatedTemplateItems, selectTotalCount } from '
 import { TemplateState } from '../store/state/template.state';
 import { Invoice } from '../../invoice/store/model/invoice.model';
 import { TaxOption } from '../../invoice/store/model/invoice.model';
+import { MatIconModule } from '@angular/material/icon';
 
-const sampleInvoice:Invoice = {
+const sampleInvoice: Invoice = {
   number: 'INV-AB-001',
   date: new Date(),
   dueDate: new Date(),
@@ -141,10 +142,10 @@ const sampleInvoice:Invoice = {
   styleUrls: ['./list-templates.component.scss'],
   standalone: true,
   imports: [
-  CommonModule, FormsModule, MatPaginatorModule,
-  MatCheckboxModule, MatFormFieldModule, MatInputModule,
-  MatButtonModule, MatCardModule
-]
+    CommonModule, FormsModule, MatPaginatorModule,
+    MatCheckboxModule, MatFormFieldModule, MatInputModule,
+    MatButtonModule, MatCardModule, MatIconModule
+  ]
 })
 export class ListTemplatesComponent {
   private store = inject<Store<TemplateState>>(Store);
@@ -160,7 +161,7 @@ export class ListTemplatesComponent {
   colorOptions = ['Red', 'Blue', 'Green', 'Yellow'];
   selectedColors: string[] = [];
 
-   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 5;
   totalItems = 0;
 
@@ -179,7 +180,7 @@ export class ListTemplatesComponent {
         <td>[[item_sgst]]</td>
         <td>[[item_amount]]</td>
       </tr>`;
-  
+
     const filledItems = sampleInvoice.items.map(item =>
       itemRowTemplate
         .replace('[[item_name]]', item.name)
@@ -189,11 +190,11 @@ export class ListTemplatesComponent {
         .replace('[[item_sgst]]', item.tax2Amount.toFixed(2))
         .replace('[[item_amount]]', item.grandTotal.toFixed(2))
     ).join('');
-  
+
     // Replace the entire block from [[items_start]] to [[items_end]]
     const itemsRegex = /\[\[items_start\]\][\s\S]*?\[\[items_end\]\]/;
     const htmlWithItems = html.replace(itemsRegex, filledItems);
-  
+
     const nSafeHtml = htmlWithItems
       .replace('[[invoice_number]]', sampleInvoice.number)
       .replace('[[invoice_date]]', sampleInvoice.date.toLocaleDateString())
@@ -210,7 +211,7 @@ export class ListTemplatesComponent {
       .replace('[[tax_amount]]', sampleInvoice.taxTotal.toFixed(2))
       .replace('[[grand_total]]', sampleInvoice.grandTotal.toFixed(2))
       .replace('[[mail_logo_src]]', sampleInvoice.organization.name || '');
-      const wrapperStyle = `
+    const wrapperStyle = `
       <style>
         html, body {
           margin: 0;
@@ -247,7 +248,7 @@ export class ListTemplatesComponent {
     });
 
     this.store.select(selectPaginatedTemplateItems).subscribe((templates) => {
-      const tmpls:TemplateItem[] = [];
+      const tmpls: TemplateItem[] = [];
       templates.forEach(async (item) => {
         const template = await firstValueFrom(this.http.get(item.path, { responseType: 'text' }));
         const html = this.fillTemplate(template);
@@ -264,7 +265,7 @@ export class ListTemplatesComponent {
     });
   }
 
-   ngAfterViewInit() {
+  ngAfterViewInit() {
     if (this.paginator) {
       this.paginator.page.subscribe((event: PageEvent) => {
         this.itemsPerPage = event.pageSize;
@@ -272,7 +273,7 @@ export class ListTemplatesComponent {
       });
     }
   }
-  
+
   private fetchAndSanitizeHtml(path: string): void {
     this.http.get(path, { responseType: 'text' }).subscribe({
       next: (html: string) => {
@@ -337,13 +338,16 @@ export class ListTemplatesComponent {
     this.paginatedTemplates = this.filteredTemplates.slice(start, end);
   }
 
-   clearFilters() {
-  this.filterText = '';
-  this.selectedTaxTypes = [];
-  this.selectedColors = [];
-  this.applyFilter();
-  if (this.paginator) {
-    this.paginator.firstPage();
+  clearFilters() {
+    this.filterText = '';
+    this.selectedTaxTypes = [];
+    this.selectedColors = [];
+    this.applyFilter();
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
   }
-}
+  dummyAction(action: string, item: TemplateItem) {
+    console.log(`${action.toUpperCase()} clicked for ${item.name}`);
+  }
 }
