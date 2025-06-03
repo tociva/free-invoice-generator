@@ -347,7 +347,38 @@ export class ListTemplatesComponent {
       this.paginator.firstPage();
     }
   }
-  dummyAction(action: string, item: TemplateItem) {
-    console.log(`${action.toUpperCase()} clicked for ${item.name}`);
+  buttonAction(action: string, item: TemplateItem) {
+  const htmlContent = item.html as string;
+
+  if (!htmlContent) {
+    console.error('No HTML content available for', item.name);
+    return;
   }
+
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+
+  if (action === 'download') {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${item.name}.html`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } else if (action === 'print') {
+    const printWindow = window.open('', '_blank');
+    printWindow?.document.write(htmlContent);
+    printWindow?.document.close();
+    printWindow?.focus();
+    setTimeout(() => {
+      printWindow?.print();
+      printWindow?.close();
+    }, 500);
+  } else if (action === 'preview') {
+    const previewWindow = window.open('', '_blank');
+    previewWindow?.document.write(htmlContent);
+    previewWindow?.document.close();
+    previewWindow?.focus();
+  }
+}
+
 }
