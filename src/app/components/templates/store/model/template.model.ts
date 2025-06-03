@@ -5,6 +5,8 @@ export interface TemplateItem {
   path: string;
   taxType?: 'IGST' | 'CGST & SGST' | 'Non-Taxable';
   color: 'Red' | 'Blue'| 'Green'| 'Yellow';
+  html: SafeHtml;
+  template: string;
 }
 
 export interface Template {
