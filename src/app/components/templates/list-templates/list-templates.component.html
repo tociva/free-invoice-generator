@@ -33,12 +33,12 @@
           <span class="template-name">{{ item.name }}</span>
 
           <div class="template-actions">
-            <button mat-icon-button class="icon-button" matTooltip="Download" (click)="downloadTemplateAsPDF(item)">
-              <mat-icon>download</mat-icon>
+            <button mat-icon-button class="icon-button" matTooltip="Download PDF" (click)="downloadTemplateAsPDF(item)">
+              <mat-icon>picture_as_pdf</mat-icon>
             </button>
 
-            <button mat-icon-button class="icon-button" matTooltip="Print" (click)="printTemplate(item)">
-              <mat-icon>print</mat-icon>
+            <button mat-icon-button class="icon-button" matTooltip="Download (was print)" (click)="downloadTemplateAsHTML(item)">
+              <mat-icon>download</mat-icon>
             </button>
 
             <button mat-icon-button class="icon-button" matTooltip="Preview" (click)="previewTemplate(item)">
@@ -46,10 +46,11 @@
             </button>
           </div>
 
+
         </div>
 
         <div class="invoice-preview-container">
-          <iframe [attr.srcdoc]="item.html" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
+          <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
             width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;">
           </iframe>
         </div>
