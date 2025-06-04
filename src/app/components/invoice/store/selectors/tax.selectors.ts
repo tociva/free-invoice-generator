@@ -5,12 +5,12 @@ export const selectTaxFeature = createFeatureSelector<TaxState>('tax');
 
 export const selectAllTaxes = createSelector(
   selectTaxFeature,
-  state => state.taxes
+  (state) => state.taxes
 );
 
 export const selectSelectedTax = createSelector(
   selectTaxFeature,
-  state => state.selectedTax
+  (state) => state.selectedTax
 );
 
 export const selectTaxError = createSelector(

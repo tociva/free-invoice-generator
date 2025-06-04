@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as InvoiceAction from '../actions/invoice.action'
+import * as InvoiceAction from '../actions/invoice.action';
 import { initialInvoiceState } from '../state/invoice.state';
 import { currencyToFixedNumber, formatItemValues, reCalculateInvoice } from '../../../../../util/invoice.util';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../../util/constants';
@@ -8,7 +8,7 @@ export const invoiceReducer = createReducer(
 
   on(InvoiceAction.loadInvoice, (state, { invoice }) => ({
     ...state,
-    invoice: invoice
+    invoice
   })),
 
   on(InvoiceAction.setOrganizationCountry, (state, { country }) => ({
@@ -50,7 +50,7 @@ export const invoiceReducer = createReducer(
   on(InvoiceAction.updateInvoiceItem, (state, { index, item: itemNew }) => {
 
     const decimalPlaces = state.invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
-    const updatedItems = state.invoice.items.map((itmOld, idx) =>{
+    const updatedItems = state.invoice.items.map((itmOld, idx) => {
       if(idx === index) {
         const nItem = {...itmOld, ...itemNew};
         if(nItem.quantity === 0) {
@@ -74,7 +74,7 @@ export const invoiceReducer = createReducer(
       return {
       ...state,
       invoice: { ...state.invoice, roundOff: nRoundOff, grandTotal }
-    }}
+    };}
   ),
   on(InvoiceAction.setInvoiceDate, (state, { date }) => ({
     ...state,

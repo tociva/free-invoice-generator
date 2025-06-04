@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AgGridModule } from 'ag-grid-angular';
 import { GetRowIdParams, GridOptions } from 'ag-grid-community';
@@ -17,7 +17,7 @@ import { CreateInvoiceOrganizationComponent } from './create-invoice-organizatio
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.scss'
 })
-export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent {
+export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent implements OnInit {
   showDiscount = false;
   showSummary = false;
 

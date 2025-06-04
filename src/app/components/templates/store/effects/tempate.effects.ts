@@ -17,10 +17,10 @@ export class TemplateEffects {
       mergeMap(() =>
         this.http.get<Template[]>('/invoice-templates/templates.json').pipe(
           map((templates: Template[]) => {
-            const templateItems = templates.flatMap(template => template.items);
+            const templateItems = templates.flatMap((template) => template.items);
             return TemplateActions.loadTemplatesSuccess({ templates, templateItems });
           }),
-          catchError(error =>
+          catchError((error) =>
             of(TemplateActions.loadTemplatesFailure({ error: error.message }))
           )
         )

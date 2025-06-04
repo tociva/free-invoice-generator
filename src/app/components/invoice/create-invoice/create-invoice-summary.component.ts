@@ -1,13 +1,13 @@
-import { inject } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { ColDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from "ag-grid-community";
-import { FormColumnDef } from "../../../../util/form-column-def.type";
-import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
-import { selectInvoice } from "../store/selectors/invoice.selectors";
-import { CountryState } from "../store/state/country.state";
-import { updateInvoiceSummaryRoundOff } from "../store/actions/invoice.action";
-import { DEFAULT_DECIMAL_PLACES } from "../../../../util/constants";
-import { numberToFixedDecimal } from "../../../../util/invoice.util";
+import { inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ColDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { CountryState } from '../store/state/country.state';
+import { updateInvoiceSummaryRoundOff } from '../store/actions/invoice.action';
+import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
+import { numberToFixedDecimal } from '../../../../util/invoice.util';
 
 export enum InvoiceSummaryFormItem {
   ITEM_TOTAL = 'Item Total',
