@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, ViewChild,ElementRef} from '@angular/core';
+import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,7 +18,8 @@ import { TemplateState } from '../store/state/template.state';
 import { Invoice } from '../../invoice/store/model/invoice.model';
 import { TaxOption } from '../../invoice/store/model/invoice.model';
 import { MatIconModule } from '@angular/material/icon';
-import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 
 const sampleInvoice: Invoice = {
@@ -172,7 +173,25 @@ export class ListTemplatesComponent {
     private http: HttpClient
   ) { }
 
-  private fillTemplate(html: string): SafeHtml {
+  private createSafeHtml = (html: string): SafeHtml => {
+    const wrapperStyle = `
+      <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          transform: scale(0.5);
+          transform-origin: top left;
+          width: 200%;
+          height: 200%;
+          overflow: hidden;
+        }
+      </style>
+    `;
+    const finalHtml = wrapperStyle + html;
+    return this.sanitizer.bypassSecurityTrustHtml(finalHtml);
+  };
+
+  private fillTemplate(html: string): string {
     const itemRowTemplate = `
       <tr>
         <td>[[item_name]]</td>
@@ -197,7 +216,7 @@ export class ListTemplatesComponent {
     const itemsRegex = /\[\[items_start\]\][\s\S]*?\[\[items_end\]\]/;
     const htmlWithItems = html.replace(itemsRegex, filledItems);
 
-    const nSafeHtml = htmlWithItems
+    const htmlS = htmlWithItems
       .replace('[[invoice_number]]', sampleInvoice.number)
       .replace('[[invoice_date]]', sampleInvoice.date.toLocaleDateString())
       .replace('[[payment_due_date]]', sampleInvoice.dueDate.toLocaleDateString())
@@ -213,21 +232,8 @@ export class ListTemplatesComponent {
       .replace('[[tax_amount]]', sampleInvoice.taxTotal.toFixed(2))
       .replace('[[grand_total]]', sampleInvoice.grandTotal.toFixed(2))
       .replace('[[mail_logo_src]]', sampleInvoice.organization.name || '');
-    const wrapperStyle = `
-      <style>
-        html, body {
-          margin: 0;
-          padding: 0;
-          transform: scale(0.5);
-          transform-origin: top left;
-          width: 200%;
-          height: 200%;
-          overflow: hidden;
-        }
-      </style>
-    `;
-    const finalHtml = wrapperStyle + nSafeHtml;
-    return this.sanitizer.bypassSecurityTrustHtml(finalHtml);
+    return htmlS;
+
   }
 
   ngOnInit() {
@@ -254,10 +260,12 @@ export class ListTemplatesComponent {
       templates.forEach(async (item) => {
         const template = await firstValueFrom(this.http.get(item.path, { responseType: 'text' }));
         const html = this.fillTemplate(template);
+        const safeHTML = this.createSafeHtml(html);
         tmpls.push({
           name: item.name,
           path: item.path,
           html,
+          safeHTML,
           template,
           taxType: item.taxType,
           color: item.color
@@ -349,34 +357,65 @@ export class ListTemplatesComponent {
       this.paginator.firstPage();
     }
   }
-   downloadTemplateAsPDF(item: any): void {
-    const iframe = document.querySelector(`iframe[title="${item.name}"]`) as HTMLIFrameElement;
-    if (!iframe || !iframe.contentDocument) return;
+  downloadTemplateAsPDF(item: TemplateItem): void {
+    const container = document.createElement('div');
+    container.innerHTML = item.html;
+    container.style.position = 'fixed';
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '800px';
+    container.style.padding = '20px';
+    container.style.background = 'white';
+    container.style.zIndex = '-1';
+    document.body.appendChild(container);
 
-    const iframeContent = iframe.contentDocument.body;
-    const element = iframeContent.cloneNode(true) as HTMLElement;
+    html2canvas(container, {
+      scale: 2,
+      useCORS: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const pdf = new jsPDF('p', 'mm', 'a4');
 
-    const opt = {
-      margin: 0.5,
-      filename: `${item.name}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
 
-    setTimeout(() => {
-      html2pdf().from(element).set(opt).save();
-    }, 0);
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let position = 0;
+      let heightLeft = imgHeight;
+
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save(`${item.name}.pdf`);
+      document.body.removeChild(container);
+    }).catch(err => {
+      console.error('Error generating PDF:', err);
+      document.body.removeChild(container);
+    });
   }
 
-  printTemplate(item: any): void {
-    const iframe = document.querySelector(`iframe[title="${item.name}"]`) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.print();
-    }
+  downloadTemplateAsHTML(item: TemplateItem): void {
+    const blob = new Blob([item.template], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${item.name}.html`;
+    a.click();
+
+    URL.revokeObjectURL(url);
   }
 
-  previewTemplate(item: any): void {
+  previewTemplate(item: TemplateItem): void {
     const win = window.open('', '_blank');
     win?.document.write(item.html);
     win?.document.close();
