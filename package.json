@@ -2,7 +2,8 @@
   "name": "free-invoice-generator",
   "version": "0.0.0",
   "engines": {
-    "node": "22.x"
+    "node": "22.x",
+    "yarn": "^4.0.0"
   },
   "scripts": {
     "ng": "ng",
@@ -49,5 +50,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "8.33.1"
-  }
+  },
+  "packageManager": "yarn@4.9.2"
 }
