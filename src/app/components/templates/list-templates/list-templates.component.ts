@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild,ElementRef} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +18,8 @@ import { TemplateState } from '../store/state/template.state';
 import { Invoice } from '../../invoice/store/model/invoice.model';
 import { TaxOption } from '../../invoice/store/model/invoice.model';
 import { MatIconModule } from '@angular/material/icon';
+import html2pdf from 'html2pdf.js';
+
 
 const sampleInvoice: Invoice = {
   number: 'INV-AB-001',
@@ -347,38 +349,36 @@ export class ListTemplatesComponent {
       this.paginator.firstPage();
     }
   }
-  buttonAction(action: string, item: TemplateItem) {
-  const htmlContent = item.html as string;
+   downloadTemplateAsPDF(item: any): void {
+    const iframe = document.querySelector(`iframe[title="${item.name}"]`) as HTMLIFrameElement;
+    if (!iframe || !iframe.contentDocument) return;
 
-  if (!htmlContent) {
-    console.error('No HTML content available for', item.name);
-    return;
-  }
+    const iframeContent = iframe.contentDocument.body;
+    const element = iframeContent.cloneNode(true) as HTMLElement;
 
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
+    const opt = {
+      margin: 0.5,
+      filename: `${item.name}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
 
-  if (action === 'download') {
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${item.name}.html`;
-    a.click();
-    URL.revokeObjectURL(url);
-  } else if (action === 'print') {
-    const printWindow = window.open('', '_blank');
-    printWindow?.document.write(htmlContent);
-    printWindow?.document.close();
-    printWindow?.focus();
     setTimeout(() => {
-      printWindow?.print();
-      printWindow?.close();
-    }, 500);
-  } else if (action === 'preview') {
-    const previewWindow = window.open('', '_blank');
-    previewWindow?.document.write(htmlContent);
-    previewWindow?.document.close();
-    previewWindow?.focus();
+      html2pdf().from(element).set(opt).save();
+    }, 0);
   }
-}
 
+  printTemplate(item: any): void {
+    const iframe = document.querySelector(`iframe[title="${item.name}"]`) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.print();
+    }
+  }
+
+  previewTemplate(item: any): void {
+    const win = window.open('', '_blank');
+    win?.document.write(item.html);
+    win?.document.close();
+  }
 }
