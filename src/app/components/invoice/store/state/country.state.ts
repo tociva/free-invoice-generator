@@ -7,6 +7,6 @@ export interface CountryState {
 }
 
 export const initialCountryState: CountryState = {
-  countries: countries,
+  countries,
   error: null
 };

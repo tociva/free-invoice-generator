@@ -1,4 +1,4 @@
-import { TaxOption } from "../model/invoice.model";
+import { TaxOption } from '../model/invoice.model';
 
 export interface TaxState {
   taxes: string[];

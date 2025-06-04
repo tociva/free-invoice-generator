@@ -20,7 +20,7 @@ export class CountryEffects {
           map((countries: Country[]) =>
             CountryActions.loadCountriesSuccess({ countries })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(CountryActions.loadCountriesFailure({ error: error.message }))
           )
         );

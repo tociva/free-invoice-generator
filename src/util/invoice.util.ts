@@ -1,5 +1,5 @@
-import { Invoice, InvoiceItem } from "../app/components/invoice/store/model/invoice.model";
-import { DEFAULT_DECIMAL_PLACES } from "./constants";
+import { Invoice, InvoiceItem } from '../app/components/invoice/store/model/invoice.model';
+import { DEFAULT_DECIMAL_PLACES } from './constants';
 
 
 export const numberToFixedDecimal = (num: number, decimal: number): string => {
@@ -49,12 +49,12 @@ export const formatItemValues = (item: InvoiceItem, decimalPlaces: number): Invo
     tax3Amount: nTax3Amount,
     taxTotal: nTaxTotal,
     grandTotal: nGrandTotal
-  }
-}
+  };
+};
 
 export const reCalculateInvoice = (invoice: Invoice):Invoice => {
     const { items } = invoice;
-    const itemsTemp:Array<InvoiceItem> = [];
+    const itemsTemp:InvoiceItem[] = [];
     let invItemTotal = 0;
     let invDiscountTotal = 0;
     let invSubTotal = 0;
@@ -75,13 +75,13 @@ export const reCalculateInvoice = (invoice: Invoice):Invoice => {
       invDiscountTotal += discountAmount;
       invSubTotal += subTotal;
       invTaxTotal += taxTotal;
-    })
+    });
     const grandTotal = invSubTotal + invTaxTotal + (invoice.roundOff ?? 0);
-    const nInvoice =  { ...invoice, items: itemsTemp, 
+    const nInvoice = { ...invoice, items: itemsTemp, 
       itemTotal: currencyToFixedNumber(invItemTotal, decimalPlaces), 
       discountTotal: currencyToFixedNumber(invDiscountTotal, decimalPlaces), 
       subTotal: currencyToFixedNumber(invSubTotal, decimalPlaces), 
       taxTotal: currencyToFixedNumber(invTaxTotal, decimalPlaces), 
       grandTotal: currencyToFixedNumber(grandTotal, decimalPlaces) };
     return nInvoice;
-}
+};

@@ -23,7 +23,7 @@ interface NgGridAutoCompleteInput<T> {
 })
 export class AutoCompleteEditorComponent<T> implements ICellEditorAngularComp {
   
-  autoControl = new FormControl<T>(<T>null);
+  autoControl = new FormControl<T>((null as T));
 
   optionsObservable$!: Observable<T[]>;
 

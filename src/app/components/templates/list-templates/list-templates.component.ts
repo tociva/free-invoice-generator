@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, inject, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -138,7 +138,7 @@ const sampleInvoice: Invoice = {
   roundOff: 0,
   grandTotal: 354,
   grandTotalInWords: 'One Hundred Eighteen Only'
-}
+};
 @Component({
   selector: 'app-list-templates',
   templateUrl: './list-templates.component.html',
@@ -150,7 +150,7 @@ const sampleInvoice: Invoice = {
     MatButtonModule, MatCardModule, MatIconModule
   ]
 })
-export class ListTemplatesComponent {
+export class ListTemplatesComponent implements OnInit, AfterViewInit {
   private store = inject<Store<TemplateState>>(Store);
   templates: TemplateItem[] = [];
   filteredTemplates: TemplateItem[] = [];
@@ -202,7 +202,7 @@ export class ListTemplatesComponent {
         <td>[[item_amount]]</td>
       </tr>`;
 
-    const filledItems = sampleInvoice.items.map(item =>
+    const filledItems = sampleInvoice.items.map((item) =>
       itemRowTemplate
         .replace('[[item_name]]', item.name)
         .replace('[[item_quantity]]', item.quantity.toString())
@@ -317,20 +317,20 @@ export class ListTemplatesComponent {
 
   toggleTaxType(type: string) {
     const index = this.selectedTaxTypes.indexOf(type);
-    if (index > -1) this.selectedTaxTypes.splice(index, 1);
-    else this.selectedTaxTypes.push(type);
+    if (index > -1) {this.selectedTaxTypes.splice(index, 1);}
+    else {this.selectedTaxTypes.push(type);}
     this.applyFilter();
   }
 
   toggleColor(color: string) {
     const index = this.selectedColors.indexOf(color);
-    if (index > -1) this.selectedColors.splice(index, 1);
-    else this.selectedColors.push(color);
+    if (index > -1) {this.selectedColors.splice(index, 1);}
+    else {this.selectedColors.push(color);}
     this.applyFilter();
   }
   applyFilter() {
     const lowerFilter = this.filterText.toLowerCase().trim();
-    this.filteredTemplates = this.templates.filter(item => {
+    this.filteredTemplates = this.templates.filter((item) => {
       const matchesText = item.name.toLowerCase().includes(lowerFilter);
       const matchesTax = this.selectedTaxTypes.length === 0 || this.selectedTaxTypes.includes(item.taxType || '');
       const matchesColor = this.selectedColors.length === 0 || this.selectedColors.includes(item.color || '');
@@ -339,7 +339,7 @@ export class ListTemplatesComponent {
 
     this.totalItems = this.filteredTemplates.length;
     this.updatePaginatedTemplates(0);
-    if (this.paginator) this.paginator.firstPage();
+    if (this.paginator) {this.paginator.firstPage();}
   }
 
   updatePaginatedTemplates(pageIndex: number) {
@@ -372,7 +372,7 @@ export class ListTemplatesComponent {
     html2canvas(container, {
       scale: 2,
       useCORS: true
-    }).then(canvas => {
+    }).then((canvas) => {
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       const pdf = new jsPDF('p', 'mm', 'a4');
 
@@ -397,7 +397,7 @@ export class ListTemplatesComponent {
 
       pdf.save(`${item.name}.pdf`);
       document.body.removeChild(container);
-    }).catch(err => {
+    })['catch']((err) => {
       console.error('Error generating PDF:', err);
       document.body.removeChild(container);
     });

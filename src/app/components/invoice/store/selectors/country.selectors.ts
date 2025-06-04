@@ -5,10 +5,10 @@ export const selectCountryFeature = createFeatureSelector<CountryState>('country
 
 export const selectAllCountries = createSelector(
   selectCountryFeature,
-  state => state.countries
+  (state) => state.countries
 );
 
 export const selectCountryError = createSelector(
   selectCountryFeature,
-  state => state.error
+  (state) => state.error
 );

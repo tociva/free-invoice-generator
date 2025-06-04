@@ -15,16 +15,16 @@ export class DateFormatEffects {
       ofType(DateFormatActions.loadDateFormats),
       mergeMap(() => {
         // Simulate a delay for API call
-        const dateFormatsAll = countries.map(country => country.dateformat);
+        const dateFormatsAll = countries.map((country) => country.dateformat);
         const dateFormats = Array.from(
-          new Map(dateFormatsAll.map(c => [c.name, c])).values()
+          new Map(dateFormatsAll.map((c) => [c.name, c])).values()
         );
         return of(dateFormats).pipe(
           delay(500), // Simulated delay
           map((dateFormats: DateFormat[]) =>
             DateFormatActions.loadDateFormatsSuccess({ dateFormats })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(DateFormatActions.loadDateFormatsFailure({ error: error.message }))
           )
         );

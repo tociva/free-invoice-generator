@@ -15,16 +15,16 @@ export class CurrencyEffects {
       ofType(CurrencyActions.loadCurrencies),
       mergeMap(() => {
         // Simulate a delay for API call
-        const currenciesAll = countries.map(country => country.currency);
+        const currenciesAll = countries.map((country) => country.currency);
         const currencies = Array.from(
-          new Map(currenciesAll.map(c => [c.name, c])).values()
+          new Map(currenciesAll.map((c) => [c.name, c])).values()
         );
         return of(currencies).pipe(
           delay(500), // Simulated delay
           map((currencies: Currency[]) =>
             CurrencyActions.loadCurrenciesSuccess({ currencies })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(CurrencyActions.loadCurrenciesFailure({ error: error.message }))
           )
         );

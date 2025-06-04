@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GetRowIdParams, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from "ag-grid-community";
+import { ColDef, ColGroupDef, GetRowIdParams, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/actions/invoice.action';
 import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CreateInvoiceSummaryComponent } from "./create-invoice-summary.component";
+import { CreateInvoiceSummaryComponent } from './create-invoice-summary.component';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
 import { currencyToFixedNumber, numberToFixedDecimal } from '../../../../util/invoice.util';
 
@@ -38,14 +38,14 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const { oldValue, data } = params;
-    if (oldValue.trim().length) return;
+    if (oldValue.trim().length) {return;}
     this.store.dispatch(addInvoiceItem({ item: data }));
-  }
+  };
 
   private handleItemCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const rowIndex = params.node?.rowIndex ?? 0;
     this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: params.data }));
-  }
+  };
 
   private createItemLabelStringColumn(field: keyof InvoiceItem, headerName: string, placeholder = '', width?: number, onCellValueChanged?: (event: any) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
     return {
@@ -112,7 +112,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
   }
 
   private createItemsColumnDefs(invoice: Invoice): void {
-    const itemsColumnDefsTemp: Array<ColGroupDef<InvoiceItemWithAction>> = [];
+    const itemsColumnDefsTemp: ColGroupDef<InvoiceItemWithAction>[] = [];
 
     // Define group classes
     const itemDetailsGroupClass = 'item-details-group';
@@ -236,7 +236,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       const existingData = [];
       for (let i = 0; i < allRows; i++) {
         const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(i);
-        if (rowNode?.data) existingData.push(rowNode.data);
+        if (rowNode?.data) {existingData.push(rowNode.data);}
       }
       this.itemsGridApi.applyTransaction({ remove: existingData, add: itemsRowData });
       this.itemsGridApi.sizeColumnsToFit();

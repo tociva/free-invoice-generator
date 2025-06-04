@@ -1,22 +1,22 @@
-import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from "ag-grid-community";
+import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import dayjs from 'dayjs';
-import { map, Observable } from "rxjs";
-import { OPTIONS_COUNT } from "../../../../util/constants";
-import { displayAutoCompleteWithName } from "../../../../util/daybook.util";
-import { FormColumnDef } from "../../../../util/form-column-def.type";
-import { AutoCompleteEditorComponent } from "../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component";
-import { DatePickerEditorComponent } from "../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component";
-import { CheckboxColumnRendererComponent } from "../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component";
-import { LabelColumnRendererComponent } from "../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component";
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from "../store/actions/invoice.action";
-import { Currency } from "../store/model/currency.model";
-import { DateFormat } from "../store/model/date-format.model";
-import { TaxOption } from "../store/model/invoice.model";
-import { selectAllCurrencies } from "../store/selectors/currency.selectors";
-import { selectAllDateFormats } from "../store/selectors/date-format.selectors";
-import { selectInvoice } from "../store/selectors/invoice.selectors";
-import { selectAllTaxes } from "../store/selectors/tax.selectors";
-import { CreateInvoiceItemsComponent } from "./create-invoice-items.component";
+import { map, Observable } from 'rxjs';
+import { OPTIONS_COUNT } from '../../../../util/constants';
+import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
+import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
+import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { Currency } from '../store/model/currency.model';
+import { DateFormat } from '../store/model/date-format.model';
+import { TaxOption } from '../store/model/invoice.model';
+import { selectAllCurrencies } from '../store/selectors/currency.selectors';
+import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { selectAllTaxes } from '../store/selectors/tax.selectors';
+import { CreateInvoiceItemsComponent } from './create-invoice-items.component';
 
 
 export enum InvoiceDetailsFormItem {
@@ -82,7 +82,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
           return taxes;
         }
         const filterVal = val.toLowerCase();
-        return taxes.filter(option => option.toLowerCase().indexOf(filterVal) !== -1);
+        return taxes.filter((option) => option.toLowerCase().indexOf(filterVal) !== -1);
       })
     );
   };

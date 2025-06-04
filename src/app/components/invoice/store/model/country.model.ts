@@ -1,5 +1,5 @@
-import { Currency } from "./currency.model";
-import { DateFormat } from "./date-format.model";
+import { Currency } from './currency.model';
+import { DateFormat } from './date-format.model';
 
   export interface Country {
     name: string;

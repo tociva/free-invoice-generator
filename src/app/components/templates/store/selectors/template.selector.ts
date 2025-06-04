@@ -5,12 +5,12 @@ export const selectTemplateFeature = createFeatureSelector<TemplateState>('templ
 
 export const selectAllTemplates = createSelector(
   selectTemplateFeature,
-  state => state.templates
+  (state) => state.templates
 );
 
 export const selectTemplateError = createSelector(
   selectTemplateFeature,
-  state => state.error
+  (state) => state.error
 );
 
 export const selectTemplateItems = createSelector(
@@ -20,17 +20,17 @@ export const selectTemplateItems = createSelector(
 
 export const selectCurrentPage = createSelector(
   selectTemplateFeature,
-  state => state.currentPage
+  (state) => state.currentPage
 );
 
 export const selectPageSize = createSelector(
   selectTemplateFeature,
-  state => state.pageSize
+  (state) => state.pageSize
 );
 
 export const selectTotalCount = createSelector(
   selectTemplateFeature,
-  state => state.totalCount
+  (state) => state.totalCount
 );
 
 export const selectPaginatedTemplateItems = createSelector(
