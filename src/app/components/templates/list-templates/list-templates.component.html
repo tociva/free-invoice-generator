@@ -8,12 +8,16 @@
 
     <h4>Tax Option</h4>
     <div *ngFor="let tax of taxOptions">
-      <mat-checkbox [checked]="selectedTaxTypes.includes(tax)" (change)="toggleTaxType(tax)">{{ tax }}</mat-checkbox>
+      <mat-checkbox [checked]="selectedTaxTypes.includes(tax)" (change)="toggleTaxType(tax)">
+        {{ tax }}
+      </mat-checkbox>
     </div>
 
     <h4>Color Option</h4>
     <div *ngFor="let color of colorOptions">
-      <mat-checkbox [checked]="selectedColors.includes(color)" (change)="toggleColor(color)">{{ color }}</mat-checkbox>
+      <mat-checkbox [checked]="selectedColors.includes(color)" (change)="toggleColor(color)">
+        {{ color }}
+      </mat-checkbox>
     </div>
 
     <a class="clear-filters-link" (click)="clearFilters()">Clear Filters</a>
@@ -23,20 +27,28 @@
 
     <div class="iframe-grid">
       <div *ngFor="let item of templates" class="template-container">
-        <h4>{{ item.name }}</h4>
 
-        <div class="invoice-preview-container">
-          <div class="template-actions-overlay">
-            <button mat-icon-button color="primary" (click)="buttonAction('download', item)">
+        <!-- ✅ Template Header: Name on LEFT, buttons on RIGHT -->
+        <div class="template-header">
+          <span class="template-name">{{ item.name }}</span>
+
+          <div class="template-actions">
+            <button mat-icon-button class="icon-button" matTooltip="Download" (click)="downloadTemplateAsPDF(item)">
               <mat-icon>download</mat-icon>
             </button>
-            <button mat-icon-button color="accent" (click)="buttonAction('print', item)">
+
+            <button mat-icon-button class="icon-button" matTooltip="Print" (click)="printTemplate(item)">
               <mat-icon>print</mat-icon>
             </button>
-             <button mat-icon-button color="warn" (click)="buttonAction('preview', item)">
-          <mat-icon>visibility</mat-icon>
-        </button>
+
+            <button mat-icon-button class="icon-button" matTooltip="Preview" (click)="previewTemplate(item)">
+              <mat-icon>visibility</mat-icon>
+            </button>
           </div>
+
+        </div>
+
+        <div class="invoice-preview-container">
           <iframe [attr.srcdoc]="item.html" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
             width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;">
           </iframe>
@@ -44,9 +56,9 @@
       </div>
     </div>
 
-
     <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
       color="primary">
     </mat-paginator>
+
   </div>
 </div>
