@@ -26,6 +26,7 @@ export class CheckboxColumnRendererComponent implements ICellRendererAngularComp
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   refresh(): boolean {
     return false;
   }

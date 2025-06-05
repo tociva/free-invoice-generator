@@ -16,7 +16,7 @@ interface IconColumnParam {
   templateUrl: './icon-column-renderer.component.html',
   styleUrl: './icon-column-renderer.component.scss'
 })
-export class IconColumnRendererComponent implements ICellRendererAngularComp{
+export class IconColumnRendererComponent implements ICellRendererAngularComp {
   
   icon!: string;
 
