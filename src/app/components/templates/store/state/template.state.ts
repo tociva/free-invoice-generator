@@ -1,5 +1,4 @@
-import { SafeHtml } from "@angular/platform-browser";
-import { Template, TemplateItem } from "../model/template.model";
+import { Template, TemplateItem } from '../model/template.model';
 
 export interface TemplateState {
   templates: Template[];

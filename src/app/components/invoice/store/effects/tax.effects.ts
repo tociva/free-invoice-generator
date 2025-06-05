@@ -19,7 +19,7 @@ export class TaxEffects {
           map((taxes: string[]) =>
             TaxActions.loadTaxesSuccess({ taxes })
           ),
-          catchError(error =>
+          catchError((error) =>
             of(TaxActions.loadTaxesFailure({ error: error.message }))
           )
         );
