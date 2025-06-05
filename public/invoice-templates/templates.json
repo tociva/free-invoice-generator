@@ -39,7 +39,7 @@
             {
                 "name": "Royal Blue Non Taxable",
                 "path": "invoice-templates/blue/royal-blue/blue-invoice-non-taxable.html",
-                "tags": ["simple","non-taxable", "scarlet", "red"]
+                "tags": ["simple","non-taxable", "royal-blue", "blue"]
             }
         ]
     },

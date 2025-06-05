@@ -1,4 +1,4 @@
-import { Invoice, TaxOption } from "../../invoice/store/model/invoice.model";
+import { Invoice, TaxOption } from '../../invoice/store/model/invoice.model';
 
 export const sampleInvoice: Invoice = {
   number: 'INV-AB-001',

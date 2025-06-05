@@ -1,11 +1,9 @@
 <div class="layout-container">
-
-  <mat-card class="filter-panel">
-    
+  <div class="content-area">
     <form>
-      <mat-form-field class="example-chip-list" appearance="outline">
+      <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
         <mat-label>Tags</mat-label>
-    
+
         <mat-chip-grid #chipGrid aria-label="Tag selection">
           <!-- Display selected tags from the store -->
           <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
@@ -15,16 +13,11 @@
             </button>
           </mat-chip-row>
         </mat-chip-grid>
-    
-        <input
-          placeholder="Add a tag"
-          #tagInput
-          [matChipInputFor]="chipGrid"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matAutocomplete]="auto"
-          (matChipInputTokenEnd)="addTag($event)"
-        />
-    
+
+        <input placeholder="Add a tag" #tagInput [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addTag($event)" />
+
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
           <!-- Show tags for autocomplete from the store -->
           <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
@@ -33,36 +26,6 @@
         </mat-autocomplete>
       </mat-form-field>
     </form>
-    
-
-    
-    <mat-form-field appearance="fill" class="filter-input">
-      <mat-label>Search by name</mat-label>
-      <input matInput [(ngModel)]="filterText" (ngModelChange)="onFilterInput($event)" />
-    </mat-form-field>
-
-    <h4>Tax Option</h4>
-    <div *ngFor="let tax of taxOptions">
-      <mat-checkbox [checked]="selectedTaxTypes.includes(tax)" (change)="toggleTaxType(tax)">
-        {{ tax }}
-      </mat-checkbox>
-    </div>
-
-    <h4>Color Option</h4>
-    <div *ngFor="let color of colorOptions">
-      <mat-checkbox [checked]="selectedColors.includes(color)" (change)="toggleColor(color)">
-        {{ color }}
-      </mat-checkbox>
-    </div>
-
-    <a role="button" tabindex="0" (click)="clearFilters()" (keydown.enter)="clearFilters()"
-      (keydown.space)="clearFilters()" class="clear-filters-link">
-      Clear Filters
-    </a>
-
-  </mat-card>
-
-  <div class="content-area">
 
     <div class="iframe-grid">
       <div *ngFor="let item of templates" class="template-container">
@@ -85,8 +48,6 @@
               <mat-icon>visibility</mat-icon>
             </button>
           </div>
-
-
         </div>
 
         <div class="invoice-preview-container">
@@ -100,6 +61,5 @@
     <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
       color="primary">
     </mat-paginator>
-
   </div>
 </div>

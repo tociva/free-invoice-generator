@@ -13,8 +13,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { debounceTime, firstValueFrom, Observable, Subject } from 'rxjs';
-import { loadTemplates, setPagination } from '../store/actions/template.actions';
+import { firstValueFrom, Observable } from 'rxjs';
+import { loadTemplates, setPagination, addSearchTag, removeSearchTag} from '../store/actions/template.actions';
 import { TemplateItem } from '../store/model/template.model';
 import { selectPageSize, selectPaginatedTemplateItems, selectSearchTags, selectTotalCount } from '../store/selectors/template.selector';
 import { TemplateState } from '../store/state/template.state';
@@ -23,7 +23,6 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { selectTags } from '../store/selectors/tag.selectors';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { addSearchTag, removeSearchTag, clearSearchTags } from '../store/actions/template.actions';
 
 
 @Component({
@@ -50,12 +49,7 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
   templates: TemplateItem[] = [];
 
 
-  filterText = '';
-  filterSubject = new Subject<string>();
-  selectedTaxTypes: string[] = [];
-  taxOptions = ['IGST', 'CGST & SGST', 'Non-Taxable'];
-  colorOptions = ['Red', 'Blue', 'Green', 'Yellow'];
-  selectedColors: string[] = [];
+ 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 10;
@@ -134,11 +128,11 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.store.dispatch(loadTemplates());
   
-    this.store.select(selectPageSize).subscribe(pageSize => {
+    this.store.select(selectPageSize).subscribe((pageSize) => {
       this.itemsPerPage = pageSize;
     });
   
-    this.store.select(selectTotalCount).subscribe(totalCount => {
+    this.store.select(selectTotalCount).subscribe((totalCount) => {
       this.totalItems = totalCount;
     });
   
@@ -168,9 +162,6 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
       this.templates = tmpls;
     });
   
-    this.filterSubject.pipe(debounceTime(300)).subscribe((text) => {
-      this.filterText = text;
-    });
   
     // TAGS
     this.tags$ = this.store.select(selectTags);
@@ -214,67 +205,52 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
     return this.sanitizer.bypassSecurityTrustHtml(wrapperStyle + rawHtml);
   }
 
-  onFilterInput(text: string) {
-    this.filterSubject.next(text);
-  }
-
-  toggleTaxType(type: string) {
-    
-  }
-
-  toggleColor(color: string) {
-    
-  }
-
-  clearFilters() {
-    
-  }
   // eslint-disable-next-line class-methods-use-this
-  downloadTemplateAsPDF(item: TemplateItem): void {
-    const container = document.createElement('div');
-    container.innerHTML = item.html;
-    container.style.position = 'fixed';
-    container.style.top = '0';
-    container.style.left = '0';
-    container.style.width = '800px';
-    container.style.padding = '20px';
-    container.style.background = 'white';
-    container.style.zIndex = '-1';
-    document.body.appendChild(container);
+ downloadTemplateAsPDF(item: TemplateItem): void {
+  const container = document.createElement('div');
+  container.innerHTML = item.html;
+  container.style.position = 'fixed';
+  container.style.top = '0';
+  container.style.left = '0';
+  container.style.width = '800px';
+  container.style.padding = '20px';
+  container.style.background = 'white';
+  container.style.zIndex = '-1';
+  document.body.appendChild(container);
 
-    html2canvas(container, {
-      scale: 2,
-      useCORS: true
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/jpeg', 1.0);
-      const pdf = new jsPDF('p', 'mm', 'a4');
+  html2canvas(container, {
+    scale: 2,
+    useCORS: true
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
 
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-      const imgWidth = pageWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      let position = 0;
-      let heightLeft = imgHeight;
+    let heightLeft = imgHeight;
+    let position = 0;
 
+    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft > 1) {
+      position -= pageHeight;
+      pdf.addPage();
       pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
+    }
 
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
-      pdf.save(`${item.name}.pdf`);
-      document.body.removeChild(container);
-    })['catch']((err) => {
-      console.error('Error generating PDF:', err);
-      document.body.removeChild(container);
-    });
-  }
+    pdf.save(`${item.name}.pdf`);
+    document.body.removeChild(container);
+  })['catch']((err) => {
+    console.error('Error generating PDF:', err);
+    document.body.removeChild(container);
+  });
+}
 
   // eslint-disable-next-line class-methods-use-this
   downloadTemplateAsHTML(item: TemplateItem): void {
