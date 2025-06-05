@@ -21,6 +21,9 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { selectTags } from '../store/selectors/tag.selectors';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoicePreviewDialogComponent } from '../../invoice-preview-dialog/invoice-preview-dialog.component';
+
 
 
 @Component({
@@ -55,7 +58,8 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog,
   ) {
     
    }
@@ -263,12 +267,17 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
     URL.revokeObjectURL(url);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   previewTemplate(item: TemplateItem): void {
-    const blob = new Blob([item.html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_blank');
-  }
+  this.dialog.open(InvoicePreviewDialogComponent, {
+    data: { html: item.html },
+    width: '820px',
+    height: '1150px',
+    maxWidth: '100vw',
+    panelClass: 'a4-dialog'
+  });
+}
+
 
   removeTag(tag: string) {
     this.store.dispatch(removeSearchTag({ tag }));

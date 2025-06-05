@@ -104,3 +104,9 @@ mat-paginator {
 ::ng-deep .mat-mdc-paginator-container{
   background-color: white;
 }
+::ng-deep .a4-dialog .mat-dialog-container {
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
