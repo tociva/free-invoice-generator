@@ -20,7 +20,11 @@
       </mat-checkbox>
     </div>
 
-    <a class="clear-filters-link" (click)="clearFilters()">Clear Filters</a>
+    <a role="button" tabindex="0" (click)="clearFilters()" (keydown.enter)="clearFilters()"
+      (keydown.space)="clearFilters()" class="clear-filters-link">
+      Clear Filters
+    </a>
+
   </mat-card>
 
   <div class="content-area">
@@ -37,7 +41,8 @@
               <mat-icon>picture_as_pdf</mat-icon>
             </button>
 
-            <button mat-icon-button class="icon-button" matTooltip="Download (was print)" (click)="downloadTemplateAsHTML(item)">
+            <button mat-icon-button class="icon-button" matTooltip="Download (was print)"
+              (click)="downloadTemplateAsHTML(item)">
               <mat-icon>download</mat-icon>
             </button>
 

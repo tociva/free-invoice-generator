@@ -8,21 +8,20 @@ import { countries } from './country-list';
 
 @Injectable()
 export class CurrencyEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions) { }
 
   loadCurrencies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CurrencyActions.loadCurrencies),
       mergeMap(() => {
-        // Simulate a delay for API call
         const currenciesAll = countries.map((country) => country.currency);
         const currencies = Array.from(
           new Map(currenciesAll.map((c) => [c.name, c])).values()
         );
         return of(currencies).pipe(
-          delay(500), // Simulated delay
-          map((currencies: Currency[]) =>
-            CurrencyActions.loadCurrenciesSuccess({ currencies })
+          delay(500),
+          map((result: Currency[]) =>
+            CurrencyActions.loadCurrenciesSuccess({ currencies: result })
           ),
           catchError((error) =>
             of(CurrencyActions.loadCurrenciesFailure({ error: error.message }))
@@ -31,5 +30,4 @@ export class CurrencyEffects {
       })
     )
   );
-
 }

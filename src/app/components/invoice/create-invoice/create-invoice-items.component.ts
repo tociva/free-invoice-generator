@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GetRowIdParams, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
+import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/actions/invoice.action';
 import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CreateInvoiceSummaryComponent } from './create-invoice-summary.component';
-import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
-import { currencyToFixedNumber, numberToFixedDecimal } from '../../../../util/invoice.util';
 
 type InvoiceItemWithAction = InvoiceItem & { action?: string };
 
@@ -47,7 +47,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: params.data }));
   };
 
-  private createItemLabelStringColumn(field: keyof InvoiceItem, headerName: string, placeholder = '', width?: number, onCellValueChanged?: (event: any) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
+  private static createItemLabelStringColumn(field: keyof InvoiceItem, headerName: string, placeholder = '', width?: number, onCellValueChanged?: (event: NewValueParams<InvoiceItem>) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
     return {
       field,
       headerName,
@@ -67,7 +67,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     };
   }
 
-  private createItemLabelNumberColumn(field: keyof InvoiceItem, headerName: string, editable = false, width?: number, onCellValueChanged?: (event: any) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
+  private createItemLabelNumberColumn(field: keyof InvoiceItem, headerName: string, editable = false, width?: number, onCellValueChanged?: (event: NewValueParams<InvoiceItem>) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
     return {
       field,
       headerName,
@@ -89,7 +89,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     };
   }
 
-  private createItemLabelFormatedNumberColumn(field: keyof InvoiceItem, headerName: string, editable = false, width?: number, onCellValueChanged?: (event: any) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
+  private createItemLabelFormatedNumberColumn(field: keyof InvoiceItem, headerName: string, editable = false, width?: number, onCellValueChanged?: (event: NewValueParams<InvoiceItem>) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
     return {
       field,
       headerName,
@@ -125,7 +125,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       headerName: 'Item Details',
       headerClass: itemDetailsGroupClass,
       children: [
-        this.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, ),
+        CreateInvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, ),
         this.createItemLabelFormatedNumberColumn('price', 'Price', true, this.numberCellWidth, this.handleItemCellValueChanged, ),
         this.createItemLabelNumberColumn('quantity', 'Quantity', true, this.numberCellWidth, this.handleItemCellValueChanged, ),
         this.createItemLabelFormatedNumberColumn('itemTotal', 'Item Total', false, this.numberCellWidth, this.handleItemCellValueChanged, )
@@ -136,7 +136,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemColumns.children.splice(
         1,
         0,
-        this.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleNameCellValueChanged, )
+        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleNameCellValueChanged, )
       );
     }
 

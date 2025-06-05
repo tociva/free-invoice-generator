@@ -42,7 +42,8 @@ export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent i
     this.store.dispatch(loadDateFormats());
   }
 
-  getRowId = (params: GetRowIdParams<FormColumnDef>) => {
+   // eslint-disable-next-line class-methods-use-this
+   getRowId = (params: GetRowIdParams<FormColumnDef>) => {
     const data = params?.data;
     return data?.label ?? '';
   };
