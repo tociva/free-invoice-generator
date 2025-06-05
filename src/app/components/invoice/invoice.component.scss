@@ -1,8 +1,52 @@
-
 // Stepper custom styles
 ::ng-deep .mat-horizontal-stepper-header-container {
     background-color: #ffffff !important;
 }
+
 ::ng-deep .mat-horizontal-content-container {
     background-color: #ffffff !important;
+}
+
+.stepper-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    gap: 10px;
+
+    button {
+        min-width: 100px;
+        border-radius: 8px;
+        font-weight: 500;
+        justify-content: flex-end;
+    }
+}
+
+.next-btn {
+    font-weight: 500;
+    color: white;
+    border-radius: 10%;
+    background-color: #555;
+
+}
+
+.back-btn {
+    font-weight: 500;
+    color: #555;
+    border-radius: 10%;
+}
+
+.finish-btn {
+    font-weight: 500;
+    background-color: #b4b7c4;
+    color: white;
+    border-radius: 10%;
+}
+
+.next-btnn {
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: white;
+    border-radius: 10%;
+    background-color: #555;
+    margin-left: 1660px;
 }
