@@ -33,11 +33,28 @@ export const selectTotalCount = createSelector(
   (state) => state.totalCount
 );
 
-export const selectPaginatedTemplateItems = createSelector(
+export const selectSearchTags = createSelector(
+  selectTemplateFeature,
+  (state) => state.searchTags
+);
+
+export const selectFilteredTemplateItems = createSelector(
   selectTemplateItems,
+  selectSearchTags,
+  (items, searchTags) => {
+    if (!searchTags.length) return items;
+
+    return items.filter(item =>
+      item.tags?.some(tag => searchTags.includes(tag))
+    );
+  }
+);
+
+
+export const selectPaginatedTemplateItems = createSelector(
+  selectFilteredTemplateItems,
   selectCurrentPage,
   selectPageSize,
   (items, currentPage, pageSize) =>
     items.slice(currentPage * pageSize, currentPage * pageSize + pageSize)
 );
-  

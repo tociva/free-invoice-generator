@@ -1,6 +1,41 @@
 <div class="layout-container">
 
   <mat-card class="filter-panel">
+    
+    <form>
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>Tags</mat-label>
+    
+        <mat-chip-grid #chipGrid aria-label="Tag selection">
+          <!-- Display selected tags from the store -->
+          <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
+            {{ tag }}
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+    
+        <input
+          placeholder="Add a tag"
+          #tagInput
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addTag($event)"
+        />
+    
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <!-- Show tags for autocomplete from the store -->
+          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    
+
+    
     <mat-form-field appearance="fill" class="filter-input">
       <mat-label>Search by name</mat-label>
       <input matInput [(ngModel)]="filterText" (ngModelChange)="onFilterInput($event)" />
