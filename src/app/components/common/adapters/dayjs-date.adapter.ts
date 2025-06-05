@@ -14,7 +14,7 @@ export class DayjsDateAdapter extends NativeDateAdapter {
     return dayjs(date).format(this.dateFormat);
   }
 
-  override parse(value: any): Date | null {
+  override parse(value: string | number | null | undefined): Date | null {
     const parsed = dayjs(value, this.dateFormat);
     return parsed.isValid() ? parsed.toDate() : null;
   }

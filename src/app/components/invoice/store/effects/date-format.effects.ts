@@ -21,8 +21,8 @@ export class DateFormatEffects {
         );
         return of(dateFormats).pipe(
           delay(500), // Simulated delay
-          map((dateFormats: DateFormat[]) =>
-            DateFormatActions.loadDateFormatsSuccess({ dateFormats })
+          map((dfList: DateFormat[]) =>
+            DateFormatActions.loadDateFormatsSuccess({ dateFormats:dfList })
           ),
           catchError((error) =>
             of(DateFormatActions.loadDateFormatsFailure({ error: error.message }))

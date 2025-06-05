@@ -78,9 +78,9 @@ export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerCom
     switch (params.data.label) {
 
     case MyDetailsFormItem.COUNTRY:
-      const dtF = params.data.value as Country;
+      { const dtF = params.data.value as Country;
       return {component: LabelColumnRendererComponent,
-        params: {labelValue: dtF.name}};
+        params: {labelValue: dtF.name}}; }
 
     }
     return params.data.value;

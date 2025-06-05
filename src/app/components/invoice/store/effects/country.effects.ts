@@ -8,24 +8,22 @@ import { countries } from './country-list';
 
 @Injectable()
 export class CountryEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions) { }
 
   loadCountries$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CountryActions.loadCountries),
-      mergeMap(() => {
-        // Simulate a delay for API call
-        return of(countries).pipe(
-          delay(500), // Simulated delay
-          map((countries: Country[]) =>
-            CountryActions.loadCountriesSuccess({ countries })
+      mergeMap(() =>
+        of(countries).pipe(
+          delay(500),
+          map((result: Country[]) =>
+            CountryActions.loadCountriesSuccess({ countries: result })
           ),
           catchError((error) =>
             of(CountryActions.loadCountriesFailure({ error: error.message }))
           )
-        );
-      })
+        )
+      )
     )
   );
-
 }

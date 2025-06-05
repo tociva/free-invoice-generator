@@ -121,24 +121,24 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     this.store.dispatch(setInvoiceTaxOption({ option }));
   };
   
-  private findDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
+  private findDetailsEditorComponent = (cellParams: ICellEditorParams<FormColumnDef>) => {
 
-    switch (params.data.label) {
+    switch (cellParams.data.label) {
 
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
         return { component: DatePickerEditorComponent,
           params: {
             format: (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value,
-            value: params.data.value
+            value: cellParams.data.value
           }
          };
 
       case InvoiceDetailsFormItem.CURRENCY:
-        return this.findCurrencyEditorComponent(params.data.value);
+        return this.findCurrencyEditorComponent(cellParams.data.value);
 
       case InvoiceDetailsFormItem.DATE_FORMAT:
-        return this.findDateFormatEditorComponent(params.data.value);
+        return this.findDateFormatEditorComponent(cellParams.data.value);
 
       case InvoiceDetailsFormItem.TAX_OPTION:
         return {
@@ -171,17 +171,17 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
     switch (params.data?.label) {
 
       case InvoiceDetailsFormItem.CURRENCY:
-        const cur = params.data.value as Currency;
+        { const cur = params.data.value as Currency;
         return {
           component: LabelColumnRendererComponent,
           params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
-        };
+        }; }
       case InvoiceDetailsFormItem.DATE_FORMAT:
-        const dateFormat = params.data.value as DateFormat;
+        { const dateFormat = params.data.value as DateFormat;
         return {
           component: LabelColumnRendererComponent,
           params: { labelValue: dateFormat.value }
-        };
+        }; }
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleItemDescriptionToggle } };
 
@@ -189,10 +189,10 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
-        const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
+        { const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
         const date = params.data?.value as Date;
         const dateText = dayjs(date).format(dateFormatText);
-        return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
+        return { component: LabelColumnRendererComponent, params: { labelValue: dateText } }; }
 
     }
     if (!params.data?.value) {
@@ -207,26 +207,26 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   private handleInvoiceDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
     switch (event.data.label) {
       case InvoiceDetailsFormItem.INVOICE_DATE:
-        const newDate = new Date(event.newValue);
+        { const newDate = new Date(event.newValue);
         const oldDate = new Date(event.oldValue);
         if (newDate.getTime() !== oldDate.getTime()) {
           this.store.dispatch(setInvoiceDate({ date: newDate }));
         }
-        break;
+        break; }
       case InvoiceDetailsFormItem.DUE_DATE:
-        const newDueDate = new Date(event.newValue);
+        { const newDueDate = new Date(event.newValue);
         const oldDueDate = new Date(event.oldValue);
         if (newDueDate.getTime() !== oldDueDate.getTime()) {
           this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
         }
-        break;
+        break; }
       case InvoiceDetailsFormItem.DECIMAL_PLACES:
-        const newDecimalPlaces = Number(event.newValue);
+        { const newDecimalPlaces = Number(event.newValue);
         const oldDecimalPlaces = Number(event.oldValue);
         if (newDecimalPlaces !== oldDecimalPlaces) {
           this.store.dispatch(setInvoiceDecimalPlaces({ decimalPlaces: newDecimalPlaces }));
         }
-        break;
+        break; }
     }
   };
 

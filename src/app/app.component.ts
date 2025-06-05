@@ -14,6 +14,6 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   navigateToSpecificPage(path: string) {
-    this.router.navigate([path]);
+    void this.router.navigate([path]);
   }
 }
