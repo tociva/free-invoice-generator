@@ -24,4 +24,24 @@ export const templateReducer = createReducer(
     error
   })),
 
+  on(TemplateActions.setSearchTags, (state, { searchTags }) => ({
+    ...state,
+    searchTags
+  })),
+  on(TemplateActions.addSearchTag, (state, { tag }) => ({
+    ...state,
+    searchTags: state.searchTags.includes(tag)
+      ? state.searchTags
+      : [...state.searchTags, tag]
+  })),
+  
+  on(TemplateActions.removeSearchTag, (state, { tag }) => ({
+    ...state,
+    searchTags: state.searchTags.filter(t => t !== tag)
+  })),
+  
+  on(TemplateActions.clearSearchTags, (state) => ({
+    ...state,
+    searchTags: []
+  }))
 );

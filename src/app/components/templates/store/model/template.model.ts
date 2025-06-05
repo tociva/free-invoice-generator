@@ -3,6 +3,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export interface TemplateItem {
   name: string;
   path: string;
+  tags: string[];
   taxType?: 'IGST' | 'CGST & SGST' | 'Non-Taxable';
   color: 'Red' | 'Blue'| 'Green'| 'Yellow';
   html: string;
