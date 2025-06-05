@@ -19,3 +19,21 @@ export const setPagination = createAction(
   props<{ currentPage: number; pageSize: number }>()
 );
 
+export const setSearchTags = createAction(
+  '[Template] Set Search Tags',
+  props<{ searchTags: string[] }>()
+);
+
+export const addSearchTag = createAction(
+  '[Template] Add Search Tag',
+  props<{ tag: string }>()
+);
+
+export const removeSearchTag = createAction(
+  '[Template] Remove Search Tag',
+  props<{ tag: string }>()
+);
+
+export const clearSearchTags = createAction(
+  '[Template] Clear Search Tags'
+);
