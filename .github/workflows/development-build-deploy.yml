@@ -28,9 +28,6 @@ jobs:
       - name: Build Angular App (production)
         run: yarn build --configuration production
 
-      - name: Install Wrangler CLI
-        run: yarn global add wrangler
-
       - name: Deploy to Cloudflare Pages with Wrangler
         run: |
           yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
