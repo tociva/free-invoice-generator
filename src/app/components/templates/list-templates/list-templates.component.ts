@@ -4,8 +4,6 @@ import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/co
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -32,7 +30,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
   standalone: true,
   imports: [
     CommonModule, FormsModule, MatPaginatorModule,
-    MatCheckboxModule, MatFormFieldModule, MatInputModule,
+      MatInputModule,
     MatButtonModule, MatCardModule, MatIconModule, MatChipsModule, MatAutocompleteModule
   ]
 })

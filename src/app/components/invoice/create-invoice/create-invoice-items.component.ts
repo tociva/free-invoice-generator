@@ -148,7 +148,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
         headerName: 'Discount',
         headerClass: discountGroupClass,
         children: [
-          this.createItemLabelNumberColumn('discPercentage', 'Percentage', true, this.numberCellWidth, this.handleItemCellValueChanged, ),
+          this.createItemLabelNumberColumn('discPercentage', '%', true, this.numberCellWidth, this.handleItemCellValueChanged, ),
           this.createItemLabelFormatedNumberColumn('discountAmount', 'value', false, this.numberCellWidth, this.handleItemCellValueChanged, ),
           this.createItemLabelFormatedNumberColumn('subTotal', 'Sub Total', false, this.numberCellWidth, this.handleItemCellValueChanged, )
         ]
