@@ -4,38 +4,17 @@
   padding: 10px;
 }
 
-.filter-panel {
-  width: 250px;
-  /* Reduced width */
-  flex-shrink: 0;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-
-  h4 {
-    font-weight: 400;
-    font-size: 16px;
-    margin: 10px 0 5px;
-  }
-}
-
-.filter-input {
-  width: 100%;
-}
 
 .content-area {
   flex-grow: 1;
 }
 
 .iframe-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
   padding: 0 16px;
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 .template-container {
@@ -67,23 +46,7 @@ mat-paginator {
   margin-bottom: 30px;
 }
 
-.clear-filters-link {
-  margin-top: 20px;
-  cursor: pointer;
-  color: #3f51b5;
-  /* Material primary color */
-  font-size: 14px;
 
-  &:hover {
-    text-decoration: none;
-    color: #303f9f;
-    /* Darker shade */
-  }
-}
-
-::ng-deep .mdc-text-field--filled {
-  background-color: white !important;
-}
 
 .invoice-preview-container {
   position: relative;
@@ -128,4 +91,16 @@ mat-paginator {
   font-size: 18px;
   width: 18px;
   height: 18px;
+}
+
+.tags-filter-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 0 12px;
+}
+.example-chip-list{
+  margin-left: 20px;
+}
+::ng-deep .mat-mdc-paginator-container{
+  background-color: white;
 }
