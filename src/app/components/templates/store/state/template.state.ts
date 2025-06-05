@@ -4,10 +4,10 @@ export interface TemplateState {
   templates: Template[];
   templateItems: TemplateItem[];
   error: string | null;
-  // Pagination
   currentPage: number;
   pageSize: number;
   totalCount: number;
+  searchTags: string[];
 }
 
 export const initialTemplateState: TemplateState = {
@@ -15,6 +15,7 @@ export const initialTemplateState: TemplateState = {
   templateItems: [],
   error: null,
   currentPage: 0,
-  pageSize: 10,
-  totalCount: 0
+  pageSize: 3,
+  totalCount: 0,
+  searchTags: []
 };
