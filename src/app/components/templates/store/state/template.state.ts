@@ -6,7 +6,6 @@ export interface TemplateState {
   error: string | null;
   currentPage: number;
   pageSize: number;
-  totalCount: number;
   searchTags: string[];
 }
 
@@ -16,6 +15,5 @@ export const initialTemplateState: TemplateState = {
   error: null,
   currentPage: 0,
   pageSize: 3,
-  totalCount: 0,
   searchTags: []
 };
