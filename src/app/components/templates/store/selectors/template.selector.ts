@@ -28,11 +28,6 @@ export const selectPageSize = createSelector(
   (state) => state.pageSize
 );
 
-export const selectTotalCount = createSelector(
-  selectTemplateFeature,
-  (state) => state.totalCount
-);
-
 export const selectSearchTags = createSelector(
   selectTemplateFeature,
   (state) => state.searchTags
@@ -50,7 +45,6 @@ export const selectFilteredTemplateItems = createSelector(
   }
 );
 
-
 export const selectPaginatedTemplateItems = createSelector(
   selectFilteredTemplateItems,
   selectCurrentPage,
@@ -58,3 +52,34 @@ export const selectPaginatedTemplateItems = createSelector(
   (items, currentPage, pageSize) =>
     items.slice(currentPage * pageSize, currentPage * pageSize + pageSize)
 );
+
+export const selectFilteredTemplateItemCount = createSelector(
+  selectFilteredTemplateItems,
+  (items) => items.length
+);
+
+export const selectFilteredTemplateItemsAllConditions = createSelector(
+  selectTemplateItems,
+  selectSearchTags,
+  (items, searchTags) => {
+    if (!searchTags.length) return items;
+
+    return items.filter(item =>
+      searchTags?.every(tag => item.tags.includes(tag))
+    );
+  }
+);
+
+export const selectPaginatedTemplateItemsAllConditions = createSelector(
+  selectFilteredTemplateItemsAllConditions,
+  selectCurrentPage,
+  selectPageSize,
+  (items, currentPage, pageSize) =>
+    items.slice(currentPage * pageSize, currentPage * pageSize + pageSize)
+);
+
+export const selectFilteredTemplateItemCountAllConditions = createSelector(
+  selectFilteredTemplateItemsAllConditions,
+  (items) => items.length
+);
+

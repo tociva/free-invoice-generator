@@ -1,0 +1,112 @@
+.layout-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .content-area {
+    flex-grow: 1;
+  }
+  
+  .iframe-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    padding: 0 16px;
+    margin-bottom: 100px;
+  }
+  
+  .template-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+  
+  
+    h4 {
+      margin-bottom: 12px;
+      text-align: center;
+    }
+  
+    iframe {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+  
+      &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+      }
+    }
+  }
+  
+  mat-paginator {
+    margin-bottom: 30px;
+  }
+  
+  
+  
+  .invoice-preview-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .template-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .template-name {
+    font-weight: 400;
+    font-size: 17px;
+    text-align: left;
+    margin-left: 10px;
+  }
+  
+  .template-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .icon-button {
+    opacity: 0.6;
+    color: gray;
+    width: 25px;
+    height: 25px;
+    padding: 2px;
+    margin-left: 6px;
+    transition: opacity 0.2s ease;
+  }
+  
+  .icon-button:hover {
+    opacity: 1;
+  }
+  .icon-button mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .tags-filter-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0 12px;
+  }
+  .example-chip-list{
+    margin-left: 20px;
+  }
+  ::ng-deep .mat-mdc-paginator-container{
+    background-color: white;
+  }
+  ::ng-deep .a4-dialog .mat-dialog-container {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
