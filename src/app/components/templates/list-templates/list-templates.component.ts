@@ -20,8 +20,9 @@ import { TemplateUtil } from '../../util/template.util';
 import { addSearchTag, loadTemplates, removeSearchTag, setPagination } from '../store/actions/template.actions';
 import { TemplateItem } from '../store/model/template.model';
 import { selectTags } from '../store/selectors/tag.selectors';
-import { selectPageSize, selectPaginatedTemplateItems, selectSearchTags, selectTotalCount } from '../store/selectors/template.selector';
+import { selectFilteredTemplateItemCount, selectPageSize, selectPaginatedTemplateItems, selectSearchTags } from '../store/selectors/template.selector';
 import { TemplateState } from '../store/state/template.state';
+import { sampleInvoice } from './list-templates.util';
 
 @Component({
   selector: 'app-list-templates',
@@ -47,7 +48,8 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 10;
-  totalItems = 0;
+  totalItems$ = this.store.select(selectFilteredTemplateItemCount);
+
 
   constructor(
     private templateService: TemplateService,
@@ -62,10 +64,6 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
       this.itemsPerPage = pageSize;
     });
   
-    this.store.select(selectTotalCount).subscribe((totalCount) => {
-      this.totalItems = totalCount;
-    });
-  
     this.store.select(selectPaginatedTemplateItems).subscribe(async (templateItems) => {
       this.templates = templateItems;
   
@@ -77,7 +75,7 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
           const template = await firstValueFrom(
             this.http.get(item.path, { responseType: 'text' })
           );
-          const html = TemplateUtil.fillTemplate(template);
+          const html = TemplateUtil.fillTemplate(template, sampleInvoice);
           const safeHTML = this.templateService.createWrappedSafeHtml(html);
   
           return {

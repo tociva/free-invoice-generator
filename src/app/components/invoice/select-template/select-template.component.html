@@ -1,1 +1,65 @@
-<p>select-template works!</p>
+<div class="layout-container">
+    <div class="content-area">
+      <form>
+        <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
+          <mat-label>Tags</mat-label>
+  
+          <mat-chip-grid #chipGrid aria-label="Tag selection">
+            <!-- Display selected tags from the store -->
+            <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
+              {{ tag }}
+              <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+  
+          <input placeholder="Add a tag" #tagInput [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
+            (matChipInputTokenEnd)="addTag($event)" />
+  
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <!-- Show tags for autocomplete from the store -->
+            <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+              {{ tag }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+  
+      <div class="iframe-grid">
+        <div *ngFor="let item of templates" class="template-container">
+  
+          <!-- ✅ Template Header: Name on LEFT, buttons on RIGHT -->
+          <div class="template-header">
+            <span class="template-name">{{ item.name }}</span>
+  
+            <div class="template-actions">
+              <button mat-icon-button class="icon-button" matTooltip="Download PDF" (click)="downloadTemplateAsPDF(item)">
+                <mat-icon>picture_as_pdf</mat-icon>
+              </button>
+  
+              <button mat-icon-button class="icon-button" matTooltip="Download (was print)"
+                (click)="downloadTemplateAsHTML(item)">
+                <mat-icon>download</mat-icon>
+              </button>
+  
+              <button mat-icon-button class="icon-button" matTooltip="Preview" (click)="previewTemplate(item)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="invoice-preview-container">
+            <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
+              width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;">
+            </iframe>
+          </div>
+        </div>
+      </div>
+  
+      <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        color="primary">
+      </mat-paginator>
+    </div>
+  </div>

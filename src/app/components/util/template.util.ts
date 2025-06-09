@@ -1,10 +1,11 @@
-import { sampleInvoice } from "../templates/list-templates/list-templates.util";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { TemplateItem } from "../templates/store/model/template.model";
+import { Invoice } from "../invoice/store/model/invoice.model";
 
 export class TemplateUtil {
-  public static fillTemplate(html: string): string {
+  
+  public static fillTemplate(html: string, invoice: Invoice): string {
     const itemRowTemplate = `
       <tr>
         <td>[[item_name]]</td>
@@ -15,7 +16,7 @@ export class TemplateUtil {
         <td>[[item_amount]]</td>
       </tr>`;
 
-    const filledItems = sampleInvoice.items.map((item) =>
+    const filledItems = invoice.items.map((item) =>
       itemRowTemplate
         .replace('[[item_name]]', item.name)
         .replace('[[item_quantity]]', item.quantity.toString())
@@ -30,21 +31,21 @@ export class TemplateUtil {
     const htmlWithItems = html.replace(itemsRegex, filledItems);
 
     const htmlS = htmlWithItems
-      .replace('[[invoice_number]]', sampleInvoice.number)
-      .replace('[[invoice_date]]', sampleInvoice.date.toLocaleDateString())
-      .replace('[[payment_due_date]]', sampleInvoice.dueDate.toLocaleDateString())
-      .replace('[[customer_name]]', sampleInvoice.customer.name)
-      .replace('[[customer_address]]', sampleInvoice.customer.addressLine1)
-      .replace('[[customer_phone]]', sampleInvoice.customer.phone)
-      .replace('[[customer_email]]', sampleInvoice.customer.email)
-      .replace('[[org_name]]', sampleInvoice.organization.name)
-      .replace('[[org_address]]', sampleInvoice.organization.addressLine1)
-      .replace('[[org_phone]]', sampleInvoice.organization.phone)
-      .replace('[[org_email]]', sampleInvoice.organization.email)
-      .replace('[[subtotal]]', sampleInvoice.subTotal.toFixed(2))
-      .replace('[[tax_amount]]', sampleInvoice.taxTotal.toFixed(2))
-      .replace('[[grand_total]]', sampleInvoice.grandTotal.toFixed(2))
-      .replace('[[mail_logo_src]]', sampleInvoice.organization.name || '');
+      .replace('[[invoice_number]]', invoice.number)
+      .replace('[[invoice_date]]', invoice.date.toLocaleDateString())
+      .replace('[[payment_due_date]]', invoice.dueDate.toLocaleDateString())
+      .replace('[[customer_name]]', invoice.customer.name)
+      .replace('[[customer_address]]', invoice.customer.addressLine1)
+      .replace('[[customer_phone]]', invoice.customer.phone)
+      .replace('[[customer_email]]', invoice.customer.email)
+      .replace('[[org_name]]', invoice.organization.name)
+      .replace('[[org_address]]', invoice.organization.addressLine1)
+      .replace('[[org_phone]]', invoice.organization.phone)
+      .replace('[[org_email]]', invoice.organization.email)
+      .replace('[[subtotal]]', invoice.subTotal.toFixed(2))
+      .replace('[[tax_amount]]', invoice.taxTotal.toFixed(2))
+      .replace('[[grand_total]]', invoice.grandTotal.toFixed(2))
+      .replace('[[mail_logo_src]]', invoice.organization.name || '');
     return htmlS;
   
   }

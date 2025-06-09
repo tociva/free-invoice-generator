@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <mat-paginator [length]="totalItems" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
       color="primary">
     </mat-paginator>
   </div>
