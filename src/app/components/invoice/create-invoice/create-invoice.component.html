@@ -28,7 +28,7 @@
     </div>
 
     <!-- Invoice Details -->
-    <div class="invoice-details-card" style="flex: 1 1 48%;">
+    <div class="invoice-details-card" style="flex: 1 1 65%;">
         <div class="title">
             <span class="card-title">Invoice Details</span>
         </div>
@@ -40,15 +40,68 @@
         </div>
     </div>
 
+    <!-- Media Upload Card (Top Right) -->
+    <div>
+        <div>
+            <mat-card class="media-upload" (dragover)="onSmallLogoDragOver($event)" (drop)="onSmallLogoDrop($event)">
+                <mat-card-content>
+                    <div style="width: 100%;height: 150px; /* fixed height */border: 2px dashed #ccc;border-radius: 10px;padding: 10px;
+                    box-sizing: border-box;display: flex;flex-direction: column;align-items: center;justify-content: center;
+                    position: relative;overflow: hidden;">
+                        <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
+                            <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview"
+                                style="max-height: 120px; max-width: 100%; margin-bottom: 8px;" />
+                            <button mat-icon-button (click)="uploadedSmallLogo = []; smallLogoPreviewUrl = null"
+                                aria-label="Remove Small Logo" title="Remove Small Logo">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </ng-container>
+                        <ng-template #smallLogoUploadPrompt>
+                            <p>Drag & drop Small Logo</p>
+                            <button mat-raised-button color="primary" (click)="smallLogoInput.click()">Select Small
+                                Logo</button>
+                            <input #smallLogoInput type="file" hidden (change)="onSmallLogoSelected($event)" />
+                        </ng-template>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div>
+            <mat-card class="media-upload" (dragover)="onLargeLogoDragOver($event)" (drop)="onLargeLogoDrop($event)">
+                <mat-card-content>
+                    <div style="width: 100%;height: 150px; /* fixed height */border: 2px dashed #ccc;border-radius: 10px;
+                    padding: 10px;box-sizing: border-box;display: flex;flex-direction: column;align-items: center;
+                    justify-content: center;position: relative;overflow: hidden;">
+                        <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
+                            <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview"
+                                style="max-height: 120px; max-width: 100%; margin-bottom: 8px;" />
+                            <button mat-icon-button (click)="uploadedLargeLogo = []; largeLogoPreviewUrl = null"
+                                aria-label="Remove Large Logo" title="Remove Large Logo">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </ng-container>
+                        <ng-template #largeLogoUploadPrompt>
+                            <p>Drag & drop Large Logo</p>
+                            <button mat-raised-button color="primary" (click)="largeLogoInput.click()">Select Large
+                                Logo</button>
+                            <input #largeLogoInput type="file" hidden (change)="onLargeLogoSelected($event)" />
+                        </ng-template>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
     <!-- Item Deatils -->
     <div class="item-summary">
         <div class="Item-details-card" style="flex: 1 1 100%;">
             <div class="title">
                 <span class="card-title">Item Details</span>
             </div>
-            <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine"
-                [columnDefs]="itemsColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef"
-                [gridOptions]="gridOptions" (gridReady)="onItemsGridReady($event)">
+            <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [columnDefs]="itemsColumnDefs"
+                [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
+                (gridReady)="onItemsGridReady($event)">
             </ag-grid-angular>
         </div>
 
@@ -56,9 +109,8 @@
         <div class="summary-box">
             <div class="Summary-of-Invoice-card">
                 <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 94%;"
-                    [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
-                    [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
-                    [getRowId]="getRowId">
+                    [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
+                    [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)" [getRowId]="getRowId">
                 </ag-grid-angular>
             </div>
         </div>
