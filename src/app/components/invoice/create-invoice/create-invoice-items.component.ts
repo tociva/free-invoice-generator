@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, IRowNode, NewValueParams } from 'ag-grid-community';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
 import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
@@ -20,6 +20,15 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
   private decimalPlaces = DEFAULT_DECIMAL_PLACES;
 
+  private oldInvoice!:Invoice;
+
+  private readonly BASE_ITEM_ROW_DATA: InvoiceItem = {
+    name: '', description: '', quantity: 0, price: 0, itemTotal: 0, discountAmount: 0,
+    discPercentage: 0, subTotal: 0, tax1Amount: 0, tax1Percentage: 0,
+    tax2Amount: 0, tax2Percentage: 0, tax3Amount: 0, tax3Percentage: 0,
+    taxTotal: 0, grandTotal: 0,
+  };
+
   itemsDefaultColDef: ColDef<InvoiceItemWithAction> = {
     editable: false,
     width: 150,
@@ -38,13 +47,36 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const { oldValue, data } = params;
-    if (oldValue.trim().length) {return;}
-    this.store.dispatch(addInvoiceItem({ item: data }));
+    if (oldValue.trim().length) {
+      return;
+    }
+    const {description} = data;
+    if(description.trim().length) {
+      const rowIndex = params.node?.rowIndex ?? 0;
+      this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: {...data} }));
+      return;
+    }
+    this.store.dispatch(addInvoiceItem({ item: {...data} }));
+  };
+
+  private handleDescriptionCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
+    const { oldValue, data } = params;
+    if (oldValue.trim().length) {
+      return;
+    }
+    const {name} = data;
+    if(name.trim().length) {
+      const rowIndex = params.node?.rowIndex ?? 0;
+      this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: {...data} }));
+      return;
+    }
+    this.store.dispatch(addInvoiceItem({ item: {...data} }));
   };
 
   private handleItemCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const rowIndex = params.node?.rowIndex ?? 0;
-    this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: params.data }));
+    const data = {...params.data};
+    this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: data }));
   };
 
   private static createItemLabelStringColumn(field: keyof InvoiceItem, headerName: string, placeholder = '', width?: number, onCellValueChanged?: (event: NewValueParams<InvoiceItem>) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
@@ -111,6 +143,14 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     };
   }
 
+  private removeItemRow = (rowId: string) => {
+    const rowIndex = Number(rowId);
+    const totalRows = this.itemsGridApi.getDisplayedRowCount();
+    if(rowIndex < (totalRows - 1)) {
+      this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
+    }
+  }
+
   private createItemsColumnDefs(invoice: Invoice): void {
     const itemsColumnDefsTemp: ColGroupDef<InvoiceItemWithAction>[] = [];
 
@@ -136,7 +176,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemColumns.children.splice(
         1,
         0,
-        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleNameCellValueChanged, )
+        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, )
       );
     }
 
@@ -194,10 +234,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
           cellRendererParams: {
             icon: 'delete',
             customClass: 'icon-danger',
-            iconClickListener: (rowId: string) => {
-              const rowIndex = Number(rowId);
-              this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
-            }
+            iconClickListener: this.removeItemRow
           }
         }
       ]
@@ -219,27 +256,66 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     }
   }
 
+  private compareWithOldInvoice = (invoice: Invoice) => {
+    if(this.oldInvoice?.hasItemDiscount !== invoice.hasItemDiscount) {
+      return true;
+    }
+    if(this.oldInvoice?.hasItemDescription !== invoice.hasItemDescription) {
+      return true;
+    }
+    if(this.oldInvoice?.taxOption !== invoice.taxOption) {
+      return true;
+    }
+    if(this.oldInvoice?.decimalPlaces !== invoice.decimalPlaces) {
+      return true;
+    }
+    return false;
+  }
+
+  private refreshItemTable = (invoice: Invoice) => {
+    this.decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+    this.setNumberCellWidth(invoice);
+    this.createItemsColumnDefs(invoice);
+    const items = invoice.items.map((item) => ({ ...item }));
+    const itemsRowData: InvoiceItem[] = [...items, {...this.BASE_ITEM_ROW_DATA}];
+    const allRows = this.itemsGridApi.getDisplayedRowCount();
+    const existingData = [];
+    for (let i = 0; i < allRows; i++) {
+      const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(i);
+      if (rowNode?.data) {existingData.push(rowNode.data);}
+    }
+    this.itemsGridApi.applyTransaction({ remove: existingData, add: itemsRowData });
+    this.itemsGridApi.sizeColumnsToFit();
+  }
+
   onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
     this.itemsGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
-      this.decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
-      this.setNumberCellWidth(invoice);
-      this.createItemsColumnDefs(invoice);
-      const items = invoice.items.map((item) => ({ ...item }));
-      const itemsRowData: InvoiceItem[] = [...items, {
-        name: '', description: '', quantity: 0, price: 0, itemTotal: 0, discountAmount: 0,
-        discPercentage: 0, subTotal: 0, tax1Amount: 0, tax1Percentage: 0,
-        tax2Amount: 0, tax2Percentage: 0, tax3Amount: 0, tax3Percentage: 0,
-        taxTotal: 0, grandTotal: 0,
-      }];
-      const allRows = this.itemsGridApi.getDisplayedRowCount();
-      const existingData = [];
-      for (let i = 0; i < allRows; i++) {
-        const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(i);
-        if (rowNode?.data) {existingData.push(rowNode.data);}
+      if(this.compareWithOldInvoice(invoice)) {
+        this.oldInvoice = invoice;
+        this.refreshItemTable(invoice);
+        return;
       }
-      this.itemsGridApi.applyTransaction({ remove: existingData, add: itemsRowData });
-      this.itemsGridApi.sizeColumnsToFit();
+      // Now find the row(s) to be added/removed/updated
+      const nInvoices = [...invoice.items, {...this.BASE_ITEM_ROW_DATA}];
+      for(const [index, item] of nInvoices.entries()) {
+        const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(index);
+        if(rowNode) {
+          rowNode.setData({...item});
+        } else {
+          this.itemsGridApi.applyTransaction({ add: [{...item}] });
+        }
+      }
+      const totalRows = this.itemsGridApi.getDisplayedRowCount();
+      const extraRowCount = totalRows - nInvoices.length;
+      if(extraRowCount > 0) {
+        const allRows:InvoiceItem[] = [];
+        this.itemsGridApi.forEachNode((node) => {
+          allRows.push(node.data as InvoiceItem);
+        });
+        const rowsToRemove = allRows.slice(-extraRowCount);
+        this.itemsGridApi.applyTransaction({ remove: rowsToRemove });
+      }
     });
   }
 }
