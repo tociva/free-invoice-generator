@@ -90,6 +90,13 @@ export const invoiceReducer = createReducer(
       ...state,
       invoice,
     };
-  })
-  
+  }),
+  on(InvoiceAction.setInvoiceSmallLogo, (state, { smallLogo }) => ({
+    ...state,
+    invoice: { ...state.invoice, smallLogo }
+  })),
+  on(InvoiceAction.setInvoiceLargeLogo, (state, { largeLogo }) => ({
+    ...state,
+    invoice: { ...state.invoice, largeLogo }
+  }))
 );
