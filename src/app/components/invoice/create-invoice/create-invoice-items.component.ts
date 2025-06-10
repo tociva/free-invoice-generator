@@ -38,7 +38,29 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const { oldValue, data } = params;
-    if (oldValue.trim().length) {return;}
+    if (oldValue.trim().length) {
+      return;
+    }
+    const {description} = data;
+    if(description.trim().length) {
+      const rowIndex = params.node?.rowIndex ?? 0;
+      this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: data }));
+      return;
+    }
+    this.store.dispatch(addInvoiceItem({ item: data }));
+  };
+
+  private handleDescriptionCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
+    const { oldValue, data } = params;
+    if (oldValue.trim().length) {
+      return;
+    }
+    const {name} = data;
+    if(name.trim().length) {
+      const rowIndex = params.node?.rowIndex ?? 0;
+      this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: data }));
+      return;
+    }
     this.store.dispatch(addInvoiceItem({ item: data }));
   };
 
@@ -136,7 +158,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemColumns.children.splice(
         1,
         0,
-        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleNameCellValueChanged, )
+        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, )
       );
     }
 
