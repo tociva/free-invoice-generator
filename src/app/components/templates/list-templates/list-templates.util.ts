@@ -115,5 +115,7 @@ export const sampleInvoice: Invoice = {
   taxTotal: 54,
   roundOff: 0,
   grandTotal: 354,
-  grandTotalInWords: 'One Hundred Eighteen Only'
+  grandTotalInWords: 'One Hundred Eighteen Only',
+  smallLogo: '',
+  largeLogo: ''
 };

@@ -62,4 +62,6 @@ export interface Invoice {
   roundOff: number;
   grandTotal: number;
   grandTotalInWords: string;
+  smallLogo: string;
+  largeLogo: string;
 }

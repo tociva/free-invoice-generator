@@ -51,7 +51,7 @@
                         <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
                             <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview"
                                 style="max-height: 120px; max-width: 100%; margin-bottom: 8px;" />
-                            <button mat-icon-button (click)="uploadedSmallLogo = []; smallLogoPreviewUrl = null"
+                            <button mat-icon-button (click)="smallLogoPreviewUrl = null"
                                 aria-label="Remove Small Logo" title="Remove Small Logo">
                                 <mat-icon>close</mat-icon>
                             </button>
@@ -76,7 +76,7 @@
                         <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
                             <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview"
                                 style="max-height: 120px; max-width: 100%; margin-bottom: 8px;" />
-                            <button mat-icon-button (click)="uploadedLargeLogo = []; largeLogoPreviewUrl = null"
+                            <button mat-icon-button (click)="largeLogoPreviewUrl = null"
                                 aria-label="Remove Large Logo" title="Remove Large Logo">
                                 <mat-icon>close</mat-icon>
                             </button>
