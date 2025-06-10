@@ -103,7 +103,9 @@ export const initialInvoiceState: InvoiceState = {
     taxTotal: 18,
     roundOff: 0,
     grandTotal: 118,
-    grandTotalInWords: 'One Hundred Eighteen Only'
+    grandTotalInWords: 'One Hundred Eighteen Only',
+    smallLogo: '',
+    largeLogo: ''
   },
   error: null
 };
