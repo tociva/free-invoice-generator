@@ -86,3 +86,13 @@ export const setInvoiceDecimalPlaces = createAction(
   '[Invoice] Set Invoice Decimal Places',
   props<{ decimalPlaces: number }>()
 );
+
+export const setInvoiceSmallLogo = createAction(
+  '[Invoice] Set Invoice Small Logo',
+  props<{ smallLogo: string }>()
+);
+
+export const setInvoiceLargeLogo = createAction(
+  '[Invoice] Set Invoice Large Logo',
+  props<{ largeLogo: string }>()
+);

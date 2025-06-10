@@ -16,7 +16,7 @@ import { selectAllCurrencies } from '../store/selectors/currency.selectors';
 import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { CreateInvoiceItemsComponent } from './create-invoice-items.component';
+import { CreateInvoiceLogoComponent } from './create-invoice-logo.component';
 
 
 export enum InvoiceDetailsFormItem {
@@ -32,7 +32,7 @@ export enum InvoiceDetailsFormItem {
   DATE_FORMAT = 'Date Format',
 }
 
-export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
+export class CreateInvoiceDetailsComponent extends CreateInvoiceLogoComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
 
@@ -259,6 +259,8 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceItemsComponent {
   onInvoiceDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.detailsGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
+      this.smallLogoPreviewUrl = invoice.smallLogo;
+      this.largeLogoPreviewUrl = invoice.largeLogo;
       const invoiceDetailsRowData: FormColumnDef[] = [
         { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: invoice.number },
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },

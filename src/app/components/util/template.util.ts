@@ -45,7 +45,8 @@ export class TemplateUtil {
       .replace('[[subtotal]]', invoice.subTotal.toFixed(2))
       .replace('[[tax_amount]]', invoice.taxTotal.toFixed(2))
       .replace('[[grand_total]]', invoice.grandTotal.toFixed(2))
-      .replace('[[mail_logo_src]]', invoice.organization.name || '');
+      .replace('[[logo_small_src]]', invoice.smallLogo || '')
+      .replace('[[logo_large_src]]', invoice.largeLogo || '');
     return htmlS;
   
   }
