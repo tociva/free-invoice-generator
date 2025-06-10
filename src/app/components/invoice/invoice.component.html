@@ -1,21 +1,25 @@
 <mat-horizontal-stepper [linear]="false" #stepper>
-
+  <!-- Step 1: Invoice -->
   <mat-step label="Fill out the invoice" [completed]="false" class="invoice-step">
-    <app-create-invoice></app-create-invoice>
+    <ng-container *ngIf="stepper.selectedIndex === 0">
+      <app-create-invoice></app-create-invoice>
+    </ng-container>
     <button mat-raised-button color="primary" class="next-btnn" (click)="stepper.next()">
       Next
       <mat-icon class="icon-right">arrow_forward</mat-icon>
     </button>
   </mat-step>
 
+  <!-- Step 2: Select Template -->
   <mat-step label="Select a template" [completed]="false">
-    <app-select-template></app-select-template>
+    <ng-container *ngIf="stepper.selectedIndex === 1">
+      <app-select-template></app-select-template>
+    </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="stepper.previous()">
         <mat-icon class="icon-left">arrow_back</mat-icon>
         Back
       </button>
-
       <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
         Next
         <mat-icon class="icon-right">arrow_forward</mat-icon>
@@ -23,19 +27,20 @@
     </div>
   </mat-step>
 
+  <!-- Step 3: Preview -->
   <mat-step label="Preview and Download" [completed]="false">
-    <app-preview-invoice></app-preview-invoice>
+    <ng-container *ngIf="stepper.selectedIndex === 2">
+      <app-preview-invoice></app-preview-invoice>
+    </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="stepper.previous()">
         <mat-icon class="icon-left">arrow_back</mat-icon>
         Back
       </button>
-
       <button mat-raised-button color="accent" class="finish-btn">
         <mat-icon class="icon-right">check_circle</mat-icon>
         Finish
       </button>
     </div>
   </mat-step>
-
 </mat-horizontal-stepper>

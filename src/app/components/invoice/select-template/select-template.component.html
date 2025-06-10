@@ -2,9 +2,9 @@
     <div class="content-area">
       <form>
         <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
-          <mat-label>Tags</mat-label>
+          <mat-label>Search here</mat-label>
   
-          <mat-chip-grid #chipGrid aria-label="Tag selection">
+          <mat-chip-grid #chipGrid aria-label="Search here">
             <!-- Display selected tags from the store -->
             <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
               {{ tag }}
@@ -14,7 +14,7 @@
             </mat-chip-row>
           </mat-chip-grid>
   
-          <input placeholder="Add a tag" #tagInput [matChipInputFor]="chipGrid"
+          <input placeholder="Search here" #tagInput [matChipInputFor]="chipGrid"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
             (matChipInputTokenEnd)="addTag($event)" />
   
