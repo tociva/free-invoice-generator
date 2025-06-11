@@ -37,7 +37,7 @@ export const templateReducer = createReducer(
   
   on(TemplateActions.removeSearchTag, (state, { tag }) => ({
     ...state,
-    searchTags: state.searchTags.filter(t => t !== tag)
+    searchTags: state.searchTags.filter((t) => t !== tag)
   })),
   
   on(TemplateActions.clearSearchTags, (state) => ({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, IRowNode, NewValueParams } from 'ag-grid-community';
+import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
 import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
@@ -149,7 +149,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     if(rowIndex < (totalRows - 1)) {
       this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
     }
-  }
+  };
 
   private createItemsColumnDefs(invoice: Invoice): void {
     const itemsColumnDefsTemp: ColGroupDef<InvoiceItemWithAction>[] = [];
@@ -270,7 +270,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       return true;
     }
     return false;
-  }
+  };
 
   private refreshItemTable = (invoice: Invoice) => {
     this.decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
@@ -286,7 +286,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     }
     this.itemsGridApi.applyTransaction({ remove: existingData, add: itemsRowData });
     this.itemsGridApi.sizeColumnsToFit();
-  }
+  };
 
   onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
     this.itemsGridApi = params.api;

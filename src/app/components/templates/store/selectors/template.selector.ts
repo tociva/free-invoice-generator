@@ -37,10 +37,10 @@ export const selectFilteredTemplateItems = createSelector(
   selectTemplateItems,
   selectSearchTags,
   (items, searchTags) => {
-    if (!searchTags.length) return items;
+    if (!searchTags.length) {return items;}
 
-    return items.filter(item =>
-      item.tags?.some(tag => searchTags.includes(tag))
+    return items.filter((item) =>
+      item.tags?.some((tag) => searchTags.includes(tag))
     );
   }
 );
@@ -62,10 +62,10 @@ export const selectFilteredTemplateItemsAllConditions = createSelector(
   selectTemplateItems,
   selectSearchTags,
   (items, searchTags) => {
-    if (!searchTags.length) return items;
+    if (!searchTags.length) {return items;}
 
-    return items.filter(item =>
-      searchTags?.every(tag => item.tags.includes(tag))
+    return items.filter((item) =>
+      searchTags?.every((tag) => item.tags.includes(tag))
     );
   }
 );
