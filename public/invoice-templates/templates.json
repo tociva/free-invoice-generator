@@ -64,5 +64,27 @@
                 "tags": ["simple","non-taxable", "pale-green", "green"]
             }
         ]
+    },
+    {
+        "theme": "sample-templates",
+        "name": "Sample-a",
+        "description": "Sample invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Sample-a",
+                "path": "invoice-templates/sample-templates/sample-a-cgst-sgst.html",
+                "tags": ["sample","cgst","sgst"]
+            },
+            {
+                "name": "Sample-b-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-b-cgst-sgst.html",
+                "tags": ["sample","cgst","sgst"]
+            },
+            {
+                "name": "Sample-c-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-c-cgst-sgst.html",
+                "tags": ["sample","cgst","sgst"]
+            }
+        ]
     }
 ]
