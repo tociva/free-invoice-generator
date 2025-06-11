@@ -6,7 +6,7 @@ export interface TagState {
   
   export const initialTagState: TagState = {
     tags: [],
-    selectedTags: [],  // currently selected tags (for chip list)
+    selectedTags: [], // currently selected tags (for chip list)
     error: null
   };
   
