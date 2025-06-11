@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../../styles/variables' as *;
 
 .full-page {
@@ -26,7 +27,7 @@
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: color.scale($primary-color, $lightness: -26.84%);
   }
 }
 
