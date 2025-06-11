@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -51,7 +51,7 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
   templateUrl: './select-template.component.html',
   styleUrl: './select-template.component.scss',
 })
-export class SelectTemplateComponent implements OnInit, OnDestroy {
+export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly separatorKeysCodes = [ENTER, COMMA];
   private store = inject<Store<TemplateState>>(Store);
   private destroy$ = new Subject<void>();
@@ -87,9 +87,9 @@ export class SelectTemplateComponent implements OnInit, OnDestroy {
       .select(selectInvoice)
       .pipe(takeUntil(this.destroy$))
       .subscribe((invoice) => {
-        const tags = this.findTemplateTagFromInvoiceTaxType(invoice);
-        if (tags) {
-          this.store.dispatch(setSearchTags({ searchTags: tags }));
+        const tagsU = SelectTemplateComponent.findTemplateTagFromInvoiceTaxType(invoice);
+        if (tagsU) {
+          this.store.dispatch(setSearchTags({ searchTags: tagsU }));
         }
 
         const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
@@ -137,7 +137,7 @@ export class SelectTemplateComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private findTemplateTagFromInvoiceTaxType(invoice: Invoice): string[] | null {
+  private static findTemplateTagFromInvoiceTaxType(invoice: Invoice): string[] | null {
     switch (invoice.taxOption) {
       case TaxOption.CGST_SGST:
         return ['cgst', 'sgst'];
@@ -155,7 +155,8 @@ export class SelectTemplateComponent implements OnInit, OnDestroy {
     return this.templateService.createWrappedSafeHtml(rawHtml as string);
   }
 
-  previewTemplate(item: TemplateItem): void {
+  // eslint-disable-next-line class-methods-use-this
+  previewTemplate(_item: TemplateItem): void {
     // Implementation placeholder
   }
 
