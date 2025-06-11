@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 30px;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #2c2c2c 60%, #555 100%);
+      padding: 20px;
+      color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .contact-info {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .invoice-header {
+      padding: 20px;
+      background: #eee;
+    }
+
+    .invoice-header h2 {
+      margin: 0;
+    }
+
+    .invoice-details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+    }
+
+    .table thead {
+      background: #fdb813;
+      color: #000;
+    }
+
+    .table th, .table td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .table td.desc {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .totals {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .totals table {
+      width: 300px;
+      float: right;
+      border-collapse: collapse;
+    }
+
+    .totals td {
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .grand-total {
+      background: #fdb813;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .signature {
+      margin-top: 50px;
+      text-align: right;
+    }
+
+    .signature p {
+      margin: 0;
+    }
+
+    .signature .name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .payment-info {
+      margin-top: 30px;
+    }
+
+    .payment-info p {
+      margin: 5px 0;
+    }
+    .terms {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .terms h3 {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="invoice-box">
+    <div class="header">
+      <div class="logo">
+        <img src="https://via.placeholder.com/50" alt="Logo" />
+        BRAND NAME
+      </div>
+      <div class="contact-info">
+        <p>Phone: +999 123 456 789<br/>Email: info@yourname.com<br/>www.domain.com<br/>123 Street Town, Country</p>
+      </div>
+    </div>
+
+    <div class="invoice-header">
+      <h2>INVOICE</h2>
+      <div class="invoice-details">
+        <div>
+          <strong>From:</strong><br/>
+          [[Org_Name]]<br/>
+          [[Org_Address]]<br/>
+          [[Org-Phone]]
+        </div>
+        <div>
+          <strong>To:</strong><br/>
+          [[Customer_name]]<br/>
+          [[Customer_Address]]<br/>
+          [[Customer_Phone]]
+        </div>
+        <div>
+          Invoice No: 0012345<br/>
+          Account No: 455627845991<br/>
+          Date: 10/June/2018
+        </div>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ITEM DESCRIPTION</th>
+          <th>PRICE</th>
+          <th>QTY</th>
+          <th>GST</th>
+          <th>TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            [[Item_Name]]<br/><span class="desc">[[Item_Description]]</span>
+          </td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[GST]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>
+            [[Item_Name]]<br/><span class="desc">[[Item_Description]]</span>
+          </td>
+           <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[GST]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>
+            [[Item_Name]]<br/><span class="desc">[[Item_Description]]</span>
+          </td>
+           <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[GST]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>
+            [[Item_Name]]<br/><span class="desc">[[Item_Description]]</span>
+          </td>
+           <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[GST]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>
+            [[Item_Name]]<br/><span class="desc">[[Item_Description]]</span>
+          </td>
+           <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[GST]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <table>
+        <tr>
+          <td>Sub Total</td>
+          <td>[[Amount]]</td>
+        </tr>
+        <tr>
+          <td>Tax 18%</td>
+          <td>[[Tax]]</td>
+        </tr>
+        <tr class="grand-total">
+          <td>GRAND TOTAL</td>
+          <td>Amount</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="payment-info">
+      <p><strong>PAYMENT INFO</strong></p>
+      <p>Paypal: paypal@company.com</p>
+      <p>Payment: VISA, MasterCard</p>
+      <p>We accept Cheque</p>
+    </div>
+
+    <div class="signature">
+      <p class="name">[[Name]]</p>
+      <p>[[Designation]]</p>
+    </div>
+
+    <div class="footer">
+     <div class="terms">
+    <h3>Terms and Conditions</h3>
+    <p>
+      By using this service, you agree to the following terms and conditions. Please read them carefully before
+      proceeding.
+    </p>
+    <ol>
+      <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
+        terms.</li>
+      <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without prior
+        notice.</li>
+      <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your account
+        and for all activities that occur under your account.</li>
+      <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited activities.
+      </li>
+      <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual property
+        of the provider and may not be copied or reused without permission.</li>
+      <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use
+        or inability to use the service.</li>
+      <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our
+        discretion.</li>
+    </ol>
+    <p>
+      If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
+      support team.
+    </p>
+  </div>
+    </div>
+  </div>
+</body>
+</html>

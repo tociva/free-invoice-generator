@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StudioStar Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .invoice-title {
+      text-align: right;
+    }
+
+    .invoice-title h2 {
+      margin: 0;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+
+    .invoice-title .inv-num {
+      background: red;
+      color: white;
+      padding: 4px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-top: 5px;
+      display: inline-block;
+    }
+
+    .info {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info div {
+      font-size: 14px;
+    }
+
+    .table {
+      margin-top: 30px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    .table th {
+      background: #111b2c;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .table td .desc {
+      color: #666;
+      font-size: 13px;
+    }
+
+    .summary {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .summary table {
+      width: 300px;
+      float: right;
+      font-size: 14px;
+      border-collapse: collapse;
+    }
+
+    .summary td {
+      padding: 8px;
+    }
+
+    .green {
+      background: #00b14f;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .total-due {
+      margin-top: 30px;
+      font-size: 22px;
+      color: #222;
+      font-weight: bold;
+    }
+
+    .total-due span {
+      color: #00b14f;
+    }
+
+    .payment-method {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .terms {
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .signature {
+      margin-top: 50px;
+      text-align: right;
+    }
+
+    .signature img {
+      width: 100px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      background: #111b2c;
+      color: white;
+      padding: 20px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer div {
+      width: 25%;
+    }
+
+    .rainbow-bar {
+      height: 8px;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="invoice-box">
+    <div class="top-header">
+      <div class="logo">Brand Name</div>
+    </div>
+
+    <div class="info">
+      <div>
+        <strong>Invoice No:</strong> [[Invoice_Number]]<br/>
+        <strong>Invoice Date:</strong> [[Invoice_Date]]
+      </div>
+      <div>
+        <strong>Invoice From:</strong><br/>
+        [[Org_Name]]<br/>
+        [[Org_Address]]<br/>
+        [[Org_Phone]]<br/>
+        [[Org_Email]]<br/>
+      </div>
+      <div>
+        <strong>Invoice To:</strong><br/>
+        [[Customer_Name]]<br/>
+        [[Customer_Adress]]<br/>
+        [[Customer_Phone]]<br/>
+        [[Customer_Email]]<br/>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item Description</th>
+          <th>Unit Price</th>
+          <th>Qnt</th>
+          <th>Tax</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>[[Item_Name]]<br/><span class="desc">[[Item_Description]]</span></td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[Item_Tax]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>[[Item_Name]]<br/><span class="desc">[[Item_Description]]</span></td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[Item_Tax]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>[[Item_Name]]<br/><span class="desc">[[Item_Description]]</span></td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[Item_Tax]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>[[Item_Name]]<br/><span class="desc">[[Item_Description]]</span></td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[Item_Tax]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+        <tr>
+          <td>[[Item_Name]]<br/><span class="desc">[[Item_Description]]</span></td>
+          <td>[[Item_Amount]]</td>
+          <td>[[Item_Quantity]]</td>
+          <td>[[Item_Tax]]</td>
+          <td>[[Total_Amount]]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <table>
+        <tr><td>Sub Total</td><td>[[Sub_Total]]</td></tr>
+        <tr><td>Tax %</td><td>[[Tax_Percetage]]</td></tr>
+        <tr><td>Discount %</td><td>[[Discount]]</td></tr>
+      </table>
+    </div>
+
+    <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
+
+    <div class="total-due">
+      TOTAL AMOUNT: <span>[[Total_AMOUNT]]</span>
+    </div>
+
+    <div class="payment-method">
+      <strong>Payment Method</strong><br/>
+      ☐ Paypal: payment@trendbiz.com<br/>
+      ☐ Card Payment: Visa, Mastercard, Payoneer
+    </div>
+
+    <div class="terms">
+    <h3>Terms and Conditions</h3>
+    <p>
+      By using this service, you agree to the following terms and conditions. Please read them carefully before
+      proceeding.
+    </p>
+    <ol>
+      <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
+        terms.</li>
+      <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without prior
+        notice.</li>
+      <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your account
+        and for all activities that occur under your account.</li>
+      <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited activities.
+      </li>
+      <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual property
+        of the provider and may not be copied or reused without permission.</li>
+      <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use
+        or inability to use the service.</li>
+      <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our
+        discretion.</li>
+    </ol>
+    <p>
+      If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
+      support team.
+    </p>
+  </div>
+
+    <div class="signature">
+      <p>[[Name]]<br/>[[Designation]]</p>
+    </div>
+
+    <div class="rainbow-bar"></div>
+
+    <div class="footer">
+      <div>📞 +455 4565 4644</div>
+      <div>📧 yourmail@domain.com</div>
+      <div>🌐 www.website.com</div>
+      <div>📍 david avenue road, 9th street</div>
+    </div>
+  </div>
+</body>
+</html>
