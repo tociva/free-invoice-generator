@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { TemplateItem } from "../templates/store/model/template.model";
-import { Invoice } from "../invoice/store/model/invoice.model";
+import { TemplateItem } from '../templates/store/model/template.model';
+import { Invoice } from '../invoice/store/model/invoice.model';
 
 export class TemplateUtil {
   
