@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #eef6fa;
+      padding: 40px;
+    }
+
+    .invoice {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(to right, #a7dcf3, #d2effd);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .details .client .senter {
+      font-size: 14px;
+    }
+
+    .details .client h2 h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .date {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .items {
+      padding: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #b9eaff;
+      font-weight: 600;
+    }
+
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin-left: auto;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 10px;
+    }
+
+    .footer {
+      padding: 0 30px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .payment {
+      width: 48%;
+      margin-top: 10px;
+    }
+
+    .signature {
+      width: 48%;
+      text-align: right;
+    }
+
+    .signature p {
+      margin-top: 10px;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      text-align: right;
+    }
+
+    .terms {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .terms h3 {
+      color: #0e3b5f;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .invoice-number {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>CREATIVE COMPANY</h1>
+    <p>your tagline goes here</p>
+  </div>
+
+  <div class="details">
+    <div class="sender-info">
+      <strong>[[org_name]]</strong><br />
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]<br />
+    </div>
+
+    <div class="billing-info">
+      <strong>[[customer_name]]</strong><br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]<br />
+    </div>
+
+    <div class="invoice-info">
+      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+    </div>
+  </div>
+
+  <div class="items">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="totals">
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
+  <div class="signature">
+    <p>Najmudin</p>
+    <strong>RAHMAT NAJMUDIN</strong>
+  </div>
+
+  <div class="payment">
+    <h3>Payment Method</h3>
+    <p>Bank Transfer / Bank Name<br />Account US : 03285320<br />A/C Name : Lorem Ipsum</p>
+  </div>
+
+    <div class="terms">
+      <h3>Terms and Conditions</h3>
+      <p>
+        By using this service, you agree to the following terms and conditions. Please read them carefully before
+        proceeding.
+      </p>
+      <ol>
+        <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
+          terms.</li>
+        <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without
+          prior
+          notice.</li>
+        <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your
+          account
+          and for all activities that occur under your account.</li>
+        <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited
+          activities.
+        </li>
+        <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual
+          property
+          of the provider and may not be copied or reused without permission.</li>
+        <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the
+          use
+          or inability to use the service.</li>
+        <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at
+          our
+          discretion.</li>
+      </ol>
+      <p>
+        If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
+        support team.
+      </p>
+    </div>
+</body>
+
+</html>
