@@ -3,7 +3,9 @@ import * as TemplateActions from '../actions/template.actions';
 import { initialTemplateState } from '../state/template.state';
 
 export const templateReducer = createReducer(
+  
   initialTemplateState,
+  
 
   on(TemplateActions.setPagination, (state, { currentPage, pageSize }) => ({
     ...state,
@@ -43,5 +45,10 @@ export const templateReducer = createReducer(
   on(TemplateActions.clearSearchTags, (state) => ({
     ...state,
     searchTags: []
-  }))
+  })),
+  on(TemplateActions.setSelectedTemplate, (state, { selectedTemplate }) => ({
+  ...state,
+  selectedTemplate
+}))
+
 );

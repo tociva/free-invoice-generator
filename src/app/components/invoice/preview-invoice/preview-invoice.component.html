@@ -1,1 +1,24 @@
-<p>preview-invoice works!</p>
+<ng-container *ngIf="(selectedTemplate$ | async) as selectedTemplate">
+  <h2>Preview: {{ selectedTemplate.name }}</h2>
+
+  <div class="a4-preview-wrapper">
+  <div class="a4-preview">
+    <iframe
+      [attr.srcdoc]="selectedTemplate.safeHTML"
+      width="794"
+      height="1123"
+      frameborder="0">
+    </iframe>
+  </div>
+</div>
+
+</ng-container>
+
+<ng-container *ngIf="(selectedTemplate$ | async) === null">
+  <p>No template selected. Please select a template to preview.</p>
+</ng-container>
+
+<button mat-raised-button color="primary" *ngIf="selectedTemplate$ | async as selectedTemplate"
+        (click)="downloadPDF(selectedTemplate)">
+  Download PDF
+</button>
