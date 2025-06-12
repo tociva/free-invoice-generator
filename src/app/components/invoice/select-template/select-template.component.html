@@ -1,65 +1,74 @@
 <div class="layout-container">
-    <div class="content-area">
-      <form>
-        <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
-          <mat-label>Search here</mat-label>
-  
-          <mat-chip-grid #chipGrid aria-label="Search here">
-            <!-- Display selected tags from the store -->
-            <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
-              {{ tag }}
-              <button matChipRemove [attr.aria-label]="'remove ' + tag">
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip-row>
-          </mat-chip-grid>
-  
-          <input placeholder="Search here" #tagInput [matChipInputFor]="chipGrid"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
-            (matChipInputTokenEnd)="addTag($event)" />
-  
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <!-- Show tags for autocomplete from the store -->
-            <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
-              {{ tag }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-  
+  <div class="content-area">
+    <!-- Search and Tags -->
+    <form>
+      <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
+        <mat-label>Search here</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Search here">
+          <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
+            {{ tag }}
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+
+        <input placeholder="Search here" #tagInput [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addTag($event)" />
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+
+    <!-- Template List -->
+    <div class="iframe-grid-wrapper">
       <div class="iframe-grid">
-        <div *ngFor="let item of templates" class="template-container">
-  
-          <!-- ✅ Template Header: Name on LEFT, buttons on RIGHT -->
+        <div *ngFor="let item of templates" class="template-container"
+          [class.selected]="item.path === selectedTemplateId">
+
+          <!-- Header (not clickable) -->
           <div class="template-header">
-            <span class="template-name">{{ item.name }}</span>
-  
+            <span class="template-name" (click)="onTemplateClick(item)" (keydown.enter)="onTemplateClick(item)"
+              tabindex="0" role="button" [attr.aria-label]="'Select template ' + item.name">
+              {{ item.name }}
+            </span>
             <div class="template-actions">
-              <button mat-icon-button class="icon-button" matTooltip="Download PDF" (click)="downloadTemplateAsPDF(item)">
+              <button mat-icon-button (click)="downloadTemplateAsPDF(item); $event.stopPropagation()">
                 <mat-icon>picture_as_pdf</mat-icon>
               </button>
-  
-              <button mat-icon-button class="icon-button" matTooltip="Download (was print)"
-                (click)="downloadTemplateAsHTML(item)">
+              <button mat-icon-button (click)="downloadTemplateAsHTML(item); $event.stopPropagation()">
                 <mat-icon>download</mat-icon>
               </button>
-  
-              <button mat-icon-button class="icon-button" matTooltip="Preview" (click)="previewTemplate(item)">
+              <button mat-icon-button (click)="previewTemplate(item); $event.stopPropagation()">
                 <mat-icon>visibility</mat-icon>
               </button>
             </div>
           </div>
-  
+
+          <!-- Preview Area (fully clickable with overlay) -->
           <div class="invoice-preview-container">
-            <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
-              width="100%" height="600" frameborder="0" style="border: 1px solid #ccc; border-radius: 8px;">
+            <iframe [attr.srcdoc]="item.safeHTML" width="100%" height="600" frameborder="0" class="template-iframe">
             </iframe>
+
+            <!-- Overlay inside the iframe container -->
+            <div class="iframe-overlay" (click)="onTemplateClick(item)" tabindex="0" role="button"
+              (keydown.enter)="onTemplateClick(item)" (keydown.space)="onTemplateClick(item)"
+              [attr.aria-label]="'Select template ' + item.name">
+            </div>
           </div>
         </div>
+
       </div>
-  
-      <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-        color="primary">
-      </mat-paginator>
     </div>
+
+    <!-- Paginator -->
+    <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons color="primary">
+    </mat-paginator>
   </div>
+</div>
