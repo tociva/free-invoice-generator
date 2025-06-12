@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TemplateState } from '../state/template.state';
 
+export const selectTemplateState = createFeatureSelector<TemplateState>('template');
 export const selectTemplateFeature = createFeatureSelector<TemplateState>('template');
 
 export const selectAllTemplates = createSelector(
@@ -83,3 +84,7 @@ export const selectFilteredTemplateItemCountAllConditions = createSelector(
   (items) => items.length
 );
 
+export const selectSelectedTemplate = createSelector(
+  selectTemplateState,
+  (state) => state.selectedTemplate
+);

@@ -1,0 +1,19 @@
+.a4-preview {
+  width: 794px;
+  height: 1123px;
+  margin: 20px auto;
+  padding: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+
+@media (max-width: 900px) {
+  .a4-preview iframe {
+  transform: scale(1.05);
+  transform-origin: top left;
+}
+}

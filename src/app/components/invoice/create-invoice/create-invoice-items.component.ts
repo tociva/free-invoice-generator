@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, IRowNode, NewValueParams } from 'ag-grid-community';
+import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
 import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
