@@ -1,24 +1,34 @@
 <ng-container *ngIf="selectedTemplate">
-  <h2>Preview: {{ selectedTemplate.name }}</h2>
+    <h2>Preview: {{ selectedTemplate.name }}</h2>
 
-  <div class="a4-preview-wrapper">
-  <div class="a4-preview">
-    <iframe
-      [attr.srcdoc]="selectedTemplate.safeHTML"
-      width="794"
-      height="1123"
-      frameborder="0">
-    </iframe>
-  </div>
-</div>
+    <div class="a4-preview-wrapper">
+        <div class="top-bar">
+            <button mat-icon-button disableRipple class="icon-btn" (click)="printTemplate()"
+                matTooltip="Print Template">
+                <mat-icon>print</mat-icon>
+            </button>
 
+            <button mat-icon-button disableRipple class="icon-btn"
+                (click)="downloadPDF(selectedTemplate); $event.stopPropagation()" matTooltip="Download PDF">
+                <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+
+            <button mat-icon-button disableRipple class="icon-btn" (click)="downloadJSON(selectedTemplate)"
+                matTooltip="Download JSON">
+                <mat-icon>download</mat-icon>
+            </button>
+
+        </div>
+
+
+
+        <div class="a4-preview">
+            <iframe #invoiceFrame [attr.srcdoc]="selectedTemplate.safeHTML" width="794" height="1123" frameborder="0">
+            </iframe>
+        </div>
+    </div>
 </ng-container>
 
 <ng-container *ngIf="selectedTemplate === null">
-  <p>No template selected. Please select a template to preview.</p>
+    <p>No template selected. Please select a template to preview.</p>
 </ng-container>
-
-<button mat-raised-button color="primary" *ngIf="selectedTemplate"
-        (click)="downloadPDF(selectedTemplate)">
-  Download PDF
-</button>
