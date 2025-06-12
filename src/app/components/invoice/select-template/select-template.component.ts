@@ -14,12 +14,14 @@ import { SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
+
 import {
   addSearchTag,
   loadTemplates,
   removeSearchTag,
   setPagination,
   setSearchTags,
+  setSelectedTemplate
 } from '../../templates/store/actions/template.actions';
 import { TemplateItem } from '../../templates/store/model/template.model';
 import { selectTags } from '../../templates/store/selectors/tag.selectors';
@@ -60,6 +62,8 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   tags$!: Observable<string[]>;
   selectedTags$!: Observable<string[]>;
   templates: TemplateItem[] = [];
+  selectedTemplateId: string | null = null;
+
 
   downloadTemplateAsPDF = TemplateUtil.downloadTemplateAsPDF;
   downloadTemplateAsHTML = TemplateUtil.downloadTemplateAsHTML;
@@ -71,7 +75,7 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private templateService: TemplateService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.store.dispatch(loadTemplates());
@@ -173,4 +177,10 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   selected(event: MatAutocompleteSelectedEvent) {
     this.store.dispatch(addSearchTag({ tag: event.option.value }));
   }
+ onTemplateClick(template: TemplateItem): void {
+  this.selectedTemplateId = template.path;
+  this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
+  this.previewTemplate(template);
+}
+
 }

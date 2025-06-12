@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .invoice-box {
+      width: 900px;
+      margin: 10px auto;
+      background: white;
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid #0e3b5f;
+      padding-bottom: 20px;
+    }
+    .logo-circle {
+      color: white;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      user-select: none;
+    }
+    .logo-circle img {
+      width: 150px;
+      margin-left: 70px;
+    }
+
+    .sender-info, .billing-info, .invoice-info {
+      margin-bottom: 25px;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .billing-info strong {
+      font-size: 18px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .sender-info strong{
+      font-size: 18px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .invoice-info p {
+      margin: 3px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: #43c8d9;
+      color: white;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+    }
+
+    tbody td {
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      text-align: center;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin-left: auto;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 10px;
+    }
+
+
+    .payment-info {
+      font-size: 14px;
+    }
+
+    .signature {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .signature img {
+      height: 10px;
+    }
+
+    .terms {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .terms h3 {
+      color: #0e3b5f;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background: #0e3b5f;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      font-size: 13px;
+    }
+
+    .footer div {
+      display: flex;
+      align-items: center;
+    }
+
+    .footer i {
+      margin-right: 8px;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+    <div class="header">
+      <div class="logo-circle">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <div>
+          <strong>COMPANY</strong><br />
+          <small>COMPANY TAGLINE HERE</small>
+        </div>
+      </div>
+      <div class="invoice-info">
+        <h1>INVOICE</h1>
+        <p>Invoice Number: #123456</p>
+        <p>Invoice Date: April 5, 2020</p>
+      </div>
+    </div>
+
+    <div class="sender-info">
+    <strong>[[org_name]]</strong><br />
+    [[org_address]]<br />
+    [[org_phone]]<br />
+    [[org_email]]<br />
+  </div>
+
+  <div class="billing-info">
+    <strong>[[customer_name]]</strong><br />
+    [[customer_address]]<br />
+    [[customer_phone]]<br />
+    [[customer_email]]<br />
+  </div>
+
+  <div class="invoice-info">
+    <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+    <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+    <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+  </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax  <span>[[tax_amount]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
+
+    <div class="payment-info">
+      <p><strong>Payment Method:</strong></p>
+      <p>Account No: 1234 5678 910</p>
+      <p>Account Name: Jhone Doe</p>
+      <p>Branch: XYZ</p>
+    </div>
+
+    <div class="signature">
+      <div>
+        <img src="[[signature_image]]" alt="Signature">
+        <p>Authorised sign</p>
+      </div>
+    </div>
+
+    <div class="terms">
+      <h3>Terms and Conditions</h3>
+      <p>
+        By using this service, you agree to the following terms and conditions. Please read them carefully before
+        proceeding.
+      </p>
+      <ol>
+        <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
+          terms.</li>
+        <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without
+          prior
+          notice.</li>
+        <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your
+          account
+          and for all activities that occur under your account.</li>
+        <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited
+          activities.
+        </li>
+        <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual
+          property
+          of the provider and may not be copied or reused without permission.</li>
+        <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use
+          or inability to use the service.</li>
+        <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our
+          discretion.</li>
+      </ol>
+      <p>
+        If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
+        support team.
+      </p>
+    </div>
+    <div class="footer">
+      <div>📞 +123 4567 8910</div>
+      <div>📧 <a href="mailto:example@mail.com">example@mail.com</a></div>
+      <div>📍 Your location here</div>
+      <div>Thank You For Your Business</div>
+    </div>
+</body>
+
+</html>

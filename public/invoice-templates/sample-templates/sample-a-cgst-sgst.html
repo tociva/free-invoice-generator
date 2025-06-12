@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      color: #333;
+      background-color: #fff;
+    }
+
+    .invoice-container {
+      background-color: #fff;
+      width: 1000px;
+      max-width: 100%;
+      margin: 10px auto;
+      padding: 40px 50px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-circle {
+      color: white;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      user-select: none;
+    }
+    .logo-circle img {
+      width: 150px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .invoice-title {
+      color: #007bff;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .invoice-details {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .sender-info, .billing-info, .invoice-info {
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .billing-info strong {
+      font-size: 18px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .invoice-info p {
+      margin: 3px 0;
+    }
+
+    .account-summary {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .account-summary p strong {
+      font-size: 22px;
+      color: #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 40px 0;
+    }
+
+    thead th {
+      background-color: #f0f0f0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    tbody td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      vertical-align: top;
+    }
+
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin-left: auto;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 10px;
+    }
+
+
+    .signature {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .signature p {
+      margin: 5px 0;
+    }
+
+    .wave {
+      background-color: #0284d0;
+      margin-top: 20px;
+      position: relative;
+      border-radius: 0 0 8px 8px;
+    }
+
+
+    .footer {
+      background: linear-gradient(to right, #0e72b7, #0284d0);
+      color: white;
+      padding: 30px 40px;
+      margin-top: 20px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .footer-columns {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    .footer-columns div {
+      margin-bottom: 10px;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+
+    .footer-columns p {
+      font-size: medium;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="header">
+      <div class="header">
+        <div class="logo-circle">
+          <img src="[[logo_small_src]]" alt="Logo" />
+        </div>
+      </div>
+      <div class="invoice-title">
+        Invoice
+        <div style="font-size: 14px; font-weight: normal;">Invoice No:[[Invoice_Number]]</div>
+      </div>
+    </div>
+
+    <div class="invoice-details">
+      <div class="sender-info">
+    <strong>[[org_name]]</strong><br />
+    [[org_address]]<br />
+    [[org_phone]]<br />
+    [[org_email]]<br />
+  </div>
+
+  <div class="billing-info">
+    <strong>[[customer_name]]</strong><br />
+    [[customer_address]]<br />
+    [[customer_phone]]<br />
+    [[customer_email]]<br />
+  </div>
+
+  <div class="invoice-info">
+    <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+    <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+    <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+  </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax  <span>[[tax_amount]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
+
+    <div class="signature">
+      <p>___________________________</p>
+      <p><strong>[[NAME]]</strong></p>
+      <p>[[Designation]]</p>
+    </div>
+
+    <div class="terms">
+      <h3>Terms and Conditions</h3>
+      <p>
+        By using this service, you agree to the following terms and conditions. Please read them carefully before
+        proceeding.
+      </p>
+      <ol>
+        <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
+          terms.</li>
+        <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without
+          prior notice.</li>
+        <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your
+          account and for all activities that occur under your account.</li>
+        <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited
+          activities.</li>
+        <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual
+          property of the provider and may not be copied or reused without permission.</li>
+        <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use
+          or inability to use the service.</li>
+        <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our
+          discretion.</li>
+      </ol>
+      <p>
+        If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
+        support team.
+      </p>
+    </div>
+
+    <div class="wave">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width:100%; height:70px; display:block;">
+        <path d="M0,0 C400,150 1000,0 1200,100 L1200,0 L0,0 Z" fill="#0e72b7"></path>
+      </svg>
+      <div class="footer-columns">
+        <div>
+          <p>Your Street Address Here</p>
+          <p>1523, Singapore, 7777</p>
+        </div>
+        <div>
+          <p>📞 +000 123 56789</p>
+          <p>📞 +000 123 56789</p>
+        </div>
+        <div>
+          <p>🌐 <a>www.websitename.com</a></p>
+          <p>✉️ <a>username@email.com</a></p>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
