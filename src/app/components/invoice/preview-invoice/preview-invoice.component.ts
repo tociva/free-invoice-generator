@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { TemplateItem } from '../../templates/store/model/template.model';
 import { TemplateState } from '../../templates/store/state/template.state';
-import { selectSelectedTemplate } from '../../templates/store/selectors/template.selector';
-import { CommonModule } from '@angular/common';
 import { TemplateUtil } from '../../util/template.util';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { selectSelectedTemplate } from '../../templates/store/selectors/template.selector';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -15,14 +15,29 @@ import { TemplateUtil } from '../../util/template.util';
   styleUrl: './preview-invoice.component.scss',
   standalone: true
 })
-export class PreviewInvoiceComponent {
-  selectedTemplate$: Observable<TemplateItem | null>;
+export class PreviewInvoiceComponent implements OnInit {
+  selectedTemplate!: TemplateItem;
 
   constructor(
     private store: Store<TemplateState>,
     private sanitizer: DomSanitizer
   ) {
-    this.selectedTemplate$ = this.store.select(selectSelectedTemplate);
+  }
+
+  ngOnInit(): void {
+   this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectSelectedTemplate).subscribe((template) => {
+      if(template) {
+      const html = TemplateUtil.fillTemplate(template.template, invoice);
+      const safeHtml = this.sanitizer.bypassSecurityTrustHtml(html);
+      this.selectedTemplate = {
+          ...template,
+          html,
+          safeHTML: safeHtml
+        };
+      }
+    });
+   });
   }
 
   sanitizeHtml(html: string): SafeHtml {
