@@ -161,12 +161,10 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     return this.templateService.createWrappedSafeHtml(rawHtml as string);
   }
 
-  previewTemplate(item: TemplateItem): void {
-  this.selectedTemplateId = item.path;
-  this.store.dispatch(setSelectedTemplate({ selectedTemplate: item }));
-  void this.router.navigate(['/preview']);
-}
-
+  // eslint-disable-next-line class-methods-use-this
+  previewTemplate(_item: TemplateItem): void {
+    // Implementation placeholder
+  }
 
   removeTag(tag: string) {
     this.store.dispatch(removeSearchTag({ tag }));
@@ -182,8 +180,9 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     this.store.dispatch(addSearchTag({ tag: event.option.value }));
   }
  onTemplateClick(template: TemplateItem): void {
+  this.selectedTemplateId = template.path;
+  this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
   this.previewTemplate(template);
 }
-
 
 }
