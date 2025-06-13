@@ -38,12 +38,6 @@
               {{ item.name }}
             </span>
             <div class="template-actions">
-              <button mat-icon-button (click)="downloadTemplateAsPDF(item); $event.stopPropagation()">
-                <mat-icon>picture_as_pdf</mat-icon>
-              </button>
-              <button mat-icon-button (click)="downloadTemplateAsHTML(item); $event.stopPropagation()">
-                <mat-icon>download</mat-icon>
-              </button>
               <button mat-icon-button (click)="previewTemplate(item); $event.stopPropagation()">
                 <mat-icon>visibility</mat-icon>
               </button>
