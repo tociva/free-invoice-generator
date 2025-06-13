@@ -18,5 +18,11 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () =>
       import('./components/templates/list-templates/list-templates.component').then((m) => m.ListTemplatesComponent)
+  },
+  {
+    path: 'preview',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./components/invoice/preview-invoice/preview-invoice.component').then((m) => m.PreviewInvoiceComponent)
   }
 ];
