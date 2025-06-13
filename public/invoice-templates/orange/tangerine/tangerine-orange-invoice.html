@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice</title>
   <style>
     body {
@@ -11,6 +12,7 @@
       padding: 30px;
       color: #333;
     }
+
     .invoice-box {
       max-width: 800px;
       margin: auto;
@@ -18,84 +20,103 @@
       padding: 40px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     }
+
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .brand {
       font-size: 20px;
       font-weight: bold;
     }
+
     .brand span {
       color: #f47c45;
     }
+
     .invoice-title {
       text-align: right;
       font-size: 30px;
       font-weight: bold;
     }
+
     .section {
       margin-top: 30px;
     }
+
     .section h4 {
       margin: 0;
       margin-bottom: 10px;
     }
+
     .invoice-details,
     .payment-info {
       font-size: 14px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
       font-size: 14px;
     }
+
     table thead th {
       background: #f47c45;
       color: #fff;
       padding: 10px;
       text-align: left;
     }
+
     table td {
       padding: 10px;
       border: 1px solid #ddd;
     }
+
     .totals {
       margin-top: 20px;
       width: 250px;
       float: right;
     }
+
     .totals td {
       padding: 8px;
     }
+
     .totals .label {
       text-align: left;
     }
+
     .totals .value {
       text-align: right;
     }
+
     .totals .highlight {
       background-color: #f47c45;
       color: #fff;
       font-weight: bold;
     }
+
     .terms {
       clear: both;
       margin-top: 40px;
       font-size: 12px;
     }
+
     .footer {
       margin-top: 50px;
       display: flex;
       justify-content: space-between;
       font-size: 12px;
     }
+
     .footer div {
       text-align: center;
       flex: 1;
     }
+
     .footer .sign {
       margin-top: 50px;
       border-top: 1px solid #000;
@@ -105,6 +126,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="invoice-box">
     <div class="header">
@@ -137,7 +159,13 @@
       </thead>
       <tbody>
         <!-- Add dynamic rows here -->
-        <tr><td>1</td><td>Sample Item</td><td>2</td><td>$50</td><td>$100</td></tr>
+        <tr>
+          <td>1</td>
+          <td>Sample Item</td>
+          <td>2</td>
+          <td>$50</td>
+          <td>$100</td>
+        </tr>
       </tbody>
     </table>
 
@@ -163,11 +191,6 @@
       Bank Details: Add your bank details
     </div>
 
-    <div class="terms">
-      <strong>Term & Condition</strong><br>
-      Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim pretium consectetur.
-    </div>
-
     <div class="footer">
       <div>📞 Phone</div>
       <div>📍 Address</div>
@@ -177,4 +200,5 @@
     <div class="sign">Authorised Sign</div>
   </div>
 </body>
+
 </html>

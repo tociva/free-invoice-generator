@@ -7,17 +7,33 @@
             {
                 "name": "Scarlet Red CGST-SGST",
                 "path": "invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html",
-                "tags": ["simple","cgst", "sgst", "scarlet", "red"]
+                "tags": [
+                    "simple",
+                    "cgst",
+                    "sgst",
+                    "scarlet",
+                    "red"
+                ]
             },
             {
                 "name": "Scarlet Red IGST",
                 "path": "invoice-templates/red/scarlet/scarlet-red-invoice-igst.html",
-                "tags": ["simple","igst", "scarlet", "red"]
+                "tags": [
+                    "simple",
+                    "igst",
+                    "scarlet",
+                    "red"
+                ]
             },
             {
                 "name": "Scarlet Red Non Taxable",
                 "path": "invoice-templates/red/scarlet/scarlet-red-invoice-non-taxable.html",
-                "tags": ["simple","non-taxable", "scarlet", "red"]
+                "tags": [
+                    "simple",
+                    "non-taxable",
+                    "scarlet",
+                    "red"
+                ]
             }
         ]
     },
@@ -29,17 +45,33 @@
             {
                 "name": " Royal Blue CGST-SGST",
                 "path": "invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html",
-                "tags": ["simple","cgst", "sgst", "royal-blue", "blue"]
+                "tags": [
+                    "simple",
+                    "cgst",
+                    "sgst",
+                    "royal-blue",
+                    "blue"
+                ]
             },
             {
                 "name": "Royal Blue IGST",
                 "path": "invoice-templates/blue/royal-blue/blue-invoice-igst.html",
-                "tags": ["simple","igst", "royal-blue", "blue"]
+                "tags": [
+                    "simple",
+                    "igst",
+                    "royal-blue",
+                    "blue"
+                ]
             },
             {
                 "name": "Royal Blue Non Taxable",
                 "path": "invoice-templates/blue/royal-blue/blue-invoice-non-taxable.html",
-                "tags": ["simple","non-taxable", "royal-blue", "blue"]
+                "tags": [
+                    "simple",
+                    "non-taxable",
+                    "royal-blue",
+                    "blue"
+                ]
             }
         ]
     },
@@ -51,17 +83,33 @@
             {
                 "name": "Pale Green CGST-SGST",
                 "path": "invoice-templates/green/pale-green/green-invoice-cgst-sgst.html",
-                "tags": ["simple","cgst", "sgst", "pale-green", "green"]
+                "tags": [
+                    "simple",
+                    "cgst",
+                    "sgst",
+                    "pale-green",
+                    "green"
+                ]
             },
             {
                 "name": "Pale Green IGST",
                 "path": "invoice-templates/green/pale-green/green-invoice-igst.html",
-                "tags": ["simple","igst", "pale-green", "green"]
+                "tags": [
+                    "simple",
+                    "igst",
+                    "pale-green",
+                    "green"
+                ]
             },
             {
                 "name": "Pale Green Non Taxable",
                 "path": "invoice-templates/green/pale-green/green-invoice-non-taxable.html",
-                "tags": ["simple","non-taxable", "pale-green", "green"]
+                "tags": [
+                    "simple",
+                    "non-taxable",
+                    "pale-green",
+                    "green"
+                ]
             }
         ]
     },
@@ -73,17 +121,29 @@
             {
                 "name": "Sample-a",
                 "path": "invoice-templates/sample-templates/sample-a-cgst-sgst.html",
-                "tags": ["sample","cgst","sgst"]
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             },
             {
                 "name": "Sample-b-cgst-sgst",
                 "path": "invoice-templates/sample-templates/sample-b-cgst-sgst.html",
-                "tags": ["sample","cgst","sgst"]
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             },
             {
                 "name": "Sample-c-cgst-sgst",
                 "path": "invoice-templates/sample-templates/sample-c-cgst-sgst.html",
-                "tags": ["sample","cgst","sgst"]
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }

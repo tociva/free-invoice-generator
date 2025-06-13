@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +15,8 @@
 
     h1 {
       text-align: center;
-      color: #1e3a8a; /* deep blue */
+      color: #1e3a8a;
+      /* deep blue */
       margin-bottom: 30px;
       font-size: 36px;
       font-weight: bold;
@@ -39,9 +41,11 @@
       font-size: 18px;
       user-select: none;
     }
-    
 
-    .sender-info, .billing-info, .invoice-info {
+
+    .sender-info,
+    .billing-info,
+    .invoice-info {
       margin-bottom: 25px;
       line-height: 1.5;
     }
@@ -67,7 +71,8 @@
       color: white;
       padding: 12px 10px;
       text-align: left;
-      border-bottom: 3px solid #1e40af; /* darker blue */
+      border-bottom: 3px solid #1e40af;
+      /* darker blue */
     }
 
     table tbody td {
@@ -76,7 +81,8 @@
     }
 
     table tbody tr:hover {
-      background-color: #f0f8ff; /* light blue background on hover */
+      background-color: #f0f8ff;
+      /* light blue background on hover */
     }
 
     .totals p {
@@ -112,7 +118,7 @@
   <h1>INVOICE</h1>
   <div class="header">
     <div class="logo-circle">
-       <img src="[[mail_logo_src]]" alt="Logo" />
+      <img src="[[mail_logo_src]]" alt="Logo" />
     </div>
   </div>
 
@@ -163,27 +169,9 @@
 
   <div class="totals">
     <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax  <span>[[tax_amount]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
-
-  <div class="terms">
-    <h3>Terms and Conditions</h3>
-    <p>
-      By using this service, you agree to the following terms and conditions. Please read them carefully before proceeding.
-    </p>
-    <ol>
-      <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these terms.</li>
-      <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without prior notice.</li>
-      <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.</li>
-      <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited activities.</li>
-      <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual property of the provider and may not be copied or reused without permission.</li>
-      <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use or inability to use the service.</li>
-      <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our discretion.</li>
-    </ol>
-    <p>
-      If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our support team.
-    </p>
-  </div>
 </body>
+
 </html>
