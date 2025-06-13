@@ -13,11 +13,21 @@
                 <mat-icon>picture_as_pdf</mat-icon>
             </button>
 
+
             <button mat-icon-button disableRipple class="icon-btn" (click)="downloadJSON(selectedTemplate)"
                 matTooltip="Download JSON">
-                <mat-icon>download</mat-icon>
+                <mat-icon>data_object</mat-icon>
             </button>
 
+            <button mat-icon-button disableRipple class="icon-btn" (click)="downloadHTML(selectedTemplate)"
+                matTooltip="Download HTML">
+                <mat-icon>description</mat-icon>
+            </button>
+
+            <button mat-icon-button disableRipple class="icon-btn"
+                (click)="downloadTemplate()" matTooltip="Download Template">
+                <mat-icon>code</mat-icon>
+            </button>
         </div>
 
 

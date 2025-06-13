@@ -35,6 +35,7 @@ import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { Invoice, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select-template',
@@ -74,7 +75,8 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   constructor(
     private templateService: TemplateService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -159,10 +161,12 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     return this.templateService.createWrappedSafeHtml(rawHtml as string);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  previewTemplate(_item: TemplateItem): void {
-    // Implementation placeholder
-  }
+  previewTemplate(item: TemplateItem): void {
+  this.selectedTemplateId = item.path;
+  this.store.dispatch(setSelectedTemplate({ selectedTemplate: item }));
+  void this.router.navigate(['/preview']);
+}
+
 
   removeTag(tag: string) {
     this.store.dispatch(removeSearchTag({ tag }));
@@ -178,9 +182,8 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     this.store.dispatch(addSearchTag({ tag: event.option.value }));
   }
  onTemplateClick(template: TemplateItem): void {
-  this.selectedTemplateId = template.path;
-  this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
   this.previewTemplate(template);
 }
+
 
 }

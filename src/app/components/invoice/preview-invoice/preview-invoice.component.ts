@@ -22,6 +22,8 @@ export class PreviewInvoiceComponent implements OnInit {
   @ViewChild('invoiceFrame') invoiceFrame!: ElementRef<HTMLIFrameElement>;
 
   selectedTemplate!: TemplateItem;
+  downloadTemplateAsHTML = TemplateUtil.downloadTemplateAsHTML;
+
 
   constructor(
     private store: Store<TemplateState>,
@@ -80,5 +82,21 @@ downloadJSON(template: TemplateItem): void {
 
   window.URL.revokeObjectURL(url);
 }
+// in TemplateUtil.ts
+downloadTemplate(): void {
+  const template = this.selectedTemplate;
+  const blob = new Blob([template.html], { type: 'text/html' });
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${template.name || 'template'}.html`;
+  a.click();
+
+  window.URL.revokeObjectURL(url);
+}
+
+
+
 
 }
