@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +26,7 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .logo-circle {
       color: white;
       width: 100px;
@@ -37,6 +39,7 @@
       font-size: 18px;
       user-select: none;
     }
+
     .logo-circle img {
       width: 150px;
     }
@@ -64,7 +67,9 @@
       flex-wrap: wrap;
     }
 
-    .sender-info, .billing-info, .invoice-info {
+    .sender-info,
+    .billing-info,
+    .invoice-info {
       margin-bottom: 25px;
       line-height: 1.5;
     }
@@ -175,124 +180,96 @@
 </head>
 
 <body>
+  <div class="header">
     <div class="header">
-      <div class="header">
-        <div class="logo-circle">
-          <img src="[[logo_small_src]]" alt="Logo" />
-        </div>
-      </div>
-      <div class="invoice-title">
-        Invoice
-        <div style="font-size: 14px; font-weight: normal;">Invoice No:[[Invoice_Number]]</div>
+      <div class="logo-circle">
+        <img src="[[logo_small_src]]" alt="Logo" />
       </div>
     </div>
-
-    <div class="invoice-details">
-      <div class="sender-info">
-    <strong>[[org_name]]</strong><br />
-    [[org_address]]<br />
-    [[org_phone]]<br />
-    [[org_email]]<br />
+    <div class="invoice-title">
+      Invoice
+      <div style="font-size: 14px; font-weight: normal;">Invoice No:[[Invoice_Number]]</div>
+    </div>
   </div>
 
-  <div class="billing-info">
-    <strong>[[customer_name]]</strong><br />
-    [[customer_address]]<br />
-    [[customer_phone]]<br />
-    [[customer_email]]<br />
-  </div>
-
-  <div class="invoice-info">
-    <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-    <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-    <p><strong>Payment due:</strong> [[payment_due_date]]</p>
-  </div>
+  <div class="invoice-details">
+    <div class="sender-info">
+      <strong>[[org_name]]</strong><br />
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]<br />
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Price per unit</th>
-          <th>CGST</th>
-          <th>SGST</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        [[items_start]]
-        <tr>
-          <td>[[item_name]]</td>
-          <td>[[item_quantity]]</td>
-          <td>[[item_price]]</td>
-          <td>[[item_cgst]]</td>
-          <td>[[item_sgst]]</td>
-          <td>[[item_amount]]</td>
-        </tr>
-        [[items_end]]
-      </tbody>
-    </table>
+    <div class="billing-info">
+      <strong>[[customer_name]]</strong><br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]<br />
+    </div>
 
-    <div class="totals">
+    <div class="invoice-info">
+      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price per unit</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      [[items_start]]
+      <tr>
+        <td>[[item_name]]</td>
+        <td>[[item_quantity]]</td>
+        <td>[[item_price]]</td>
+        <td>[[item_cgst]]</td>
+        <td>[[item_sgst]]</td>
+        <td>[[item_amount]]</td>
+      </tr>
+      [[items_end]]
+    </tbody>
+  </table>
+
+  <div class="totals">
     <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax  <span>[[tax_amount]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
 
-    <div class="signature">
-      <p>___________________________</p>
-      <p><strong>[[NAME]]</strong></p>
-      <p>[[Designation]]</p>
-    </div>
+  <div class="signature">
+    <p>___________________________</p>
+    <p><strong>[[NAME]]</strong></p>
+    <p>[[Designation]]</p>
+  </div>
 
-    <div class="terms">
-      <h3>Terms and Conditions</h3>
-      <p>
-        By using this service, you agree to the following terms and conditions. Please read them carefully before
-        proceeding.
-      </p>
-      <ol>
-        <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these
-          terms.</li>
-        <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without
-          prior notice.</li>
-        <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your
-          account and for all activities that occur under your account.</li>
-        <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited
-          activities.</li>
-        <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual
-          property of the provider and may not be copied or reused without permission.</li>
-        <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use
-          or inability to use the service.</li>
-        <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our
-          discretion.</li>
-      </ol>
-      <p>
-        If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our
-        support team.
-      </p>
-    </div>
-
-    <div class="wave">
-      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width:100%; height:70px; display:block;">
-        <path d="M0,0 C400,150 1000,0 1200,100 L1200,0 L0,0 Z" fill="#0e72b7"></path>
-      </svg>
-      <div class="footer-columns">
-        <div>
-          <p>Your Street Address Here</p>
-          <p>1523, Singapore, 7777</p>
-        </div>
-        <div>
-          <p>📞 +000 123 56789</p>
-          <p>📞 +000 123 56789</p>
-        </div>
-        <div>
-          <p>🌐 <a>www.websitename.com</a></p>
-          <p>✉️ <a>username@email.com</a></p>
-        </div>
+  <div class="wave">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width:100%; height:70px; display:block;">
+      <path d="M0,0 C400,150 1000,0 1200,100 L1200,0 L0,0 Z" fill="#0e72b7"></path>
+    </svg>
+    <div class="footer-columns">
+      <div>
+        <p>Your Street Address Here</p>
+        <p>1523, Singapore, 7777</p>
+      </div>
+      <div>
+        <p>📞 +000 123 56789</p>
+        <p>📞 +000 123 56789</p>
+      </div>
+      <div>
+        <p>🌐 <a>www.websitename.com</a></p>
+        <p>✉️ <a>username@email.com</a></p>
       </div>
     </div>
+  </div>
 </body>
 
 </html>
