@@ -6,6 +6,8 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
 
   smallLogoPreviewUrl: string | null = null;
   largeLogoPreviewUrl: string | null = null;
+  isLargeLogoDragOver = false;
+  isSmallLogoDragOver = false;
 
   private handleSmallLogo(file: File): void {
     if (file.type.startsWith('image/')) {
@@ -32,19 +34,26 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
       console.warn('Unsupported large logo type:', file.type);
     }
   }
-  // eslint-disable-next-line class-methods-use-this
   onSmallLogoDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-  }
+  event.preventDefault();
+  event.stopPropagation();
+  this.isSmallLogoDragOver = true;
+}
 
-  onSmallLogoDrop(event: DragEvent): void {
-    event.preventDefault();
-    const files = event.dataTransfer?.files;
-    if (files && files.length > 0) {
-      this.handleSmallLogo(files[0]);
-    }
+onSmallLogoDragLeave(event: DragEvent): void {
+  event.preventDefault();
+  event.stopPropagation();
+  this.isSmallLogoDragOver = false;
+}
+
+onSmallLogoDrop(event: DragEvent): void {
+  event.preventDefault();
+  this.isSmallLogoDragOver = false;
+  const files = event.dataTransfer?.files;
+  if (files && files.length > 0) {
+    this.handleSmallLogo(files[0]);
   }
+}
 
   onSmallLogoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -55,14 +64,21 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   onLargeLogoDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
+    this.isLargeLogoDragOver = true;
   }
+  onLargeLogoDragLeave(event: DragEvent): void {
+  event.preventDefault();
+  event.stopPropagation();
+  this.isLargeLogoDragOver = false;
+}
 
   onLargeLogoDrop(event: DragEvent): void {
     event.preventDefault();
+    this.isLargeLogoDragOver = false;
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       this.handleLargeLogo(files[0]);
@@ -77,4 +93,14 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
       input.value = '';
     }
   }
+  clearSmallLogo(): void {
+  this.smallLogoPreviewUrl = null;
+  this.store.dispatch(setInvoiceSmallLogo({ smallLogo: '' }));
+}
+
+clearLargeLogo(): void {
+  this.largeLogoPreviewUrl = null;
+  this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
+}
+
 }
