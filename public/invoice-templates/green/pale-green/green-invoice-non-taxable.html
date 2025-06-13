@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invoice Template</title>
-   <style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       margin: 40px;
@@ -14,7 +15,7 @@
 
     h1 {
       text-align: center;
-      color: #98FB98	;
+      color: #98FB98;
       margin-bottom: 30px;
       font-size: 36px;
       font-weight: bold;
@@ -40,7 +41,9 @@
       user-select: none;
     }
 
-    .sender-info, .billing-info, .invoice-info {
+    .sender-info,
+    .billing-info,
+    .invoice-info {
       margin-bottom: 25px;
       line-height: 1.5;
     }
@@ -111,7 +114,7 @@
   <h1>INVOICE</h1>
   <div class="header">
     <div class="logo-circle">
-       <img src="[[mail_logo_src]]" alt="Logo" />
+      <img src="[[mail_logo_src]]" alt="Logo" />
     </div>
   </div>
 
@@ -162,27 +165,10 @@
 
   <div class="totals">
     <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax  <span>[[tax_amount]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
 
-  <div class="terms">
-    <h3>Terms and Conditions</h3>
-    <p>
-      By using this service, you agree to the following terms and conditions. Please read them carefully before proceeding.
-    </p>
-    <ol>
-      <li><strong>Acceptance of Terms:</strong> By accessing or using this service, you agree to be bound by these terms.</li>
-      <li><strong>Modifications:</strong> We reserve the right to update or change these terms at any time without prior notice.</li>
-      <li><strong>User Responsibility:</strong> You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.</li>
-      <li><strong>Prohibited Use:</strong> You agree not to use this service for any unlawful or prohibited activities.</li>
-      <li><strong>Intellectual Property:</strong> All content provided through this service is the intellectual property of the provider and may not be copied or reused without permission.</li>
-      <li><strong>Limitation of Liability:</strong> We shall not be held liable for any damages resulting from the use or inability to use the service.</li>
-      <li><strong>Termination:</strong> We reserve the right to terminate or suspend your access to the service at our discretion.</li>
-    </ol>
-    <p>
-      If you do not agree to these terms, please do not use this service. For any questions or concerns, contact our support team.
-    </p>
-  </div>
 </body>
+
 </html>
