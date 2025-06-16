@@ -8,6 +8,9 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
   largeLogoPreviewUrl: string | null = null;
   isLargeLogoDragOver = false;
   isSmallLogoDragOver = false;
+  isJsonDragOver = false;
+jsonFileName: string | null = null;
+
 
   private handleSmallLogo(file: File): void {
     if (file.type.startsWith('image/')) {
@@ -102,5 +105,48 @@ clearLargeLogo(): void {
   this.largeLogoPreviewUrl = null;
   this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
 }
+onJsonDragOver(event: DragEvent): void {
+  event.preventDefault();
+  this.isJsonDragOver = true;
+}
 
+onJsonDragLeave(event: DragEvent): void {
+  event.preventDefault();
+  this.isJsonDragOver = false;
+}
+
+onJsonDrop(event: DragEvent): void {
+  event.preventDefault();
+  this.isJsonDragOver = false;
+  const files = event.dataTransfer?.files;
+  if (files && files.length > 0) {
+    this.handleJsonFile(files[0]);
+  }
+}
+
+onJsonSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+  if (file) {
+    this.handleJsonFile(file);
+  }
+}
+
+handleJsonFile(file: File): void {
+   (file.type === 'application/json' || file.name.endsWith('.json'));
+   {
+    this.jsonFileName = file.name;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      
+      // You can store or use jsonContent here
+    };
+    reader.readAsText(file);
+  }
+}
+
+clearJsonFile(): void {
+  this.jsonFileName = null;
+}
 }
