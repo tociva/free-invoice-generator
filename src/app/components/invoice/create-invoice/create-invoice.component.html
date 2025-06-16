@@ -1,6 +1,6 @@
-<div class="card-layout" style="display: flex; flex-wrap: wrap; gap: 24px;">
+<div class="card-layout" >
     <!-- My Details -->
-    <div class="my-organization-card" style="flex: 1 1 48%;">
+    <div class="my-organization-card">
         <div class="title">
             <span class="card-title">My Organization</span>
         </div>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- Customer Details -->
-    <div class="customer-card" style="flex: 1 1 48%;">
+    <div class="customer-card">
         <div class="title">
             <span class="card-title">Customer Details</span>
         </div>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Invoice Details -->
-    <div class="invoice-details-card" style="flex: 1 1 65%;">
+    <div class="invoice-details-card">
         <div class="title">
             <span class="card-title">Invoice Details</span>
         </div>
@@ -48,19 +48,17 @@
                 <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isSmallLogoDragOver }">
                     <!-- Close Button -->
                     <button *ngIf="smallLogoPreviewUrl" mat-icon-button (click)="clearSmallLogo()"
-                        aria-label="Remove Small Logo" title="Remove Small Logo"
-                        style="position: absolute; top: 5px; right: 5px; z-index: 1;">
+                        aria-label="Remove Small Logo" title="Remove Small Logo">
                         <mat-icon>close</mat-icon>
                     </button>
 
                     <!-- Preview or Placeholder -->
                     <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
-                        <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview"
-                            style="max-height: 100px; max-width: 100%; margin-bottom: 8px;" />
+                        <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview">
                     </ng-container>
 
                     <ng-template #smallLogoUploadPrompt>
-                        <p style="margin-bottom: 8px;"></p>
+                        <p ></p>
                     </ng-template>
 
                     <!-- Upload Link -->
@@ -81,20 +79,18 @@
                 <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isLargeLogoDragOver }">
                     <!-- Close Button -->
                     <button *ngIf="largeLogoPreviewUrl" mat-icon-button (click)="clearLargeLogo()"
-                        aria-label="Remove Large Logo" title="Remove Large Logo"
-                        style="position: absolute; top: 5px; right: 5px; z-index: 1;">
+                        aria-label="Remove Large Logo" title="Remove Large Logo">
                         <mat-icon>close</mat-icon>
                     </button>
 
                     <!-- Image or Placeholder -->
                     <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
-                        <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview"
-                            style="max-height: 100px; max-width: 100%; margin-bottom: 8px;" />
+                        <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview" />
                     </ng-container>
 
                     <!-- Placeholder Text -->
                     <ng-template #largeLogoUploadPrompt>
-                        <p style="margin-bottom: 8px;"></p>
+                        <p></p>
                     </ng-template>
 
                     <!-- Always Visible Select Button -->
@@ -109,8 +105,8 @@
     </div>
 
     <!-- Item Deatils -->
-    <div class="item-summary">
-        <div class="Item-details-card" style="flex: 1 1 100%;">
+    <div class="card item-summary">
+        <div class="Item-details-card">
             <div class="title">
                 <span class="card-title">Item Details</span>
             </div>
