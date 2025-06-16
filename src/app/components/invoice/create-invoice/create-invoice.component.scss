@@ -13,12 +13,79 @@
 .customer-card,
 .invoice-details-card,
 .my-organization-card {
-  max-width: 400px;
-  flex: 1 1 400px;
+  max-width: 30%;
+  flex: 1 1 100px;
   border-radius: 12px;
-  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  // border: 1px solid #e0e0e0;
+  box-sizing: border-box;
 }
+
+.Summary-of-Invoice-card {
+  max-width: 25%;
+  flex: 1 1 100px;
+  box-sizing: border-box;
+}
+
+.media-upload {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.logo-upload-button {
+  border: unset;
+  background-color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.logo-drop-zone {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  border: 2px dashed #9c9b9b;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.logo-drop-zone.drag-over::before {
+  content: '';
+  position: sticky;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    135deg,
+    #9c9b9b 0 6px,
+    transparent 6px 12px
+  );
+  background-size: 200% 200%;
+  animation: move-border 10s linear infinite;
+
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+@keyframes move-border {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}_
 
 .card-title {
   width: 100%;
@@ -27,6 +94,11 @@
   font-weight: 600;
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.title {
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 ::ng-deep .delete-btn {
@@ -44,24 +116,28 @@
   font-style: italic;
 }
 
-.Summary-of-Invoice-card {
-  max-width: 400px;
-  flex: 1 1 48%;
-  // border-radius: 12px;
-  // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  // border: 1px solid #e0e0e0;
-  justify-content: flex-end;
+::ng-deep .ag-header-cell-label {
+  overflow: visible;
 }
 
-.summary-box {
-  justify-content: right;
-  display: flex;
-  width: 100%;
+::ng-deep .ag-header-cell.odd-group-column,
+::ng-deep .ag-header-group-cell.odd-group-column,
+::ng-deep .ag-cell.odd-group-column {
+  background-color: #fffbf9;
 }
 
-.title {
-  margin-bottom: 10px;
-  margin-left: 5px;
+::ng-deep .ag-header-cell.even-group-column,
+::ng-deep .ag-header-group-cell.even-group-column,
+::ng-deep .ag-cell.even-group-column {
+  background-color: #ffffff;
+}
+
+::ng-deep.ag-header-cell-comp-wrapper {
+  justify-content: center;
+}
+
+::ng-deep .ag-header-cell-text {
+  margin-left: 65px;
 }
 
 .item-summary {
@@ -70,102 +146,54 @@
   gap: 24px;
 
   .summary-box {
-    justify-content: right;
+    justify-content: flex-end;
+    display: flex;
+    width: 100%;
   }
 }
 
-::ng-deep .ag-header-cell-label {
-  overflow: visible;
-}
-
-::ng-deep .ag-header-cell.odd-group-column,
-::ng-deep .ag-header-group-cell.odd-group-column,
-::ng-deep .ag-cell.odd-group-column {
-  background-color: #FFFBF9;
-}
-
-::ng-deep .ag-header-cell.even-group-column,
-::ng-deep .ag-header-group-cell.even-group-column,
-::ng-deep .ag-cell.even-group-column {
-  background-color: #FFFFFF;
-}
-
-::ng-deep.ag-header-cell-comp-wrapper{
-  justify-content: center;
-  
-}
-::ng-deep .ag-header-cell-text{
-  margin-left: 65px;
-}
-.media-upload{
-  margin-left: 85px;
-  margin-top: 20px;
-  width: 100%;
-}
-.logo-upload-button{
-  
-    border: unset;
-    background-color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-
-}
-/* 🔹 Default static dashed border */
-.logo-drop-zone {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  border: 2px dashed #9c9b9b; /* Default visible dashed border */
-  border-radius: 10px;
-  padding: 10px;
-  box-sizing: border-box;
+.summary-box {
+  justify-content: right;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  width: 100%;
 }
 
-/* Remove default border during drag-over */
-.logo-drop-zone.drag-over {
-  border: none;
-}
-
-/* Animated dashed border using ::before */
-.logo-drop-zone.drag-over::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  pointer-events: none;
-  z-index: 2;
-
-  background: repeating-linear-gradient(
-    135deg,
-    #9c9b9b 0 6px,
-    transparent 6px 12px
-  );
-  background-size: 200% 200%;
-  animation: move-border 10s linear infinite;
-
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: destination-out;
-
-  padding: 2px;
-  box-sizing: border-box;
-}
-
-/* 🔁 Smooth scrolling effect */
-@keyframes move-border {
-  0% {
-    background-position: 0 0;
+@media (max-width: 1200px) {
+  .card-layout {
+    justify-content: center;
   }
-  100% {
-    background-position: 100% 100%;
+
+  .customer-card,
+  .invoice-details-card,
+  .my-organization-card,
+  .Summary-of-Invoice-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .item-summary {
+    flex-direction: column;
+  }
+
+  .media-upload {
+    flex: 1 1 100%;
+  }
+
+  .logo-drop-zone {
+    width: 100%;
   }
 }
 
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 18px;
+  }
+
+  .logo-drop-zone {
+    height: 120px;
+  }
+
+  .logo-upload-button {
+    font-size: 14px;
+  }
+}
