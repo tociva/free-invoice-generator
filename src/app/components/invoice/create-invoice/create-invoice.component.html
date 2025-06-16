@@ -42,7 +42,7 @@
 
     <div>
         <div>
-            <div class="media-upload" (dragover)="onSmallLogoDragOver($event)"
+            <div class="small-logo-upload" (dragover)="onSmallLogoDragOver($event)"
                 (dragleave)="onSmallLogoDragLeave($event)" (drop)="onSmallLogoDrop($event)"
                 (dragend)="onSmallLogoDragLeave($event)">
                 <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isSmallLogoDragOver }">
@@ -72,7 +72,7 @@
         </div>
 
         <div>
-            <div class="media-upload" (dragover)="onLargeLogoDragOver($event)" (drop)="onLargeLogoDrop($event)"
+            <div class="large-logo-upload" (dragover)="onLargeLogoDragOver($event)" (drop)="onLargeLogoDrop($event)"
                 (dragleave)="onLargeLogoDragLeave($event)" (dragend)="onLargeLogoDragLeave($event)">
 
 
@@ -95,13 +95,41 @@
 
                     <!-- Always Visible Select Button -->
                     <button class="logo-upload-button" color="primary" (click)="largeLogoInput.click()">
-                        Drag or Click to Upload Small Logo
+                        Drag or Click to Upload Large Logo
                     </button>
                     <input #largeLogoInput type="file" hidden (change)="onLargeLogoSelected($event)" />
                 </div>
 
             </div>
         </div>
+        <!-- JSON Upload -->
+        <div class="json-upload" (dragover)="onJsonDragOver($event)" (dragleave)="onJsonDragLeave($event)"
+            (drop)="onJsonDrop($event)" (dragend)="onJsonDragLeave($event)">
+            <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isJsonDragOver }">
+
+                <!-- Close Button -->
+                <button *ngIf="jsonFileName" mat-icon-button (click)="clearJsonFile()" aria-label="Remove JSON File"
+                    title="Remove JSON File">
+                    <mat-icon>close</mat-icon>
+                </button>
+
+                <!-- JSON Filename Preview or Placeholder -->
+                <ng-container *ngIf="jsonFileName; else jsonUploadPrompt">
+                    <p>{{ jsonFileName }}</p>
+                </ng-container>
+
+                <!-- Placeholder -->
+                <ng-template #jsonUploadPrompt>
+                </ng-template>
+
+                <!-- Upload Button -->
+                <button class="logo-upload-button" color="primary" (click)="jsonInput.click()">
+                    Drag or Click to Upload JSON
+                </button>
+                <input #jsonInput type="file" hidden accept=".json" (change)="onJsonSelected($event)" />
+            </div>
+        </div>
+
     </div>
 
     <!-- Item Deatils -->
