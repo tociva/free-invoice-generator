@@ -32,58 +32,36 @@
   box-sizing: border-box;
 }
 
-.logo-upload-button{
-  
-    border: unset;
-    background-color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-
+.logo-upload-button {
+  border: unset;
+  background-color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
 }
-/* 🔹 Default static dashed border */
+
 .logo-drop-zone {
   position: relative;
-  width: 300px;
+  width: 100%;
   height: 150px;
-  border: 2px dashed #9c9b9b; /* Default visible dashed border */
+  border: 2px dashed #9c9b9b;
   border-radius: 10px;
   padding: 10px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-.logo-drop-zone img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  pointer-events: none;      /* prevent accidental clicks */
-}
-.logo-upload-button {
-  background: none;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: -10px;
+  box-sizing: border-box;
 }
 
-/* Remove default border during drag-over */
-.logo-drop-zone.drag-over {
-  border: none;
-}
-
-/* Animated dashed border using ::before */
 .logo-drop-zone.drag-over::before {
   content: '';
-  position: absolute;
+  position: sticky;
   inset: 0;
   border-radius: 10px;
   pointer-events: none;
   z-index: 2;
-
   background: repeating-linear-gradient(
     135deg,
     #9c9b9b 0 6px,
@@ -92,9 +70,7 @@
   background-size: 200% 200%;
   animation: move-border 10s linear infinite;
 
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
 
@@ -102,7 +78,6 @@
   box-sizing: border-box;
 }
 
-/* 🔁 Smooth scrolling effect */
 @keyframes move-border {
   0% {
     background-position: 0 0;
@@ -110,9 +85,7 @@
   100% {
     background-position: 100% 100%;
   }
-}
-
-
+}_
 
 .card-title {
   width: 100%;
@@ -223,13 +196,4 @@
   .logo-upload-button {
     font-size: 14px;
   }
-}
-.large-logo-upload{
-  margin-top: 10px;
-}
-.small-logo-upload{
-  margin-top: 25px;
-}
-.json-upload{
-  margin-top: 10px;
 }
