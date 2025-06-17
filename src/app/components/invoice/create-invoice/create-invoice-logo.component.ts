@@ -9,7 +9,7 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
   isLargeLogoDragOver = false;
   isSmallLogoDragOver = false;
   isJsonDragOver = false;
-jsonFileName: string | null = null;
+  jsonFileName: string | null = null;
 
 
   private handleSmallLogo(file: File): void {
@@ -38,25 +38,25 @@ jsonFileName: string | null = null;
     }
   }
   onSmallLogoDragOver(event: DragEvent): void {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isSmallLogoDragOver = true;
-}
-
-onSmallLogoDragLeave(event: DragEvent): void {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isSmallLogoDragOver = false;
-}
-
-onSmallLogoDrop(event: DragEvent): void {
-  event.preventDefault();
-  this.isSmallLogoDragOver = false;
-  const files = event.dataTransfer?.files;
-  if (files && files.length > 0) {
-    this.handleSmallLogo(files[0]);
+    event.preventDefault();
+    event.stopPropagation();
+    this.isSmallLogoDragOver = true;
   }
-}
+
+  onSmallLogoDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isSmallLogoDragOver = false;
+  }
+
+  onSmallLogoDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isSmallLogoDragOver = false;
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.handleSmallLogo(files[0]);
+    }
+  }
 
   onSmallLogoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -67,17 +67,17 @@ onSmallLogoDrop(event: DragEvent): void {
     }
   }
 
-   
+
   onLargeLogoDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
     this.isLargeLogoDragOver = true;
   }
   onLargeLogoDragLeave(event: DragEvent): void {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isLargeLogoDragOver = false;
-}
+    event.preventDefault();
+    event.stopPropagation();
+    this.isLargeLogoDragOver = false;
+  }
 
   onLargeLogoDrop(event: DragEvent): void {
     event.preventDefault();
@@ -97,56 +97,66 @@ onSmallLogoDrop(event: DragEvent): void {
     }
   }
   clearSmallLogo(): void {
-  this.smallLogoPreviewUrl = null;
-  this.store.dispatch(setInvoiceSmallLogo({ smallLogo: '' }));
-}
-
-clearLargeLogo(): void {
-  this.largeLogoPreviewUrl = null;
-  this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
-}
-onJsonDragOver(event: DragEvent): void {
-  event.preventDefault();
-  this.isJsonDragOver = true;
-}
-
-onJsonDragLeave(event: DragEvent): void {
-  event.preventDefault();
-  this.isJsonDragOver = false;
-}
-
-onJsonDrop(event: DragEvent): void {
-  event.preventDefault();
-  this.isJsonDragOver = false;
-  const files = event.dataTransfer?.files;
-  if (files && files.length > 0) {
-    this.handleJsonFile(files[0]);
+    this.smallLogoPreviewUrl = null;
+    this.store.dispatch(setInvoiceSmallLogo({ smallLogo: '' }));
   }
-}
 
-onJsonSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  const file = input.files?.[0];
-  if (file) {
-    this.handleJsonFile(file);
+  clearLargeLogo(): void {
+    this.largeLogoPreviewUrl = null;
+    this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
   }
-}
-
-handleJsonFile(file: File): void {
-   (file.type === 'application/json' || file.name.endsWith('.json'));
-   {
-    this.jsonFileName = file.name;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      
-      // You can store or use jsonContent here
-    };
-    reader.readAsText(file);
+  onJsonDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isJsonDragOver = true;
   }
-}
 
-clearJsonFile(): void {
-  this.jsonFileName = null;
-}
+  onJsonDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isJsonDragOver = false;
+  }
+
+  onJsonDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isJsonDragOver = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file.type === 'application/json' || file.name.endsWith('.json')) {
+        this.handleJsonFile(file);
+      } else {
+        // eslint-disable-next-line no-alert
+        alert('Only JSON files are allowed.');
+      }
+    }
+  }
+
+
+  onJsonSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) {
+      this.handleJsonFile(file);
+    }
+  }
+
+  handleJsonFile(file: File): void {
+    if (file.type === 'application/json' || file.name.endsWith('.json')) {
+      this.jsonFileName = file.name;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+
+        // Store or use parsed content here if needed
+      };
+      reader.readAsText(file);
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('Only JSON files are allowed.');
+    }
+  }
+
+  clearJsonFile(): void {
+    this.jsonFileName = null;
+  }
 }
