@@ -6,8 +6,11 @@ import { TemplateItem } from '../../templates/store/model/template.model';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { selectSelectedTemplate } from '../../templates/store/selectors/template.selector';
+import { selectPaginatedTemplateItemsAllConditions, selectSelectedTemplate } from '../../templates/store/selectors/template.selector';
 import { MatIcon } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom, take } from 'rxjs';
+import { setSelectedTemplate } from '../../templates/store/actions/template.actions';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -27,25 +30,44 @@ export class PreviewInvoiceComponent implements OnInit {
 
   constructor(
     private store: Store<TemplateState>,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private http: HttpClient
   ) {
   }
 
   ngOnInit(): void {
-   this.store.select(selectInvoice).subscribe((invoice) => {
-    this.store.select(selectSelectedTemplate).subscribe((template) => {
-      if(template) {
-      const html = TemplateUtil.fillTemplate(template.template, invoice);
-      const safeHtml = this.sanitizer.bypassSecurityTrustHtml(html);
-      this.selectedTemplate = {
+  this.store.select(selectInvoice).pipe(take(1)).subscribe((invoice) => {
+    this.store.select(selectSelectedTemplate).pipe(take(1)).subscribe(async (template) => {
+      if (!template) {
+        // fallback: fetch list and pick first
+        const templates = await firstValueFrom(this.store.select(selectPaginatedTemplateItemsAllConditions));
+        if (templates.length > 0) {
+          template = templates[0];
+          this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
+        }
+      }
+
+      if (template) {
+        let templateHtml = template.template;
+        if (!templateHtml) {
+          // fetch from template.path if not preloaded
+          templateHtml = await firstValueFrom(this.http.get(template.path, { responseType: 'text' }));
+        }
+
+        const filledHtml = TemplateUtil.fillTemplate(templateHtml, invoice);
+        const safeHtml = this.sanitizer.bypassSecurityTrustHtml(filledHtml);
+
+        this.selectedTemplate = {
           ...template,
-          html,
+          template: templateHtml,
+          html: filledHtml,
           safeHTML: safeHtml
         };
       }
     });
-   });
-  }
+  });
+}
+
 
   sanitizeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
