@@ -125,6 +125,9 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
               })
             );
             this.templates = tmpls;
+             if (tmpls.length > 0 && !this.selectedTemplateId) {
+      this.onTemplateClick(tmpls[0]);
+    }
           });
       });
   }
