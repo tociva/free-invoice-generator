@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,16 +12,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, map, Observable, Subject, take, takeUntil } from 'rxjs';
+import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
 
+import { Router } from '@angular/router';
 import {
   addSearchTag,
   loadTemplates,
   removeSearchTag,
   setPagination,
   setSearchTags,
-  setSelectedTemplate
+  setSelectedTemplatePath,
 } from '../../templates/store/actions/template.actions';
 import { TemplateItem } from '../../templates/store/model/template.model';
 import { selectTags } from '../../templates/store/selectors/tag.selectors';
@@ -30,13 +31,12 @@ import {
   selectPageSize,
   selectPaginatedTemplateItemsAllConditions,
   selectSearchTags,
-  selectSelectedTemplate,
+  selectSelectedTemplatePath,
 } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { Invoice, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select-template',
@@ -64,7 +64,7 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   tags$!: Observable<string[]>;
   selectedTags$!: Observable<string[]>;
   templates: TemplateItem[] = [];
-  selectedTemplateId: string | null = null;
+  selectedTemplatePath: string | null = null;
 
 
   downloadTemplateAsPDF = TemplateUtil.downloadTemplateAsPDF;
@@ -88,15 +88,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
       .pipe(takeUntil(this.destroy$))
       .subscribe((pageSize) => {
         this.itemsPerPage = pageSize;
-      });
-
-    this.store
-      .select(selectSelectedTemplate)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((selected) => {
-        if (selected?.path) {
-          this.selectedTemplateId = selected.path;
-        }
       });
 
     this.store
@@ -135,12 +126,12 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
               })
             );
             this.templates = tmpls;
-            this.store.select(selectSelectedTemplate).pipe(take(1)).subscribe((selected) => {
-              if (!selected && tmpls.length > 0) {
-                this.onTemplateClick(tmpls[0]);
-              }
-            });
 
+          });
+          this.store.select(selectSelectedTemplatePath)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((selectedTemplatePath) => {
+            this.selectedTemplatePath = selectedTemplatePath;
           });
       });
   }
@@ -195,10 +186,9 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   selected(event: MatAutocompleteSelectedEvent) {
     this.store.dispatch(addSearchTag({ tag: event.option.value }));
   }
+
   onTemplateClick(template: TemplateItem): void {
-    this.selectedTemplateId = template.path;
-    this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
-    this.previewTemplate(template);
+    this.store.dispatch(setSelectedTemplatePath({ selectedTemplatePath: template.path }));
   }
 
 }

@@ -37,7 +37,8 @@ export const removeSearchTag = createAction(
 export const clearSearchTags = createAction(
   '[Template] Clear Search Tags'
 );
-export const setSelectedTemplate = createAction(
-  '[Template] Set Selected Template',
-  props<{ selectedTemplate: TemplateItem }>()
+
+export const setSelectedTemplatePath = createAction(
+  '[Template] Set Selected Template Path',
+  props<{ selectedTemplatePath: string }>()
 );

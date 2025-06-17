@@ -84,7 +84,15 @@ export const selectFilteredTemplateItemCountAllConditions = createSelector(
   (items) => items.length
 );
 
-export const selectSelectedTemplate = createSelector(
-  selectTemplateState,
-  (state) => state.selectedTemplate
+export const selectSelectedTemplatePath = createSelector(
+  selectTemplateFeature,
+  (state) => state.selectedTemplatePath
+);
+
+export const selectSelectedTemplateItem = createSelector(
+  selectTemplateFeature,
+  selectSelectedTemplatePath,
+  (state, selectedPath) => {
+    return state.templateItems.find((item) => item.path === selectedPath) || null;
+  }
 );

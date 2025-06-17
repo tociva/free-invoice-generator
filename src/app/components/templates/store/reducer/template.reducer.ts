@@ -46,9 +46,10 @@ export const templateReducer = createReducer(
     ...state,
     searchTags: []
   })),
-  on(TemplateActions.setSelectedTemplate, (state, { selectedTemplate }) => ({
-  ...state,
-  selectedTemplate
-}))
+
+  on(TemplateActions.setSelectedTemplatePath, (state, { selectedTemplatePath }) => ({
+    ...state,
+    selectedTemplatePath
+  }))
 
 );
