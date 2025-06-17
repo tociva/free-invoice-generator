@@ -29,7 +29,7 @@
     <div class="iframe-grid-wrapper">
       <div class="iframe-grid">
         <div *ngFor="let item of templates" class="template-container"
-          [class.selected]="item.path === selectedTemplateId">
+          [class.selected]="item.path === selectedTemplatePath">
 
           <!-- Header (not clickable) -->
           <div class="template-header">

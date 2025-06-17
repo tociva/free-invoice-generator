@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { TemplateItem } from '../../templates/store/model/template.model';
+import { selectSelectedTemplateItem } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { selectPaginatedTemplateItemsAllConditions, selectSelectedTemplate } from '../../templates/store/selectors/template.selector';
-import { MatIcon } from '@angular/material/icon';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, take } from 'rxjs';
-import { setSelectedTemplate } from '../../templates/store/actions/template.actions';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -23,8 +22,8 @@ import { setSelectedTemplate } from '../../templates/store/actions/template.acti
 })
 export class PreviewInvoiceComponent implements OnInit {
   @ViewChild('invoiceFrame') invoiceFrame!: ElementRef<HTMLIFrameElement>;
-
-  selectedTemplate!: TemplateItem;
+  private destroy$ = new Subject<void>();
+  selectedTemplate: TemplateItem | null = null;
   downloadTemplateAsHTML = TemplateUtil.downloadTemplateAsHTML;
 
 
@@ -36,37 +35,23 @@ export class PreviewInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.store.select(selectInvoice).pipe(take(1)).subscribe((invoice) => {
-    this.store.select(selectSelectedTemplate).pipe(take(1)).subscribe(async (template) => {
-      if (!template) {
-        // fallback: fetch list and pick first
-        const templates = await firstValueFrom(this.store.select(selectPaginatedTemplateItemsAllConditions));
-        if (templates.length > 0) {
-          template = templates[0];
-          this.store.dispatch(setSelectedTemplate({ selectedTemplate: template }));
-        }
+
+    this.store.select(selectInvoice).pipe(takeUntil(this.destroy$)).subscribe((invoice) => {  
+    this.store.select(selectSelectedTemplateItem).pipe(takeUntil(this.destroy$)).subscribe(async (item) => {
+      if (item) {
+        const template = await firstValueFrom(
+          this.http.get(item.path, { responseType: 'text' })
+        );
+        const html = TemplateUtil.fillTemplate(template, invoice);
+        const safeHTML = this.sanitizer.bypassSecurityTrustHtml(html);
+        this.selectedTemplate = { ...item, template, html, safeHTML };
       }
-
-      if (template) {
-        let templateHtml = template.template;
-        if (!templateHtml) {
-          // fetch from template.path if not preloaded
-          templateHtml = await firstValueFrom(this.http.get(template.path, { responseType: 'text' }));
-        }
-
-        const filledHtml = TemplateUtil.fillTemplate(templateHtml, invoice);
-        const safeHtml = this.sanitizer.bypassSecurityTrustHtml(filledHtml);
-
-        this.selectedTemplate = {
-          ...template,
-          template: templateHtml,
-          html: filledHtml,
-          safeHTML: safeHtml
-        };
+      else {
+        this.selectedTemplate = null;
       }
     });
-  });
-}
+    });
+  }
 
 
   sanitizeHtml(html: string): SafeHtml {
@@ -107,12 +92,12 @@ downloadJSON(template: TemplateItem): void {
 // in TemplateUtil.ts
 downloadTemplate(): void {
   const template = this.selectedTemplate;
-  const blob = new Blob([template.html], { type: 'text/html' });
+  const blob = new Blob([template?.html || ''], { type: 'text/html' });
   const url = window.URL.createObjectURL(blob);
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${template.name || 'template'}.html`;
+  a.download = `${template?.name || 'template'}.html`;
   a.click();
 
   window.URL.revokeObjectURL(url);

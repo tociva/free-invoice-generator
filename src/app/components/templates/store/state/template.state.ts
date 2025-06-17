@@ -7,7 +7,7 @@ export interface TemplateState {
   currentPage: number;
   pageSize: number;
   searchTags: string[];
-  selectedTemplate: TemplateItem | null;
+  selectedTemplatePath: string | null;
 }
 
 export const initialTemplateState: TemplateState = {
@@ -17,5 +17,5 @@ export const initialTemplateState: TemplateState = {
   currentPage: 0,
   pageSize: 3,
   searchTags: [],
-  selectedTemplate: null
+  selectedTemplatePath: 'invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html'
 };
