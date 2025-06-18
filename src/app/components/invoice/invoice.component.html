@@ -1,8 +1,9 @@
 <mat-horizontal-stepper [linear]="false" #stepper>
 
-  <!-- Step 1: Fill Invoice -->
-  <mat-step label="Fill out the invoice">
-    <app-create-invoice></app-create-invoice>
+  <!-- Step 1: Organization Info + Logo Upload -->
+  <mat-step label="Organization Info & Logo">
+    <app-create-invoice-organization></app-create-invoice-organization>
+    <app-create-invoice-logo></app-create-invoice-logo>
     <div class="stepper-actions">
       <button mat-raised-button color="primary" (click)="stepper.next()">
         Next <mat-icon class="icon-right">arrow_forward</mat-icon>
@@ -10,7 +11,33 @@
     </div>
   </mat-step>
 
-  <!-- Step 2: Select Template -->
+  <!-- Step 2: Fill Invoice -->
+  <mat-step label="Fill out the invoice">
+    <app-create-invoice></app-create-invoice>
+    <div class="stepper-actions">
+      <button mat-button (click)="stepper.previous()">
+        <mat-icon class="icon-left">arrow_back</mat-icon> Back
+      </button>
+      <button mat-raised-button color="primary" (click)="stepper.next()">
+        Next <mat-icon class="icon-right">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-step>
+
+  <!-- Step 3: Select Customer -->
+  <mat-step label="Select a customer">
+    <app-create-invoice-customer></app-create-invoice-customer>
+    <div class="stepper-actions">
+      <button mat-button (click)="stepper.previous()">
+        <mat-icon class="icon-left">arrow_back</mat-icon> Back
+      </button>
+      <button mat-raised-button color="primary" (click)="stepper.next()">
+        Next <mat-icon class="icon-right">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-step>
+
+  <!-- Step 4: Select Template -->
   <mat-step label="Select a template">
     <app-select-template></app-select-template>
     <div class="stepper-actions">
@@ -23,7 +50,7 @@
     </div>
   </mat-step>
 
-  <!-- Step 3: Preview & Download -->
+  <!-- Step 5: Preview & Download -->
   <mat-step label="Preview and Download">
     <app-preview-invoice></app-preview-invoice>
     <div class="stepper-actions">

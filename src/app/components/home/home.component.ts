@@ -5,10 +5,10 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule,MatIcon],
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatIcon],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  standalone: true
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
   isJsonDragOver = false;
@@ -16,7 +16,7 @@ export class HomeComponent {
 
   constructor(private router: Router) {}
 
-onJsonDragOver(event: DragEvent): void {
+  onJsonDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isJsonDragOver = true;
   }
@@ -56,8 +56,9 @@ onJsonDragOver(event: DragEvent): void {
 
       const reader = new FileReader();
       reader.onload = () => {
-
-        // Store or use parsed content here if needed
+        // You can optionally parse and store JSON here if needed
+        // const invoiceData = JSON.parse(reader.result as string);
+        void this.router.navigate(['/invoice'], { queryParams: { step: 1 } });
       };
       reader.readAsText(file);
     } else {
@@ -69,7 +70,4 @@ onJsonDragOver(event: DragEvent): void {
   clearJsonFile(): void {
     this.jsonFileName = null;
   }
-  goToTemplate(): void {
-  void this.router.navigate(['/invoice'], { queryParams: { step: 1 } });
-}
 }

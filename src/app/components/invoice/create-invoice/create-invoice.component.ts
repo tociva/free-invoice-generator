@@ -6,13 +6,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AgGridModule } from 'ag-grid-angular';
-import { GetRowIdParams, GridOptions } from 'ag-grid-community';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { GridOptions } from 'ag-grid-community';
 import { loadTemplates } from '../../templates/store/actions/template.actions';
 import { loadCountries } from '../store/actions/country.actions';
 import { loadCurrencies } from '../store/actions/currency.actions';
 import { loadDateFormats } from '../store/actions/date-format.actions';
-import { CreateInvoiceOrganizationComponent } from './create-invoice-organization.component';
+import { CreateInvoiceOrganizationComponent } from '../create-organization-details/create-invoice-organization.component';
 
 @Component({
   selector: 'app-create-invoice',
@@ -31,7 +30,7 @@ import { CreateInvoiceOrganizationComponent } from './create-invoice-organizatio
 })
 export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent implements OnInit {
 
-  gridOptions: GridOptions = {
+  override gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowHeight: 30,
     singleClickEdit: true,
@@ -39,7 +38,7 @@ export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent i
     stopEditingWhenCellsLoseFocus: false,
   };
 
-  defaultColDef = {
+  override defaultColDef = {
     sortable: false,
     resizable: false,
     suppressMenu: true,
@@ -53,10 +52,10 @@ export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent i
     this.store.dispatch(loadDateFormats());
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getRowId = (params: GetRowIdParams<FormColumnDef>) => {
-    const data = params?.data;
-    return data?.label ?? '';
-  };
+   
+  // getRowId = (params: GetRowIdParams<FormColumnDef>) => {
+  //   const data = params?.data;
+  //   return data?.label ?? '';
+  // };
 }
 

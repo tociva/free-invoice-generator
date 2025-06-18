@@ -1,4 +1,4 @@
-import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
@@ -6,7 +6,11 @@ import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/labe
 import { setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CreateInvoiceCustomerComponent } from './create-invoice-customer.component';
+import { CreateInvoiceCustomerComponent } from '../create-invoice/create-customer-details/create-invoice-customer.component';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+import { MatIcon } from '@angular/material/icon';
 
 export enum MyDetailsFormItem {
     NAME = 'Name',
@@ -21,11 +25,37 @@ export enum MyDetailsFormItem {
     ZIP = 'Zip',
     COUNTRY = 'Country',
 }
+@Component({
+  selector: 'app-create-invoice-organization',
+  standalone: true,
+  imports: [
+    CommonModule,
+    AgGridModule,MatIcon
+  ],
+  templateUrl: './create-invoice-organization.component.html',
+  styleUrls: ['./create-invoice-organization.component.scss']
+})
 export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerComponent {
 
   public myDetailsGridApi!: GridApi<FormColumnDef>;
   
   myDetailsRowData: FormColumnDef[] = [];
+
+  defaultColDef: ColDef<FormColumnDef> = {
+    editable: false,
+    resizable: true,
+    sortable: false
+  };
+
+  gridOptions: GridOptions<FormColumnDef> = {
+    suppressMenuHide: true,
+    rowSelection: 'single',
+    animateRows: true
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
+
 
   private findMyDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     

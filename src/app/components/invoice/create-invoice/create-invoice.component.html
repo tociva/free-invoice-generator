@@ -1,18 +1,4 @@
 <div class="card-layout">
-    <!-- My Details -->
-    <div class="my-organization-card">
-        <div class="title">
-            <span class="card-title">My Organization</span>
-        </div>
-        <div>
-            <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 100%;"
-                [rowData]="myDetailsRowData" [columnDefs]="myDetailsColumnDefs" [domLayout]="'autoHeight'"
-                [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onMyDetailsGridReady($event)"
-                [getRowId]="getRowId">
-            </ag-grid-angular>
-        </div>
-    </div>
-
     <!-- Customer Details -->
     <div class="customer-card">
         <div class="title">
@@ -40,69 +26,7 @@
         </div>
     </div>
 
-    <div>
-        <div>
-            <div class="small-logo-upload" (dragover)="onSmallLogoDragOver($event)"
-                (dragleave)="onSmallLogoDragLeave($event)" (drop)="onSmallLogoDrop($event)"
-                (dragend)="onSmallLogoDragLeave($event)">
-                <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isSmallLogoDragOver }">
-                    <!-- Close Button -->
-                    <button *ngIf="smallLogoPreviewUrl" mat-icon-button (click)="clearSmallLogo()"
-                        aria-label="Remove Small Logo" title="Remove Small Logo">
-                        <mat-icon>close</mat-icon>
-                    </button>
-
-                    <!-- Preview or Placeholder -->
-                    <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
-                        <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview">
-                    </ng-container>
-
-                    <ng-template #smallLogoUploadPrompt>
-                        <p></p>
-                    </ng-template>
-
-                    <!-- Upload Link -->
-                    <button class="logo-upload-button" color="primary" (click)="smallLogoInput.click()">
-                        Drag or Click to Upload Small Logo
-                    </button>
-                    <input #smallLogoInput type="file" hidden (change)="onSmallLogoSelected($event)" />
-                </div>
-            </div>
-
-        </div>
-
-        <div>
-            <div class="large-logo-upload" (dragover)="onLargeLogoDragOver($event)" (drop)="onLargeLogoDrop($event)"
-                (dragleave)="onLargeLogoDragLeave($event)" (dragend)="onLargeLogoDragLeave($event)">
-
-
-                <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isLargeLogoDragOver }">
-                    <!-- Close Button -->
-                    <button *ngIf="largeLogoPreviewUrl" mat-icon-button (click)="clearLargeLogo()"
-                        aria-label="Remove Large Logo" title="Remove Large Logo">
-                        <mat-icon>close</mat-icon>
-                    </button>
-
-                    <!-- Image or Placeholder -->
-                    <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
-                        <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview" />
-                    </ng-container>
-
-                    <!-- Placeholder Text -->
-                    <ng-template #largeLogoUploadPrompt>
-                        <p></p>
-                    </ng-template>
-
-                    <!-- Always Visible Select Button -->
-                    <button class="logo-upload-button" color="primary" (click)="largeLogoInput.click()">
-                        Drag or Click to Upload Large Logo
-                    </button>
-                    <input #largeLogoInput type="file" hidden (change)="onLargeLogoSelected($event)" />
-                </div>
-            </div>
-        </div>
-        <!-- JSON Upload -->
-    </div>
+   
 
     <!-- Item Deatils -->
     <div class="card item-summary">
