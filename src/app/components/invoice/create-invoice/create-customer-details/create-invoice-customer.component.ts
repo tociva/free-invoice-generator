@@ -1,15 +1,17 @@
 import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
 import { map, Observable } from 'rxjs';
-import { OPTIONS_COUNT } from '../../../../util/constants';
-import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
-import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
-import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setCustomerCountry } from '../store/actions/invoice.action';
-import { Country } from '../store/model/country.model';
-import { selectAllCountries } from '../store/selectors/country.selectors';
-import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
+import { OPTIONS_COUNT } from '../../../../../util/constants';
+import { displayAutoCompleteWithName } from '../../../../../util/daybook.util';
+import { FormColumnDef } from '../../../../../util/form-column-def.type';
+import { AutoCompleteEditorComponent } from '../../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { LabelColumnRendererComponent } from '../../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { setCustomerCountry } from '../../store/actions/invoice.action';
+import { Country } from '../../store/model/country.model';
+import { selectAllCountries } from '../../store/selectors/country.selectors';
+import { selectInvoice } from '../../store/selectors/invoice.selectors';
+import { CreateInvoiceDetailsComponent } from '../create-invoice-details.component';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 export enum CustomerFormItem {
     NAME = 'Name',
@@ -24,6 +26,15 @@ export enum CustomerFormItem {
     ZIP = 'Zip',
     COUNTRY = 'Country',
 }
+@Component({
+  selector: 'app-create-invoice-customer',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
+  templateUrl: './create-invoice-customer.component.html',
+  styleUrls: ['./create-invoice-customer.component.scss']
+})
 export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponent {
 
   public customerGridApi!: GridApi<FormColumnDef>;

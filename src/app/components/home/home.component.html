@@ -13,39 +13,29 @@
     <div class="divider">or</div>
 
     <!-- Import Existing Invoice -->
-    <div class="json-upload"
-     (dragover)="onJsonDragOver($event)"
-     (dragleave)="onJsonDragLeave($event)"
-     (drop)="onJsonDrop($event)"
-     (dragend)="onJsonDragLeave($event)">
-  <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isJsonDragOver }">
+    <div class="json-upload" (dragover)="onJsonDragOver($event)" (dragleave)="onJsonDragLeave($event)"
+      (drop)="onJsonDrop($event)" (dragend)="onJsonDragLeave($event)">
+      <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isJsonDragOver }">
 
-    <!-- Close Button -->
-    <button *ngIf="jsonFileName" mat-icon-button (click)="clearJsonFile()" title="Remove JSON File">
-      <mat-icon>close</mat-icon>
-    </button>
+        <!-- Close Button -->
+        <button *ngIf="jsonFileName" mat-icon-button (click)="clearJsonFile()" title="Remove JSON File">
+          <mat-icon>close</mat-icon>
+        </button>
 
-    <!-- File Info or Prompt -->
-    <ng-container *ngIf="jsonFileName; else jsonPrompt">
-      <p>{{ jsonFileName }}</p>
-    </ng-container>
+        <!-- File Info or Prompt -->
+        <ng-container *ngIf="jsonFileName; else jsonPrompt">
+          <p>{{ jsonFileName }}</p>
+        </ng-container>
 
-    <ng-template #jsonPrompt>
-      <p class="upload-instruction">📄 Drag and drop your invoice JSON here or</p>
-    </ng-template>
+        <ng-template #jsonPrompt>
+          <p class="upload-instruction"></p>
+        </ng-template>
 
-    <!-- Upload Button -->
-    <button class="logo-upload-button" (click)="jsonInput.click()">Import Invoice JSON</button>
-    <input #jsonInput type="file" hidden accept=".json,application/json" (change)="onJsonSelected($event)" />
-  </div>
-</div>
-
-<!-- Show "Next" only when JSON is uploaded -->
- <div class="import-button-container" *ngIf="jsonFileName">
-      <button class="import-button" (click)="goToTemplate()">
-        <span class="icon">📥</span>
-        <span class="text">Import Invoice</span>
-      </button>
+        <!-- Upload Button -->
+        <button class="logo-upload-button" (click)="jsonInput.click()">Have an invoice JSON file? Drop it here or click
+          to upload!</button>
+        <input #jsonInput type="file" hidden accept=".json,application/json" (change)="onJsonSelected($event)" />
+      </div>
     </div>
   </div>
 </div>

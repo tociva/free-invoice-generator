@@ -1,7 +1,20 @@
 import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
-import { CreateInvoiceItemsComponent } from './create-invoice-items.component';
+import { CreateInvoiceItemsComponent } from '../create-invoice-items/create-invoice-items.component';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+@Component({
+  selector: 'app-create-invoice-logo',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './create-invoice-logo.component.html',
+  styleUrls: ['./create-invoice-logo.component.scss']
+})
 export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
 
   smallLogoPreviewUrl: string | null = null;

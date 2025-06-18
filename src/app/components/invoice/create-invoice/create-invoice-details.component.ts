@@ -16,7 +16,7 @@ import { selectAllCurrencies } from '../store/selectors/currency.selectors';
 import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { CreateInvoiceLogoComponent } from './create-invoice-logo.component';
+import { CreateInvoiceLogoComponent } from '../create-organization-logo/create-invoice-logo.component';
 
 
 export enum InvoiceDetailsFormItem {
