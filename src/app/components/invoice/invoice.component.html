@@ -1,49 +1,39 @@
 <mat-horizontal-stepper [linear]="false" #stepper>
-  <!-- Step 1: Invoice -->
- <mat-step label="Fill out the invoice" [completed]="false" class="invoice-step">
-  <ng-container *ngIf="stepper.selectedIndex === 0">
-    <app-create-invoice></app-create-invoice>
-  </ng-container>
-  <div class="stepper-actions">
-    <button mat-raised-button color="primary" class="next-btnn" (click)="stepper.next()">
-      Next
-      <mat-icon class="icon-right">arrow_forward</mat-icon>
-    </button>
-  </div>
-</mat-step>
 
+  <!-- Step 1: Fill Invoice -->
+  <mat-step label="Fill out the invoice">
+    <app-create-invoice></app-create-invoice>
+    <div class="stepper-actions">
+      <button mat-raised-button color="primary" (click)="stepper.next()">
+        Next <mat-icon class="icon-right">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-step>
 
   <!-- Step 2: Select Template -->
-  <mat-step label="Select a template" [completed]="false">
-    <ng-container *ngIf="stepper.selectedIndex === 1">
-      <app-select-template></app-select-template>
-    </ng-container>
+  <mat-step label="Select a template">
+    <app-select-template></app-select-template>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()">
-        <mat-icon class="icon-left">arrow_back</mat-icon>
-        Back
+      <button mat-button (click)="stepper.previous()">
+        <mat-icon class="icon-left">arrow_back</mat-icon> Back
       </button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
-        Next
-        <mat-icon class="icon-right">arrow_forward</mat-icon>
+      <button mat-raised-button color="primary" (click)="stepper.next()">
+        Next <mat-icon class="icon-right">arrow_forward</mat-icon>
       </button>
     </div>
   </mat-step>
 
-  <!-- Step 3: Preview -->
-  <mat-step label="Preview and Download" [completed]="false">
-    <ng-container *ngIf="stepper.selectedIndex === 2">
-      <app-preview-invoice></app-preview-invoice>
-    </ng-container>
+  <!-- Step 3: Preview & Download -->
+  <mat-step label="Preview and Download">
+    <app-preview-invoice></app-preview-invoice>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()">
-        <mat-icon class="icon-left">arrow_back</mat-icon>
-        Back
+      <button mat-button (click)="stepper.previous()">
+        <mat-icon class="icon-left">arrow_back</mat-icon> Back
       </button>
-      <button mat-raised-button color="accent" class="finish-btn">
-        <mat-icon class="icon-right">check_circle</mat-icon>
-        Finish
+      <button mat-raised-button color="accent">
+        <mat-icon class="icon-right">check_circle</mat-icon> Finish
       </button>
     </div>
   </mat-step>
+
 </mat-horizontal-stepper>
