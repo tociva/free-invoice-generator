@@ -8,8 +8,7 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
   largeLogoPreviewUrl: string | null = null;
   isLargeLogoDragOver = false;
   isSmallLogoDragOver = false;
-  isJsonDragOver = false;
-  jsonFileName: string | null = null;
+  
 
 
   private handleSmallLogo(file: File): void {
@@ -105,58 +104,5 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
     this.largeLogoPreviewUrl = null;
     this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
   }
-  onJsonDragOver(event: DragEvent): void {
-    event.preventDefault();
-    this.isJsonDragOver = true;
-  }
 
-  onJsonDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this.isJsonDragOver = false;
-  }
-
-  onJsonDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isJsonDragOver = false;
-
-    const files = event.dataTransfer?.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      if (file.type === 'application/json' || file.name.endsWith('.json')) {
-        this.handleJsonFile(file);
-      } else {
-        // eslint-disable-next-line no-alert
-        alert('Only JSON files are allowed.');
-      }
-    }
-  }
-
-
-  onJsonSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (file) {
-      this.handleJsonFile(file);
-    }
-  }
-
-  handleJsonFile(file: File): void {
-    if (file.type === 'application/json' || file.name.endsWith('.json')) {
-      this.jsonFileName = file.name;
-
-      const reader = new FileReader();
-      reader.onload = () => {
-
-        // Store or use parsed content here if needed
-      };
-      reader.readAsText(file);
-    } else {
-      // eslint-disable-next-line no-alert
-      alert('Only JSON files are allowed.');
-    }
-  }
-
-  clearJsonFile(): void {
-    this.jsonFileName = null;
-  }
 }
