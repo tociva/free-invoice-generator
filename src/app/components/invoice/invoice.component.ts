@@ -9,6 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
+import { CreateInvoiceOrganizationComponent } from './create-organization-details/create-invoice-organization.component';
+import { CreateInvoiceLogoComponent } from './create-organization-logo/create-invoice-logo.component';
+import { CreateInvoiceCustomerComponent } from './create-invoice/create-customer-details/create-invoice-customer.component';
+
 
 @Component({
   selector: 'app-invoice',
@@ -19,6 +23,9 @@ import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.compo
     MatButtonModule,
     MatIconModule,
     CreateInvoiceComponent,
+    CreateInvoiceOrganizationComponent,
+    CreateInvoiceLogoComponent,
+    CreateInvoiceCustomerComponent,
     SelectTemplateComponent,
     PreviewInvoiceComponent
   ],
@@ -30,7 +37,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: { step?: string }) => {
