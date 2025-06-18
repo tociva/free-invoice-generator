@@ -144,6 +144,33 @@
                     "cgst",
                     "sgst"
                 ]
+            },
+            {
+                "name": "Sample-d-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-d-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-e-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-e-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-f-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-f-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }
