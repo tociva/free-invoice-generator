@@ -70,6 +70,6 @@ onJsonDragOver(event: DragEvent): void {
     this.jsonFileName = null;
   }
   goToTemplate(): void {
-  void this.router.navigate(['/select-template']);
+  void this.router.navigate(['/invoice'], { queryParams: { step: 1 } });
 }
 }
