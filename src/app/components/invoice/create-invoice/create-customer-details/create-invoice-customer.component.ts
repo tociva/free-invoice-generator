@@ -28,7 +28,7 @@ export enum CustomerFormItem {
 }
 @Component({
   selector: 'app-create-invoice-customer',
-  standalone: true, // ✅ REQUIRED
+  standalone: true,
   imports: [
     CommonModule,
   ],
