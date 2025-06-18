@@ -1,0 +1,102 @@
+.card-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: flex-start;
+    margin: 24px;
+}
+
+.my-organization-card {
+    max-width: 25%;
+    flex: 1 1 100px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.card-title {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.title {
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.media-upload {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-top: 33px;
+
+}
+
+.logo-upload-button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
+.logo-drop-zone {
+    position: relative;
+    width: 250px;
+    height: 120px;
+    border: 2px dashed #9c9b9b;
+    /* Default visible dashed border */
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Remove default border during drag-over */
+.logo-drop-zone.drag-over {
+    border: none;
+}
+
+/* Animated dashed border using ::before */
+.logo-drop-zone.drag-over::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 2;
+
+    background: repeating-linear-gradient(135deg,
+            #9c9b9b 0 6px,
+            transparent 6px 12px);
+    background-size: 200% 200%;
+    animation: move-border 10s linear infinite;
+
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+/* 🔁 Smooth scrolling effect */
+@keyframes move-border {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 100%;
+    }
+}

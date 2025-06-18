@@ -7,14 +7,21 @@ import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/labe
 import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/actions/invoice.action';
 import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CreateInvoiceSummaryComponent } from './create-invoice-summary.component';
+import { CreateInvoiceSummaryComponent } from '../create-invoice/create-invoice-summary/create-invoice-summary.component';
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
 
 type InvoiceItemWithAction = InvoiceItem & { action?: string };
 
 @Component({
   selector: 'app-create-invoice-items',
   standalone: true,
-  template: '',
+  imports: [
+    CommonModule,
+    AgGridModule
+],
+  templateUrl: './create-invoice-items.component.html',
+  styleUrls: ['./create-invoice-items.component.scss']
 })
 export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
