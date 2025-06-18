@@ -74,9 +74,10 @@
 }
 
 .Item-details-card {
-  flex: 1 1 calc(100% - 424px); // 400px for summary + 24px gap
-  min-width: 0;
+  flex: 1 1 65%;
+  min-width: 300px;
 }
+
 
 ::ng-deep .ag-header-cell-label {
   overflow: visible;
@@ -236,4 +237,37 @@
 
 .json-upload .logo-drop-zone {
   background-color: #eaecee;
+}
+/* Tablets and small desktops only */
+@media (min-width: 577px) and (max-width: 1200px) {
+  .item-summary {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .Item-details-card {
+    flex: 1 1 60%;
+    max-width: 60%;
+  }
+
+  .summary-box {
+    flex: 1 1 30%;
+    max-width: 30%;
+    justify-content: flex-end;
+  }
+
+  .Summary-of-Invoice-card {
+    max-width: 100%;
+  }
+
+  .customer-card,
+  .invoice-details-card,
+  .my-organization-card {
+    flex: 1 1 48%;
+    max-width: 48%;
+  }
+
+  .media-upload {
+    flex: 1 1 48%;
+  }
 }

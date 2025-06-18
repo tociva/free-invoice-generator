@@ -1,10 +1,12 @@
 // Stepper custom styles
 ::ng-deep .mat-horizontal-stepper-header-container {
     background-color: #ffffff !important;
+    flex-wrap: wrap;
 }
 
 ::ng-deep .mat-horizontal-content-container {
     background-color: #ffffff !important;
+    padding: 16px;
 }
 
 .stepper-actions {
@@ -17,39 +19,48 @@
         min-width: 100px;
         border-radius: 8px;
         font-weight: 500;
-        justify-content: flex-end;
     }
 }
 
-.next-btn {
-    font-weight: 500;
-    color: white;
-    border-radius: 10%;
-    background-color: #555;
-    margin-bottom: 20px;
-
+.next-btn,
+.next-btnn {
+  font-weight: 500;
+  color: white;
+  background-color: #555;
+  margin-bottom: 20px;
+  border-radius: 8px;
 }
 
 .back-btn {
-    font-weight: 500;
-    color: #555;
-    border-radius: 10%;
+  font-weight: 500;
+  color: #555;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
 }
 
 .finish-btn {
-    font-weight: 500;
-    background-color: #b4b7c4;
-    color: white;
-    border-radius: 10%;
-    margin-bottom: 20px;
+  font-weight: 500;
+  background-color: #b4b7c4;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.next-btnn {
+  margin-left: auto;
 }
 
-.next-btnn {
-    font-weight: 500;
-    margin-bottom: 25px;
-    color: white;
-    border-radius: 10%;
-    background-color: #555;
-    margin-left: 1660px;
-    margin-bottom: 20px;
+@media (max-width: 768px) {
+  .stepper-actions {
+    justify-content: center;
+
+    button {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+
+  .next-btnn {
+    margin-left: 0;
+  }
 }
