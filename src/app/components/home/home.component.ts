@@ -58,7 +58,7 @@ export class HomeComponent {
       reader.onload = () => {
         // You can optionally parse and store JSON here if needed
         // const invoiceData = JSON.parse(reader.result as string);
-        void this.router.navigate(['/invoice'], { queryParams: { step: 1 } });
+        void this.router.navigate(['/invoice'], { queryParams: { step: 3 } });
       };
       reader.readAsText(file);
     } else {
