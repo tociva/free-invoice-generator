@@ -1,14 +1,17 @@
 <mat-horizontal-stepper [linear]="false" #stepper>
   <!-- Step 1: Invoice -->
-  <mat-step label="Fill out the invoice" [completed]="false" class="invoice-step">
-    <ng-container *ngIf="stepper.selectedIndex === 0">
-      <app-create-invoice></app-create-invoice>
-    </ng-container>
+ <mat-step label="Fill out the invoice" [completed]="false" class="invoice-step">
+  <ng-container *ngIf="stepper.selectedIndex === 0">
+    <app-create-invoice></app-create-invoice>
+  </ng-container>
+  <div class="stepper-actions">
     <button mat-raised-button color="primary" class="next-btnn" (click)="stepper.next()">
       Next
       <mat-icon class="icon-right">arrow_forward</mat-icon>
     </button>
-  </mat-step>
+  </div>
+</mat-step>
+
 
   <!-- Step 2: Select Template -->
   <mat-step label="Select a template" [completed]="false">
