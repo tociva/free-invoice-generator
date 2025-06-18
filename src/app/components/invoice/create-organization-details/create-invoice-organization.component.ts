@@ -41,20 +41,20 @@ export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerCom
   
   myDetailsRowData: FormColumnDef[] = [];
 
-  defaultColDef: ColDef<FormColumnDef> = {
+  override defaultColDef: ColDef<FormColumnDef> = {
     editable: false,
     resizable: true,
     sortable: false
   };
 
-  gridOptions: GridOptions<FormColumnDef> = {
+  override gridOptions: GridOptions<FormColumnDef> = {
     suppressMenuHide: true,
     rowSelection: 'single',
     animateRows: true
   };
 
   // eslint-disable-next-line class-methods-use-this
-  getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
+  override getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
 
 
   private findMyDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {

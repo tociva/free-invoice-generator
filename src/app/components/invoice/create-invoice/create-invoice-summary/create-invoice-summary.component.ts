@@ -1,13 +1,15 @@
-import { inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ColDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
-import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CountryState } from '../store/state/country.state';
-import { updateInvoiceSummaryRoundOff } from '../store/actions/invoice.action';
-import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
-import { numberToFixedDecimal } from '../../../../util/invoice.util';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { FormColumnDef } from '../../../../../util/form-column-def.type';
+import { LabelColumnRendererComponent } from '../../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { selectInvoice } from '../../store/selectors/invoice.selectors';
+import { CountryState } from '../../store/state/country.state';
+import { updateInvoiceSummaryRoundOff } from '../../store/actions/invoice.action';
+import { DEFAULT_DECIMAL_PLACES } from '../../../../../util/constants';
+import { numberToFixedDecimal } from '../../../../../util/invoice.util';
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
 
 export enum InvoiceSummaryFormItem {
   ITEM_TOTAL = 'Item Total',
@@ -17,9 +19,28 @@ export enum InvoiceSummaryFormItem {
   ROUND_OFF = 'Round Off',
   GRAND_TOTAL = 'Grand Total',
 }
-
+@Component({
+  selector: 'app-create-invoice-summary',
+  standalone: true,
+  imports: [CommonModule,AgGridModule, ],
+  templateUrl: './create-invoice-summary.component.html',
+  styleUrls: ['./create-invoice-summary.component.scss']
+})
 export class CreateInvoiceSummaryComponent {
 
+  defaultColDef: ColDef = {
+    resizable: true,
+    sortable: false,
+    filter: false
+  };
+
+  gridOptions: GridOptions = {
+    suppressMenuHide: true,
+    animateRows: true
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  getRowId = (params: GetRowIdParams) => params.data.label;
 
   public store = inject<Store<CountryState>>(Store);
 

@@ -11,7 +11,8 @@ import { SelectTemplateComponent } from './select-template/select-template.compo
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
 import { CreateInvoiceOrganizationComponent } from './create-organization-details/create-invoice-organization.component';
 import { CreateInvoiceLogoComponent } from './create-organization-logo/create-invoice-logo.component';
-import { CreateInvoiceCustomerComponent } from './create-invoice/create-customer-details/create-invoice-customer.component';
+import { CreateInvoiceItemsComponent } from './create-invoice-items/create-invoice-items.component';
+import { CreateInvoiceSummaryComponent } from './create-invoice/create-invoice-summary/create-invoice-summary.component';
 
 
 @Component({
@@ -25,10 +26,11 @@ import { CreateInvoiceCustomerComponent } from './create-invoice/create-customer
     CreateInvoiceComponent,
     CreateInvoiceOrganizationComponent,
     CreateInvoiceLogoComponent,
-    CreateInvoiceCustomerComponent,
+    CreateInvoiceSummaryComponent,
+    CreateInvoiceItemsComponent,
     SelectTemplateComponent,
     PreviewInvoiceComponent
-  ],
+],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
 })
