@@ -1,102 +1,61 @@
 .card-layout {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: flex-start;
-    margin: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+  background-color: #f7f9fc;
+  min-height: 70vh;
+  box-sizing: border-box;
 }
 
 .my-organization-card {
-    max-width: 25%;
-    flex: 1 1 100px;
-    border-radius: 12px;
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 24px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.my-organization-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    padding: 8px 0;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #2c3e50;
 }
 
-.title {
-    margin-bottom: 10px;
-    margin-left: 5px;
+/* AG Grid Styling */
+.address-grid {
+  width: 100%;
+  font-size: 15px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.media-upload {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    margin-top: 33px;
-
+/* Remove AG Grid header */
+.ag-theme-alpine .ag-header {
+  display: none;
 }
 
-.logo-upload-button {
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: -5px;
+/* Row styling */
+.ag-theme-alpine .ag-row {
+  border-bottom: 1px solid #eceff1;
+  line-height: 2.4rem;
 }
 
-.logo-drop-zone {
-    position: relative;
-    width: 250px;
-    height: 120px;
-    border: 2px dashed #9c9b9b;
-    /* Default visible dashed border */
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+.ag-theme-alpine .ag-cell {
+  padding: 12px;
+  font-size: 15px;
+  color: #333;
 }
 
-/* Remove default border during drag-over */
-.logo-drop-zone.drag-over {
-    border: none;
-}
-
-/* Animated dashed border using ::before */
-.logo-drop-zone.drag-over::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 10px;
-    pointer-events: none;
-    z-index: 2;
-
-    background: repeating-linear-gradient(135deg,
-            #9c9b9b 0 6px,
-            transparent 6px 12px);
-    background-size: 200% 200%;
-    animation: move-border 10s linear infinite;
-
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: destination-out;
-
-    padding: 2px;
-    box-sizing: border-box;
-}
-
-/* 🔁 Smooth scrolling effect */
-@keyframes move-border {
-    0% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 100% 100%;
-    }
+/* Zebra stripes */
+.ag-theme-alpine .ag-row:nth-child(even) .ag-cell {
+  background-color: #f9fbfc;
 }
