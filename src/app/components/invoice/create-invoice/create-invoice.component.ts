@@ -11,7 +11,8 @@ import { loadTemplates } from '../../templates/store/actions/template.actions';
 import { loadCountries } from '../store/actions/country.actions';
 import { loadCurrencies } from '../store/actions/currency.actions';
 import { loadDateFormats } from '../store/actions/date-format.actions';
-import { CreateInvoiceOrganizationComponent } from '../create-organization-details/create-invoice-organization.component';
+import { CreateInvoiceDetailsComponent } from './create-invoice-details.component';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-create-invoice',
@@ -28,9 +29,9 @@ import { CreateInvoiceOrganizationComponent } from '../create-organization-detai
   templateUrl: './create-invoice.component.html',
   styleUrl: './create-invoice.component.scss'
 })
-export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent implements OnInit {
+export class CreateInvoiceComponent implements OnInit {
 
-  override gridOptions: GridOptions = {
+  gridOptions: GridOptions = {
     domLayout: 'autoHeight',
     rowHeight: 30,
     singleClickEdit: true,
@@ -38,12 +39,15 @@ export class CreateInvoiceComponent extends CreateInvoiceOrganizationComponent i
     stopEditingWhenCellsLoseFocus: false,
   };
 
-  override defaultColDef = {
+  defaultColDef = {
     sortable: false,
     resizable: false,
     suppressMenu: true,
     editable: false
   };
+
+  constructor(public store:Store) {}
+
 
   ngOnInit(): void {
     this.store.dispatch(loadTemplates());

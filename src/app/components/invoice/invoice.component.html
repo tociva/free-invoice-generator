@@ -2,8 +2,8 @@
 
   <!-- Step 1: Organization Info + Logo Upload -->
   <mat-step label="My Organization Info & Logo">
-    <app-create-invoice-organization></app-create-invoice-organization>
-    <app-create-invoice-logo></app-create-invoice-logo>
+    <app-invoice-organization></app-invoice-organization>
+    <app-invoice-logo></app-invoice-logo>
     <div class="stepper-actions">
       <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
         Next <mat-icon class="icon-right">arrow_forward</mat-icon>
@@ -11,9 +11,10 @@
     </div>
   </mat-step>
 
-  <!-- Step 2: Fill Invoice -->
+  <!-- Step 2: Customer and Invoice Details -->
   <mat-step label="Customer and Invoice Details">
-    <app-create-invoice></app-create-invoice>
+    <app-invoice-customer></app-invoice-customer>
+    <app-invoice-details></app-invoice-details>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="stepper.previous()">
         <mat-icon class="icon-left">arrow_back</mat-icon> Back
@@ -28,10 +29,8 @@
 <mat-step label="Items and Summary">
   <div class="items-summary-layout">
     <!-- Item Details Table -->
-    <app-create-invoice-items></app-create-invoice-items>
-
-    <!-- Summary Section -->
-    <app-create-invoice-summary></app-create-invoice-summary>
+    <app-invoice-items></app-invoice-items>
+    <app-invoice-summary></app-invoice-summary>
   </div>
 
   <div class="stepper-actions">
