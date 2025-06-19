@@ -22,14 +22,40 @@
     }
 }
 
-.next-btn,
-.next-btnn {
+.next-btn {
   font-weight: 500;
   color: white;
   background-color: #555;
   margin-bottom: 20px;
   border-radius: 8px;
 }
+.next-btn1{
+  font-weight: 500;
+  color: white;
+  background-color: #555;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  margin-right: 540px;
+  margin-top: -30px;
+}
+.next-btn2 {
+  font-weight: 500;
+  color: white;
+  background-color: #555;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  margin-right: 400px;
+  margin-top: -30px;
+}
+.next-btn3 {
+  font-weight: 500;
+  color: white;
+  background-color: #555;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  margin-right: 100px;
+}
+
 
 .back-btn {
   font-weight: 500;
@@ -38,7 +64,14 @@
   border: 1px solid #555;
   border-radius: 8px;
 }
-
+.back-btn2 {
+  font-weight: 500;
+  color: #555;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
+  margin-top: -30px;
+}
 .finish-btn {
   font-weight: 500;
   background-color: #b4b7c4;
@@ -64,3 +97,38 @@
     margin-left: 0;
   }
 }
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* force same height */
+  gap: 40px;
+  padding: 32px 20px;
+  flex-wrap: wrap;
+}
+
+.card-container app-invoice-customer,
+.card-container app-invoice-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 480px; /* cards take same width and grow equally */
+  max-width: 480px;
+}
+
+.items-summary-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; // spacing between the two cards
+  padding: 1rem;
+}
+
+.invoice-items-wrapper {
+  width: 100%;
+}
+
+.invoice-summary-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+
+

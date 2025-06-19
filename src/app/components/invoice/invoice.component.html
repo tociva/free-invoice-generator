@@ -5,7 +5,7 @@
     <app-invoice-organization></app-invoice-organization>
     <app-invoice-logo></app-invoice-logo>
     <div class="stepper-actions">
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
+      <button mat-raised-button color="primary" class="next-btn1" (click)="stepper.next()">
         Next <mat-icon class="icon-right">arrow_forward</mat-icon>
       </button>
     </div>
@@ -13,13 +13,15 @@
 
   <!-- Step 2: Customer and Invoice Details -->
   <mat-step label="Customer and Invoice Details">
+    <div class="card-container">
     <app-invoice-customer></app-invoice-customer>
     <app-invoice-details></app-invoice-details>
+    </div>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()">
+      <button mat-button class="back-btn2" (click)="stepper.previous()">
         <mat-icon class="icon-left">arrow_back</mat-icon> Back
       </button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
+      <button mat-raised-button color="primary" class="next-btn2" (click)="stepper.next()">
         Next <mat-icon class="icon-right">arrow_forward</mat-icon>
       </button>
     </div>
@@ -28,16 +30,21 @@
  <!-- Step 3: Items and Summary -->
 <mat-step label="Items and Summary">
   <div class="items-summary-layout">
-    <!-- Item Details Table -->
+  <div class="invoice-items-wrapper">
     <app-invoice-items></app-invoice-items>
+  </div>
+
+  <div class="invoice-summary-wrapper">
     <app-invoice-summary></app-invoice-summary>
   </div>
+</div>
+
 
   <div class="stepper-actions">
     <button mat-button class="back-btn" (click)="stepper.previous()">
       <mat-icon class="icon-left">arrow_back</mat-icon> Back
     </button>
-    <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
+    <button mat-raised-button color="primary" class="next-btn3" (click)="stepper.next()">
       Next <mat-icon class="icon-right">arrow_forward</mat-icon>
     </button>
   </div>
