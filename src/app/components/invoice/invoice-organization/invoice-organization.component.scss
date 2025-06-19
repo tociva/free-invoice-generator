@@ -1,11 +1,3 @@
-.card-layout {
-  display: flex;
-  justify-content: center;
-  padding: 40px 16px;
-  background-color: #f7f9fc;
-  min-height: 70vh;
-  box-sizing: border-box;
-}
 
 .my-organization-card {
   width: 100%;
@@ -20,14 +12,6 @@
 
 .my-organization-card:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-size: 26px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 28px;
-  color: #2c3e50;
 }
 
 /* AG Grid Styling */

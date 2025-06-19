@@ -1,0 +1,9 @@
+<div class="Item-details-card">
+  <div class="title">
+      <span class="invoice-card-title">Item Details</span>
+  </div>
+  <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [columnDefs]="itemsColumnDefs"
+      [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
+      (gridReady)="onItemsGridReady($event)">
+  </ag-grid-angular>
+</div>

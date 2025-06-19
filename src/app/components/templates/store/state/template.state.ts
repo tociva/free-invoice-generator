@@ -17,5 +17,5 @@ export const initialTemplateState: TemplateState = {
   currentPage: 0,
   pageSize: 3,
   searchTags: [],
-  selectedTemplatePath: 'invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html'
+  selectedTemplatePath: 'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html'
 };

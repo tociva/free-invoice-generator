@@ -1,23 +1,25 @@
-import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
-import dayjs from 'dayjs';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { AgGridModule } from 'ag-grid-angular';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { map, Observable } from 'rxjs';
 import { OPTIONS_COUNT } from '../../../../util/constants';
-import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { Currency } from '../store/model/currency.model';
+import { selectAllCurrencies } from '../store/selectors/currency.selectors';
+import { Store } from '@ngrx/store';
+import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
+import { DateFormat } from '../store/model/date-format.model';
+import { selectAllTaxes } from '../store/selectors/tax.selectors';
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
+import { TaxOption } from '../store/model/invoice.model';
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
-import { Currency } from '../store/model/currency.model';
-import { DateFormat } from '../store/model/date-format.model';
-import { TaxOption } from '../store/model/invoice.model';
-import { selectAllCurrencies } from '../store/selectors/currency.selectors';
-import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
+import dayjs from 'dayjs';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { CreateInvoiceLogoComponent } from '../create-organization-logo/create-invoice-logo.component';
-
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -31,10 +33,32 @@ export enum InvoiceDetailsFormItem {
   DECIMAL_PLACES = 'Decimal Places',
   DATE_FORMAT = 'Date Format',
 }
-
-export class CreateInvoiceDetailsComponent extends CreateInvoiceLogoComponent {
+@Component({
+  selector: 'app-invoice-details',
+  imports: [
+    CommonModule,
+    AgGridModule],
+  templateUrl: './invoice-details.component.html',
+  styleUrl: './invoice-details.component.scss'
+})
+export class InvoiceDetailsComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
+
+  defaultColDef: ColDef<FormColumnDef> = {
+    editable: false,
+    resizable: true,
+    sortable: false,
+    
+  };
+
+  gridOptions: GridOptions<FormColumnDef> = {
+    suppressMenuHide: true,
+    rowSelection: 'single',
+    animateRows: true
+  };
+
+  constructor(public store:Store) {}
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
     return this.store.select(selectAllCurrencies).pipe(
@@ -260,8 +284,6 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceLogoComponent {
   onInvoiceDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.detailsGridApi = params.api;
     this.store.select(selectInvoice).subscribe((invoice) => {
-      this.smallLogoPreviewUrl = invoice.smallLogo;
-      this.largeLogoPreviewUrl = invoice.largeLogo;
       const invoiceDetailsRowData: FormColumnDef[] = [
         { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: invoice.number },
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
@@ -290,4 +312,7 @@ export class CreateInvoiceDetailsComponent extends CreateInvoiceLogoComponent {
       });
     });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
 }

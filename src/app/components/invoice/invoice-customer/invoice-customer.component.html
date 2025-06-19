@@ -1,0 +1,15 @@
+  <!-- Customer Details -->
+  <div class="info-card">
+    <h3 class="card-title">Customer Details</h3>
+    <ag-grid-angular
+      class="ag-theme-alpine no-header address-grid"
+      [rowData]="customerRowData"
+      [columnDefs]="customerColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [gridOptions]="gridOptions"
+      [domLayout]="'autoHeight'"
+      [getRowId]="getRowId"
+      [headerHeight]="0"
+      (gridReady)="onCustomerGridReady($event)">
+    </ag-grid-angular>
+  </div>

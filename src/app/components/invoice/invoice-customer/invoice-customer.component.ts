@@ -1,43 +1,64 @@
-import { ColDef, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
-import { map, Observable } from 'rxjs';
-import { OPTIONS_COUNT } from '../../../../../util/constants';
-import { displayAutoCompleteWithName } from '../../../../../util/daybook.util';
-import { FormColumnDef } from '../../../../../util/form-column-def.type';
-import { AutoCompleteEditorComponent } from '../../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
-import { LabelColumnRendererComponent } from '../../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setCustomerCountry } from '../../store/actions/invoice.action';
-import { Country } from '../../store/model/country.model';
-import { selectAllCountries } from '../../store/selectors/country.selectors';
-import { selectInvoice } from '../../store/selectors/invoice.selectors';
-import { CreateInvoiceDetailsComponent } from '../create-invoice-details.component';
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AgGridModule } from 'ag-grid-angular';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { setCustomerCountry } from '../store/actions/invoice.action';
+import { Country } from '../store/model/country.model';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { CountryService } from '../../../services/country.service';
 
 export enum CustomerFormItem {
-    NAME = 'Name',
-    MOBILE = 'Mobile',
-    EMAIL = 'Email',
-    GSTIN = 'GSTIN',
-    LINE1 = 'Line1',
-    LINE2 = 'Line2',
-    STREET = 'Street',
-    CITY = 'City',
-    STATE = 'State',
-    ZIP = 'Zip',
-    COUNTRY = 'Country',
+  NAME = 'Name',
+  MOBILE = 'Mobile',
+  EMAIL = 'Email',
+  GSTIN = 'GSTIN',
+  LINE1 = 'Line1',
+  LINE2 = 'Line2',
+  STREET = 'Street',
+  CITY = 'City',
+  STATE = 'State',
+  ZIP = 'Zip',
+  COUNTRY = 'Country',
 }
 @Component({
-  selector: 'app-create-invoice-customer',
-  standalone: true,
+  selector: 'app-invoice-customer',
   imports: [
     CommonModule,
+    AgGridModule
   ],
-  templateUrl: './create-invoice-customer.component.html',
-  styleUrls: ['./create-invoice-customer.component.scss']
+  templateUrl: './invoice-customer.component.html',
+  styleUrl: './invoice-customer.component.scss'
 })
-export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponent {
-
+export class InvoiceCustomerComponent implements OnDestroy {
   public customerGridApi!: GridApi<FormColumnDef>;
+
+  private destroy$ = new Subject<void>();
+
+  defaultColDef: ColDef<FormColumnDef> = {
+    editable: false,
+    resizable: true,
+    sortable: false,
+    
+  };
+
+  gridOptions: GridOptions<FormColumnDef> = {
+    suppressMenuHide: true,
+    rowSelection: 'single',
+    animateRows: true
+  };
+  
+  constructor(private store:Store, 
+    private countryService:CountryService) {}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   private findCustomerEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     
@@ -55,44 +76,27 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
   };
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150 },
+    { field: 'label', headerName: '', width: 150,flex:1 },
     {
       field: 'value',
       headerName: '',
       width: 200,
       editable: true,
       cellEditorSelector: this.findCustomerEditorComponent,
-      cellRendererSelector: CreateInvoiceCustomerComponent.findCustomerCellRenderer,
+      cellRendererSelector: InvoiceCustomerComponent.findCustomerCellRenderer,
     }
   ];
 
   customerRowData: FormColumnDef[] = [];
 
-  fetchCountries = (val?: string | Country): Observable<Country[]> => {
-    return this.store.select(selectAllCountries).pipe(
-      map((countries) => {
-
-        // If val is of type Country, return empty array
-        if (val && typeof val === 'object') {
-          return [];
-        }
-
-        if (!val?.trim()) {
-          return countries.slice(0, OPTIONS_COUNT);
-        }
-  
-        const filterVal = val.toLowerCase();
-        return countries
-          .filter((country) => country.name.toLowerCase().startsWith(filterVal))
-          .slice(0, OPTIONS_COUNT);
-      })
-    );
-  };
 
   handleCustomerCountryOptionSelected = (val: Country): void => {
     this.store.dispatch(setCustomerCountry({ country: val }));
   };
-
+  
+  fetchCountries = (val?: string | Country): Observable<Country[]> => {
+    return this.countryService.fetchCountries(val);
+  };
 
   private findCountryEditorComponent = (_valueP: unknown) => ({
     component: AutoCompleteEditorComponent<Country>,
@@ -125,7 +129,9 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
 
   onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.customerGridApi = params.api;
-    this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectInvoice)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((invoice) => {
       const {customer} = invoice;
       this.customerRowData = [
         { label: CustomerFormItem.NAME, value: customer.name },
@@ -142,4 +148,7 @@ export class CreateInvoiceCustomerComponent extends CreateInvoiceDetailsComponen
       ];
     });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
 }
