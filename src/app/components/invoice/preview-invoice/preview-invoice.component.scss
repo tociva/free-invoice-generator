@@ -2,10 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
-
-
 
 .a4-preview {
   width: 794px;
@@ -14,12 +11,13 @@
   background: white;
 }
 
+/* ⬇️ Align buttons on top-right of preview */
 .top-bar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 1px;
-  padding: 0 1rem;
-  margin-left: 600px;
+  width: 794px; /* match .a4-preview width */
+  margin-bottom: 8px;
 }
 
 .icon-btn {
@@ -30,7 +28,6 @@
   height: 36px;
   color: #333;
   cursor: pointer;
-  
 
   &:hover {
     background: rgba(0, 0, 0, 0.05);
@@ -39,4 +36,90 @@
   mat-icon {
     font-size: 20px;
   }
+}
+
+.template-preview-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative; /* allows upload box to position absolutely within this */
+  margin-top: 20px;
+  width: 100%;
+}
+
+.template-preview {
+  width: 794px;
+}
+
+.template-upload-container {
+  position: absolute;
+  top: 0;
+  right: 40px; /* adjust as needed */
+  margin-top: 110px;
+}
+
+.upload-box {
+  width: 250px;
+  height: 120px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  padding: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.upload-box.dragging::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 2;
+
+  /* ✅ Grey dashed animation */
+  background: repeating-linear-gradient(
+    135deg,
+    #9c9b9b 0 6px,
+    transparent 6px 12px
+  );
+  background-size: 200% 200%;
+  animation: move-border 10s linear infinite;
+
+  /* ✅ Cutout center to animate only the border */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+
+  padding: 2px;
+  box-sizing: border-box;
+}
+@keyframes move-border {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.upload-title {
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.upload-box.dragging {
+  border: none;
 }

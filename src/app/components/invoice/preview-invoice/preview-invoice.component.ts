@@ -24,6 +24,7 @@ export class PreviewInvoiceComponent implements OnInit {
   @ViewChild('invoiceFrame') invoiceFrame!: ElementRef<HTMLIFrameElement>;
   private destroy$ = new Subject<void>();
   selectedTemplate: TemplateItem | null = null;
+  isDragging = false;
   downloadTemplateAsHTML = TemplateUtil.downloadTemplateAsHTML;
 
 
@@ -103,7 +104,38 @@ downloadTemplate(): void {
   window.URL.revokeObjectURL(url);
 }
 
+onTemplateUpload(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    this.processFile(file);
+  }
+}
 
+onDragOver(event: DragEvent): void {
+  event.preventDefault();
+  this.isDragging = true;
+}
+
+onDragLeave(event: DragEvent): void {
+  event.preventDefault();
+  this.isDragging = false;
+}
+
+onDrop(event: DragEvent): void {
+  event.preventDefault();
+  this.isDragging = false;
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    const file = event.dataTransfer.files[0];
+    this.processFile(file);
+  }
+}
+
+// eslint-disable-next-line class-methods-use-this
+processFile(file: File): void {
+  
+  // TODO: implement file handling logic here (e.g. read content or upload)
+}
 
 
 }
