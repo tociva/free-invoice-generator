@@ -16,7 +16,7 @@ import { selectAllCurrencies } from '../store/selectors/currency.selectors';
 import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { CreateInvoiceLogoComponent } from '../create-organization-logo/create-invoice-logo.component';
+import { Store } from '@ngrx/store';
 
 
 export enum InvoiceDetailsFormItem {
@@ -32,9 +32,11 @@ export enum InvoiceDetailsFormItem {
   DATE_FORMAT = 'Date Format',
 }
 
-export class CreateInvoiceDetailsComponent extends CreateInvoiceLogoComponent {
+export class CreateInvoiceDetailsComponent {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
+
+  constructor(public store:Store) {}
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
     return this.store.select(selectAllCurrencies).pipe(
