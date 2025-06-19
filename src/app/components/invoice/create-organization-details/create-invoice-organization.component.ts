@@ -10,7 +10,6 @@ import { CreateInvoiceCustomerComponent } from '../create-invoice/create-custome
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import { MatIcon } from '@angular/material/icon';
 
 export enum MyDetailsFormItem {
     NAME = 'Name',
@@ -30,8 +29,8 @@ export enum MyDetailsFormItem {
   standalone: true,
   imports: [
     CommonModule,
-    AgGridModule,MatIcon
-  ],
+    AgGridModule
+],
   templateUrl: './create-invoice-organization.component.html',
   styleUrls: ['./create-invoice-organization.component.scss']
 })
@@ -44,7 +43,8 @@ export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerCom
   override defaultColDef: ColDef<FormColumnDef> = {
     editable: false,
     resizable: true,
-    sortable: false
+    sortable: false,
+    
   };
 
   override gridOptions: GridOptions<FormColumnDef> = {
@@ -73,11 +73,12 @@ export class CreateInvoiceOrganizationComponent extends CreateInvoiceCustomerCom
   };
 
   myDetailsColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150 },
+    { field: 'label', headerName: '', width: 150, flex: 1 },
     {
       field: 'value',
       headerName: '',
       width: 200,
+      flex: 1,
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
       cellRendererSelector: CreateInvoiceOrganizationComponent.findMyDetailsCellRenderer,

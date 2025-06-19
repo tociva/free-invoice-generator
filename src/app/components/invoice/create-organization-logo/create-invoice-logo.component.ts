@@ -3,6 +3,7 @@ import { CreateInvoiceItemsComponent } from '../create-invoice-items/create-invo
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-invoice-logo',
@@ -10,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,MatIcon
   ],
   templateUrl: './create-invoice-logo.component.html',
   styleUrls: ['./create-invoice-logo.component.scss']
