@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
@@ -11,7 +11,7 @@ import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/labe
 import { setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 export enum OrganizatonFormItem {
   NAME = 'Name',
@@ -35,10 +35,12 @@ export enum OrganizatonFormItem {
   templateUrl: './invoice-organization.component.html',
   styleUrl: './invoice-organization.component.scss'
 })
-export class InvoiceOrganizationComponent {
+export class InvoiceOrganizationComponent implements OnDestroy {
 
 
   public myDetailsGridApi!: GridApi<FormColumnDef>;
+
+  private destroy$ = new Subject<void>();
   
   myDetailsRowData: FormColumnDef[] = [];
 
@@ -59,6 +61,10 @@ export class InvoiceOrganizationComponent {
     private store: Store,
     private countryService:CountryService
   ) {
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -132,7 +138,9 @@ export class InvoiceOrganizationComponent {
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.myDetailsGridApi = params.api;
-    this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectInvoice)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((invoice) => {
       const {organization} = invoice;
       this.myDetailsRowData = [
         { label: OrganizatonFormItem.NAME, value: organization.name },
@@ -149,4 +157,4 @@ export class InvoiceOrganizationComponent {
       ];
     });
   }
-}
+  }

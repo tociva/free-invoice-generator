@@ -3,3 +3,19 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.invoice-card-layout {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+  background-color: #f7f9fc;
+  min-height: 70vh;
+  box-sizing: border-box;
+}
+
+.invoice-card-title {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #2c3e50;
+}

@@ -1,1 +1,15 @@
-<p>invoice-details works!</p>
+<div class="invoice-card-layout">
+  <div class="invoice-details-card">
+    <h3 class="invoice-card-title">Invoice Details</h3>
+    <ag-grid-angular
+      class="ag-theme-alpine no-header address-grid"
+      [columnDefs]="invoiceDetailsColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [gridOptions]="gridOptions"
+      [domLayout]="'autoHeight'"
+      [getRowId]="getRowId"
+      [headerHeight]="0"
+      (gridReady)="onInvoiceDetailsGridReady($event)">
+    </ag-grid-angular>
+  </div>
+</div>
