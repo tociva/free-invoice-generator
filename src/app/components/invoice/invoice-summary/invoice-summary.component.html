@@ -1,1 +1,6 @@
-<p>invoice-summary works!</p>
+<div class="Summary-of-Invoice-card">
+  <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 94%;"
+    [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
+    [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)" [getRowId]="getRowId">
+  </ag-grid-angular>
+</div>
