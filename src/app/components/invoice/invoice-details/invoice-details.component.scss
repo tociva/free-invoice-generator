@@ -1,22 +1,13 @@
-.card-layout {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px;
-  padding: 40px 20px;
-  background-color: #f4f6f9;
-  box-sizing: border-box;
-}
+
 
 .info-card {
-  flex: 1 1 320px;
-  max-width: 480px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   padding: 24px;
-  box-sizing: border-box;
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .info-card:hover {
@@ -59,15 +50,3 @@
   background-color: #f9fbfc;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .card-layout {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .info-card {
-    width: 100%;
-    max-width: 95%;
-  }
-}

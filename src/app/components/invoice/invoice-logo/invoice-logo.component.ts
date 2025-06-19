@@ -1,28 +1,36 @@
-import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
-import { CreateInvoiceItemsComponent } from '../create-invoice-items/create-invoice-items.component';
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
+import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 @Component({
-  selector: 'app-create-invoice-logo',
-  standalone: true,
+  selector: 'app-invoice-logo',
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,MatIcon
-  ],
-  templateUrl: './create-invoice-logo.component.html',
-  styleUrls: ['./create-invoice-logo.component.scss']
+    ReactiveFormsModule,
+    MatIcon],
+  templateUrl: './invoice-logo.component.html',
+  styleUrl: './invoice-logo.component.scss'
 })
-export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
+export class InvoiceLogoComponent implements OnInit {
 
   smallLogoPreviewUrl: string | null = null;
   largeLogoPreviewUrl: string | null = null;
   isLargeLogoDragOver = false;
   isSmallLogoDragOver = false;
   
+  constructor(private store:Store) {}
+
+  ngOnInit(): void {
+    this.store.select(selectInvoice).subscribe((invoice) => {
+      this.smallLogoPreviewUrl = invoice.smallLogo;
+      this.largeLogoPreviewUrl = invoice.largeLogo;
+    });
+  }
 
 
   private handleSmallLogo(file: File): void {
@@ -118,5 +126,4 @@ export class CreateInvoiceLogoComponent extends CreateInvoiceItemsComponent {
     this.largeLogoPreviewUrl = null;
     this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
   }
-
 }

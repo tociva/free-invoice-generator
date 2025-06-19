@@ -169,7 +169,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, $primary-color 0%, lighten($primary-color, 10%) 100%);
+  background: linear-gradient(135deg, $primary-color 0%, color.adjust($primary-color, $lightness: 10%) 100%);
   border: none;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba($primary-color, 0.3);
@@ -189,7 +189,7 @@
   }
 
   &:hover {
-    background: linear-gradient(135deg, darken($primary-color, 5%) 0%, $primary-color 100%);
+    background: linear-gradient(135deg, color.adjust($primary-color, $lightness: -5%) 0%, $primary-color 100%);
     box-shadow: 0 8px 28px rgba($primary-color, 0.5);
 
     .icon {

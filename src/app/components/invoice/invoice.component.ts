@@ -1,19 +1,19 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
-import { MatStepperModule, MatStepper } from '@angular/material/stepper';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
-import { SelectTemplateComponent } from './select-template/select-template.component';
+import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer.component';
+import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
+import { InvoiceItemsComponent } from './invoice-items/invoice-items.component';
+import { InvoiceLogoComponent } from './invoice-logo/invoice-logo.component';
+import { InvoiceOrganizationComponent } from './invoice-organization/invoice-organization.component';
+import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
-import { CreateInvoiceOrganizationComponent } from './create-organization-details/create-invoice-organization.component';
-import { CreateInvoiceLogoComponent } from './create-organization-logo/create-invoice-logo.component';
-import { CreateInvoiceItemsComponent } from './create-invoice-items/create-invoice-items.component';
-import { CreateInvoiceSummaryComponent } from './create-invoice/create-invoice-summary/create-invoice-summary.component';
-
+import { SelectTemplateComponent } from './select-template/select-template.component';
 
 @Component({
   selector: 'app-invoice',
@@ -23,13 +23,14 @@ import { CreateInvoiceSummaryComponent } from './create-invoice/create-invoice-s
     MatStepperModule,
     MatButtonModule,
     MatIconModule,
-    CreateInvoiceComponent,
-    CreateInvoiceOrganizationComponent,
-    CreateInvoiceLogoComponent,
-    CreateInvoiceSummaryComponent,
-    CreateInvoiceItemsComponent,
+    InvoiceCustomerComponent,
+    InvoiceDetailsComponent,
+    InvoiceItemsComponent,
+    InvoiceSummaryComponent,
     SelectTemplateComponent,
-    PreviewInvoiceComponent
+    PreviewInvoiceComponent,
+    InvoiceOrganizationComponent,
+    InvoiceLogoComponent
 ],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']

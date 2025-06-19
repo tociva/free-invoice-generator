@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { ColDef, ColGroupDef, GridApi, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AgGridModule } from 'ag-grid-angular';
+import { ColDef, ColGroupDef, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
 import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
@@ -7,27 +12,23 @@ import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/labe
 import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/actions/invoice.action';
 import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CreateInvoiceSummaryComponent } from '../create-invoice/create-invoice-summary/create-invoice-summary.component';
-import { CommonModule } from '@angular/common';
-import { AgGridModule } from 'ag-grid-angular';
 
 type InvoiceItemWithAction = InvoiceItem & { action?: string };
-
 @Component({
-  selector: 'app-create-invoice-items',
-  standalone: true,
+  selector: 'app-invoice-items',
   imports: [
     CommonModule,
     AgGridModule
 ],
-  templateUrl: './create-invoice-items.component.html',
-  styleUrls: ['./create-invoice-items.component.scss']
+  templateUrl: './invoice-items.component.html',
+  styleUrl: './invoice-items.component.scss'
 })
-export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
-
+export class InvoiceItemsComponent implements OnDestroy {
   private decimalPlaces = DEFAULT_DECIMAL_PLACES;
 
   private oldInvoice!:Invoice;
+
+  private destroy$ = new Subject<void>();
 
   private readonly BASE_ITEM_ROW_DATA: InvoiceItem = {
     name: '', description: '', quantity: 0, price: 0, itemTotal: 0, discountAmount: 0,
@@ -46,11 +47,24 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
     floatingFilter: false,
   };
 
+  gridOptions: GridOptions<InvoiceItemWithAction> = {
+    suppressMenuHide: true,
+    rowSelection: 'single',
+    animateRows: true
+  };
+
   itemsColumnDefs: ColDef<InvoiceItemWithAction>[] = [];
   itemsGridApi!: GridApi<InvoiceItem>;
   itemsGridWidth = '1000px';
   private numberCellWidth = 60;
   private nameCellWidth = 300;
+
+  constructor(private store:Store) {}
+  
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   private handleNameCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const { oldValue, data } = params;
@@ -175,7 +189,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       headerName: 'Item Details',
       headerClass: itemDetailsGroupClass,
       children: [
-        CreateInvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
+        InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
         this.createItemLabelFormatedNumberColumn('price', 'Price', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
         this.createItemLabelNumberColumn('quantity', 'Quantity', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
         this.createItemLabelFormatedNumberColumn('itemTotal', 'Item Total', false, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass)
@@ -186,7 +200,7 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
       itemColumns.children.splice(
         1,
         0,
-        CreateInvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass)
+        InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass)
       );
     }
 
@@ -302,7 +316,9 @@ export class CreateInvoiceItemsComponent extends CreateInvoiceSummaryComponent {
 
   onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
     this.itemsGridApi = params.api;
-    this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectInvoice)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((invoice) => {
       if(this.compareWithOldInvoice(invoice)) {
         this.oldInvoice = invoice;
         this.refreshItemTable(invoice);

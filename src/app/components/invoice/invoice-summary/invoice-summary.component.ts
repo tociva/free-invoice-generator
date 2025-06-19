@@ -1,15 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
-import { FormColumnDef } from '../../../../../util/form-column-def.type';
-import { LabelColumnRendererComponent } from '../../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { selectInvoice } from '../../store/selectors/invoice.selectors';
-import { CountryState } from '../../store/state/country.state';
-import { updateInvoiceSummaryRoundOff } from '../../store/actions/invoice.action';
-import { DEFAULT_DECIMAL_PLACES } from '../../../../../util/constants';
-import { numberToFixedDecimal } from '../../../../../util/invoice.util';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { CountryState } from '../store/state/country.state';
+import { updateInvoiceSummaryRoundOff } from '../store/actions/invoice.action';
+import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
+import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 export enum InvoiceSummaryFormItem {
   ITEM_TOTAL = 'Item Total',
@@ -20,13 +23,17 @@ export enum InvoiceSummaryFormItem {
   GRAND_TOTAL = 'Grand Total',
 }
 @Component({
-  selector: 'app-create-invoice-summary',
-  standalone: true,
-  imports: [CommonModule,AgGridModule, ],
-  templateUrl: './create-invoice-summary.component.html',
-  styleUrls: ['./create-invoice-summary.component.scss']
+  selector: 'app-invoice-summary',
+  imports: [
+    CommonModule,
+    AgGridModule,
+  ],
+  templateUrl: './invoice-summary.component.html',
+  styleUrl: './invoice-summary.component.scss'
 })
-export class CreateInvoiceSummaryComponent {
+export class InvoiceSummaryComponent implements OnDestroy {
+
+  private destroy$ = new Subject<void>();
 
   defaultColDef: ColDef = {
     resizable: true,
@@ -38,6 +45,11 @@ export class CreateInvoiceSummaryComponent {
     suppressMenuHide: true,
     animateRows: true
   };
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   // eslint-disable-next-line class-methods-use-this
   getRowId = (params: GetRowIdParams) => params.data.label;
@@ -54,7 +66,7 @@ export class CreateInvoiceSummaryComponent {
   };
 
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150 },
+    { field: 'label', headerName: '', width: 150,flex:1 },
     { field: 'value', headerName: '', width: 200, editable: (params) => {
       const label = params.data?.label ?? '';
       const editableFields = [
@@ -62,7 +74,7 @@ export class CreateInvoiceSummaryComponent {
       ];
       return editableFields.includes(label as InvoiceSummaryFormItem);
     } ,
-    cellRendererSelector: CreateInvoiceSummaryComponent.findSummaryCellRenderer,
+    cellRendererSelector: InvoiceSummaryComponent.findSummaryCellRenderer,
     onCellValueChanged: (params: NewValueParams<FormColumnDef>) => {
       if(params.data.label !== InvoiceSummaryFormItem.ROUND_OFF) {
         return;
@@ -74,7 +86,9 @@ export class CreateInvoiceSummaryComponent {
 
   onSummaryGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.summaryGridApi = params.api;
-    this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectInvoice)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((invoice) => {
       const decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
       const summaryRowData:FormColumnDef[] = [
         { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: numberToFixedDecimal(invoice.itemTotal, decimalPlaces) },
