@@ -1,10 +1,52 @@
-.invoice-details-card {
-  width: 100%;
-  max-width: 720px;
-  background: #ffffff;
+
+
+.info-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  padding: 32px 24px;
-  box-sizing: border-box;
-  transition: box-shadow 0.3s ease;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
+
+.info-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.address-grid {
+  width: 100%;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Remove AG Grid header */
+::ng-deep .no-header .ag-header {
+  display: none !important;
+}
+
+/* Row and cell style */
+::ng-deep .ag-theme-alpine .ag-row {
+  border-bottom: 1px solid #e0e0e0;
+  line-height: 2rem;
+}
+
+::ng-deep .ag-theme-alpine .ag-cell {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+::ng-deep .ag-row:nth-child(even) .ag-cell {
+  background-color: #f9fbfc;
+}
+

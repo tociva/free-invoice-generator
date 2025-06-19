@@ -1,7 +1,8 @@
-<div class="invoice-card-layout">
-  <div class="invoice-details-card">
-    <h3 class="invoice-card-title">Invoice Details</h3>
+  <!-- Invoice Details -->
+  <div class="info-card">
+    <h3 class="card-title">Invoice Details</h3>
     <ag-grid-angular
+    style="width: 100%;"
       class="ag-theme-alpine no-header address-grid"
       [columnDefs]="invoiceDetailsColumnDefs"
       [defaultColDef]="defaultColDef"
@@ -9,7 +10,7 @@
       [domLayout]="'autoHeight'"
       [getRowId]="getRowId"
       [headerHeight]="0"
+      [rowHeight]="42"
       (gridReady)="onInvoiceDetailsGridReady($event)">
     </ag-grid-angular>
   </div>
-</div>
