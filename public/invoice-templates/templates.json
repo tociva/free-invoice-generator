@@ -144,6 +144,69 @@
                     "cgst",
                     "sgst"
                 ]
+            },
+            {
+                "name": "Sample-d-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-d-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-e-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-e-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-f-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-f-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-g-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-g-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-h-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-h-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-i-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-i-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-j-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-j-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }

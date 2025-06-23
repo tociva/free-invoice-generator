@@ -25,11 +25,25 @@
       justify-content: space-between;
       align-items: center;
     }
+    .logo{
+      margin-top: 10px;
+    }
 
-    .logo {
-      font-size: 28px;
+    .logo-circle {
+      color: white;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: bold;
-      color: #333;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    .logo-circle img {
+      width: 150px;
     }
 
     .invoice-title {
@@ -166,30 +180,34 @@
 </head>
 
 <body>
-  <div class="invoice-box">
+    
+    <div class="logo-circle">
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
     <div class="top-header">
       <div class="logo">Brand Name</div>
     </div>
 
     <div class="info">
-      <div>
-        <strong>Invoice No:</strong> [[Invoice_Number]]<br />
-        <strong>Invoice Date:</strong> [[Invoice_Date]]
-      </div>
-      <div>
-        <strong>Invoice From:</strong><br />
-        [[Org_Name]]<br />
-        [[Org_Address]]<br />
-        [[Org_Phone]]<br />
-        [[Org_Email]]<br />
-      </div>
-      <div>
-        <strong>Invoice To:</strong><br />
-        [[Customer_Name]]<br />
-        [[Customer_Adress]]<br />
-        [[Customer_Phone]]<br />
-        [[Customer_Email]]<br />
-      </div>
+     <div class="sender-info">
+    <p>[[org_name]]</p>
+    <p>[[org_address]]</p>
+    <p>[[org_phone]]</p>
+    <p>[[org_email]]</p>
+  </div>
+
+  <div class="billing-info">
+    <strong>[[customer_name]]</strong><br />
+    [[customer_address]]<br />
+    [[customer_phone]]<br />
+    [[customer_email]]<br />
+  </div>
+
+  <div class="invoice-info">
+    <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+    <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+    <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+  </div>
     </div>
 
     <table class="table">
@@ -241,22 +259,14 @@
       </tbody>
     </table>
 
-    <div class="summary">
-      <table>
-        <tr>
-          <td>Sub Total</td>
-          <td>[[Sub_Total]]</td>
-        </tr>
-        <tr>
-          <td>Tax %</td>
-          <td>[[Tax_Percetage]]</td>
-        </tr>
-        <tr>
-          <td>Discount %</td>
-          <td>[[Discount]]</td>
-        </tr>
-      </table>
-    </div>
+    <div class="totals">
+    <p>Itemtotal <span>[[itemtotal]]</span></p>
+    <p>Discount <span>[[discount]]</span></p>
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
+    <p>Roundoff <span>[[roundoff]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
 
     <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
 
@@ -282,7 +292,6 @@
       <div>🌐 www.website.com</div>
       <div>📍 david avenue road, 9th street</div>
     </div>
-  </div>
 </body>
 
 </html>
