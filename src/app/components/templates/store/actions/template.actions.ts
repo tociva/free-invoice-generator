@@ -6,7 +6,7 @@ export const loadTemplates = createAction('[Template] Load Templates');
 
 export const loadTemplatesSuccess = createAction(
   '[Template] Load Templates Success',
-  props<{ templates: Template[]; templateItems: TemplateItem[] }>()
+  props<{ templates: Template[]; templateItems: TemplateItem[], loaded: boolean }>()
 );
 
 export const loadTemplatesFailure = createAction(

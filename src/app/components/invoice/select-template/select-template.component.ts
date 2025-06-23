@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { filter, firstValueFrom, map, Observable, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
 
 import {
@@ -30,6 +30,7 @@ import {
   selectPaginatedTemplateItemsAllConditions,
   selectSearchTags,
   selectSelectedTemplatePath,
+  selectTemplatesLoaded,
 } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
@@ -82,7 +83,13 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   }
   ngOnInit(): void {
-    this.store.dispatch(loadTemplates());
+    this.store.select(selectTemplatesLoaded).pipe(
+      take(1),
+      filter((loaded) => !loaded)
+    ).subscribe(() => {
+      this.store.dispatch(loadTemplates());
+    });
+    
   
     this.totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(
       takeUntil(this.destroy$)

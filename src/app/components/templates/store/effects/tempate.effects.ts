@@ -23,7 +23,7 @@ export class TemplateEffects {
             const uniqueTags = Array.from(new Set(allTags));
   
             return [
-              TemplateActions.loadTemplatesSuccess({ templates, templateItems }),
+              TemplateActions.loadTemplatesSuccess({ templates, templateItems, loaded: true }),
               TagActions.loadTags({ tags: uniqueTags })
             ];
           }),
