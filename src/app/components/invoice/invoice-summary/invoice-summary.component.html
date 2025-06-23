@@ -3,4 +3,12 @@
     [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
     [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)" [getRowId]="getRowId">
   </ag-grid-angular>
+  <div class="total-in-words-container">
+    <div class="total-in-words-label">
+      Total in Words
+    </div>
+    <div class="total-in-words-value">
+      {{ totalInWords }}
+    </div>
+  </div>
 </div>
