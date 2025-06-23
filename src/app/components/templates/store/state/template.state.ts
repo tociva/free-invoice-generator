@@ -3,6 +3,7 @@ import { Template, TemplateItem } from '../model/template.model';
 export interface TemplateState {
   templates: Template[];
   templateItems: TemplateItem[];
+  loaded: boolean;
   error: string | null;
   currentPage: number;
   pageSize: number;
@@ -13,6 +14,7 @@ export interface TemplateState {
 export const initialTemplateState: TemplateState = {
   templates: [],
   templateItems: [],
+  loaded: false,
   error: null,
   currentPage: 0,
   pageSize: 3,

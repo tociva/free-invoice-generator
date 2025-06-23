@@ -13,12 +13,13 @@ export const templateReducer = createReducer(
     pageSize
   })),
   
-  on(TemplateActions.loadTemplatesSuccess, (state, { templates, templateItems }) => ({
+  on(TemplateActions.loadTemplatesSuccess, (state, { templates, templateItems, loaded }) => ({
     ...state,
     templates,
     templateItems,
     totalCount: templateItems.length,
-    error: null
+    error: null,
+    loaded
   })),
 
   on(TemplateActions.loadTemplatesFailure, (state, { error }) => ({
