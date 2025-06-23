@@ -71,7 +71,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
   getRowId = (params: GetRowIdParams<FormColumnDef>) => params.data.label;
 
   fetchCountries = (val?: string | Country): Observable<Country[]> => {
-    return this.countryService.fetchCountries(val);
+    return this.countryService.fetchCountries(val).pipe(takeUntil(this.destroy$));
   };
   
 

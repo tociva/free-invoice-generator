@@ -15,7 +15,6 @@ import { Store } from '@ngrx/store';
 import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
 
-import { Router } from '@angular/router';
 import {
   addSearchTag,
   loadTemplates,
@@ -72,12 +71,11 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 10;
-  totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions);
+  totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(takeUntil(this.destroy$));
 
   constructor(
     private templateService: TemplateService,
     private http: HttpClient,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -100,11 +98,15 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
         }
 
         const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
-        this.tags$ = this.store.select(selectTags).pipe(
+        this.tags$ = this.store.select(selectTags)
+        .pipe(takeUntil(this.destroy$))
+        .pipe(
           map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
         );
 
-        this.selectedTags$ = this.store.select(selectSearchTags).pipe(
+        this.selectedTags$ = this.store.select(selectSearchTags)
+        .pipe(takeUntil(this.destroy$))
+        .pipe(
           map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
         );
 
@@ -113,7 +115,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
           .pipe(takeUntil(this.destroy$))
           .subscribe(async (templateItems) => {
             this.templates = templateItems;
-
             this.safeHtmlMap = {};
             const tmpls = await Promise.all(
               templateItems.map(async (item) => {
