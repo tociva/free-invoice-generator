@@ -126,15 +126,19 @@
       border-radius: 4px;
     }
 
-    .total-due {
-      margin-top: 30px;
-      font-size: 22px;
-      color: #222;
-      font-weight: bold;
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin-left: auto;
     }
 
-    .total-due span {
-      color: #00b14f;
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 10px;
     }
 
     .payment-method {
@@ -211,53 +215,29 @@
     </div>
 
     <table class="table">
-      <thead>
-        <tr>
-          <th>Item Description</th>
-          <th>Unit Price</th>
-          <th>Qnt</th>
-          <th>Tax</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-      </tbody>
-    </table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
 
     <div class="totals">
     <p>Itemtotal <span>[[itemtotal]]</span></p>
@@ -269,10 +249,6 @@
   </div>
 
     <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
-
-    <div class="total-due">
-      TOTAL AMOUNT: <span>[[Total_AMOUNT]]</span>
-    </div>
 
     <div class="payment-method">
       <strong>Payment Method</strong><br />

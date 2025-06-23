@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1b3d91;
+      --accent: #f3f3f3;
+      --gray: #777;
+      --light: #fff;
+      --border: #e0e0e0;
+      --highlight: #405dba;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background: linear-gradient(#ffffff, #eaeaea);
+      color: #222;
+    }
+
+    
+
+    .invoice-box::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: var(--highlight);
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+
+    .invoice-box::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 100px;
+      height: 100px;
+      background: var(--highlight);
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    header .logo h2 {
+      margin: 0;
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    header small {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .meta .client {
+      max-width: 60%;
+    }
+
+    .meta .dates {
+      text-align: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    thead {
+      background: #f0f0f0;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+
+    td:nth-child(1) {
+      font-weight: 600;
+    }
+
+    .summary-box {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .summary-table {
+      width: 300px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .summary-table td {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+    }
+
+    .summary-table tr:last-child td {
+      background: var(--highlight);
+      color: white;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .footer strong {
+      color: #000;
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    .thank-you {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    @media(max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .summary-box {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-box">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <h2>COMPANY</h2>
+        <small>Company Tagline Here</small>
+      </div>
+    </header>
+
+    <!-- Meta -->
+    <div class="meta">
+      <div class="client">
+        <strong>Invoice to</strong><br/>
+        Your Client<br/>
+        General Manager, VVN Ltd.
+      </div>
+      <div class="dates">
+        <p><strong>Invoice Date:</strong> June 12, 2021</p>
+        <p><strong>Due Date:</strong> July 12, 2021</p>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Item Description</th>
+          <th>Price</th>
+          <th>Qty.</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Businesscard Design</td><td>$250.00</td><td>1</td><td>$250.00</td></tr>
+        <tr><td>2</td><td>Flyer Business Design</td><td>$300.00</td><td>2</td><td>$600.00</td></tr>
+        <tr><td>3</td><td>Poster Business Design</td><td>$300.00</td><td>3</td><td>$900.00</td></tr>
+        <tr><td>4</td><td>Banner Business Design</td><td>$300.00</td><td>3</td><td>$900.00</td></tr>
+        <tr><td>5</td><td>Interface Website Design</td><td>$300.00</td><td>1</td><td>$300.00</td></tr>
+        <tr><td>6</td><td>Stationary Business Design</td><td>$500.00</td><td>1</td><td>$500.00</td></tr>
+        <tr><td>7</td><td>UI Kit Design & Development</td><td>$400.00</td><td>1</td><td>$400.00</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary-box">
+      <table class="summary-table">
+        <tr><td>Subtotal</td><td>$3,850.00</td></tr>
+        <tr><td>Discount</td><td>$0.00</td></tr>
+        <tr><td>Tax (10%)</td><td>$385.00</td></tr>
+        <tr><td>Total</td><td>$4,235.00</td></tr>
+      </table>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="footer">
+      <div>
+        <strong>Payment Method</strong><br/>
+        Account No: 6789 9876 543<br/>
+        Account Name: Your Name<br/>
+        Bank Name: XYZ Bank<br/><br/>
+        PayPal: yourname@email.com
+      </div>
+      <div>
+        <strong>Terms & Conditions</strong><br/>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+      </div>
+      <div>
+        <strong>Contact</strong><br/>
+        Street Avenue 878 MCC 5678 US<br/>
+        Call: +62-234 8899 432<br/>
+        yourname@mail.com
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <br/><br/>_____________________<br/>
+      Authorised Sign
+    </div>
+
+    <!-- Thank You -->
+    <div class="thank-you">
+      Thank you for your business
+    </div>
+  </div>
+</body>
+</html>

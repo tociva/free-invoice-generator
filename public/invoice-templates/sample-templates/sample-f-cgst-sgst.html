@@ -1,240 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invoice</title>
   <style>
+    :root {
+      --primary: #f57c00;
+      --accent: #fff4e5;
+      --text: #333;
+      --border: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #eee;
-      overflow: hidden;
+      background: #f2f2f2;
+      color: var(--text);
     }
 
-    .sender-info,
-    .billing-info,
+    .invoice-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .top-banner {
+      background: linear-gradient(to right, var(--primary), #ffa726);
+      color: white;
+      padding: 40px 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo img {
+      height: 60px;
+    }
+
     .invoice-info {
-      margin-bottom: 25px;
-      line-height: 1.5;
-    }
-
-    .billing-info strong {
-      font-size: 18px;
-      margin-bottom: 8px;
-      display: inline-block;
+      text-align: right;
+      font-size: 14px;
     }
 
     .invoice-info p {
       margin: 3px 0;
     }
 
-    .top-banner {
-  background: linear-gradient(135deg, #f57c00 50%, #fff 50%);
-  color: #000;
-  padding: 40px 30px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-
-    .top-banner h1 {
-      margin: 0;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .top-banner p {
-      margin: 5px 0;
-      font-weight: 600;
-    }
-
-    .top-banner .right-info {
-      position: absolute;
-      top: 40px;
-      right: 30px;
-      text-align: right;
-    }
-
-    .top-banner .right-info p {
-      margin: 4px 0;
-    }
-
-    .main-content {
+    .details-section {
       padding: 30px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-    }
-
-    .left-info {
-      max-width: 45%;
       font-size: 14px;
     }
 
-    .right-dates {
-      text-align: right;
-      max-width: 45%;
-      font-size: 14px;
+    .details-section div {
+      flex: 1 1 45%;
+      margin-bottom: 20px;
+    }
+
+    .details-section strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+      color: var(--primary);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 30px 0;
+      margin: 0;
       font-size: 14px;
     }
 
-    table thead th {
-      background: #f57c00;
-      color: #fff;
-      padding: 10px;
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    thead th {
+      padding: 12px;
       text-align: left;
     }
 
-    table td {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .payment-method {
+    tbody tr:nth-child(even) {
+      background-color: var(--accent);
+    }
+
+    .summary {
+      padding: 30px;
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .summary p {
+      margin: 6px 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 40px;
+    }
+
+    .summary .total {
+      font-weight: bold;
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .payment-info {
       padding: 0 30px 30px;
       font-size: 14px;
     }
 
-    .summary {
-      padding: 0 30px 30px;
-      max-width: 300px;
-      float: right;
-    }
-
-    .summary p {
-      display: flex;
-      justify-content: space-between;
-      margin: 6px 0;
-    }
-
     .footer {
-      clear: both;
-      padding: 30px;
+      background: #fafafa;
+      padding: 20px 30px;
+      border-top: 1px solid var(--border);
       font-size: 13px;
-      background: #f7f7f7;
-      border-top: 1px solid #ddd;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    .logo-circle {
-      color: white;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      user-select: none;
-    }
-
-    .logo-circle img {
-      width: 150px;
-    }
 
     .footer div {
-      margin-bottom: 10px;
+      margin: 8px 0;
+    }
+
+    @media (max-width: 768px) {
+      .top-banner,
+      .details-section,
+      .footer {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+
+      .invoice-info {
+        text-align: center;
+      }
+
+      .summary p {
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="top-banner">
-    <div class="header">
-    <div class="logo-circle">
-      <img src="[[logo_small_src]]" alt="Logo" />
+    <!-- Header -->
+    <div class="top-banner">
+      <div class="logo">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <h1>INVOICE</h1>
+      </div>
+      <div class="invoice-info">
+        <p><strong>Invoice #:</strong> [[invoice_number]]</p>
+        <p><strong>Date:</strong> [[invoice_date]]</p>
+        <p><strong>Due:</strong> [[payment_due_date]]</p>
+      </div>
     </div>
-  </div>
-    <div class="invoice-info">
-      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+
+    <!-- Org / Customer Details -->
+    <div class="details-section">
+      <div>
+        <strong>From:</strong>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_phone]]<br>
+        [[org_email]]
+      </div>
+      <div>
+        <strong>To:</strong>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
     </div>
-  </div>
 
-  <div class="sender-info">
-    <strong>[[org_name]]</strong><br />
-    [[org_address]]<br />
-    [[org_phone]]<br />
-    [[org_email]]<br />
-  </div>
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
 
-  <div class="billing-info">
-    <strong>[[customer_name]]</strong><br />
-    [[customer_address]]<br />
-    [[customer_phone]]<br />
-    [[customer_email]]<br />
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price per unit</th>
-        <th>CGST</th>
-        <th>SGST</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      [[items_start]]
-      <tr>
-        <td>[[item_name]]</td>
-        <td>[[item_quantity]]</td>
-        <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
-        <td>[[item_amount]]</td>
-      </tr>
-      [[items_end]]
-    </tbody>
-  </table>
-
-  <div class="payment-method">
-    <p><strong>Payment Method</strong></p>
-    <p>Pay ipsum</p>
-    <p>payemail@demo.com</p>
-    <p>Pay Card</p>
-    <p>Accepted: Visa, MasterCard, Debit Card, Credit Card</p>
-  </div>
-
-  <div class="totals">
-    <p>Itemtotal <span>[[itemtotal]]</span></p>
-    <p>Discount <span>[[discount]]</span></p>
-    <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax <span>[[tax_amount]]</span></p>
-    <p>Roundoff <span>[[roundoff]]</span></p>
-    <p class="total">TOTAL <span>[[grand_total]]</span></p>
-  </div>
-
-  <div class="footer">
-    <div>
-      📞 (123) 456 789 100<br />
-      📞 (123) 456 789 100
+    <!-- Summary -->
+    <div class="summary">
+      <p>Item Total: <span>[[itemtotal]]</span></p>
+      <p>Discount: <span>[[discount]]</span></p>
+      <p>Subtotal: <span>[[subtotal]]</span></p>
+      <p>Tax: <span>[[tax_amount]]</span></p>
+      <p>Round Off: <span>[[roundoff]]</span></p>
+      <p class="total">TOTAL: <span>[[grand_total]]</span></p>
     </div>
-    <div>
-      ✉️ myemail@demo.com<br />
-      🌐 www.mywebsite.com
+
+    <!-- Payment Info -->
+    <div class="payment-info">
+      <strong>Payment Method:</strong><br>
+      Pay Ipsum<br>
+      payemail@demo.com<br>
+      Accepted: Visa, MasterCard, Debit, Credit
     </div>
-    <div>
-      📍 Your Location,<br />
-      State, Country
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>📞 (123) 456 789 100</div>
+      <div>✉️ myemail@demo.com</div>
+      <div>📍 Your Location, Country</div>
     </div>
-  </div>
 </body>
-
 </html>
