@@ -3,203 +3,201 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>StudioStar Invoice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #914d87;
+      --gray: #777;
+      --light: #f9f9f9;
+      --border: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #222;
     }
 
     .invoice-box {
       max-width: 900px;
       margin: 40px auto;
-      background: #fff;
       padding: 40px;
-      border: 1px solid #ddd;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--border);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
     }
 
-    .top-header {
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .invoice-title {
-      text-align: right;
-    }
-
-    .invoice-title h2 {
+    .branding h1 {
+      font-size: 32px;
+      color: var(--primary);
       margin: 0;
-      font-size: 28px;
-      text-transform: uppercase;
     }
 
-    .invoice-title .inv-num {
-      background: red;
-      color: white;
-      padding: 4px 12px;
-      font-weight: bold;
-      border-radius: 5px;
-      margin-top: 5px;
-      display: inline-block;
+    .logo img {
+      height: 50px;
     }
 
-    .info {
-      margin-top: 30px;
+    .meta {
+      margin-top: 20px;
       display: flex;
       justify-content: space-between;
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      font-size: 14px;
+      border-radius: 4px;
     }
 
-    .info div {
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
       font-size: 14px;
     }
 
-    .table {
-      margin-top: 30px;
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 15px;
+    .info-section .block {
+      width: 48%;
+      line-height: 1.6;
     }
 
-    .table th {
-      background: #111b2c;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
       color: white;
+    }
+
+    th,
+    td {
       padding: 12px;
+      border: 1px solid #eee;
       text-align: left;
     }
 
-    .table td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .table td .desc {
-      color: #666;
-      font-size: 13px;
+    tbody tr:nth-child(even) {
+      background: var(--light);
     }
 
     .summary {
-      margin-top: 20px;
-      text-align: right;
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
     }
 
     .summary table {
-      width: 300px;
-      float: right;
+      width: 320px;
       font-size: 14px;
-      border-collapse: collapse;
     }
 
     .summary td {
       padding: 8px;
     }
 
-    .green {
-      background: #00b14f;
+    .summary .total {
+      background: var(--primary);
       color: white;
       font-weight: bold;
-      text-align: center;
-      margin-top: 10px;
-      padding: 10px;
+      font-size: 18px;
       border-radius: 4px;
     }
 
-    .total-due {
-      margin-top: 30px;
-      font-size: 22px;
-      color: #222;
-      font-weight: bold;
-    }
-
-    .total-due span {
-      color: #00b14f;
-    }
-
-    .payment-method {
-      margin-top: 30px;
-      font-size: 14px;
-    }
-
-    .terms {
-      font-size: 13px;
-      margin-top: 20px;
-    }
-
-    .signature {
-      margin-top: 50px;
-      text-align: right;
-    }
-
-    .signature img {
-      width: 100px;
-    }
-
     .footer {
-      margin-top: 60px;
-      background: #111b2c;
-      color: white;
-      padding: 20px;
+      margin-top: 40px;
       font-size: 13px;
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
     }
 
-    .footer div {
-      width: 25%;
-    }
+    @media (max-width: 768px) {
 
-    .rainbow-bar {
-      height: 8px;
-      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-      border-radius: 10px;
-      margin-top: 40px;
+      header,
+      .meta,
+      .info-section,
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .info-section .block,
+      .summary table {
+        width: 100%;
+      }
+
+      .branding,
+      .logo {
+        text-align: center;
+      }
     }
   </style>
 </head>
 
 <body>
-    <div class="top-header">
-      <div class="logo">Brand Name</div>
-    </div>
 
-    <div class="info">
-      <div>
-        <strong>Invoice No:</strong> [[Invoice_Number]]<br />
-        <strong>Invoice Date:</strong> [[Invoice_Date]]
-      </div>
-      <div>
-        <strong>Invoice From:</strong><br />
-        [[Org_Name]]<br />
-        [[Org_Address]]<br />
-        [[Org_Phone]]<br />
-        [[Org_Email]]<br />
-      </div>
-      <div>
-        <strong>Invoice To:</strong><br />
-        [[Customer_Name]]<br />
-        [[Customer_Adress]]<br />
-        [[Customer_Phone]]<br />
-        [[Customer_Email]]<br />
-      </div>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <h1>INVOICE</h1>
     </div>
+    <div class="logo">
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+  </header>
 
-    <table>
+  <!-- Metadata -->
+  <div class="meta">
+    <div><strong>Invoice No:</strong> [[invoice_number]]</div>
+    <div><strong>Date:</strong> [[invoice_date]]</div>
+    <div><strong>Due:</strong> [[payment_due_date]]</div>
+  </div>
+
+  <!-- Info Blocks -->
+  <div class="info-section">
+    <div class="block">
+      <strong>From</strong><br />
+      [[org_name]]<br />
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]
+    </div>
+    <div class="block">
+      <strong>To</strong><br />
+      [[customer_name]]<br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]
+    </div>
+  </div>
+
+  <!-- Item Table -->
+  <table>
     <thead>
       <tr>
         <th>Item</th>
-        <th>Quantity</th>
-        <th>Price per unit</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
         <th>CGST</th>
         <th>SGST</th>
-        <th>Amount</th>
+        <th>Total</th>
       </tr>
     </thead>
     <tbody>
@@ -216,52 +214,51 @@
     </tbody>
   </table>
 
-    <div class="summary">
-      <table>
-        <tr>
-          <td>Sub Total</td>
-          <td>[[Sub_Total]]</td>
-        </tr>
-        <tr>
-          <td>Tax %</td>
-          <td>[[Tax_Percetage]]</td>
-        </tr>
-        <tr>
-          <td>Discount %</td>
-          <td>[[Discount]]</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
-
-    <div class="totals">
-    <p>Itemtotal <span>[[itemtotal]]</span></p>
-    <p>Discount <span>[[discount]]</span></p>
-    <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax <span>[[tax_amount]]</span></p>
-    <p>Roundoff <span>[[roundoff]]</span></p>
-    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  <!-- Totals -->
+  <div class="summary">
+    <table>
+      <tr>
+        <td>Item Total</td>
+        <td>[[itemtotal]]</td>
+      </tr>
+      <tr>
+        <td>Discount</td>
+        <td>[[discount]]</td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>[[subtotal]]</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td>[[tax_amount]]</td>
+      </tr>
+      <tr>
+        <td>Round Off</td>
+        <td>[[roundoff]]</td>
+      </tr>
+      <tr class="total">
+        <td>Total</td>
+        <td>[[grand_total]]</td>
+      </tr>
+    </table>
   </div>
 
-    <div class="payment-method">
-      <strong>Payment Method</strong><br />
-      ☐ Paypal: payment@trendbiz.com<br />
-      ☐ Card Payment: Visa, Mastercard, Payoneer
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <strong>Bank Payment Details</strong><br />
+      Bank Name: Your Bank<br />
+      Address: Bank Address<br />
+      IBAN: XXXXXX XXXXX<br />
+      SWIFT Code: XXXXXXX
     </div>
-
-    <div class="signature">
-      <p>[[Name]]<br />[[Designation]]</p>
+    <div>
+      <strong>Contact Info</strong><br />
+      📞 +1 212 223 4480<br />
+      ✉️ pixmedia@gmail.com
     </div>
-
-    <div class="rainbow-bar"></div>
-
-    <div class="footer">
-      <div>📞 +455 4565 4644</div>
-      <div>📧 yourmail@domain.com</div>
-      <div>🌐 www.website.com</div>
-      <div>📍 david avenue road, 9th street</div>
-    </div>
+  </div>
 </body>
 
 </html>

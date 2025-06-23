@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e74c3c;
+      --secondary: #f39c12;
+      --background: #fdfdfd;
+      --gray: #888;
+      --dark: #222;
+      --border: #eee;
+      --highlight: #ffe7e3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background: var(--background);
+      color: var(--dark);
+    }
+
+    .invoice-container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 30px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .company-logo {
+      text-align: right;
+    }
+
+    .company-logo img {
+      max-height: 50px;
+      margin-bottom: 5px;
+    }
+
+    .company-logo small {
+      font-size: 12px;
+    }
+
+    section {
+      padding: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .info-grid > div {
+      width: 32%;
+      min-width: 240px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    table thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .totals {
+      margin-top: 30px;
+      max-width: 300px;
+      float: right;
+      font-size: 14px;
+    }
+
+    .totals td {
+      padding: 10px;
+    }
+
+    .totals .grand-total td {
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .payment-method, .signature, .thank-you {
+      padding: 20px 30px;
+      font-size: 14px;
+    }
+
+    .payment-method strong {
+      color: var(--primary);
+    }
+
+    .signature {
+      text-align: right;
+    }
+
+    .thank-you {
+      background: var(--highlight);
+      text-align: center;
+      font-weight: bold;
+      color: var(--dark);
+    }
+
+    @media (max-width: 768px) {
+      .info-grid {
+        flex-direction: column;
+      }
+
+      .info-grid > div {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .totals {
+        float: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header>
+      <h1>Invoice</h1>
+      <div class="company-logo">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <div><strong>SUNNY COMPANY</strong></div>
+        <small>Your Custom Website Tagline</small>
+      </div>
+    </header>
+
+    <!-- Invoice Info -->
+    <section>
+      <div class="info-grid">
+        <div>
+          <strong>From</strong><br />
+          [[org_name]]<br />
+          [[org_address]]<br />
+          [[org_phone]]<br />
+          [[org_email]]
+        </div>
+        <div>
+          <strong>To</strong><br />
+          [[customer_name]]<br />
+          [[customer_address]]<br />
+          [[customer_phone]]<br />
+          [[customer_email]]
+        </div>
+        <div>
+          <strong>Invoice Info</strong><br />
+          Invoice #: [[invoice_number]]<br />
+          Date: [[invoice_date]]<br />
+          Due: [[payment_due_date]]
+        </div>
+      </div>
+    </section>
+
+    <!-- Items Table -->
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Price/Unit</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Totals -->
+    <section style="padding-top: 0;">
+      <table class="totals">
+        <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
+        <tr><td>Discount</td><td>[[discount]]</td></tr>
+        <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
+        <tr><td>Tax</td><td>[[tax_amount]]</td></tr>
+        <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
+        <tr class="grand-total"><td>Total</td><td>[[grand_total]]</td></tr>
+      </table>
+    </section>
+
+    <!-- Payment -->
+    <section class="payment-method">
+      <strong>Payment Method:</strong><br />
+      Bank Transfer<br />
+      England International Bank<br />
+      +92 300 3982 1973<br />
+      <br />
+      PayPal: sunnycomp@cosu.com
+    </section>
+
+    <!-- Signature -->
+    <div class="signature">
+      <strong>Brandon Jacob</strong><br />
+      Executive Officer
+    </div>
+
+    <!-- Footer -->
+    <div class="thank-you">
+      THANK YOU FOR YOUR BUSINESS!
+    </div>
+
+</body>
+</html>
