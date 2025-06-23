@@ -42,8 +42,11 @@ export class TemplateUtil {
       .replace('[[org_address]]', invoice.organization.addressLine1)
       .replace('[[org_phone]]', invoice.organization.phone)
       .replace('[[org_email]]', invoice.organization.email)
+      .replace('[[itemtotal]]',invoice.itemTotal.toFixed(2))
+      .replace('[[discount]]',invoice.discountTotal.toFixed(2))
       .replace('[[subtotal]]', invoice.subTotal.toFixed(2))
       .replace('[[tax_amount]]', invoice.taxTotal.toFixed(2))
+      .replace('[[roundoff]]',invoice.roundOff.toFixed(2))
       .replace('[[grand_total]]', invoice.grandTotal.toFixed(2))
       .replace('[[logo_small_src]]', invoice.smallLogo || '')
       .replace('[[logo_large_src]]', invoice.largeLogo || '');

@@ -166,7 +166,6 @@
 </head>
 
 <body>
-  <div class="invoice-box">
     <div class="top-header">
       <div class="logo">Brand Name</div>
     </div>
@@ -192,54 +191,30 @@
       </div>
     </div>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Item Description</th>
-          <th>Unit Price</th>
-          <th>Qnt</th>
-          <th>Tax</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-        <tr>
-          <td>[[Item_Name]]<br /><span class="desc">[[Item_Description]]</span></td>
-          <td>[[Item_Amount]]</td>
-          <td>[[Item_Quantity]]</td>
-          <td>[[Item_Tax]]</td>
-          <td>[[Total_Amount]]</td>
-        </tr>
-      </tbody>
-    </table>
+    <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price per unit</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      [[items_start]]
+      <tr>
+        <td>[[item_name]]</td>
+        <td>[[item_quantity]]</td>
+        <td>[[item_price]]</td>
+        <td>[[item_cgst]]</td>
+        <td>[[item_sgst]]</td>
+        <td>[[item_amount]]</td>
+      </tr>
+      [[items_end]]
+    </tbody>
+  </table>
 
     <div class="summary">
       <table>
@@ -260,9 +235,14 @@
 
     <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
 
-    <div class="total-due">
-      TOTAL AMOUNT: <span>[[Total_AMOUNT]]</span>
-    </div>
+    <div class="totals">
+    <p>Itemtotal <span>[[itemtotal]]</span></p>
+    <p>Discount <span>[[discount]]</span></p>
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
+    <p>Roundoff <span>[[roundoff]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
 
     <div class="payment-method">
       <strong>Payment Method</strong><br />
@@ -282,7 +262,6 @@
       <div>🌐 www.website.com</div>
       <div>📍 david avenue road, 9th street</div>
     </div>
-  </div>
 </body>
 
 </html>
