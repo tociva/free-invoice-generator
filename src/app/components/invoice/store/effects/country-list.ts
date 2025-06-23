@@ -11,7 +11,7 @@ export const countries:Country[] = [
         'unicode': '20B9',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -26,7 +26,7 @@ export const countries:Country[] = [
         'unicode': '60B',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -41,7 +41,7 @@ export const countries:Country[] = [
         'unicode': '4C65',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -56,7 +56,7 @@ export const countries:Country[] = [
         'unicode': '62C2E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -71,7 +71,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -86,7 +86,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -101,7 +101,7 @@ export const countries:Country[] = [
         'unicode': '4B7A',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -116,7 +116,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -131,7 +131,7 @@ export const countries:Country[] = [
         'unicode': 'N/A',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -146,7 +146,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -161,7 +161,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -176,7 +176,7 @@ export const countries:Country[] = [
         'unicode': '058F',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -191,7 +191,7 @@ export const countries:Country[] = [
         'unicode': '192',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -206,7 +206,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -221,7 +221,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31.01.2022',
         'value': 'DD.MM.YYYY'
       }
@@ -236,7 +236,7 @@ export const countries:Country[] = [
         'unicode': '20BC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31.01.2022',
         'value': 'DD.MM.YYYY'
       }
@@ -251,7 +251,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -266,7 +266,7 @@ export const countries:Country[] = [
         'unicode': '62C2E',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -281,7 +281,7 @@ export const countries:Country[] = [
         'unicode': '9F3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -296,7 +296,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -311,7 +311,7 @@ export const countries:Country[] = [
         'unicode': '70',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31.01.2022',
         'value': 'DD.MM.YYYY'
       }
@@ -326,7 +326,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31.01.2022',
         'value': 'DD.MM.YYYY'
       }
@@ -341,7 +341,7 @@ export const countries:Country[] = [
         'unicode': '425A24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -356,7 +356,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -371,7 +371,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -386,7 +386,7 @@ export const countries:Country[] = [
         'unicode': '4E75',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -401,7 +401,7 @@ export const countries:Country[] = [
         'unicode': '2437',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -416,7 +416,7 @@ export const countries:Country[] = [
         'unicode': '4B4D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31.01.2022',
         'value': 'DD.MM.YYYY'
       }
@@ -431,7 +431,7 @@ export const countries:Country[] = [
         'unicode': '50',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -446,7 +446,7 @@ export const countries:Country[] = [
           'unicode': '5224',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -461,7 +461,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '01/31/2022',
           'value': 'MM/DD/YYYY'
         }
@@ -476,7 +476,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '01/31/2022',
           'value': 'MM/DD/YYYY'
         }
@@ -491,7 +491,7 @@ export const countries:Country[] = [
           'unicode': '4224',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -506,7 +506,7 @@ export const countries:Country[] = [
           'unicode': '43B432',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31.01.2022',
           'value': 'DD.MM.YYYY'
         }
@@ -521,7 +521,7 @@ export const countries:Country[] = [
           'unicode': '46C46',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -536,7 +536,7 @@ export const countries:Country[] = [
           'unicode': '46275',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -551,7 +551,7 @@ export const countries:Country[] = [
           'unicode': '17DB',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'YYYY-MM-DD',
           'value': 'YYYY-MM-DD'
         }
@@ -566,7 +566,7 @@ export const countries:Country[] = [
           'unicode': '46C46',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -581,7 +581,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'YYYY-MM-DD',
           'value': 'YYYY-MM-DD'
         }
@@ -596,7 +596,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -611,7 +611,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '01/31/2022',
           'value': 'MM/DD/YYYY'
         }
@@ -626,7 +626,7 @@ export const countries:Country[] = [
           'unicode': '46C46',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -641,7 +641,7 @@ export const countries:Country[] = [
           'unicode': '46C46',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -656,7 +656,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -671,7 +671,7 @@ export const countries:Country[] = [
           'unicode': 'A5',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'YYYY-MM-DD',
           'value': 'YYYY-MM-DD'
         }
@@ -686,7 +686,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -701,7 +701,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -716,7 +716,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31/01/2022',
           'value': 'DD/MM/YYYY'
         }
@@ -731,7 +731,7 @@ export const countries:Country[] = [
           'unicode': '43',
           'decimal': 0
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
         }
@@ -746,7 +746,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -761,7 +761,7 @@ export const countries:Country[] = [
           'unicode': '20A1',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -776,7 +776,7 @@ export const countries:Country[] = [
           'unicode': '6B6E',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31.01.2022',
           'value': 'DD.MM.YYYY'
         }
@@ -791,7 +791,7 @@ export const countries:Country[] = [
           'unicode': '24',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -806,7 +806,7 @@ export const countries:Country[] = [
           'unicode': '192',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD-MM-YYYY',
           'value': 'DD-MM-YYYY'
         }
@@ -821,7 +821,7 @@ export const countries:Country[] = [
           'unicode': '20AC',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': 'DD/MM/YYYY',
           'value': 'DD/MM/YYYY'
         }
@@ -836,7 +836,7 @@ export const countries:Country[] = [
           'unicode': '4B10D',
           'decimal': 2
         },
-        'dateformat': {
+        'dateFormat': {
           'name': '31.01.2022',
           'value': 'DD.MM.YYYY'
         }
@@ -851,7 +851,7 @@ export const countries:Country[] = [
         'unicode': '46',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -866,7 +866,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -881,7 +881,7 @@ export const countries:Country[] = [
         'unicode': '46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -896,7 +896,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -911,7 +911,7 @@ export const countries:Country[] = [
         'unicode': '52',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -926,7 +926,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -941,7 +941,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '01/31/2022',
         'value': 'MM/DD/YYYY'
       }
@@ -956,7 +956,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -971,7 +971,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -986,7 +986,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -1001,7 +1001,7 @@ export const countries:Country[] = [
         'unicode': '4E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -1016,7 +1016,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1031,7 +1031,7 @@ export const countries:Country[] = [
         'unicode': '42',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31/01/2022',
         'value': 'DD/MM/YYYY'
       }
@@ -1046,7 +1046,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1061,7 +1061,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -1076,7 +1076,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1091,7 +1091,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1106,7 +1106,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1121,7 +1121,7 @@ export const countries:Country[] = [
         'unicode': '46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1136,7 +1136,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': '31-01-2022',
         'value': 'DD-MM-YYYY'
       }
@@ -1152,7 +1152,7 @@ export const countries:Country[] = [
         'unicode': '44',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1167,7 +1167,7 @@ export const countries:Country[] = [
         'unicode': '20BE',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1182,7 +1182,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1197,7 +1197,7 @@ export const countries:Country[] = [
         'unicode': '20B5',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1212,7 +1212,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1227,7 +1227,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1242,7 +1242,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -1257,7 +1257,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -1272,7 +1272,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -1287,7 +1287,7 @@ export const countries:Country[] = [
         'unicode': '51',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1302,7 +1302,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1317,7 +1317,7 @@ export const countries:Country[] = [
         'unicode': '46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1332,7 +1332,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1347,7 +1347,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1362,7 +1362,7 @@ export const countries:Country[] = [
         'unicode': '47',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1377,7 +1377,7 @@ export const countries:Country[] = [
         'unicode': '4C',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1392,7 +1392,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1407,7 +1407,7 @@ export const countries:Country[] = [
         'unicode': '4674',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY.MM.DD',
         'value': 'YYYY.MM.DD'
       }
@@ -1422,7 +1422,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1437,7 +1437,7 @@ export const countries:Country[] = [
         'unicode': '5270',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -1452,7 +1452,7 @@ export const countries:Country[] = [
         'unicode': 'FDFC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY/MM/DD',
         'value': 'YYYY/MM/DD'
       }
@@ -1467,7 +1467,7 @@ export const countries:Country[] = [
         'unicode': '6392E',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1482,7 +1482,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1497,7 +1497,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1512,7 +1512,7 @@ export const countries:Country[] = [
         'unicode': '20AA',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1527,7 +1527,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1542,7 +1542,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1557,7 +1557,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -1572,7 +1572,7 @@ export const countries:Country[] = [
         'unicode': 'A5',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY/MM/DD',
         'value': 'YYYY/MM/DD'
       }
@@ -1587,7 +1587,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1602,7 +1602,7 @@ export const countries:Country[] = [
         'unicode': '62C2E1',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1617,7 +1617,7 @@ export const countries:Country[] = [
         'unicode': '20B8',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1632,7 +1632,7 @@ export const countries:Country[] = [
         'unicode': '4B5348',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1647,7 +1647,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1662,7 +1662,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1677,7 +1677,7 @@ export const countries:Country[] = [
         'unicode': '62C2E3',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1692,7 +1692,7 @@ export const countries:Country[] = [
         'unicode': '43B432',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1707,7 +1707,7 @@ export const countries:Country[] = [
         'unicode': '20AD',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1722,7 +1722,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1737,7 +1737,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1752,7 +1752,7 @@ export const countries:Country[] = [
         'unicode': '4C',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1767,7 +1767,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -1782,7 +1782,7 @@ export const countries:Country[] = [
         'unicode': '6442E3',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1797,7 +1797,7 @@ export const countries:Country[] = [
         'unicode': '43',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1812,7 +1812,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY-MM-DD',
         'value': 'YYYY-MM-DD'
       }
@@ -1827,7 +1827,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1842,7 +1842,7 @@ export const countries:Country[] = [
         'unicode': '4D4F5024',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY/MM/DD',
         'value': 'YYYY/MM/DD'
       }
@@ -1857,7 +1857,7 @@ export const countries:Country[] = [
         'unicode': '4345D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -1872,7 +1872,7 @@ export const countries:Country[] = [
         'unicode': '4172',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1887,7 +1887,7 @@ export const countries:Country[] = [
         'unicode': '4D4B',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1902,7 +1902,7 @@ export const countries:Country[] = [
         'unicode': '525D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1917,7 +1917,7 @@ export const countries:Country[] = [
         'unicode': '2E5266',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1932,7 +1932,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1947,7 +1947,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1962,7 +1962,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -1977,7 +1977,7 @@ export const countries:Country[] = [
         'unicode': '555D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -1992,7 +1992,7 @@ export const countries:Country[] = [
         'unicode': '5273',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2007,7 +2007,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2022,7 +2022,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2037,7 +2037,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2052,7 +2052,7 @@ export const countries:Country[] = [
         'unicode': '4C',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2067,7 +2067,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2082,7 +2082,7 @@ export const countries:Country[] = [
         'unicode': '20AE',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY.MM.DD',
         'value': 'YYYY.MM.DD'
       }
@@ -2097,7 +2097,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2112,7 +2112,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2127,7 +2127,7 @@ export const countries:Country[] = [
         'unicode': '62C2E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2142,7 +2142,7 @@ export const countries:Country[] = [
         'unicode': '4D54',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2157,7 +2157,7 @@ export const countries:Country[] = [
         'unicode': '4B73',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2172,7 +2172,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2187,7 +2187,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2202,7 +2202,7 @@ export const countries:Country[] = [
         'unicode': '20A8',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY-MM-DD',
         'value': 'YYYY-MM-DD'
       }
@@ -2217,7 +2217,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2232,7 +2232,7 @@ export const countries:Country[] = [
         'unicode': '192',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2247,7 +2247,7 @@ export const countries:Country[] = [
         'unicode': '20AB',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2262,7 +2262,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2277,7 +2277,7 @@ export const countries:Country[] = [
         'unicode': '43',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2292,7 +2292,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2307,7 +2307,7 @@ export const countries:Country[] = [
         'unicode': '20A6',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2322,7 +2322,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2337,7 +2337,7 @@ export const countries:Country[] = [
         'unicode': '20A9',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY-MM-DD',
         'value': 'YYYY-MM-DD'
       }
@@ -2352,7 +2352,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2367,7 +2367,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2382,7 +2382,7 @@ export const countries:Country[] = [
         'unicode': 'FDFC',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2398,7 +2398,7 @@ export const countries:Country[] = [
         'unicode': '20A8',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2413,7 +2413,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2428,7 +2428,7 @@ export const countries:Country[] = [
         'unicode': '20AA',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2443,7 +2443,7 @@ export const countries:Country[] = [
         'unicode': '422F2E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2458,7 +2458,7 @@ export const countries:Country[] = [
         'unicode': '4B',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2473,7 +2473,7 @@ export const countries:Country[] = [
         'unicode': '20B2',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2488,7 +2488,7 @@ export const countries:Country[] = [
         'unicode': '532F2E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2503,7 +2503,7 @@ export const countries:Country[] = [
         'unicode': '20B1',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2518,7 +2518,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2533,7 +2533,7 @@ export const countries:Country[] = [
         'unicode': '7A142',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2548,7 +2548,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2563,7 +2563,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2578,7 +2578,7 @@ export const countries:Country[] = [
         'unicode': 'FDFC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2593,7 +2593,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2608,7 +2608,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2623,7 +2623,7 @@ export const countries:Country[] = [
         'unicode': '4C',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2638,7 +2638,7 @@ export const countries:Country[] = [
         'unicode': '20BD',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2653,7 +2653,7 @@ export const countries:Country[] = [
         'unicode': '6312E',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2669,7 +2669,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2684,7 +2684,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2699,7 +2699,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2714,7 +2714,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2729,7 +2729,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2744,7 +2744,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2759,7 +2759,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -2774,7 +2774,7 @@ export const countries:Country[] = [
         'unicode': '575324',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2789,7 +2789,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2804,7 +2804,7 @@ export const countries:Country[] = [
         'unicode': '44',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2819,7 +2819,7 @@ export const countries:Country[] = [
         'unicode': 'FDFC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2834,7 +2834,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2849,7 +2849,7 @@ export const countries:Country[] = [
         'unicode': '4149D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2864,7 +2864,7 @@ export const countries:Country[] = [
         'unicode': '5273',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2879,7 +2879,7 @@ export const countries:Country[] = [
         'unicode': '4C65',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2894,7 +2894,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2909,7 +2909,7 @@ export const countries:Country[] = [
         'unicode': '192',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -2924,7 +2924,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2939,7 +2939,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -2954,7 +2954,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2969,7 +2969,7 @@ export const countries:Country[] = [
         'unicode': '53',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -2984,7 +2984,7 @@ export const countries:Country[] = [
         'unicode': '52',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY/MM/DD',
         'value': 'YYYY/MM/DD'
       }
@@ -2999,7 +2999,7 @@ export const countries:Country[] = [
         'unicode': '20A9',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY.MM.DD',
         'value': 'YYYY.MM.DD'
       }
@@ -3014,7 +3014,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3029,7 +3029,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3044,7 +3044,7 @@ export const countries:Country[] = [
         'unicode': '20A8',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3059,7 +3059,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3074,7 +3074,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -3089,7 +3089,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3104,7 +3104,7 @@ export const countries:Country[] = [
         'unicode': '4C',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3119,7 +3119,7 @@ export const countries:Country[] = [
         'unicode': '6B72',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY-MM-DD',
         'value': 'YYYY-MM-DD'
       }
@@ -3134,7 +3134,7 @@ export const countries:Country[] = [
         'unicode': '43',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3149,7 +3149,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3165,7 +3165,7 @@ export const countries:Country[] = [
         'unicode': '4E5424',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'YYYY/MM/DD',
         'value': 'YYYY/MM/DD'
       }
@@ -3180,7 +3180,7 @@ export const countries:Country[] = [
         'unicode': '534D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD-MM-YYYY',
         'value': 'DD-MM-YYYY'
       }
@@ -3195,7 +3195,7 @@ export const countries:Country[] = [
         'unicode': '545368',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3210,7 +3210,7 @@ export const countries:Country[] = [
         'unicode': 'E3F',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3225,7 +3225,7 @@ export const countries:Country[] = [
         'unicode': '46C46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3240,7 +3240,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3255,7 +3255,7 @@ export const countries:Country[] = [
         'unicode': '54',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3270,7 +3270,7 @@ export const countries:Country[] = [
         'unicode': '545424',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -3285,7 +3285,7 @@ export const countries:Country[] = [
         'unicode': '62C2E',
         'decimal': 3
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3300,7 +3300,7 @@ export const countries:Country[] = [
         'unicode': '20BA',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3315,7 +3315,7 @@ export const countries:Country[] = [
         'unicode': '6D',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3330,7 +3330,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -3345,7 +3345,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3360,7 +3360,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -3375,7 +3375,7 @@ export const countries:Country[] = [
         'unicode': '555368',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3390,7 +3390,7 @@ export const countries:Country[] = [
         'unicode': '20B4',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3405,7 +3405,7 @@ export const countries:Country[] = [
         'unicode': '62C2E3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3420,7 +3420,7 @@ export const countries:Country[] = [
         'unicode': 'A3',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3435,7 +3435,7 @@ export const countries:Country[] = [
         'unicode': '24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'MM/DD/YYYY',
         'value': 'MM/DD/YYYY'
       }
@@ -3450,7 +3450,7 @@ export const countries:Country[] = [
         'unicode': '2455',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3465,7 +3465,7 @@ export const countries:Country[] = [
         'unicode': '43B432',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
       }
@@ -3480,7 +3480,7 @@ export const countries:Country[] = [
         'unicode': '5654',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3495,7 +3495,7 @@ export const countries:Country[] = [
         'unicode': '20AC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3510,7 +3510,7 @@ export const countries:Country[] = [
         'unicode': '4273',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3525,7 +3525,7 @@ export const countries:Country[] = [
         'unicode': '20AB',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3540,7 +3540,7 @@ export const countries:Country[] = [
         'unicode': '46',
         'decimal': 0
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3555,7 +3555,7 @@ export const countries:Country[] = [
         'unicode': '62C2E',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3570,7 +3570,7 @@ export const countries:Country[] = [
         'unicode': 'FDFC',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3585,7 +3585,7 @@ export const countries:Country[] = [
         'unicode': '5A4B',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }
@@ -3600,7 +3600,7 @@ export const countries:Country[] = [
         'unicode': '5A24',
         'decimal': 2
       },
-      'dateformat': {
+      'dateFormat': {
         'name': 'DD/MM/YYYY',
         'value': 'DD/MM/YYYY'
       }

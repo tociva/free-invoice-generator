@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { CurrencyUtil } from '../../util/currency.util';
 
 
 export enum InvoiceSummaryFormItem {
@@ -45,6 +46,8 @@ export class InvoiceSummaryComponent implements OnDestroy {
     suppressMenuHide: true,
     animateRows: true
   };
+
+  totalInWords = '';
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -90,6 +93,7 @@ export class InvoiceSummaryComponent implements OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
       const decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+      this.totalInWords = CurrencyUtil.numberToWords(invoice.grandTotal, decimalPlaces, invoice.internationalNumbering);
       const summaryRowData:FormColumnDef[] = [
         { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: numberToFixedDecimal(invoice.itemTotal, decimalPlaces) },
         { label: InvoiceSummaryFormItem.DISCOUNT, value: numberToFixedDecimal(invoice.discountTotal, decimalPlaces) },
@@ -114,4 +118,6 @@ export class InvoiceSummaryComponent implements OnDestroy {
       });
     });
   }
+
+  
 }

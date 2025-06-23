@@ -15,6 +15,7 @@ export const sampleInvoice: Invoice = {
   taxOption: TaxOption.CGST_SGST,
   hasItemDescription: true,
   hasItemDiscount: false,
+  internationalNumbering: false,
   dateFormat: {
     name: '31-01-2022',
     value: 'DD-MM-YYYY'
@@ -37,7 +38,7 @@ export const sampleInvoice: Invoice = {
         unicode: '20B9',
         decimal: 2
       },
-      dateformat: {
+      dateFormat: {
         name: '31-01-2022',
         value: 'DD-MM-YYYY'
       }
@@ -64,7 +65,7 @@ export const sampleInvoice: Invoice = {
         unicode: '20B9',
         decimal: 2
       },
-      dateformat: {
+      dateFormat: {
         name: '31-01-2022',
         value: 'DD-MM-YYYY'
       }
