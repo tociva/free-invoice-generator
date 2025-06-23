@@ -12,7 +12,7 @@ import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-co
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { Currency } from '../store/model/currency.model';
 import { DateFormat } from '../store/model/date-format.model';
 import { TaxOption } from '../store/model/invoice.model';
@@ -31,6 +31,7 @@ export enum InvoiceDetailsFormItem {
   ITEM_DESCRIPTION = 'Item Description',
   SHOW_DISCOUNT = 'Show Discount',
   DECIMAL_PLACES = 'Decimal Places',
+  INTERNATIONAL_NUMBERING = 'International Numbering',
   DATE_FORMAT = 'Date Format',
 }
 @Component({
@@ -182,6 +183,10 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     this.store.dispatch(setInvoiceShowDiscount({ showDiscount: val }));
   };
 
+  private handleInternationalNumberingToggle = (val: boolean) => {
+    this.store.dispatch(setInvoiceInternationalNumbering({ internationalNumbering: val }));
+  };
+
   private findDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
 
     
@@ -204,6 +209,9 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
       case InvoiceDetailsFormItem.SHOW_DISCOUNT:
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
+
+      case InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING:
+        return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleInternationalNumberingToggle } };
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
         { const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
@@ -307,6 +315,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
         { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
         { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
+        { label: InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING, value: invoice.internationalNumbering },
       ];
       const allRows = this.detailsGridApi.getDisplayedRowCount();
       const existingData = [];

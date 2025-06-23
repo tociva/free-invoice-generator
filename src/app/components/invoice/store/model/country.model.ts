@@ -6,6 +6,6 @@ import { DateFormat } from './date-format.model';
     code: string;
     iso: string;
     currency: Currency;
-    dateformat: DateFormat;
+    dateFormat: DateFormat;
   }
   

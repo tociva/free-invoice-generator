@@ -3,7 +3,7 @@ import { DateFormat } from '../model/date-format.model';
 
 
 const uniqueDateFormats = Array.from(
-  new Map(countries.map((c) => [c.dateformat.name, c.dateformat])).values()
+  new Map(countries.map((c) => [c.dateFormat.name, c.dateFormat])).values()
 );
 export interface DateFormatState {
   dateFormats: DateFormat[];
