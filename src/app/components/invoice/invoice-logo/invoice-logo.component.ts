@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-logo',
@@ -16,7 +17,9 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
   templateUrl: './invoice-logo.component.html',
   styleUrl: './invoice-logo.component.scss'
 })
-export class InvoiceLogoComponent implements OnInit {
+export class InvoiceLogoComponent implements OnInit, OnDestroy {
+
+  private destroy$ = new Subject<void>();
 
   smallLogoPreviewUrl: string | null = null;
   largeLogoPreviewUrl: string | null = null;
@@ -26,10 +29,17 @@ export class InvoiceLogoComponent implements OnInit {
   constructor(private store:Store) {}
 
   ngOnInit(): void {
-    this.store.select(selectInvoice).subscribe((invoice) => {
+    this.store.select(selectInvoice)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((invoice) => {
       this.smallLogoPreviewUrl = invoice.smallLogo;
       this.largeLogoPreviewUrl = invoice.largeLogo;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 

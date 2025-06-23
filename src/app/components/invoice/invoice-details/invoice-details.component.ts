@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
-import { FormColumnDef } from '../../../../util/form-column-def.type';
-import { map, Observable } from 'rxjs';
+import dayjs from 'dayjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { OPTIONS_COUNT } from '../../../../util/constants';
-import { Currency } from '../store/model/currency.model';
-import { selectAllCurrencies } from '../store/selectors/currency.selectors';
-import { Store } from '@ngrx/store';
-import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
-import { DateFormat } from '../store/model/date-format.model';
-import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
-import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
-import { TaxOption } from '../store/model/invoice.model';
+import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import dayjs from 'dayjs';
+import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { Currency } from '../store/model/currency.model';
+import { DateFormat } from '../store/model/date-format.model';
+import { TaxOption } from '../store/model/invoice.model';
+import { selectAllCurrencies } from '../store/selectors/currency.selectors';
+import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { selectAllTaxes } from '../store/selectors/tax.selectors';
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -41,7 +41,12 @@ export enum InvoiceDetailsFormItem {
   templateUrl: './invoice-details.component.html',
   styleUrl: './invoice-details.component.scss'
 })
-export class InvoiceDetailsComponent {
+export class InvoiceDetailsComponent implements OnDestroy, OnInit {
+
+  private currencies: Currency[] = [];
+  private dateFormats: DateFormat[] = [];
+  private taxes: string[] = [];
+  private destroy$ = new Subject<void>();
 
   public detailsGridApi!: GridApi<FormColumnDef>;
 
@@ -61,54 +66,42 @@ export class InvoiceDetailsComponent {
   constructor(public store:Store) {}
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
-    return this.store.select(selectAllCurrencies).pipe(
-      map((currencies) => {
-        // If val is of type Country, return empty array
-        if (val && typeof val === 'object') {
-          return [];
-        }
+    // If val is of type Country, return empty array
+    if (val && typeof val === 'object') {
+      return of([]);
+    }
 
-        if (!val?.trim()) {
-          return currencies.slice(0, OPTIONS_COUNT);
-        }
+    if (!val?.trim()) {
+      return of(this.currencies.slice(0, OPTIONS_COUNT));
+    }
 
-        const filterVal = val.toLowerCase();
-        return currencies
-          .filter((currency) => currency.name.toLowerCase().startsWith(filterVal))
-          .slice(0, OPTIONS_COUNT);
-      })
-    );
+    const filterVal = val.toLowerCase();
+    return of(this.currencies 
+      .filter((currency) => currency.name.toLowerCase().startsWith(filterVal))
+      .slice(0, OPTIONS_COUNT));
   };
 
   private fetchDateFormats = (val?: string | DateFormat): Observable<DateFormat[]> => {
-    return this.store.select(selectAllDateFormats).pipe(
-      map((dateFormats) => {
-        if (val && typeof val === 'object') {
-          return [];
+    if (val && typeof val === 'object') {
+      return of([]);
         }
 
         if (!val?.trim()) {
-          return dateFormats.slice(0, OPTIONS_COUNT);
-        }
+      return of(this.dateFormats.slice(0, OPTIONS_COUNT));
+    }
 
         const filterVal = val.toLowerCase();
-        return dateFormats
-          .filter((dateFormat) => dateFormat.name.toLowerCase().startsWith(filterVal))
-          .slice(0, OPTIONS_COUNT);
-      })
-    );
+    return of(this.dateFormats
+      .filter((dateFormat) => dateFormat.name.toLowerCase().startsWith(filterVal))
+      .slice(0, OPTIONS_COUNT));
   };
 
   private fetchTaxOptions = (val?: string): Observable<string[]> => {
-    return this.store.select(selectAllTaxes).pipe(
-      map((taxes) => {
-        if (!val?.trim()) {
-          return taxes;
-        }
+    if (!val?.trim()) {
+      return of(this.taxes);
+    }
         const filterVal = val.toLowerCase();
-        return taxes.filter((option) => option.toLowerCase().indexOf(filterVal) !== -1);
-      })
-    );
+    return of(this.taxes.filter((option) => option.toLowerCase().indexOf(filterVal) !== -1));
   };
 
   private handleCurrencyOptionSelected = (val: Currency): void => {
@@ -253,6 +246,25 @@ export class InvoiceDetailsComponent {
         break; }
     }
   };
+
+
+
+  ngOnInit(): void {
+    this.store.select(selectAllCurrencies).pipe(takeUntil(this.destroy$)).subscribe((currencies) => {
+      this.currencies = currencies;
+    });
+    this.store.select(selectAllDateFormats).pipe(takeUntil(this.destroy$)).subscribe((dateFormats) => {
+      this.dateFormats = dateFormats;
+    });
+    this.store.select(selectAllTaxes).pipe(takeUntil(this.destroy$)).subscribe((taxes) => {
+      this.taxes = taxes;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150, flex: 1, },
