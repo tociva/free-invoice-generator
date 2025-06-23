@@ -10,7 +10,6 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
@@ -58,7 +57,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   readonly separatorKeysCodes = [ENTER, COMMA];
   private store = inject<Store<TemplateState>>(Store);
   private destroy$ = new Subject<void>();
-  private safeHtmlMap: Record<string, SafeHtml> = {};
 
   tags$!: Observable<string[]>;
   selectedTags$!: Observable<string[]>;
@@ -71,22 +69,42 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 10;
-  totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(takeUntil(this.destroy$));
+  totalItems$!:Observable<number>;
 
   constructor(
     private templateService: TemplateService,
     private http: HttpClient,
   ) { }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+  }
+
   ngOnInit(): void {
     this.store.dispatch(loadTemplates());
 
+    this.totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(takeUntil(this.destroy$));
     this.store
       .select(selectPageSize)
       .pipe(takeUntil(this.destroy$))
       .subscribe((pageSize) => {
         this.itemsPerPage = pageSize;
       });
+
+    const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
+    this.tags$ = this.store.select(selectTags)
+    .pipe(takeUntil(this.destroy$))
+    .pipe(
+      map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
+    );
+
+    this.selectedTags$ = this.store.select(selectSearchTags)
+        .pipe(takeUntil(this.destroy$))
+        .pipe(
+          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
+        );
 
     this.store
       .select(selectInvoice)
@@ -96,26 +114,12 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
         if (tagsU) {
           this.store.dispatch(setSearchTags({ searchTags: tagsU }));
         }
-
-        const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
-        this.tags$ = this.store.select(selectTags)
-        .pipe(takeUntil(this.destroy$))
-        .pipe(
-          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
-        );
-
-        this.selectedTags$ = this.store.select(selectSearchTags)
-        .pipe(takeUntil(this.destroy$))
-        .pipe(
-          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
-        );
-
+        
         this.store
           .select(selectPaginatedTemplateItemsAllConditions)
           .pipe(takeUntil(this.destroy$))
           .subscribe(async (templateItems) => {
             this.templates = templateItems;
-            this.safeHtmlMap = {};
             const tmpls = await Promise.all(
               templateItems.map(async (item) => {
                 const template = await firstValueFrom(
@@ -123,7 +127,8 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
                 );
                 const html = TemplateUtil.fillTemplate(template, invoice);
                 const safeHTML = this.templateService.createWrappedSafeHtml(html);
-                return { ...item, template, html, safeHTML };
+                const tmpl = { ...item, template, html, safeHTML };
+                return tmpl;
               })
             );
             this.templates = tmpls;
@@ -146,11 +151,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   private static findTemplateTagFromInvoiceTaxType(invoice: Invoice): string[] | null {
     switch (invoice.taxOption) {
       case TaxOption.CGST_SGST:
@@ -162,11 +162,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
       default:
         return null;
     }
-  }
-
-  findSafeHtml(path: string) {
-    const rawHtml = this.safeHtmlMap[path] || '';
-    return this.templateService.createWrappedSafeHtml(rawHtml as string);
   }
 
   // eslint-disable-next-line class-methods-use-this
