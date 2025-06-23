@@ -21,6 +21,7 @@ export const initialInvoiceState: InvoiceState = {
     taxOption: TaxOption.CGST_SGST,
     hasItemDescription: true,
     hasItemDiscount: false,
+    internationalNumbering: false,
     dateFormat: {
       name: '31-01-2022',
       value: 'DD-MM-YYYY'
@@ -43,7 +44,7 @@ export const initialInvoiceState: InvoiceState = {
           unicode: '20B9',
           decimal: 2
         },
-        dateformat: {
+        dateFormat: {
           name: '31-01-2022',
           value: 'DD-MM-YYYY'
         }
@@ -70,7 +71,7 @@ export const initialInvoiceState: InvoiceState = {
           unicode: '20B9',
           decimal: 2
         },
-        dateformat: {
+        dateFormat: {
           name: '31-01-2022',
           value: 'DD-MM-YYYY'
         }
