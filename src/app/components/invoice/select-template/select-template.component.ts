@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
+import { firstValueFrom, map, Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
 
 import {
@@ -81,44 +81,43 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     this.destroy$.complete();
 
   }
-
   ngOnInit(): void {
     this.store.dispatch(loadTemplates());
-
-    this.totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(takeUntil(this.destroy$));
-    this.store
-      .select(selectPageSize)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((pageSize) => {
-        this.itemsPerPage = pageSize;
-      });
-
+  
+    this.totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(
+      takeUntil(this.destroy$)
+    );
+  
+    this.store.select(selectPageSize).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((pageSize) => {
+      this.itemsPerPage = pageSize;
+    });
+  
     const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
-    this.tags$ = this.store.select(selectTags)
-    .pipe(takeUntil(this.destroy$))
-    .pipe(
+  
+    this.tags$ = this.store.select(selectTags).pipe(
+      takeUntil(this.destroy$),
       map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
     );
-
-    this.selectedTags$ = this.store.select(selectSearchTags)
-        .pipe(takeUntil(this.destroy$))
-        .pipe(
-          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
-        );
-
-    this.store
-      .select(selectInvoice)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((invoice) => {
+  
+    this.selectedTags$ = this.store.select(selectSearchTags).pipe(
+      takeUntil(this.destroy$),
+      map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
+    );
+  
+    this.store.select(selectInvoice).pipe(
+      takeUntil(this.destroy$),
+      tap((invoice) => {
         const tagsU = SelectTemplateComponent.findTemplateTagFromInvoiceTaxType(invoice);
         if (tagsU) {
           this.store.dispatch(setSearchTags({ searchTags: tagsU }));
         }
-        
-        this.store
-          .select(selectPaginatedTemplateItemsAllConditions)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(async (templateItems) => {
+      }),
+      switchMap((invoice) =>
+        this.store.select(selectPaginatedTemplateItemsAllConditions).pipe(
+          takeUntil(this.destroy$),
+          switchMap(async (templateItems) => {
             this.templates = templateItems;
             const tmpls = await Promise.all(
               templateItems.map(async (item) => {
@@ -127,20 +126,24 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
                 );
                 const html = TemplateUtil.fillTemplate(template, invoice);
                 const safeHTML = this.templateService.createWrappedSafeHtml(html);
-                const tmpl = { ...item, template, html, safeHTML };
-                return tmpl;
+                return { ...item, template, html, safeHTML };
               })
             );
-            this.templates = tmpls;
-
-          });
-          this.store.select(selectSelectedTemplatePath)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((selectedTemplatePath) => {
-            this.selectedTemplatePath = selectedTemplatePath;
-          });
-      });
+            return tmpls;
+          })
+        )
+      )
+    ).subscribe((processedTemplates) => {
+      this.templates = processedTemplates;
+    });
+  
+    this.store.select(selectSelectedTemplatePath).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((selectedTemplatePath) => {
+      this.selectedTemplatePath = selectedTemplatePath;
+    });
   }
+  
 
   ngAfterViewInit(): void {
     if (this.paginator) {
