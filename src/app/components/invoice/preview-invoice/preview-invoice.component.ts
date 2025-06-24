@@ -10,6 +10,7 @@ import { selectSelectedTemplateItem } from '../../templates/store/selectors/temp
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { Invoice } from '../store/model/invoice.model';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -21,7 +22,10 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
   standalone: true
 })
 export class PreviewInvoiceComponent implements OnInit {
+
   @ViewChild('invoiceFrame') invoiceFrame!: ElementRef<HTMLIFrameElement>;
+
+  private invoice!: Invoice;
   private destroy$ = new Subject<void>();
   selectedTemplate: TemplateItem | null = null;
   isDragging = false;
@@ -38,6 +42,7 @@ export class PreviewInvoiceComponent implements OnInit {
   ngOnInit(): void {
 
     this.store.select(selectInvoice).pipe(takeUntil(this.destroy$)).subscribe((invoice) => {  
+      this.invoice = invoice;
     this.store.select(selectSelectedTemplateItem).pipe(takeUntil(this.destroy$)).subscribe(async (item) => {
       if (item) {
         const template = await firstValueFrom(
@@ -76,10 +81,10 @@ printTemplate(): void {
       iframe.contentWindow.print();
     }
   }
-// eslint-disable-next-line class-methods-use-this
-downloadJSON(template: TemplateItem): void {
-  const fileName = `${template.name || 'template'}.json`;
-  const json = JSON.stringify(template, null, 2); // pretty-printed
+ 
+downloadJSON(): void {
+  const fileName = 'invoice.json';
+  const json = JSON.stringify(this.invoice, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
   const url = window.URL.createObjectURL(blob);
 
