@@ -1,6 +1,6 @@
 [
     {
-        "theme": "simple-scarlet-red-",
+        "theme": "simple-scarlet-red",
         "name": "Simple Scarlet Red",
         "description": "Simple invoice templates for daybook.cloud in scarlet red theme",
         "items": [
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "theme": "simple-royal-blue-",
+        "theme": "simple-royal-blue",
         "name": "Simple royal blue",
         "description": "Simple invoice templates for daybook.cloud in royal blue theme",
         "items": [
@@ -76,7 +76,7 @@
         ]
     },
     {
-        "theme": "simple-pale-green-",
+        "theme": "simple-pale-green",
         "name": "Simple Pale Green",
         "description": "Simple invoice templates for daybook.cloud in pale green theme",
         "items": [
