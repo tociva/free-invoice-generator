@@ -191,25 +191,29 @@
 
     <!-- Table -->
     <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Item Description</th>
-          <th>Price</th>
-          <th>Qty.</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Businesscard Design</td><td>$250.00</td><td>1</td><td>$250.00</td></tr>
-        <tr><td>2</td><td>Flyer Business Design</td><td>$300.00</td><td>2</td><td>$600.00</td></tr>
-        <tr><td>3</td><td>Poster Business Design</td><td>$300.00</td><td>3</td><td>$900.00</td></tr>
-        <tr><td>4</td><td>Banner Business Design</td><td>$300.00</td><td>3</td><td>$900.00</td></tr>
-        <tr><td>5</td><td>Interface Website Design</td><td>$300.00</td><td>1</td><td>$300.00</td></tr>
-        <tr><td>6</td><td>Stationary Business Design</td><td>$500.00</td><td>1</td><td>$500.00</td></tr>
-        <tr><td>7</td><td>UI Kit Design & Development</td><td>$400.00</td><td>1</td><td>$400.00</td></tr>
-      </tbody>
-    </table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Price/Unit</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
 
     <!-- Summary -->
     <div class="summary-box">
