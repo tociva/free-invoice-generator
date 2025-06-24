@@ -48,6 +48,19 @@
       user-select: none;
       margin-right: 20px;
     }
+    .logo-circle img {
+      width: 100px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
 
     .brand {
       font-size: 50px;
@@ -81,6 +94,9 @@
       margin: 3px 0;
     }
 
+    .sender-info strong{
+      margin-bottom: 10px;
+    }
     .invoice-info strong {
       font-size: 18px;
       display: inline-block;
@@ -162,17 +178,16 @@
 
   <div class="header">
     <div class="logo-circle">
-      <img src="[[mail_logo_src]]" alt="Logo" />
+      <img src="[[logo_small_src]]" alt="Logo" />
     </div>
     <div class="brand"><span>Brand Name</span></div>
   </div>
 
   <div class="sender-info">
-    <strong>[[Org_name]]</strong><br />
-    <p>[[org_name]]</p>
-    <p>[[org_address]]</p>
-    <p>[[org_phone]]</p>
-    <p>[[org_email]]</p>
+    <strong>[[org_name]]</strong><br />
+    [[org_address]]<br />
+    [[org_phone]]<br />
+    [[org_email]]<br />
   </div>
 
   <div class="info-section">
@@ -184,7 +199,6 @@
     </div>
 
     <div class="invoice-info">
-      <strong>[[invoice_details]]</strong><br />
       <p><strong>Invoice number:</strong> [[invoice_number]]</p>
       <p><strong>Invoice date:</strong> [[invoice_date]]</p>
       <p><strong>Payment due:</strong> [[payment_due_date]]</p>
@@ -217,8 +231,11 @@
   </table>
 
   <div class="totals">
+    <p>Itemtotal <span>[[itemtotal]]</span></p>
+    <p>Discount <span>[[discount]]</span></p>
     <p>Subtotal <span>[[subtotal]]</span></p>
     <p>Tax <span>[[tax_amount]]</span></p>
+    <p>Roundoff <span>[[roundoff]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
 
