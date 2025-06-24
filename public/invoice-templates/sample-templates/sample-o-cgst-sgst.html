@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #cce5c5;
+      --accent: #eaf7e5;
+      --text-dark: #333;
+      --gray: #888;
+      --border: #ccc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      background: #fff;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .sender-customer {
+      display: flex;
+      gap: 40px;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .sender-customer div strong {
+      color: var(--text-dark);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .invoice-header {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .invoice-header h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .invoice-meta {
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    thead th {
+      text-align: left;
+      background: var(--primary);
+      padding: 12px;
+    }
+
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--accent);
+    }
+
+    .summary {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .summary-table {
+      font-size: 14px;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid var(--border);
+      border-collapse: collapse;
+    }
+
+    .summary-table td {
+      padding: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .summary-table tr:last-child td {
+      font-weight: bold;
+      background: var(--primary);
+      font-size: 16px;
+    }
+
+    .signatures {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      font-size: 13px;
+    }
+
+    .thankyou {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .topbar, .sender-customer, .summary, .signatures, .footer {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .signatures {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="topbar">
+      <img src="[[logo_small_src]]" alt="Logo" class="logo" />
+      <div class="invoice-meta">
+        <p><strong>Invoice No:</strong> [[invoice_number]]</p>
+        <p><strong>Invoice Date:</strong> [[invoice_date]]</p>
+        <p><strong>Payment Due:</strong> [[payment_due_date]]</p>
+      </div>
+    </div>
+
+    <!-- Sender and Customer Info -->
+    <div class="sender-customer">
+      <div>
+        <strong>From:</strong>
+        [[org_name]]<br />
+        [[org_address]]<br />
+        [[org_phone]]<br />
+        [[org_email]]
+      </div>
+      <div>
+        <strong>Bill To:</strong>
+        [[customer_name]]<br />
+        [[customer_address]]<br />
+        [[customer_phone]]<br />
+        [[customer_email]]
+      </div>
+    </div>
+
+    <!-- Invoice Heading -->
+    <div class="invoice-header">
+      <h1>INVOICE</h1>
+    </div>
+
+    <!-- Invoice Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+      <table class="summary-table">
+        <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
+        <tr><td>Discount</td><td>[[discount]]</td></tr>
+        <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
+        <tr><td>Tax</td><td>[[tax_amount]]</td></tr>
+        <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
+        <tr><td>Total</td><td>[[grand_total]]</td></tr>
+      </table>
+    </div>
+
+    <!-- Signatures -->
+    <div class="signatures">
+      <div>Eric Martin<br />Account Manager</div>
+      <div>Jordan King<br />Customer</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <strong>Payment Terms</strong><br />
+        Bank Transfer<br />
+        Lorem Ipsum Dolor Sit Amet<br />
+        Paypal: paypal@yourcompanies.com
+      </div>
+    </div>
+
+    <!-- Thank You -->
+    <div class="thankyou">THANK YOU FOR YOUR BUSINESS!</div>
+</body>
+</html>

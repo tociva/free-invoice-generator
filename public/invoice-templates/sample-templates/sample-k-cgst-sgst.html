@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00b19d;
+      --light: #e7f8f5;
+      --gray: #666;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f6f7;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+      border-radius: 8px;
+    }
+
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 30px 40px;
+      border-radius: 20px 0 0 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .invoice-id {
+      font-size: 18px;
+    }
+
+    .invoice-id span {
+      display: block;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .company-logo {
+      text-align: right;
+    }
+
+    .company-logo h2 {
+      margin: 0;
+    }
+
+    .section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .section h4 {
+      margin: 0 0 10px;
+      color: var(--primary);
+    }
+
+    .section p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: white;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--light);
+      border-radius: 10px;
+    }
+
+    .totals {
+      margin-top: 30px;
+      max-width: 300px;
+      margin-left: auto;
+      font-size: 15px;
+    }
+
+    .totals p {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .totals .total {
+      font-size: 18px;
+      font-weight: 600;
+      border-top: 2px solid #ccc;
+      padding-top: 10px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer div {
+      flex: 1;
+      min-width: 250px;
+      margin: 10px 20px 0 0;
+    }
+
+    .thank-you {
+      text-align: right;
+      margin-top: 40px;
+    }
+
+    .thank-you h2 {
+      color: var(--primary);
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .thank-you p {
+      font-size: 13px;
+      color: var(--gray);
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+      <div class="invoice-id">
+        <strong>INVOICE</strong>
+        <span>No. 2347BG8F</span>
+        <span>Date: February 14th 2021</span>
+      </div>
+      <div class="company-logo">
+        <h2>Company Logo</h2>
+        <span>Some good tagline</span>
+      </div>
+    </div>
+
+    <!-- Billing & Payment -->
+    <div class="section">
+      <div class="sender-info">
+      <strong>[[org_name]]</strong><br />
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]<br />
+    </div>
+
+    <div class="billing-info">
+      <strong>[[customer_name]]</strong><br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]<br />
+    </div>
+
+    <div class="invoice-info">
+      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
+    </div>
+    </div>
+
+    <!-- Items -->
+    <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+    <div class="totals">
+      <p><span>Item Total:</span><span>[[itemtotal]]</span></p>
+      <p><span>Discount:</span><span>[[discount]]</span></p>
+      <p><span>Subtotal:</span><span>[[subtotal]]</span></p>
+      <p><span>Tax:</span><span>[[tax_amount]]</span></p>
+      <p><span>Round Off:</span><span>[[roundoff]]</span></p>
+      <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <p>Best Regards,</p>
+        <p><strong>Jeff Pumaradi Michael</strong></p>
+      </div>
+      <div>
+        <h4>Contact.</h4>
+        <p>Phone: (+1) 234 567 890</p>
+        <p>Mail: yourcompany@mail.com</p>
+        <p>Website: www.yourwebsite.com</p>
+      </div>
+    </div>
+</body>
+</html>

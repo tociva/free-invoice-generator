@@ -126,6 +126,21 @@
       border-radius: 4px;
     }
 
+<<<<<<< HEAD
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin-left: auto;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 10px;
+=======
     .total-due {
       margin-top: 30px;
       font-size: 22px;
@@ -135,6 +150,7 @@
 
     .total-due span {
       color: #00b14f;
+>>>>>>> master
     }
 
     .payment-method {
@@ -211,6 +227,43 @@
     </div>
 
     <table class="table">
+<<<<<<< HEAD
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+    <div class="totals">
+    <p>Itemtotal <span>[[itemtotal]]</span></p>
+    <p>Discount <span>[[discount]]</span></p>
+    <p>Subtotal <span>[[subtotal]]</span></p>
+    <p>Tax <span>[[tax_amount]]</span></p>
+    <p>Roundoff <span>[[roundoff]]</span></p>
+    <p class="total">TOTAL <span>[[grand_total]]</span></p>
+  </div>
+
+    <div class="green">Twelve thousand eight hundred seventy five us dollar</div>
+
+=======
       <thead>
         <tr>
           <th>Item Description</th>
@@ -282,6 +335,7 @@
       TOTAL AMOUNT: <span>[[Total_AMOUNT]]</span>
     </div>
 
+>>>>>>> master
     <div class="payment-method">
       <strong>Payment Method</strong><br />
       ☐ Paypal: payment@trendbiz.com<br />
