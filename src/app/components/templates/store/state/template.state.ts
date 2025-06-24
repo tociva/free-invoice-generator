@@ -17,7 +17,7 @@ export const initialTemplateState: TemplateState = {
   loaded: false,
   error: null,
   currentPage: 0,
-  pageSize: 3,
+  pageSize: 10,
   searchTags: [],
   selectedTemplatePath: 'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html'
 };
