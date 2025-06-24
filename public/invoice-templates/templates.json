@@ -171,7 +171,6 @@
                     "cgst",
                     "sgst"
                 ]
-<<<<<<< HEAD
             },
             {
                 "name": "Sample-g-cgst-sgst",
@@ -280,8 +279,7 @@
                     "cgst",
                     "sgst"
                 ]
-=======
->>>>>>> master
+
             }
         ]
     }
