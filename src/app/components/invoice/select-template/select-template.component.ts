@@ -10,12 +10,10 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, map, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, firstValueFrom, map, Observable, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { TemplateService } from '../../../services/template.service';
 
-import { Router } from '@angular/router';
 import {
   addSearchTag,
   loadTemplates,
@@ -32,6 +30,7 @@ import {
   selectPaginatedTemplateItemsAllConditions,
   selectSearchTags,
   selectSelectedTemplatePath,
+  selectTemplatesLoaded,
 } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
@@ -59,7 +58,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   readonly separatorKeysCodes = [ENTER, COMMA];
   private store = inject<Store<TemplateState>>(Store);
   private destroy$ = new Subject<void>();
-  private safeHtmlMap: Record<string, SafeHtml> = {};
 
   tags$!: Observable<string[]>;
   selectedTags$!: Observable<string[]>;
@@ -72,49 +70,62 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   itemsPerPage = 10;
-  totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions);
+  totalItems$!:Observable<number>;
 
   constructor(
     private templateService: TemplateService,
     private http: HttpClient,
-    private router: Router
   ) { }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+  }
   ngOnInit(): void {
-    this.store.dispatch(loadTemplates());
-
-    this.store
-      .select(selectPageSize)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((pageSize) => {
-        this.itemsPerPage = pageSize;
-      });
-
-    this.store
-      .select(selectInvoice)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((invoice) => {
+    this.store.select(selectTemplatesLoaded).pipe(
+      take(1),
+      filter((loaded) => !loaded)
+    ).subscribe(() => {
+      this.store.dispatch(loadTemplates());
+    });
+    
+  
+    this.totalItems$ = this.store.select(selectFilteredTemplateItemCountAllConditions).pipe(
+      takeUntil(this.destroy$)
+    );
+  
+    this.store.select(selectPageSize).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((pageSize) => {
+      this.itemsPerPage = pageSize;
+    });
+  
+    const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
+  
+    this.tags$ = this.store.select(selectTags).pipe(
+      takeUntil(this.destroy$),
+      map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
+    );
+  
+    this.selectedTags$ = this.store.select(selectSearchTags).pipe(
+      takeUntil(this.destroy$),
+      map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
+    );
+  
+    this.store.select(selectInvoice).pipe(
+      takeUntil(this.destroy$),
+      tap((invoice) => {
         const tagsU = SelectTemplateComponent.findTemplateTagFromInvoiceTaxType(invoice);
         if (tagsU) {
           this.store.dispatch(setSearchTags({ searchTags: tagsU }));
         }
-
-        const excludedTags = ['cgst', 'sgst', 'igst', 'non-taxable'];
-        this.tags$ = this.store.select(selectTags).pipe(
-          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
-        );
-
-        this.selectedTags$ = this.store.select(selectSearchTags).pipe(
-          map((tags) => tags.filter((tag) => !excludedTags.includes(tag)))
-        );
-
-        this.store
-          .select(selectPaginatedTemplateItemsAllConditions)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(async (templateItems) => {
+      }),
+      switchMap((invoice) =>
+        this.store.select(selectPaginatedTemplateItemsAllConditions).pipe(
+          takeUntil(this.destroy$),
+          switchMap(async (templateItems) => {
             this.templates = templateItems;
-
-            this.safeHtmlMap = {};
             const tmpls = await Promise.all(
               templateItems.map(async (item) => {
                 const template = await firstValueFrom(
@@ -125,16 +136,21 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
                 return { ...item, template, html, safeHTML };
               })
             );
-            this.templates = tmpls;
-
-          });
-          this.store.select(selectSelectedTemplatePath)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((selectedTemplatePath) => {
-            this.selectedTemplatePath = selectedTemplatePath;
-          });
-      });
+            return tmpls;
+          })
+        )
+      )
+    ).subscribe((processedTemplates) => {
+      this.templates = processedTemplates;
+    });
+  
+    this.store.select(selectSelectedTemplatePath).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((selectedTemplatePath) => {
+      this.selectedTemplatePath = selectedTemplatePath;
+    });
   }
+  
 
   ngAfterViewInit(): void {
     if (this.paginator) {
@@ -143,11 +159,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
         this.store.dispatch(setPagination({ currentPage: pageIndex, pageSize }));
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   private static findTemplateTagFromInvoiceTaxType(invoice: Invoice): string[] | null {
@@ -161,11 +172,6 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
       default:
         return null;
     }
-  }
-
-  findSafeHtml(path: string) {
-    const rawHtml = this.safeHtmlMap[path] || '';
-    return this.templateService.createWrappedSafeHtml(rawHtml as string);
   }
 
   // eslint-disable-next-line class-methods-use-this

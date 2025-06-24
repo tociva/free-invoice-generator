@@ -52,6 +52,11 @@ export const setInvoiceShowDiscount = createAction(
   props<{ showDiscount: boolean }>()
 );
 
+export const setInvoiceInternationalNumbering = createAction(
+  '[Invoice] Set Invoice International Numbering',
+  props<{ internationalNumbering: boolean }>()
+);
+
 export const deleteInvoiceItem = createAction(
   '[Invoice] Delete Invoice Item',
   props<{ index: number }>()

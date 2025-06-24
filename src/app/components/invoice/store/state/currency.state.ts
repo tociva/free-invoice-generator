@@ -1,5 +1,9 @@
+import { countries } from '../effects/country-list';
 import { Currency } from '../model/currency.model';
 
+const uniqueCurrencies = Array.from(
+  new Map(countries.map((c) => [c.currency.name, c.currency])).values()
+);
 export interface CurrencyState {
   currencies: Currency[];
   selectedCurrency: Currency;
@@ -7,7 +11,7 @@ export interface CurrencyState {
 }
 
 export const initialCurrencyState: CurrencyState = {
-  currencies: [],
+  currencies: uniqueCurrencies,
   selectedCurrency: {
     name: 'Indian Rupee',
     html: '&#8377;',

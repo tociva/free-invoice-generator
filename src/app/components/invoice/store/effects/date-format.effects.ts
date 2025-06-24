@@ -15,7 +15,7 @@ export class DateFormatEffects {
       ofType(DateFormatActions.loadDateFormats),
       mergeMap(() => {
         // Simulate a delay for API call
-        const dateFormatsAll = countries.map((country) => country.dateformat);
+        const dateFormatsAll = countries.map((country) => country.dateFormat);
         const dateFormats = Array.from(
           new Map(dateFormatsAll.map((c) => [c.name, c])).values()
         );

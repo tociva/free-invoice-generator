@@ -51,6 +51,7 @@ export interface Invoice {
   taxOption: TaxOption;
   hasItemDescription: boolean;
   hasItemDiscount: boolean;
+  internationalNumbering: boolean;
   deliveryState: string;
   organization: Address,
   customer: Address,
