@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #222;
+      --light-gray: #f9f9f9;
+      --gray: #aaa;
+      --accent: #000;
+      --border: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #fff;
+      color: var(--dark);
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+      background-color: #fff;
+      border-radius: 8px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-box img {
+      height: 60px;
+    }
+
+    .logo-box strong {
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .invoice-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .info-section div {
+      width: 45%;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background-color: var(--dark);
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--light-gray);
+    }
+
+    .totals {
+      margin-top: 30px;
+      max-width: 360px;
+      margin-left: auto;
+    }
+
+    .totals table {
+      width: 100%;
+      font-size: 14px;
+      border-collapse: collapse;
+    }
+
+    .totals td {
+      padding: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .totals .grand-total {
+      background-color: var(--dark);
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .totals .in-words {
+      font-style:normal;
+      font-size: large;
+      font-weight: 800;
+      color: black;
+      padding-top: 10px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 50px;
+      font-size: 13px;
+      color: var(--gray);
+      gap: 10px;
+    }
+
+    .footer div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .info-section div {
+        width: 100%;
+      }
+
+      .totals {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+      <div class="logo-box">
+        <img src="[[logo_small_src]]" alt="Logo">
+        <strong>[[org_name]]</strong>
+      </div>
+      <div class="invoice-title">INVOICE</div>
+    </header>
+
+    <!-- Client and Invoice Info -->
+    <div class="info-section">
+      <div>
+        <strong>Bill To:</strong><br>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
+      <div>
+        <strong>Invoice Details:</strong><br>
+        Invoice #: [[invoice_number]]<br>
+        Date: [[invoice_date]]<br>
+        Due: [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Item Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <table>
+        <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
+        <tr><td>Discount</td><td>[[discount]]</td></tr>
+        <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
+        <tr><td>Tax</td><td>[[tax_amount]]</td></tr>
+        <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
+        <tr class="grand-total"><td>Total</td><td>[[grand_total]]</td></tr>
+      </table>
+      <p class="in-words">[[grand_total_inwords]]</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div><strong>📞</strong> [[org_phone]]</div>
+      <div><strong>📍</strong> [[org_address]]</div>
+      <div><strong>✉️</strong> [[org_email]]</div>
+    </div>
+</body>
+
+</html>

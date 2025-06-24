@@ -12,7 +12,7 @@
       <app-invoice-logo></app-invoice-logo>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-raised-button color="primary" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-raised-button color="primary" class="next-btn1" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
@@ -25,8 +25,8 @@
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-button class="back-btn2" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn2" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
@@ -39,8 +39,8 @@
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn3" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
@@ -50,8 +50,8 @@
       <app-select-template></app-select-template>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
@@ -61,8 +61,8 @@
       <app-preview-invoice></app-preview-invoice>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="accent"><mat-icon>check_circle</mat-icon> Finish</button>
+      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="accent" class="finish-btn"><mat-icon>check_circle</mat-icon> Finish</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
