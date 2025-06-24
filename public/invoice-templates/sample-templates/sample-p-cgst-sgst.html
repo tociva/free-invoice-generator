@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -74,7 +75,7 @@
       border-radius: 0 0 10px 10px;
     }
 
-    .client-info > div {
+    .client-info>div {
       width: 32%;
       font-size: 14px;
       line-height: 1.6;
@@ -149,7 +150,7 @@
     }
 
     @media (max-width: 768px) {
-      .client-info > div {
+      .client-info>div {
         width: 100%;
         margin-bottom: 20px;
       }
@@ -174,6 +175,7 @@
     }
   </style>
 </head>
+
 <body>
 
 
@@ -243,12 +245,29 @@
   <!-- Totals -->
   <div class="totals">
     <table class="totals-table">
-      <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
-      <tr><td>Discount</td><td>[[discount]]</td></tr>
-      <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
-      <tr><td>Tax</td><td>[[tax_amount]]</td></tr>
-      <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
-      <tr><td colspan="2">Total: [[grand_total]]</td></tr>
+      <tr>
+        <td>Item Total</td>
+        <td>[[itemtotal]]</td>
+      </tr>
+      <tr>
+        <td>Discount</td>
+        <td>[[discount]]</td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>[[subtotal]]</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td>[[tax_amount]]</td>
+      </tr>
+      <tr>
+        <td>Round Off</td>
+        <td>[[roundoff]]</td>
+      </tr>
+      <tr>
+        <td colspan="2">Total: [[grand_total]]</td>
+      </tr>
     </table>
   </div>
 
@@ -259,13 +278,6 @@
     PayPal: paypal@company.com
   </div>
 
-  <!-- Signature -->
-  <div class="signature">
-    <img src="[[signature_url]]" alt="Signature" />
-    Diana Rocevas<br />
-    Digital Marketing
-  </div>
-
-
 </body>
+
 </html>

@@ -280,6 +280,16 @@
                     "sgst"
                 ]
 
+            },
+            {
+                "name": "Sample-s-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-s-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+
             }
         ]
     }
