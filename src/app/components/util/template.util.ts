@@ -2,10 +2,12 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { TemplateItem } from '../templates/store/model/template.model';
 import { Invoice } from '../invoice/store/model/invoice.model';
+import dayjs from 'dayjs';
 
 export class TemplateUtil {
   
   public static fillTemplate(html: string, invoice: Invoice): string {
+    const dateFormat = invoice.dateFormat.value;
     const itemRowTemplate = `
       <tr>
         <td>[[item_name]]</td>
@@ -32,8 +34,8 @@ export class TemplateUtil {
 
     const htmlS = htmlWithItems
       .replace('[[invoice_number]]', invoice.number)
-      .replace('[[invoice_date]]', invoice.date.toLocaleDateString())
-      .replace('[[payment_due_date]]', invoice.dueDate.toLocaleDateString())
+      .replace('[[invoice_date]]', dayjs(invoice.date).format(dateFormat))
+      .replace('[[payment_due_date]]', dayjs(invoice.dueDate).format(dateFormat))
       .replace('[[customer_name]]', invoice.customer.name)
       .replace('[[customer_address]]', invoice.customer.addressLine1)
       .replace('[[customer_phone]]', invoice.customer.phone)
