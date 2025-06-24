@@ -96,3 +96,8 @@ export const selectSelectedTemplateItem = createSelector(
     return state.templateItems.find((item) => item.path === selectedPath) || null;
   }
 );
+
+export const selectTemplatesLoaded = createSelector(
+  selectTemplateState,
+  (state) => state.loaded
+);

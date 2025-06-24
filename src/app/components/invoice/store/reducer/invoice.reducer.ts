@@ -15,10 +15,17 @@ export const invoiceReducer = createReducer(
     ...state,
     invoice: { ...state.invoice, organization: { ...state.invoice.organization, country } }
   })),
-  on(InvoiceAction.setCustomerCountry, (state, { country }) => ({
+  on(InvoiceAction.setCustomerCountry, (state, { country }) => {
+    const numbering = !['India', 'Pakistan', 'Bangladesh'].includes(country.name);
+    return {
     ...state,
-    invoice: { ...state.invoice, customer: { ...state.invoice.customer, country } }
-  })),
+    invoice: { ...state.invoice, customer: { ...state.invoice.customer, country }, 
+    currency: country.currency, 
+    decimalPlaces: country.currency.decimal,
+    dateFormat: country.dateFormat,
+    internationalNumbering: numbering
+  }
+  };}),
   on(InvoiceAction.setInvoiceDateFormat, (state, { dateFormat }) => ({
     ...state,
     invoice: { ...state.invoice, dateFormat }
@@ -38,6 +45,10 @@ export const invoiceReducer = createReducer(
   on(InvoiceAction.setInvoiceShowDiscount, (state, { showDiscount }) => ({
     ...state,
     invoice: { ...state.invoice, hasItemDiscount: showDiscount }
+  })),
+  on(InvoiceAction.setInvoiceInternationalNumbering, (state, { internationalNumbering }) => ({
+    ...state,
+    invoice: { ...state.invoice, internationalNumbering }
   })),
   on(InvoiceAction.deleteInvoiceItem, (state, { index }) => ({
     ...state,

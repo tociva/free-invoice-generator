@@ -42,6 +42,10 @@
       user-select: none;
     }
 
+    .logo-circle img {
+      width: 150px;
+    }
+
     .sender-info,
     .billing-info,
     .invoice-info {
@@ -115,12 +119,12 @@
   <h1>INVOICE</h1>
   <div class="header">
     <div class="logo-circle">
-      <img src="[[logo_small_src]]" alt="Logo" />
+      <img src="[[logo_large_src]]" alt="Logo" />
     </div>
   </div>
 
   <div class="sender-info">
-    <p>[[org_name]]</p>
+    <strong>[[org_name]]</strong><br />
     <p>[[org_address]]</p>
     <p>[[org_phone]]</p>
     <p>[[org_email]]</p>

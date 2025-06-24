@@ -55,6 +55,8 @@ export class InvoiceCustomerComponent implements OnDestroy {
   
   constructor(private store:Store, 
     private countryService:CountryService) {}
+
+    
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -95,7 +97,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
   };
   
   fetchCountries = (val?: string | Country): Observable<Country[]> => {
-    return this.countryService.fetchCountries(val);
+    return this.countryService.fetchCountries(val).pipe(takeUntil(this.destroy$));
   };
 
   private findCountryEditorComponent = (_valueP: unknown) => ({
