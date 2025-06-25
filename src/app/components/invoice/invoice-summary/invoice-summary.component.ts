@@ -44,7 +44,8 @@ export class InvoiceSummaryComponent implements OnDestroy {
 
   gridOptions: GridOptions = {
     suppressMenuHide: true,
-    animateRows: true
+    animateRows: true,
+    headerHeight: 0,
   };
 
   totalInWords = '';

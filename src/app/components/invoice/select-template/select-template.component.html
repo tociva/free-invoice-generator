@@ -1,10 +1,10 @@
-<div class="layout-container">
-  <div class="content-area">
-    <!-- Search and Tags -->
+<div class="dashboard-container">
+  <!-- Top Filter Bar -->
+  <div class="top-filter">
     <form>
-      <mat-form-field class="example-chip-list" appearance="outline" style="width: 25%;">
-        <mat-label>Search here</mat-label>
-        <mat-chip-grid #chipGrid aria-label="Search here">
+      <mat-form-field appearance="outline" class="compact-chip-field">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Tag filter">
           <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
             {{ tag }}
             <button matChipRemove [attr.aria-label]="'remove ' + tag">
@@ -13,56 +13,41 @@
           </mat-chip-row>
         </mat-chip-grid>
 
-        <input placeholder="Search here" #tagInput [matChipInputFor]="chipGrid"
+        <input placeholder="Add tag..." #tagInput [matChipInputFor]="chipGrid"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
           (matChipInputTokenEnd)="addTag($event)" />
 
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
-            {{ tag }}
-          </mat-option>
+          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">{{ tag }}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </form>
+  </div>
 
-    <!-- Template List -->
-    <div class="iframe-grid-wrapper">
-      <div class="iframe-grid">
-        <div *ngFor="let item of templates" class="template-container"
-          [class.selected]="item.path === selectedTemplatePath">
-
-          <!-- Header (not clickable) -->
-          <div class="template-header">
-            <span class="template-name" (click)="onTemplateClick(item)" (keydown.enter)="onTemplateClick(item)"
-              tabindex="0" role="button" [attr.aria-label]="'Select template ' + item.name">
-              {{ item.name }}
-            </span>
-            <div class="template-actions">
-              <button mat-icon-button (click)="previewTemplate(item); $event.stopPropagation()">
-                <mat-icon>visibility</mat-icon>
-              </button>
-            </div>
-          </div>
-
-          <!-- Preview Area (fully clickable with overlay) -->
-          <div class="invoice-preview-container">
-            <iframe [attr.srcdoc]="item.safeHTML" width="100%" height="600" frameborder="0" class="template-iframe">
-            </iframe>
-
-            <!-- Overlay inside the iframe container -->
-            <div class="iframe-overlay" (click)="onTemplateClick(item)" tabindex="0" role="button"
-              (keydown.enter)="onTemplateClick(item)" (keydown.space)="onTemplateClick(item)"
-              [attr.aria-label]="'Select template ' + item.name">
-            </div>
-          </div>
+  <!-- Grid of Templates -->
+  <div class="template-card-grid">
+    <div *ngFor="let item of templates" class="template-card" [class.selected]="item.path === selectedTemplatePath">
+      <div class="card-header">
+        <div class="card-title" (click)="onTemplateClick(item)" tabindex="0" role="button"
+          (keydown.enter)="onTemplateClick(item)">
+          {{ item.name }}
         </div>
+        <button mat-icon-button (click)="previewTemplate(item); $event.stopPropagation()" aria-label="Preview template">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
 
+      <div class="card-preview">
+        <iframe [attr.srcdoc]="item.safeHTML" class="preview-iframe" frameborder="0"></iframe>
+        <div class="overlay" (click)="onTemplateClick(item)" tabindex="0" role="button"
+          (keydown.enter)="onTemplateClick(item)" (keydown.space)="onTemplateClick(item)">
+        </div>
       </div>
     </div>
-
-    <!-- Paginator -->
-    <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons color="primary">
-    </mat-paginator>
   </div>
+
+  <!-- Paginator -->
+  <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage"
+    [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="primary" class="paginator">
+  </mat-paginator>
 </div>
