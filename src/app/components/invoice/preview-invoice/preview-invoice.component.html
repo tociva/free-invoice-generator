@@ -7,27 +7,27 @@
       <div class="a4-preview-wrapper">
         <div class="top-bar">
           <button mat-icon-button disableRipple class="icon-btn" (click)="printTemplate()"
-            matTooltip="Print Template">
+            matTooltip="Print Template" matTooltipPosition="above">
             <mat-icon>print</mat-icon>
           </button>
 
           <button mat-icon-button disableRipple class="icon-btn"
-            (click)="downloadPDF(selectedTemplate); $event.stopPropagation()" matTooltip="Download PDF">
+            (click)="downloadPDF(selectedTemplate); $event.stopPropagation()" matTooltip="Download PDF" matTooltipPosition="above">
             <mat-icon>picture_as_pdf</mat-icon>
           </button>
 
           <button mat-icon-button disableRipple class="icon-btn" (click)="downloadJSON()"
-            matTooltip="Download JSON">
+            matTooltip="Download JSON" matTooltipPosition="above">
             <mat-icon>data_object</mat-icon>
           </button>
 
           <button mat-icon-button disableRipple class="icon-btn" (click)="downloadHTML(selectedTemplate)"
-            matTooltip="Download HTML">
+            matTooltip="Download HTML" matTooltipPosition="above">
             <mat-icon>description</mat-icon>
           </button>
 
           <button mat-icon-button disableRipple class="icon-btn" (click)="downloadTemplate()"
-            matTooltip="Download Template">
+            matTooltip="Download Template" matTooltipPosition="above">
             <mat-icon>code</mat-icon>
           </button>
         </div>

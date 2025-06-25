@@ -11,11 +11,13 @@ import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { Invoice } from '../store/model/invoice.model';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-preview-invoice',
   imports: [CommonModule,
-    MatIcon
+    MatIcon,
+    MatTooltipModule
   ],
   templateUrl: './preview-invoice.component.html',
   styleUrl: './preview-invoice.component.scss',
