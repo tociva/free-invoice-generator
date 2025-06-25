@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { InvoiceState } from '../invoice/store/state/invoice.state';
+import { Invoice } from '../invoice/store/model/invoice.model';
+import { loadInvoice } from '../invoice/store/actions/invoice.action';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +18,7 @@ export class HomeComponent {
   isJsonDragOver = false;
   jsonFileName: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store<InvoiceState>) {}
 
   onJsonDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -53,19 +57,24 @@ export class HomeComponent {
   handleJsonFile(file: File): void {
     if (file.type === 'application/json' || file.name.endsWith('.json')) {
       this.jsonFileName = file.name;
-
+  
       const reader = new FileReader();
       reader.onload = () => {
-        // You can optionally parse and store JSON here if needed
-        // const invoiceData = JSON.parse(reader.result as string);
-        void this.router.navigate(['/invoice'], { queryParams: { step: 3 } });
+        try {
+          const invoice:Invoice = JSON.parse(reader.result as string);
+  
+          this.store.dispatch(loadInvoice({ invoice }));
+          void this.router.navigate(['/invoice'], { queryParams: { step: 3 } });
+        } catch (err) {
+          console.error('Invalid JSON file:', err);
+        }
       };
       reader.readAsText(file);
     } else {
-      // eslint-disable-next-line no-alert
-      alert('Only JSON files are allowed.');
+      console.error('Only JSON files are allowed.');
     }
   }
+  
 
   clearJsonFile(): void {
     this.jsonFileName = null;
