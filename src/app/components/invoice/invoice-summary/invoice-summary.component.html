@@ -1,14 +1,10 @@
-<div class="Summary-of-Invoice-card">
-  <ag-grid-angular class="ag-theme-alpine address-grid no-header" style="width: 94%;"
-    [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'" [defaultColDef]="defaultColDef"
-    [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)" [getRowId]="getRowId">
-  </ag-grid-angular>
-  <div class="total-in-words-container">
-    <div class="total-in-words-label">
-      Total in Words
-    </div>
-    <div class="total-in-words-value">
-      {{ totalInWords }}
-    </div>
-  </div>
+<div class="invoice-summary-card">
+  <h3 class="invoice-title">Invoice Summary</h3>
+
+  <ag-grid-angular class="ag-theme-alpine address-grid" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+    [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
+    [getRowId]="getRowId"></ag-grid-angular>
+</div>
+<div class="total-in-words-container">
+  <span class="total-in-words-value">{{ totalInWords }}</span>
 </div>

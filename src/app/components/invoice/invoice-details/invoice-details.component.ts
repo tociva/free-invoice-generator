@@ -61,7 +61,8 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   gridOptions: GridOptions<FormColumnDef> = {
     suppressMenuHide: true,
     rowSelection: 'single',
-    animateRows: true
+    animateRows: true,
+    enableBrowserTooltips: true,
   };
 
   constructor(public store:Store) {}
@@ -297,7 +298,20 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       },
       cellRendererSelector: this.findDetailsCellRenderer,
       cellEditorSelector: this.findDetailsEditorComponent,
-      onCellValueChanged: this.handleInvoiceDetailsCellValueChanged
+      onCellValueChanged: this.handleInvoiceDetailsCellValueChanged,
+      tooltipValueGetter: (params) => {
+        const value = params.data?.value;
+
+        if (typeof value === 'string') {
+          return value;
+        }
+
+        if (value && typeof value === 'object' && 'name' in value && typeof value.name === 'string') {
+          return value.name;
+        }
+
+        return '';
+      },
     }
   ];
 
