@@ -3,14 +3,16 @@
   flex-direction: column;
   padding: 24px;
   background-color: #f5f6f8;
-  min-height: 90vh;
-  gap: 20px;
+  min-height: 100vh;
+  gap: 24px;
 }
 
 .top-filter {
   display: flex;
   justify-content: center;
   align-items: center;
+   flex-wrap: wrap;
+  gap: 12px;
 }
 
 .compact-chip-field {
@@ -21,16 +23,27 @@
 
 .template-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 320px)); // Fixed width
+  justify-content: center; // Center cards when fewer columns
   gap: 24px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 24px;
 }
 
 .template-card {
+  width: 320px; // Fixed width
   background: white;
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid transparent;
   transition: 0.3s ease all;
+
+  &.selected {
+    border-color: #3f51b5;
+    background-color: #e8ecfa;
+    box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+  }
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -86,13 +99,14 @@
 }
 
 .paginator {
-  align-self: flex-end;
+  align-self: center;
   background: white;
   padding: 12px;
   border-top: 1px solid #eee;
   border-radius: 10px;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.04);
-  margin-bottom: 30px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 ::ng-deep .mat-mdc-paginator-container {
