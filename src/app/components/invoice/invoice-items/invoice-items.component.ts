@@ -16,6 +16,7 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
 type InvoiceItemWithAction = InvoiceItem & { action?: string };
 @Component({
   selector: 'app-invoice-items',
+  standalone: true,
   imports: [
     CommonModule,
     AgGridModule

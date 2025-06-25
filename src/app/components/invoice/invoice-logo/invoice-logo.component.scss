@@ -1,15 +1,20 @@
 .media-upload-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%; /* or your desired width */
-    box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 16px;
+  margin-left: -80px;
 }
 
 .media-upload {
-    position: absolute;
-    top: 300px; /* your original margin-top */
-    right: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  max-width: 300px;
 }
+
 
 
 .logo-upload-button {
@@ -108,4 +113,21 @@
     100% {
         background-position: 100% 100%;
     }
+}
+@media (max-width: 900px) {
+  .media-upload-wrapper {
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .media-upload {
+    position: static !important; /* override absolute */
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .logo-drop-zone {
+    width: 100%;
+    max-width: 320px;
+  }
 }

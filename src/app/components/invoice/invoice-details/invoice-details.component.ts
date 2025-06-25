@@ -36,6 +36,7 @@ export enum InvoiceDetailsFormItem {
 }
 @Component({
   selector: 'app-invoice-details',
+  standalone: true,
   imports: [
     CommonModule,
     AgGridModule],
