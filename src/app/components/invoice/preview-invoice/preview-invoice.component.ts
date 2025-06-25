@@ -4,14 +4,15 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { combineLatest, firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { combineLatest, filter, firstValueFrom, Subject, take, takeUntil } from 'rxjs';
 import { TemplateItem } from '../../templates/store/model/template.model';
-import { selectSelectedTemplateItem } from '../../templates/store/selectors/template.selector';
+import { selectSelectedTemplateItem, selectTemplatesLoaded } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { Invoice } from '../store/model/invoice.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { loadTemplates } from '../../templates/store/actions/template.actions';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -42,6 +43,12 @@ export class PreviewInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.select(selectTemplatesLoaded).pipe(
+      take(1),
+      filter((loaded) => !loaded)
+    ).subscribe(() => {
+      this.store.dispatch(loadTemplates());
+    });
     combineLatest([
       this.store.select(selectInvoice),
       this.store.select(selectSelectedTemplateItem)
