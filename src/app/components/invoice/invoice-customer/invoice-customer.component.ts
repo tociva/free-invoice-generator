@@ -50,7 +50,8 @@ export class InvoiceCustomerComponent implements OnDestroy {
   gridOptions: GridOptions<FormColumnDef> = {
     suppressMenuHide: true,
     rowSelection: 'single',
-    animateRows: true
+    animateRows: true,
+    enableBrowserTooltips: true,
   };
   
   constructor(private store:Store, 
@@ -86,6 +87,19 @@ export class InvoiceCustomerComponent implements OnDestroy {
       editable: true,
       cellEditorSelector: this.findCustomerEditorComponent,
       cellRendererSelector: InvoiceCustomerComponent.findCustomerCellRenderer,
+      tooltipValueGetter: (params) => {
+        const value = params.data?.value;
+
+        if (typeof value === 'string') {
+          return value;
+        }
+
+        if (value && typeof value === 'object' && 'name' in value && typeof value.name === 'string') {
+          return value.name;
+        }
+
+        return '';
+      },
     }
   ];
 

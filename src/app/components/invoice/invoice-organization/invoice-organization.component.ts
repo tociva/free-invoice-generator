@@ -2,7 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
+import {
+  ColDef,
+  GetRowIdParams,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  ICellEditorParams,
+  ICellRendererParams
+} from 'ag-grid-community';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { CountryService } from '../../../services/country.service';
@@ -11,15 +20,14 @@ import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/labe
 import { setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { Observable, Subject, takeUntil } from 'rxjs';
 
 export enum OrganizatonFormItem {
   NAME = 'Name',
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
-  LINE1 = 'Line1',
-  LINE2 = 'Line2',
+  LINE1 = 'Address Line 1',
+  LINE2 = 'Address Line 2',
   STREET = 'Street',
   CITY = 'City',
   STATE = 'State',
@@ -29,39 +37,32 @@ export enum OrganizatonFormItem {
 
 @Component({
   selector: 'app-invoice-organization',
-  imports: [
-    CommonModule,
-    AgGridModule],
+  standalone: true,
+  imports: [CommonModule, AgGridModule],
   templateUrl: './invoice-organization.component.html',
-  styleUrl: './invoice-organization.component.scss'
+  styleUrl: './invoice-organization.component.scss',
 })
 export class InvoiceOrganizationComponent implements OnDestroy {
-
-
   public myDetailsGridApi!: GridApi<FormColumnDef>;
-
   private destroy$ = new Subject<void>();
-  
+
   myDetailsRowData: FormColumnDef[] = [];
 
   defaultColDef: ColDef<FormColumnDef> = {
     editable: false,
     resizable: true,
     sortable: false,
-    
   };
 
   gridOptions: GridOptions<FormColumnDef> = {
     suppressMenuHide: true,
     rowSelection: 'single',
-    animateRows: true
+    animateRows: true,
+    enableBrowserTooltips: true,
   };
 
-  constructor(
-    private store: Store,
-    private countryService:CountryService
-  ) {
-  }
+  constructor(private store: Store, private countryService: CountryService) { }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -73,25 +74,24 @@ export class InvoiceOrganizationComponent implements OnDestroy {
   fetchCountries = (val?: string | Country): Observable<Country[]> => {
     return this.countryService.fetchCountries(val).pipe(takeUntil(this.destroy$));
   };
-  
+
+
 
   private findMyDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
-    
     switch (params.data.label) {
-
-    case OrganizatonFormItem.COUNTRY:
-      return this.findMyDetailsCountryEditorComponent(params.data.value);
-
+      case OrganizatonFormItem.COUNTRY:
+        return this.findMyDetailsCountryEditorComponent(params.data.value);
     }
-
-    return {
-      component: null
-    };
-
+    return { component: null };
   };
 
   myDetailsColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150, flex: 1 },
+    {
+      field: 'label',
+      headerName: '',
+      width: 150,
+      flex: 1,
+    },
     {
       field: 'value',
       headerName: '',
@@ -100,7 +100,21 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
       cellRendererSelector: InvoiceOrganizationComponent.findMyDetailsCellRenderer,
-    }
+      tooltipValueGetter: (params) => {
+        const value = params.data?.value;
+
+        if (typeof value === 'string') {
+          return value;
+        }
+
+        if (value && typeof value === 'object' && 'name' in value && typeof value.name === 'string') {
+          return value.name;
+        }
+
+        return '';
+      },
+
+    },
   ];
 
   handleMyDetailsCountryOptionSelected = (val: Country): void => {
@@ -112,49 +126,44 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     params: {
       optionsFetcher: this.fetchCountries,
       displayWith: displayAutoCompleteWithName,
-      onOptionSelected: this.handleMyDetailsCountryOptionSelected
-    }
+      onOptionSelected: this.handleMyDetailsCountryOptionSelected,
+    },
   });
 
-  private static findMyDetailsCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
-
-    if (!params.data?.value) {
-
-      return '';
-
-    }
-
+  private static findMyDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+    if (!params.data?.value) { return ''; }
     switch (params.data.label) {
-
-    case OrganizatonFormItem.COUNTRY:
-      { const dtF = params.data.value as Country;
-      return {component: LabelColumnRendererComponent,
-        params: {labelValue: dtF.name}}; }
-
+      case OrganizatonFormItem.COUNTRY: {
+        const dtF = params.data.value as Country;
+        return {
+          component: LabelColumnRendererComponent,
+          params: { labelValue: dtF.name },
+        };
+      }
     }
     return params.data.value;
-  
   };
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.myDetailsGridApi = params.api;
-    this.store.select(selectInvoice)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((invoice) => {
-      const {organization} = invoice;
-      this.myDetailsRowData = [
-        { label: OrganizatonFormItem.NAME, value: organization.name },
-        { label: OrganizatonFormItem.LINE1, value: organization.addressLine1 },
-        { label: OrganizatonFormItem.LINE2, value: organization.addressLine2 },
-        { label: OrganizatonFormItem.STREET, value: organization.street },
-        { label: OrganizatonFormItem.CITY, value: organization.city },
-        { label: OrganizatonFormItem.ZIP, value: organization.zipCode },
-        { label: OrganizatonFormItem.STATE, value: organization.state },
-        { label: OrganizatonFormItem.COUNTRY, value: organization.country },
-        { label: OrganizatonFormItem.EMAIL, value: organization.email },
-        { label: OrganizatonFormItem.MOBILE, value: organization.phone },
-        { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
-      ];
-    });
+    this.store
+      .select(selectInvoice)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((invoice) => {
+        const { organization } = invoice;
+        this.myDetailsRowData = [
+          { label: OrganizatonFormItem.NAME, value: organization.name },
+          { label: OrganizatonFormItem.LINE1, value: organization.addressLine1 },
+          { label: OrganizatonFormItem.LINE2, value: organization.addressLine2 },
+          { label: OrganizatonFormItem.STREET, value: organization.street },
+          { label: OrganizatonFormItem.CITY, value: organization.city },
+          { label: OrganizatonFormItem.ZIP, value: organization.zipCode },
+          { label: OrganizatonFormItem.STATE, value: organization.state },
+          { label: OrganizatonFormItem.COUNTRY, value: organization.country },
+          { label: OrganizatonFormItem.EMAIL, value: organization.email },
+          { label: OrganizatonFormItem.MOBILE, value: organization.phone },
+          { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
+        ];
+      });
   }
-  }
+}
