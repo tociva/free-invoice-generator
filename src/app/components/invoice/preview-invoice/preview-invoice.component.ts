@@ -4,7 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { combineLatest, firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { TemplateItem } from '../../templates/store/model/template.model';
 import { selectSelectedTemplateItem } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
@@ -42,24 +42,32 @@ export class PreviewInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.store.select(selectInvoice).pipe(takeUntil(this.destroy$)).subscribe((invoice) => {  
+    combineLatest([
+      this.store.select(selectInvoice),
+      this.store.select(selectSelectedTemplateItem)
+    ])
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(async ([invoice, item]) => {
       this.invoice = invoice;
-    this.store.select(selectSelectedTemplateItem).pipe(takeUntil(this.destroy$)).subscribe(async (item) => {
+  
       if (item) {
-        const template = await firstValueFrom(
-          this.http.get(item.path, { responseType: 'text' })
-        );
-        const html = TemplateUtil.fillTemplate(template, invoice);
-        const safeHTML = this.sanitizer.bypassSecurityTrustHtml(html);
-        this.selectedTemplate = { ...item, template, html, safeHTML };
-      }
-      else {
+        try {
+          const template = await firstValueFrom(
+            this.http.get(item.path, { responseType: 'text' })
+          );
+          const html = TemplateUtil.fillTemplate(template, invoice);
+          const safeHTML = this.sanitizer.bypassSecurityTrustHtml(html);
+          this.selectedTemplate = { ...item, template, html, safeHTML };
+        } catch (err) {
+          console.error('Template fetch failed:', err);
+          this.selectedTemplate = null;
+        }
+      } else {
         this.selectedTemplate = null;
       }
     });
-    });
   }
+  
 
 
   sanitizeHtml(html: string): SafeHtml {
