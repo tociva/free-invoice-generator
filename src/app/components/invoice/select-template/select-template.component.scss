@@ -11,6 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .compact-chip-field {
@@ -21,11 +23,16 @@
 
 .template-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 320px)); // Fixed width
+  justify-content: center; // Center align grid items
   gap: 24px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 24px;
 }
 
 .template-card {
+  width: 320px; // Fixed width
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -42,6 +49,7 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   }
 }
+
 
 .card-header {
   padding: 12px 16px;
@@ -68,6 +76,7 @@
   display: block;
 }
 
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -76,10 +85,12 @@
 }
 
 .paginator {
-  align-self: flex-end;
-  margin-top: auto;
+  align-self: center;
   background: white;
   padding: 12px;
   border-top: 1px solid #eee;
   border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
 }
