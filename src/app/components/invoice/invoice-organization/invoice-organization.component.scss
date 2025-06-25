@@ -1,4 +1,19 @@
-
+.invoice-card-layout {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+.invoice-column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers both card and logos horizontally */
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+  margin-left: 280px;
+}
 .my-organization-card {
   width: 100%;
   max-width: 720px;
@@ -8,38 +23,44 @@
   padding: 32px 24px;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
+
+ 
 }
 
+/* Hover shadow */
 .my-organization-card:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* AG Grid Styling */
+/* AG Grid Responsive Styling */
 .address-grid {
   width: 100%;
+  max-width: 100%;
   font-size: 15px;
   border-radius: 10px;
   overflow: hidden;
 }
 
-/* Remove AG Grid header */
+/* Hide header */
 .ag-theme-alpine .ag-header {
   display: none;
 }
 
-/* Row styling */
+/* Row appearance */
 .ag-theme-alpine .ag-row {
   border-bottom: 1px solid #eceff1;
   line-height: 2.4rem;
 }
 
+/* Cell styling */
 .ag-theme-alpine .ag-cell {
   padding: 12px;
   font-size: 15px;
   color: #333;
+  word-break: break-word;
 }
 
-/* Zebra stripes */
+/* Zebra row background */
 .ag-theme-alpine .ag-row:nth-child(even) .ag-cell {
-  background-color: #f9fbfc;
+  background-color: #ffffff;
 }

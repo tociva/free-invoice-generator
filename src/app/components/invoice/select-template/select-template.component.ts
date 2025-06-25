@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,6 +36,7 @@ import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { Invoice, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-select-template',
@@ -55,6 +56,7 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
   styleUrl: './select-template.component.scss',
 })
 export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Input() stepper!: MatStepper;
   readonly separatorKeysCodes = [ENTER, COMMA];
   private store = inject<Store<TemplateState>>(Store);
   private destroy$ = new Subject<void>();
@@ -174,10 +176,16 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   previewTemplate(item: TemplateItem): void {
-    // Implementation placeholder
+  this.store.dispatch(setSelectedTemplatePath({ selectedTemplatePath: item.path }));
+  
+  // Move to the next step in the stepper
+  if (this.stepper) {
+    this.stepper.next();
   }
+}
+
 
   removeTag(tag: string) {
     this.store.dispatch(removeSearchTag({ tag }));

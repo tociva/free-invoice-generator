@@ -25,6 +25,7 @@ export enum InvoiceSummaryFormItem {
 }
 @Component({
   selector: 'app-invoice-summary',
+  standalone: true,
   imports: [
     CommonModule,
     AgGridModule,

@@ -1,20 +1,27 @@
-<mat-horizontal-stepper
-  [linear]="false"
-  #stepper
-  [selectedIndex]="stepIndex"
-  (selectionChange)="stepIndex = $event.selectedIndex"
->
+<mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex"
+  (selectionChange)="stepIndex = $event.selectedIndex">
 
   <!-- Step 1 -->
-  <mat-step label="My Organization Info & Logo">
-    <ng-container *ngIf="stepIndex === 0">
-      <app-invoice-organization></app-invoice-organization>
-      <app-invoice-logo></app-invoice-logo>
-    </ng-container>
-    <div class="stepper-actions">
-      <button mat-raised-button color="primary" class="next-btn1" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+ <mat-step label="My Organization Info & Logo">
+  <ng-container *ngIf="stepIndex === 0">
+    <div class="organization-layout">
+      <div class="organization-main">
+        <app-invoice-organization></app-invoice-organization>
+      </div>
+      <div class="organization-logo">
+        <app-invoice-logo></app-invoice-logo>
+      </div>
     </div>
-  </mat-step>
+  </ng-container>
+
+  <div class="stepper-actions">
+    <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
+      Next <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</mat-step>
+
+
 
   <!-- Step 2 -->
   <mat-step label="Customer and Invoice Details">
@@ -25,8 +32,9 @@
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn2" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn2" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+        <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
@@ -40,18 +48,20 @@
     </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn3" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+        <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
   <!-- Step 4 -->
   <mat-step label="Select a template">
     <ng-container *ngIf="stepIndex === 3">
-      <app-select-template></app-select-template>
+       <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next <mat-icon>arrow_forward</mat-icon></button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+        <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 

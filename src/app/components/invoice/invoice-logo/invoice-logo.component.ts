@@ -9,6 +9,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-logo',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
