@@ -28,6 +28,7 @@ export enum CustomerFormItem {
 }
 @Component({
   selector: 'app-invoice-customer',
+  standalone: true,
   imports: [
     CommonModule,
     AgGridModule
