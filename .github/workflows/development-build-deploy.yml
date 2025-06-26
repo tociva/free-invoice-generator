@@ -36,7 +36,9 @@ jobs:
       - name: Update Version
         id: version_bump
         run: |
-          BRANCH_NAME=${GITHUB_REF##*/} # Define first
+          
+          # Extract and export branch name
+          BRANCH_NAME=${GITHUB_REF##*/}
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
           yarn version apply patch # Correct for Yarn 2+ and 3+
@@ -71,9 +73,6 @@ jobs:
         run: |
           mkdir -p dist/free-invoice-generator/browser
           
-          # Extract and export branch name
-          BRANCH_NAME=${GITHUB_REF##*/}
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           
           # Write info.txt
           echo "branch : $BRANCH_NAME" > dist/free-invoice-generator/browser/info.txt
