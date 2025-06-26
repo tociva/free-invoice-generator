@@ -22,29 +22,26 @@ jobs:
           node-version: 22
           cache: 'yarn'
 
+      - name: Set Git User
+        run: |
+          git config --global user.email "princekfrancis@gmail.com"
+          git config --global user.name "Prince Francis"
+
       - name: Install dependencies with Yarn
         run: yarn install --frozen-lockfile
 
       - name: Build Angular App (production)
         run: yarn build --configuration production
 
-      - name: Increment version and push to master
+      - name: Update Version
+        id: version_bump
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-          # Increment version
           yarn version --patch --no-git-tag-version
-
-          # Get version from package.json and export to workflow env
           VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-          git add package.json
-          git commit -m "ci: bump version to $VERSION before deployment [skip ci]"
-          git push origin HEAD:master
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION_FULL="v${VERSION}-${BRANCH_NAME}"
+          echo "VERSION=v${VERSION}" >> $GITHUB_ENV
+          echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       
       - name: Add deployment info to info.txt
         run: |
@@ -57,6 +54,7 @@ jobs:
           # Write info.txt
           echo "branch : $BRANCH_NAME" > dist/free-invoice-generator/browser/info.txt
           echo "version : $VERSION" >> dist/free-invoice-generator/browser/info.txt
+          echo "version_full : $VERSION_FULL" >> dist/free-invoice-generator/browser/info.txt
           echo "time : $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> dist/free-invoice-generator/browser/info.txt
 
       - name: Deploy to Cloudflare Pages with Wrangler
@@ -91,7 +89,7 @@ jobs:
             - **Environment:** `Development`
             - **Branch:** `${BRANCH_NAME}`
             - **Version:** `${VERSION}`
-            - **Version Full Name:** `${BRANCH_NAME}-${VERSION}`
+            - **Version Full Name:** `${VERSION_FULL}`
             - **Release Date:** `${{ env.RELEASE_DATETIME }}`
             - **Released By:** `${{ env.RELEASE_USER }}`
           draft: false
