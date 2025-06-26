@@ -21,16 +21,16 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set Git User
-        run: |
-          git config --global user.email "princekfrancis@gmail.com"
-          git config --global user.name "Prince Francis"
+      # - name: Set Git User
+      #   run: |
+      #     git config --global user.email "princekfrancis@gmail.com"
+      #     git config --global user.name "Prince Francis"
 
-      - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+      # - name: Install dependencies with Yarn
+      #   run: yarn install --frozen-lockfile
 
-      - name: Build Angular App (production)
-        run: yarn build --configuration production
+      # - name: Build Angular App (production)
+      #   run: yarn build --configuration production
             
       - name: Update Version
         id: version_bump
