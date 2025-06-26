@@ -51,6 +51,7 @@ jobs:
       - name: Commit and Push Changes
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
         run: |
           git config --global user.email "prince.francis@tociva.com"
           git config --global user.name "Tociva Technologies"
@@ -84,7 +85,7 @@ jobs:
           # git push origin HEAD:$BRANCH_NAME
           # Use token-authenticated remote for push (bypass github-actions[bot])
           git config --global credential.helper ""
-          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
+          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
 
 
 
