@@ -48,10 +48,10 @@ jobs:
 
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
+
       - name: Commit and Push Changes
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.email "prince.francis@tociva.com"
           git config --global user.name "Tociva Technologies"
@@ -69,25 +69,7 @@ jobs:
 
           git add versions.md package.json
           git commit -m "CI: Bump version to $VERSION [skip ci]"
-
-          # 🔍 Test PAT authentication with GitHub API
-          curl -H "Authorization: token ${GH_PAT}" https://api.github.com/user
-
-          if [ $? -ne 0 ]; then
-            echo "❌ GitHub PAT authentication failed"
-            exit 1
-          else
-            echo "✅ GitHub PAT authentication successful"
-          fi
-
-          # ✅ Use PAT-authenticated URL for push
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
-          # git push origin HEAD:$BRANCH_NAME
-          # Use token-authenticated remote for push (bypass github-actions[bot])
-          git config --global credential.helper ""
-          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
-
-
+          git push
 
       - name: Add deployment info to info.txt
         run: |
