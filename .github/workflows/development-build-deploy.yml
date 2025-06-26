@@ -53,7 +53,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.email "prince.francis@tociva.com"
-          git config --global user.name "Prince Francis"
+          git config --global user.name "Tociva Technologies"
 
           CURRENT_DATE=$(date +"%Y-%m-%d")
           {
@@ -81,7 +81,10 @@ jobs:
 
           # ✅ Use PAT-authenticated URL for push
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
-          git push origin HEAD:$BRANCH_NAME
+          # git push origin HEAD:$BRANCH_NAME
+          # Use token-authenticated remote for push (bypass github-actions[bot])
+          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
+
 
       - name: Add deployment info to info.txt
         run: |
