@@ -69,7 +69,11 @@ jobs:
 
           git add versions.md package.json
           git commit -m "CI: Bump version to $VERSION [skip ci]"
-          git push
+
+          # ✅ Use PAT-authenticated URL for push
+          git remote set-url origin https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }}
+          git config --global credential.helper ""
+          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
 
       - name: Add deployment info to info.txt
         run: |
