@@ -43,6 +43,27 @@ jobs:
           echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
           echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CURRENT_DATE=$(date +"%Y-%m-%d")
+          {
+            echo "# Version Details"
+            echo "## Version: $VERSION"
+            echo "## Date: $CURRENT_DATE"
+            echo "BRANCH_NAME=$BRANCH_NAME"
+            echo "BUILD_VERSION=$VERSION_FULL"
+            echo ""
+            cat versions.md
+          } > versions.tmp && mv versions.tmp versions.md
+
+          git add versions.md
+          git add package.json
+          git commit -m "CI: Bump version to $VERSION [skip ci]"
+          git push origin HEAD:$BRANCH_NAME
+
       - name: Add deployment info to info.txt
         run: |
           mkdir -p dist/free-invoice-generator/browser
