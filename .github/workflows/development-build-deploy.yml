@@ -83,7 +83,9 @@ jobs:
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           # git push origin HEAD:$BRANCH_NAME
           # Use token-authenticated remote for push (bypass github-actions[bot])
-          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
+          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAMEgit config --global credential.helper ""
+          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
+
 
 
       - name: Add deployment info to info.txt
@@ -134,6 +136,6 @@ jobs:
           draft: false
           prerelease: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
