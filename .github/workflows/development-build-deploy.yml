@@ -83,7 +83,7 @@ jobs:
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           # git push origin HEAD:$BRANCH_NAME
           # Use token-authenticated remote for push (bypass github-actions[bot])
-          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAMEgit config --global credential.helper ""
+          git config --global credential.helper ""
           GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
 
 
