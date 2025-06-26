@@ -32,17 +32,20 @@ jobs:
 
       - name: Build Angular App (production)
         run: yarn build --configuration production
-
+      
       - name: Update Version
         id: version_bump
         run: |
-          yarn version --patch --no-git-tag-version
+          BRANCH_NAME=${GITHUB_REF##*/} # Define first
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+          yarn version apply patch # Correct for Yarn 2+ and 3+
+
           VERSION=$(node -p "require('./package.json').version")
           VERSION_FULL="v${VERSION}-${BRANCH_NAME}"
+
           echo "VERSION=v${VERSION}" >> $GITHUB_ENV
           echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
-          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      
 
       - name: Commit and Push Changes
         env:
