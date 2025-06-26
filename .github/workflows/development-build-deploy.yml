@@ -52,8 +52,8 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          # git config --global user.email "princekfrancis@gmail.com"
-          # git config --global user.name "Prince Francis"
+          git config --global user.email "prince.francis@tociva.com"
+          git config --global user.name "Prince Francis"
 
           CURRENT_DATE=$(date +"%Y-%m-%d")
           {
