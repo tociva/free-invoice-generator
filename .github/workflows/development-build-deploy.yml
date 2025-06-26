@@ -48,11 +48,13 @@ jobs:
 
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
-
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GT_PAT }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
+          git config --global user.email "princekfrancis@gmail.com"
+          git config --global user.name "Prince Francis"
+
           CURRENT_DATE=$(date +"%Y-%m-%d")
           {
             echo "# Version Details"
@@ -64,10 +66,11 @@ jobs:
             cat versions.md
           } > versions.tmp && mv versions.tmp versions.md
 
-          git remote set-url origin https://x-access-token:${{ secrets.GT_PAT }}@github.com/${{ github.repository }}
-          git add versions.md
-          git add package.json
+          git add versions.md package.json
           git commit -m "CI: Bump version to $VERSION [skip ci]"
+
+          # ✅ Use PAT-authenticated URL for push
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           git push origin HEAD:$BRANCH_NAME
 
       - name: Add deployment info to info.txt
@@ -119,6 +122,6 @@ jobs:
           draft: false
           prerelease: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GT_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
 
