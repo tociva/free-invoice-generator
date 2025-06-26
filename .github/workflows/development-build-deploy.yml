@@ -51,7 +51,8 @@ jobs:
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
         run: |
           git config --global user.email "prince.francis@tociva.com"
           git config --global user.name "Tociva Technologies"
