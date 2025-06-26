@@ -69,6 +69,16 @@ jobs:
           git add versions.md package.json
           git commit -m "CI: Bump version to $VERSION [skip ci]"
 
+          # 🔍 Test PAT authentication with GitHub API
+          curl -H "Authorization: token ${GH_PAT}" https://api.github.com/user
+
+          if [ $? -ne 0 ]; then
+            echo "❌ GitHub PAT authentication failed"
+            exit 1
+          else
+            echo "✅ GitHub PAT authentication successful"
+          fi
+
           # ✅ Use PAT-authenticated URL for push
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           git push origin HEAD:$BRANCH_NAME
@@ -76,7 +86,6 @@ jobs:
       - name: Add deployment info to info.txt
         run: |
           mkdir -p dist/free-invoice-generator/browser
-          
           
           # Write info.txt
           echo "branch : $BRANCH_NAME" > dist/free-invoice-generator/browser/info.txt
