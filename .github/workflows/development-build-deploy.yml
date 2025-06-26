@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'yarn'
 
       - name: Set Git User
         run: |
@@ -44,11 +43,10 @@ jobs:
           yarn version patch --no-git-tag-version
 
           VERSION=$(node -p "require('./package.json').version")
-          VERSION_FULL="v${VERSION}-${BRANCH_NAME}"
+          VERSION_FULL="${VERSION}-${BRANCH_NAME}"
 
-          echo "VERSION=v${VERSION}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
-
 
       - name: Commit and Push Changes
         env:
