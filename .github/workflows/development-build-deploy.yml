@@ -39,8 +39,9 @@ jobs:
           BRANCH_NAME=${GITHUB_REF##*/}
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-          # Bump patch version in Yarn 2+ or 3+
-          yarn version patch --no-git-tag-version
+          # Bump patch version in Yarn 4+
+          yarn version patch --deferred
+          yarn version apply
 
           VERSION=$(node -p "require('./package.json').version")
           VERSION_FULL="${VERSION}-${BRANCH_NAME}"
