@@ -51,7 +51,7 @@ jobs:
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           CURRENT_DATE=$(date +"%Y-%m-%d")
           {
@@ -118,6 +118,6 @@ jobs:
           draft: false
           prerelease: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
 
