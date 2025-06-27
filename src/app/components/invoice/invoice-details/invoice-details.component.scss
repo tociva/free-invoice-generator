@@ -19,3 +19,9 @@
   margin-bottom: 20px;
 }
 
+::ng-deep .mat-mdc-option.mdc-list-item{
+  background: rgba(0, 0, 0, 0);
+}
+::ng-deep div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{
+  background-color:#ffffff;
+}

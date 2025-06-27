@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,12 +14,27 @@ import { loadInvoice } from '../invoice/store/actions/invoice.action';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   isJsonDragOver = false;
   jsonFileName: string | null = null;
+  isMobile = false;
+
 
   constructor(private router: Router, private store: Store<InvoiceState>) {}
 
+  ngOnInit(): void {
+    this.checkIfMobile();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkIfMobile();
+  }
+
+  private checkIfMobile(): void {
+    this.isMobile = window.innerWidth <= 768;
+  }
+  
   goToInvoiceCreator(): void {
     void this.router.navigate(['/invoice'], { queryParams: { step: 0 } });
   }

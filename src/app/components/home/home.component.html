@@ -1,5 +1,12 @@
 <div class="full-page">
   <div class="content">
+
+    <!-- Mobile Warning -->
+    <div class="mobile-warning" *ngIf="isMobile">
+      ⚠️ The application is optimized to work on computer screens.<br />
+      Please use your personal computer for a better experience.
+    </div>
+    
     <p class="tagline">
       No signups. No credit card. Free & open source on 
       <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener">GitHub</a>.
