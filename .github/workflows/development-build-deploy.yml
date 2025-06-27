@@ -26,6 +26,37 @@ jobs:
           git config --global user.email "prince.francis@tociva.com"
           git config --global user.name "Tociva Technologies"
 
+      - name: Increment version
+        run: yarn version patch
+
+      - name: Get branch name
+        run: |
+          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          VERSION_FULL="v${VERSION}-${BRANCH_NAME}"
+          echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
+
+      - name: Update versions.md
+        run: |
+          CURRENT_DATE=$(date +"%Y-%m-%d")
+          {
+            echo "# Version Details"
+            echo "## Version: $VERSION"
+            echo "## Date: $CURRENT_DATE"
+            echo "BRANCH_NAME=$BRANCH_NAME"
+            echo "BUILD_VERSION=$VERSION_FULL"
+            echo ""
+            cat versions.md
+          } > versions.tmp && mv versions.tmp versions.md
+      
+      - name: Commit and Push Changes
+        run: |
+          git add package.json
+          git add versions.md
+          git commit -m "ci: bump version to $VERSION [skip ci]"
+          git push origin HEAD:$BRANCH_NAME
+
       - name: Install dependencies with Yarn
         run: yarn install --frozen-lockfile
 
@@ -50,5 +81,11 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Create and Push Tag
+        run: |
+          TAG_NAME="${{ env.VERSION_FULL }}"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
 
 
