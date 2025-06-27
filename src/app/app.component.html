@@ -10,8 +10,9 @@
 
   <span class="spacer"></span>
   <a href="#" mat-button (click)="navigateToSpecificPage('/'); $event.preventDefault()" class="menu-button">Home</a>
-  <a href="#"mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Create Invoice</a>
-  <a href="#"mat-button (click)="navigateToSpecificPage('/templates'); $event.preventDefault()" class="menu-button">Templates</a>
+  <a href="#" mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Create Invoice</a>
+  <a href="#" mat-button (click)="navigateToSpecificPage('/templates'); $event.preventDefault()" class="menu-button">Templates</a>
+  <a href="/docs" mat-button class="menu-button">Docs</a>
 </mat-toolbar>
 <div class="content">
   <router-outlet></router-outlet>  
