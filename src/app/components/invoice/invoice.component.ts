@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,7 @@ import { InvoiceOrganizationComponent } from './invoice-organization/invoice-org
 import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.component';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-invoice',
@@ -43,7 +44,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: { step?: string }) => {
@@ -60,5 +61,16 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
         this.stepper.selectedIndex = this.stepIndex;
       }
     });
+  }
+
+  gotToStep(step: number): void {
+    void this.router.navigate(['/invoice'], { queryParams: { step } });
+  }
+
+  onStepClick(event: StepperSelectionEvent): void {
+    void this.router.navigate(['/invoice'], { queryParams: { step: event.selectedIndex } });
+  }
+  onFinishClick(): void {
+    void this.router.navigate(['/']);
   }
 }
