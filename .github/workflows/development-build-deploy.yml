@@ -78,7 +78,7 @@ jobs:
         run: |
           yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
-            --branch main \
+            --branch ${{ env.VERSION_FULL }} \
             --format json > cloudflare.json
 
         env:
