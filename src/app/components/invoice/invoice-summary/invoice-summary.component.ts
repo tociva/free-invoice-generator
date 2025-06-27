@@ -50,6 +50,8 @@ export class InvoiceSummaryComponent implements OnDestroy {
   };
 
   totalInWords = '';
+  grandTotalValue = '';
+
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -99,6 +101,7 @@ export class InvoiceSummaryComponent implements OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
       const decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
+      this.grandTotalValue = numberToFixedDecimal(invoice.grandTotal, decimalPlaces);
       this.totalInWords = CurrencyUtil.numberToWords(invoice.grandTotal, decimalPlaces, invoice.internationalNumbering);
       const summaryRowData:FormColumnDef[] = [
         { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: numberToFixedDecimal(invoice.itemTotal, decimalPlaces) },
