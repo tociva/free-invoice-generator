@@ -21,11 +21,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set Git User
-        run: |
-          git config --global user.email "prince.francis@tociva.com"
-          git config --global user.name "Tociva Technologies"
-
       - name: Increment version
         run: yarn version patch
 
@@ -86,7 +81,31 @@ jobs:
       - name: Create and Push Tag
         run: |
           TAG_NAME="${{ env.VERSION_FULL }}"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           git tag $TAG_NAME
           git push origin $TAG_NAME
+
+      - name: Get User, Release Date and Time
+        run: |
+          echo "RELEASE_DATETIME=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_ENV
+          echo "RELEASE_USER=${{ github.actor }}" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: '${{ TAG_NAME }}'
+          name: 'Development Release ${{ env.VERSION_FULL }}'
+          body: |
+            ## Release Details
+            - **Title:** `Development Release ${{ env.VERSION_FULL }}`
+            - **Environment:** `Development`
+            - **Branch:** `${{ env.BRANCH_NAME }}`
+            - **Version:** `${{ env.VERSION }}`
+            - **Version Full Name:** `${{ env.VERSION_FULL }}`
+            - **Release Date:** `${{ env.RELEASE_DATETIME }}`
+            - **Released By:** `${{ env.RELEASE_USER }}`
+          draft: false
+          prerelease: true
 
 
