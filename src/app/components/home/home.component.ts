@@ -20,6 +20,10 @@ export class HomeComponent {
 
   constructor(private router: Router, private store: Store<InvoiceState>) {}
 
+  goToInvoiceCreator(): void {
+    void this.router.navigate(['/invoice'], { queryParams: { step: 0 } });
+  }
+
   onJsonDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isJsonDragOver = true;

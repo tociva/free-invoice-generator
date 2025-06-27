@@ -1,8 +1,8 @@
 <mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex"
-  (selectionChange)="stepIndex = $event.selectedIndex">
+  (selectionChange)="onStepClick($event)">
 
   <!-- Step 1 -->
- <mat-step label="My Organization Info & Logo">
+ <mat-step label="My Organization Info & Logo"  [completed]="isStepComplete">
   <ng-container *ngIf="stepIndex === 0">
     <div class="organization-layout">
       <div class="organization-main">
@@ -15,7 +15,7 @@
   </ng-container>
 
   <div class="stepper-actions">
-    <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">
+    <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(1)">
       Next <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>
@@ -24,7 +24,7 @@
 
 
   <!-- Step 2 -->
-  <mat-step label="Customer and Invoice Details">
+  <mat-step label="Customer and Invoice Details" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 1">
       <div class="card-container">
         <app-invoice-customer></app-invoice-customer>
@@ -32,14 +32,14 @@
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+      <button mat-button class="back-btn" (click)="gotToStep(0)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(2)">Next
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
   <!-- Step 3 -->
-  <mat-step label="Items and Summary">
+  <mat-step label="Items and Summary" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
       <div class="items-summary-layout">
         <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
@@ -47,32 +47,32 @@
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+      <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(3)">Next
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
   <!-- Step 4 -->
-  <mat-step label="Select a template">
+  <mat-step label="Select a template" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
        <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="stepper.next()">Next
+      <button mat-button class="back-btn" (click)="gotToStep(2)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(4)">Next
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
 
   <!-- Step 5 -->
-  <mat-step label="Preview and Download">
+  <mat-step label="Preview and Download" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 4">
       <app-preview-invoice></app-preview-invoice>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="accent" class="finish-btn"><mat-icon>check_circle</mat-icon> Finish</button>
+      <button mat-button class="back-btn" (click)="gotToStep(3)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="accent" class="finish-btn" (click)="onFinishClick()"><mat-icon>check_circle</mat-icon> Finish</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
