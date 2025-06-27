@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { combineLatest, filter, firstValueFrom, Subject, take, takeUntil } from 'rxjs';
+import { loadTemplates } from '../../templates/store/actions/template.actions';
 import { TemplateItem } from '../../templates/store/model/template.model';
 import { selectSelectedTemplateItem, selectTemplatesLoaded } from '../../templates/store/selectors/template.selector';
 import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
-import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { Invoice } from '../store/model/invoice.model';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { loadTemplates } from '../../templates/store/actions/template.actions';
+import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -153,10 +153,32 @@ onDrop(event: DragEvent): void {
   }
 }
 
-// eslint-disable-next-line class-methods-use-this
 processFile(file: File): void {
+
+  const name = file.name;
+  const extension = name.split('.').pop();
+  if (!['html', 'htm'].includes(extension || '')) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const template = e.target?.result as string;
+    
+    const html = TemplateUtil.fillTemplate(template, this.invoice);
+    const safeHTML = this.sanitizer.bypassSecurityTrustHtml(html);
+    this.selectedTemplate = {
+      name: file.name,
+      path: '',
+      tags: [],
+      html,
+      safeHTML,
+      template,
+      color: 'Blue',
+    };
+  };
+  reader.readAsText(file);
   
-  // TODO: implement file handling logic here (e.g. read content or upload)
 }
 
 
