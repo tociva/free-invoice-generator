@@ -1,9 +1,12 @@
-<div class="invoice-summary-card">
+<div class="card-container">
+  <div class="total-in-words-container">
+    <span class="total-in-words-value">{{ totalInWords }}</span>
+  </div>
+  <div class="invoice-summary-card">
 
-  <ag-grid-angular class="ag-theme-alpine address-grid" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
-    [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
-    [getRowId]="getRowId"></ag-grid-angular>
-</div>
-<div class="total-in-words-container">
-  <span class="total-in-words-value">{{ totalInWords }}</span>
+    <ag-grid-angular class="ag-theme-alpine address-grid" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
+      [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
+      [getRowId]="getRowId"></ag-grid-angular>
+  </div>
+
 </div>

@@ -63,11 +63,15 @@ export class InvoiceSummaryComponent implements OnDestroy {
 
   public summaryGridApi!: GridApi<FormColumnDef>;
 
-  private static findSummaryCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
-
-      return {component: LabelColumnRendererComponent,
-        params: {labelValue: params.data?.value ?? '', labelClass: 'content-label-right'}};
-  
+  private static findSummaryCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+    const isGrandTotal = params.data?.label === InvoiceSummaryFormItem.GRAND_TOTAL;
+    return {
+      component: LabelColumnRendererComponent,
+      params: {
+        labelValue: params.data?.value ?? '',
+        labelClass: isGrandTotal ? 'content-label-right bold-text' : 'content-label-right'
+      }
+    };
   };
 
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
