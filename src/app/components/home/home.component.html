@@ -1,5 +1,12 @@
 <div class="full-page">
   <div class="content">
+
+    <!-- Mobile Warning -->
+    <div class="mobile-warning" *ngIf="isMobile">
+      ⚠️ The application is optimized to work on computer screens.<br />
+      Please use your personal computer for a better experience.
+    </div>
+    
     <p class="tagline">
       <strong>No signups.</strong> No credit card.
     </p>
