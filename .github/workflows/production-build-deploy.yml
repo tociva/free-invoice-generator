@@ -1,0 +1,100 @@
+name: Build and Deploy to Production
+
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Enter the full version name from release tab'
+        required: true
+
+jobs:
+  build-and-deploy-production:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Set Git User
+        run: |
+          git config --global user.email "prince.francis@tociva.com"
+          git config --global user.name "Tociva Technologies"
+
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Checkout the specified tag
+        run: git checkout ${{ github.event.inputs.version_name }}
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
+
+      - name: Build Angular App (production)
+        run: yarn build --configuration production
+            
+      - name: Add deployment info to info.txt
+        run: |
+          mkdir -p dist/free-invoice-generator/browser
+          echo "version_full : $VERSION_FULL" >> dist/free-invoice-generator/browser/info.txt
+          echo "time : $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> dist/free-invoice-generator/browser/info.txt
+
+      - name: Deploy to Cloudflare Pages with Wrangler
+        run: |
+          yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
+            --project-name ${{ secrets.CF_PROJECT_NAME }} \
+            --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Get User, Release Date and Time
+        run: |
+          echo "RELEASE_DATETIME=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_ENV
+          echo "RELEASE_USER=${{ github.actor }}" >> $GITHUB_ENV
+
+      - name: Check if Release Exists
+        id: check_release
+        run: |
+          if gh release view "${{ github.event.inputs.version_name }}" &>/dev/null; then
+            echo "EXISTING_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "EXISTING_RELEASE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Create New GitHub Release
+        if: env.EXISTING_RELEASE == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: '${{ github.event.inputs.version_name }}'
+          name: 'Production Release ${{ github.event.inputs.version_name }}'
+          body: |
+            ## Release Details
+            - **Environment:** `Production`
+            - **Version Full Name:** `${{ github.event.inputs.version_name }}`
+            - **Release Date:** `${{ env.RELEASE_DATETIME }}`
+            - **Released By:** `${{ env.RELEASE_USER }}`
+            - **Deployed to environment:** `Production`
+          draft: false
+          prerelease: false
+
+      - name: Update Existing Release (Title and Body)
+        if: env.EXISTING_RELEASE == 'true'
+        run: |
+          CURRENT_BODY=$(gh release view "${{ github.event.inputs.version_name }}" --json body -q '.body')
+          UPDATED_BODY="$(printf "%s\n\n---\n\n## Production Release Details\n- **Title:** \`Production Release ${{ github.event.inputs.version_name }}\`\n- **Environment:** \`Production\`\n- **Release Deployed Date:** \`${{ env.RELEASE_DATETIME }}\`\n- **Deployed By:** \`${{ env.RELEASE_USER }}\`" "$CURRENT_BODY")"
+          gh release edit "${{ github.event.inputs.version_name }}" \
+            --title "Production Release ${{ github.event.inputs.version_name }} (Updated)" \
+            --notes "$UPDATED_BODY" \
+            --prerelease=false \
+            --latest
+
+

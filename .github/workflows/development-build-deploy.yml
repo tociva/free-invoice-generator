@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-and-deploy-development:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment: development
@@ -74,11 +74,6 @@ jobs:
           echo "version_full : $VERSION_FULL" >> dist/free-invoice-generator/browser/info.txt
           echo "time : $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> dist/free-invoice-generator/browser/info.txt
 
-      - name: Sanitize branch name
-        run: |
-          SAFE_BRANCH_NAME="${BRANCH_NAME//\//-}"
-          echo "SAFE_BRANCH_NAME=$SAFE_BRANCH_NAME" >> $GITHUB_ENV
-          
       - name: Deploy to Cloudflare Pages with Wrangler
         run: |
           yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
