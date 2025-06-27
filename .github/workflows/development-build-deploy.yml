@@ -74,22 +74,20 @@ jobs:
           echo "version_full : $VERSION_FULL" >> dist/free-invoice-generator/browser/info.txt
           echo "time : $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> dist/free-invoice-generator/browser/info.txt
 
+      - name: Sanitize branch name
+        run: |
+          SAFE_BRANCH_NAME="${BRANCH_NAME//\//-}"
+          echo "SAFE_BRANCH_NAME=$SAFE_BRANCH_NAME" >> $GITHUB_ENV
+          
       - name: Deploy to Cloudflare Pages with Wrangler
         run: |
           yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
-            --branch ${{ env.VERSION_FULL }}
-
+            --branch ${{ env.SAFE_BRANCH_NAME }} \
+            --environment production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
-
-      - name: Extract Cloudflare Deployment URL
-        id: extract_url
-        run: |
-          URL=$(jq -r '.url' cloudflare.json)
-          echo "CF_PAGES_URL=$URL" >> $GITHUB_ENV
-
 
       - name: Create and Push Tag
         run: |
