@@ -86,7 +86,6 @@ jobs:
       - name: Create and Push Tag
         run: |
           TAG_NAME="${{ env.VERSION_FULL }}"
-          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           git tag $TAG_NAME
           git push origin $TAG_NAME
 
@@ -99,7 +98,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: '${{ env.TAG_NAME }}'
+          tag_name: '${{ env.VERSION_FULL }}'
           name: 'Development Release ${{ env.VERSION_FULL }}'
           body: |
             ## Release Details

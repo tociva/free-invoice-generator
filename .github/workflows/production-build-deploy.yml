@@ -12,6 +12,8 @@ jobs:
   build-and-deploy-production:
     runs-on: ubuntu-latest
     environment: production
+    env:
+      VERSION_FULL: ${{ github.event.inputs.version_name }}
 
     steps:
       - name: Set Git User
@@ -28,7 +30,7 @@ jobs:
         run: git fetch --tags
 
       - name: Checkout the specified tag
-        run: git checkout ${{ github.event.inputs.version_name }}
+        run: git checkout ${{ env.VERSION_FULL }}
 
       - name: Set up Node 22
         uses: actions/setup-node@v4
@@ -64,7 +66,7 @@ jobs:
       - name: Check if Release Exists
         id: check_release
         run: |
-          if gh release view "${{ github.event.inputs.version_name }}" &>/dev/null; then
+          if gh release view "${{ env.VERSION_FULL }}" &>/dev/null; then
             echo "EXISTING_RELEASE=true" >> $GITHUB_ENV
           else
             echo "EXISTING_RELEASE=false" >> $GITHUB_ENV
@@ -74,12 +76,12 @@ jobs:
         if: env.EXISTING_RELEASE == 'false'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: '${{ github.event.inputs.version_name }}'
-          name: 'Production Release ${{ github.event.inputs.version_name }}'
+          tag_name: '${{ env.VERSION_FULL }}'
+          name: 'Production Release ${{ env.VERSION_FULL }}'
           body: |
             ## Release Details
             - **Environment:** `Production`
-            - **Version Full Name:** `${{ github.event.inputs.version_name }}`
+            - **Version Full Name:** `${{ env.VERSION_FULL }}`
             - **Release Date:** `${{ env.RELEASE_DATETIME }}`
             - **Released By:** `${{ env.RELEASE_USER }}`
             - **Deployed to environment:** `Production`
@@ -89,10 +91,10 @@ jobs:
       - name: Update Existing Release (Title and Body)
         if: env.EXISTING_RELEASE == 'true'
         run: |
-          CURRENT_BODY=$(gh release view "${{ github.event.inputs.version_name }}" --json body -q '.body')
-          UPDATED_BODY="$(printf "%s\n\n---\n\n## Production Release Details\n- **Title:** \`Production Release ${{ github.event.inputs.version_name }}\`\n- **Environment:** \`Production\`\n- **Release Deployed Date:** \`${{ env.RELEASE_DATETIME }}\`\n- **Deployed By:** \`${{ env.RELEASE_USER }}\`" "$CURRENT_BODY")"
-          gh release edit "${{ github.event.inputs.version_name }}" \
-            --title "Production Release ${{ github.event.inputs.version_name }} (Updated)" \
+          CURRENT_BODY=$(gh release view "${{ env.VERSION_FULL }}" --json body -q '.body')
+          UPDATED_BODY="$(printf "%s\n\n---\n\n## Production Release Details\n- **Title:** \`Production Release ${{ env.VERSION_FULL }}\`\n- **Environment:** \`Production\`\n- **Release Deployed Date:** \`${{ env.RELEASE_DATETIME }}\`\n- **Deployed By:** \`${{ env.RELEASE_USER }}\`" "$CURRENT_BODY")"
+          gh release edit "${{ env.VERSION_FULL }}" \
+            --title "Production Release ${{ env.VERSION_FULL }} (Updated)" \
             --notes "$UPDATED_BODY" \
             --prerelease=false \
             --latest
