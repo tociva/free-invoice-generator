@@ -12,16 +12,13 @@
 
 
 .total-in-words-container {
-  background-color: #fafafa;
-  border-top: 1px solid #e0e0e0;
   padding: 12px 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 13px;
   font-weight: 500;
   color: #444;
   border-radius: 6px;
+  margin-right: 300px;
+  margin-top: 100px;
 }
 
 .total-in-words-label {
@@ -30,11 +27,22 @@
 }
 
 .total-in-words-value {
-  font-size: large;
+  font-size: xx-large;
   font-weight: 600;
-  font-style:normal;
+  font-style: normal;
   color: #000000;
+  text-align: left;
 }
+
 .no-header .ag-header {
   display: none !important;
+}
+
+.card-container {
+  display: flex;
+
+}
+.bold-text {
+  font-weight: bold;
+  font-size: 16px;
 }

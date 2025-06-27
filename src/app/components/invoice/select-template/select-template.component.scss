@@ -59,8 +59,16 @@
 }
 
 .card-title {
-  cursor: pointer;
-  color: #000000;
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  &:hover {
+    color: #367588;
+  }
 }
 
 .card-preview {
