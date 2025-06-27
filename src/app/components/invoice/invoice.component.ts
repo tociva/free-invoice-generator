@@ -36,6 +36,9 @@ import { SelectTemplateComponent } from './select-template/select-template.compo
   styleUrls: ['./invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit, AfterViewInit {
+
+  isStepComplete = false;
+
   stepIndex = 0;
 
   @ViewChild('stepper') stepper!: MatStepper;

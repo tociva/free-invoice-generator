@@ -2,7 +2,7 @@
   (selectionChange)="stepIndex = $event.selectedIndex">
 
   <!-- Step 1 -->
- <mat-step label="My Organization Info & Logo">
+ <mat-step label="My Organization Info & Logo"  [completed]="isStepComplete">
   <ng-container *ngIf="stepIndex === 0">
     <div class="organization-layout">
       <div class="organization-main">
@@ -24,7 +24,7 @@
 
 
   <!-- Step 2 -->
-  <mat-step label="Customer and Invoice Details">
+  <mat-step label="Customer and Invoice Details" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 1">
       <div class="card-container">
         <app-invoice-customer></app-invoice-customer>
@@ -39,7 +39,7 @@
   </mat-step>
 
   <!-- Step 3 -->
-  <mat-step label="Items and Summary">
+  <mat-step label="Items and Summary" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
       <div class="items-summary-layout">
         <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
@@ -54,7 +54,7 @@
   </mat-step>
 
   <!-- Step 4 -->
-  <mat-step label="Select a template">
+  <mat-step label="Select a template" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
        <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
@@ -66,7 +66,7 @@
   </mat-step>
 
   <!-- Step 5 -->
-  <mat-step label="Preview and Download">
+  <mat-step label="Preview and Download" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 4">
       <app-preview-invoice></app-preview-invoice>
     </ng-container>
