@@ -54,7 +54,7 @@ jobs:
             --branch main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
 
       - name: Get User, Release Date and Time
         run: |
