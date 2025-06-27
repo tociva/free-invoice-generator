@@ -73,10 +73,19 @@ jobs:
         run: |
           yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
-            --branch main
+            --branch $BRANCH_NAME
+            --format json > cloudflare.json
+
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Extract Cloudflare Deployment URL
+        id: extract_url
+        run: |
+          URL=$(jq -r '.url' cloudflare.json)
+          echo "CF_PAGES_URL=$URL" >> $GITHUB_ENV
+
 
       - name: Create and Push Tag
         run: |
@@ -105,6 +114,7 @@ jobs:
             - **Version Full Name:** `${{ env.VERSION_FULL }}`
             - **Release Date:** `${{ env.RELEASE_DATETIME }}`
             - **Released By:** `${{ env.RELEASE_USER }}`
+            - **Cloudflare Pages URL:** `${{ env.CF_PAGES_URL }}`
           draft: false
           prerelease: true
 
