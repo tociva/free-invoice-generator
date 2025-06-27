@@ -52,7 +52,8 @@ export class TemplateUtil {
       .replace('[[grand_total]]', invoice.grandTotal.toFixed(2))
       .replace('[[grand_total_inwords]]', invoice.grandTotalInWords)
       .replace('[[logo_small_src]]', invoice.smallLogo || '')
-      .replace('[[logo_large_src]]', invoice.largeLogo || '');
+      .replace('[[logo_large_src]]', invoice.largeLogo || '')
+      .replace('[[currency_symbol]]', String.fromCharCode(parseInt(invoice.currency.unicode, 16)));
     return htmlS;
   
   }
