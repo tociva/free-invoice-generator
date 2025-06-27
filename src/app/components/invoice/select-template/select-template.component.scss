@@ -1,51 +1,56 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 2rem;
   min-height: 100vh;
-  gap: 24px;
+  gap: 2rem;
+  box-sizing: border-box;
 }
 
 .top-filter {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-}
+  justify-content: center;
+  gap: 1rem;
 
-.compact-chip-field {
-  width: 400px;
-  max-width: 100%;
-  border-radius: 8px;
+  mat-form-field {
+    flex: 1;
+    min-width: 260px;
+    max-width: 480px;
+    background: white;
+    border-radius: 8px;
+    padding: 0 8px;
+  }
 }
 
 .template-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 320px)); // Fixed width
-  justify-content: center; // Center align grid items
-  gap: 24px;
+   display: flex;
+  flex-wrap: wrap;             
+  justify-content: center;    
+  gap: 1%;
   width: 100%;
-  overflow-x: auto;
   padding-bottom: 24px;
+  box-sizing: border-box;
 }
 
 .template-card {
-  width: 320px; // Fixed width
-  background: white;
-  border-radius: 10px;
+  width: 18%;   
+  min-width: 230px;
+  background: #fff;
+  border-radius: 12px;
   overflow: hidden;
-  border: 2px solid transparent;
   transition: 0.3s ease all;
-
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
   &.selected {
     border-color: #367588;
-    background-color: #e8ecfa;
-    box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+    background-color: #eef4fb;
+    box-shadow: 0 4px 12px rgba(54, 117, 136, 0.3);
   }
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -54,31 +59,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background-color: #f8f9fb;
-  border-bottom: 1px solid #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 1rem;
+  background: #f1f3f5;
+  border-bottom: 2px solid #b5d1d4;
 
   .card-title {
-    font-size: 16px;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #1e1e1e;
+    color: #333;
     cursor: pointer;
-    transition: color 0.25s ease;
 
-    &:hover {
-      color: #367588;
-    }
-
+    &:hover,
     &:focus {
-      outline: none;
       color: #367588;
+      outline: none;
     }
   }
 
   button[mat-icon-button] {
     color: #666;
-    transition: color 0.2s ease;
 
     &:hover {
       color: #367588;
@@ -88,31 +87,29 @@
 
 .card-preview {
   position: relative;
-  height: 400px;
+  height: 350px;
+  background: #fcfcfc;
 }
 
 .preview-iframe {
   width: 100%;
   height: 100%;
   border: none;
-  display: block;
 }
-
 
 .overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   cursor: pointer;
-  z-index: 5;
 }
 
 .paginator {
   align-self: center;
-  background: white;
-  padding: 12px;
-  border-top: 1px solid #eee;
-  border-radius: 10px;
-  width: 100%;
+  background: #fff;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   max-width: 100%;
-  overflow-x: auto;
 }
