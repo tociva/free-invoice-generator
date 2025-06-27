@@ -24,7 +24,7 @@
 .template-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 320px)); // Fixed width
-  justify-content: center; // Center cards when fewer columns
+  justify-content: center; // Center align grid items
   gap: 24px;
   width: 100%;
   overflow-x: auto;
@@ -40,7 +40,7 @@
   transition: 0.3s ease all;
 
   &.selected {
-    border-color: #3f51b5;
+    border-color: #367588;
     background-color: #e8ecfa;
     box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
   }
@@ -51,18 +51,41 @@
 }
 
 .card-header {
-  padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f0f2f5;
+  padding: 12px 16px;
+  background-color: #f8f9fb;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e1e1e;
+    cursor: pointer;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: #367588;
+    }
+
+    &:focus {
+      outline: none;
+      color: #367588;
+    }
+  }
+
+  button[mat-icon-button] {
+    color: #666;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #367588;
+    }
+  }
 }
 
-.card-title {
-  cursor: pointer;
-  color: #000000;
-  font-weight: 500;
-}
 
 .template-actions {
   display: flex;

@@ -1,4 +1,5 @@
 .invoice-summary-card {
+  width: 100%;
   width: 420px;
   background: #ffffff;
   border-radius: 10px;
@@ -12,6 +13,8 @@
 
 
 .total-in-words-container {
+   background-color: #fafafa;
+  border-top: 2px solid #e0e0e0;
   padding: 12px 8px;
   font-size: 13px;
   font-weight: 500;
@@ -19,6 +22,7 @@
   border-radius: 6px;
   margin-right: 300px;
   margin-top: 100px;
+  
 }
 
 .total-in-words-label {
@@ -28,7 +32,7 @@
 
 .total-in-words-value {
   font-size: xx-large;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   color: #000000;
   text-align: left;
@@ -45,4 +49,11 @@
 .bold-text {
   font-weight: bold;
   font-size: 16px;
+}
+.grand-total-number {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 8px;
+  text-align: center;
 }
