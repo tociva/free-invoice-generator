@@ -21,61 +21,17 @@ jobs:
         with:
           node-version: 22
 
-      # - name: Set Git User
-      #   run: |
-      #     git config --global user.email "princekfrancis@gmail.com"
-      #     git config --global user.name "Prince Francis"
-
-      # - name: Install dependencies with Yarn
-      #   run: yarn install --frozen-lockfile
-
-      # - name: Build Angular App (production)
-      #   run: yarn build --configuration production
-            
-      - name: Update Version
-        id: version_bump
-        run: |
-          # Extract and export branch name
-          BRANCH_NAME=${GITHUB_REF##*/}
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-
-          # Bump patch version in Yarn 4+
-          yarn version patch --deferred
-          yarn version apply
-
-          VERSION=$(node -p "require('./package.json').version")
-          VERSION_FULL="${VERSION}-${BRANCH_NAME}"
-
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "VERSION_FULL=$VERSION_FULL" >> $GITHUB_ENV
-
-      - name: Commit and Push Changes
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+      - name: Set Git User
         run: |
           git config --global user.email "prince.francis@tociva.com"
           git config --global user.name "Tociva Technologies"
 
-          CURRENT_DATE=$(date +"%Y-%m-%d")
-          {
-            echo "# Version Details"
-            echo "## Version: $VERSION"
-            echo "## Date: $CURRENT_DATE"
-            echo "BRANCH_NAME=$BRANCH_NAME"
-            echo "BUILD_VERSION=$VERSION_FULL"
-            echo ""
-            cat versions.md
-          } > versions.tmp && mv versions.tmp versions.md
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
 
-          git add versions.md package.json
-          git commit -m "CI: Bump version to $VERSION [skip ci]"
-
-          # ✅ Use PAT-authenticated URL for push
-          git remote set-url origin https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }}
-          git config --global credential.helper ""
-          GIT_TRACE=1 GIT_CURL_VERBOSE=1 git push https://${GH_USERNAME}:${GH_PAT}@github.com/${{ github.repository }} HEAD:$BRANCH_NAME
-
+      - name: Build Angular App (production)
+        run: yarn build --configuration production
+            
       - name: Add deployment info to info.txt
         run: |
           mkdir -p dist/free-invoice-generator/browser
@@ -94,36 +50,5 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/**
-            
-      - name: Get User, Release Date and Time
-        run: |
-          echo "RELEASE_DATETIME=$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_ENV
-          echo "RELEASE_USER=${{ github.actor }}" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: '${BRANCH_NAME}-${VERSION}'
-          name: 'Development Release ${BRANCH_NAME}-${VERSION}'
-          body: |
-            ## Release Details
-            - **Title:** `Development Release ${BRANCH_NAME}-${VERSION}`
-            - **Environment:** `Development`
-            - **Branch:** `${BRANCH_NAME}`
-            - **Version:** `${VERSION}`
-            - **Version Full Name:** `${VERSION_FULL}`
-            - **Release Date:** `${{ env.RELEASE_DATETIME }}`
-            - **Released By:** `${{ env.RELEASE_USER }}`
-          draft: false
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
