@@ -15,6 +15,7 @@ import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary.compo
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
 import { SelectTemplateComponent } from './select-template/select-template.component';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { CloudDataService } from '../../services/cloud-data.service';
 
 @Component({
   selector: 'app-invoice',
@@ -44,7 +45,9 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+    private cloudDataService: CloudDataService
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: { step?: string }) => {
@@ -64,13 +67,16 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   }
 
   gotToStep(step: number): void {
+    void this.cloudDataService.trackEvent(`from-invoice-creator-button-step-${this.stepIndex}-to-step-${step}`);
     void this.router.navigate(['/invoice'], { queryParams: { step } });
   }
 
   onStepClick(event: StepperSelectionEvent): void {
+    void this.cloudDataService.trackEvent(`from-invoice-creator-stepper-step-${this.stepIndex}-to-step-${event.selectedIndex}`);
     void this.router.navigate(['/invoice'], { queryParams: { step: event.selectedIndex } });
   }
   onFinishClick(): void {
+    void this.cloudDataService.trackEvent('from-invoice-creator-finish-to-home');
     void this.router.navigate(['/']);
   }
 }

@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { InvoiceState } from '../invoice/store/state/invoice.state';
 import { Invoice } from '../invoice/store/model/invoice.model';
 import { loadInvoice } from '../invoice/store/actions/invoice.action';
+import { CloudDataService } from '../../services/cloud-data.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,9 @@ export class HomeComponent implements OnInit {
   isMobile = false;
 
 
-  constructor(private router: Router, private store: Store<InvoiceState>) {}
+  constructor(private router: Router, private store: Store<InvoiceState>,
+    private cloudDataService: CloudDataService
+  ) {}
 
   ngOnInit(): void {
     this.checkIfMobile();
@@ -36,6 +39,7 @@ export class HomeComponent implements OnInit {
   }
   
   goToInvoiceCreator(): void {
+    void this.cloudDataService.trackEvent('from-home-to-invoice-creator');
     void this.router.navigate(['/invoice'], { queryParams: { step: 0 } });
   }
 
@@ -83,6 +87,7 @@ export class HomeComponent implements OnInit {
           const invoice:Invoice = JSON.parse(reader.result as string);
   
           this.store.dispatch(loadInvoice({ invoice }));
+          void this.cloudDataService.trackEvent('from-home-import-invoice-to-invoice-creator');
           void this.router.navigate(['/invoice'], { queryParams: { step: 3 } });
         } catch (err) {
           console.error('Invalid JSON file:', err);

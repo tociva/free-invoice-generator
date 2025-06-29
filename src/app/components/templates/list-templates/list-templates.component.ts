@@ -23,6 +23,7 @@ import { selectTags } from '../store/selectors/tag.selectors';
 import { selectFilteredTemplateItemCount, selectPageSize, selectPaginatedTemplateItems, selectSearchTags } from '../store/selectors/template.selector';
 import { TemplateState } from '../store/state/template.state';
 import { sampleInvoice } from './list-templates.util';
+import { CloudDataService } from '../../../services/cloud-data.service';
 
 @Component({
   selector: 'app-list-templates',
@@ -55,6 +56,7 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
     private templateService: TemplateService,
     private http: HttpClient,
     private dialog: MatDialog,
+    private cloudDataService: CloudDataService
   ) {}
 
   ngOnInit() {
@@ -115,6 +117,8 @@ export class ListTemplatesComponent implements OnInit, AfterViewInit {
       maxWidth: '100vw',
       panelClass: 'a4-dialog'
     });
+
+    void this.cloudDataService.trackEvent('from-templates-list-to-invoice-preview');
   }
 
   removeTag(tag: string) {

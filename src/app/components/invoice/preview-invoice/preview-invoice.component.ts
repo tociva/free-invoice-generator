@@ -13,6 +13,7 @@ import { TemplateState } from '../../templates/store/state/template.state';
 import { TemplateUtil } from '../../util/template.util';
 import { Invoice } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
+import { CloudDataService } from '../../../services/cloud-data.service';
 
 @Component({
   selector: 'app-preview-invoice',
@@ -38,7 +39,8 @@ export class PreviewInvoiceComponent implements OnInit {
   constructor(
     private store: Store<TemplateState>,
     private sanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    private cloudDataService: CloudDataService
   ) {
   }
 
@@ -82,13 +84,15 @@ export class PreviewInvoiceComponent implements OnInit {
   }
 
 
-  // eslint-disable-next-line class-methods-use-this
+   
  downloadPDF(template: TemplateItem): void {
+  void this.cloudDataService.trackEvent('downloaded-pdf-from-preview-invoice');
   TemplateUtil.downloadTemplateAsPDF(template);
 }
 
-// eslint-disable-next-line class-methods-use-this
+ 
 downloadHTML(template: TemplateItem): void {
+  void this.cloudDataService.trackEvent('downloaded-html-from-preview-invoice');
   TemplateUtil.downloadTemplateAsHTML(template);
 }
 printTemplate(): void {
@@ -97,9 +101,11 @@ printTemplate(): void {
       iframe.contentWindow.focus();
       iframe.contentWindow.print();
     }
+    void this.cloudDataService.trackEvent('printed-invoice-from-preview-invoice');
   }
  
 downloadJSON(): void {
+  void this.cloudDataService.trackEvent('downloaded-json-from-preview-invoice');
   const fileName = 'invoice.json';
   const json = JSON.stringify(this.invoice, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
@@ -114,6 +120,7 @@ downloadJSON(): void {
 }
 // in TemplateUtil.ts
 downloadTemplate(): void {
+  void this.cloudDataService.trackEvent('downloaded-template-from-preview-invoice');
   const template = this.selectedTemplate;
   const blob = new Blob([template?.html || ''], { type: 'text/html' });
   const url = window.URL.createObjectURL(blob);
@@ -176,6 +183,7 @@ processFile(file: File): void {
       template,
       color: 'Blue',
     };
+    void this.cloudDataService.trackEvent(`selected-custom-template-in-preview-invoice/${file.name}`);
   };
   reader.readAsText(file);
   

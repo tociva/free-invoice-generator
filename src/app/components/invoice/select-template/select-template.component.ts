@@ -37,6 +37,7 @@ import { TemplateUtil } from '../../util/template.util';
 import { Invoice, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { MatStepper } from '@angular/material/stepper';
+import { CloudDataService } from '../../../services/cloud-data.service';
 
 @Component({
   selector: 'app-select-template',
@@ -77,6 +78,7 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private templateService: TemplateService,
     private http: HttpClient,
+    private cloudDataService: CloudDataService
   ) { }
 
   ngOnDestroy(): void {
@@ -189,20 +191,24 @@ export class SelectTemplateComponent implements OnInit, OnDestroy, AfterViewInit
 
   removeTag(tag: string) {
     this.store.dispatch(removeSearchTag({ tag }));
+    void this.cloudDataService.trackEvent(`removed-tag-in-template-list/${tag}`);
   }
 
   addTag(event: MatChipInputEvent) {
     if (event.value?.trim()) {
       this.store.dispatch(addSearchTag({ tag: event.value.trim() }));
+      void this.cloudDataService.trackEvent(`added-tag-in-template-list/${event.value.trim()}`);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent) {
     this.store.dispatch(addSearchTag({ tag: event.option.value }));
+    void this.cloudDataService.trackEvent(`selected-tag-in-template-list/${event.option.value}`);
   }
 
   onTemplateClick(template: TemplateItem): void {
     this.store.dispatch(setSelectedTemplatePath({ selectedTemplatePath: template.path }));
+    void this.cloudDataService.trackEvent(`selected-template-in-template-list/${template.path}`);
   }
 
 }

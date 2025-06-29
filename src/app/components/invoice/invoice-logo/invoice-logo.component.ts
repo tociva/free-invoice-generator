@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { Subject, takeUntil } from 'rxjs';
+import { CloudDataService } from '../../../services/cloud-data.service';
 
 @Component({
   selector: 'app-invoice-logo',
@@ -27,7 +28,9 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
   isLargeLogoDragOver = false;
   isSmallLogoDragOver = false;
   
-  constructor(private store:Store) {}
+  constructor(private store:Store,
+    private cloudDataService: CloudDataService
+  ) {}
 
   ngOnInit(): void {
     this.store.select(selectInvoice)
@@ -50,6 +53,7 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
       reader.onload = () => {
         this.smallLogoPreviewUrl = reader.result as string;
         this.store.dispatch(setInvoiceSmallLogo({ smallLogo: this.smallLogoPreviewUrl }));
+        void this.cloudDataService.trackEvent('updated-small-logo');
       };
       reader.readAsDataURL(file);
     } else {
@@ -63,6 +67,7 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
       reader.onload = () => {
         this.largeLogoPreviewUrl = reader.result as string;
         this.store.dispatch(setInvoiceLargeLogo({ largeLogo: this.largeLogoPreviewUrl }));
+        void this.cloudDataService.trackEvent('updated-large-logo');
       };
       reader.readAsDataURL(file);
     } else {
@@ -131,10 +136,12 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
   clearSmallLogo(): void {
     this.smallLogoPreviewUrl = null;
     this.store.dispatch(setInvoiceSmallLogo({ smallLogo: '' }));
+    void this.cloudDataService.trackEvent('cleared-small-logo');
   }
 
   clearLargeLogo(): void {
     this.largeLogoPreviewUrl = null;
     this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
+    void this.cloudDataService.trackEvent('cleared-large-logo');
   }
 }
