@@ -1,8 +1,12 @@
+
+<div class="mobile-step-title">
+  {{stepIndex + 1}}. {{ getStepLabel(stepIndex) }}
+</div>
 <mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex"
   (selectionChange)="onStepClick($event)">
 
   <!-- Step 1 -->
- <mat-step label="My Organization Info & Logo"  [completed]="isStepComplete">
+ <mat-step [label]="getStepLabel(0)"  [completed]="isStepComplete">
   <ng-container *ngIf="stepIndex === 0">
     <div class="organization-layout">
       <div class="organization-main">
@@ -21,10 +25,8 @@
   </div>
 </mat-step>
 
-
-
   <!-- Step 2 -->
-  <mat-step label="Customer and Invoice Details" [completed]="isStepComplete">
+  <mat-step [label]="getStepLabel(1)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 1">
       <div class="card-container">
         <app-invoice-customer></app-invoice-customer>
@@ -39,7 +41,7 @@
   </mat-step>
 
   <!-- Step 3 -->
-  <mat-step label="Items and Summary" [completed]="isStepComplete">
+  <mat-step [label]="getStepLabel(2)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
       <div class="items-summary-layout">
         <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
@@ -54,7 +56,7 @@
   </mat-step>
 
   <!-- Step 4 -->
-  <mat-step label="Select a template" [completed]="isStepComplete">
+  <mat-step [label]="getStepLabel(3)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
        <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
@@ -66,7 +68,7 @@
   </mat-step>
 
   <!-- Step 5 -->
-  <mat-step label="Preview and Download" [completed]="isStepComplete">
+  <mat-step [label]="getStepLabel(4)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 4">
       <app-preview-invoice></app-preview-invoice>
     </ng-container>

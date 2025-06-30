@@ -45,6 +45,14 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
+  private stepLabels = [
+    'My Organization Info & Logo',
+    'Customer and Invoice Details',
+    'Items and Summary',
+    'Select a template',
+    'Preview and Download'
+  ];
+
   constructor(private route: ActivatedRoute, private router: Router,
     private cloudDataService: CloudDataService
   ) { }
@@ -79,4 +87,16 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
     void this.cloudDataService.trackEvent('from-invoice-creator-finish-to-home');
     void this.router.navigate(['/']);
   }
+  getStepLabel(index: number): string {
+    return this.stepLabels[index];
+  }
+  onSwipeLeft() {
+    this.gotToStep(this.stepIndex + 1);
+  }
+  
+  onSwipeRight() {
+    this.gotToStep(this.stepIndex - 1);
+  }
+  
+  
 }
