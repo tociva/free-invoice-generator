@@ -1,19 +1,38 @@
 <mat-toolbar class="daybook-navbar">
   <span class="navbar-title"
-      role="button"
-      tabindex="0"
-      (click)="navigateToSpecificPage('/')"
-      (keydown.enter)="navigateToSpecificPage('/')"
-      (keydown.space)="navigateToSpecificPage('/')">
-  Free Invoice Generator by Daybook.Cloud
-</span>
+        role="button"
+        tabindex="0"
+        (click)="navigateToSpecificPage('/')"
+        (keydown.enter)="navigateToSpecificPage('/')"
+        (keydown.space)="navigateToSpecificPage('/')">
+    Free Invoice Generator by Daybook.Cloud
+  </span>
 
   <span class="spacer"></span>
-  <a href="#" mat-button (click)="navigateToSpecificPage('/'); $event.preventDefault()" class="menu-button">Home</a>
-  <a href="#" mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Create Invoice</a>
-  <a href="#" mat-button (click)="navigateToSpecificPage('/templates'); $event.preventDefault()" class="menu-button">Templates</a>
-  <a href="/docs" mat-button class="menu-button">Docs</a>
+
+  <!-- Desktop links -->
+  <nav class="desktop-menu">
+    <a href="#" mat-button (click)="navigateToSpecificPage('/'); $event.preventDefault()" class="menu-button">Home</a>
+    <a href="#" mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Create Invoice</a>
+    <a href="#" mat-button (click)="navigateToSpecificPage('/templates'); $event.preventDefault()" class="menu-button">Templates</a>
+    <a href="/docs" mat-button class="menu-button">Docs</a>
+  </nav>
+
+  <!-- Mobile hamburger (corrected) -->
+  <button mat-icon-button
+          class="mobile-menu-button"
+          [matMenuTriggerFor]="mobileMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
+
+<!-- Mobile Mat Menu -->
+<mat-menu #mobileMenu="matMenu"  xPosition="before">
+  <button mat-menu-item (click)="navigateToSpecificPage('/')">Home</button>
+  <button mat-menu-item (click)="navigateToSpecificPage('/invoice')">Create Invoice</button>
+  <button mat-menu-item (click)="navigateToSpecificPage('/templates')">Templates</button>
+  <button mat-menu-item (click)="navigateToExternalPage('/docs')">Docs</button>
+</mat-menu>
 <div class="content">
   <router-outlet></router-outlet>  
 </div>

@@ -4,9 +4,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CloudDataService } from './services/cloud-data.service';
 import { filter } from 'rxjs/operators';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule,],
+  imports: [RouterOutlet, MatToolbarModule, MatButtonModule, MatMenuModule, MatIconModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true
@@ -26,5 +29,10 @@ export class AppComponent {
 
   navigateToSpecificPage(path: string) {
     void this.router.navigate([path]);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  navigateToExternalPage(path: string) {
+    window.location.href = path;
   }
 }

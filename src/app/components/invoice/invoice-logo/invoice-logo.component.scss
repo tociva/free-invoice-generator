@@ -1,3 +1,5 @@
+@use '../../../../styles/variables' as *;
+
 .media-upload-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -114,7 +116,7 @@
         background-position: 100% 100%;
     }
 }
-@media (max-width: 900px) {
+@media (max-width: $breakpoint-mobile) {
   .media-upload-wrapper {
     justify-content: center;
     margin-top: 24px;

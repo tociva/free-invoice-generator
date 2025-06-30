@@ -222,8 +222,16 @@
   font-weight: 600;
   font-size: 0.95rem;
   display: none;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: $breakpoint-mobile) {
+  .content {
+    padding: 0px;
+  }
+  .full-page {
+    padding: 0px;
+  }
+  .mobile-warning {
     display: block;
   }
 }

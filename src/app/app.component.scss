@@ -6,17 +6,13 @@
   cursor: pointer;
 }
 
-.content {
+.app-content {
   flex: 1;
   padding: 16px;
   box-sizing: border-box;
-  min-height: calc(100vh - 128px); // Adjust depending on your toolbar + footer height
-  background-color: #FFFFFF; // or inherit based on your theme
+  min-height: calc(100vh - 128px);
+  background-color: #FFFFFF;
   overflow-x: hidden;
-
-  @media (max-width: 600px) {
-    padding: 12px;
-  }
 }
 
 .spacer {
@@ -26,18 +22,71 @@
 .daybook-navbar {
   background-color: $primary-color;
   color: $on-primary-color;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+
+  .navbar-title {
+    color: $on-primary-color;
+  }
+
+  .menu-button {
+    color: $on-primary-color;
+    text-transform: none;
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
 }
 
-::ng-deep .menu-button .mdc-button__label{
-  color:$on-primary-color;
+::ng-deep .menu-button .mdc-button__label {
+  color: $on-primary-color;
 }
 
 .footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 99.5%;
   text-align: center;
   padding: 3px;
   background-color: $primary-color;
   color: $on-primary-color;
 }
+
+// Responsive adjustments
+@media (max-width: $breakpoint-mobile) {
+  .app-content {
+    padding: 0;
+    min-height: calc(100vh - 128px);
+  }
+
+  .daybook-navbar {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 12px;
+
+    .navbar-title {
+      width: 90%;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .spacer {
+      display: none;
+    }
+
+    .desktop-menu {
+      display: none;
+    }
+
+    .mobile-menu-button {
+      display: inline-flex;
+      color: $on-primary-color;
+      margin-top: -4px;
+      margin-right: -8%;
+    }
+  }
+}
+

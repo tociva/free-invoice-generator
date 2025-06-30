@@ -1,3 +1,5 @@
+@use '../../../styles/variables' as *;
+
 // Stepper custom styles
 ::ng-deep .mat-horizontal-stepper-header-container {
     background-color: #ffffff !important;
@@ -58,21 +60,6 @@
 .next-btnn {
   margin-left: auto;
 }
-
-@media (max-width: 768px) {
-  .stepper-actions {
-    justify-content: center;
-
-    button {
-      width: 100%;
-      max-width: 250px;
-    }
-  }
-
-  .next-btnn {
-    margin-left: 0;
-  }
-}
 .card-container {
   display: flex;
   justify-content: center;
@@ -126,7 +113,19 @@
   max-width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: $breakpoint-mobile) {
+  .stepper-actions {
+    justify-content: center;
+
+    button {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+
+  .next-btnn {
+    margin-left: 0;
+  }
   .organization-layout {
     flex-direction: column;
   }
