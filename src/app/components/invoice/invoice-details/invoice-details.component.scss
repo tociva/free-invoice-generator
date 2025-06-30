@@ -1,14 +1,22 @@
+@use '../../../../styles/variables' as *;
 
+$mobile-breakpoint: 768px;
 
 .info-card {
   width: 100%;
-  max-width: 600px; /* increased from 480px */
+  max-width: 600px;
   background: #fff;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
   overflow: hidden;
+  margin: 0 auto;
+
+  @media (max-width: $mobile-breakpoint) {
+    max-width: 100%;
+    padding: 16px;
+  }
 }
 
 .card-title {
@@ -17,11 +25,31 @@
   color: #2c3e50;
   text-align: center;
   margin-bottom: 20px;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
 }
 
-::ng-deep .mat-mdc-option.mdc-list-item{
+.address-grid {
+  width: 100%;
+  font-size: 15px;
+  overflow-x: auto;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 14px;
+  }
+}
+
+.ag-theme-alpine.no-header .ag-header {
+  display: none;
+}
+
+/* Optional: Ensure proper padding on dropdown items */
+::ng-deep .mat-mdc-option.mdc-list-item {
   background: rgba(0, 0, 0, 0);
 }
-::ng-deep div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{
-  background-color:#ffffff;
+::ng-deep div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible {
+  background-color: #ffffff;
 }

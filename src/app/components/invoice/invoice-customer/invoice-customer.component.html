@@ -1,6 +1,7 @@
   <!-- Customer Details -->
   <div class="info-card">
     <h3 class="card-title">Customer Details</h3>
+    <div style="width: 100%; overflow-x: auto;">
     <ag-grid-angular
       class="ag-theme-alpine no-header address-grid"
       [rowData]="customerRowData"
@@ -12,4 +13,5 @@
       [headerHeight]="0"
       (gridReady)="onCustomerGridReady($event)">
     </ag-grid-angular>
+    </div>
   </div>

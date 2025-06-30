@@ -8,6 +8,7 @@
   padding: 2rem;
   min-height: 70vh;
   text-align: center;
+  overflow: hidden;
 
   .content {
     background: rgba(255, 255, 255, 0.85);
@@ -18,6 +19,7 @@
     width: 100%;
     animation: fadeIn 0.5s ease-out;
     backdrop-filter: blur(6px);
+    overflow-x: hidden;
   }
 }
 
@@ -110,11 +112,9 @@
       border-radius: 12px;
       pointer-events: none;
       z-index: 2;
-      background: repeating-linear-gradient(
-        135deg,
-        #9c9b9b 0 6px,
-        transparent 6px 12px
-      );
+      background: repeating-linear-gradient(135deg,
+          #9c9b9b 0 6px,
+          transparent 6px 12px);
       background-size: 200% 200%;
       animation: move-border 10s linear infinite;
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -129,6 +129,7 @@
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 100% 100%;
   }
@@ -206,6 +207,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -228,10 +230,16 @@
   .content {
     padding: 0px;
   }
+
   .full-page {
     padding: 0px;
   }
+
   .mobile-warning {
     display: block;
   }
+}
+
+::ng-deep .mat-mdc-menu-content {
+  background-color: white;
 }

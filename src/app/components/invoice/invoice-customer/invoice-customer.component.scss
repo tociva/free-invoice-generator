@@ -1,13 +1,22 @@
+@use '../../../../styles/variables' as *;
+
+$mobile-breakpoint: 768px;
 
 .info-card {
   width: 100%;
-  max-width: 600px; /* increased from 480px */
+  max-width: 600px;
   background: #fff;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
   overflow: hidden;
+  margin: 0 auto;
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 16px;
+    max-width: 100%;
+  }
 }
 
 .card-title {
@@ -16,4 +25,22 @@
   color: #2c3e50;
   text-align: center;
   margin-bottom: 20px;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+}
+
+.address-grid {
+  width: 100%;
+  overflow-x: auto;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 14px;
+  }
+}
+
+.ag-theme-alpine.no-header .ag-header {
+  display: none;
 }
