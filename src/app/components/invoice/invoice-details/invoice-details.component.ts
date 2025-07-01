@@ -56,7 +56,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     editable: false,
     resizable: true,
     sortable: false,
-    
+
   };
 
   gridOptions: GridOptions<FormColumnDef> = {
@@ -66,7 +66,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     enableBrowserTooltips: true,
   };
 
-  constructor(public store:Store) {}
+  constructor(public store: Store) { }
 
   private fetchCurrencies = (val?: string | Currency): Observable<Currency[]> => {
     // If val is of type Country, return empty array
@@ -79,7 +79,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     }
 
     const filterVal = val.toLowerCase();
-    return of(this.currencies 
+    return of(this.currencies
       .filter((currency) => currency.name.toLowerCase().startsWith(filterVal))
       .slice(0, OPTIONS_COUNT));
   };
@@ -87,13 +87,13 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   private fetchDateFormats = (val?: string | DateFormat): Observable<DateFormat[]> => {
     if (val && typeof val === 'object') {
       return of([]);
-        }
+    }
 
-        if (!val?.trim()) {
+    if (!val?.trim()) {
       return of(this.dateFormats.slice(0, OPTIONS_COUNT));
     }
 
-        const filterVal = val.toLowerCase();
+    const filterVal = val.toLowerCase();
     return of(this.dateFormats
       .filter((dateFormat) => dateFormat.name.toLowerCase().startsWith(filterVal))
       .slice(0, OPTIONS_COUNT));
@@ -103,7 +103,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     if (!val?.trim()) {
       return of(this.taxes);
     }
-        const filterVal = val.toLowerCase();
+    const filterVal = val.toLowerCase();
     return of(this.taxes.filter((option) => option.toLowerCase().indexOf(filterVal) !== -1));
   };
 
@@ -129,9 +129,9 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     params: {
       optionsFetcher: this.fetchDateFormats,
       displayWith: (params: DateFormat) => {
-        if(!params) {return '';}
+        if (!params) { return ''; }
         return params.value;
-    },
+      },
       onOptionSelected: this.handleDateFormatOptionSelected
     }
   });
@@ -140,19 +140,20 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   private handleTaxOptionChange = (option: TaxOption): void => {
     this.store.dispatch(setInvoiceTaxOption({ option }));
   };
-  
+
   private findDetailsEditorComponent = (cellParams: ICellEditorParams<FormColumnDef>) => {
 
     switch (cellParams.data.label) {
 
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
-        return { component: DatePickerEditorComponent,
+        return {
+          component: DatePickerEditorComponent,
           params: {
             format: (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value,
             value: cellParams.data.value
           }
-         };
+        };
 
       case InvoiceDetailsFormItem.CURRENCY:
         return this.findCurrencyEditorComponent(cellParams.data.value);
@@ -191,21 +192,25 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
   private findDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
 
-    
+
     switch (params.data?.label) {
 
       case InvoiceDetailsFormItem.CURRENCY:
-        { const cur = params.data.value as Currency;
-        return {
-          component: LabelColumnRendererComponent,
-          params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
-        }; }
+        {
+          const cur = params.data.value as Currency;
+          return {
+            component: LabelColumnRendererComponent,
+            params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
+          };
+        }
       case InvoiceDetailsFormItem.DATE_FORMAT:
-        { const dateFormat = params.data.value as DateFormat;
-        return {
-          component: LabelColumnRendererComponent,
-          params: { labelValue: dateFormat.value }
-        }; }
+        {
+          const dateFormat = params.data.value as DateFormat;
+          return {
+            component: LabelColumnRendererComponent,
+            params: { labelValue: dateFormat.value }
+          };
+        }
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleItemDescriptionToggle } };
 
@@ -216,10 +221,12 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleInternationalNumberingToggle } };
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
-        { const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
-        const date = params.data?.value as Date;
-        const dateText = dayjs(date).format(dateFormatText);
-        return { component: LabelColumnRendererComponent, params: { labelValue: dateText } }; }
+        {
+          const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
+          const date = params.data?.value as Date;
+          const dateText = dayjs(date).format(dateFormatText);
+          return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
+        }
 
     }
     if (!params.data?.value) {
@@ -234,26 +241,32 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   private handleInvoiceDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
     switch (event.data.label) {
       case InvoiceDetailsFormItem.INVOICE_DATE:
-        { const newDate = new Date(event.newValue);
-        const oldDate = new Date(event.oldValue);
-        if (newDate.getTime() !== oldDate.getTime()) {
-          this.store.dispatch(setInvoiceDate({ date: newDate }));
+        {
+          const newDate = new Date(event.newValue);
+          const oldDate = new Date(event.oldValue);
+          if (newDate.getTime() !== oldDate.getTime()) {
+            this.store.dispatch(setInvoiceDate({ date: newDate }));
+          }
+          break;
         }
-        break; }
       case InvoiceDetailsFormItem.DUE_DATE:
-        { const newDueDate = new Date(event.newValue);
-        const oldDueDate = new Date(event.oldValue);
-        if (newDueDate.getTime() !== oldDueDate.getTime()) {
-          this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
+        {
+          const newDueDate = new Date(event.newValue);
+          const oldDueDate = new Date(event.oldValue);
+          if (newDueDate.getTime() !== oldDueDate.getTime()) {
+            this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
+          }
+          break;
         }
-        break; }
       case InvoiceDetailsFormItem.DECIMAL_PLACES:
-        { const newDecimalPlaces = Number(event.newValue);
-        const oldDecimalPlaces = Number(event.oldValue);
-        if (newDecimalPlaces !== oldDecimalPlaces) {
-          this.store.dispatch(setInvoiceDecimalPlaces({ decimalPlaces: newDecimalPlaces }));
+        {
+          const newDecimalPlaces = Number(event.newValue);
+          const oldDecimalPlaces = Number(event.oldValue);
+          if (newDecimalPlaces !== oldDecimalPlaces) {
+            this.store.dispatch(setInvoiceDecimalPlaces({ decimalPlaces: newDecimalPlaces }));
+          }
+          break;
         }
-        break; }
     }
   };
 
@@ -277,12 +290,16 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   }
 
   invoiceDetailsColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150, flex: 1, },
+    {
+      field: 'label',
+      headerName: '',
+      flex: 1,
+      cellRendererSelector: InvoiceDetailsComponent.findDetailsLabelColumnRenderer,
+    },
     {
       field: 'value',
       headerName: '',
-      width: 200,
-       flex: 1,
+      flex: 2,
       editable: (params) => {
         const label = params.data?.label ?? '';
         const editableFields = [
@@ -315,6 +332,24 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       },
     }
   ];
+
+  private static findDetailsLabelColumnRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+    let tooltip = '';
+    switch (params.data?.label) {
+      case InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING:
+        tooltip = 'Use international numbering format (e.g., 1,000.00 vs 1.000,00)';
+        break;
+    }
+    return {
+      component: LabelColumnRendererComponent,
+      params: {
+        labelValue: params.data?.label ?? '',
+        tooltip,
+        maxLength: 10,
+      },
+    };
+  };
+
 
   onInvoiceDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.detailsGridApi = params.api;

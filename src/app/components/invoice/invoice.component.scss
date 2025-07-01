@@ -92,7 +92,6 @@
   flex-direction: row;
   flex-wrap: wrap; // ✅ allows wrapping to next line
   align-items: flex-start;
-  gap: 32px;
 }
 
 .organization-main {
@@ -103,6 +102,7 @@
 .organization-logo {
   flex: 0 0 300px;
   max-width: 100%;
+  
 }
 
 @media (max-width: $breakpoint-mobile) {
@@ -123,6 +123,7 @@
   }
   .organization-layout {
     flex-direction: column;
+    
   }
 
   .organization-logo {
@@ -135,6 +136,7 @@
   .organization-main {
     order: 1;
     width: 100%;
+    margin-bottom: 0;
   }
 
   .mobile-step-title {
@@ -155,4 +157,30 @@
    flex: 1 1 500px;
   min-width: 300px;
    
+}
+.mobile-step-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+
+  .mobile-step-title {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+  }
+
+  button {
+    color: #367588;
+  }
+}
+
+// Only show in mobile
+@media (max-width: 768px) {
+  .mobile-step-header {
+    display: flex;
+  }
 }

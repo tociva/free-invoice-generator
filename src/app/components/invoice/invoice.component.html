@@ -1,29 +1,39 @@
+<div class="mobile-step-header" *ngIf="isMobileView">
+  <button mat-icon-button (click)="goPrevious()" *ngIf="stepIndex > 0">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 
-<div class="mobile-step-title">
-  {{stepIndex + 1}}. {{ getStepLabel(stepIndex) }}
+  <div class="mobile-step-title">
+    {{ stepIndex + 1 }}. {{ getStepLabel(stepIndex) }}
+  </div>
+
+  <button mat-icon-button (click)="goNext()" [disabled]="stepIndex === 5">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
 </div>
-<mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex"
-  (selectionChange)="onStepClick($event)">
+
+
+<mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex" (selectionChange)="onStepClick($event)">
 
   <!-- Step 1 -->
- <mat-step [label]="getStepLabel(0)"  [completed]="isStepComplete">
-  <ng-container *ngIf="stepIndex === 0">
-    <div class="organization-layout">
-      <div class="organization-main">
-        <app-invoice-organization></app-invoice-organization>
+  <mat-step [label]="getStepLabel(0)" [completed]="isStepComplete">
+    <ng-container *ngIf="stepIndex === 0">
+      <div class="organization-layout">
+        <div class="organization-main">
+          <app-invoice-organization></app-invoice-organization>
+        </div>
+        <div class="organization-logo">
+          <app-invoice-logo></app-invoice-logo>
+        </div>
       </div>
-      <div class="organization-logo">
-        <app-invoice-logo></app-invoice-logo>
-      </div>
-    </div>
-  </ng-container>
+    </ng-container>
 
-  <div class="stepper-actions">
-    <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(1)">
-      Next <mat-icon>arrow_forward</mat-icon>
-    </button>
-  </div>
-</mat-step>
+    <div class="stepper-actions">
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(1)">
+        Next <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-step>
 
   <!-- Step 2 -->
   <mat-step [label]="getStepLabel(1)" [completed]="isStepComplete">
@@ -71,7 +81,7 @@
   <!-- Step 5 -->
   <mat-step [label]="getStepLabel(4)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 4">
-       <app-select-template [stepper]="stepper"></app-select-template>
+      <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="gotToStep(2)"><mat-icon>arrow_back</mat-icon> Back</button>
@@ -87,7 +97,8 @@
     </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="gotToStep(3)"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="accent" class="finish-btn" (click)="onFinishClick()"><mat-icon>check_circle</mat-icon> Finish</button>
+      <button mat-raised-button color="accent" class="finish-btn"
+        (click)="onFinishClick()"><mat-icon>check_circle</mat-icon> Finish</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
