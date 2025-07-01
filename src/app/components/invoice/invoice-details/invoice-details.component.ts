@@ -293,13 +293,15 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     {
       field: 'label',
       headerName: '',
-      flex: 1,
+      width: 150,
+      flex: 2,
       cellRendererSelector: InvoiceDetailsComponent.findDetailsLabelColumnRenderer,
     },
     {
       field: 'value',
       headerName: '',
-      flex: 2,
+      width: 200,
+      flex: 3,
       editable: (params) => {
         const label = params.data?.label ?? '';
         const editableFields = [
@@ -339,13 +341,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       case InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING:
         tooltip = 'Use international numbering format (e.g., 1,000.00 vs 1.000,00)';
         break;
+      // You can add more tooltips here for other labels if needed
     }
     return {
       component: LabelColumnRendererComponent,
       params: {
         labelValue: params.data?.label ?? '',
         tooltip,
-        maxLength: 10,
+        maxLength: 16,
       },
     };
   };
