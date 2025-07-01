@@ -1,55 +1,96 @@
-@use '../../../../styles/variables' as *;
-
-$mobile-breakpoint: 768px;
-
-.info-card {
-  width: 100%;
-  max-width: 600px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+.invoice-card-layout {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
   box-sizing: border-box;
-  overflow: hidden;
-  margin: 0 auto;
-
-  @media (max-width: $mobile-breakpoint) {
-    max-width: 100%;
-    padding: 16px;
-  }
+  width: 100%;
+}
+.invoice-column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers both card and logos horizontally */
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+}
+.info-card {
+ width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 24px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+  overflow-x: auto;
 }
 
-.card-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 20px;
-
-  @media (max-width: $mobile-breakpoint) {
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
+/* Hover shadow */
+.info-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* AG Grid Responsive Styling */
 .address-grid {
   width: 100%;
+  max-width: 100%;
   font-size: 15px;
-  overflow-x: auto;
-
-  @media (max-width: $mobile-breakpoint) {
-    font-size: 14px;
-  }
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.ag-theme-alpine.no-header .ag-header {
+/* Hide header */
+.ag-theme-alpine .ag-header {
   display: none;
 }
 
-/* Optional: Ensure proper padding on dropdown items */
-::ng-deep .mat-mdc-option.mdc-list-item {
-  background: rgba(0, 0, 0, 0);
+/* Row appearance */
+.ag-theme-alpine .ag-row {
+  border-bottom: 1px solid #eceff1;
+  line-height: 2.4rem;
 }
-::ng-deep div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible {
+
+/* Cell styling */
+.ag-theme-alpine .ag-cell {
+  padding: 12px;
+  font-size: 15px;
+  color: #333;
+  word-break: break-word;
+}
+
+/* Zebra row background */
+.ag-theme-alpine .ag-row:nth-child(even) .ag-cell {
   background-color: #ffffff;
 }
+@media (max-width: 768px) {
+
+  .invoice-card-layout {
+    padding: 0;
+  }
+
+  .invoice-column-layout {
+    margin-left: 0;
+    padding: 0 0 0 0;
+  }
+
+  .info-card {
+    padding: 0 0 0 0;
+  }
+
+  .card-title{
+    display: none;
+  }
+  
+  .ag-theme-alpine .ag-cell {
+    font-size: 14px;
+    padding: 1px;
+  }
+
+  .ag-theme-alpine .ag-row {
+    line-height: 2rem;
+  }
+}
+.card-title{
+  text-align: center;
+}
+

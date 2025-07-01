@@ -1,3 +1,7 @@
+@use '../../../../styles/variables' as *;
+
+$mobile-breakpoint: 768px;
+
 .a4-preview-wrapper {
   display: flex;
   flex-direction: column;
@@ -9,6 +13,12 @@
   height: 1123px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   background: white;
+  
+   @media (max-width: $mobile-breakpoint) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 794 / 1123;
+  }
 }
 
 /* ⬇️ Align buttons on top-right of preview */
@@ -18,6 +28,13 @@
   gap: 1px;
   width: 794px; /* match .a4-preview width */
   margin-bottom: 8px;
+
+   @media (max-width: $mobile-breakpoint) {
+    width: 100%;
+    padding: 0 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .icon-btn {
@@ -44,10 +61,23 @@
   position: relative; /* allows upload box to position absolutely within this */
   margin-top: 20px;
   width: 100%;
+  flex-wrap: wrap;
+
+  @media (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
 }
 
 .template-preview {
   width: 794px;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 8px;
+  }
 }
 
 .template-upload-container {
@@ -55,6 +85,13 @@
   top: 0;
   right: 40px; /* adjust as needed */
   margin-top: 110px;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .upload-box {
@@ -67,6 +104,12 @@
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;
+
+   @media (max-width: $mobile-breakpoint) {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
 }
 
 .upload-box.dragging::before {
@@ -109,6 +152,11 @@
 .upload-title {
   font-weight: bold;
   margin-top: 50px;
+
+   @media (max-width: $mobile-breakpoint) {
+    margin-top: 30px;
+    font-size: 13px;
+  }
 }
 
 .upload-input {

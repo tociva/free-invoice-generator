@@ -85,6 +85,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
       field: 'value',
       headerName: '',
       width: 200,
+      flex:2,
       editable: true,
       cellEditorSelector: this.findCustomerEditorComponent,
       cellRendererSelector: InvoiceCustomerComponent.findCustomerCellRenderer,

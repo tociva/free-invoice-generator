@@ -69,23 +69,6 @@
 .next-btnn {
   margin-left: auto;
 }
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: stretch; /* force same height */
-  gap: 40px;
-  padding: 32px 20px;
-  flex-wrap: wrap;
-}
-
-.card-container app-invoice-customer,
-.card-container app-invoice-details {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 480px; /* cards take same width and grow equally */
-  max-width: 480px;
-}
-
 .items-summary-layout {
   display: flex;
   flex-direction: column;
@@ -162,4 +145,14 @@
     text-align: center;
     background-color: #f5f5f5;
   }
+}
+.customer-card-container{
+   flex: 1 1 500px;
+  min-width: 300px;
+   
+}
+.invoice-card-container{
+   flex: 1 1 500px;
+  min-width: 300px;
+   
 }

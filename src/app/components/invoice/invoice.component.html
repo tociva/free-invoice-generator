@@ -28,9 +28,8 @@
   <!-- Step 2 -->
   <mat-step [label]="getStepLabel(1)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 1">
-      <div class="card-container">
+      <div class="customer-card-container">
         <app-invoice-customer></app-invoice-customer>
-        <app-invoice-details></app-invoice-details>
       </div>
     </ng-container>
     <div class="stepper-actions">
@@ -43,13 +42,12 @@
   <!-- Step 3 -->
   <mat-step [label]="getStepLabel(2)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
-      <div class="items-summary-layout">
-        <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
-        <div class="invoice-summary-wrapper"><app-invoice-summary></app-invoice-summary></div>
+      <div class="invoice-card-container">
+        <app-invoice-details></app-invoice-details>
       </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-button class="back-btn" (click)="gotToStep(0)"><mat-icon>arrow_back</mat-icon> Back</button>
       <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(3)">Next
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
@@ -58,10 +56,13 @@
   <!-- Step 4 -->
   <mat-step [label]="getStepLabel(3)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
-       <app-select-template [stepper]="stepper"></app-select-template>
+      <div class="items-summary-layout">
+        <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
+        <div class="invoice-summary-wrapper"><app-invoice-summary></app-invoice-summary></div>
+      </div>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="gotToStep(2)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back</button>
       <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(4)">Next
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
@@ -70,6 +71,18 @@
   <!-- Step 5 -->
   <mat-step [label]="getStepLabel(4)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 4">
+       <app-select-template [stepper]="stepper"></app-select-template>
+    </ng-container>
+    <div class="stepper-actions">
+      <button mat-button class="back-btn" (click)="gotToStep(2)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(5)">Next
+        <mat-icon>arrow_forward</mat-icon></button>
+    </div>
+  </mat-step>
+
+  <!-- Step 6 -->
+  <mat-step [label]="getStepLabel(5)" [completed]="isStepComplete">
+    <ng-container *ngIf="stepIndex === 5">
       <app-preview-invoice></app-preview-invoice>
     </ng-container>
     <div class="stepper-actions">

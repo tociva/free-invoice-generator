@@ -47,7 +47,8 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   private stepLabels = [
     'My Organization Info & Logo',
-    'Customer and Invoice Details',
+    'Customer Details',
+    'Invoice Details',
     'Items and Summary',
     'Select a template',
     'Preview and Download'
