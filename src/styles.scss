@@ -19,3 +19,45 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-bottom: 28px;
   color: #2c3e50;
 }
+/* LabelColumnRenderer The ? icon */
+.tooltip-trigger {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  background-color: #eee;
+  color: #333;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  font-size: 0.85em;
+  transition: background-color 0.2s ease;
+}
+
+/* LabelColumnRenderer Tooltip text itself (hidden by default) */
+.tooltip-text {
+  visibility: hidden;
+  position: fixed;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+  font-size: 0.75em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}
+
+/* Show the tooltip on hover/focus */
+.tooltip-trigger:hover .tooltip-text,
+.tooltip-trigger:focus .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

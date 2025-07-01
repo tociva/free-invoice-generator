@@ -26,7 +26,7 @@ export enum OrganizatonFormItem {
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
-  LINE1 = 'Address Line 1',
+  LINE1 = 'Address Address Line 1',
   LINE2 = 'Address Line 2',
   STREET = 'Street',
   CITY = 'City',
@@ -91,6 +91,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       field: 'label',
       headerName: '',
       flex: 1,
+      cellRendererSelector: InvoiceOrganizationComponent.findLabelColumnRenderer,
     },
     {
       field: 'value',
@@ -141,6 +142,22 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       }
     }
     return params.data.value;
+  };
+
+  private static findLabelColumnRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+    let tooltip = '';
+    switch (params.data?.label) {
+      case OrganizatonFormItem.LINE1:
+        tooltip = 'Address Line 1, First line of address';
+        break;
+      case OrganizatonFormItem.LINE2:
+        tooltip = 'Address Line 2, Second line of address';
+        break;
+    }
+    return {
+      component: LabelColumnRendererComponent,
+      params: { labelValue: params.data?.label ?? '', tooltip, maxLength: 10 },
+    };
   };
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
