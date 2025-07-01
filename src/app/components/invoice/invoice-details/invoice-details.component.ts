@@ -6,7 +6,7 @@ import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEdit
 import dayjs from 'dayjs';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { OPTIONS_COUNT } from '../../../../util/constants';
-import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
+import { displayAutoCompleteWithName, isMobile } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
@@ -348,7 +348,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       params: {
         labelValue: params.data?.label ?? '',
         tooltip,
-        maxLength: 16,
+        maxLength: isMobile() ? 20 : 32,
       },
     };
   };

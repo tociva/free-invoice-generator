@@ -1,3 +1,5 @@
+@use '../../../../styles/variables' as *;
+
 .invoice-card-layout {
   display: flex;
   justify-content: center;
@@ -62,7 +64,7 @@
 .ag-theme-alpine .ag-row:nth-child(even) .ag-cell {
   background-color: #ffffff;
 }
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-mobile) {
 
   .invoice-card-layout {
     padding: 0;
