@@ -49,6 +49,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
   myDetailsRowData: FormColumnDef[] = [];
 
   defaultColDef: ColDef<FormColumnDef> = {
+    singleClickEdit: true,
     editable: false,
     resizable: true,
     sortable: false,
@@ -89,14 +90,12 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     {
       field: 'label',
       headerName: '',
-      width: 150,
       flex: 1,
     },
     {
       field: 'value',
       headerName: '',
-      width: 200,
-      flex: 1,
+      flex: 2,
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
       cellRendererSelector: InvoiceOrganizationComponent.findMyDetailsCellRenderer,

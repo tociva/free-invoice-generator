@@ -64,18 +64,27 @@
   background-color: #ffffff;
 }
 @media (max-width: 768px) {
+
+  .invoice-card-layout {
+    padding: 0;
+  }
+
   .invoice-column-layout {
     margin-left: 0;
-    padding: 0 16px;
+    padding: 0 0 0 0;
   }
 
   .my-organization-card {
-    padding: 24px 16px;
+    padding: 0 0 0 0;
   }
 
+  .invoice-card-title{
+    display: none;
+  }
+  
   .ag-theme-alpine .ag-cell {
     font-size: 14px;
-    padding: 10px;
+    padding: 1px;
   }
 
   .ag-theme-alpine .ag-row {
