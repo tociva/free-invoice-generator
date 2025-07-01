@@ -42,6 +42,8 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   isStepComplete = false;
 
   stepIndex = 0;
+  isMobileView = false;
+
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -59,6 +61,9 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+     this.checkMobile();
+  window.addEventListener('resize', this.checkMobile.bind(this));
+
     this.route.queryParams.subscribe((params: { step?: string }) => {
       const step = Number(params.step);
       if (!isNaN(step)) {
@@ -99,5 +104,21 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
     this.gotToStep(this.stepIndex - 1);
   }
   
+  checkMobile() {
+  this.isMobileView = window.innerWidth <= 768; // or your custom breakpoint
+}
+
+goNext(): void {
+  if (this.stepIndex < 5) {
+    this.gotToStep(this.stepIndex + 1);
+  }
+}
+
+goPrevious(): void {
+  if (this.stepIndex > 0) {
+    this.gotToStep(this.stepIndex - 1);
+  }
+}
+
   
 }
