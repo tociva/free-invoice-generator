@@ -1,9 +1,11 @@
   <!-- Invoice Details -->
+   <div class="invoice-card-layout">
+  <div class="invoice-column-layout">
   <div class="info-card">
-    <h3 class="card-title">Invoice Details</h3>
+    <h2 class="card-title">Invoice Details</h2>
     <ag-grid-angular
     style="width: 100%;"
-      class="ag-theme-alpine no-header address-grid"
+      class="ag-theme-alpine address-grid no-header"
       [columnDefs]="invoiceDetailsColumnDefs"
       [defaultColDef]="defaultColDef"
       [gridOptions]="gridOptions"

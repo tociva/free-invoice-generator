@@ -1,17 +1,13 @@
-  <!-- Customer Details -->
-  <div class="info-card">
-    <h3 class="card-title">Customer Details</h3>
-    <div style="width: 100%; overflow-x: auto;">
-    <ag-grid-angular
-      class="ag-theme-alpine no-header address-grid"
-      [rowData]="customerRowData"
-      [columnDefs]="customerColumnDefs"
-      [defaultColDef]="defaultColDef"
-      [gridOptions]="gridOptions"
-      [domLayout]="'autoHeight'"
-      [getRowId]="getRowId"
-      [headerHeight]="0"
-      (gridReady)="onCustomerGridReady($event)">
-    </ag-grid-angular>
+<!-- Customer Details -->
+<div class="info-card-layout">
+  <div class="info-column-layout">
+    <div class="info-card">
+      <h2 class="card-title">Customer Details</h2>
+
+      <ag-grid-angular class="ag-theme-alpine address-grid no-header" [rowData]="customerRowData"
+        [columnDefs]="customerColumnDefs" [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+        [domLayout]="'autoHeight'" [getRowId]="getRowId" [headerHeight]="0" (gridReady)="onCustomerGridReady($event)">
+      </ag-grid-angular>
     </div>
   </div>
+</div>
