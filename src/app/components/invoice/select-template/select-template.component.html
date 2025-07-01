@@ -3,8 +3,8 @@
   <div class="top-filter">
     <form>
       <mat-form-field appearance="outline" class="compact-chip-field">
-        <mat-label>Tags</mat-label>
-        <mat-chip-grid #chipGrid aria-label="Tag filter">
+        <mat-label>Search</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Search filter">
           <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
             {{ tag }}
             <button matChipRemove [attr.aria-label]="'remove ' + tag">
