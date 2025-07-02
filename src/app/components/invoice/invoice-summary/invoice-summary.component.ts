@@ -78,8 +78,8 @@ export class InvoiceSummaryComponent implements OnDestroy {
   };
 
   summaryColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150,flex:1 },
-    { field: 'value', headerName: '', width: 200, editable: (params) => {
+    { field: 'label', headerName: '', width: 150,flex:2 },
+    { field: 'value', headerName: '', width: 200, flex:2,editable: (params) => {
       const label = params.data?.label ?? '';
       const editableFields = [
         InvoiceSummaryFormItem.ROUND_OFF,

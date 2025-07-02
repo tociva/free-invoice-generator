@@ -155,13 +155,13 @@ export class InvoiceItemsMobileComponent implements OnInit, OnDestroy {
     {
       field: 'label',
       headerName: '',
-      flex: 1,
+      flex: 3,
       editable: false,
     },
     {
       field: 'value',
       headerName: '',
-      flex: 2,
+      flex: 4,
       editable: (params) => {
         const label = params.data?.label ?? '';
         return this.EDITABLE_FIELDS.includes(label as InvoiceItemFormItem);
