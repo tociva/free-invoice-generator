@@ -13,7 +13,7 @@ import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/a
 import { Invoice, InvoiceItem, TaxOption } from '../store/model/invoice.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 
-type InvoiceItemWithAction = InvoiceItem & { action?: string };
+type InvoiceItemWithAction = InvoiceItem & { action?: string, rowIndex?: number };
 @Component({
   selector: 'app-invoice-items',
   standalone: true,
@@ -47,7 +47,7 @@ export class InvoiceItemsComponent implements OnDestroy {
   };
 
   itemsColumnDefs: ColDef<InvoiceItemWithAction>[] = [];
-  itemsGridApi!: GridApi<InvoiceItem>;
+  itemsGridApi!: GridApi<InvoiceItemWithAction>;
   itemsGridWidth = '1000px';
   private numberCellWidth = 60;
   private nameCellWidth = 300;
@@ -158,11 +158,12 @@ export class InvoiceItemsComponent implements OnDestroy {
   }
 
   private removeItemRow = (rowId: string) => {
-    const rowIndex = Number(rowId);
-    const totalRows = this.itemsGridApi.getDisplayedRowCount();
-    if(rowIndex < (totalRows - 1)) {
-      this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
+    const rowData = this.itemsGridApi.getRowNode(rowId);
+    if(!rowData?.data ) {
+      return;
     }
+    const rowIndex = rowData.data.rowIndex ?? 0;
+    this.store.dispatch(deleteInvoiceItem({ index: rowIndex }));
   };
 
   private createItemsColumnDefs(invoice: Invoice): void {
@@ -294,19 +295,19 @@ export class InvoiceItemsComponent implements OnDestroy {
     this.itemsGridApi.sizeColumnsToFit();
   };
 
-  onItemsGridReady(params: GridReadyEvent<InvoiceItem>): void {
+  onItemsGridReady(params: GridReadyEvent<InvoiceItemWithAction>): void {
     this.itemsGridApi = params.api;
     this.store.select(selectInvoice)
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
       this.refreshItemTable(invoice);
-      const nInvoices = [...invoice.items, {...BASE_ITEM_ROW_DATA}];
+      const nInvoices:InvoiceItemWithAction[] = [...invoice.items, {...BASE_ITEM_ROW_DATA}];
       for(const [index, item] of nInvoices.entries()) {
         const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(index);
         if(rowNode) {
-          rowNode.setData({...item});
+          rowNode.setData({...item, rowIndex: index});
         } else {
-          this.itemsGridApi.applyTransaction({ add: [{...item}] });
+          this.itemsGridApi.applyTransaction({ add: [{...item, rowIndex: index}] });
         }
       }
       const totalRows = this.itemsGridApi.getDisplayedRowCount();

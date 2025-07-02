@@ -67,10 +67,14 @@ export const invoiceReducer = createReducer(
     ...state,
     invoice: { ...state.invoice, internationalNumbering }
   })),
-  on(InvoiceAction.deleteInvoiceItem, (state, { index }) => ({
+  on(InvoiceAction.deleteInvoiceItem, (state, { index }) => {
+    const items = state.invoice.items.filter((_item, idx) => idx !== index);
+    const invoice = reCalculateInvoice({...state.invoice, items});
+    return {
     ...state,
-    invoice: { ...state.invoice, items: state.invoice.items.filter((_item, idx) => idx !== index) }
-  })),
+    invoice: { ...invoice }
+  };
+}),
   on(InvoiceAction.addInvoiceItem, (state, { item }) => ({
     ...state,
     invoice: { ...state.invoice, items: [...state.invoice.items, item] }
