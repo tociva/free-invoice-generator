@@ -238,7 +238,33 @@
   .mobile-warning {
     display: block;
   }
+  .desktop-only-drop {
+    display: none;
+  }
+
+  .mobile-only-upload {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .mobile-json-upload-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #6a939e;
+    color: $on-primary-color;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(#6a939e, 0.25);
+
+    &:hover {
+      background-color: color.adjust(#6a939e, $lightness: -10%);
+    }
+  }
 }
+
 
 ::ng-deep .mat-mdc-menu-content {
   background-color: white;
