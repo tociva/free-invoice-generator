@@ -42,6 +42,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
 
   defaultColDef: ColDef<FormColumnDef> = {
+    singleClickEdit: true,
     editable: false,
     resizable: true,
     sortable: false,

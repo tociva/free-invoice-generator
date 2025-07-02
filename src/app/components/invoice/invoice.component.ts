@@ -16,6 +16,8 @@ import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.compo
 import { SelectTemplateComponent } from './select-template/select-template.component';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CloudDataService } from '../../services/cloud-data.service';
+import { isMobile } from '../../../util/daybook.util';
+import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile.component';
 
 @Component({
   selector: 'app-invoice',
@@ -32,7 +34,8 @@ import { CloudDataService } from '../../services/cloud-data.service';
     SelectTemplateComponent,
     PreviewInvoiceComponent,
     InvoiceOrganizationComponent,
-    InvoiceLogoComponent
+    InvoiceLogoComponent,
+    InvoiceItemsMobileComponent
 ],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
@@ -42,8 +45,8 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   isStepComplete = false;
 
   stepIndex = 0;
-  isMobileView = false;
 
+  mobileView = isMobile();
 
   @ViewChild('stepper') stepper!: MatStepper;
 
@@ -61,9 +64,6 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-     this.checkMobile();
-  window.addEventListener('resize', this.checkMobile.bind(this));
-
     this.route.queryParams.subscribe((params: { step?: string }) => {
       const step = Number(params.step);
       if (!isNaN(step)) {
@@ -103,10 +103,6 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   onSwipeRight() {
     this.gotToStep(this.stepIndex - 1);
   }
-  
-  checkMobile() {
-  this.isMobileView = window.innerWidth <= 768; // or your custom breakpoint
-}
 
 goNext(): void {
   if (this.stepIndex < 5) {

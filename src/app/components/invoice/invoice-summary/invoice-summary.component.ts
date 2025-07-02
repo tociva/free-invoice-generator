@@ -38,6 +38,7 @@ export class InvoiceSummaryComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
 
   defaultColDef: ColDef = {
+    singleClickEdit: true,
     resizable: true,
     sortable: false,
     filter: false
