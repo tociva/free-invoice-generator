@@ -20,7 +20,7 @@
 
 You can try it out here (replace this with your actual link if hosted):
 
-**[Live Demo](https://free-invoice-generator.daybook.cloud)**
+**[Live Demo](https://free-invoice-generator.app)**
 
 
 ## 🛠️ Getting Started
