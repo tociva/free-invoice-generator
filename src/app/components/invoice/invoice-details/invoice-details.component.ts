@@ -53,6 +53,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   public detailsGridApi!: GridApi<FormColumnDef>;
 
   defaultColDef: ColDef<FormColumnDef> = {
+    singleClickEdit: true,
     editable: false,
     resizable: true,
     sortable: false,

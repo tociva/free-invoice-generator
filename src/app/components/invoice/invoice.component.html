@@ -1,4 +1,4 @@
-<div class="mobile-step-header" *ngIf="isMobileView">
+<div class="mobile-step-header">
   <button mat-icon-button (click)="goPrevious()" *ngIf="stepIndex > 0">
     <mat-icon>arrow_back</mat-icon>
   </button>
@@ -67,7 +67,8 @@
   <mat-step [label]="getStepLabel(3)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
       <div class="items-summary-layout">
-        <div class="invoice-items-wrapper"><app-invoice-items></app-invoice-items></div>
+        <div class="invoice-items-wrapper" *ngIf="!mobileView"><app-invoice-items></app-invoice-items></div>
+        <div class="invoice-items-wrapper" *ngIf="mobileView"><app-invoice-items-mobile></app-invoice-items-mobile></div>
         <div class="invoice-summary-wrapper"><app-invoice-summary></app-invoice-summary></div>
       </div>
     </ng-container>
