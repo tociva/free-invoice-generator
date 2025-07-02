@@ -1,16 +1,20 @@
 <div class="full-page">
   <div class="content">
-
-    <!-- Mobile Warning -->
-    <div class="mobile-warning" *ngIf="isMobile">
-      ⚠️ The application is optimized to work on computer screens.<br />
-      Please use your personal computer for a better experience.
-    </div>
     
-    <p class="tagline">
-      No signups. No credit card. Free & open source on 
-      <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener">GitHub</a>.
-    </p>
+    <p class="tagline mat-body-1">
+  <span class="highlight">No signups. No credit card.</span>
+  Free &amp; open source on
+  <a
+    class="github-link mat-button"
+    href="https://github.com/tociva/free-invoice-generator"
+    target="_blank"
+    rel="noopener"
+  >
+  <mat-icon>integration_instructions</mat-icon>
+    GitHub
+  </a>.
+</p>
+
 
     <!-- Create New Invoice -->
     <button class="cta-button" (click)="goToInvoiceCreator()">

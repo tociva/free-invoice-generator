@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { InvoiceState } from '../invoice/store/state/invoice.state';
@@ -11,7 +11,7 @@ import { CloudDataService } from '../../services/cloud-data.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIcon],
+  imports: [CommonModule, RouterModule, MatIconModule, ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })

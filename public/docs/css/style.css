@@ -1,0 +1,224 @@
+:root {
+    --theme-color: #367588;
+    --accent-color: #4a9fb4;
+    --background-color: #ffffff;
+    --section-background: #f9f9f9;
+    --text-color: #333;
+    --card-background: #fff;
+    --card-shadow: rgba(0, 0, 0, 0.05);
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  header {
+    background-color: var(--theme-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+  }
+
+  .header-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1.2rem;
+    font-size: 1rem;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+  .hamburger-container{
+      display: none;
+  }
+  main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    color: var(--theme-color);
+  }
+
+  section {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px var(--card-shadow);
+    transition: box-shadow 0.3s ease;
+  }
+
+  section:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  section h2 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.4rem;
+  }
+
+  section p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  ol, ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 0.8rem;
+  }
+
+  footer {
+    background-color: var(--section-background);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.95rem;
+    color: #777;
+    border-top: 1px solid #ddd;
+  }
+
+  .toc {
+    background-color: var(--section-background);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .toc h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--theme-color);
+  }
+
+  .toc a {
+    display: block;
+    color: var(--accent-color);
+    text-decoration: none;
+    margin: 0.4rem 0;
+  }
+
+  .toc a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;  
+    }
+
+    .header-title{
+      width: 90%;
+      font-size: 16px;
+      margin-bottom: 8px;
+      margin-left: 25px;
+    }
+    .header-nav{
+        display: none;
+    }
+    
+  .hamburger-container{
+    display: block;
+}
+/* Hide checkbox */
+.drawer-toggle {
+  display: none;
+}
+
+/* Hamburger Button */
+.hamburger {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #FFFFFF;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+/* Drawer - hidden off screen initially */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -250px;       /* Start hidden */
+  width: 250px;
+  background-color: #333;
+  padding-top: 3rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.drawer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drawer ul li {
+  border-bottom: 1px solid #444;
+}
+
+.drawer ul li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  transition: background 0.3s;
+}
+
+.drawer ul li a:hover {
+  background: #444;
+}
+
+/* Show drawer when checkbox is checked */
+.drawer-toggle:checked + .hamburger + .drawer {
+  left: 0;
+}
+
+/* Animate Hamburger to "X" */
+.drawer-toggle:checked + .hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.drawer-toggle:checked + .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+
+.drawer-toggle:checked + .hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+  }

@@ -4,137 +4,36 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Customizing Invoice Templates - Daybook.Cloud</title>
-<style>
-  :root {
-    --theme-color: #367588;
-    --accent-color: #4a9fb4;
-    --background-color: #ffffff;
-    --section-background: #f9f9f9;
-    --text-color: #333;
-    --card-background: #fff;
-    --card-shadow: rgba(0, 0, 0, 0.05);
-  }
-
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.7;
-  }
-
-  header {
-    background-color: var(--theme-color);
-    padding: 1rem 2rem;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 1.2rem;
-    font-size: 1rem;
-  }
-
-  nav a:hover {
-    text-decoration: underline;
-  }
-
-  main {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    color: var(--theme-color);
-  }
-
-  section {
-    background-color: var(--card-background);
-    border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 8px var(--card-shadow);
-  }
-
-  section h2 {
-    color: var(--accent-color);
-    font-size: 1.5rem;
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 0.4rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
-  section p {
-    margin-bottom: 1rem;
-  }
-
-  code {
-    background-color: #f2f2f2;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: monospace;
-  }
-
-  pre {
-    background-color: #f9f9f9;
-    padding: 1rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-family: monospace;
-    font-size: 0.95rem;
-  }
-
-  ul, ol {
-    padding-left: 1.5rem;
-  }
-
-  li {
-    margin-bottom: 0.8rem;
-  }
-
-  footer {
-    background-color: var(--section-background);
-    text-align: center;
-    padding: 1.5rem 1rem;
-    font-size: 0.95rem;
-    color: #777;
-    border-top: 1px solid #ddd;
-  }
-
-  a {
-    color: var(--accent-color);
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <div class="header-title">Daybook.Cloud - Invoice Templates</div>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/invoice">Create Invoice</a>
-    <a href="/templates">Templates</a>
-    <a href="/docs">Docs</a>
+  <header>
+  <span class="hamburger-container">
+  <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
+  
+  <label for="drawer-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  
+  <nav class="drawer">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/invoice">Create Invoice</a></li>
+      <li><a href="/templates">Templates</a></li>
+      <li><a href="/docs">Docs</a></li>
+    </ul>
   </nav>
-</header>
+  </span>
+    <div class="header-title">Free Invoice Generator by Daybook.Cloud </div>
+    <nav class="header-nav">
+      <a href="/">Home</a>
+      <a href="/invoice">Create Invoice</a>
+      <a href="/templates">Templates</a>
+      <a href="/docs">Docs</a>
+    </nav>
+  </header>
 <main>
   <h1>Customizing Your Invoice Template</h1>
 
@@ -239,7 +138,7 @@
     <h2>Need Help?</h2>
     <p>
       If you have any questions about customizing your template or using placeholders, reach out to us at
-      <a href="mailto:support@daybook.cloud">support@daybook.cloud</a>.
+      <a href="mailto:prince.francis@tociva.com">prince.francis@tociva.com</a>.
     </p>
   </section>
 </main>
