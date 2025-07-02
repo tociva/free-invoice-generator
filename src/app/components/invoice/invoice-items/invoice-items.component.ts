@@ -31,6 +31,7 @@ export class InvoiceItemsComponent implements OnDestroy {
 
   itemsDefaultColDef: ColDef<InvoiceItemWithAction> = {
     editable: false,
+    singleClickEdit: true,
     width: 150,
     flex: 1,
     resizable: false,
