@@ -1,76 +1,37 @@
 @use '../../../../styles/variables' as *;
 
-$mobile-breakpoint: 768px;
-
 .media-upload-wrapper {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   width: 100%;
   box-sizing: border-box;
   padding-top: 16px;
-  margin-left: -80px;
-
-  @media (max-width: $mobile-breakpoint) {
-    justify-content: center;
-    margin-left: 0;
-    padding: 8px;
-    margin-top: 0;
-  }
-}
-
-.media-upload {
-  display: flex;
-  flex-direction: column;
   gap: 5px;
-  align-items: center;
-  max-width: 300px;
-
-   @media (max-width: $mobile-breakpoint) {
-    max-width: 100%;
-    width: 100%;
-    gap: 5px;
-    margin-top: 0 !important;;
-  }
 }
-
-
 
 .logo-upload-button {
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: -5px;
-    padding: 4px 8px;
-
-    @media (max-width: $mobile-breakpoint) {
-    font-size: 14px;
-    text-align: center;
-  }
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: -5px;
+  padding: 4px 8px;
 }
 
 .logo-drop-zone {
-    position: relative;
-    width: 250px;
-    height: 120px;
-    border: 2px dashed #9c9b9b;
-    /* Default visible dashed border */
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-
-     @media (max-width: $mobile-breakpoint) {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    padding: 16px;
-  }
+  position: relative;
+  width: 250px;
+  height: 120px;
+  border: 2px dashed #9c9b9b;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .logo-drop-zone img {
   max-width: 80%;
@@ -79,11 +40,6 @@ $mobile-breakpoint: 768px;
   display: block;
   position: relative;
   z-index: 1;
-
-  @media (max-width: $mobile-breakpoint) {
-    max-width: 100%;
-    max-height: 140px;
-  }
 }
 .logo-drop-zone button[mat-icon-button] {
   position: absolute;
@@ -94,137 +50,71 @@ $mobile-breakpoint: 768px;
   padding: 0;
   min-width: 0;
   line-height: 1;
-  background: transparent;   /* remove background */
-  border: none;              /* remove border */
-  box-shadow: none;          /* remove shadow */
+  background: transparent;
+  border: none;
+  box-shadow: none;
   z-index: 2;
   cursor: pointer;
 }
 
-/* Icon size (optional) */
 .logo-drop-zone mat-icon {
   font-size: 18px;
   line-height: 24px;
-  color: #000; /* or any color you prefer */
+  color: #000;
 }
 
-/* Remove default border during drag-over */
 .logo-drop-zone.drag-over {
-    border: none;
+  border: none;
 }
 
-/* Animated dashed border using ::before */
 .logo-drop-zone.drag-over::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 10px;
-    pointer-events: none;
-    z-index: 2;
-
-    background: repeating-linear-gradient(135deg,
-            #9c9b9b 0 6px,
-            transparent 6px 12px);
-    background-size: 200% 200%;
-    animation: move-border 10s linear infinite;
-
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: destination-out;
-
-    padding: 2px;
-    box-sizing: border-box;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(135deg,
+  #9c9b9b 0 6px,
+  transparent 6px 12px);
+  background-size: 200% 200%;
+  animation: move-border 10s linear infinite;
+  mask:
+  linear-gradient(#fff 0 0) content-box,
+  linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
-/* 🔁 Smooth scrolling effect */
 @keyframes move-border {
-    0% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 100% 100%;
-    }
-}
-@media (max-width: $breakpoint-mobile) {
-  .media-upload-wrapper {
-    justify-content: center;
-    margin-top: 0px;
+  0% {
+    background-position: 0 0;
   }
 
-  .media-upload {
-    position: static !important; /* override absolute */
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .logo-drop-zone {
-    width: 100%;
-    max-width: 320px;
+  100% {
+    background-position: 100% 100%;
   }
 }
-.desktop-only {
+
+.desktop-only{
   display: block;
-
-  @media (max-width: $mobile-breakpoint) {
-    display: none;
-  }
 }
 
-.mobile-only {
+.mobile-only{
   display: none;
-
-  @media (max-width: $mobile-breakpoint) {
-    display: block;
-    margin-bottom: 16px;
-    width: 100%;
-    text-align: center;
-  }
 }
-.mobile-upload-btn {
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #6a939e;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: -8px;
-  margin-top: -15px;
 
-  &:hover {
-    background-color: #6a939e;
+
+@media (max-width: $breakpoint-mobile) {
+  .media-upload-wrapper{
+    align-items: center;
   }
-}
-.mobile-upload-status {
-  font-size: 14px;
-  font-weight: 500;
-  color: #2e7d32; // green color
-  margin-top: 10px;
-  margin-bottom: 0px;
-  text-align: center;
-
-  @media (min-width: $mobile-breakpoint) {
-    display: none; // hide on desktop
-  }
-}
-.mobile-remove-btn {
-  background: none;
-  border: none;
-  color: #e53935;
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 8px;
-  cursor: pointer;
-  vertical-align: middle;
-
-  &:hover {
-    color: #c62828;
-  }
-
-  @media (min-width: $mobile-breakpoint) {
+  .desktop-only{
     display: none;
+  }
+  .mobile-only{
+    display: block;
   }
 }
