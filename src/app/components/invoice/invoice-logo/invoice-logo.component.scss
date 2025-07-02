@@ -28,7 +28,7 @@ $mobile-breakpoint: 768px;
    @media (max-width: $mobile-breakpoint) {
     max-width: 100%;
     width: 100%;
-    gap: 10px;
+    gap: 5px;
     margin-top: 0 !important;;
   }
 }
@@ -151,7 +151,7 @@ $mobile-breakpoint: 768px;
 @media (max-width: $breakpoint-mobile) {
   .media-upload-wrapper {
     justify-content: center;
-    margin-top: 5px;
+    margin-top: 0px;
   }
 
   .media-upload {
@@ -192,9 +192,39 @@ $mobile-breakpoint: 768px;
   border-radius: 4px;
   cursor: pointer;
   margin-bottom: -8px;
-  margin-top: -8px;
+  margin-top: -15px;
 
   &:hover {
     background-color: #6a939e;
+  }
+}
+.mobile-upload-status {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2e7d32; // green color
+  margin-top: 4px;
+  margin-bottom: 0px;
+  text-align: center;
+
+  @media (min-width: $mobile-breakpoint) {
+    display: none; // hide on desktop
+  }
+}
+.mobile-remove-btn {
+  background: none;
+  border: none;
+  color: #e53935;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+
+  &:hover {
+    color: #c62828;
+  }
+
+  @media (min-width: $mobile-breakpoint) {
+    display: none;
   }
 }
