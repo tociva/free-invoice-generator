@@ -1,11 +1,26 @@
 <div class="invoice-items-mobile-container">
-    <div *ngFor="let item of invoice.items">
-        <div class="invoice-item-mobile-item">
-            <div class="invoice-item-mobile-item-name">{{item.name}}</div>
-            <div class="invoice-item-mobile-item-description">{{item.description}}</div>
-            <div class="invoice-item-mobile-item-quantity">{{item.quantity}}</div>
-            <div class="invoice-item-mobile-item-price">{{item.price}}</div>
+    <div *ngFor="let item of invoiceItems; let idx = index" class="invoice-item-mobile-item">
+        <div class="invoice-item-mobile-item-name">
+            <span>Item #{{idx + 1}}</span>
+            <span>
+                <mat-icon aria-hidden="false" fontIcon="delete" class="item-remove-icon" (click)="removeItem(idx)"></mat-icon>
+            </span>
         </div>
+        <ag-grid-angular
+        style="width: 100%;"
+          class="ag-theme-alpine address-grid no-header"
+          [columnDefs]="invoiceItemsColumnDefs"
+          [defaultColDef]="defaultColDef"
+          [gridOptions]="gridOptions"
+          [domLayout]="'autoHeight'"
+          [getRowId]="getItemsRowId"
+          [headerHeight]="0"
+          [rowHeight]="rowHeight"
+            (gridReady)="onInvoiceItemsGridReady($event, item, idx)"
+            (cellValueChanged)="handleItemCellValueChanged($event, idx)">
+        </ag-grid-angular>
     </div>
-    
+    <div class="invoice-item-mobile-item-add-item">
+        <button mat-button class="item-add-icon" (click)="addItem()"><mat-icon>add</mat-icon> Add Item</button>
+    </div>
 </div>

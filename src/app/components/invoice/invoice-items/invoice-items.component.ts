@@ -6,7 +6,7 @@ import { ColDef, ColGroupDef, GridApi, GridOptions, GridReadyEvent, ICellRendere
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../util/constants';
-import { numberToFixedDecimal } from '../../../../util/invoice.util';
+import { BASE_ITEM_ROW_DATA, numberToFixedDecimal } from '../../../../util/invoice.util';
 import { IconColumnRendererComponent } from '../../common/ag-grid/renderer/icon-column-renderer/icon-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { addInvoiceItem, deleteInvoiceItem, updateInvoiceItem } from '../store/actions/invoice.action';
@@ -27,16 +27,7 @@ type InvoiceItemWithAction = InvoiceItem & { action?: string };
 export class InvoiceItemsComponent implements OnDestroy {
   private decimalPlaces = DEFAULT_DECIMAL_PLACES;
 
-  private oldInvoice!:Invoice;
-
   private destroy$ = new Subject<void>();
-
-  private readonly BASE_ITEM_ROW_DATA: InvoiceItem = {
-    name: '', description: '', quantity: 0, price: 0, itemTotal: 0, discountAmount: 0,
-    discPercentage: 0, subTotal: 0, tax1Amount: 0, tax1Percentage: 0,
-    tax2Amount: 0, tax2Percentage: 0, tax3Amount: 0, tax3Percentage: 0,
-    taxTotal: 0, grandTotal: 0,
-  };
 
   itemsDefaultColDef: ColDef<InvoiceItemWithAction> = {
     editable: false,
@@ -283,28 +274,12 @@ export class InvoiceItemsComponent implements OnDestroy {
     }
   }
 
-  private compareWithOldInvoice = (invoice: Invoice) => {
-    if(this.oldInvoice?.hasItemDiscount !== invoice.hasItemDiscount) {
-      return true;
-    }
-    if(this.oldInvoice?.hasItemDescription !== invoice.hasItemDescription) {
-      return true;
-    }
-    if(this.oldInvoice?.taxOption !== invoice.taxOption) {
-      return true;
-    }
-    if(this.oldInvoice?.decimalPlaces !== invoice.decimalPlaces) {
-      return true;
-    }
-    return false;
-  };
-
   private refreshItemTable = (invoice: Invoice) => {
     this.decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;
     this.setNumberCellWidth(invoice);
     this.createItemsColumnDefs(invoice);
     const items = invoice.items.map((item) => ({ ...item }));
-    const itemsRowData: InvoiceItem[] = [...items, {...this.BASE_ITEM_ROW_DATA}];
+    const itemsRowData: InvoiceItem[] = [...items, {...BASE_ITEM_ROW_DATA}];
     const allRows = this.itemsGridApi.getDisplayedRowCount();
     const existingData = [];
     for (let i = 0; i < allRows; i++) {
@@ -320,13 +295,8 @@ export class InvoiceItemsComponent implements OnDestroy {
     this.store.select(selectInvoice)
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
-      if(this.compareWithOldInvoice(invoice)) {
-        this.oldInvoice = invoice;
-        this.refreshItemTable(invoice);
-        return;
-      }
-      // Now find the row(s) to be added/removed/updated
-      const nInvoices = [...invoice.items, {...this.BASE_ITEM_ROW_DATA}];
+      this.refreshItemTable(invoice);
+      const nInvoices = [...invoice.items, {...BASE_ITEM_ROW_DATA}];
       for(const [index, item] of nInvoices.entries()) {
         const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(index);
         if(rowNode) {
