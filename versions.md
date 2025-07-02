@@ -1,4 +1,10 @@
 # Version Details
+## Version: 1.0.20
+## Date: 2025-07-02
+BRANCH_NAME=master
+BUILD_VERSION=v1.0.20-master
+
+# Version Details
 ## Version: 1.0.19
 ## Date: 2025-07-01
 BRANCH_NAME=master
