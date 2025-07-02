@@ -248,11 +248,15 @@ export class InvoiceItemsComponent implements OnDestroy {
           flex: 1,
           headerClass: grandTotalClass,
           cellClass: grandTotalClass,
-          cellRenderer: IconColumnRendererComponent,
-          cellRendererParams: {
-            icon: 'delete',
-            customClass: 'icon-danger',
-            iconClickListener: this.removeItemRow
+          cellRendererSelector: (params: ICellRendererParams<InvoiceItemWithAction>) => {
+            const rowIndex = params.node.rowIndex;
+            const totalRows = params.api.getDisplayedRowCount();
+        
+            if (rowIndex === totalRows - 1) {
+              return undefined;
+            }
+            return {component: IconColumnRendererComponent,
+              params: {icon: 'delete', customClass: 'icon-danger', iconClickListener: this.removeItemRow}};
           }
         }
       ]
