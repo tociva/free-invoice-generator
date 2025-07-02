@@ -3,6 +3,7 @@ import * as InvoiceAction from '../actions/invoice.action';
 import { initialInvoiceState } from '../state/invoice.state';
 import { currencyToFixedNumber, formatItemValues, reCalculateInvoice } from '../../../../../util/invoice.util';
 import { DEFAULT_DECIMAL_PLACES } from '../../../../../util/constants';
+import { InvoiceItem } from '../model/invoice.model';
 export const invoiceReducer = createReducer(
   initialInvoiceState,
 
@@ -34,18 +35,34 @@ export const invoiceReducer = createReducer(
     ...state,
     invoice: { ...state.invoice, currency }
   })),
-  on(InvoiceAction.setInvoiceTaxOption, (state, { option }) => ({
+  on(InvoiceAction.setInvoiceTaxOption, (state, { option }) => {
+    const { items } = state.invoice;
+    const itemsTemp:InvoiceItem[] = [];
+    items.forEach((item) => {
+      itemsTemp.push({...item, tax1Percentage: 0, tax2Percentage: 0, tax3Percentage: 0, tax1Amount: 0, tax2Amount: 0, tax3Amount: 0});
+    });
+    const invoice = reCalculateInvoice({...state.invoice, items: itemsTemp});
+    return {
     ...state,
-    invoice: { ...state.invoice, taxOption: option }
-  })),
+    invoice: { ...invoice, taxOption: option }
+  };
+}),
   on(InvoiceAction.setInvoiceItemDescription, (state, { itemDescription }) => ({
     ...state,
     invoice: { ...state.invoice, hasItemDescription: itemDescription }
   })),
-  on(InvoiceAction.setInvoiceShowDiscount, (state, { showDiscount }) => ({
+  on(InvoiceAction.setInvoiceShowDiscount, (state, { showDiscount }) => {
+    const { items } = state.invoice;
+    const itemsTemp:InvoiceItem[] = [];
+    items.forEach((item) => {
+      itemsTemp.push({...item, discPercentage: 0, discountAmount: 0});
+    });
+    const invoice = reCalculateInvoice({...state.invoice, items: itemsTemp});
+    return {
     ...state,
-    invoice: { ...state.invoice, hasItemDiscount: showDiscount }
-  })),
+    invoice: { ...invoice, hasItemDiscount: showDiscount }
+  };
+}),
   on(InvoiceAction.setInvoiceInternationalNumbering, (state, { internationalNumbering }) => ({
     ...state,
     invoice: { ...state.invoice, internationalNumbering }
