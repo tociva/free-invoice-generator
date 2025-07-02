@@ -1,12 +1,53 @@
-.invoice-item-mobile-item-name{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+.invoice-items-mobile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px;
+  background: #f9f9f9;
 }
-.item-remove-icon{
-    color: #FF5722;
-    cursor: pointer;
-    position: absolute;
-    margin-top: -5px;
+
+.invoice-item-mobile-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.item-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.item-remove-btn {
+  color: #f44336;
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+.invoice-item-mobile-item-add {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+.ag-theme-alpine {
+  border: none;
+  font-size: 13px;
 }

@@ -92,7 +92,11 @@
   justify-content: flex-end;
   margin-right: 60px;
 }
-
+@media (max-width: $breakpoint-mobile) {
+  .invoice-summary-wrapper{
+    margin-right: 40px;
+  }
+}
 
 .organization-layout {
   display: flex;
