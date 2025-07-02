@@ -2,67 +2,85 @@
     <div class="media-upload">
         <!-- Small Logo Upload -->
         <!-- 📱 Mobile Button -->
-<div class="mobile-only">
-  <button class="mobile-upload-btn" (click)="smallLogoInput.click()">Tap here to select small Logo</button>
-</div>
+        <div class="mobile-only">
+            <button class="mobile-upload-btn" (click)="smallLogoInput.click()">Tap here to select small Logo</button>
+            <div class="mobile-only mobile-upload-status" *ngIf="smallLogoPreviewUrl">
+                Small Logo Uploaded
+                <button class="mobile-remove-btn" (click)="clearSmallLogo()" aria-label="Remove Small Logo">
+                    ✖
+                </button>
+            </div>
+        </div>
 
-<!-- 💻 Desktop Drop Zone -->
-<div class="small-logo-upload desktop-only" 
-     (dragover)="onSmallLogoDragOver($event)" 
-     (dragleave)="onSmallLogoDragLeave($event)"
-     (drop)="onSmallLogoDrop($event)" 
-     (dragend)="onSmallLogoDragLeave($event)">
-  <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isSmallLogoDragOver }">
-    <button *ngIf="smallLogoPreviewUrl" mat-icon-button (click)="clearSmallLogo()" title="Remove Small Logo">
-      <mat-icon>close</mat-icon>
-    </button>
 
-    <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
-      <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview">
-    </ng-container>
 
-    <ng-template #smallLogoUploadPrompt>
-      <p>Upload Small Logo</p>
-    </ng-template>
 
-    <button class="logo-upload-button" (click)="smallLogoInput.click()">Drag or Click to Upload Small Logo</button>
-    <input #smallLogoInput type="file" hidden (change)="onSmallLogoSelected($event)" />
-  </div>
-</div>
+        <!-- 💻 Desktop Drop Zone -->
+        <div class="small-logo-upload desktop-only" (dragover)="onSmallLogoDragOver($event)"
+            (dragleave)="onSmallLogoDragLeave($event)" (drop)="onSmallLogoDrop($event)"
+            (dragend)="onSmallLogoDragLeave($event)">
+            <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isSmallLogoDragOver }">
+                <button *ngIf="smallLogoPreviewUrl" mat-icon-button (click)="clearSmallLogo()"
+                    title="Remove Small Logo">
+                    <mat-icon>close</mat-icon>
+                </button>
 
-    
+                <ng-container *ngIf="smallLogoPreviewUrl; else smallLogoUploadPrompt">
+                    <img [src]="smallLogoPreviewUrl" alt="Small Logo Preview">
+                </ng-container>
+
+                <ng-template #smallLogoUploadPrompt>
+                    <p>Upload Small Logo</p>
+                </ng-template>
+
+                <button class="logo-upload-button" (click)="smallLogoInput.click()">Drag or Click to Upload Small
+                    Logo</button>
+                <input #smallLogoInput type="file" hidden (change)="onSmallLogoSelected($event)" />
+            </div>
+        </div>
+
+
         <!-- Spacer -->
         <div style="height: 24px;"></div>
-    
+
         <!-- Large Logo Upload -->
-       <!-- 📱 Mobile Button -->
-<div class="mobile-only">
-  <button class="mobile-upload-btn" (click)="largeLogoInput.click()">Tap here to select large Logo</button>
-</div>
+        <!-- 📱 Mobile Button -->
+        <div class="mobile-only">
+            <button class="mobile-upload-btn" (click)="largeLogoInput.click()">Tap here to select large Logo</button>
+            <div class="mobile-only mobile-upload-status" *ngIf="largeLogoPreviewUrl">
+                Large Logo Uploaded
+                <button class="mobile-remove-btn" (click)="clearLargeLogo()" aria-label="Remove Large Logo">
+                    ✖
+                </button>
+            </div>
+        </div>
 
-<!-- 💻 Desktop Drop Zone -->
-<div class="large-logo-upload desktop-only" 
-     (dragover)="onLargeLogoDragOver($event)" 
-     (dragleave)="onLargeLogoDragLeave($event)"
-     (drop)="onLargeLogoDrop($event)" 
-     (dragend)="onLargeLogoDragLeave($event)">
-  <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isLargeLogoDragOver }">
-    <button *ngIf="largeLogoPreviewUrl" mat-icon-button (click)="clearLargeLogo()" title="Remove Large Logo">
-      <mat-icon>close</mat-icon>
-    </button>
 
-    <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
-      <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview">
-    </ng-container>
 
-    <ng-template #largeLogoUploadPrompt>
-      <p>Upload Large Logo</p>
-    </ng-template>
 
-    <button class="logo-upload-button" (click)="largeLogoInput.click()">Drag or Click to Upload Large Logo</button>
-    <input #largeLogoInput type="file" hidden (change)="onLargeLogoSelected($event)" />
-  </div>
-</div>
+        <!-- 💻 Desktop Drop Zone -->
+        <div class="large-logo-upload desktop-only" (dragover)="onLargeLogoDragOver($event)"
+            (dragleave)="onLargeLogoDragLeave($event)" (drop)="onLargeLogoDrop($event)"
+            (dragend)="onLargeLogoDragLeave($event)">
+            <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isLargeLogoDragOver }">
+                <button *ngIf="largeLogoPreviewUrl" mat-icon-button (click)="clearLargeLogo()"
+                    title="Remove Large Logo">
+                    <mat-icon>close</mat-icon>
+                </button>
+
+                <ng-container *ngIf="largeLogoPreviewUrl; else largeLogoUploadPrompt">
+                    <img [src]="largeLogoPreviewUrl" alt="Large Logo Preview">
+                </ng-container>
+
+                <ng-template #largeLogoUploadPrompt>
+                    <p>Upload Large Logo</p>
+                </ng-template>
+
+                <button class="logo-upload-button" (click)="largeLogoInput.click()">Drag or Click to Upload Large
+                    Logo</button>
+                <input #largeLogoInput type="file" hidden (change)="onLargeLogoSelected($event)" />
+            </div>
+        </div>
 
     </div>
-    </div>
+</div>
