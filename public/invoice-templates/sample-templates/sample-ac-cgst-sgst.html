@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c2185b;
+      --accent: #f8bbd0;
+      --text: #37474f;
+      --muted: #78909c;
+      --bg-light: #fff0f6;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      background: var(--bg-light);
+      color: var(--text);
+    }
+
+    .invoice {
+      max-width: 880px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .invoice-header {
+      border-bottom: 4px solid var(--accent);
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .invoice-header h1 {
+      font-size: 32px;
+      color: var(--primary);
+      margin: 25px;
+    }
+
+    .invoice-header img {
+      height: 60px;
+      margin-top: 15px;
+      margin-right: 15px;
+    }
+
+    .section {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .section-box {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .section-box h4 {
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .section-box p {
+      font-size: 14px;
+      margin: 3px 0;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border: 1px solid #eee;
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fce4ec;
+    }
+
+    .totals {
+      max-width: 320px;
+      margin-left: auto;
+      margin-top: 30px;
+      background: #fce4ec;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .totals .grand {
+      font-weight: bold;
+      font-size: 16px;
+      border-top: 2px solid var(--primary);
+      padding-top: 10px;
+      color: var(--primary);
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px dashed #ddd;
+      padding-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="invoice-header">
+    <h1>INVOICE</h1>
+    <img src="[[logo_small_src]]" alt="Logo">
+  </div>
+
+  <!-- Info -->
+  <div class="section">
+    <div class="section-box">
+      <h4>From</h4>
+      <p>[[org_name]]</p>
+      <p>[[org_address]]</p>
+      <p>[[org_phone]]</p>
+      <p>[[org_email]]</p>
+    </div>
+    <div class="section-box">
+      <h4>Bill To</h4>
+      <p>[[customer_name]]</p>
+      <p>[[customer_address]]</p>
+      <p>[[customer_phone]]</p>
+      <p>[[customer_email]]</p>
+    </div>
+    <div class="section-box">
+      <h4>Invoice Info</h4>
+      <p>Invoice #: [[invoice_number]]</p>
+      <p>Date: [[invoice_date]]</p>
+      <p>Due: [[payment_due_date]]</p>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      [[items_start]]
+      <tr>
+        <td>[[item_name]]</td>
+        <td>[[item_quantity]]</td>
+        <td>[[item_price]]</td>
+        <td>[[item_cgst]]</td>
+        <td>[[item_sgst]]</td>
+        <td>[[item_amount]]</td>
+      </tr>
+      [[items_end]]
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="totals">
+    <div><span>Item Total:</span><span>[[itemtotal]]</span></div>
+    <div><span>Discount:</span><span>[[discount]]</span></div>
+    <div><span>Subtotal:</span><span>[[subtotal]]</span></div>
+    <div><span>Tax:</span><span>[[tax_amount]]</span></div>
+    <div><span>Round Off:</span><span>[[roundoff]]</span></div>
+    <div class="grand"><span>Total:</span><span>[[grand_total]]</span></div>
+  </div>
+
+</body>
+
+</html>

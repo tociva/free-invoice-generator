@@ -279,7 +279,6 @@
                     "cgst",
                     "sgst"
                 ]
-
             },
             {
                 "name": "Sample-s-cgst-sgst",
@@ -289,7 +288,141 @@
                     "cgst",
                     "sgst"
                 ]
-
+            },
+            {
+                "name": "Sample-t-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-t-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-u-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-u-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-v-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-v-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-w-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-w-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-x-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-x-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-y-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-y-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-z-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-z-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-aa-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-aa-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+             {
+                "name": "Sample-ab-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ab-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ac-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ac-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ad-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ad-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ae-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ae-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-af-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-af-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ag-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ag-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ah-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ah-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }

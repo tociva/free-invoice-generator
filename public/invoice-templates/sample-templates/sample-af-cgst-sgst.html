@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00695c;
+      --accent: #c8e6c9;
+      --text: #263238;
+      --border: #dcedc8;
+      --light: #f1f8f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header img {
+      height: 40px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .info-block {
+      font-size: 14px;
+      min-width: 250px;
+    }
+
+    .info-block strong {
+      color: var(--primary);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th, td {
+      padding: 14px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--accent);
+    }
+
+    .totals {
+      padding: 30px;
+      font-size: 15px;
+      background: var(--light);
+    }
+
+    .totals p {
+      margin: 6px 0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+
+    .totals p span:first-child {
+      min-width: 120px;
+      text-align: left;
+    }
+
+    .totals .total {
+      font-weight: bold;
+      font-size: 18px;
+      color: var(--primary);
+      border-top: 2px solid var(--primary);
+      padding-top: 10px;
+    }
+
+    .footer {
+      padding: 30px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 14px;
+      gap: 20px;
+    }
+
+    .signature {
+      text-align: right;
+    }
+
+    .signature p {
+      margin: 5px 0;
+    }
+
+    .signature strong {
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .info-section,
+      .footer {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .signature {
+        text-align: left;
+      }
+
+      .totals {
+        text-align: left;
+      }
+
+      .totals p {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h1>INVOICE</h1>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-block">
+        <strong>From</strong>
+        [[org_name]]<br />
+        [[org_address]]<br />
+        [[org_phone]]<br />
+        [[org_email]]
+      </div>
+      <div class="info-block">
+        <strong>To</strong>
+        [[customer_name]]<br />
+        [[customer_address]]<br />
+        [[customer_phone]]<br />
+        [[customer_email]]
+      </div>
+      <div class="info-block">
+        <strong>Invoice Info</strong>
+        Invoice #: [[invoice_number]]<br />
+        Date: [[invoice_date]]<br />
+        Due: [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <p><span>Item Total:</span><span>[[itemtotal]]</span></p>
+      <p><span>Discount:</span><span>[[discount]]</span></p>
+      <p><span>Subtotal:</span><span>[[subtotal]]</span></p>
+      <p><span>Tax:</span><span>[[tax_amount]]</span></p>
+      <p><span>Round Off:</span><span>[[roundoff]]</span></p>
+      <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <p><strong>Payment Methods</strong></p>
+        UPI: upi@invoicepay<br />
+        Bank Transfer: 123-456-789
+      </div>
+      <div class="signature">
+        <p>______________________</p>
+        <p><strong>Daniel Smith</strong><br />Accounts Manager</p>
+      </div>
+    </div>
+</body>
+</html>

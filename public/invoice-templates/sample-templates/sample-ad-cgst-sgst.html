@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StudioStar Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #3f51b5;
+    }
+
+    .logo-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .logo-circle img {
+      width: 100px;
+      margin-left: 20px;
+    }
+
+    .invoice-title {
+      text-align: right;
+    }
+
+    .invoice-title h2 {
+      margin: 0;
+      font-size: 28px;
+      color: #3f51b5;
+    }
+
+    .invoice-title .inv-num {
+      background: #3f51b5;
+      color: white;
+      padding: 4px 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-top: 5px;
+      display: inline-block;
+    }
+
+    .info {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      font-size: 14px;
+    }
+
+    .table {
+      margin-top: 30px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    .table th {
+      background: #3f51b5;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .table td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .table td .desc {
+      color: #666;
+      font-size: 13px;
+    }
+
+    .totals {
+      margin-top: 30px;
+      text-align: right;
+      font-size: 15px;
+    }
+
+    .totals p {
+      display: flex;
+      justify-content: space-between;
+      max-width: 300px;
+      margin-left: auto;
+      margin-bottom: 8px;
+    }
+
+    .totals p.total {
+      font-weight: bold;
+      font-size: 18px;
+      border-top: 2px solid #ccc;
+      padding-top: 10px;
+    }
+
+    .payment-method {
+      margin-top: 30px;
+      font-size: 14px;
+      background: #f8f9fa;
+      padding: 15px;
+      border-left: 5px solid #3f51b5;
+      border-radius: 6px;
+    }
+
+    .amount-in-words {
+      background: #ffe082;
+      color: #212121;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .signature {
+      margin-top: 50px;
+      text-align: right;
+    }
+
+    .signature img {
+      width: 100px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      background: #263238;
+      color: white;
+      padding: 20px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer div {
+      width: 22%;
+      min-width: 180px;
+    }
+
+    .gold-gradient-bar {
+      height: 6px;
+      background: linear-gradient(to right, #fbc02d, #ff6f00);
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+
+    <div class="logo-circle">
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+
+    <div class="top-header">
+      <div class="invoice-title">
+        <span class="inv-num">#[[invoice_number]]</span>
+      </div>
+    </div>
+
+    <div class="info">
+      <div>
+        <strong>From:</strong><br>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_phone]]<br>
+        [[org_email]]
+      </div>
+
+      <div>
+        <strong>Billed To:</strong><br>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
+
+      <div>
+        <strong>Invoice Date:</strong> [[invoice_date]]<br>
+        <strong>Payment Due:</strong> [[payment_due_date]]
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <p>Item Total: <span>[[itemtotal]]</span></p>
+      <p>Discount: <span>[[discount]]</span></p>
+      <p>Subtotal: <span>[[subtotal]]</span></p>
+      <p>Tax: <span>[[tax_amount]]</span></p>
+      <p>Round Off: <span>[[roundoff]]</span></p>
+      <p class="total">Total: <span>[[grand_total]]</span></p>
+    </div>
+
+    <div class="amount-in-words">
+      [[grand_total_words]]
+    </div>
+
+    <div class="payment-method">
+      <strong>Payment Method</strong><br />
+      ☐ UPI: payment@studio.com<br />
+      ☐ Bank Transfer / Card Payment
+    </div>
+
+    <div class="gold-gradient-bar"></div>
+
+    <div class="footer">
+      <div>📞 [[support_phone]]</div>
+      <div>📧 [[support_email]]</div>
+      <div>🌐 [[support_website]]</div>
+      <div>📍 [[support_address]]</div>
+    </div>
+
+
+</body>
+</html>
