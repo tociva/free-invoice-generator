@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #ff3300;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .top-bar img {
+      max-height: 60px;
+    }
+
+    .invoice-meta {
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .invoice-meta p {
+      margin: 0;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .two-columns {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .column {
+      width: 48%;
+      line-height: 1.6;
+    }
+
+    h2.section-title {
+      background: linear-gradient(to right, #ff6600, #ff3300);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    table.table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table.table thead {
+      background: linear-gradient(to right, #ff6600, #ff3300);
+      color: white;
+    }
+
+    table.table th, table.table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    .totals {
+      width: 100%;
+      max-width: 350px;
+      float: right;
+      margin-top: 30px;
+    }
+
+    .totals td {
+      padding: 8px 12px;
+    }
+
+    .totals .grand-total {
+      background: #ff3300;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .payment-info, .signature {
+      margin-top: 40px;
+      line-height: 1.6;
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 60px;
+      font-weight: bold;
+    }
+
+    .thank-you {
+      margin-top: 330px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #ff3300;
+    }
+  </style>
+</head>
+<body>
+    <div class="top-bar">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <div class="invoice-meta">
+        <p><strong>Invoice Number:</strong> [[invoice_number]]</p>
+        <p><strong>Invoice Date:</strong> [[invoice_date]]</p>
+        <p><strong>Payment Due:</strong> [[payment_due_date]]</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Billed By & Billed To</h2>
+      <div class="two-columns">
+        <div class="column">
+          <strong>[[org_name]]</strong><br />
+          [[org_address]]<br />
+          [[org_phone]]<br />
+          [[org_email]]
+        </div>
+        <div class="column">
+          <strong>[[customer_name]]</strong><br />
+          [[customer_address]]<br />
+          [[customer_phone]]<br />
+          [[customer_email]]
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Invoice Items</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </div>
+    <table class="totals">
+      <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
+      <tr><td>Discount</td><td>[[discount]]</td></tr>
+      <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
+      <tr><td>Tax</td><td>[[tax_amount]]</td></tr>
+      <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
+      <tr class="grand-total"><td>Total</td><td>[[grand_total]]</td></tr>
+    </table>
+
+    <div class="thank-you">
+      Thanks For Your Business!
+    </div>
+</body>
+</html>

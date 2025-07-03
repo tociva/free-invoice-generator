@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bcd4;
+      --dark: #37474f;
+      --light-bg: #f5f7fa;
+      --text: #263238;
+      --muted: #607d8b;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: var(--light-bg);
+      color: var(--text);
+    }
+
+    .invoice-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .invoice-header {
+      background: var(--primary);
+      color: white;
+      padding: 30px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .invoice-header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .invoice-header img {
+      height: 50px;
+    }
+
+    .info-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .info-box {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .info-box h4 {
+      margin-bottom: 6px;
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    .info-box p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th, td {
+      padding: 14px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .totals {
+      max-width: 300px;
+      margin-left: auto;
+      margin-top: 30px;
+      background: #e0f7fa;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .totals .grand {
+      font-weight: bold;
+      font-size: 16px;
+      border-top: 2px solid var(--primary);
+      padding-top: 10px;
+      color: var(--dark);
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .footer strong {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="invoice-header">
+      <h1>INVOICE</h1>
+      <img src="[[logo_small_src]]" alt="Company Logo" />
+    </div>
+
+    <!-- Info -->
+    <div class="info-grid">
+      <div class="info-box">
+        <h4>From</h4>
+        <p>[[org_name]]</p>
+        <p>[[org_address]]</p>
+        <p>[[org_phone]]</p>
+        <p>[[org_email]]</p>
+      </div>
+      <div class="info-box">
+        <h4>Bill To</h4>
+        <p>[[customer_name]]</p>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
+      <div class="info-box">
+        <h4>Invoice Info</h4>
+        <p>Invoice #: [[invoice_number]]</p>
+        <p>Date: [[invoice_date]]</p>
+        <p>Due: [[payment_due_date]]</p>
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div><span>Item Total:</span><span>[[itemtotal]]</span></div>
+      <div><span>Discount:</span><span>[[discount]]</span></div>
+      <div><span>Subtotal:</span><span>[[subtotal]]</span></div>
+      <div><span>Tax:</span><span>[[tax_amount]]</span></div>
+      <div><span>Round Off:</span><span>[[roundoff]]</span></div>
+      <div class="grand"><span>Total:</span><span>[[grand_total]]</span></div>
+    </div>
+
+</body>
+</html>
