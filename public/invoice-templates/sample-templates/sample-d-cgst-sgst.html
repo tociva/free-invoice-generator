@@ -11,7 +11,6 @@
       margin: 0;
       padding: 0;
       background: #f2f2f2;
-      overflow: hidden;
     }
 
     .invoice-box {
@@ -33,20 +32,19 @@
     }
 
     .logo-circle {
-      color: white;
       width: 100px;
       height: 100px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      user-select: none;
+      overflow: hidden;
     }
 
     .logo-circle img {
-      width: 150px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
 
     .contact-info {
@@ -62,15 +60,27 @@
 
     .invoice-header h2 {
       margin: 0;
+      font-size: 28px;
     }
 
     .invoice-details {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 200px;
+      margin-left: 10px;
     }
 
-    .table {
+    .sender-info,
+    .billing-info,
+    .invoice-info {
+      flex: 1 1 250px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    table {
       width: 100%;
       margin-top: 30px;
       border-collapse: collapse;
@@ -85,12 +95,25 @@
     .table td {
       padding: 12px;
       border: 1px solid #ccc;
-      text-align: left;
     }
 
-    .table td.desc {
-      font-size: 12px;
-      color: #555;
+    thead th:nth-child(2),
+    thead th:nth-child(3),
+    thead th:nth-child(4),
+    thead th:nth-child(5),
+    thead th:nth-child(6),
+    tbody td:nth-child(2),
+    tbody td:nth-child(3),
+    tbody td:nth-child(4),
+    tbody td:nth-child(5),
+    tbody td:nth-child(6) {
+      text-align: right;
+    }
+
+    .totals {
+      max-width: 400px;
+      margin-left: auto;
+      margin-top: 20px;
     }
 
     .totals p {
@@ -98,8 +121,6 @@
       margin: 6px 0;
       display: flex;
       justify-content: space-between;
-      max-width: 400px;
-      margin-left: auto;
     }
 
     .totals p.total {
@@ -107,6 +128,15 @@
       font-size: 20px;
       border-top: 2px solid #fdb813;
       padding-top: 10px;
+    }
+
+    .payment-info {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .payment-info p {
+      margin: 5px 0;
     }
 
     .footer {
@@ -129,14 +159,6 @@
       font-size: 16px;
     }
 
-    .payment-info {
-      margin-top: 30px;
-    }
-
-    .payment-info p {
-      margin: 5px 0;
-    }
-
     .terms {
       margin-top: 40px;
       font-size: 14px;
@@ -151,42 +173,38 @@
 </head>
 
 <body>
-    <div class="header">
-      <div class="logo-circle">
-        <img src="[[logo_small_src]]" alt="Logo" />
+  <div class="header">
+    <div class="logo-circle">
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+    <div class="contact-info">
+       [[org_address]]<br />
+    [[org_phone]]<br />
+    [[org_email]]<br />
+    </div>
+  </div>
+
+  <div class="invoice-header">
+    <h2>[[org_name]]</h2>
+    <div class="invoice-details">
+
+      <div class="billing-info">
+        <strong>[[customer_name]]</strong><br />
+        [[customer_address]]<br />
+        [[customer_phone]]<br />
+        [[customer_email]]<br />
       </div>
-      <div class="contact-info">
-        <p>Phone: +999 123 456 789<br />Email: info@yourname.com<br />www.domain.com<br />123 Street Town, Country</p>
+
+      <div class="invoice-info">
+        <strong>Invoice number:</strong> [[invoice_number]]<br />
+        <strong>Invoice date:</strong> [[invoice_date]]<br />
+        <strong>Payment due:</strong> [[payment_due_date]]<br />
       </div>
     </div>
-
-    <div class="invoice-header">
-      <h2>INVOICE</h2>
-      <div class="invoice-details">
-        <div class="sender-info">
-    <p>[[org_name]]</p>
-    <p>[[org_address]]</p>
-    <p>[[org_phone]]</p>
-    <p>[[org_email]]</p>
   </div>
 
-  <div class="billing-info">
-    <strong>[[customer_name]]</strong><br />
-    [[customer_address]]<br />
-    [[customer_phone]]<br />
-    [[customer_email]]<br />
-  </div>
-
-  <div class="invoice-info">
-    <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-    <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-    <p><strong>Payment due:</strong> [[payment_due_date]]</p>
-  </div>
-      </div>
-    </div>
-
-    <table class="table">
-      <thead>
+  <table class="table">
+    <thead>
       <tr>
         <th>Item</th>
         <th>Quantity</th>
@@ -210,23 +228,22 @@
     </tbody>
   </table>
 
-    <div class="totals">
+  <div class="totals">
     <p>Subtotal <span>[[subtotal]]</span></p>
     <p>Tax <span>[[tax_amount]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
 
-    <div class="payment-info">
-      <p><strong>PAYMENT INFO</strong></p>
-      <p>Paypal: paypal@company.com</p>
-      <p>Payment: VISA, MasterCard</p>
-      <p>We accept Cheque</p>
-    </div>
+  <div class="payment-info">
+    <p><strong>PAYMENT INFO</strong></p>
+    <p>Paypal: paypal@company.com</p>
+    <p>Payment: VISA, MasterCard</p>
+    <p>We accept Cheque</p>
+  </div>
 
-    <div class="signature">
-      <p class="name">[[Name]]</p>
-      <p>[[Designation]]</p>
-    </div>
+  <div class="footer">
+   <p>Thank you for your business!</p>
+  </div>
 </body>
 
 </html>

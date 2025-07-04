@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,7 +29,7 @@
       margin: 40px auto;
       background: #fff;
       border: 1px solid var(--border);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
     }
 
     .top-banner {
@@ -83,7 +84,6 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 0;
       font-size: 14px;
     }
 
@@ -106,17 +106,40 @@
       background-color: var(--accent);
     }
 
-    .summary {
-      padding: 30px;
+    /* Right-align numeric columns */
+    thead th:nth-child(2),
+    thead th:nth-child(3),
+    thead th:nth-child(4),
+    thead th:nth-child(5),
+    thead th:nth-child(6),
+    tbody td:nth-child(2),
+    tbody td:nth-child(3),
+    tbody td:nth-child(4),
+    tbody td:nth-child(5),
+    tbody td:nth-child(6) {
       text-align: right;
-      font-size: 14px;
     }
 
-    .summary p {
-      margin: 6px 0;
+    .summary {
+      padding: 30px;
+      font-size: 14px;
       display: flex;
       justify-content: flex-end;
-      gap: 40px;
+    }
+
+    .summary table {
+      width: auto;
+      border-collapse: collapse;
+    }
+
+    .summary td {
+      padding: 6px 12px;
+      text-align: right;
+    }
+
+    .summary td.label {
+      text-align: left;
+      font-weight: normal;
     }
 
     .summary .total {
@@ -135,13 +158,7 @@
       padding: 20px 30px;
       border-top: 1px solid var(--border);
       font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .footer div {
-      margin: 8px 0;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -157,12 +174,13 @@
         text-align: center;
       }
 
-      .summary p {
-        justify-content: space-between;
+      .summary {
+        justify-content: center;
       }
     }
   </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="top-banner">
@@ -223,12 +241,32 @@
 
     <!-- Summary -->
     <div class="summary">
-      <p>Item Total: <span>[[itemtotal]]</span></p>
-      <p>Discount: <span>[[discount]]</span></p>
-      <p>Subtotal: <span>[[subtotal]]</span></p>
-      <p>Tax: <span>[[tax_amount]]</span></p>
-      <p>Round Off: <span>[[roundoff]]</span></p>
-      <p class="total">TOTAL: <span>[[grand_total]]</span></p>
+      <table>
+        <tr>
+          <td class="label">Item Total:</td>
+          <td>[[itemtotal]]</td>
+        </tr>
+        <tr>
+          <td class="label">Discount:</td>
+          <td>[[discount]]</td>
+        </tr>
+        <tr>
+          <td class="label">Subtotal:</td>
+          <td>[[subtotal]]</td>
+        </tr>
+        <tr>
+          <td class="label">Tax:</td>
+          <td>[[tax_amount]]</td>
+        </tr>
+        <tr>
+          <td class="label">Round Off:</td>
+          <td>[[roundoff]]</td>
+        </tr>
+        <tr class="total">
+          <td class="label">TOTAL:</td>
+          <td>[[grand_total]]</td>
+        </tr>
+      </table>
     </div>
 
     <!-- Payment Info -->
@@ -241,9 +279,8 @@
 
     <!-- Footer -->
     <div class="footer">
-      <div>📞 (123) 456 789 100</div>
-      <div>✉️ myemail@demo.com</div>
-      <div>📍 Your Location, Country</div>
+      Thank you for your business!
     </div>
 </body>
+
 </html>
