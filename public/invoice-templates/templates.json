@@ -423,6 +423,15 @@
                     "cgst",
                     "sgst"
                 ]
+            },
+            {
+                "name": "Sample-ai-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ai-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }

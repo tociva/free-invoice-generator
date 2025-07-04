@@ -34,23 +34,29 @@
     header {
       background: var(--primary);
       color: #fff;
-      padding: 30px 40px;
+      padding: 30px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo-circle {
-      color: white;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo-circle img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 22px;
       font-weight: bold;
-      font-size: 18px;
-      user-select: none;
+      color: #fff;
     }
 
     .invoice-info {
@@ -59,11 +65,11 @@
 
     .invoice-info h2 {
       margin: 0;
-      font-size: 22px;
+      font-size: 24px;
     }
 
     .section {
-      padding: 30px 40px;
+      padding: 16px 20px;
     }
 
     .section h3 {
@@ -81,19 +87,38 @@
       margin-top: 20px;
     }
 
-    table thead {
+    thead {
       background: var(--primary);
       color: white;
     }
 
-    table th, table td {
+    table th,
+    table td {
       padding: 14px;
       border: 1px solid #eee;
+    }
+
+    table th {
       text-align: left;
+    }
+
+    /* Right-align numeric columns */
+    table td:nth-child(2),
+    table td:nth-child(3),
+    table td:nth-child(4),
+    table td:nth-child(5),
+    table td:nth-child(6) {
+      text-align: right;
     }
 
     table tbody tr:nth-child(even) {
       background: var(--accent-bg);
+    }
+
+    .totals {
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
     }
 
     .totals p {
@@ -101,21 +126,13 @@
       margin: 6px 0;
       display: flex;
       justify-content: space-between;
-      max-width: 400px;
-      margin-left: auto;
     }
 
     .totals p.total {
       font-weight: bold;
       font-size: 20px;
-      border-top: 2px;
+      border-top: 2px solid #0077cc;
       padding-top: 10px;
-    }
-
-    .grand-total {
-      background: var(--primary);
-      color: white;
-      font-weight: bold;
     }
 
     .footer {
@@ -130,15 +147,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 30px 40px;
+      padding: 20px 20px;
       border-top: 1px solid #eee;
-    }
-
-    .qr {
-      width: 100px;
-      height: 100px;
-      background: #ddd;
-      border-radius: 8px;
     }
 
     .contact {
@@ -154,71 +164,65 @@
     <header>
       <div class="logo-circle">
         <img src="[[logo_small_src]]" alt="Logo" />
-        <div class="logo-text">[[Company Name]]</div>
+        <div class="logo-text">[[org_name]]</div>
       </div>
       <div class="invoice-info">
         <h2>INVOICE</h2>
-        <p>No. 789456123</p>
-        <p><strong>Invoice Date:</strong> 01-01-2022</p>
-        <p><strong>Due Date:</strong> 01-01-2023</p>
+        <p><strong>Invoice number:</strong> [[invoice_number]]</p>
+        <p><strong>Invoice date:</strong> [[invoice_date]]</p>
+        <p><strong>Payment due:</strong> [[payment_due_date]]</p>
       </div>
     </header>
 
     <div class="section">
       <h3>Bill To</h3>
-      <p>Johnson Doe</p>
-      <p>your company name</p>
-      <p>6128 West media spancer, UK-568</p>
-      <p>email@mailid.com | www.myweb.com</p>
-      <p>+1-222-333-444</p>
+      <strong>[[customer_name]]</strong><br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]<br />
     </div>
 
     <div class="section">
       <table>
         <thead>
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price per unit</th>
-        <th>CGST</th>
-        <th>SGST</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price per unit</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
         <tbody>
-      [[items_start]]
-      <tr>
-        <td>[[item_name]]</td>
-        <td>[[item_quantity]]</td>
-        <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
-        <td>[[item_amount]]</td>
-      </tr>
-      [[items_end]]
-    </tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
       </table>
 
       <div class="totals">
-    <p>Itemtotal <span>[[itemtotal]]</span></p>
-    <p>Discount <span>[[discount]]</span></p>
-    <p>Subtotal <span>[[subtotal]]</span></p>
-    <p>Tax <span>[[tax_amount]]</span></p>
-    <p>Roundoff <span>[[roundoff]]</span></p>
-    <p class="total">TOTAL <span>[[grand_total]]</span></p>
-  </div>
-    </div>
-
-    <div class="section">
-      <h3>Payment Methods</h3>
-      <p><strong>PayPal</strong> / <strong>Skrills</strong></p>
+        <p>Item Total <span>[[itemtotal]]</span></p>
+        <p>Discount <span>[[discount]]</span></p>
+        <p>Subtotal <span>[[subtotal]]</span></p>
+        <p>Tax <span>[[tax_amount]]</span></p>
+        <p>Roundoff <span>[[roundoff]]</span></p>
+        <p class="total">TOTAL <span>[[grand_total]]</span></p>
+      </div>
     </div>
 
     <div class="bottom-bar">
       <div class="contact">
-        <p>123 4567 890</p>
-        <p>Company@website.com</p>
-        <p>123 Main Street, New York, USA 4567</p>
+        [[org_address]]<br />
+        [[org_phone]]<br />
+        [[org_email]]<br />
       </div>
     </div>
 

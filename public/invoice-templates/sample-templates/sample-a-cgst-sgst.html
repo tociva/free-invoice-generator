@@ -43,23 +43,18 @@
     }
 
     .logo-circle img {
-      width: 150px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 50px;
-      margin-right: 10px;
+      width: 90px;
     }
 
     .invoice-title {
       color: #007bff;
-      font-size: 32px;
+      font-size: 15px;
       font-weight: bold;
+    }
+
+    .invoice-title div {
+      font-size: 14px;
+      font-weight: normal;
     }
 
     .invoice-details {
@@ -116,6 +111,19 @@
       vertical-align: top;
     }
 
+    thead th:nth-child(2),
+    thead th:nth-child(3),
+    thead th:nth-child(4),
+    thead th:nth-child(5),
+    thead th:nth-child(6),
+    tbody td:nth-child(2),
+    tbody td:nth-child(3),
+    tbody td:nth-child(4),
+    tbody td:nth-child(5),
+    tbody td:nth-child(6) {
+      text-align: right;
+    }
+
     .totals p {
       font-size: 16px;
       margin: 6px 0;
@@ -131,7 +139,6 @@
       padding-top: 10px;
     }
 
-
     .signature {
       margin-top: 20px;
       text-align: left;
@@ -143,17 +150,8 @@
 
     .wave {
       background-color: #0284d0;
-      margin-top: 20px;
+      margin-top: 192px;
       position: relative;
-      border-radius: 0 0 8px 8px;
-    }
-
-
-    .footer {
-      background: linear-gradient(to right, #0e72b7, #0284d0);
-      color: white;
-      padding: 30px 40px;
-      margin-top: 20px;
       border-radius: 0 0 8px 8px;
     }
 
@@ -162,6 +160,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       font-size: 13px;
+      color: white;
+      padding: 30px 40px;
     }
 
     .footer-columns div {
@@ -172,9 +172,10 @@
 
     .footer-columns p {
       font-size: medium;
+      margin: 4px 0;
     }
 
-    .footer a {
+    .footer-columns a {
       color: #fff;
       text-decoration: none;
     }
@@ -183,14 +184,13 @@
 
 <body>
   <div class="header">
-    <div class="header">
-      <div class="logo-circle">
-        <img src="[[logo_small_src]]" alt="Logo" />
-      </div>
+    <div class="logo-circle">
+      <img src="[[logo_small_src]]" alt="Logo" />
     </div>
     <div class="invoice-title">
-      Invoice
-      <div style="font-size: 14px; font-weight: normal;">Invoice No:[[Invoice_Number]]</div>
+       Invoice number:[[invoice_number]]<br />
+      Invoice date: [[invoice_date]]<br />
+      Payment due:[[payment_due_date]]<br />
     </div>
   </div>
 
@@ -207,12 +207,6 @@
       [[customer_address]]<br />
       [[customer_phone]]<br />
       [[customer_email]]<br />
-    </div>
-
-    <div class="invoice-info">
-      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
     </div>
   </div>
 
@@ -267,8 +261,8 @@
         <p>📞 +000 123 56789</p>
       </div>
       <div>
-        <p>🌐 <a>www.websitename.com</a></p>
-        <p>✉️ <a>username@email.com</a></p>
+        <p>🌐 <a href="#">www.websitename.com</a></p>
+        <p>✉️ <a href="mailto:username@email.com">username@email.com</a></p>
       </div>
     </div>
   </div>

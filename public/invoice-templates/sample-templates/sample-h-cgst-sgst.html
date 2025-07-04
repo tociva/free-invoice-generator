@@ -13,7 +13,6 @@
       background-color: #fff;
     }
 
-
     h1 {
       text-align: center;
       color: #d4481e;
@@ -31,35 +30,20 @@
       padding: 0 40px;
       margin: -40px;
       margin-bottom: 60px;
-      margin-left: 0px;
-      margin-right: 0px;
     }
 
     .logo-circle {
-      color: white;
       width: 100px;
       height: 100px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      user-select: none;
       margin-right: 20px;
     }
+
     .logo-circle img {
       width: 100px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 50px;
-      margin-right: 10px;
     }
 
     .brand {
@@ -77,6 +61,7 @@
       line-height: 1.5;
     }
 
+    .sender-info strong,
     .billing-info strong {
       font-size: 18px;
       margin-bottom: 8px;
@@ -87,24 +72,10 @@
       margin-bottom: 50px;
       line-height: 1.5;
       text-align: right;
-
     }
 
     .invoice-info p {
       margin: 3px 0;
-    }
-
-    .sender-info strong{
-      margin-bottom: 10px;
-    }
-    .invoice-info strong {
-      font-size: 18px;
-      display: inline-block;
-    }
-
-    .invoice-logo {
-      display: inline-block;
-      vertical-align: middle;
     }
 
     .info-section {
@@ -119,7 +90,6 @@
       width: 48%;
     }
 
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -130,8 +100,11 @@
       background-color: #be5e05;
       color: white;
       padding: 12px 10px;
-      text-align: left;
       border-bottom: 3px solid #be5e05;
+    }
+
+    table thead th:nth-child(n+2) {
+      text-align: right;
     }
 
     table tbody td {
@@ -139,17 +112,24 @@
       padding: 10px;
     }
 
+    table tbody td:nth-child(n+2) {
+      text-align: right;
+    }
+
     table tbody tr:hover {
       background-color: #fff0f0;
     }
 
-    .totals p {
+    .totals {
+      max-width: 400px;
+      margin-left: auto;
       font-size: 16px;
+    }
+
+    .totals p {
       margin: 6px 0;
       display: flex;
       justify-content: space-between;
-      max-width: 400px;
-      margin-left: auto;
     }
 
     .totals p.total {
@@ -173,14 +153,10 @@
 </head>
 
 <body>
-
-
-
   <div class="header">
     <div class="logo-circle">
       <img src="[[logo_small_src]]" alt="Logo" />
     </div>
-    <div class="brand"><span>Brand Name</span></div>
   </div>
 
   <div class="sender-info">
@@ -238,7 +214,6 @@
     <p>Roundoff <span>[[roundoff]]</span></p>
     <p class="total">TOTAL <span>[[grand_total]]</span></p>
   </div>
-
 </body>
 
 </html>

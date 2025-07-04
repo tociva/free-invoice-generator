@@ -37,16 +37,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 30px;
+      margin-top: 30px;
     }
 
     .branding h1 {
       font-size: 32px;
       color: var(--primary);
       margin: 0;
+      margin-left: 10px;
     }
 
     .logo img {
-      height: 50px;
+      height: 100px;
+      margin-right: 20px;
     }
 
     .meta {
@@ -65,6 +69,8 @@
       justify-content: space-between;
       margin: 30px 0;
       font-size: 14px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
     .info-section .block {
@@ -88,7 +94,19 @@
     td {
       padding: 12px;
       border: 1px solid #eee;
-      text-align: left;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {
@@ -104,17 +122,27 @@
     .summary table {
       width: 320px;
       font-size: 14px;
+      border-collapse: collapse;
     }
 
     .summary td {
       padding: 8px;
+      border: none;
     }
 
-    .summary .total {
+    .summary td:first-child {
+      text-align: left;
+    }
+
+    .summary td:last-child {
+      text-align: right;
+    }
+
+    .summary .total td {
       background: var(--primary);
       color: white;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       border-radius: 4px;
     }
 
@@ -152,11 +180,10 @@
 </head>
 
 <body>
-
   <!-- Header -->
   <header>
     <div class="branding">
-      <h1>INVOICE</h1>
+      <h1>[[org_name]]</h1>
     </div>
     <div class="logo">
       <img src="[[logo_small_src]]" alt="Logo" />
@@ -172,13 +199,6 @@
 
   <!-- Info Blocks -->
   <div class="info-section">
-    <div class="block">
-      <strong>From</strong><br />
-      [[org_name]]<br />
-      [[org_address]]<br />
-      [[org_phone]]<br />
-      [[org_email]]
-    </div>
     <div class="block">
       <strong>To</strong><br />
       [[customer_name]]<br />
@@ -255,8 +275,9 @@
     </div>
     <div>
       <strong>Contact Info</strong><br />
-      📞 +1 212 223 4480<br />
-      ✉️ pixmedia@gmail.com
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]
     </div>
   </div>
 </body>
