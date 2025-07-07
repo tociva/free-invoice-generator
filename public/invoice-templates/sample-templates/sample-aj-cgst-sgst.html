@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 10px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(to right, #4b3fa1, #6c63ff);
+      color: #fff;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-left {
+      max-width: 250px;
+    }
+
+    .header-left img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .header-left h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header-center {
+      text-align: right;
+    }
+
+    .header-center p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .header-pointer {
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 25px solid #4b3fa1;
+      margin: 0 auto;
+    }
+
+    .invoice {
+      padding: 20px 30px 10px;
+    }
+
+    .invoice strong {
+      display: inline-block;
+      width: 150px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 0;
+    }
+
+    table thead {
+      background-color: #f0f0f0;
+    }
+
+    table thead th {
+      padding: 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    table tbody td {
+      padding: 12px;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table tbody td:nth-child(2),
+    table tbody td:nth-child(3),
+    table tbody td:nth-child(4),
+    table tbody td:nth-child(5),
+    table tbody td:nth-child(6) {
+      text-align: right;
+    }
+
+    .totals {
+      margin-top: 20px;
+      text-align: right;
+      padding: 0 30px;
+    }
+
+    .totals p {
+      font-size: 16px;
+      margin: 6px 0;
+    }
+
+    .totals p strong {
+      font-size: 18px;
+    }
+
+    .footer {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+      font-size: 14px;
+    }
+
+    .footer .columns {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer .signature {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .footer .signature p {
+      margin: 4px 0;
+    }
+
+    .thanks {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="header">
+      <div class="header-left">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <h2>[[org_name]]</h2>
+      </div>
+      <div class="header-center">
+        <p>
+          [[customer_name]]<br />
+          [[customer_address]]<br />
+          [[customer_phone]]
+        </p>
+      </div>
+    </div>
+
+    <div class="header-pointer"></div>
+
+    <div class="invoice">
+      <p><strong>INVOICE NO:</strong> [[invoice_number]]</p>
+      <p><strong>INVOICE DATE:</strong> [[invoice_date]]</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td style="text-align: right;">[[item_quantity]]</td>
+          <td style="text-align: right;">[[item_price]]</td>
+          <td style="text-align: right;">[[item_cgst]]</td>
+          <td style="text-align: right;">[[item_sgst]]</td>
+          <td style="text-align: right;">[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <p><strong>ITEM TOTAL:</strong> [[itemtotal]]</p>
+      <p><strong>DISCOUNT:</strong> [[discount]]</p>
+      <p><strong>SUBTOTAL:</strong> [[subtotal]]</p>
+      <p><strong>TAX:</strong> [[tax_amount]]</p>
+      <p><strong>ROUND OFF:</strong> [[roundoff]]</p>
+      <p><strong>GRAND TOTAL:</strong> [[grand_total]]</p>
+    </div>
+
+    <div class="footer">
+      <div class="columns">
+        <div>
+          <p><strong>Payment Info:</strong><br />
+            Account: [[account_name]]<br />
+            A/C Name: [[account_holder]]<br />
+            Bank Details: [[bank_name]]</p>
+        </div>
+      </div>
+
+      <div class="signature">
+        <p><strong>ACCOUNT MANAGER</strong></p>
+        <p>[[signature]]<br />[[account_manager_name]]</p>
+      </div>
+    </div>
+
+    <div class="thanks">
+      <p>Thank you for your business!</p>
+    </div>
+</body>
+
+</html>

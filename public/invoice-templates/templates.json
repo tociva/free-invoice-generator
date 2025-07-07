@@ -432,6 +432,24 @@
                     "cgst",
                     "sgst"
                 ]
+            },
+            {
+                "name": "Sample-aj-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-aj-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Sample-ak-cgst-sgst",
+                "path": "invoice-templates/sample-templates/sample-ak-cgst-sgst.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }
