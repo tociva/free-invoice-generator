@@ -115,12 +115,12 @@
     },
     {
         "theme": "sample-templates",
-        "name": "Sample-a",
+        "name": "Modern Blue Invoice",
         "description": "Sample invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Sample-a",
-                "path": "invoice-templates/sample-templates/sample-a-cgst-sgst.html",
+                "name": "Modern Blue Invoice",
+                "path": "invoice-templates/sample-templates/modern-blue-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -128,8 +128,8 @@
                 ]
             },
             {
-                "name": "Sample-b-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-b-cgst-sgst.html",
+                "name": "Aqua Edge Invoice",
+                "path": "invoice-templates/sample-templates/aqua-edge-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -137,8 +137,8 @@
                 ]
             },
             {
-                "name": "Sample-c-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-c-cgst-sgst.html",
+                "name": "Poppins Breeze Invoice",
+                "path": "invoice-templates/sample-templates/poppins-breeze-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -146,8 +146,8 @@
                 ]
             },
             {
-                "name": "Sample-d-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-d-cgst-sgst.html",
+                "name": "Modern Circle Invoice",
+                "path": "invoice-templates/sample-templates/modern-circle-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -155,8 +155,8 @@
                 ]
             },
             {
-                "name": "Sample-e-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-e-cgst-sgst.html",
+                "name": "Rainbow Mint Invoice",
+                "path": "invoice-templates/sample-templates/rainbow-mint-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -164,8 +164,8 @@
                 ]
             },
             {
-                "name": "Sample-f-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-f-cgst-sgst.html",
+                "name": "Amber Stripe Invoice",
+                "path": "invoice-templates/sample-templates/amber-stripe-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -173,8 +173,8 @@
                 ]
             },
             {
-                "name": "Sample-g-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-g-cgst-sgst.html",
+                "name": "Plum Accent Invoice",
+                "path": "invoice-templates/sample-templates/plum-accent-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -182,8 +182,8 @@
                 ]
             },
             {
-                "name": "Sample-h-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-h-cgst-sgst.html",
+                "name": "Copper Flame Invoice",
+                "path": "invoice-templates/sample-templates/copper-flame-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -191,8 +191,8 @@
                 ]
             },
             {
-                "name": "Sample-i-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-i-cgst-sgst.html",
+                "name": "Skyline Invoice",
+                "path": "invoice-templates/sample-templates/skyline-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -200,8 +200,8 @@
                 ]
             },
             {
-                "name": "Sample-j-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-j-cgst-sgst.html",
+                "name": "Aqua Glow Invoice",
+                "path": "invoice-templates/sample-templates/aqua-glow-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -209,8 +209,8 @@
                 ]
             },
             {
-                "name": "Sample-k-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-k-cgst-sgst.html",
+                "name": "Teal Edge Invoice",
+                "path": "invoice-templates/sample-templates/teal-edge-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -218,8 +218,8 @@
                 ]
             },
             {
-                "name": "Sample-l-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-l-cgst-sgst.html",
+                "name": "Indigo Mark Invoice",
+                "path": "invoice-templates/sample-templates/indigo-mark-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -227,8 +227,8 @@
                 ]
             },
             {
-                "name": "Sample-m-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-m-cgst-sgst.html",
+                "name": "Violet Ledger Invoice",
+                "path": "invoice-templates/sample-templates/violet-ledger-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -236,8 +236,8 @@
                 ]
             },
             {
-                "name": "Sample-n-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-n-cgst-sgst.html",
+                "name": "Blush Grid Invoice",
+                "path": "invoice-templates/sample-templates/blush-grid-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -245,8 +245,8 @@
                 ]
             },
             {
-                "name": "Sample-o-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-o-cgst-sgst.html",
+                "name": "Mint Balance Invoice",
+                "path": "invoice-templates/sample-templates/mint-balance-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -254,8 +254,8 @@
                 ]
             },
             {
-                "name": "Sample-p-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-p-cgst-sgst.html",
+                "name": "Navy Ledger Invoice",
+                "path": "invoice-templates/sample-templates/navy-ledger-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -263,8 +263,8 @@
                 ]
             },
             {
-                "name": "Sample-q-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-q-cgst-sgst.html",
+                "name": "Slate Edge Invoice",
+                "path": "invoice-templates/sample-templates/slate-edge-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -272,8 +272,8 @@
                 ]
             },
             {
-                "name": "Sample-r-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-r-cgst-sgst.html",
+                "name": "Cobalt Form Invoice",
+                "path": "invoice-templates/sample-templates/cobalt-form-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -281,8 +281,8 @@
                 ]
             },
             {
-                "name": "Sample-s-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-s-cgst-sgst.html",
+                "name": "Mono Core Invoice",
+                "path": "invoice-templates/sample-templates/mono-core-invoice-template",
                 "tags": [
                     "sample",
                     "cgst",
@@ -290,8 +290,8 @@
                 ]
             },
             {
-                "name": "Sample-t-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-t-cgst-sgst.html",
+                "name": "Inferno Line Invoice",
+                "path": "invoice-templates/sample-templates/inferno-line-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -299,8 +299,8 @@
                 ]
             },
             {
-                "name": "Sample-u-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-u-cgst-sgst.html",
+                "name": "Indigo Stream Invoice",
+                "path": "invoice-templates/sample-templates/indigo-stream-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -308,8 +308,8 @@
                 ]
             },
             {
-                "name": "Sample-v-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-v-cgst-sgst.html",
+                "name": "Teal Flow Invoice",
+                "path": "invoice-templates/sample-templates/teal-flow-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -317,8 +317,8 @@
                 ]
             },
             {
-                "name": "Sample-w-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-w-cgst-sgst.html",
+                "name": "Blush Wave Invoice",
+                "path": "invoice-templates/sample-templates/blush-wave-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -326,8 +326,8 @@
                 ]
             },
             {
-                "name": "Sample-x-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-x-cgst-sgst.html",
+                "name": "Blue Ledger Invoice",
+                "path": "invoice-templates/sample-templates/blue-ledger-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -335,8 +335,8 @@
                 ]
             },
             {
-                "name": "Sample-y-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-y-cgst-sgst.html",
+                "name": "Verdant Edge Invoice",
+                "path": "invoice-templates/sample-templates/verdant-edge-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -344,8 +344,8 @@
                 ]
             },
             {
-                "name": "Sample-z-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-z-cgst-sgst.html",
+                "name": "Amber Craft Invoice",
+                "path": "invoice-templates/sample-templates/amber-craft-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -353,8 +353,8 @@
                 ]
             },
             {
-                "name": "Sample-aa-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-aa-cgst-sgst.html",
+                "name": "Elegant Gold Invoice",
+                "path": "invoice-templates/sample-templates/elegant-gold-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -362,8 +362,8 @@
                 ]
             },
              {
-                "name": "Sample-ab-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ab-cgst-sgst.html",
+                "name": "Aqua Breeze-invoice",
+                "path": "invoice-templates/sample-templates/aqua-breeze-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -371,8 +371,8 @@
                 ]
             },
             {
-                "name": "Sample-ac-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ac-cgst-sgst.html",
+                "name": "Rose Quartz Invoice",
+                "path": "invoice-templates/sample-templates/rose-quartz-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -380,8 +380,8 @@
                 ]
             },
             {
-                "name": "Sample-ad-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ad-cgst-sgst.html",
+                "name": "Studio Luxe Invoice",
+                "path": "invoice-templates/sample-templates/studio-luxe-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -389,8 +389,8 @@
                 ]
             },
             {
-                "name": "Sample-ae-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ae-cgst-sgst.html",
+                "name": "Slate Gold Invoice",
+                "path": "invoice-templates/sample-templates/slate-gold-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -398,8 +398,8 @@
                 ]
             },
             {
-                "name": "Sample-af-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-af-cgst-sgst.html",
+                "name": "Greenleaf Invoice",
+                "path": "invoice-templates/sample-templates/greenleaf-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -407,8 +407,8 @@
                 ]
             },
             {
-                "name": "Sample-ag-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ag-cgst-sgst.html",
+                "name": "Amber Edge Invoice",
+                "path": "invoice-templates/sample-templates/amber-edge-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -416,8 +416,8 @@
                 ]
             },
             {
-                "name": "Sample-ah-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ah-cgst-sgst.html",
+                "name": "Royal Plum Invoice",
+                "path": "invoice-templates/sample-templates/royal-plum-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -425,8 +425,8 @@
                 ]
             },
             {
-                "name": "Sample-ai-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ai-cgst-sgst.html",
+                "name": "Sunflare Invoice",
+                "path": "invoice-templates/sample-templates/sunflare-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -434,8 +434,8 @@
                 ]
             },
             {
-                "name": "Sample-aj-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-aj-cgst-sgst.html",
+                "name": "Violet Crest Invoice",
+                "path": "invoice-templates/sample-templates/violet-crest-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
@@ -443,8 +443,8 @@
                 ]
             },
             {
-                "name": "Sample-ak-cgst-sgst",
-                "path": "invoice-templates/sample-templates/sample-ak-cgst-sgst.html",
+                "name": "Charcoal Line Invoice",
+                "path": "invoice-templates/sample-templates/charcoal-line-invoice-template.html",
                 "tags": [
                     "sample",
                     "cgst",
