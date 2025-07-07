@@ -22,6 +22,7 @@
       margin: 0;
       background: var(--light-gray);
       color: var(--text);
+      padding: 10px;
     }
 
     .invoice-container {
@@ -38,7 +39,6 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 3px solid var(--accent);
-      padding-bottom: 20px;
     }
 
     .header h1 {
@@ -48,20 +48,20 @@
     }
 
     .logo img {
-      height: 60px;
+      height: 80px;
     }
 
     .info-section {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      margin-top: 30px;
+      margin-top: 20px;
       gap: 20px;
     }
 
     .info-box {
       background: var(--light-gray);
-      padding: 20px;
+      padding: 10px;
       border-left: 5px solid var(--primary);
       border-radius: 8px;
       flex: 1;
@@ -90,8 +90,17 @@
     th, td {
       padding: 14px;
       font-size: 14px;
-      text-align: left;
       border-bottom: 1px solid #e0e0e0;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
     }
 
     tbody tr:nth-child(even) {

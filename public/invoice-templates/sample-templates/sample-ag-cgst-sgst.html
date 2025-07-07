@@ -48,14 +48,14 @@
     }
 
     .logo img {
-      height: 50px;
+      height: 80px;
     }
 
     .info {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      padding: 30px;
+      padding: 20px;
       background: var(--accent);
     }
 
@@ -90,7 +90,20 @@
     th, td {
       padding: 14px;
       border: 1px solid var(--border);
-      text-align: left;
+    }
+
+    /* Right-align numeric columns */
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {

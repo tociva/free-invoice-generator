@@ -23,6 +23,7 @@
       font-family: 'Nunito', sans-serif;
       background: var(--light);
       color: var(--text);
+      padding: 10px;
     }
 
     .container {
@@ -43,7 +44,7 @@
     }
 
     .header img {
-      height: 40px;
+      height: 80px;
       margin-bottom: 8px;
     }
 
@@ -88,7 +89,20 @@
     th, td {
       padding: 14px;
       border: 1px solid var(--border);
-      text-align: left;
+    }
+
+    /* Right-align numeric columns (Qty, Unit Price, CGST, SGST, Total) */
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {
@@ -165,7 +179,7 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
+    <!-- Header -->
     <div class="header">
       <img src="[[logo_small_src]]" alt="Logo" />
       <h1>INVOICE</h1>

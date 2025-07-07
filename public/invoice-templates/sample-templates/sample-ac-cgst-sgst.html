@@ -20,6 +20,7 @@
       margin: 0;
       background: var(--bg-light);
       color: var(--text);
+      padding: 15px;
     }
 
     .invoice {
@@ -91,6 +92,23 @@
     td {
       padding: 12px;
       border: 1px solid #eee;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
+    }
+
+    td:nth-child(1),
+    th:nth-child(1) {
       text-align: left;
     }
 
@@ -133,72 +151,76 @@
 </head>
 
 <body>
-  <!-- Header -->
-  <div class="invoice-header">
-    <h1>INVOICE</h1>
-    <img src="[[logo_small_src]]" alt="Logo">
-  </div>
-
-  <!-- Info -->
-  <div class="section">
-    <div class="section-box">
-      <h4>From</h4>
-      <p>[[org_name]]</p>
-      <p>[[org_address]]</p>
-      <p>[[org_phone]]</p>
-      <p>[[org_email]]</p>
+    <!-- Header -->
+    <div class="invoice-header">
+      <h1>INVOICE</h1>
+      <img src="[[logo_small_src]]" alt="Logo">
     </div>
-    <div class="section-box">
-      <h4>Bill To</h4>
-      <p>[[customer_name]]</p>
-      <p>[[customer_address]]</p>
-      <p>[[customer_phone]]</p>
-      <p>[[customer_email]]</p>
+
+    <!-- Info -->
+    <div class="section">
+      <div class="section-box">
+        <h4>From</h4>
+        <p>[[org_name]]</p>
+        <p>[[org_address]]</p>
+        <p>[[org_phone]]</p>
+        <p>[[org_email]]</p>
+      </div>
+      <div class="section-box">
+        <h4>Bill To</h4>
+        <p>[[customer_name]]</p>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
+      <div class="section-box">
+        <h4>Invoice Info</h4>
+        <p>Invoice #: [[invoice_number]]</p>
+        <p>Date: [[invoice_date]]</p>
+        <p>Due: [[payment_due_date]]</p>
+      </div>
     </div>
-    <div class="section-box">
-      <h4>Invoice Info</h4>
-      <p>Invoice #: [[invoice_number]]</p>
-      <p>Date: [[invoice_date]]</p>
-      <p>Due: [[payment_due_date]]</p>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div><span>Item Total:</span><span>[[itemtotal]]</span></div>
+      <div><span>Discount:</span><span>[[discount]]</span></div>
+      <div><span>Subtotal:</span><span>[[subtotal]]</span></div>
+      <div><span>Tax:</span><span>[[tax_amount]]</span></div>
+      <div><span>Round Off:</span><span>[[roundoff]]</span></div>
+      <div class="grand"><span>Total:</span><span>[[grand_total]]</span></div>
     </div>
-  </div>
 
-  <!-- Table -->
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Qty</th>
-        <th>Unit Price</th>
-        <th>CGST</th>
-        <th>SGST</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      [[items_start]]
-      <tr>
-        <td>[[item_name]]</td>
-        <td>[[item_quantity]]</td>
-        <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
-        <td>[[item_amount]]</td>
-      </tr>
-      [[items_end]]
-    </tbody>
-  </table>
-
-  <!-- Totals -->
-  <div class="totals">
-    <div><span>Item Total:</span><span>[[itemtotal]]</span></div>
-    <div><span>Discount:</span><span>[[discount]]</span></div>
-    <div><span>Subtotal:</span><span>[[subtotal]]</span></div>
-    <div><span>Tax:</span><span>[[tax_amount]]</span></div>
-    <div><span>Round Off:</span><span>[[roundoff]]</span></div>
-    <div class="grand"><span>Total:</span><span>[[grand_total]]</span></div>
-  </div>
-
+    <!-- Footer -->
+    <div class="footer">
+      Thank you for your business!
+    </div>
 </body>
 
 </html>

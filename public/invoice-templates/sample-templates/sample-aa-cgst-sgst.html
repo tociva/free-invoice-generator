@@ -19,6 +19,7 @@
       font-family: 'Inter', sans-serif;
       background: var(--light);
       color: #212121;
+      padding: 15px;
     }
 
     .invoice-box {
@@ -39,7 +40,7 @@
     }
 
     .logo img {
-      height: 60px;
+      height: 80px;
     }
 
     .company-info h2 {
@@ -85,8 +86,20 @@
     th, td {
       padding: 14px;
       border: 1px solid var(--border);
-      text-align: left;
       font-size: 14px;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {
@@ -94,13 +107,14 @@
     }
 
     .totals {
-      max-width: 300px;
+      max-width: 320px;
       margin-left: auto;
       margin-top: 30px;
       background: #fffde7;
       border: 1px solid var(--accent);
       padding: 20px;
       border-radius: 8px;
+      font-size: 14px;
     }
 
     .totals div {
@@ -115,16 +129,6 @@
       color: var(--primary);
       border-top: 2px solid var(--primary);
       padding-top: 10px;
-    }
-
-    .signature {
-      text-align: right;
-      margin-top: 40px;
-    }
-
-    .signature img {
-      height: 60px;
-      margin-bottom: 5px;
     }
 
     .footer {
@@ -151,8 +155,6 @@
       <div class="company-info">
         <h2>[[org_name]]</h2>
         <p>[[org_address]]</p>
-        <p>[[org_phone]]</p>
-        <p>[[org_email]]</p>
       </div>
       <div class="logo">
         <img src="[[logo_small_src]]" alt="Logo">
@@ -211,7 +213,7 @@
       <div><span>Round Off:</span><span>[[roundoff]]</span></div>
       <div class="grand"><span>Total:</span><span>[[grand_total]]</span></div>
     </div>
-    
+
     <!-- Footer -->
     <div class="footer">
       <div>
@@ -219,6 +221,11 @@
         Account: [[bank_account_name]]<br>
         A/C No: [[bank_account_number]]<br>
         IFSC: [[bank_ifsc]]
+      </div>
+      <div>
+        <strong>Support</strong><br>
+        For queries, contact us at:<br>
+        [[org_email]] or [[org_phone]]
       </div>
     </div>
 </body>
