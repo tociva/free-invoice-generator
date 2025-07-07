@@ -29,7 +29,7 @@ export class CloudDataService {
     try {
       const [basePath, query = ''] = path.split('?');
       const finalPath = `${basePath}.html${query ? `?${query}` : ''}`;
-      this.loadInHiddenIframe(`/cloud-data/route${finalPath}`);
+      this.loadInHiddenIframe(`/cloud-data/url/route${finalPath}`);
     } catch (error) {
       console.error('Error tracking route change:', error);
     }
@@ -37,7 +37,7 @@ export class CloudDataService {
 
   trackEvent(eventName: string): void {
     try {
-      this.loadInHiddenIframe(`/cloud-data/event/${encodeURIComponent(eventName)}.html`);
+      this.loadInHiddenIframe(`/cloud-data/url/event/${encodeURIComponent(eventName)}.html`);
     } catch (error) {
       console.error('Error tracking event:', error);
     }
