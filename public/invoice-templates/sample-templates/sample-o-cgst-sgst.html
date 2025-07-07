@@ -9,8 +9,8 @@
     :root {
       --primary: #cce5c5;
       --accent: #eaf7e5;
-      --text-dark: #333;
-      --gray: #888;
+      --text: #333;
+      --muted: #666;
       --border: #ccc;
     }
 
@@ -21,69 +21,88 @@
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      color: var(--text-dark);
       background: #fff;
+      color: var(--text);
+      padding: 10px;
     }
 
-    .container {
-      max-width: 850px;
+    .invoice {
+      max-width: 900px;
       margin: 40px auto;
       padding: 40px;
       border: 1px solid var(--border);
+      background: #fff;
     }
 
-    .topbar {
+    header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 20px;
     }
 
     .logo {
-      height: 40px;
+      height: 80px;
     }
 
-    .sender-customer {
-      display: flex;
-      gap: 40px;
-      font-size: 13px;
-      margin-top: 20px;
+    .invoice-info {
+      text-align: right;
+      font-size: 14px;
     }
 
-    .sender-customer div strong {
-      color: var(--text-dark);
-      font-weight: 600;
+    .invoice-info strong {
       display: block;
-      margin-bottom: 6px;
+      font-weight: 600;
     }
 
-    .invoice-header {
-      text-align: center;
-      margin: 40px 0 20px;
+    .addresses {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      font-size: 14px;
     }
 
-    .invoice-header h1 {
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    .invoice-meta {
-      text-align: center;
-      font-size: 13px;
+    .addresses div {
+      width: 48%;
       line-height: 1.6;
+    }
+
+    .addresses strong {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: var(--text);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
     }
 
     thead th {
       text-align: left;
-      background: var(--primary);
       padding: 12px;
+      font-weight: 600;
+    }
+
+    thead th:nth-child(n+2),
+    tbody td:nth-child(n+2) {
+      text-align: right;
     }
 
     tbody td {
@@ -96,77 +115,73 @@
     }
 
     .summary {
-      margin-top: 30px;
       display: flex;
       justify-content: flex-end;
+      margin-top: 30px;
     }
 
-    .summary-table {
+    .summary table {
+      width: 300px;
       font-size: 14px;
-      width: 100%;
-      max-width: 300px;
       border: 1px solid var(--border);
-      border-collapse: collapse;
     }
 
-    .summary-table td {
+    .summary td {
       padding: 10px;
       border: 1px solid var(--border);
     }
 
-    .summary-table tr:last-child td {
-      font-weight: bold;
+    .summary td:nth-child(2) {
+      text-align: right;
+    }
+
+    .summary tr:last-child {
       background: var(--primary);
-      font-size: 16px;
+      font-weight: bold;
     }
 
-    .signatures {
+    footer {
       margin-top: 40px;
-      display: flex;
-      justify-content: space-between;
       font-size: 13px;
-    }
-
-    .footer {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      margin-top: 40px;
-      font-size: 13px;
     }
 
     .thankyou {
+      margin-top: 40px;
       text-align: center;
       font-size: 16px;
-      font-weight: bold;
-      margin-top: 40px;
+      font-weight: 600;
     }
 
     @media (max-width: 600px) {
-      .topbar, .sender-customer, .summary, .signatures, .footer {
+      .addresses, header, .summary, footer {
         flex-direction: column;
         gap: 20px;
       }
 
-      .signatures {
-        text-align: center;
+      .addresses div, .invoice-info {
+        text-align: left;
+      }
+
+      .summary table {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="topbar">
+    <header>
       <img src="[[logo_small_src]]" alt="Logo" class="logo" />
-      <div class="invoice-meta">
-        <p><strong>Invoice No:</strong> [[invoice_number]]</p>
-        <p><strong>Invoice Date:</strong> [[invoice_date]]</p>
-        <p><strong>Payment Due:</strong> [[payment_due_date]]</p>
+      <div class="invoice-info">
+        <strong>Invoice #: </strong>[[invoice_number]]<br />
+        <strong>Date: </strong>[[invoice_date]]<br />
+        <strong>Due: </strong>[[payment_due_date]]
       </div>
-    </div>
+    </header>
 
-    <!-- Sender and Customer Info -->
-    <div class="sender-customer">
+    <div class="addresses">
       <div>
         <strong>From:</strong>
         [[org_name]]<br />
@@ -183,12 +198,8 @@
       </div>
     </div>
 
-    <!-- Invoice Heading -->
-    <div class="invoice-header">
-      <h1>INVOICE</h1>
-    </div>
+    <h1>INVOICE</h1>
 
-    <!-- Invoice Table -->
     <table>
       <thead>
         <tr>
@@ -214,9 +225,8 @@
       </tbody>
     </table>
 
-    <!-- Summary -->
     <div class="summary">
-      <table class="summary-table">
+      <table>
         <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
         <tr><td>Discount</td><td>[[discount]]</td></tr>
         <tr><td>Subtotal</td><td>[[subtotal]]</td></tr>
@@ -226,18 +236,18 @@
       </table>
     </div>
 
-
-    <!-- Footer -->
-    <div class="footer">
+    <footer>
       <div>
         <strong>Payment Terms</strong><br />
-        Bank Transfer<br />
-        Lorem Ipsum Dolor Sit Amet<br />
-        Paypal: paypal@yourcompanies.com
+        Bank Transfer / Paypal<br />
+        paypal@yourcompanies.com
       </div>
-    </div>
+      <div>
+        <strong>Need help?</strong><br />
+        Contact: support@yourdomain.com
+      </div>
+    </footer>
 
-    <!-- Thank You -->
     <div class="thankyou">THANK YOU FOR YOUR BUSINESS!</div>
 </body>
 </html>

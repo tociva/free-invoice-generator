@@ -22,6 +22,7 @@
       margin: 0;
       background: #f5f5f5;
       color: var(--text);
+      padding: 5px;
     }
 
     .invoice-container {
@@ -62,25 +63,16 @@
       width: 100px;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 50px;
-      margin-right: 10px;
-    }
-
     .client-section {
       margin-top: 30px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      gap: 20px;
     }
 
     .client-section div {
-      margin-bottom: 20px;
+      min-width: 250px;
     }
 
     .client-section strong {
@@ -103,8 +95,13 @@
 
     th, td {
       padding: 14px;
-      text-align: left;
       font-size: 14px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {
@@ -133,37 +130,20 @@
 
     .footer {
       margin-top: 50px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      text-align: center;
       font-size: 14px;
       color: #555;
     }
 
-    .footer div {
-      margin-bottom: 20px;
-      min-width: 220px;
-    }
-
-    .signature-box {
-      text-align: right;
-    }
-
-    .signature-box img {
-      height: 60px;
-      margin-top: 10px;
-    }
-
-    .signature-box p {
-      margin: 5px 0;
-      font-weight: bold;
+    .footer strong {
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
+
     <!-- Header -->
     <div class="header">
-      <h1>  COMPANY NAME</h1>
       <div class="logo-circle">
         <img src="[[logo_small_src]]" alt="Logo" />
       </div>
@@ -171,53 +151,53 @@
 
     <!-- Client Info -->
     <div class="client-section">
-     <div class="sender-info">
-      <strong>[[org_name]]</strong><br />
-      [[org_address]]<br />
-      [[org_phone]]<br />
-      [[org_email]]<br />
-    </div>
+      <div class="sender-info">
+        <strong>[[org_name]]</strong>
+        <p>[[org_address]]</p>
+        <p>[[org_phone]]</p>
+        <p>[[org_email]]</p>
+      </div>
 
-    <div class="billing-info">
-      <strong>[[customer_name]]</strong><br />
-      [[customer_address]]<br />
-      [[customer_phone]]<br />
-      [[customer_email]]<br />
-    </div>
+      <div class="billing-info">
+        <strong>[[customer_name]]</strong>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
 
-    <div class="invoice-info">
-      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
-    </div>
+      <div class="invoice-info">
+        <strong>Invoice Info</strong>
+        <p>Invoice #: [[invoice_number]]</p>
+        <p>Invoice Date: [[invoice_date]]</p>
+        <p>Payment Due: [[payment_due_date]]</p>
+      </div>
     </div>
 
     <!-- Invoice Table -->
     <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price per unit</th>
-        <th>CGST</th>
-        <th>SGST</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      [[items_start]]
-      <tr>
-        <td>[[item_name]]</td>
-        <td>[[item_quantity]]</td>
-        <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
-        <td>[[item_amount]]</td>
-      </tr>
-      [[items_end]]
-    </tbody>
-  </table>
-
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price per unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
 
     <!-- Summary -->
     <div class="totals">
@@ -231,12 +211,8 @@
 
     <!-- Footer -->
     <div class="footer">
-      <div>
-        <strong>THANK YOU FOR YOUR PAYMENT</strong>
-      </div>
-
+      <strong>THANK YOU FOR YOUR PAYMENT</strong>
     </div>
 
-  
 </body>
 </html>

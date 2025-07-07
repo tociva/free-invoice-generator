@@ -76,7 +76,6 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      margin-top: 0;
     }
 
     thead {
@@ -87,6 +86,23 @@
     th, td {
       padding: 14px;
       border: 1px solid var(--border);
+    }
+
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6) {
+      text-align: right;
+    }
+
+    td:nth-child(1),
+    th:nth-child(1) {
       text-align: left;
     }
 
@@ -108,7 +124,7 @@
     }
 
     .totals p span:first-child {
-      min-width: 120px;
+      min-width: 140px;
       text-align: left;
     }
 

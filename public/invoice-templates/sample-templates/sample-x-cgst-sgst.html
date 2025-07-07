@@ -13,7 +13,7 @@
 
     body {
       margin: 0;
-      padding: 40px;
+      padding: 20px;
       background: #f1f5f9;
       color: #111827;
     }
@@ -24,7 +24,7 @@
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-      padding: 40px;
+      padding: 5px;
     }
 
     .header {
@@ -36,7 +36,7 @@
     }
 
     .header img {
-      max-height: 50px;
+      max-height: 80px;
     }
 
     .header .company-details {
@@ -76,7 +76,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     }
 
     thead {
@@ -88,15 +88,25 @@
       padding: 14px;
       border-bottom: 1px solid #e5e7eb;
       font-size: 14px;
-      text-align: left;
     }
 
     th {
       font-weight: 600;
     }
 
+    /* Right-align numeric columns */
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    td:first-child,
+    th:first-child {
+      text-align: left;
+    }
+
     .totals {
-      max-width: 350px;
+      max-width: 300px;
       margin-left: auto;
     }
 
@@ -105,15 +115,19 @@
       font-size: 14px;
     }
 
+    .totals td:last-child {
+      text-align: right;
+    }
+
     .totals .total {
       font-weight: 700;
       color: #0d47a1;
     }
 
     .payment {
-      margin-top: 40px;
+      margin-top: 20px;
       background: #f9fafb;
-      padding: 20px;
+      padding: 10px;
       border-left: 4px solid #0d47a1;
       border-radius: 6px;
       font-size: 14px;
@@ -127,7 +141,7 @@
 
     .footer {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 30px;
       color: #6b7280;
       font-size: 13px;
     }
@@ -195,6 +209,14 @@
       <tr><td>Round Off</td><td>[[roundoff]]</td></tr>
       <tr class="total"><td>Total</td><td>[[grand_total]]</td></tr>
     </table>
+
+    <div class="payment">
+      <strong>Payment Info:</strong><br />
+      Bank Name: XYZ Bank<br />
+      Account No: 123456789<br />
+      Account Name: Your Company
+    </div>
+
     <div class="footer">
       Thank you for your business.
     </div>

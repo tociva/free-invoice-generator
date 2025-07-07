@@ -36,6 +36,7 @@
       flex-wrap: wrap;
       border-bottom: 2px solid var(--primary-color);
       padding-bottom: 20px;
+      margin-top: 20px;
     }
 
     .company-info h2 {
@@ -47,19 +48,6 @@
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 10px;
-    }
-
-    .invoice-title {
-      text-align: right;
-    }
-
-    .invoice-title h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    .section {
-      margin-top: 30px;
     }
 
     .logo-circle {
@@ -79,15 +67,10 @@
       width: 100px;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
+    .section {
+      margin-top: 30px;
     }
 
-    .logo img {
-      height: 50px;
-      margin-right: 10px;
-    }
     .section-title {
       font-size: 16px;
       font-weight: 600;
@@ -105,19 +88,6 @@
       width: 48%;
     }
 
-    .meta-table {
-      background: var(--primary-color);
-      border-radius: 6px;
-      padding: 15px 20px;
-      margin: 30px 0;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .meta-table div {
-      font-size: 14px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -131,7 +101,19 @@
     table th, table td {
       padding: 12px;
       border: 1px solid #ddd;
-      text-align: left;
+    }
+
+    table th:nth-child(2),
+    table th:nth-child(3),
+    table th:nth-child(4),
+    table th:nth-child(5),
+    table th:nth-child(6),
+    table td:nth-child(2),
+    table td:nth-child(3),
+    table td:nth-child(4),
+    table td:nth-child(5),
+    table td:nth-child(6) {
+      text-align: right;
     }
 
     tbody tr:nth-child(even) {
@@ -196,14 +178,13 @@
     <div class="header">
       <div class="company-info">
         <h2>[[org_name]]</h2>
-        <p class="slogan">[[org_tagline]]</p>
         <p>
           [[org_address]]<br>
           [[org_phone]]<br>
           [[org_email]]
         </p>
       </div>
-       <div class="logo-circle">
+      <div class="logo-circle">
         <img src="[[logo_small_src]]" alt="Logo" />
       </div>
     </div>
@@ -270,29 +251,11 @@
     <!-- Signature -->
     <div class="signature-section">
       <div></div>
-      <div class="signature">
-        <p>Authorized By</p>
-        <img src="[[signature_img]]" alt="Signature" />
-        <p><strong>[[manager_name]]</strong><br>[[manager_title]]</p>
-      </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <div>
-        <strong>Questions?</strong><br>
-        Email us at [[support_email]] or call [[support_phone]]
-      </div>
-      <div>
-        <strong>Payment Info</strong><br>
-        Account: [[bank_account_name]]<br>
-        A/C No: [[bank_account_number]]<br>
-        IFSC: [[bank_ifsc]]
-      </div>
-      <div>
-        <strong>Terms & Conditions</strong><br>
-        [[terms_conditions]]
-      </div>
+      <div class="thankyou">THANK YOU FOR YOUR BUSINESS!</div>
     </div>
 </body>
 </html>

@@ -9,6 +9,7 @@
       font-family: 'Segoe UI', sans-serif;
       background: #f0f2f5;
       color: #333;
+      padding: 15px;
     }
 
     .invoice-box {
@@ -40,12 +41,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 10px 0;
+      margin: 10px auto;
     }
 
     .logo-circle img {
       width: 100px;
-      margin-left: 20px;
     }
 
     .invoice-title {
@@ -61,8 +61,8 @@
     .invoice-title .inv-num {
       background: #3f51b5;
       color: white;
-      padding: 4px 12px;
-      font-weight: bold;
+      padding: 8px 12px;
+      font-weight: 900;
       border-radius: 5px;
       margin-top: 5px;
       display: inline-block;
@@ -84,34 +84,38 @@
       font-size: 15px;
     }
 
-    .table th {
+    .table thead th {
       background: #3f51b5;
       color: white;
       padding: 12px;
-      text-align: left;
     }
 
-    .table td {
+    .table tbody td {
       padding: 12px;
       border-bottom: 1px solid #eee;
     }
 
-    .table td .desc {
+    .table tbody td .desc {
       color: #666;
       font-size: 13px;
     }
 
+    /* Right-align numeric columns */
+    .table thead th:nth-child(n+2),
+    .table tbody td:nth-child(n+2) {
+      text-align: right;
+    }
+
     .totals {
       margin-top: 30px;
-      text-align: right;
       font-size: 15px;
+      max-width: 300px;
+      margin-left: auto;
     }
 
     .totals p {
       display: flex;
       justify-content: space-between;
-      max-width: 300px;
-      margin-left: auto;
       margin-bottom: 8px;
     }
 
@@ -141,15 +145,6 @@
       text-align: center;
     }
 
-    .signature {
-      margin-top: 50px;
-      text-align: right;
-    }
-
-    .signature img {
-      width: 100px;
-    }
-
     .footer {
       margin-top: 60px;
       background: #263238;
@@ -176,26 +171,17 @@
 </head>
 <body>
 
-
     <div class="logo-circle">
       <img src="[[logo_small_src]]" alt="Logo" />
     </div>
 
     <div class="top-header">
       <div class="invoice-title">
-        <span class="inv-num">#[[invoice_number]]</span>
+        <span class="inv-num">[[org_name]]</span>
       </div>
     </div>
 
     <div class="info">
-      <div>
-        <strong>From:</strong><br>
-        [[org_name]]<br>
-        [[org_address]]<br>
-        [[org_phone]]<br>
-        [[org_email]]
-      </div>
-
       <div>
         <strong>Billed To:</strong><br>
         [[customer_name]]<br>
@@ -205,6 +191,7 @@
       </div>
 
       <div>
+        <strong>Invoice No:</strong> [[invoice_number]]<br>
         <strong>Invoice Date:</strong> [[invoice_date]]<br>
         <strong>Payment Due:</strong> [[payment_due_date]]
       </div>
@@ -236,16 +223,16 @@
     </table>
 
     <div class="totals">
-      <p>Item Total: <span>[[itemtotal]]</span></p>
-      <p>Discount: <span>[[discount]]</span></p>
-      <p>Subtotal: <span>[[subtotal]]</span></p>
-      <p>Tax: <span>[[tax_amount]]</span></p>
-      <p>Round Off: <span>[[roundoff]]</span></p>
-      <p class="total">Total: <span>[[grand_total]]</span></p>
+      <p><span>Item Total:</span><span>[[itemtotal]]</span></p>
+      <p><span>Discount:</span><span>[[discount]]</span></p>
+      <p><span>Subtotal:</span><span>[[subtotal]]</span></p>
+      <p><span>Tax:</span><span>[[tax_amount]]</span></p>
+      <p><span>Round Off:</span><span>[[roundoff]]</span></p>
+      <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
     </div>
 
     <div class="amount-in-words">
-      [[grand_total_words]]
+      [[grand_total_inwords]]
     </div>
 
     <div class="payment-method">
@@ -257,12 +244,10 @@
     <div class="gold-gradient-bar"></div>
 
     <div class="footer">
-      <div>📞 [[support_phone]]</div>
-      <div>📧 [[support_email]]</div>
-      <div>🌐 [[support_website]]</div>
-      <div>📍 [[support_address]]</div>
+      <div>📞 [[org_phone]]</div>
+      <div>📧 [[org_email]]</div>
+      <div>📍 [[org_address]]</div>
     </div>
-
 
 </body>
 </html>

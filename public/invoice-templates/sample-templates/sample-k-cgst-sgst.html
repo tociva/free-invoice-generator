@@ -38,42 +38,44 @@
       background: var(--primary);
       color: white;
       padding: 30px 40px;
-      border-radius: 20px 0 0 0;
+      border-radius: 8px 8px 0 0;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     .invoice-id {
       font-size: 18px;
     }
 
-    .invoice-id span {
-      display: block;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .company-logo {
-      text-align: right;
-    }
-
-    .company-logo h2 {
-      margin: 0;
+    .company-logo img {
+      height: 90px;
+      object-fit: contain;
     }
 
     .section {
       display: flex;
       justify-content: space-between;
       margin-top: 30px;
+      flex-wrap: wrap;
+      padding: 10px;
     }
 
-    .section h4 {
-      margin: 0 0 10px;
+    .section > div {
+      flex: 1;
+      min-width: 250px;
+      margin-bottom: 20px;
+    }
+
+    .section strong {
+      display: block;
+      margin-bottom: 8px;
       color: var(--primary);
     }
 
     .section p {
-      margin: 5px 0;
+      margin: 4px 0;
       font-size: 14px;
     }
 
@@ -81,8 +83,6 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
-      border-radius: 10px;
-      overflow: hidden;
     }
 
     thead {
@@ -92,154 +92,162 @@
 
     th, td {
       padding: 14px;
-      text-align: left;
       font-size: 14px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    th:nth-child(n+2), td:nth-child(n+2) {
+      text-align: right;
     }
 
     tbody tr:nth-child(odd) {
-      background: white;
+      background: #fff;
     }
 
     tbody tr:nth-child(even) {
       background: var(--light);
-      border-radius: 10px;
     }
 
     .totals {
       margin-top: 30px;
-      max-width: 300px;
+      max-width: 320px;
       margin-left: auto;
-      font-size: 15px;
+      padding: 5px;
     }
 
-    .totals p {
-      display: flex;
-      justify-content: space-between;
-      margin: 6px 0;
+    .totals table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .totals .total {
-      font-size: 18px;
-      font-weight: 600;
+    .totals td {
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+
+    .totals td.label {
+      text-align: left;
+    }
+
+    .totals td.value {
+      text-align: right;
+    }
+
+    .totals tr.total td {
+      font-weight: bold;
+      font-size: 16px;
       border-top: 2px solid #ccc;
       padding-top: 10px;
     }
 
     .footer {
-      display: flex;
-      justify-content: space-between;
+      text-align: center;
       margin-top: 40px;
       font-size: 14px;
-      flex-wrap: wrap;
+      color: var(--gray);
     }
 
-    .footer div {
-      flex: 1;
-      min-width: 250px;
-      margin: 10px 20px 0 0;
-    }
-
-    .thank-you {
-      text-align: right;
-      margin-top: 40px;
-    }
-
-    .thank-you h2 {
+    .footer h4 {
       color: var(--primary);
-      font-size: 28px;
       margin-bottom: 5px;
     }
 
-    .thank-you p {
-      font-size: 13px;
-      color: var(--gray);
+    @media (max-width: 600px) {
+      .section {
+        flex-direction: column;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .company-logo {
+        text-align: left;
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
 <body>
+
+
     <!-- Header -->
     <div class="header">
       <div class="invoice-id">
-        <strong>INVOICE</strong>
-        <span>No. 2347BG8F</span>
-        <span>Date: February 14th 2021</span>
+        <strong>[[org_name]]</strong>
       </div>
       <div class="company-logo">
-        <h2>Company Logo</h2>
-        <span>Some good tagline</span>
+        <img src="[[logo_small_src]]" alt="Logo" />
       </div>
     </div>
 
-    <!-- Billing & Payment -->
+    <!-- Sender, Customer, Invoice Info -->
     <div class="section">
-      <div class="sender-info">
-      <strong>[[org_name]]</strong><br />
-      [[org_address]]<br />
-      [[org_phone]]<br />
-      [[org_email]]<br />
+      <div>
+        <strong>To:</strong>
+        <p>[[customer_name]]</p>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
+
+      <div>
+        <strong>Invoice Info:</strong>
+        <p>Invoice #: [[invoice_number]]</p>
+        <p>Invoice Date: [[invoice_date]]</p>
+        <p>Payment Due: [[payment_due_date]]</p>
+      </div>
     </div>
 
-    <div class="billing-info">
-      <strong>[[customer_name]]</strong><br />
-      [[customer_address]]<br />
-      [[customer_phone]]<br />
-      [[customer_email]]<br />
-    </div>
-
-    <div class="invoice-info">
-      <p><strong>Invoice number:</strong> [[invoice_number]]</p>
-      <p><strong>Invoice date:</strong> [[invoice_date]]</p>
-      <p><strong>Payment due:</strong> [[payment_due_date]]</p>
-    </div>
-    </div>
-
-    <!-- Items -->
+    <!-- Item Table -->
     <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Unit Price</th>
-            <th>CGST</th>
-            <th>SGST</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          [[items_start]]
-          <tr>
-            <td>[[item_name]]</td>
-            <td>[[item_quantity]]</td>
-            <td>[[item_price]]</td>
-            <td>[[item_cgst]]</td>
-            <td>[[item_sgst]]</td>
-            <td>[[item_amount]]</td>
-          </tr>
-          [[items_end]]
-        </tbody>
-      </table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
 
+    <!-- Totals -->
     <div class="totals">
-      <p><span>Item Total:</span><span>[[itemtotal]]</span></p>
-      <p><span>Discount:</span><span>[[discount]]</span></p>
-      <p><span>Subtotal:</span><span>[[subtotal]]</span></p>
-      <p><span>Tax:</span><span>[[tax_amount]]</span></p>
-      <p><span>Round Off:</span><span>[[roundoff]]</span></p>
-      <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
+      <table>
+        <tr><td class="label">Item Total:</td><td class="value">[[itemtotal]]</td></tr>
+        <tr><td class="label">Discount:</td><td class="value">[[discount]]</td></tr>
+        <tr><td class="label">Subtotal:</td><td class="value">[[subtotal]]</td></tr>
+        <tr><td class="label">Tax:</td><td class="value">[[tax_amount]]</td></tr>
+        <tr><td class="label">Round Off:</td><td class="value">[[roundoff]]</td></tr>
+        <tr class="total"><td class="label">Total:</td><td class="value">[[grand_total]]</td></tr>
+      </table>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <div>
-        <p>Best Regards,</p>
-        <p><strong>Jeff Pumaradi Michael</strong></p>
-      </div>
-      <div>
-        <h4>Contact.</h4>
-        <p>Phone: (+1) 234 567 890</p>
-        <p>Mail: yourcompany@mail.com</p>
-        <p>Website: www.yourwebsite.com</p>
-      </div>
+      <h4>Thank you for your business!</h4> 
+      <p>[[org_address]] | [[org_phone]] | [[org_email]]</p>
     </div>
+
+
 </body>
 </html>

@@ -24,7 +24,7 @@
       background: #fff;
       color: var(--text-dark);
       margin: 0;
-      padding: 0;
+      padding: 5px;
     }
 
     .invoice-box {
@@ -47,7 +47,7 @@
     }
 
     .header h1 {
-      margin: 0;
+      margin: 10;
       font-size: 36px;
     }
 
@@ -56,7 +56,7 @@
     }
 
     .logo img {
-      height: 50px;
+      height: 70px;
       margin-bottom: 5px;
     }
 
@@ -100,6 +100,12 @@
       text-align: left;
     }
 
+    /* Right-align numeric columns */
+    thead th:nth-child(n+2),
+    tbody td:nth-child(n+2) {
+      text-align: right;
+    }
+
     tbody td {
       padding: 12px;
       border-bottom: 1px solid #eee;
@@ -118,10 +124,15 @@
     .totals-table {
       width: 320px;
       font-size: 14px;
+      border-collapse: collapse;
     }
 
     .totals-table td {
       padding: 8px;
+    }
+
+    .totals-table td:nth-child(2) {
+      text-align: right;
     }
 
     .totals-table tr:last-child td {
@@ -132,21 +143,9 @@
       border-radius: 4px;
     }
 
-    .payment-method,
-    .terms {
+    .payment-method {
       margin-top: 40px;
       font-size: 14px;
-    }
-
-    .signature {
-      margin-top: 40px;
-      text-align: right;
-      font-size: 14px;
-    }
-
-    .signature img {
-      height: 60px;
-      margin-bottom: 5px;
     }
 
     @media (max-width: 600px) {
@@ -178,105 +177,103 @@
 
 <body>
 
-
-  <!-- Header -->
-  <div class="header">
-    <div>
-      <h1>INVOICE</h1>
-    </div>
-    <div class="logo">
-      <img src="[[logo_small_src]]" alt="Company Logo" />
-      <h3>Your Tagline Here</h3>
-    </div>
-  </div>
-
-  <!-- Info Section -->
-  <div class="client-info">
-    <div class="sender-info">
-      <strong>From:</strong><br />
-      [[org_name]]<br />
-      [[org_address]]<br />
-      [[org_phone]]<br />
-      [[org_email]]
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1>INVOICE</h1>
+      </div>
+      <div class="logo">
+        <img src="[[logo_small_src]]" alt="Company Logo" />
+      </div>
     </div>
 
-    <div class="billing-info">
-      <strong>To:</strong><br />
-      [[customer_name]]<br />
-      [[customer_address]]<br />
-      [[customer_phone]]<br />
-      [[customer_email]]
+    <!-- Info Section -->
+    <div class="client-info">
+      <div class="sender-info">
+        <strong>From:</strong><br />
+        [[org_name]]<br />
+        [[org_address]]<br />
+        [[org_phone]]<br />
+        [[org_email]]
+      </div>
+
+      <div class="billing-info">
+        <strong>To:</strong><br />
+        [[customer_name]]<br />
+        [[customer_address]]<br />
+        [[customer_phone]]<br />
+        [[customer_email]]
+      </div>
+
+      <div class="invoice-info">
+        <strong>Invoice Details:</strong><br />
+        Invoice #: [[invoice_number]]<br />
+        Date: [[invoice_date]]<br />
+        Due: [[payment_due_date]]
+      </div>
     </div>
 
-    <div class="invoice-info">
-      <strong>Invoice Details:</strong><br />
-      Invoice #: [[invoice_number]]<br />
-      Date: [[invoice_date]]<br />
-      Due: [[payment_due_date]]
-    </div>
-  </div>
-
-  <!-- Items Table -->
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Qty</th>
-        <th>Price/Unit</th>
-        <th>CGST</th>
-        <th>SGST</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      [[items_start]]
-      <tr>
-        <td>[[item_name]]</td>
-        <td>[[item_quantity]]</td>
-        <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
-        <td>[[item_amount]]</td>
-      </tr>
-      [[items_end]]
-    </tbody>
-  </table>
-
-  <!-- Totals -->
-  <div class="totals">
-    <table class="totals-table">
-      <tr>
-        <td>Item Total</td>
-        <td>[[itemtotal]]</td>
-      </tr>
-      <tr>
-        <td>Discount</td>
-        <td>[[discount]]</td>
-      </tr>
-      <tr>
-        <td>Subtotal</td>
-        <td>[[subtotal]]</td>
-      </tr>
-      <tr>
-        <td>Tax</td>
-        <td>[[tax_amount]]</td>
-      </tr>
-      <tr>
-        <td>Round Off</td>
-        <td>[[roundoff]]</td>
-      </tr>
-      <tr>
-        <td colspan="2">Total: [[grand_total]]</td>
-      </tr>
+    <!-- Items Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price/Unit</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
     </table>
-  </div>
 
-  <!-- Payment -->
-  <div class="payment-method">
-    <strong>Payment Method:</strong><br />
-    Visa, Mastercard, Cheque<br />
-    PayPal: paypal@company.com
-  </div>
+    <!-- Totals -->
+    <div class="totals">
+      <table class="totals-table">
+        <tr>
+          <td>Item Total</td>
+          <td>[[itemtotal]]</td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>[[discount]]</td>
+        </tr>
+        <tr>
+          <td>Subtotal</td>
+          <td>[[subtotal]]</td>
+        </tr>
+        <tr>
+          <td>Tax</td>
+          <td>[[tax_amount]]</td>
+        </tr>
+        <tr>
+          <td>Round Off</td>
+          <td>[[roundoff]]</td>
+        </tr>
+        <tr>
+          <td colspan="2">Total: [[grand_total]]</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Payment -->
+    <div class="payment-method">
+      <strong>Payment Method:</strong><br />
+      Visa, Mastercard, Cheque<br />
+      PayPal: paypal@company.com
+    </div>
 
 </body>
 

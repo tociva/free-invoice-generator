@@ -20,8 +20,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
+      padding: 10;
       background: var(--light);
       color: var(--text);
     }
@@ -59,10 +58,8 @@
       text-align: right;
     }
 
-    .company-logo h2 {
-      margin: 0;
-      font-size: 22px;
-      color: var(--accent);
+    .company-logo img {
+      max-height: 80px;
     }
 
     .section {
@@ -99,8 +96,18 @@
 
     th, td {
       padding: 14px;
-      text-align: left;
       font-size: 14px;
+      border: 1px solid #e0e0e0;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    td:first-child,
+    th:first-child {
+      text-align: left;
     }
 
     tbody tr:nth-child(even) {
@@ -110,7 +117,7 @@
     .totals {
       margin-top: 30px;
       max-width: 350px;
-      margin-left: 420px;
+      margin-left: auto;
       font-size: 15px;
     }
 
@@ -128,26 +135,11 @@
       color: var(--primary);
     }
 
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 40px;
-      font-size: 14px;
-      flex-wrap: wrap;
-      border-top: 1px solid #ddd;
-      padding-top: 30px;
-    }
-
-    .footer div {
-      flex: 1;
-      min-width: 250px;
-      margin: 10px 20px 0 0;
-    }
-
     .thank-you {
       text-align: right;
-      margin-top: 40px;
-          margin-right: 20px;
+      margin-top: 50px;
+      font-size: 14px;
+      margin-right: 20px;
     }
 
     .thank-you h2 {
@@ -171,7 +163,7 @@
         <span>Date: [[invoice_date]]</span>
       </div>
       <div class="company-logo">
-        <img src="[[logo_small_src]]" alt="Logo" />
+        <img src="[[logo_small_src]]" alt="Logo">
       </div>
     </div>
 
@@ -235,6 +227,7 @@
       <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
     </div>
 
+    <!-- Footer -->
     <div class="thank-you">
       <h2>Thank You!</h2>
       <p>We appreciate your business.</p>

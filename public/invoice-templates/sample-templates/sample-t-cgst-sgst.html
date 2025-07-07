@@ -84,40 +84,40 @@
     table.table th, table.table td {
       padding: 12px;
       border: 1px solid #ddd;
-      text-align: left;
     }
 
+    /* Right-align numeric columns */
+    table.table th:nth-child(n+2),
+    table.table td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    /* Totals table */
     .totals {
       width: 100%;
       max-width: 350px;
-      float: right;
       margin-top: 30px;
+      margin-left: auto;
+      border-collapse: collapse;
     }
 
     .totals td {
       padding: 8px 12px;
     }
 
-    .totals .grand-total {
+    .totals td:nth-child(2) {
+      text-align: right;
+    }
+
+    .totals .grand-total td {
       background: #ff3300;
       color: white;
       font-weight: bold;
       border-radius: 5px;
     }
 
-    .payment-info, .signature {
-      margin-top: 40px;
-      line-height: 1.6;
-    }
-
-    .signature {
-      text-align: right;
-      margin-top: 60px;
-      font-weight: bold;
-    }
-
     .thank-you {
-      margin-top: 330px;
+      margin-top: 100px;
       text-align: center;
       font-weight: bold;
       font-size: 18px;
@@ -180,6 +180,7 @@
         </tbody>
       </table>
     </div>
+
     <table class="totals">
       <tr><td>Item Total</td><td>[[itemtotal]]</td></tr>
       <tr><td>Discount</td><td>[[discount]]</td></tr>

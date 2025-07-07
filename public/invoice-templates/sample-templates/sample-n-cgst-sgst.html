@@ -108,7 +108,11 @@
       background: var(--primary);
       color: #fff;
       padding: 12px;
-      text-align: left;
+    }
+
+    thead th:nth-child(n+2),
+    tbody td:nth-child(n+2) {
+      text-align: right;
     }
 
     tbody td {
@@ -249,6 +253,7 @@
 
       <div class="footer">
         <div class="thanks">Thank you for your business with us!</div>
+        <div class="signature">Authorized Signature</div>
       </div>
     </div>
 </body>

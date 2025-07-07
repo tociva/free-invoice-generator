@@ -25,6 +25,7 @@
       font-family: 'Montserrat', sans-serif;
       background: var(--accent);
       color: var(--text);
+      padding: 10px;
     }
 
     .invoice-box {
@@ -41,7 +42,7 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid var(--light);
-      padding-bottom: 20px;
+      padding: 20px;
     }
 
     .header h1 {
@@ -55,7 +56,7 @@
     }
 
     .company img {
-      max-height: 50px;
+      max-height: 80px;
     }
 
     .company small {
@@ -100,6 +101,19 @@
       text-align: left;
     }
 
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
+    }
+
     tbody tr:nth-child(even) {
       background-color: var(--light);
     }
@@ -108,10 +122,16 @@
       width: 300px;
       margin-left: auto;
       font-size: 14px;
+      border-collapse: collapse;
     }
 
     .summary td {
       padding: 10px;
+      border: 1px solid #ecf0f1;
+    }
+
+    .summary td:nth-child(2) {
+      text-align: right;
     }
 
     .summary .grand-total {
@@ -126,6 +146,7 @@
       color: white;
       font-weight: bold;
       font-size: 14px;
+      text-align: center;
     }
 
     .payment, .signature {
@@ -142,7 +163,7 @@
     }
 
     .thank-you {
-      margin-top: 40px;
+      margin-top: 110px;
       background: var(--primary);
       color: white;
       text-align: center;
@@ -179,13 +200,12 @@
 </head>
 <body>
     
+
     <!-- Header -->
     <div class="header">
       <h1>INVOICE</h1>
       <div class="company">
         <img src="[[logo_small_src]]" alt="Company Logo" />
-        <div><strong>SUNNY COMPANY</strong></div>
-        <small>Your Custom Website Tagline</small>
       </div>
     </div>
 
@@ -263,6 +283,7 @@
     <div class="thank-you">
       THANK YOU FOR YOUR BUSINESS!
     </div>
+
     
 </body>
 </html>
