@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Invoice, InvoiceItem, TaxOption } from '../model/invoice.model';
+import { Address, Invoice, InvoiceItem, TaxOption } from '../model/invoice.model';
 import { Country } from '../model/country.model';
 import { DateFormat } from '../model/date-format.model';
 import { Currency } from '../model/currency.model';
@@ -17,9 +17,24 @@ export const loadInvoiceDetailsFailure = createAction(
   props<{ error: string }>()
 );
 
+export const patchInvoiceDetails = createAction(
+  '[InvoiceDetails] Patch Invoice Details',
+  props<{ details: Partial<Invoice> }>()
+);
+
+export const patchOrganization = createAction(
+  '[Organization] Patch Organization',
+  props<{ organization: Partial<Address> }>()
+);
+
 export const setOrganizationCountry = createAction(
   '[Organization] Set Organization Country',
   props<{ country: Country }>()
+);
+
+export const patchCustomer = createAction(
+  '[Customer] Patch Customer',
+  props<{ customer: Partial<Address> }>()
 );
 
 export const setCustomerCountry = createAction(

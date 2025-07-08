@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setCustomerCountry } from '../store/actions/invoice.action';
+import { patchCustomer, setCustomerCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { CountryService } from '../../../services/country.service';
@@ -80,6 +80,41 @@ export class InvoiceCustomerComponent implements OnDestroy {
 
   };
 
+  private handleCustomerCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
+    switch (event.data.label) {
+      case CustomerFormItem.NAME:
+        this.store.dispatch(patchCustomer({ customer: { name: event.newValue } }));
+        break;
+      case CustomerFormItem.LINE1:
+        this.store.dispatch(patchCustomer({ customer: { addressLine1: event.newValue } }));
+        break;
+      case CustomerFormItem.LINE2:
+        this.store.dispatch(patchCustomer({ customer: { addressLine2: event.newValue } }));
+        break;
+      case CustomerFormItem.STREET:
+        this.store.dispatch(patchCustomer({ customer: { street: event.newValue } }));
+        break;
+      case CustomerFormItem.CITY:
+        this.store.dispatch(patchCustomer({ customer: { city: event.newValue } }));
+        break;
+      case CustomerFormItem.ZIP:
+        this.store.dispatch(patchCustomer({ customer: { zipCode: event.newValue } }));
+        break;
+      case CustomerFormItem.STATE:
+        this.store.dispatch(patchCustomer({ customer: { state: event.newValue } }));
+        break;
+      case CustomerFormItem.EMAIL:
+        this.store.dispatch(patchCustomer({ customer: { email: event.newValue } }));
+        break;
+      case CustomerFormItem.MOBILE:
+        this.store.dispatch(patchCustomer({ customer: { phone: event.newValue } }));
+        break;
+      case CustomerFormItem.GSTIN:
+        this.store.dispatch(patchCustomer({ customer: { gstin: event.newValue } }));
+        break;
+    }
+  };
+
   customerColumnDefs: ColDef<FormColumnDef>[] = [
     { field: 'label', headerName: '', width: 150,flex:1 },
     {
@@ -103,6 +138,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
 
         return '';
       },
+      onCellValueChanged: this.handleCustomerCellValueChanged,
     }
   ];
 

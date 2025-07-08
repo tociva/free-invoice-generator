@@ -9,7 +9,8 @@ import {
   GridOptions,
   GridReadyEvent,
   ICellEditorParams,
-  ICellRendererParams
+  ICellRendererParams,
+  NewValueParams
 } from 'ag-grid-community';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
@@ -17,7 +18,7 @@ import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { CountryService } from '../../../services/country.service';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setOrganizationCountry } from '../store/actions/invoice.action';
+import { patchOrganization, setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 
@@ -76,14 +77,47 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     return this.countryService.fetchCountries(val).pipe(takeUntil(this.destroy$));
   };
 
-
-
   private findMyDetailsEditorComponent = (params: ICellEditorParams<FormColumnDef>) => {
     switch (params.data.label) {
       case OrganizatonFormItem.COUNTRY:
         return this.findMyDetailsCountryEditorComponent(params.data.value);
     }
     return { component: null };
+  };
+
+  private handleMyDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
+    switch (event.data.label) {
+      case OrganizatonFormItem.NAME:
+        this.store.dispatch(patchOrganization({ organization: { name: event.newValue } }));
+        break;
+      case OrganizatonFormItem.LINE1:
+        this.store.dispatch(patchOrganization({ organization: { addressLine1: event.newValue } }));
+        break;
+      case OrganizatonFormItem.LINE2:
+        this.store.dispatch(patchOrganization({ organization: { addressLine2: event.newValue } }));
+        break;
+      case OrganizatonFormItem.STREET:
+        this.store.dispatch(patchOrganization({ organization: { street: event.newValue } }));
+        break;
+      case OrganizatonFormItem.CITY:
+        this.store.dispatch(patchOrganization({ organization: { city: event.newValue } }));
+        break;
+      case OrganizatonFormItem.ZIP:
+        this.store.dispatch(patchOrganization({ organization: { zipCode: event.newValue } }));
+        break;
+      case OrganizatonFormItem.STATE:
+        this.store.dispatch(patchOrganization({ organization: { state: event.newValue } }));
+        break;
+      case OrganizatonFormItem.EMAIL:
+        this.store.dispatch(patchOrganization({ organization: { email: event.newValue } }));
+        break;
+      case OrganizatonFormItem.MOBILE:
+        this.store.dispatch(patchOrganization({ organization: { phone: event.newValue } }));
+        break;
+      case OrganizatonFormItem.GSTIN:
+        this.store.dispatch(patchOrganization({ organization: { gstin: event.newValue } }));
+        break;
+    }
   };
 
   myDetailsColumnDefs: ColDef<FormColumnDef>[] = [
@@ -113,7 +147,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
 
         return '';
       },
-
+      onCellValueChanged: this.handleMyDetailsCellValueChanged,
     },
   ];
 

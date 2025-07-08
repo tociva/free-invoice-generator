@@ -11,11 +11,33 @@ export const invoiceReducer = createReducer(
     ...state,
     invoice
   })),
-
+  on(InvoiceAction.patchInvoiceDetails, (state, { details }) => {
+    const invoiceTemp = {...state.invoice, ...details};
+    return {
+      ...state,
+      invoice: invoiceTemp
+    };
+  }),
+  on(InvoiceAction.patchOrganization, (state, { organization }) => {
+    const organizationTemp = {...state.invoice.organization, ...organization};
+    const invoice = {...state.invoice, organization: organizationTemp};
+    return {
+      ...state,
+      invoice
+    };
+  }),
   on(InvoiceAction.setOrganizationCountry, (state, { country }) => ({
     ...state,
     invoice: { ...state.invoice, organization: { ...state.invoice.organization, country } }
   })),
+  on(InvoiceAction.patchCustomer, (state, { customer }) => {
+    const customerTemp = {...state.invoice.customer, ...customer};
+    const invoice = {...state.invoice, customer: customerTemp};
+    return {
+      ...state,
+      invoice
+    };
+  }),
   on(InvoiceAction.setCustomerCountry, (state, { country }) => {
     const numbering = !['India', 'Pakistan', 'Bangladesh'].includes(country.name);
     return {

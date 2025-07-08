@@ -12,7 +12,7 @@ import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-co
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { patchInvoiceDetails, setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { Currency } from '../store/model/currency.model';
 import { DateFormat } from '../store/model/date-format.model';
 import { TaxOption } from '../store/model/invoice.model';
@@ -243,6 +243,11 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
   private handleInvoiceDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
     switch (event.data.label) {
+      case InvoiceDetailsFormItem.INVOICE_NUMBER:
+        {
+          this.store.dispatch(patchInvoiceDetails({ details: { number: event.newValue } }));
+          break;
+        }
       case InvoiceDetailsFormItem.INVOICE_DATE:
         {
           const newDate = new Date(event.newValue);
