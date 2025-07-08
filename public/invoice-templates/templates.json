@@ -450,6 +450,96 @@
                     "cgst",
                     "sgst"
                 ]
+            },
+            {
+                "name": "Royal Stripe Invoice",
+                "path": "invoice-templates/sample-templates/royal-stripe-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Bluecrest Invoice",
+                "path": "invoice-templates/sample-templates/bluecrest-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Blue Split Invoice",
+                "path": "invoice-templates/sample-templates/blue-split-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Teal Mark Invoice",
+                "path": "invoice-templates/sample-templates/teal-mark-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Aqua Slate Invoice",
+                "path": "invoice-templates/sample-templates/aqua-slate-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "Mint Divide Invoice",
+                "path": "invoice-templates/sample-templates/mint-divide-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "BoldEdge Invoice",
+                "path": "invoice-templates/sample-templates/bold-edge-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "RoseClay Invoice",
+                "path": "invoice-templates/sample-templates/rose-clay-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "SidebarSlate Invoice",
+                "path": "invoice-templates/sample-templates/sidebar-slate-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
+            },
+            {
+                "name": "OceanEdge Invoice",
+                "path": "invoice-templates/sample-templates/ocean-edge-invoice-template.html",
+                "tags": [
+                    "sample",
+                    "cgst",
+                    "sgst"
+                ]
             }
         ]
     }
