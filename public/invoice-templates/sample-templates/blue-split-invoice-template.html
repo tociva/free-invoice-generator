@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    .invoice-wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 25%;
+      background: linear-gradient(180deg, #b3d4ff 0%, #2176ff 100%);
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .sidebar h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .sidebar p {
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .content {
+      width: 75%;
+      padding: 40px;
+    }
+
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .invoice-header h1 {
+      font-size: 2em;
+      margin-bottom: 0;
+    }
+
+    .invoice-details {
+      text-align: right;
+    }
+
+    .invoice-details p {
+      margin: 2px 0;
+      font-size: 0.95em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+    }
+
+    table thead {
+      background: #f0f0f0;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 0.95em;
+    }
+
+    .totals {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .totals p {
+      margin: 5px 0;
+      font-size: 1em;
+    }
+
+    .totals strong {
+      font-size: 1.2em;
+    }
+
+    .footer {
+      margin-top: 60px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9em;
+    }
+
+    .footer-section {
+      max-width: 50%;
+    }
+
+    .sign {
+      text-align: right;
+      font-weight: bold;
+      padding-top: 40px;
+    }
+
+    .thank-you {
+      text-align: center;
+      margin-top: 40px;
+      font-weight: bold;
+      font-size: 1em;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="invoice-wrapper">
+    <div class="sidebar">
+      <h2>Invoice to:</h2>
+      <p><strong>[[customer_name]]</strong><br>
+        [[customer_phone]]<br>[[customer_email]]<br>[[customer_address]]</p>
+    </div>
+
+    <div class="content">
+      <div class="invoice-header">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <h1>[[org_name]]</h1>
+        <div class="invoice-details">
+          <p><strong>Invoice#</strong> [[invoice_number]]</p>
+          <p><strong>Date:</strong>[[invoice_date]]</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <p>Item Total: [[itemtotal]]</p>
+        <p>Discount: [[discount]]</p>
+        <p>Sub Total: [[subtotal]]</p>
+        <p>Tax: [[tax_amount]]</p>
+        <p>Round Off: [[roundoff]]</p>
+        <p><strong>Total: [[grand_total]]</strong></p>
+      </div>
+
+      <div class="footer">
+        <div class="footer-section">
+          <h4>Payment Info:</h4>
+          <p><strong>Account #:</strong> 1234 5678 9012</p>
+          <p><strong>A/C Name:</strong> Lorem Ipsum</p>
+          <p><strong>Bank Details:</strong> Add your details</p>
+        </div>
+        <div class="sign">
+          Authorised Sign
+        </div>
+      </div>
+
+      <div class="thank-you">Thank you for your business</div>
+    </div>
+  </div>
+
+</body>
+
+</html>
