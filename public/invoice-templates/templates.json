@@ -119,7 +119,7 @@
         "description": "Beauty and welnesstemplates for daybook.cloud",
         "items": [
             {
-                "name": "Rose Quartz Invoice",
+                "name": "Rose Quartz",
                 "path": "invoice-templates/Beauty-and-Wellness-Invoice-Templates/rose-quartz-invoice-template.html",
                 "tags": [
                     "rose",
@@ -139,7 +139,7 @@
         "description": "Boutique invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Rose Clay Invoice",
+                "name": "Rose Clay",
                 "path": "invoice-templates/Boutique-Invoice-Templates/rose-clay-invoice-template.html",
                 "tags": [
                     "rose",
@@ -156,7 +156,7 @@
         "description": "Buissness invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Amber Edge Invoice",
+                "name": "Amber Edge",
                 "path": "invoice-templates/Buissness-Invoice-Templates/amber-edge-invoice-template.html",
                 "tags": [
                     "amber",
@@ -167,7 +167,7 @@
                 ]
             },
             {
-                "name": "Aqua Edge Invoice",
+                "name": "Aqua Edge",
                 "path": "invoice-templates/Buissness-Invoice-Templates/aqua-edge-invoice-template.html",
                 "tags": [
                     "aqua",
@@ -178,7 +178,7 @@
                 ]
             },
             {
-                "name": "Bold Edge Invoice",
+                "name": "Bold Edge",
                 "path": "invoice-templates/Buissness-Invoice-Templates/bold-edge-invoice-template.html",
                 "tags": [
                     "bold",
@@ -189,7 +189,7 @@
                 ]
             },
             {
-                "name": "Indigo stream Invoice",
+                "name": "Indigo stream",
                 "path": "invoice-templates/Buissness-Invoice-Templates/indigo-stream-invoice-template.html",
                 "tags": [
                     "indigo",
@@ -207,7 +207,7 @@
         "description": "Corporate invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Charcoal Line Invoice",
+                "name": "Charcoal Line",
                 "path": "invoice-templates/Corporate-Invoice-Templates/charcoal-line-invoice-template.html",
                 "tags": [
                     "charcoal",
@@ -218,7 +218,7 @@
                 ]
             },
             {
-                "name": "Navy Ledger Invoice",
+                "name": "Navy Ledger",
                 "path": "invoice-templates/Corporate-Invoice-Templates/navy-ledger-invoice-template.html",
                 "tags": [
                     "navy",
@@ -236,7 +236,7 @@
         "description": "Creative Agency invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Aqua Slate Invoice",
+                "name": "Aqua Slate",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/aqua-slate-invoice-template.html",
                 "tags": [
                     "aqua",
@@ -247,7 +247,7 @@
                 ]
             },
             {
-                "name": "Blush Grid Invoice",
+                "name": "Blush Grid",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/blush-grid-invoice-template.html",
                 "tags": [
                     "blush",
@@ -258,7 +258,7 @@
                 ]
             },
             {
-                "name": "Copper Flame Invoice",
+                "name": "Copper Flame",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/copper-flame-invoice-template.html",
                 "tags": [
                     "copper",
@@ -269,7 +269,7 @@
                 ]
             },
             {
-                "name": "Rainbow Mint Invoice",
+                "name": "Rainbow Mint",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/rainbow-mint-invoice-template.html",
                 "tags": [
                     "rainbow",
@@ -280,7 +280,7 @@
                 ]
             },
             {
-                "name": "Royal Stripe Invoice",
+                "name": "Royal Stripe",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/royal-stripe-invoice-template.html",
                 "tags": [
                     "royal",
@@ -291,7 +291,7 @@
                 ]
             },
             {
-                "name": "Studio Luxe Invoice",
+                "name": "Studio Luxe",
                 "path": "invoice-templates/Creative-Agency-Invoice-Templates/studio-luxe-invoice-template.html",
                 "tags": [
                     "royal",
@@ -309,7 +309,7 @@
         "description": "Elegant invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Blue Ledger Invoice",
+                "name": "Blue Ledger",
                 "path": "invoice-templates/Elegant-Invoice-Templates/blue-ledger-invoice-template.html",
                 "tags": [
                     "blue",
@@ -320,7 +320,7 @@
                 ]
             },
             {
-                "name": "Indigo Mark Invoice",
+                "name": "Indigo Mark",
                 "path": "invoice-templates/Elegant-Invoice-Templates/indigo-mark-invoice-template.html",
                 "tags": [
                     "indigo",
@@ -331,7 +331,7 @@
                 ]
             },
             {
-                "name": "Mint Divide Invoice",
+                "name": "Mint Divide",
                 "path": "invoice-templates/Elegant-Invoice-Templates/mint-divide-invoice-template.html",
                 "tags": [
                     "mint",
@@ -342,7 +342,7 @@
                 ]
             },
             {
-                "name": "Plum Accent Invoice",
+                "name": "Plum Accent",
                 "path": "invoice-templates/Elegant-Invoice-Templates/plum-accent-invoice-template.html",
                 "tags": [
                     "plum",
@@ -353,7 +353,7 @@
                 ]
             },
             {
-                "name": "Slate Edge Invoice",
+                "name": "Slate Edge",
                 "path": "invoice-templates/Elegant-Invoice-Templates/slate-edge-invoice-template.html",
                 "tags": [
                     "slate",
@@ -371,7 +371,7 @@
         "description": "Freelancer invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Greenleaf Invoice",
+                "name": "Greenleaf",
                 "path": "invoice-templates/Freelancer-Invoice-Templates/greenleaf-invoice-template.html",
                 "tags": [
                     "grean",
@@ -390,7 +390,7 @@
         "description": "Healthcare invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Mint Balance Invoice",
+                "name": "Mint Balance",
                 "path": "invoice-templates/Healthcare-Invoice-Templates/mint-balance-invoice-template.html",
                 "tags": [
                     "mint",
@@ -409,7 +409,7 @@
         "description": "Modern Buisness invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Amber craft Invoice",
+                "name": "Amber craft",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-craft-invoice-template.html",
                 "tags": [
                     "amber",
@@ -420,7 +420,7 @@
                 ]
             },
             {
-                "name": "Amber Stripe Invoice",
+                "name": "Amber Stripe",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-stripe-invoice-template.html",
                 "tags": [
                     "amber",
@@ -431,7 +431,7 @@
                 ]
             },
             {
-                "name": "Aqua Breeze invoice",
+                "name": "Aqua Breeze",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-breeze-invoice-template.html",
                 "tags": [
                     "aqua",
@@ -442,7 +442,7 @@
                 ]
             },
             {
-                "name": "Aqua Glow Invoice",
+                "name": "Aqua Glow",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-glow-invoice-template.html",
                 "tags": [
                     "aqua",
@@ -453,7 +453,7 @@
                 ]
             },
             {
-                "name": "Blush Wave Invoice",
+                "name": "Blush Wave",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/blush-wave-invoice-template.html",
                 "tags": [
                     "blush",
@@ -464,7 +464,7 @@
                 ]
             },
             {
-                "name": "Cobalt Form Invoice",
+                "name": "Cobalt Form",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/cobalt-form-invoice-template.html",
                 "tags": [
                     "cobalt",
@@ -475,7 +475,7 @@
                 ]
             },
             {
-                "name": "Modern Blue Invoice",
+                "name": "Modern Blue",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/modern-blue-invoice-template.html",
                 "tags": [
                     "modern",
@@ -486,7 +486,7 @@
                 ]
             },
             {
-                "name": "Mono Core Invoice",
+                "name": "Mono Core",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/mono-core-invoice-template.html",
                 "tags": [
                     "mono",
@@ -497,7 +497,7 @@
                 ]
             },
             {
-                "name": "Ocean Edge Invoice",
+                "name": "Ocean Edge",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/ocean-edge-invoice-template.html",
                 "tags": [
                     "ocean",
@@ -508,7 +508,7 @@
                 ]
             },
             {
-                "name": "Skyline Invoice",
+                "name": "Skyline",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/skyline-invoice-template.html",
                 "tags": [
                     "skyline",
@@ -518,7 +518,7 @@
                 ]
             },
             {
-                "name": "Slate Gold Invoice",
+                "name": "Slate Gold",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/slate-gold-invoice-template.html",
                 "tags": [
                     "slate",
@@ -529,7 +529,7 @@
                 ]
             },
             {
-                "name": "Teal Edge Invoice",
+                "name": "Teal Edge",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-edge-invoice-template.html",
                 "tags": [
                     "teal",
@@ -540,7 +540,7 @@
                 ]
             },
             {
-                "name": "Teal Mark Invoice",
+                "name": "Teal Mark",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-mark-invoice-template.html",
                 "tags": [
                     "teal",
@@ -551,7 +551,7 @@
                 ]
             },
             {
-                "name": "Verdant Edge Invoice",
+                "name": "Verdant Edge",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/verdant-edge-invoice-template.html",
                 "tags": [
                     "verdant",
@@ -562,7 +562,7 @@
                 ]
             },
             {
-                "name": "Voilet Ledger Invoice",
+                "name": "Voilet Ledger",
                 "path": "invoice-templates/Modern-Business-Invoice-Templates/violet-ledger-invoice-template.html",
                 "tags": [
                     "verdant",
@@ -580,7 +580,7 @@
         "description": "Professional invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Violet Crest Invoice",
+                "name": "Violet Crest",
                 "path": "invoice-templates/Professional-Invoice-Templates/violet-crest-invoice-template.html",
                 "tags": [
                     "violet",
@@ -598,7 +598,7 @@
         "description": "Retail invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Sunflare Invoice",
+                "name": "Sunflare",
                 "path": "invoice-templates/Retail-Invoice-Templates/sunflare-invoice-template.html",
                 "tags": [
                     "Sunflare",
@@ -615,7 +615,7 @@
         "description": "Simple Design invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Sidebar Slate Invoice",
+                "name": "Sidebar Slate",
                 "path": "invoice-templates/Simple-Design-Invoice-Templates/sidebar-slate-invoice-template.html",
                 "tags": [
                     "sidebar",
@@ -633,7 +633,7 @@
         "description": "Startup invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Blue Split Invoice",
+                "name": "Blue Split",
                 "path": "invoice-templates/Startup-Invoice-Templates/blue-split-invoice-template.html",
                 "tags": [
                     "startup",
@@ -645,7 +645,7 @@
                 ]
             },
             {
-                "name": "Inferno Line Invoice",
+                "name": "Inferno Line",
                 "path": "invoice-templates/Startup-Invoice-Templates/inferno-line-invoice-template.html",
                 "tags": [
                     "startup",
@@ -656,7 +656,7 @@
                 ]
             },
             {
-                "name": "Poppins Breeze Invoice",
+                "name": "Poppins Breeze",
                 "path": "invoice-templates/Startup-Invoice-Templates/poppins-breeze-invoice-template.html",
                 "tags": [
                     "startup",
@@ -675,7 +675,7 @@
         "description": "Tech Service invoice templates for daybook.cloud",
         "items": [
             {
-                "name": "Bluecrest Invoice",
+                "name": "Bluecrest",
                 "path": "invoice-templates/Tech-Service-Invoice-Templates/bluecrest-invoice-template.html",
                 "tags": [
                     "blue",
@@ -687,7 +687,7 @@
                 ]
             },
             {
-                "name": "Elegant Gold Invoice",
+                "name": "Elegant Gold",
                 "path": "invoice-templates/Tech-Service-Invoice-Templates/elegant-gold-invoice-template.html",
                 "tags": [
                     "gold",
@@ -699,7 +699,7 @@
                 ]
             },
             {
-                "name": "Modern Circle Invoice",
+                "name": "Modern Circle",
                 "path": "invoice-templates/Tech-Service-Invoice-Templates/modern-circle-invoice-template.html",
                 "tags": [
                     "circle",
@@ -711,7 +711,7 @@
                 ]
             },
             {
-                "name": "Royal Plum Invoice",
+                "name": "Royal Plum",
                 "path": "invoice-templates/Tech-Service-Invoice-Templates/royal-plum-invoice-template.html",
                 "tags": [
                     "royal",
@@ -723,7 +723,7 @@
                 ]
             },
             {
-                "name": "Teal Flow Invoice",
+                "name": "Teal Flow",
                 "path": "invoice-templates/Tech-Service-Invoice-Templates/teal-flow-invoice-template.html",
                 "tags": [
                     "teal",
