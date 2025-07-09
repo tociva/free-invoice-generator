@@ -33,6 +33,10 @@ export enum InvoiceDetailsFormItem {
   DECIMAL_PLACES = 'Decimal Places',
   INTERNATIONAL_NUMBERING = 'International Numbering',
   DATE_FORMAT = 'Date Format',
+  ACCOUNT_NUMBER = 'Account Number',
+  ACCOUNT_NAME = 'Account Name',
+  BANK_NAME = 'Bank Name',
+  TERMS_AND_CONDITIONS = 'Terms & Conditions'
 }
 @Component({
   selector: 'app-invoice-details',
@@ -321,6 +325,9 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           InvoiceDetailsFormItem.TAX_OPTION,
           InvoiceDetailsFormItem.DECIMAL_PLACES,
           InvoiceDetailsFormItem.DATE_FORMAT,
+          InvoiceDetailsFormItem.ACCOUNT_NAME,
+          InvoiceDetailsFormItem.ACCOUNT_NUMBER,
+          InvoiceDetailsFormItem.BANK_NAME
         ];
         return editableFields.includes(label as InvoiceDetailsFormItem);
       },
@@ -377,6 +384,10 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
         { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
         { label: InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING, value: invoice.internationalNumbering },
+        { label: InvoiceDetailsFormItem.ACCOUNT_NUMBER, value: invoice.accountNumber },
+        { label: InvoiceDetailsFormItem.ACCOUNT_NAME, value: invoice.accountName },
+        { label: InvoiceDetailsFormItem.BANK_NAME, value: invoice.bankName },
+        { label: InvoiceDetailsFormItem.TERMS_AND_CONDITIONS, value: invoice.terms },
       ];
       const allRows = this.detailsGridApi.getDisplayedRowCount();
       const existingData = [];

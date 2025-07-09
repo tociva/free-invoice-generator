@@ -16,12 +16,18 @@ export const sampleInvoice: Invoice = {
   hasItemDescription: true,
   hasItemDiscount: false,
   internationalNumbering: false,
+  accountNumber:12345678910,
+  accountName:'',
+  bankName:'',
+  terms:'',
   dateFormat: {
     name: '31-01-2022',
     value: 'DD-MM-YYYY'
   },
   organization: {
     name: 'ACME Organization',
+     authorityName: 'Prince Francis',
+      designation:'Director',
     addressLine1: '123 Main St',
     addressLine2: 'PMG 123',
     street: 'Main Street',
@@ -49,6 +55,8 @@ export const sampleInvoice: Invoice = {
   },
   customer: {
     name: 'ACME Customer',
+     authorityName: 'Prince Francis',
+      designation:'Director',
     addressLine1: '123 Main St',
     addressLine2: 'PMG 123',
     street: 'Main Street',

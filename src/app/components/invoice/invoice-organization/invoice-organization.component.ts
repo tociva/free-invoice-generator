@@ -24,6 +24,8 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 export enum OrganizatonFormItem {
   NAME = 'Name',
+  AUTHPORITY_NAME = 'Authority Name',
+  DESIGNATION = 'Designation',
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
@@ -89,6 +91,12 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     switch (event.data.label) {
       case OrganizatonFormItem.NAME:
         this.store.dispatch(patchOrganization({ organization: { name: event.newValue } }));
+        break;
+      case OrganizatonFormItem.AUTHPORITY_NAME:
+        this.store.dispatch(patchOrganization({ organization: { authorityName: event.newValue } }));
+        break;
+      case OrganizatonFormItem.DESIGNATION:
+        this.store.dispatch(patchOrganization({ organization: { designation: event.newValue } }));
         break;
       case OrganizatonFormItem.LINE1:
         this.store.dispatch(patchOrganization({ organization: { addressLine1: event.newValue } }));
@@ -187,6 +195,12 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       case OrganizatonFormItem.LINE2:
         tooltip = 'Address Line 2, Second line of address';
         break;
+      case OrganizatonFormItem.AUTHPORITY_NAME:
+        tooltip = 'Authority Name';
+        break;
+      case OrganizatonFormItem.DESIGNATION:
+        tooltip = 'Designation';
+        break;
     }
     return {
       component: LabelColumnRendererComponent,
@@ -213,6 +227,8 @@ export class InvoiceOrganizationComponent implements OnDestroy {
           { label: OrganizatonFormItem.EMAIL, value: organization.email },
           { label: OrganizatonFormItem.MOBILE, value: organization.phone },
           { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
+          { label: OrganizatonFormItem.AUTHPORITY_NAME, value: organization.authorityName },
+          { label: OrganizatonFormItem.DESIGNATION, value: organization.designation },
         ];
       });
   }

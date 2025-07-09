@@ -53,7 +53,12 @@ export class TemplateUtil {
       .replace('[[grand_total_inwords]]', invoice.grandTotalInWords)
       .replace('[[logo_small_src]]', invoice.smallLogo || '')
       .replace('[[logo_large_src]]', invoice.largeLogo || '')
-      .replace('[[currency_symbol]]', String.fromCharCode(parseInt(invoice.currency.unicode, 16)));
+      .replace('[[currency_symbol]]', String.fromCharCode(parseInt(invoice.currency.unicode, 16)))
+      .replace('[[org_authority_name]]',invoice.organization.authorityName)
+      .replace('[[org_authority_designation]]',invoice.organization.designation)
+      .replace('[[account_number]]',invoice.accountNumber.toFixed(2))
+      .replace('[[account_name]]',invoice.accountName)
+      .replace('[[bank_name]]',invoice.bankName);
     return htmlS;
   
   }
