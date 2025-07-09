@@ -26,8 +26,14 @@ export const initialInvoiceState: InvoiceState = {
       name: '24-06-2025',
       value: 'DD-MM-YYYY'
     },
+    accountNumber:12345678910,
+    accountName:'',
+    bankName:'',
+    terms:'',
     organization: {
       name: 'NextEdge Software Solutions',
+      authorityName: 'Prince Francis',
+      designation:'Director',
       addressLine1: 'Block C, Olympia Tech Park',
       addressLine2: 'SIDCO Industrial Estate',
       street: 'Guindy',
@@ -55,6 +61,8 @@ export const initialInvoiceState: InvoiceState = {
     },
     customer: {
       name: 'PixelCraft Private Limited',
+      authorityName: 'Prince Francis',
+      designation:'Director',
       addressLine1: 'Plot No. 5, Kavuri Hills',
       addressLine2: 'Phase 1',
       street: 'Madhapur',

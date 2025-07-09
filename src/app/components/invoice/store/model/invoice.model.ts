@@ -29,6 +29,8 @@ export interface InvoiceItem {
 
 export interface Address {
   name: string;
+  authorityName:string;
+  designation:string;
   addressLine1: string;
   addressLine2: string;
   street: string;
@@ -52,6 +54,10 @@ export interface Invoice {
   hasItemDescription: boolean;
   hasItemDiscount: boolean;
   internationalNumbering: boolean;
+  accountNumber:number;
+  accountName:string;
+  bankName:string;
+  terms:string;
   deliveryState: string;
   organization: Address,
   customer: Address,

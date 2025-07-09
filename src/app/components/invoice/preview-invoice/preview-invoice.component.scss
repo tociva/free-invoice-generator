@@ -41,7 +41,7 @@ $mobile-breakpoint: 768px;
     padding: 0 8px;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 25px;
+    gap: 1px;
   }
 
   button {
@@ -68,18 +68,11 @@ $mobile-breakpoint: 768px;
 .icon-btn {
   background: none !important;
   border: none !important;
-  box-shadow: none !important;
-  width: 36px;
-  height: 36px;
   color: #333;
   cursor: pointer;
 
   &:hover {
     background: rgba(0, 0, 0, 0.05);
-  }
-
-  mat-icon {
-    font-size: 20px;
   }
 }
 
@@ -201,12 +194,11 @@ $mobile-breakpoint: 768px;
 }
 
 .btn-label {
-  display: none;
   font-size: 15px;
 
-  @media (max-width: $mobile-breakpoint) {
-    display: inline;
-  }
+  // @media (max-width: $mobile-breakpoint) {
+  //   display: inline;
+  // }
 }
 
 .invoice-frame {
