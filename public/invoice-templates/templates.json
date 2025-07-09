@@ -114,433 +114,627 @@
         ]
     },
     {
-        "theme": "sample-templates",
-        "name": "Modern Blue Invoice",
-        "description": "Sample invoice templates for daybook.cloud",
+        "theme": "Beauty-and-welness-invoice-templates",
+        "name": "Beuty and welness",
+        "description": "Beauty and welnesstemplates for daybook.cloud",
         "items": [
             {
-                "name": "Modern Blue Invoice",
-                "path": "invoice-templates/sample-templates/modern-blue-invoice-template.html",
+                "name": "Rose Quartz Invoice",
+                "path": "invoice-templates/Beauty-and-Wellness-Invoice-Templates/rose-quartz-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "rose",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "quartz",
+                    "green",
+                    "beauty",
+                    "Wellness"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Boutique-invoice-templates",
+        "name": "Boutique Invoice Templates",
+        "description": "Boutique invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Rose Clay Invoice",
+                "path": "invoice-templates/Boutique-Invoice-Templates/rose-clay-invoice-template.html",
+                "tags": [
+                    "rose",
+                    "cgst",
+                    "sgst",
+                    "clay",
+                    "boutique"
+                ]
+            }
+        ]
+    },{
+        "theme": "Buissness-invoice-templates",
+        "name": "Buissness Invoice Templates",
+        "description": "Buissness invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Amber Edge Invoice",
+                "path": "invoice-templates/Buissness-Invoice-Templates/amber-edge-invoice-template.html",
+                "tags": [
+                    "amber",
+                    "cgst",
+                    "sgst",
+                    "edge",
+                    "buissness"
                 ]
             },
             {
                 "name": "Aqua Edge Invoice",
-                "path": "invoice-templates/sample-templates/aqua-edge-invoice-template.html",
+                "path": "invoice-templates/Buissness-Invoice-Templates/aqua-edge-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "aqua",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "edge",
+                    "buissness"
                 ]
             },
             {
-                "name": "Poppins Breeze Invoice",
-                "path": "invoice-templates/sample-templates/poppins-breeze-invoice-template.html",
+                "name": "Bold Edge Invoice",
+                "path": "invoice-templates/Buissness-Invoice-Templates/bold-edge-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "bold",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "edge",
+                    "buissness"
                 ]
             },
             {
-                "name": "Modern Circle Invoice",
-                "path": "invoice-templates/sample-templates/modern-circle-invoice-template.html",
+                "name": "Indigo stream Invoice",
+                "path": "invoice-templates/Buissness-Invoice-Templates/indigo-stream-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "indigo",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "stream",
+                    "buissness"
                 ]
-            },
+            }
+        ]
+    },
+    {
+        "theme": "Corporate-invoice-templates",
+        "name": "Corporate Invoice Templates",
+        "description": "Corporate invoice templates for daybook.cloud",
+        "items": [
             {
-                "name": "Rainbow Mint Invoice",
-                "path": "invoice-templates/sample-templates/rainbow-mint-invoice-template.html",
+                "name": "Charcoal Line Invoice",
+                "path": "invoice-templates/Corporate-Invoice-Templates/charcoal-line-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "charcoal",
                     "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Amber Stripe Invoice",
-                "path": "invoice-templates/sample-templates/amber-stripe-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Plum Accent Invoice",
-                "path": "invoice-templates/sample-templates/plum-accent-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Copper Flame Invoice",
-                "path": "invoice-templates/sample-templates/copper-flame-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Skyline Invoice",
-                "path": "invoice-templates/sample-templates/skyline-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Aqua Glow Invoice",
-                "path": "invoice-templates/sample-templates/aqua-glow-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Teal Edge Invoice",
-                "path": "invoice-templates/sample-templates/teal-edge-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Indigo Mark Invoice",
-                "path": "invoice-templates/sample-templates/indigo-mark-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Violet Ledger Invoice",
-                "path": "invoice-templates/sample-templates/violet-ledger-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Blush Grid Invoice",
-                "path": "invoice-templates/sample-templates/blush-grid-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Mint Balance Invoice",
-                "path": "invoice-templates/sample-templates/mint-balance-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
+                    "sgst",
+                    "line",
+                    "corporate"
                 ]
             },
             {
                 "name": "Navy Ledger Invoice",
-                "path": "invoice-templates/sample-templates/navy-ledger-invoice-template.html",
+                "path": "invoice-templates/Corporate-Invoice-Templates/navy-ledger-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "navy",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "ledger",
+                    "corporate"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Creative-Agency-invoice-templates",
+        "name": "Creative Agency Invoice Templates",
+        "description": "Creative Agency invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Aqua Slate Invoice",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/aqua-slate-invoice-template.html",
+                "tags": [
+                    "aqua",
+                    "cgst",
+                    "sgst",
+                    "slate",
+                    "creative"
                 ]
             },
             {
-                "name": "Slate Edge Invoice",
-                "path": "invoice-templates/sample-templates/slate-edge-invoice-template.html",
+                "name": "Blush Grid Invoice",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/blush-grid-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "blush",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "grid",
+                    "creative"
                 ]
             },
             {
-                "name": "Cobalt Form Invoice",
-                "path": "invoice-templates/sample-templates/cobalt-form-invoice-template.html",
+                "name": "Copper Flame Invoice",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/copper-flame-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "copper",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "flame",
+                    "creative"
                 ]
             },
             {
-                "name": "Mono Core Invoice",
-                "path": "invoice-templates/sample-templates/mono-core-invoice-template",
+                "name": "Rainbow Mint Invoice",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/rainbow-mint-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "rainbow",
                     "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Inferno Line Invoice",
-                "path": "invoice-templates/sample-templates/inferno-line-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Indigo Stream Invoice",
-                "path": "invoice-templates/sample-templates/indigo-stream-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Teal Flow Invoice",
-                "path": "invoice-templates/sample-templates/teal-flow-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Blush Wave Invoice",
-                "path": "invoice-templates/sample-templates/blush-wave-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Blue Ledger Invoice",
-                "path": "invoice-templates/sample-templates/blue-ledger-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Verdant Edge Invoice",
-                "path": "invoice-templates/sample-templates/verdant-edge-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Amber Craft Invoice",
-                "path": "invoice-templates/sample-templates/amber-craft-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Elegant Gold Invoice",
-                "path": "invoice-templates/sample-templates/elegant-gold-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-             {
-                "name": "Aqua Breeze-invoice",
-                "path": "invoice-templates/sample-templates/aqua-breeze-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Rose Quartz Invoice",
-                "path": "invoice-templates/sample-templates/rose-quartz-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Studio Luxe Invoice",
-                "path": "invoice-templates/sample-templates/studio-luxe-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Slate Gold Invoice",
-                "path": "invoice-templates/sample-templates/slate-gold-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Greenleaf Invoice",
-                "path": "invoice-templates/sample-templates/greenleaf-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Amber Edge Invoice",
-                "path": "invoice-templates/sample-templates/amber-edge-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Royal Plum Invoice",
-                "path": "invoice-templates/sample-templates/royal-plum-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Sunflare Invoice",
-                "path": "invoice-templates/sample-templates/sunflare-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Violet Crest Invoice",
-                "path": "invoice-templates/sample-templates/violet-crest-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Charcoal Line Invoice",
-                "path": "invoice-templates/sample-templates/charcoal-line-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
+                    "sgst",
+                    "mint",
+                    "creative"
                 ]
             },
             {
                 "name": "Royal Stripe Invoice",
-                "path": "invoice-templates/sample-templates/royal-stripe-invoice-template.html",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/royal-stripe-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "royal",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "stripe",
+                    "creative"
                 ]
             },
             {
-                "name": "Bluecrest Invoice",
-                "path": "invoice-templates/sample-templates/bluecrest-invoice-template.html",
+                "name": "Studio Luxe Invoice",
+                "path": "invoice-templates/Creative-Agency-Invoice-Templates/studio-luxe-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "royal",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "stripe",
+                    "creative"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Elegant-invoice-templates",
+        "name": "Elegant Invoice Templates",
+        "description": "Elegant invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Blue Ledger Invoice",
+                "path": "invoice-templates/Elegant-Invoice-Templates/blue-ledger-invoice-template.html",
+                "tags": [
+                    "blue",
+                    "cgst",
+                    "sgst",
+                    "ledger",
+                    "elegant"
                 ]
             },
             {
-                "name": "Blue Split Invoice",
-                "path": "invoice-templates/sample-templates/blue-split-invoice-template.html",
+                "name": "Indigo Mark Invoice",
+                "path": "invoice-templates/Elegant-Invoice-Templates/indigo-mark-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "indigo",
                     "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Teal Mark Invoice",
-                "path": "invoice-templates/sample-templates/teal-mark-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
-                ]
-            },
-            {
-                "name": "Aqua Slate Invoice",
-                "path": "invoice-templates/sample-templates/aqua-slate-invoice-template.html",
-                "tags": [
-                    "sample",
-                    "cgst",
-                    "sgst"
+                    "sgst",
+                    "mark",
+                    "elegant"
                 ]
             },
             {
                 "name": "Mint Divide Invoice",
-                "path": "invoice-templates/sample-templates/mint-divide-invoice-template.html",
+                "path": "invoice-templates/Elegant-Invoice-Templates/mint-divide-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "mint",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "divide",
+                    "elegant"
                 ]
             },
             {
-                "name": "BoldEdge Invoice",
-                "path": "invoice-templates/sample-templates/bold-edge-invoice-template.html",
+                "name": "Plum Accent Invoice",
+                "path": "invoice-templates/Elegant-Invoice-Templates/plum-accent-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "plum",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "accent",
+                    "elegant"
                 ]
             },
             {
-                "name": "RoseClay Invoice",
-                "path": "invoice-templates/sample-templates/rose-clay-invoice-template.html",
+                "name": "Slate Edge Invoice",
+                "path": "invoice-templates/Elegant-Invoice-Templates/slate-edge-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "slate",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "edge",
+                    "elegant"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Freelancer-invoice-templates",
+        "name": "Freelancer Invoice Templates",
+        "description": "Freelancer invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Greenleaf Invoice",
+                "path": "invoice-templates/Freelancer-Invoice-Templates/greenleaf-invoice-template.html",
+                "tags": [
+                    "grean",
+                    "cgst",
+                    "sgst",
+                    "leaf",
+                    "freelacer",
+                    "freelance"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Healthcare-invoice-templates",
+        "name": "Healthcare Invoice Templates",
+        "description": "Healthcare invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Mint Balance Invoice",
+                "path": "invoice-templates/Healthcare-Invoice-Templates/mint-balance-invoice-template.html",
+                "tags": [
+                    "mint",
+                    "cgst",
+                    "sgst",
+                    "balance",
+                    "freelacer",
+                    "freelance"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Modern-Buisness-invoice-templates",
+        "name": "Modern Buisness Invoice Templates",
+        "description": "Modern Buisness invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Amber craft Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-craft-invoice-template.html",
+                "tags": [
+                    "amber",
+                    "cgst",
+                    "sgst",
+                    "craft",
+                    "modern"
                 ]
             },
             {
-                "name": "SidebarSlate Invoice",
-                "path": "invoice-templates/sample-templates/sidebar-slate-invoice-template.html",
+                "name": "Amber Stripe Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-stripe-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "amber",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "stripe",
+                    "modern"
                 ]
             },
             {
-                "name": "OceanEdge Invoice",
-                "path": "invoice-templates/sample-templates/ocean-edge-invoice-template.html",
+                "name": "Aqua Breeze invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-breeze-invoice-template.html",
                 "tags": [
-                    "sample",
+                    "aqua",
                     "cgst",
-                    "sgst"
+                    "sgst",
+                    "breeze",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Aqua Glow Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-glow-invoice-template.html",
+                "tags": [
+                    "aqua",
+                    "cgst",
+                    "sgst",
+                    "glow",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Blush Wave Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/blush-wave-invoice-template.html",
+                "tags": [
+                    "blush",
+                    "cgst",
+                    "sgst",
+                    "wave",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Cobalt Form Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/cobalt-form-invoice-template.html",
+                "tags": [
+                    "cobalt",
+                    "cgst",
+                    "sgst",
+                    "form",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Modern Blue Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/modern-blue-invoice-template.html",
+                "tags": [
+                    "modern",
+                    "cgst",
+                    "sgst",
+                    "blue",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Mono Core Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/mono-core-invoice-template.html",
+                "tags": [
+                    "mono",
+                    "cgst",
+                    "sgst",
+                    "core",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Ocean Edge Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/ocean-edge-invoice-template.html",
+                "tags": [
+                    "ocean",
+                    "cgst",
+                    "sgst",
+                    "edge",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Skyline Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/skyline-invoice-template.html",
+                "tags": [
+                    "skyline",
+                    "cgst",
+                    "sgst",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Slate Gold Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/slate-gold-invoice-template.html",
+                "tags": [
+                    "slate",
+                    "cgst",
+                    "sgst",
+                    "gold",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Teal Edge Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-edge-invoice-template.html",
+                "tags": [
+                    "teal",
+                    "cgst",
+                    "sgst",
+                    "edge",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Teal Mark Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-mark-invoice-template.html",
+                "tags": [
+                    "teal",
+                    "cgst",
+                    "sgst",
+                    "mark",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Verdant Edge Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/verdant-edge-invoice-template.html",
+                "tags": [
+                    "verdant",
+                    "cgst",
+                    "sgst",
+                    "edge",
+                    "modern"
+                ]
+            },
+            {
+                "name": "Voilet Ledger Invoice",
+                "path": "invoice-templates/Modern-Business-Invoice-Templates/violet-ledger-invoice-template.html",
+                "tags": [
+                    "verdant",
+                    "cgst",
+                    "sgst",
+                    "edge",
+                    "modern"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Professional-invoice-templates",
+        "name": "Professional Invoice Templates",
+        "description": "Professional invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Violet Crest Invoice",
+                "path": "invoice-templates/Professional-Invoice-Templates/violet-crest-invoice-template.html",
+                "tags": [
+                    "violet",
+                    "cgst",
+                    "sgst",
+                    "crest",
+                    "Professional"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Retail-invoice-templates",
+        "name": "Retail Invoice Templates",
+        "description": "Retail invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Sunflare Invoice",
+                "path": "invoice-templates/Retail-Invoice-Templates/sunflare-invoice-template.html",
+                "tags": [
+                    "Sunflare",
+                    "cgst",
+                    "sgst",
+                    "Retail"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Simple-Design-invoice-templates",
+        "name": "Simple Design Invoice Templates",
+        "description": "Simple Design invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Sidebar Slate Invoice",
+                "path": "invoice-templates/Simple-Design-Invoice-Templates/sidebar-slate-invoice-template.html",
+                "tags": [
+                    "sidebar",
+                    "cgst",
+                    "sgst",
+                    "slate",
+                    "Retail"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Startup-invoice-templates",
+        "name": "Startup Invoice Templates",
+        "description": "Startup invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Blue Split Invoice",
+                "path": "invoice-templates/Startup-Invoice-Templates/blue-split-invoice-template.html",
+                "tags": [
+                    "startup",
+                    "cgst",
+                    "sgst",
+                    "sidebar",
+                    "blue",
+                    "split"
+                ]
+            },
+            {
+                "name": "Inferno Line Invoice",
+                "path": "invoice-templates/Startup-Invoice-Templates/inferno-line-invoice-template.html",
+                "tags": [
+                    "startup",
+                    "cgst",
+                    "sgst",
+                    "inferno",
+                    "line"
+                ]
+            },
+            {
+                "name": "Poppins Breeze Invoice",
+                "path": "invoice-templates/Startup-Invoice-Templates/poppins-breeze-invoice-template.html",
+                "tags": [
+                    "startup",
+                    "cgst",
+                    "sgst",
+                    "sidebar",
+                    "poppins",
+                    "breeze"
+                ]
+            }
+        ]
+    },
+    {
+        "theme": "Tech-Service-invoice-templates",
+        "name": "Tech Service Invoice Templates",
+        "description": "Tech Service invoice templates for daybook.cloud",
+        "items": [
+            {
+                "name": "Bluecrest Invoice",
+                "path": "invoice-templates/Tech-Service-Invoice-Templates/bluecrest-invoice-template.html",
+                "tags": [
+                    "blue",
+                    "cgst",
+                    "sgst",
+                    "bluecrest",
+                    "tech",
+                    "service"
+                ]
+            },
+            {
+                "name": "Elegant Gold Invoice",
+                "path": "invoice-templates/Tech-Service-Invoice-Templates/elegant-gold-invoice-template.html",
+                "tags": [
+                    "gold",
+                    "cgst",
+                    "sgst",
+                    "elegant",
+                    "tech",
+                    "service"
+                ]
+            },
+            {
+                "name": "Modern Circle Invoice",
+                "path": "invoice-templates/Tech-Service-Invoice-Templates/modern-circle-invoice-template.html",
+                "tags": [
+                    "circle",
+                    "cgst",
+                    "sgst",
+                    "modern",
+                    "tech",
+                    "service"
+                ]
+            },
+            {
+                "name": "Royal Plum Invoice",
+                "path": "invoice-templates/Tech-Service-Invoice-Templates/royal-plum-invoice-template.html",
+                "tags": [
+                    "royal",
+                    "cgst",
+                    "sgst",
+                    "plum",
+                    "tech",
+                    "service"
+                ]
+            },
+            {
+                "name": "Teal Flow Invoice",
+                "path": "invoice-templates/Tech-Service-Invoice-Templates/teal-flow-invoice-template.html",
+                "tags": [
+                    "teal",
+                    "cgst",
+                    "sgst",
+                    "flow",
+                    "tech",
+                    "service"
                 ]
             }
         ]
     }
+    
 ]
