@@ -120,7 +120,7 @@
         "items": [
             {
                 "name": "Rose Quartz",
-                "path": "invoice-templates/Beauty-and-Wellness-Invoice-Templates/rose-quartz-invoice-template.html",
+                "path": "invoice-templates/beauty-and-wellness/rose-quartz-invoice-template.html",
                 "tags": [
                     "rose",
                     "cgst",
@@ -140,7 +140,7 @@
         "items": [
             {
                 "name": "Rose Clay",
-                "path": "invoice-templates/Boutique-Invoice-Templates/rose-clay-invoice-template.html",
+                "path": "invoice-templates/boutique/rose-clay-invoice-template.html",
                 "tags": [
                     "rose",
                     "cgst",
@@ -157,7 +157,7 @@
         "items": [
             {
                 "name": "Amber Edge",
-                "path": "invoice-templates/Buissness-Invoice-Templates/amber-edge-invoice-template.html",
+                "path": "invoice-templates/buissness/amber-edge-invoice-template.html",
                 "tags": [
                     "amber",
                     "cgst",
@@ -168,7 +168,7 @@
             },
             {
                 "name": "Aqua Edge",
-                "path": "invoice-templates/Buissness-Invoice-Templates/aqua-edge-invoice-template.html",
+                "path": "invoice-templates/buissness/aqua-edge-invoice-template.html",
                 "tags": [
                     "aqua",
                     "cgst",
@@ -179,7 +179,7 @@
             },
             {
                 "name": "Bold Edge",
-                "path": "invoice-templates/Buissness-Invoice-Templates/bold-edge-invoice-template.html",
+                "path": "invoice-templates/buissness/bold-edge-invoice-template.html",
                 "tags": [
                     "bold",
                     "cgst",
@@ -190,7 +190,7 @@
             },
             {
                 "name": "Indigo stream",
-                "path": "invoice-templates/Buissness-Invoice-Templates/indigo-stream-invoice-template.html",
+                "path": "invoice-templates/buissness/indigo-stream-invoice-template.html",
                 "tags": [
                     "indigo",
                     "cgst",
@@ -208,7 +208,7 @@
         "items": [
             {
                 "name": "Charcoal Line",
-                "path": "invoice-templates/Corporate-Invoice-Templates/charcoal-line-invoice-template.html",
+                "path": "invoice-templates/corporate/charcoal-line-invoice-template.html",
                 "tags": [
                     "charcoal",
                     "cgst",
@@ -219,7 +219,7 @@
             },
             {
                 "name": "Navy Ledger",
-                "path": "invoice-templates/Corporate-Invoice-Templates/navy-ledger-invoice-template.html",
+                "path": "invoice-templates/corporate/navy-ledger-invoice-template.html",
                 "tags": [
                     "navy",
                     "cgst",
@@ -237,7 +237,7 @@
         "items": [
             {
                 "name": "Aqua Slate",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/aqua-slate-invoice-template.html",
+                "path": "invoice-templates/creative/aqua-slate-invoice-template.html",
                 "tags": [
                     "aqua",
                     "cgst",
@@ -248,7 +248,7 @@
             },
             {
                 "name": "Blush Grid",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/blush-grid-invoice-template.html",
+                "path": "invoice-templates/creative/blush-grid-invoice-template.html",
                 "tags": [
                     "blush",
                     "cgst",
@@ -259,7 +259,7 @@
             },
             {
                 "name": "Copper Flame",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/copper-flame-invoice-template.html",
+                "path": "invoice-templates/creative/copper-flame-invoice-template.html",
                 "tags": [
                     "copper",
                     "cgst",
@@ -270,7 +270,7 @@
             },
             {
                 "name": "Rainbow Mint",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/rainbow-mint-invoice-template.html",
+                "path": "invoice-templates/creative/rainbow-mint-invoice-template.html",
                 "tags": [
                     "rainbow",
                     "cgst",
@@ -281,7 +281,7 @@
             },
             {
                 "name": "Royal Stripe",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/royal-stripe-invoice-template.html",
+                "path": "invoice-templates/creative/royal-stripe-invoice-template.html",
                 "tags": [
                     "royal",
                     "cgst",
@@ -292,7 +292,7 @@
             },
             {
                 "name": "Studio Luxe",
-                "path": "invoice-templates/Creative-Agency-Invoice-Templates/studio-luxe-invoice-template.html",
+                "path": "invoice-templates/creative/studio-luxe-invoice-template.html",
                 "tags": [
                     "royal",
                     "cgst",
@@ -310,7 +310,7 @@
         "items": [
             {
                 "name": "Blue Ledger",
-                "path": "invoice-templates/Elegant-Invoice-Templates/blue-ledger-invoice-template.html",
+                "path": "invoice-templates/elegant/blue-ledger-invoice-template.html",
                 "tags": [
                     "blue",
                     "cgst",
@@ -321,7 +321,7 @@
             },
             {
                 "name": "Indigo Mark",
-                "path": "invoice-templates/Elegant-Invoice-Templates/indigo-mark-invoice-template.html",
+                "path": "invoice-templates/elegant/indigo-mark-invoice-template.html",
                 "tags": [
                     "indigo",
                     "cgst",
@@ -332,7 +332,7 @@
             },
             {
                 "name": "Mint Divide",
-                "path": "invoice-templates/Elegant-Invoice-Templates/mint-divide-invoice-template.html",
+                "path": "invoice-templates/elegant/mint-divide-invoice-template.html",
                 "tags": [
                     "mint",
                     "cgst",
@@ -343,7 +343,7 @@
             },
             {
                 "name": "Plum Accent",
-                "path": "invoice-templates/Elegant-Invoice-Templates/plum-accent-invoice-template.html",
+                "path": "invoice-templates/elegant/plum-accent-invoice-template.html",
                 "tags": [
                     "plum",
                     "cgst",
@@ -354,7 +354,7 @@
             },
             {
                 "name": "Slate Edge",
-                "path": "invoice-templates/Elegant-Invoice-Templates/slate-edge-invoice-template.html",
+                "path": "invoice-templates/elegant/slate-edge-invoice-template.html",
                 "tags": [
                     "slate",
                     "cgst",
@@ -372,7 +372,7 @@
         "items": [
             {
                 "name": "Greenleaf",
-                "path": "invoice-templates/Freelancer-Invoice-Templates/greenleaf-invoice-template.html",
+                "path": "invoice-templates/freelancer/greenleaf-invoice-template.html",
                 "tags": [
                     "grean",
                     "cgst",
@@ -391,7 +391,7 @@
         "items": [
             {
                 "name": "Mint Balance",
-                "path": "invoice-templates/Healthcare-Invoice-Templates/mint-balance-invoice-template.html",
+                "path": "invoice-templates/healthcare/mint-balance-invoice-template.html",
                 "tags": [
                     "mint",
                     "cgst",
@@ -410,7 +410,7 @@
         "items": [
             {
                 "name": "Amber craft",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-craft-invoice-template.html",
+                "path": "invoice-templates/modern/amber-craft-invoice-template.html",
                 "tags": [
                     "amber",
                     "cgst",
@@ -421,7 +421,7 @@
             },
             {
                 "name": "Amber Stripe",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/amber-stripe-invoice-template.html",
+                "path": "invoice-templates/modern/amber-stripe-invoice-template.html",
                 "tags": [
                     "amber",
                     "cgst",
@@ -432,7 +432,7 @@
             },
             {
                 "name": "Aqua Breeze",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-breeze-invoice-template.html",
+                "path": "invoice-templates/modern/aqua-breeze-invoice-template.html",
                 "tags": [
                     "aqua",
                     "cgst",
@@ -443,7 +443,7 @@
             },
             {
                 "name": "Aqua Glow",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/aqua-glow-invoice-template.html",
+                "path": "invoice-templates/modern/aqua-glow-invoice-template.html",
                 "tags": [
                     "aqua",
                     "cgst",
@@ -454,7 +454,7 @@
             },
             {
                 "name": "Blush Wave",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/blush-wave-invoice-template.html",
+                "path": "invoice-templates/modern/blush-wave-invoice-template.html",
                 "tags": [
                     "blush",
                     "cgst",
@@ -465,7 +465,7 @@
             },
             {
                 "name": "Cobalt Form",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/cobalt-form-invoice-template.html",
+                "path": "invoice-templates/modern/cobalt-form-invoice-template.html",
                 "tags": [
                     "cobalt",
                     "cgst",
@@ -476,7 +476,7 @@
             },
             {
                 "name": "Modern Blue",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/modern-blue-invoice-template.html",
+                "path": "invoice-templates/modern/modern-blue-invoice-template.html",
                 "tags": [
                     "modern",
                     "cgst",
@@ -487,7 +487,7 @@
             },
             {
                 "name": "Mono Core",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/mono-core-invoice-template.html",
+                "path": "invoice-templates/modern/mono-core-invoice-template.html",
                 "tags": [
                     "mono",
                     "cgst",
@@ -498,7 +498,7 @@
             },
             {
                 "name": "Ocean Edge",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/ocean-edge-invoice-template.html",
+                "path": "invoice-templates/modern/ocean-edge-invoice-template.html",
                 "tags": [
                     "ocean",
                     "cgst",
@@ -509,7 +509,7 @@
             },
             {
                 "name": "Skyline",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/skyline-invoice-template.html",
+                "path": "invoice-templates/modern/skyline-invoice-template.html",
                 "tags": [
                     "skyline",
                     "cgst",
@@ -519,7 +519,7 @@
             },
             {
                 "name": "Slate Gold",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/slate-gold-invoice-template.html",
+                "path": "invoice-templates/modern/slate-gold-invoice-template.html",
                 "tags": [
                     "slate",
                     "cgst",
@@ -530,7 +530,7 @@
             },
             {
                 "name": "Teal Edge",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-edge-invoice-template.html",
+                "path": "invoice-templates/modern/teal-edge-invoice-template.html",
                 "tags": [
                     "teal",
                     "cgst",
@@ -541,7 +541,7 @@
             },
             {
                 "name": "Teal Mark",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/teal-mark-invoice-template.html",
+                "path": "invoice-templates/modern/teal-mark-invoice-template.html",
                 "tags": [
                     "teal",
                     "cgst",
@@ -552,7 +552,7 @@
             },
             {
                 "name": "Verdant Edge",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/verdant-edge-invoice-template.html",
+                "path": "invoice-templates/modern/verdant-edge-invoice-template.html",
                 "tags": [
                     "verdant",
                     "cgst",
@@ -563,7 +563,7 @@
             },
             {
                 "name": "Voilet Ledger",
-                "path": "invoice-templates/Modern-Business-Invoice-Templates/violet-ledger-invoice-template.html",
+                "path": "invoice-templates/modern/violet-ledger-invoice-template.html",
                 "tags": [
                     "verdant",
                     "cgst",
@@ -581,7 +581,7 @@
         "items": [
             {
                 "name": "Violet Crest",
-                "path": "invoice-templates/Professional-Invoice-Templates/violet-crest-invoice-template.html",
+                "path": "invoice-templates/professional/violet-crest-invoice-template.html",
                 "tags": [
                     "violet",
                     "cgst",
@@ -599,7 +599,7 @@
         "items": [
             {
                 "name": "Sunflare",
-                "path": "invoice-templates/Retail-Invoice-Templates/sunflare-invoice-template.html",
+                "path": "invoice-templates/retail/sunflare-invoice-template.html",
                 "tags": [
                     "Sunflare",
                     "cgst",
@@ -616,7 +616,7 @@
         "items": [
             {
                 "name": "Sidebar Slate",
-                "path": "invoice-templates/Simple-Design-Invoice-Templates/sidebar-slate-invoice-template.html",
+                "path": "invoice-templates/simple-design/sidebar-slate-invoice-template.html",
                 "tags": [
                     "sidebar",
                     "cgst",
@@ -634,7 +634,7 @@
         "items": [
             {
                 "name": "Blue Split",
-                "path": "invoice-templates/Startup-Invoice-Templates/blue-split-invoice-template.html",
+                "path": "invoice-templates/startup/blue-split-invoice-template.html",
                 "tags": [
                     "startup",
                     "cgst",
@@ -646,7 +646,7 @@
             },
             {
                 "name": "Inferno Line",
-                "path": "invoice-templates/Startup-Invoice-Templates/inferno-line-invoice-template.html",
+                "path": "invoice-templates/startup/inferno-line-invoice-template.html",
                 "tags": [
                     "startup",
                     "cgst",
@@ -657,7 +657,7 @@
             },
             {
                 "name": "Poppins Breeze",
-                "path": "invoice-templates/Startup-Invoice-Templates/poppins-breeze-invoice-template.html",
+                "path": "invoice-templates/startup/poppins-breeze-invoice-template.html",
                 "tags": [
                     "startup",
                     "cgst",
@@ -676,7 +676,7 @@
         "items": [
             {
                 "name": "Bluecrest",
-                "path": "invoice-templates/Tech-Service-Invoice-Templates/bluecrest-invoice-template.html",
+                "path": "invoice-templates/tech-service/bluecrest-invoice-template.html",
                 "tags": [
                     "blue",
                     "cgst",
@@ -688,7 +688,7 @@
             },
             {
                 "name": "Elegant Gold",
-                "path": "invoice-templates/Tech-Service-Invoice-Templates/elegant-gold-invoice-template.html",
+                "path": "invoice-templates/tech-service/elegant-gold-invoice-template.html",
                 "tags": [
                     "gold",
                     "cgst",
@@ -700,7 +700,7 @@
             },
             {
                 "name": "Modern Circle",
-                "path": "invoice-templates/Tech-Service-Invoice-Templates/modern-circle-invoice-template.html",
+                "path": "invoice-templates/tech-service/modern-circle-invoice-template.html",
                 "tags": [
                     "circle",
                     "cgst",
@@ -712,7 +712,7 @@
             },
             {
                 "name": "Royal Plum",
-                "path": "invoice-templates/Tech-Service-Invoice-Templates/royal-plum-invoice-template.html",
+                "path": "invoice-templates/tech-service/royal-plum-invoice-template.html",
                 "tags": [
                     "royal",
                     "cgst",
@@ -724,7 +724,7 @@
             },
             {
                 "name": "Teal Flow",
-                "path": "invoice-templates/Tech-Service-Invoice-Templates/teal-flow-invoice-template.html",
+                "path": "invoice-templates/tech-service/teal-flow-invoice-template.html",
                 "tags": [
                     "teal",
                     "cgst",
