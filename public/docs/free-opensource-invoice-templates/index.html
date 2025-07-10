@@ -1,32 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Customizing Invoice Templates - Daybook.Cloud</title>
-<link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customizing Invoice Templates - Daybook.Cloud</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .template-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+    .template-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+      width: 320px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .template-item:hover {
+      transform: translateY(-5px);
+    }
+    .template-item iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 4px;
+    }
+    .template-item a {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      color: #d4145a;
+    }
+    .template-item a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <header>
-  <span class="hamburger-container">
-  <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
-  
-  <label for="drawer-toggle" class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </label>
-  
-  <nav class="drawer">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/invoice">Create Invoice</a></li>
-      <li><a href="/templates">Templates</a></li>
-      <li><a href="/docs">Docs</a></li>
-    </ul>
-  </nav>
-  </span>
-    <div class="header-title">Free Invoice Generator by Daybook.Cloud </div>
+    <span class="hamburger-container">
+      <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
+      <label for="drawer-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav class="drawer">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/invoice">Create Invoice</a></li>
+          <li><a href="/templates">Templates</a></li>
+          <li><a href="/docs">Docs</a></li>
+        </ul>
+      </nav>
+    </span>
+    <div class="header-title">Free Invoice Generator by Daybook.Cloud</div>
     <nav class="header-nav">
       <a href="/">Home</a>
       <a href="/invoice">Create Invoice</a>
@@ -34,15 +70,27 @@
       <a href="/docs">Docs</a>
     </nav>
   </header>
+
   <main>
     <div class="template-header">
       <a href="/templates/prev" class="nav-btn prev-btn">&laquo; Back</a>
       <h1>List of all templates</h1>
       <a href="/templates/next" class="nav-btn next-btn">Next &raquo;</a>
     </div>
+
+    <section class="template-list">
+      <div class="template-item">
+        <iframe src="/docs/free-opensource-invoice-templates/rose-quartz-documentation.html"></iframe>
+        <a href="/docs/free-opensource-invoice-templates/rose-quartz-documentation.html">
+          🌸 Rose Quartz Invoice Template
+        </a>
+      </div>
+      <!-- Add more template-item blocks here -->
+    </section>
   </main>
-<footer>
-  &copy; 2025 Daybook.Cloud. All rights reserved.
-</footer>
+
+  <footer>
+    &copy; 2025 Daybook.Cloud. All rights reserved.
+  </footer>
 </body>
 </html>
