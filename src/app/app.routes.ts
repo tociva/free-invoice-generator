@@ -34,6 +34,6 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'simple-invoice'
+    redirectTo: 'home'
   }
 ];
