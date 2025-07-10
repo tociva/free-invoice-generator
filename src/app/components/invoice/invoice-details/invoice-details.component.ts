@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
@@ -10,9 +10,10 @@ import { displayAutoCompleteWithName, isMobile } from '../../../../util/daybook.
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
+import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { patchInvoiceDetails, setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { patchInvoiceDetails, setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { Currency } from '../store/model/currency.model';
 import { DateFormat } from '../store/model/date-format.model';
 import { TaxOption } from '../store/model/invoice.model';
@@ -20,7 +21,6 @@ import { selectAllCurrencies } from '../store/selectors/currency.selectors';
 import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { selectAllTaxes } from '../store/selectors/tax.selectors';
-import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -32,7 +32,6 @@ export enum InvoiceDetailsFormItem {
   ITEM_DESCRIPTION = 'Item Description',
   SHOW_DISCOUNT = 'Show Discount',
   DECIMAL_PLACES = 'Decimal Places',
-  INTERNATIONAL_NUMBERING = 'International Numbering',
   DATE_FORMAT = 'Date Format',
   ACCOUNT_NUMBER = 'Account Number',
   ACCOUNT_NAME = 'Account Name',
@@ -49,6 +48,8 @@ export enum InvoiceDetailsFormItem {
   styleUrl: './invoice-details.component.scss'
 })
 export class InvoiceDetailsComponent implements OnDestroy, OnInit {
+
+  @Input() simple = false;
 
   private currencies: Currency[] = [];
   private dateFormats: DateFormat[] = [];
@@ -205,10 +206,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     this.store.dispatch(setInvoiceShowDiscount({ showDiscount: val }));
   };
 
-  private handleInternationalNumberingToggle = (val: boolean) => {
-    this.store.dispatch(setInvoiceInternationalNumbering({ internationalNumbering: val }));
-  };
-
   private findDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
 
 
@@ -236,8 +233,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       case InvoiceDetailsFormItem.SHOW_DISCOUNT:
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
 
-      case InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING:
-        return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleInternationalNumberingToggle } };
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
         {
@@ -375,18 +370,10 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   ];
 
   private static findDetailsLabelColumnRenderer = (params: ICellRendererParams<FormColumnDef>) => {
-    let tooltip = '';
-    switch (params.data?.label) {
-      case InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING:
-        tooltip = 'Use international numbering format (e.g., 1,000.00 vs 1.000,00)';
-        break;
-      // You can add more tooltips here for other labels if needed
-    }
     return {
       component: LabelColumnRendererComponent,
       params: {
         labelValue: params.data?.label ?? '',
-        tooltip,
         maxLength: isMobile() ? 20 : 32,
       },
     };
@@ -401,18 +388,26 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
         { label: InvoiceDetailsFormItem.DUE_DATE, value: invoice.dueDate },
         { label: InvoiceDetailsFormItem.CURRENCY, value: invoice.currency },
-        { label: InvoiceDetailsFormItem.DECIMAL_PLACES, value: invoice.decimalPlaces },
-        { label: InvoiceDetailsFormItem.DELIVERY_STATE, value: invoice.deliveryState },
-        { label: InvoiceDetailsFormItem.TAX_OPTION, value: invoice.taxOption },
-        { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
-        { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
-        { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
-        { label: InvoiceDetailsFormItem.INTERNATIONAL_NUMBERING, value: invoice.internationalNumbering },
-        { label: InvoiceDetailsFormItem.ACCOUNT_NUMBER, value: invoice.accountNumber },
-        { label: InvoiceDetailsFormItem.ACCOUNT_NAME, value: invoice.accountName },
-        { label: InvoiceDetailsFormItem.BANK_NAME, value: invoice.bankName },
-        { label: InvoiceDetailsFormItem.TERMS_AND_CONDITIONS, value: invoice.terms },
       ];
+      if(!this.simple) {
+        invoiceDetailsRowData.push(
+          { label: InvoiceDetailsFormItem.DECIMAL_PLACES, value: invoice.decimalPlaces },
+          { label: InvoiceDetailsFormItem.DELIVERY_STATE, value: invoice.deliveryState },
+          { label: InvoiceDetailsFormItem.TAX_OPTION, value: invoice.taxOption },
+          { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
+          { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
+          { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
+        );
+      } 
+      invoiceDetailsRowData.push({ label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat });
+      if(!this.simple) {
+        invoiceDetailsRowData.push(
+          { label: InvoiceDetailsFormItem.ACCOUNT_NUMBER, value: invoice.accountNumber },
+          { label: InvoiceDetailsFormItem.ACCOUNT_NAME, value: invoice.accountName },
+          { label: InvoiceDetailsFormItem.BANK_NAME, value: invoice.bankName },
+          { label: InvoiceDetailsFormItem.TERMS_AND_CONDITIONS, value: invoice.terms },
+        );
+      } 
       const allRows = this.detailsGridApi.getDisplayedRowCount();
       const existingData = [];
 

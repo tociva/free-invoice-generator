@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,8 @@ import { CloudDataService } from '../../../services/cloud-data.service';
   styleUrl: './invoice-logo.component.scss'
 })
 export class InvoiceLogoComponent implements OnInit, OnDestroy {
+
+  @Input() hideLargeLogo = false;
 
   private destroy$ = new Subject<void>();
 

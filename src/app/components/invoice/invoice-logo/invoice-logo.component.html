@@ -28,10 +28,10 @@
 
 
         <!-- Spacer -->
-        <div style="height: 24px;"></div>
+        <div style="height: 24px;"  *ngIf="!hideLargeLogo"></div>
 
         <!-- Large Logo Upload -->
-        <div class="large-logo-upload" (dragover)="onLargeLogoDragOver($event)"
+        <div  *ngIf="!hideLargeLogo" class="large-logo-upload" (dragover)="onLargeLogoDragOver($event)"
             (dragleave)="onLargeLogoDragLeave($event)" (drop)="onLargeLogoDrop($event)"
             (dragend)="onLargeLogoDragLeave($event)">
             <div [ngClass]="{ 'logo-drop-zone': true, 'drag-over': isLargeLogoDragOver }">

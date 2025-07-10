@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import {
@@ -43,6 +43,9 @@ export enum OrganizatonFormItem {
   styleUrl: './invoice-organization.component.scss',
 })
 export class InvoiceOrganizationComponent implements OnDestroy {
+
+  @Input() simple = false;
+
   public myDetailsGridApi!: GridApi<FormColumnDef>;
   private destroy$ = new Subject<void>();
 
@@ -214,16 +217,20 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((invoice) => {
         const { organization } = invoice;
-        this.myDetailsRowData = [
+        const myDetailsRowDataTemp:FormColumnDef[] = [
           { label: OrganizatonFormItem.NAME, value: organization.name },
           { label: OrganizatonFormItem.ADDRESS, value: organization.address },
-          { label: OrganizatonFormItem.COUNTRY, value: organization.country },
-          { label: OrganizatonFormItem.EMAIL, value: organization.email },
-          { label: OrganizatonFormItem.MOBILE, value: organization.phone },
-          { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
-          { label: OrganizatonFormItem.AUTHPORITY_NAME, value: organization.authorityName },
-          { label: OrganizatonFormItem.DESIGNATION, value: organization.authorityDesignation },
+          
         ];
+        if(!this.simple) {
+          myDetailsRowDataTemp.push({ label: OrganizatonFormItem.COUNTRY, value: organization.country },
+            { label: OrganizatonFormItem.EMAIL, value: organization.email },
+            { label: OrganizatonFormItem.MOBILE, value: organization.phone },
+            { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
+            { label: OrganizatonFormItem.AUTHPORITY_NAME, value: organization.authorityName },
+            { label: OrganizatonFormItem.DESIGNATION, value: organization.authorityDesignation },);
+        }
+        this.myDetailsRowData = myDetailsRowDataTemp; 
       });
   }
 }

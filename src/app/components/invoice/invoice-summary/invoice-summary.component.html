@@ -1,13 +1,5 @@
-<div class="card-container">
-  <div class="total-in-words-container">
-    <div class="grand-total-number">{{ grandTotalValue }}</div>
-    <span class="total-in-words-value">{{ totalInWords }}</span>
-  </div>
   <div class="invoice-summary-card">
-
     <ag-grid-angular class="ag-theme-alpine address-grid" [columnDefs]="summaryColumnDefs" [domLayout]="'autoHeight'"
       [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" (gridReady)="onSummaryGridReady($event)"
       [getRowId]="getRowId"></ag-grid-angular>
   </div>
-
-</div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
@@ -33,6 +33,9 @@ export enum CustomerFormItem {
   styleUrl: './invoice-customer.component.scss'
 })
 export class InvoiceCustomerComponent implements OnDestroy {
+
+  @Input() simple = false;
+
   public customerGridApi!: GridApi<FormColumnDef>;
 
   private destroy$ = new Subject<void>();
@@ -192,14 +195,18 @@ export class InvoiceCustomerComponent implements OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
       const {customer} = invoice;
-      this.customerRowData = [
+      const customerRowDataTemp:FormColumnDef[] = [
         { label: CustomerFormItem.NAME, value: customer.name },
         { label: CustomerFormItem.ADDRESS, value: customer.address },
-        { label: CustomerFormItem.COUNTRY, value: customer.country },
-        { label: CustomerFormItem.EMAIL, value: customer.email },
-        { label: CustomerFormItem.MOBILE, value: customer.phone },
-        { label: CustomerFormItem.GSTIN, value: customer.gstin }
       ];
+      if(!this.simple) {
+        customerRowDataTemp.push({ label: CustomerFormItem.COUNTRY, value: customer.country },
+          { label: CustomerFormItem.EMAIL, value: customer.email },
+          { label: CustomerFormItem.MOBILE, value: customer.phone },
+          { label: CustomerFormItem.GSTIN, value: customer.gstin }
+        );
+      }
+      this.customerRowData = customerRowDataTemp;
     });
   }
 

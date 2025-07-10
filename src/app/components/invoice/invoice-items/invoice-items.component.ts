@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ColGroupDef, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, NewValueParams } from 'ag-grid-community';
@@ -25,6 +25,9 @@ type InvoiceItemWithAction = InvoiceItem & { action?: string, rowIndex?: number 
   styleUrl: './invoice-items.component.scss'
 })
 export class InvoiceItemsComponent implements OnDestroy {
+  
+  @Input() simple = false;
+  
   private decimalPlaces = DEFAULT_DECIMAL_PLACES;
 
   private destroy$ = new Subject<void>();
@@ -167,7 +170,8 @@ export class InvoiceItemsComponent implements OnDestroy {
   };
 
   private createItemsColumnDefs(invoice: Invoice): void {
-    const itemsColumnDefsTemp: ColGroupDef<InvoiceItemWithAction>[] = [];
+    const itemsGroupColumnDefsTemp: ColGroupDef<InvoiceItemWithAction>[] = [];
+    const itemsColumnDefsTemp: ColDef<InvoiceItemWithAction>[] = [];
 
     // Define group classes
     const oddGroupClass = 'odd-group-column';
@@ -179,92 +183,115 @@ export class InvoiceItemsComponent implements OnDestroy {
     const grandTotalClass = invoice.hasItemDiscount ? evenGroupClass : oddGroupClass;
 
     // Item Details Group
-    const itemColumns: ColGroupDef<InvoiceItemWithAction> = {
-      headerName: 'Item Details',
-      headerClass: itemDetailsGroupClass,
-      children: [
-        InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
-        this.createItemLabelFormatedNumberColumn('price', 'Price', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
-        this.createItemLabelNumberColumn('quantity', 'Quantity', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
-        this.createItemLabelFormatedNumberColumn('itemTotal', 'Item Total', false, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass)
-      ]
-    };
+    const itemDetailsColumns: ColDef<InvoiceItemWithAction>[] = [
+      InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
+      this.createItemLabelFormatedNumberColumn('price', 'Price', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
+      this.createItemLabelNumberColumn('quantity', 'Quantity', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),
+      this.createItemLabelFormatedNumberColumn('itemTotal', 'Item Total', false, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass)
+    ];
 
     if (invoice.hasItemDescription) {
-      itemColumns.children.splice(
+      const descriptionColumn = InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass);
+      itemDetailsColumns.splice(
         1,
         0,
-        InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.nameCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass)
+        descriptionColumn
       );
     }
 
-    itemsColumnDefsTemp.push(itemColumns);
+    const itemHeaderColumn: ColGroupDef<InvoiceItemWithAction> = {
+      headerName: 'Item Details',
+      headerClass: itemDetailsGroupClass,
+      children: itemDetailsColumns
+    };
+    itemsColumnDefsTemp.push(...itemDetailsColumns);
+    itemsGroupColumnDefsTemp.push(itemHeaderColumn);
 
     // Discount Group
     if (invoice.hasItemDiscount) {
-      itemsColumnDefsTemp.push({
+      const discountColumns: ColDef<InvoiceItemWithAction>[] = [
+        this.createItemLabelNumberColumn('discPercentage', '%', true, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass),
+        this.createItemLabelFormatedNumberColumn('discountAmount', 'value', false, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass),
+        this.createItemLabelFormatedNumberColumn('subTotal', 'Sub Total', false, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass)
+      ];
+      itemsGroupColumnDefsTemp.push({
         headerName: 'Discount',
         headerClass: discountGroupClass,
-        children: [
-          this.createItemLabelNumberColumn('discPercentage', '%', true, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass),
-          this.createItemLabelFormatedNumberColumn('discountAmount', 'value', false, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass),
-          this.createItemLabelFormatedNumberColumn('subTotal', 'Sub Total', false, this.numberCellWidth, this.handleItemCellValueChanged, discountGroupClass)
-        ]
+        children: discountColumns
       });
+      itemsColumnDefsTemp.push(...discountColumns);
     }
 
     // Tax Group
     if (invoice.taxOption === TaxOption.CGST_SGST) {
-      itemsColumnDefsTemp.push({
+      const taxColumns: ColDef<InvoiceItemWithAction>[] = [
+        this.createItemLabelNumberColumn('tax1Percentage', 'CGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+        this.createItemLabelFormatedNumberColumn('tax1Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+        this.createItemLabelNumberColumn('tax2Percentage', 'SGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+        this.createItemLabelFormatedNumberColumn('tax2Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+        this.createItemLabelFormatedNumberColumn('taxTotal', 'Tax Total', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass)
+      ];
+        itemsGroupColumnDefsTemp.push({
         headerName: 'Tax',
         headerClass: taxGroupClass,
-        children: [
-          this.createItemLabelNumberColumn('tax1Percentage', 'CGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-          this.createItemLabelFormatedNumberColumn('tax1Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-          this.createItemLabelNumberColumn('tax2Percentage', 'SGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-          this.createItemLabelFormatedNumberColumn('tax2Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-          this.createItemLabelFormatedNumberColumn('taxTotal', 'Tax Total', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass)
-        ]
+        children: taxColumns
       });
+      itemsColumnDefsTemp.push(...taxColumns);
     } else if (invoice.taxOption === TaxOption.IGST) {
-      itemsColumnDefsTemp.push({
+      const taxColumns: ColDef<InvoiceItemWithAction>[] = [
+        this.createItemLabelNumberColumn('tax1Percentage', 'IGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+        this.createItemLabelFormatedNumberColumn('tax1Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
+      ];
+      itemsGroupColumnDefsTemp.push({
         headerName: 'Tax',
         headerClass: taxGroupClass,
-        children: [
-          this.createItemLabelNumberColumn('tax1Percentage', 'IGST %', true, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-          this.createItemLabelFormatedNumberColumn('tax1Amount', 'Value', false, this.numberCellWidth, this.handleItemCellValueChanged, taxGroupClass),
-        ]
+        children: taxColumns
       });
+      itemsColumnDefsTemp.push(...taxColumns);
     }
-    itemsColumnDefsTemp.push({
+    if(invoice.taxOption !== TaxOption.NON_TAXABLE || invoice.hasItemDiscount) {
+      const grandTotalColumn: ColDef<InvoiceItemWithAction> = this.createItemLabelFormatedNumberColumn('grandTotal', 'Grand Total', false, this.numberCellWidth, this.handleItemCellValueChanged, grandTotalClass);
+      itemsColumnDefsTemp.push(grandTotalColumn);
+      itemsGroupColumnDefsTemp.push({
+        headerName: '',
+        headerClass:grandTotalClass,
+        children: [grandTotalColumn]
+      });
+      itemsColumnDefsTemp.push(grandTotalColumn);
+    }
+    const actionColumn: ColDef<InvoiceItemWithAction> = {
+      field: 'action',
+      editable: false,
+      headerName: '',
+      width: 80,
+      flex: 1,
+      headerClass: grandTotalClass,
+      cellClass: grandTotalClass,
+      cellRendererSelector: (params: ICellRendererParams<InvoiceItemWithAction>) => {
+        const rowIndex = params.node.rowIndex;
+        const totalRows = params.api.getDisplayedRowCount();
+    
+        if (rowIndex === totalRows - 1) {
+          return undefined;
+        }
+        return {component: IconColumnRendererComponent,
+          params: {icon: 'delete', customClass: 'icon-danger', iconClickListener: this.removeItemRow}};
+      }
+    };
+    itemsGroupColumnDefsTemp.push({
       headerName: '',
       headerClass:grandTotalClass,
       children: [
-        this.createItemLabelFormatedNumberColumn('grandTotal', 'Grand Total', false, this.numberCellWidth, this.handleItemCellValueChanged, grandTotalClass),
-        {
-          field: 'action',
-          editable: false,
-          headerName: '',
-          width: 80,
-          flex: 1,
-          headerClass: grandTotalClass,
-          cellClass: grandTotalClass,
-          cellRendererSelector: (params: ICellRendererParams<InvoiceItemWithAction>) => {
-            const rowIndex = params.node.rowIndex;
-            const totalRows = params.api.getDisplayedRowCount();
-        
-            if (rowIndex === totalRows - 1) {
-              return undefined;
-            }
-            return {component: IconColumnRendererComponent,
-              params: {icon: 'delete', customClass: 'icon-danger', iconClickListener: this.removeItemRow}};
-          }
-        }
+        actionColumn
       ]
     });
+    itemsColumnDefsTemp.push(actionColumn);
 
-
-    this.itemsColumnDefs = itemsColumnDefsTemp;
+    if(invoice.taxOption === TaxOption.NON_TAXABLE && !invoice.hasItemDiscount) {
+      this.itemsColumnDefs = itemsColumnDefsTemp;
+    } else {
+      this.itemsColumnDefs = itemsGroupColumnDefsTemp;
+    }
   }
 
   private setNumberCellWidth(invoice: Invoice): void {

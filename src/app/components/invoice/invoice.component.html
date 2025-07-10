@@ -69,7 +69,10 @@
       <div class="items-summary-layout">
         <div class="invoice-items-wrapper" *ngIf="!mobileView"><app-invoice-items></app-invoice-items></div>
         <div class="invoice-items-wrapper" *ngIf="mobileView"><app-invoice-items-mobile></app-invoice-items-mobile></div>
-        <div class="invoice-summary-wrapper"><app-invoice-summary></app-invoice-summary></div>
+        <div class="invoice-summary-wrapper">
+          <app-invoice-summary></app-invoice-summary>
+          <app-invoice-amount-words></app-invoice-amount-words>
+        </div>
       </div>
     </ng-container>
     <div class="stepper-actions">

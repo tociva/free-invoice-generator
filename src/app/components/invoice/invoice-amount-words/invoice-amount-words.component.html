@@ -1,0 +1,8 @@
+<div class="total-in-words-container">
+  <mat-checkbox [(ngModel)]="isInternationalNumbering"
+  (change)="handleInternationalNumberingChange($event)">
+    International Numbering
+  </mat-checkbox>
+  <div class="grand-total-number">{{ grandTotalValue }}</div>
+  <span class="total-in-words-value">{{ totalInWords }}</span>
+</div>

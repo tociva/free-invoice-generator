@@ -13,6 +13,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { CurrencyUtil } from '../../util/currency.util';
+import { TaxOption } from '../store/model/invoice.model';
 
 
 export enum InvoiceSummaryFormItem {
@@ -108,12 +109,16 @@ export class InvoiceSummaryComponent implements OnDestroy {
       this.totalInWords = CurrencyUtil.numberToWords(invoice.grandTotal, decimalPlaces, invoice.internationalNumbering);
       const summaryRowData:FormColumnDef[] = [
         { label: InvoiceSummaryFormItem.ITEM_TOTAL, value: numberToFixedDecimal(invoice.itemTotal, decimalPlaces) },
-        { label: InvoiceSummaryFormItem.DISCOUNT, value: numberToFixedDecimal(invoice.discountTotal, decimalPlaces) },
-        { label: InvoiceSummaryFormItem.SUB_TOTAL, value: numberToFixedDecimal(invoice.subTotal, decimalPlaces) },
-        { label: InvoiceSummaryFormItem.TAX, value: numberToFixedDecimal(invoice.taxTotal, decimalPlaces) },
-        { label: InvoiceSummaryFormItem.ROUND_OFF, value: numberToFixedDecimal(invoice.roundOff, decimalPlaces) },
-        { label: InvoiceSummaryFormItem.GRAND_TOTAL, value: numberToFixedDecimal(invoice.grandTotal, decimalPlaces) },
       ];
+      if(invoice.hasItemDiscount) {
+        summaryRowData.push({ label: InvoiceSummaryFormItem.DISCOUNT, value: numberToFixedDecimal(invoice.discountTotal, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.SUB_TOTAL, value: numberToFixedDecimal(invoice.subTotal, decimalPlaces) },);
+      }
+      if(invoice.taxOption !== TaxOption.NON_TAXABLE) {
+        summaryRowData.push({ label: InvoiceSummaryFormItem.TAX, value: numberToFixedDecimal(invoice.taxTotal, decimalPlaces) });
+      }
+      summaryRowData.push({ label: InvoiceSummaryFormItem.ROUND_OFF, value: numberToFixedDecimal(invoice.roundOff, decimalPlaces) },
+        { label: InvoiceSummaryFormItem.GRAND_TOTAL, value: numberToFixedDecimal(invoice.grandTotal, decimalPlaces) },);
       const allRows = this.summaryGridApi.getDisplayedRowCount();
       const existingData = [];
 

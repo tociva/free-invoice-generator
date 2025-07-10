@@ -18,6 +18,7 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CloudDataService } from '../../services/cloud-data.service';
 import { isMobile } from '../../../util/daybook.util';
 import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile.component';
+import { InvoiceAmountWordsComponent } from './invoice-amount-words/invoice-amount-words.component';
 
 @Component({
   selector: 'app-invoice',
@@ -35,7 +36,8 @@ import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-item
     PreviewInvoiceComponent,
     InvoiceOrganizationComponent,
     InvoiceLogoComponent,
-    InvoiceItemsMobileComponent
+    InvoiceItemsMobileComponent,
+    InvoiceAmountWordsComponent
 ],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
