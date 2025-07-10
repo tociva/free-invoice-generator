@@ -10,13 +10,15 @@ import {
   GridReadyEvent,
   ICellEditorParams,
   ICellRendererParams,
-  NewValueParams
+  NewValueParams,
+  SuppressKeyboardEventParams
 } from 'ag-grid-community';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { CountryService } from '../../../services/country.service';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { patchOrganization, setOrganizationCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
@@ -24,17 +26,12 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 export enum OrganizatonFormItem {
   NAME = 'Name',
+  ADDRESS = 'Address',
   AUTHPORITY_NAME = 'Authority Name',
   DESIGNATION = 'Designation',
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
-  LINE1 = 'Address Address Line 1',
-  LINE2 = 'Address Line 2',
-  STREET = 'Street',
-  CITY = 'City',
-  STATE = 'State',
-  ZIP = 'Zip',
   COUNTRY = 'Country',
 }
 
@@ -63,6 +60,14 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     rowSelection: 'single',
     animateRows: true,
     enableBrowserTooltips: true,
+    getRowHeight: (params) => {
+      switch (params.data?.label) {
+        case OrganizatonFormItem.ADDRESS:
+          return 170;
+        default:
+          return 35;
+      }
+    },
   };
 
   constructor(private store: Store, private countryService: CountryService) { }
@@ -83,6 +88,8 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     switch (params.data.label) {
       case OrganizatonFormItem.COUNTRY:
         return this.findMyDetailsCountryEditorComponent(params.data.value);
+      case OrganizatonFormItem.ADDRESS:
+        return { component: TextAreaEditorComponent, params: { value: params.data.value, rows: 10 } };
     }
     return { component: null };
   };
@@ -96,25 +103,10 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         this.store.dispatch(patchOrganization({ organization: { authorityName: event.newValue } }));
         break;
       case OrganizatonFormItem.DESIGNATION:
-        this.store.dispatch(patchOrganization({ organization: { designation: event.newValue } }));
+        this.store.dispatch(patchOrganization({ organization: { authorityDesignation: event.newValue } }));
         break;
-      case OrganizatonFormItem.LINE1:
-        this.store.dispatch(patchOrganization({ organization: { addressLine1: event.newValue } }));
-        break;
-      case OrganizatonFormItem.LINE2:
-        this.store.dispatch(patchOrganization({ organization: { addressLine2: event.newValue } }));
-        break;
-      case OrganizatonFormItem.STREET:
-        this.store.dispatch(patchOrganization({ organization: { street: event.newValue } }));
-        break;
-      case OrganizatonFormItem.CITY:
-        this.store.dispatch(patchOrganization({ organization: { city: event.newValue } }));
-        break;
-      case OrganizatonFormItem.ZIP:
-        this.store.dispatch(patchOrganization({ organization: { zipCode: event.newValue } }));
-        break;
-      case OrganizatonFormItem.STATE:
-        this.store.dispatch(patchOrganization({ organization: { state: event.newValue } }));
+      case OrganizatonFormItem.ADDRESS:
+        this.store.dispatch(patchOrganization({ organization: { address: event.newValue } }));
         break;
       case OrganizatonFormItem.EMAIL:
         this.store.dispatch(patchOrganization({ organization: { email: event.newValue } }));
@@ -156,6 +148,13 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         return '';
       },
       onCellValueChanged: this.handleMyDetailsCellValueChanged,
+      suppressKeyboardEvent: (params: SuppressKeyboardEventParams<FormColumnDef>) => {
+        switch (params.data?.label) {
+          case OrganizatonFormItem.ADDRESS:
+            return params.editing && params.event.key === 'Enter';
+        }
+        return false;
+      },
     },
   ];
 
@@ -182,6 +181,12 @@ export class InvoiceOrganizationComponent implements OnDestroy {
           params: { labelValue: dtF.name },
         };
       }
+      case OrganizatonFormItem.ADDRESS: {
+        return {
+          component: LabelColumnRendererComponent,
+          params: { labelValue: params.data.value, multiLine: true },
+        };
+      }
     }
     return params.data.value;
   };
@@ -189,12 +194,6 @@ export class InvoiceOrganizationComponent implements OnDestroy {
   private static findLabelColumnRenderer = (params: ICellRendererParams<FormColumnDef>) => {
     let tooltip = '';
     switch (params.data?.label) {
-      case OrganizatonFormItem.LINE1:
-        tooltip = 'Address Line 1, First line of address';
-        break;
-      case OrganizatonFormItem.LINE2:
-        tooltip = 'Address Line 2, Second line of address';
-        break;
       case OrganizatonFormItem.AUTHPORITY_NAME:
         tooltip = 'Authority Name';
         break;
@@ -217,18 +216,13 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         const { organization } = invoice;
         this.myDetailsRowData = [
           { label: OrganizatonFormItem.NAME, value: organization.name },
-          { label: OrganizatonFormItem.LINE1, value: organization.addressLine1 },
-          { label: OrganizatonFormItem.LINE2, value: organization.addressLine2 },
-          { label: OrganizatonFormItem.STREET, value: organization.street },
-          { label: OrganizatonFormItem.CITY, value: organization.city },
-          { label: OrganizatonFormItem.ZIP, value: organization.zipCode },
-          { label: OrganizatonFormItem.STATE, value: organization.state },
+          { label: OrganizatonFormItem.ADDRESS, value: organization.address },
           { label: OrganizatonFormItem.COUNTRY, value: organization.country },
           { label: OrganizatonFormItem.EMAIL, value: organization.email },
           { label: OrganizatonFormItem.MOBILE, value: organization.phone },
           { label: OrganizatonFormItem.GSTIN, value: organization.gstin },
           { label: OrganizatonFormItem.AUTHPORITY_NAME, value: organization.authorityName },
-          { label: OrganizatonFormItem.DESIGNATION, value: organization.designation },
+          { label: OrganizatonFormItem.DESIGNATION, value: organization.authorityDesignation },
         ];
       });
   }

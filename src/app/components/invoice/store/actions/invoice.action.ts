@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { Address, Invoice, InvoiceItem, TaxOption } from '../model/invoice.model';
 import { Country } from '../model/country.model';
-import { DateFormat } from '../model/date-format.model';
 import { Currency } from '../model/currency.model';
+import { DateFormat } from '../model/date-format.model';
+import { Customer, Invoice, InvoiceItem, Organization, TaxOption } from '../model/invoice.model';
 
 export const loadInvoice = createAction(
   '[Invoice] Load Invoice',
@@ -24,7 +24,7 @@ export const patchInvoiceDetails = createAction(
 
 export const patchOrganization = createAction(
   '[Organization] Patch Organization',
-  props<{ organization: Partial<Address> }>()
+  props<{ organization: Partial<Organization> }>()
 );
 
 export const setOrganizationCountry = createAction(
@@ -34,7 +34,7 @@ export const setOrganizationCountry = createAction(
 
 export const patchCustomer = createAction(
   '[Customer] Patch Customer',
-  props<{ customer: Partial<Address> }>()
+  props<{ customer: Partial<Customer> }>()
 );
 
 export const setCustomerCountry = createAction(

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     pathMatch: 'full',
     loadComponent: () =>
       import('./components/home/home.component').then((m) => m.HomeComponent)
@@ -12,6 +12,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () =>
       import('./components/invoice/invoice.component').then((m) => m.InvoiceComponent)
+  },
+  {
+    path: 'simple-invoice',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./components/invoice/simple-invoice/simple-invoice.component').then((m) => m.SimpleInvoiceComponent)
   },
   {
     path: 'templates',
@@ -24,5 +30,10 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () =>
       import('./components/invoice/preview-invoice/preview-invoice.component').then((m) => m.PreviewInvoiceComponent)
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'simple-invoice'
   }
 ];

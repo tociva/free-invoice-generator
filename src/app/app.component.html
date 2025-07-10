@@ -12,8 +12,10 @@
 
   <!-- Desktop links -->
   <nav class="desktop-menu">
-    <a href="#" mat-button (click)="navigateToSpecificPage('/'); $event.preventDefault()" class="menu-button">Home</a>
-    <a href="#" mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Create Invoice</a>
+    <a href="#" mat-button (click)="navigateToSpecificPage('/home'); $event.preventDefault()" class="menu-button">Home</a>
+    <a href="#" mat-button (click)="navigateToSpecificPage('/simple-invoice'); $event.preventDefault()" class="menu-button">SimpleInvoice</a>
+    <a href="#" mat-button (click)="navigateToSpecificPage('/invoice'); $event.preventDefault()" class="menu-button">Advanced Invoice</a>
+    <a href="https://github.com/tociva/free-invoice-generator" mat-button class="menu-button" target="_blank" rel="noopener">GitHub</a>
     <a href="#" mat-button (click)="navigateToSpecificPage('/templates'); $event.preventDefault()" class="menu-button">Templates</a>
     <a href="/docs" mat-button class="menu-button">Docs</a>
   </nav>
@@ -28,9 +30,11 @@
 
 <!-- Mobile Mat Menu -->
 <mat-menu #mobileMenu="matMenu"  xPosition="before">
-  <button mat-menu-item (click)="navigateToSpecificPage('/')">Home</button>
-  <button mat-menu-item (click)="navigateToSpecificPage('/invoice')">Create Invoice</button>
+  <button mat-menu-item (click)="navigateToSpecificPage('/home')">Home</button>
+  <button mat-menu-item (click)="navigateToSpecificPage('/simple-invoice')">Simple Invoice</button>
+  <button mat-menu-item (click)="navigateToSpecificPage('/invoice')">Advanced Invoice</button>
   <button mat-menu-item (click)="navigateToSpecificPage('/templates')">Templates</button>
+  <button mat-menu-item (click)="navigateToExternalPage('https://github.com/tociva/free-invoice-generator')">GitHub</button>
   <button mat-menu-item (click)="navigateToExternalPage('/docs')">Docs</button>
 </mat-menu>
 <div class="content">

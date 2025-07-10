@@ -26,14 +26,9 @@ export const sampleInvoice: Invoice = {
   },
   organization: {
     name: 'ACME Organization',
-     authorityName: 'Prince Francis',
-      designation:'Director',
-    addressLine1: '123 Main St',
-    addressLine2: 'PMG 123',
-    street: 'Main Street',
-    city: 'Pattom',
-    zipCode: '695504',
-    state: 'Kerala',
+    authorityName: 'Prince Francis',
+    authorityDesignation:'Director',
+    address: '123 Main St\nPMG 123\nMain Street\nPattom\n695504\nKerala\nIndia',
     country: {
       name: 'India',
       code: '91',
@@ -55,14 +50,7 @@ export const sampleInvoice: Invoice = {
   },
   customer: {
     name: 'ACME Customer',
-     authorityName: 'Prince Francis',
-      designation:'Director',
-    addressLine1: '123 Main St',
-    addressLine2: 'PMG 123',
-    street: 'Main Street',
-    city: 'Pattom',
-    zipCode: '695504',
-    state: 'Kerala',
+    address: '123 Main St\nPMG 123\nMain Street\nPattom\n695504\nKerala\nIndia',
     country: {
       name: 'India',
       code: '91',

@@ -2,28 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { displayAutoCompleteWithName } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
+import { CountryService } from '../../../services/country.service';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
+import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { patchCustomer, setCustomerCountry } from '../store/actions/invoice.action';
 import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
-import { CountryService } from '../../../services/country.service';
 
 export enum CustomerFormItem {
   NAME = 'Name',
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
-  LINE1 = 'Line1',
-  LINE2 = 'Line2',
-  STREET = 'Street',
-  CITY = 'City',
-  STATE = 'State',
-  ZIP = 'Zip',
+  ADDRESS = 'Address',
   COUNTRY = 'Country',
 }
 @Component({
@@ -54,6 +50,14 @@ export class InvoiceCustomerComponent implements OnDestroy {
     rowSelection: 'single',
     animateRows: true,
     enableBrowserTooltips: true,
+    getRowHeight: (params) => {
+      switch (params.data?.label) {
+        case CustomerFormItem.ADDRESS:
+          return 170;
+        default:
+          return 35;
+      }
+    },
   };
   
   constructor(private store:Store, 
@@ -72,6 +76,8 @@ export class InvoiceCustomerComponent implements OnDestroy {
     case CustomerFormItem.COUNTRY:
       return this.findCountryEditorComponent(params.data.value);
 
+    case CustomerFormItem.ADDRESS:
+      return { component: TextAreaEditorComponent, params: { value: params.data.value, rows: 10 } };
     }
 
     return {
@@ -85,23 +91,8 @@ export class InvoiceCustomerComponent implements OnDestroy {
       case CustomerFormItem.NAME:
         this.store.dispatch(patchCustomer({ customer: { name: event.newValue } }));
         break;
-      case CustomerFormItem.LINE1:
-        this.store.dispatch(patchCustomer({ customer: { addressLine1: event.newValue } }));
-        break;
-      case CustomerFormItem.LINE2:
-        this.store.dispatch(patchCustomer({ customer: { addressLine2: event.newValue } }));
-        break;
-      case CustomerFormItem.STREET:
-        this.store.dispatch(patchCustomer({ customer: { street: event.newValue } }));
-        break;
-      case CustomerFormItem.CITY:
-        this.store.dispatch(patchCustomer({ customer: { city: event.newValue } }));
-        break;
-      case CustomerFormItem.ZIP:
-        this.store.dispatch(patchCustomer({ customer: { zipCode: event.newValue } }));
-        break;
-      case CustomerFormItem.STATE:
-        this.store.dispatch(patchCustomer({ customer: { state: event.newValue } }));
+      case CustomerFormItem.ADDRESS:
+        this.store.dispatch(patchCustomer({ customer: { address: event.newValue } }));
         break;
       case CustomerFormItem.EMAIL:
         this.store.dispatch(patchCustomer({ customer: { email: event.newValue } }));
@@ -139,6 +130,13 @@ export class InvoiceCustomerComponent implements OnDestroy {
         return '';
       },
       onCellValueChanged: this.handleCustomerCellValueChanged,
+      suppressKeyboardEvent: (params: SuppressKeyboardEventParams<FormColumnDef>) => {
+        switch (params.data?.label) {
+          case CustomerFormItem.ADDRESS:
+            return params.editing && params.event.key === 'Enter';
+        }
+        return false;
+      },
     }
   ];
 
@@ -177,6 +175,12 @@ export class InvoiceCustomerComponent implements OnDestroy {
       return {component: LabelColumnRendererComponent,
         params: {labelValue: dtF.name}}; }
 
+    case CustomerFormItem.ADDRESS:
+      {
+        return {component: LabelColumnRendererComponent,
+          params: {labelValue: params.data.value, multiLine: true}};
+      }
+
     }
     return params.data.value;
   
@@ -190,12 +194,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
       const {customer} = invoice;
       this.customerRowData = [
         { label: CustomerFormItem.NAME, value: customer.name },
-        { label: CustomerFormItem.LINE1, value: customer.addressLine1 },
-        { label: CustomerFormItem.LINE2, value: customer.addressLine2 },
-        { label: CustomerFormItem.STREET, value: customer.street },
-        { label: CustomerFormItem.CITY, value: customer.city },
-        { label: CustomerFormItem.ZIP, value: customer.zipCode },
-        { label: CustomerFormItem.STATE, value: customer.state },
+        { label: CustomerFormItem.ADDRESS, value: customer.address },
         { label: CustomerFormItem.COUNTRY, value: customer.country },
         { label: CustomerFormItem.EMAIL, value: customer.email },
         { label: CustomerFormItem.MOBILE, value: customer.phone },

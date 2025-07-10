@@ -26,17 +26,20 @@ export interface InvoiceItem {
   taxTotal: number;
   grandTotal: number;
 }
-
-export interface Address {
+export interface Organization {
   name: string;
+  address: string;
+  country: Country;
+  email: string;
+  phone: string;
+  gstin: string;
   authorityName:string;
-  designation:string;
-  addressLine1: string;
-  addressLine2: string;
-  street: string;
-  city: string;
-  zipCode: string;
-  state: string;
+  authorityDesignation:string;
+}
+
+export interface Customer {
+  name: string;
+  address: string;
   country: Country;
   email: string;
   phone: string;
@@ -59,8 +62,8 @@ export interface Invoice {
   bankName:string;
   terms:string;
   deliveryState: string;
-  organization: Address,
-  customer: Address,
+  organization: Organization,
+  customer: Customer,
   items: InvoiceItem[]
   itemTotal: number;
   discountTotal: number;

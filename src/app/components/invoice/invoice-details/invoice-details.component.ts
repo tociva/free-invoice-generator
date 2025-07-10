@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
+import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
 import dayjs from 'dayjs';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { FORM_ROW_HEIGHT, OPTIONS_COUNT } from '../../../../util/constants';
@@ -20,6 +20,7 @@ import { selectAllCurrencies } from '../store/selectors/currency.selectors';
 import { selectAllDateFormats } from '../store/selectors/date-format.selectors';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { selectAllTaxes } from '../store/selectors/tax.selectors';
+import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 
 export enum InvoiceDetailsFormItem {
   INVOICE_NUMBER = 'Invoice Number',
@@ -71,6 +72,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     rowSelection: 'single',
     animateRows: true,
     enableBrowserTooltips: true,
+    getRowHeight: (params) => {
+      switch (params.data?.label) {
+        case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+          return 70;
+        default:
+          return 35;
+      }
+    },
   };
 
   constructor(public store: Store) { }
@@ -177,6 +186,9 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
             onOptionSelected: (val: TaxOption) => this.handleTaxOptionChange(val)
           }
         };
+
+      case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+        return { component: TextAreaEditorComponent, params: { value: cellParams.data.value, rows: 5 } };
     }
 
     return {
@@ -233,6 +245,10 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const date = params.data?.value as Date;
           const dateText = dayjs(date).format(dateFormatText);
           return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
+        }
+      case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+        {
+          return { component: LabelColumnRendererComponent, params: { labelValue: params.data.value, multiLine: true } };
         }
 
     }
@@ -327,7 +343,8 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           InvoiceDetailsFormItem.DATE_FORMAT,
           InvoiceDetailsFormItem.ACCOUNT_NAME,
           InvoiceDetailsFormItem.ACCOUNT_NUMBER,
-          InvoiceDetailsFormItem.BANK_NAME
+          InvoiceDetailsFormItem.BANK_NAME,
+          InvoiceDetailsFormItem.TERMS_AND_CONDITIONS
         ];
         return editableFields.includes(label as InvoiceDetailsFormItem);
       },
@@ -346,6 +363,13 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         }
 
         return '';
+      },
+      suppressKeyboardEvent: (params: SuppressKeyboardEventParams<FormColumnDef>) => {
+        switch (params.data?.label) {
+          case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+            return params.editing && params.event.key === 'Enter';
+        }
+        return false;
       },
     }
   ];
