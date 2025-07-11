@@ -126,4 +126,19 @@
       color: #367588;
     }
   }
+
+  .simple-invoice-layout{
+    width: 100%;
+  }
+
+  .simple-invoice-row{
+    flex-direction: column;
+    padding: 10px 0px 10px 0px;
+  }
+  .spacer-div{
+    display: none;
+  }
+  .step-form-content{
+    flex: 1;
+  }
 }

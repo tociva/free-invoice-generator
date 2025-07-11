@@ -4,6 +4,7 @@
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
+  width: 90%;
 }
 
 .app-content {
@@ -82,10 +83,9 @@
     }
 
     .mobile-menu-button {
-      display: inline-flex;
+      display: block;
       color: $on-primary-color;
-      margin-top: -4px;
-      margin-right: -8%;
+      margin-top: -5px;
     }
   }
 }
