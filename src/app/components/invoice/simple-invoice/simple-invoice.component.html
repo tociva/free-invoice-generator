@@ -1,71 +1,79 @@
-<div class="mobile-step-header">
-    <button mat-icon-button (click)="goPrevious()" *ngIf="stepIndex > 0">
+<div class="step-container">
+  <!-- Header -->
+  <div class="step-header">
+    <button mat-icon-button (click)="goPrevious()" [disabled]="stepIndex === 0">
       <mat-icon>arrow_back</mat-icon>
     </button>
-  
-    <div class="mobile-step-title">
+
+    <div class="step-title">
       {{ stepIndex + 1 }}. {{ getStepLabel(stepIndex) }}
     </div>
-  
-    <button mat-icon-button (click)="goNext()" [disabled]="stepIndex === 5">
+
+    <button mat-icon-button (click)="goNext()" [disabled]="stepIndex === 2">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>
-  
-  
-  <mat-horizontal-stepper [linear]="false" #stepper [selectedIndex]="stepIndex" (selectionChange)="onStepClick($event)">
-  
-    <!-- Step 1 -->
-    <mat-step [label]="getStepLabel(0)" [completed]="isStepComplete">
-      <ng-container *ngIf="stepIndex === 0">
-        <div class="simple-invoice-layout">
-          <div class="simple-invoice-row">
-            <app-invoice-logo [hideLargeLogo]="true" class="step-form-content"></app-invoice-logo>
-            <div class="spacer-div"></div>
-            <app-invoice-details [simple]="true"  class="step-form-content"></app-invoice-details>
+
+  <!-- Step Card -->
+  <div class="step-card">
+    <ng-container [ngSwitch]="stepIndex">
+      <!-- Step 1 -->
+      <ng-container *ngSwitchCase="0">
+        <div class="step-box-wrapper">
+          <!-- Organization + Customer -->
+          <div class="side-by-side-row">
+            <app-invoice-organization [simple]="true" class="one-third-box"></app-invoice-organization>
+            <app-invoice-customer [simple]="true" class="two-third-box"></app-invoice-customer>
           </div>
-          <div class="simple-invoice-row">
-            <app-invoice-organization [simple]="true" class="step-form-content"></app-invoice-organization>
-            <div class="spacer-div"></div>
-            <app-invoice-customer [simple]="true" class="step-form-content"></app-invoice-customer>
+
+          <!-- Invoice Details -->
+          <app-invoice-details [simple]="true" class="invoice-details-box"></app-invoice-details>
+
+          <!-- Items (no scroll) -->
+          <div class="full-width-box no-scroll">
+            <app-invoice-items [simple]="true"></app-invoice-items>
           </div>
-          <app-invoice-items [simple]="true"></app-invoice-items>
-          <div class="simple-invoice-row">
-            <app-invoice-amount-words class="step-form-content"></app-invoice-amount-words>
-            <div class="spacer-div"></div>
-            <app-invoice-summary class="step-form-content"></app-invoice-summary>
+
+          <!-- Summary + Amount in Words -->
+          <div class="side-by-side-row">
+            <app-invoice-summary class="two-third-box"></app-invoice-summary>
+            
           </div>
+          <app-invoice-amount-words class="amount-word-box"></app-invoice-amount-words>
+
+          <!-- Logo -->
+          <app-invoice-logo [hideLargeLogo]="true" class="logo-box"></app-invoice-logo>
         </div>
-  
-        <div class="stepper-actions">
-          <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
-            Next <mat-icon>arrow_forward</mat-icon>
-          </button>
+      </ng-container>
+
+      <!-- Step 2 -->
+      <ng-container *ngSwitchCase="1">
+        <div class="step-box-wrapper">
+          <app-select-template [stepper]="stepper"></app-select-template>
         </div>
       </ng-container>
-    </mat-step>
-  
-    <!-- Step 5 -->
-    <mat-step [label]="getStepLabel(1)" [completed]="isStepComplete">
-      <ng-container *ngIf="stepIndex === 1">
-        <app-select-template [stepper]="stepper"></app-select-template>
+
+      <!-- Step 3 -->
+      <ng-container *ngSwitchCase="2">
+        <div class="step-box-wrapper">
+          <app-preview-invoice></app-preview-invoice>
+        </div>
       </ng-container>
-      <div class="stepper-actions">
-        <button mat-button class="back-btn" (click)="gotToStep(3)"><mat-icon>arrow_back</mat-icon> Back</button>
-        <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(5)">Next
-          <mat-icon>arrow_forward</mat-icon></button>
-      </div>
-    </mat-step>
-  
-    <!-- Step 6 -->
-    <mat-step [label]="getStepLabel(2)" [completed]="isStepComplete">
-      <ng-container *ngIf="stepIndex === 2">
-        <app-preview-invoice></app-preview-invoice>
-      </ng-container>
-      <div class="stepper-actions">
-        <button mat-button class="back-btn" (click)="gotToStep(4)"><mat-icon>arrow_back</mat-icon> Back</button>
-        <button mat-raised-button color="accent" class="finish-btn"
-          (click)="onFinishClick()"><mat-icon>check_circle</mat-icon> Finish</button>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
+    </ng-container>
+
+    <!-- Navigation -->
+    <div class="step-actions">
+      <button mat-button class="back-btn" (click)="goPrevious()" [disabled]="stepIndex === 0">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+      <button
+        mat-raised-button
+        class="primary-btn"
+        (click)="stepIndex === 2 ? onFinishClick() : goNext()"
+      >
+        {{ stepIndex === 2 ? 'Finish' : 'Next' }}
+        <mat-icon>{{ stepIndex === 2 ? 'check_circle' : 'arrow_forward' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
