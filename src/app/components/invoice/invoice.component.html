@@ -18,15 +18,12 @@
   <!-- Step 1 -->
   <mat-step [label]="getStepLabel(0)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 0">
-      <div class="organization-layout">
-        <div class="organization-main">
-          <app-invoice-organization></app-invoice-organization>
-        </div>
-        <div class="organization-logo">
-          <app-invoice-logo></app-invoice-logo>
-        </div>
+      <div class="step-data-container">
+        <div class="spacer-div"></div>
+        <app-invoice-organization class="step-form-content"></app-invoice-organization>
+        <app-invoice-logo></app-invoice-logo>
+        <div class="spacer-div"></div>
       </div>
-
       <div class="stepper-actions">
         <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
           Next <mat-icon>arrow_forward</mat-icon>
@@ -38,8 +35,9 @@
   <!-- Step 2 -->
   <mat-step [label]="getStepLabel(1)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 1">
-      <div class="customer-card-container">
-        <app-invoice-customer></app-invoice-customer>
+      <div class="step-data-container">
+        <div class="spacer-div"></div>
+        <app-invoice-customer  class="step-form-content"></app-invoice-customer>
       </div>
     </ng-container>
     <div class="stepper-actions">
@@ -52,8 +50,9 @@
   <!-- Step 3 -->
   <mat-step [label]="getStepLabel(2)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
-      <div class="invoice-card-container">
-        <app-invoice-details></app-invoice-details>
+      <div class="step-data-container">
+        <div class="spacer-div"></div>
+        <app-invoice-details class="step-form-content"></app-invoice-details>
       </div>
     </ng-container>
     <div class="stepper-actions">
@@ -66,12 +65,13 @@
   <!-- Step 4 -->
   <mat-step [label]="getStepLabel(3)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 3">
-      <div class="items-summary-layout">
+      <div class="items-layout">
         <div class="invoice-items-wrapper" *ngIf="!mobileView"><app-invoice-items></app-invoice-items></div>
         <div class="invoice-items-wrapper" *ngIf="mobileView"><app-invoice-items-mobile></app-invoice-items-mobile></div>
         <div class="invoice-summary-wrapper">
-          <app-invoice-summary></app-invoice-summary>
           <app-invoice-amount-words></app-invoice-amount-words>
+          <div class="spacer-div"></div>
+          <app-invoice-summary class="invoice-summary-content"></app-invoice-summary>
         </div>
       </div>
     </ng-container>

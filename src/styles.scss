@@ -1,24 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+@use './styles/variables' as *;
 
 html, body { height: 100%; background-color: #ffffff; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.invoice-card-layout {
-  display: flex;
-  justify-content: center;
-  padding: 40px 16px;
-  background-color: #ffffff;
-  min-height: 70vh;
+.table-container {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 0px 10px 10px 10px;
   box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+  overflow-x: auto;
 }
 
-.invoice-card-title {
+.table-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+.table-form-container {
+  max-width: 720px;
+}
+
+.table-form-title {
   font-size: 26px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 28px;
   color: #2c3e50;
 }
+
+.table-form-grid {
+  width: 100%;
+  max-width: 100%;
+  font-size: 15px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
 /* LabelColumnRenderer The ? icon */
 .tooltip-trigger {
   position: absolute;
@@ -60,4 +79,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .tooltip-trigger:focus .tooltip-text {
   visibility: visible;
   opacity: 1;
+}
+@media (max-width: $breakpoint-mobile) {
+
+  .table-form-container {
+    padding: 0 0 0 0;
+  }
+  .table-container{
+    width: 90%;
+    padding: 0px;
+    margin-left: 5%;
+  }
+  
+  .table-form-title {
+    display: none;
+  }
 }

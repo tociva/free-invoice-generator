@@ -1,8 +1,10 @@
+@use '../../../../styles/variables' as *;
+
 .invoice-items-mobile-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 12px;
+  gap: 10px;
+  padding: 2px;
   background: #f9f9f9;
 }
 
@@ -35,19 +37,20 @@
   }
 }
 
-.invoice-item-mobile-item-add {
+.full-width-green-btn {
+  width: 100%;
+  justify-content: center;    /* center icon+text inside button */
+  align-items: center;
   display: flex;
-  justify-content: center;
-  margin-top: 16px;
+  gap: 8px;
+  border: 2px solid $primary-color; /* elegant green border */
+  background-color: $primary-color;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(22,163,74,0.1);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 
-  button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-}
-
-.ag-theme-alpine {
-  border: none;
-  font-size: 13px;
+  /* Optional: rounded corners */
+  border-radius: 6px;
 }

@@ -1,7 +1,5 @@
-<div class="Item-details-card">
-  <div class="title">
-      <span class="invoice-card-title">Item Details</span>
-  </div>
+<div class="table-container">
+  <h2 class="table-form-title">Item Details</h2>
   <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [columnDefs]="itemsColumnDefs"
       [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
       (gridReady)="onItemsGridReady($event)">

@@ -8,8 +8,6 @@
   font-weight: 500;
   color: #444;
   border-radius: 6px;
-  margin-right: 300px;
-  margin-top: 100px;
   flex: 1;
 }
 
@@ -41,12 +39,8 @@
 
 @media (max-width: $breakpoint-mobile) {
   .total-in-words-container {
-    margin-right: -19px;
-    margin-left: 19px;
-    margin-top: 0;
-    padding: 12px;
+    padding: 2px;
     text-align: center;
-    order: 2;
   }
   .total-in-words-value {
     font-size: 1rem;
