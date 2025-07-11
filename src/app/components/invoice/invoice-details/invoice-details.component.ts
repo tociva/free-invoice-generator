@@ -13,7 +13,7 @@ import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-pick
 import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
-import { patchInvoiceDetails, setInvoiceCurrency, setInvoiceDate, setInvoiceDateFormat, setInvoiceDecimalPlaces, setInvoiceDueDate, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { patchInvoiceDetails, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { Currency } from '../store/model/currency.model';
 import { DateFormat } from '../store/model/date-format.model';
 import { TaxOption } from '../store/model/invoice.model';
@@ -125,11 +125,11 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   };
 
   private handleCurrencyOptionSelected = (val: Currency): void => {
-    this.store.dispatch(setInvoiceCurrency({ currency: val }));
+    this.store.dispatch(patchInvoiceDetails({ details: { currency: val } }));
   };
 
   private handleDateFormatOptionSelected = (val: DateFormat): void => {
-    this.store.dispatch(setInvoiceDateFormat({ dateFormat: val }));
+    this.store.dispatch(patchInvoiceDetails({ details: { dateFormat: val } }));
   };
 
   private findCurrencyEditorComponent = (_valueP: unknown) => ({
@@ -199,7 +199,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
   };
 
   private handleItemDescriptionToggle = (val: boolean) => {
-    this.store.dispatch(setInvoiceItemDescription({ itemDescription: val }));
+    this.store.dispatch(patchInvoiceDetails({ details: { hasItemDescription: val } }));
   };
 
   private handleShowDiscountToggle = (val: boolean) => {
@@ -268,7 +268,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const newDate = new Date(event.newValue);
           const oldDate = new Date(event.oldValue);
           if (newDate.getTime() !== oldDate.getTime()) {
-            this.store.dispatch(setInvoiceDate({ date: newDate }));
+            this.store.dispatch(patchInvoiceDetails({ details: { date: newDate } }));
           }
           break;
         }
@@ -277,7 +277,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const newDueDate = new Date(event.newValue);
           const oldDueDate = new Date(event.oldValue);
           if (newDueDate.getTime() !== oldDueDate.getTime()) {
-            this.store.dispatch(setInvoiceDueDate({ dueDate: newDueDate }));
+            this.store.dispatch(patchInvoiceDetails({ details: { dueDate: newDueDate } }));
           }
           break;
         }
@@ -286,7 +286,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const newDecimalPlaces = Number(event.newValue);
           const oldDecimalPlaces = Number(event.oldValue);
           if (newDecimalPlaces !== oldDecimalPlaces) {
-            this.store.dispatch(setInvoiceDecimalPlaces({ decimalPlaces: newDecimalPlaces }));
+            this.store.dispatch(patchInvoiceDetails({ details: { decimalPlaces: newDecimalPlaces } }));
           }
           break;
         }

@@ -12,10 +12,10 @@ export const invoiceReducer = createReducer(
     invoice
   })),
   on(InvoiceAction.patchInvoiceDetails, (state, { details }) => {
-    const invoiceTemp = {...state.invoice, ...details};
+    const invoice = reCalculateInvoice({...state.invoice, ...details});
     return {
       ...state,
-      invoice: invoiceTemp
+      invoice
     };
   }),
   on(InvoiceAction.patchOrganization, (state, { organization }) => {
@@ -49,14 +49,6 @@ export const invoiceReducer = createReducer(
     internationalNumbering: numbering
   }
   };}),
-  on(InvoiceAction.setInvoiceDateFormat, (state, { dateFormat }) => ({
-    ...state,
-    invoice: { ...state.invoice, dateFormat }
-  })),
-  on(InvoiceAction.setInvoiceCurrency, (state, { currency }) => ({
-    ...state,
-    invoice: { ...state.invoice, currency }
-  })),
   on(InvoiceAction.setInvoiceTaxOption, (state, { option }) => {
     const { items } = state.invoice;
     const itemsTemp:InvoiceItem[] = [];
@@ -65,14 +57,10 @@ export const invoiceReducer = createReducer(
     });
     const invoice = reCalculateInvoice({...state.invoice, items: itemsTemp});
     return {
-    ...state,
-    invoice: { ...invoice, taxOption: option }
-  };
-}),
-  on(InvoiceAction.setInvoiceItemDescription, (state, { itemDescription }) => ({
-    ...state,
-    invoice: { ...state.invoice, hasItemDescription: itemDescription }
-  })),
+      ...state,
+      invoice: { ...invoice, taxOption: option }
+    };
+  }),
   on(InvoiceAction.setInvoiceShowDiscount, (state, { showDiscount }) => {
     const { items } = state.invoice;
     const itemsTemp:InvoiceItem[] = [];
@@ -81,22 +69,18 @@ export const invoiceReducer = createReducer(
     });
     const invoice = reCalculateInvoice({...state.invoice, items: itemsTemp});
     return {
-    ...state,
-    invoice: { ...invoice, hasItemDiscount: showDiscount }
-  };
-}),
-  on(InvoiceAction.setInvoiceInternationalNumbering, (state, { internationalNumbering }) => ({
-    ...state,
-    invoice: { ...state.invoice, internationalNumbering }
-  })),
+      ...state,
+      invoice: { ...invoice, hasItemDiscount: showDiscount }
+    };
+  }),
   on(InvoiceAction.deleteInvoiceItem, (state, { index }) => {
     const items = state.invoice.items.filter((_item, idx) => idx !== index);
     const invoice = reCalculateInvoice({...state.invoice, items});
     return {
-    ...state,
-    invoice: { ...invoice }
-  };
-}),
+      ...state,
+      invoice: { ...invoice }
+    };
+  }),
   on(InvoiceAction.addInvoiceItem, (state, { item }) => ({
     ...state,
     invoice: { ...state.invoice, items: [...state.invoice.items, item] }
@@ -115,7 +99,7 @@ export const invoiceReducer = createReducer(
       return formatItemValues(itmOld, decimalPlaces);
     });
     const invoice = reCalculateInvoice({...state.invoice, items: updatedItems});
-  
+
     return {
       ...state,
       invoice,
@@ -128,29 +112,6 @@ export const invoiceReducer = createReducer(
       return {
       ...state,
       invoice: { ...state.invoice, roundOff: nRoundOff, grandTotal }
-    };}
-  ),
-  on(InvoiceAction.setInvoiceDate, (state, { date }) => ({
-    ...state,
-    invoice: { ...state.invoice, date }
-  })),
-  on(InvoiceAction.setInvoiceDueDate, (state, { dueDate }) => ({
-    ...state,
-    invoice: { ...state.invoice, dueDate }
-  })),
-  on(InvoiceAction.setInvoiceDecimalPlaces, (state, { decimalPlaces }) => {
-    const invoice = reCalculateInvoice({...state.invoice, decimalPlaces});
-    return {
-      ...state,
-      invoice,
     };
-  }),
-  on(InvoiceAction.setInvoiceSmallLogo, (state, { smallLogo }) => ({
-    ...state,
-    invoice: { ...state.invoice, smallLogo }
-  })),
-  on(InvoiceAction.setInvoiceLargeLogo, (state, { largeLogo }) => ({
-    ...state,
-    invoice: { ...state.invoice, largeLogo }
-  }))
+  })
 );

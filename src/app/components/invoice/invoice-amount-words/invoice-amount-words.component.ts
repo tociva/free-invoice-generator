@@ -6,7 +6,7 @@ import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { numberToFixedDecimal } from '../../../../util/invoice.util';
 import { CurrencyUtil } from '../../util/currency.util';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
-import { setInvoiceInternationalNumbering } from '../store/actions/invoice.action';
+import { patchInvoiceDetails } from '../store/actions/invoice.action';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -43,7 +43,7 @@ export class InvoiceAmountWordsComponent implements OnDestroy, OnInit {
   } 
 
   handleInternationalNumberingChange(event: MatCheckboxChange): void {
-    this.store.dispatch(setInvoiceInternationalNumbering({ internationalNumbering: event.checked }));
+    this.store.dispatch(patchInvoiceDetails({ details: { internationalNumbering: event.checked } }));
   }
 
 }

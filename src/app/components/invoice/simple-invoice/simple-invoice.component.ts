@@ -15,7 +15,7 @@ import { InvoiceCustomerComponent } from '../invoice-customer/invoice-customer.c
 import { InvoiceDetailsComponent } from '../invoice-details/invoice-details.component';
 import { InvoiceItemsComponent } from '../invoice-items/invoice-items.component';
 import { Store } from '@ngrx/store';
-import { setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
+import { patchInvoiceDetails, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
 import { TaxOption } from '../store/model/invoice.model';
 import { InvoiceSummaryComponent } from '../invoice-summary/invoice-summary.component';
 import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amount-words.component';
@@ -63,9 +63,8 @@ export class SimpleInvoiceComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.store.dispatch(setInvoiceTaxOption({ option: TaxOption.NON_TAXABLE }));
-    this.store.dispatch(setInvoiceItemDescription({ itemDescription: false }));
     this.store.dispatch(setInvoiceShowDiscount({ showDiscount: false }));
-    this.store.dispatch(setInvoiceInternationalNumbering({ internationalNumbering: true }));
+    this.store.dispatch(patchInvoiceDetails({ details: { hasItemDescription: false, internationalNumbering: true } }));
     this.route.queryParams.subscribe((params: { step?: string }) => {
       const step = Number(params.step);
       if (!isNaN(step)) {

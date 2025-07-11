@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
-import { setInvoiceLargeLogo, setInvoiceSmallLogo } from '../store/actions/invoice.action';
+import { patchInvoiceDetails } from '../store/actions/invoice.action';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { CloudDataService } from '../../../services/cloud-data.service';
@@ -54,7 +54,7 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
       reader.onload = () => {
         this.smallLogoPreviewUrl = reader.result as string;
-        this.store.dispatch(setInvoiceSmallLogo({ smallLogo: this.smallLogoPreviewUrl }));
+        this.store.dispatch(patchInvoiceDetails({ details: { smallLogo: this.smallLogoPreviewUrl } }));
         void this.cloudDataService.trackEvent('updated-small-logo');
       };
       reader.readAsDataURL(file);
@@ -68,7 +68,7 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
       reader.onload = () => {
         this.largeLogoPreviewUrl = reader.result as string;
-        this.store.dispatch(setInvoiceLargeLogo({ largeLogo: this.largeLogoPreviewUrl }));
+        this.store.dispatch(patchInvoiceDetails({ details: { largeLogo: this.largeLogoPreviewUrl } }));
         void this.cloudDataService.trackEvent('updated-large-logo');
       };
       reader.readAsDataURL(file);
@@ -137,13 +137,13 @@ export class InvoiceLogoComponent implements OnInit, OnDestroy {
   }
   clearSmallLogo(): void {
     this.smallLogoPreviewUrl = null;
-    this.store.dispatch(setInvoiceSmallLogo({ smallLogo: '' }));
+    this.store.dispatch(patchInvoiceDetails({ details: { smallLogo: '' } }));
     void this.cloudDataService.trackEvent('cleared-small-logo');
   }
 
   clearLargeLogo(): void {
     this.largeLogoPreviewUrl = null;
-    this.store.dispatch(setInvoiceLargeLogo({ largeLogo: '' }));
+    this.store.dispatch(patchInvoiceDetails({ details: { largeLogo: '' } }));
     void this.cloudDataService.trackEvent('cleared-large-logo');
   }
 }
