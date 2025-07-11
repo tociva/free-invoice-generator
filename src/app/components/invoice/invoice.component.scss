@@ -17,19 +17,6 @@
 .spacer-div{
   width: 20%;
 }
-.stepper-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding-top: 10px;
-    button {
-        min-width: 100px;
-        border-radius: 8px;
-        font-weight: 500;
-        z-index: 0;
-        cursor: pointer;
-    }
-}
 
 .next-btn {
   font-weight: 500;
@@ -99,15 +86,6 @@
 ::ng-deep .mat-horizontal-content-container {
     background-color: #ffffff !important;
     padding: 2px !important;
-  }
-  .stepper-actions {
-    justify-content: center;
-    margin-bottom: 20px;
-
-    button {
-      width: 100%;
-      max-width: 250px;
-    }
   }
 
   .next-btn {
