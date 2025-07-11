@@ -1,18 +1,19 @@
 <div class="step-container">
   <!-- Header -->
   <div class="step-header">
-    <button mat-icon-button (click)="goPrevious()" [disabled]="stepIndex === 0">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
+  <button mat-icon-button (click)="goPrevious()" [disabled]="stepIndex === 0" class="nav-btn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 
-    <div class="step-title">
-      {{ stepIndex + 1 }}. {{ getStepLabel(stepIndex) }}
-    </div>
-
-    <button mat-icon-button (click)="goNext()" [disabled]="stepIndex === 2">
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
+  <div class="step-title">
+    {{ stepIndex + 1 }}. {{ getStepLabel(stepIndex) }}
   </div>
+
+  <button mat-icon-button (click)="goNext()" [disabled]="stepIndex === 2" class="nav-btn">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>
+
 
   <!-- Step Card -->
   <div class="step-card">
@@ -37,7 +38,6 @@
           <!-- Summary + Amount in Words -->
           <div class="side-by-side-row">
             <app-invoice-summary class="two-third-box"></app-invoice-summary>
-            
           </div>
           <app-invoice-amount-words class="amount-word-box"></app-invoice-amount-words>
 

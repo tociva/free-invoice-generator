@@ -33,17 +33,17 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-x: auto;
 }
 
-// Wrapper to center everything
 .step-box-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  padding: 0 8px;
 }
 
-// Two-column layout
 .side-by-side-row {
   display: flex;
   justify-content: center;
@@ -53,13 +53,13 @@
   max-width: 1000px;
 }
 
-// Box Sizes
 .full-width-box {
   width: 100%;
   max-width: 1150px;
 }
-.invoice-details-box{
-   width: 100%;
+
+.invoice-details-box {
+  width: 100%;
   max-width: 745px;
 }
 
@@ -67,14 +67,15 @@
   flex: 1 1 250px;
   max-width: 400px;
 }
-.amount-word-box{
-  flex: 1 1 250px;
-  max-width: 100%;
-}
 
 .two-third-box {
-  flex: 1 1 2500px;
+  flex: 1 1 250px;
   max-width: 400px;
+}
+
+.amount-word-box {
+  flex: 1 1 250px;
+  max-width: 100%;
 }
 
 .logo-box {
@@ -83,7 +84,6 @@
   align-self: center;
 }
 
-// Prevent scroll in item details
 .no-scroll app-invoice-items {
   display: block;
   width: 100%;
@@ -91,7 +91,6 @@
   max-width: 100%;
 }
 
-// Actions
 .step-actions {
   display: flex;
   justify-content: flex-end;
@@ -123,6 +122,11 @@
       background-color: #2a5d6b;
     }
   }
+
+  button mat-icon {
+    margin-left: 8px;
+    vertical-align: middle;
+  }
 }
 
 // Responsive
@@ -131,8 +135,25 @@
     padding: 16px;
   }
 
-  .step-title {
-    font-size: 16px;
+  .step-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      flex: 1;
+      order: 0; // keep it in the middle
+    }
+
+    .nav-btn {
+      flex: 0 0 auto;
+      color: #367588;
+    }
   }
 
   .step-actions {
@@ -145,13 +166,19 @@
   }
 
   .side-by-side-row {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
   }
 
   .one-third-box,
   .two-third-box,
-  .full-width-box {
-    max-width: 100%;
+  .full-width-box,
+  .invoice-details-box,
+  .amount-word-box,
+  .logo-box {
+    flex: 1 1 100%;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 }
