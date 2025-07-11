@@ -32,7 +32,8 @@
 
           <!-- Items (no scroll) -->
           <div class="full-width-box no-scroll">
-            <app-invoice-items [simple]="true"></app-invoice-items>
+            <app-invoice-items [simple]="true" *ngIf="!mobileView"></app-invoice-items>
+            <app-invoice-items-mobile [simple]="true" *ngIf="mobileView"></app-invoice-items-mobile>
           </div>
 
           <!-- Summary + Amount in Words -->

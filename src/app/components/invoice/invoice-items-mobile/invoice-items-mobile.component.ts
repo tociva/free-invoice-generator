@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
@@ -40,6 +40,8 @@ export enum InvoiceItemFormItem {
 })
 export class InvoiceItemsMobileComponent implements OnInit, OnDestroy {
 
+  @Input() simple = false;
+  
   private destroy$ = new Subject<void>();
 
   private invoice!:Invoice;

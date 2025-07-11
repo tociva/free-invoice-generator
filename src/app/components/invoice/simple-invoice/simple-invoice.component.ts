@@ -19,6 +19,7 @@ import { setInvoiceInternationalNumbering, setInvoiceItemDescription, setInvoice
 import { TaxOption } from '../store/model/invoice.model';
 import { InvoiceSummaryComponent } from '../invoice-summary/invoice-summary.component';
 import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amount-words.component';
+import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile.component';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -34,7 +35,8 @@ import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amo
     InvoiceDetailsComponent,
     InvoiceItemsComponent,
     InvoiceSummaryComponent,
-    InvoiceAmountWordsComponent
+    InvoiceAmountWordsComponent,
+    InvoiceItemsMobileComponent
     ],
   templateUrl: './simple-invoice.component.html',
   styleUrl: './simple-invoice.component.scss'
@@ -61,7 +63,7 @@ export class SimpleInvoiceComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.store.dispatch(setInvoiceTaxOption({ option: TaxOption.NON_TAXABLE }));
-    this.store.dispatch(setInvoiceItemDescription({ itemDescription: true }));
+    this.store.dispatch(setInvoiceItemDescription({ itemDescription: false }));
     this.store.dispatch(setInvoiceShowDiscount({ showDiscount: false }));
     this.store.dispatch(setInvoiceInternationalNumbering({ internationalNumbering: true }));
     this.route.queryParams.subscribe((params: { step?: string }) => {
