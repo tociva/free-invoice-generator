@@ -32,6 +32,8 @@ type InvoiceItemWithAction = InvoiceItem & { action?: string, rowIndex?: number 
 export class InvoiceItemsComponent implements OnDestroy, OnInit {
   
   @Input() simple = false;
+
+  private invoice: Invoice | null = null;
   
   private decimalPlaces = DEFAULT_DECIMAL_PLACES;
 
@@ -83,9 +85,7 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
     if(description.trim().length) {
       const rowIndex = params.node?.rowIndex ?? 0;
       this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: {...data} }));
-      // return;
     }
-    // this.store.dispatch(addInvoiceItem({ item: {...data} }));
   };
 
   private handleDescriptionCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
@@ -97,15 +97,25 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
     if(name.trim().length) {
       const rowIndex = params.node?.rowIndex ?? 0;
       this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: {...data} }));
-      // return;
     }
-    // this.store.dispatch(addInvoiceItem({ item: {...data} }));
+  };
+
+  private static isItemChanged = (data: InvoiceItem, item?: InvoiceItem) => {
+    return item?.price !== data.price || item?.quantity !== data.quantity 
+    || item?.discPercentage !== data.discPercentage || item?.discountAmount !== data.discountAmount 
+    || item?.tax1Percentage !== data.tax1Percentage || item?.tax1Amount !== data.tax1Amount 
+    || item?.tax2Percentage !== data.tax2Percentage || item?.tax2Amount !== data.tax2Amount 
+    || item?.tax3Percentage !== data.tax3Percentage || item?.tax3Amount !== data.tax3Amount;
   };
 
   private handleItemCellValueChanged = (params: NewValueParams<InvoiceItem>) => {
     const rowIndex = params.node?.rowIndex ?? 0;
     const data = {...params.data};
-    this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: data }));
+    const item = this.invoice?.items[rowIndex];
+    if(InvoiceItemsComponent.isItemChanged(data, item)) {
+      this.store.dispatch(updateInvoiceItem({ index: rowIndex, item: data }));
+      
+    }
   };
 
   private static createItemLabelStringColumn(field: keyof InvoiceItem, headerName: string, placeholder = '', width?: number, onCellValueChanged?: (event: NewValueParams<InvoiceItem>) => void, groupClass?: string): ColDef<InvoiceItemWithAction> {
@@ -345,7 +355,10 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
     this.store.select(selectInvoice)
     .pipe(takeUntil(this.destroy$))
     .subscribe((invoice) => {
-      this.refreshItemTable(invoice);
+      if(this.invoice === null) {
+        this.refreshItemTable(invoice);
+      }
+      this.invoice = invoice;
       const nInvoices:InvoiceItemWithAction[] = [...invoice.items];
       for(const [index, item] of nInvoices.entries()) {
         const rowNode = this.itemsGridApi.getDisplayedRowAtIndex(index);

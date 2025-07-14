@@ -2,7 +2,7 @@ import { Invoice, InvoiceItem } from '../app/components/invoice/store/model/invo
 import { DEFAULT_DECIMAL_PLACES } from './constants';
 
 export const BASE_ITEM_ROW_DATA: InvoiceItem = {
-  name: '', description: '', quantity: 0, price: 0, itemTotal: 0, discountAmount: 0,
+  name: '', description: '', quantity: 1, price: 0, itemTotal: 0, discountAmount: 0,
   discPercentage: 0, subTotal: 0, tax1Amount: 0, tax1Percentage: 0,
   tax2Amount: 0, tax2Percentage: 0, tax3Amount: 0, tax3Percentage: 0,
   taxTotal: 0, grandTotal: 0,
