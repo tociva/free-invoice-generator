@@ -4,4 +4,8 @@
       [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
       (gridReady)="onItemsGridReady($event)">
   </ag-grid-angular>
+  <button mat-raised-button class="add-item-button" (click)="onAddItem()">
+    <mat-icon>add</mat-icon>
+    Add an Item
+  </button>
 </div>

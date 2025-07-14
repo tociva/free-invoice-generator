@@ -40,7 +40,7 @@ export class LabelColumnRendererComponent implements ICellRendererAngularComp {
       <span class="tooltip-text">${params.tooltip}</span>
       </span>`;
     }
-    this.labelValue = labelValueToDisplay;
+    this.labelValue = `<span>${labelValueToDisplay}</span>`;
     if (params.labelClass) {
 
       this.labelClass = params.labelClass;

@@ -16,7 +16,7 @@ export const sampleInvoice: Invoice = {
   hasItemDescription: true,
   hasItemDiscount: false,
   internationalNumbering: false,
-  accountNumber:12345678910,
+  accountNumber:'',
   accountName:'',
   bankName:'',
   terms:'',

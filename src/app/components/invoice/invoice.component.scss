@@ -1,4 +1,5 @@
 @use '../../../styles/variables' as *;
+@use '../util/common.styles.scss' as *;
 
 .mobile-step-title{
   display: none;
@@ -18,45 +19,6 @@
   width: 20%;
 }
 
-.next-btn {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  border-radius: 8px;
-}
-.next-btn1 {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  border-radius: 8px;
-}
-
-
-.next-btn3 {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  border-radius: 8px;
-}
-
-
-.back-btn {
-  font-weight: 500;
-  color: #555;
-  background-color: transparent;
-  border: 1px solid #367588;
-  border-radius: 8px;
-}
-.finish-btn {
-  font-weight: 500;
-  background-color: #367588;
-  color: white;
-  border-radius: 8px;
-  margin-bottom: 50px;
-}
-.next-btnn {
-  margin-left: auto;
-}
 
 .items-layout {
   display: flex;

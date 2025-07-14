@@ -1,6 +1,14 @@
+.ag-label-div{
+  height: 100%;
+}
 .content-label-right {
   width: 100%;
   text-align:right;
+}
+.content-label-right-middle {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 .ag-pre{
   line-height: 1.5;

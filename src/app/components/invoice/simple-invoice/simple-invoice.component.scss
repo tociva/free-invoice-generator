@@ -1,5 +1,5 @@
 @use '../../../../styles/variables' as *;
-
+@use '../../util/common.styles.scss' as *;
 // Stepper custom styles
 ::ng-deep .mat-horizontal-stepper-header-container {
     background-color: #ffffff !important;
@@ -17,50 +17,6 @@
   touch-action: none; /* Allow all gestures */
   width: 100vw;
   height: 100vh;
-}
-
-.next-btn {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  margin-bottom: 50px;
-  border-radius: 8px;
-}
-.next-btn1 {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-
-.next-btn3 {
-  font-weight: 500;
-  color: white;
-  background-color: #367588;
-  margin-bottom: 50px;
-  border-radius: 8px;
-  margin-right: 100px;
-}
-
-
-.back-btn {
-  font-weight: 500;
-  color: #555;
-  background-color: transparent;
-  border: 1px solid #367588;
-  border-radius: 8px;
-}
-.finish-btn {
-  font-weight: 500;
-  background-color: #367588;
-  color: white;
-  border-radius: 8px;
-  margin-bottom: 50px;
-}
-.next-btnn {
-  margin-left: auto;
 }
 .mobile-step-header {
   display: none;

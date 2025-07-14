@@ -1,0 +1,5 @@
+@use '../../util/common.styles.scss' as *;
+.add-item-button{
+    @extend .primary-btn;
+    margin-top: 10px;
+}

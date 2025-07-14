@@ -57,7 +57,7 @@ export interface Invoice {
   hasItemDescription: boolean;
   hasItemDiscount: boolean;
   internationalNumbering: boolean;
-  accountNumber:number;
+  accountNumber:string;
   accountName:string;
   bankName:string;
   terms:string;
