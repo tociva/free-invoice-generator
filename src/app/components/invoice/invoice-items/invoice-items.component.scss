@@ -2,4 +2,7 @@
 .add-item-button{
     @extend .primary-btn;
     margin-top: 10px;
+    width: 50%;
+    float: right;
+    margin-right: 17px;
 }

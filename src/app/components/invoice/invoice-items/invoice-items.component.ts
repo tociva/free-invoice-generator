@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ColGroupDef, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
@@ -29,7 +29,7 @@ type InvoiceItemWithAction = InvoiceItem & { action?: string, rowIndex?: number 
   templateUrl: './invoice-items.component.html',
   styleUrl: './invoice-items.component.scss'
 })
-export class InvoiceItemsComponent implements OnDestroy {
+export class InvoiceItemsComponent implements OnDestroy, OnInit {
   
   @Input() simple = false;
   
@@ -64,6 +64,11 @@ export class InvoiceItemsComponent implements OnDestroy {
 
   constructor(private store:Store) {}
   
+  ngOnInit(): void {
+    if(this.simple) {
+      this.itemsGridWidth = '1150px';
+    }
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
