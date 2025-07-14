@@ -1,5 +1,5 @@
 <div class="table-container table-form-container">
-  <div class="table-form-title">Invoice Details</div>
+  <div *ngIf="!simple" class="table-form-title">Invoice Details</div>
   <ag-grid-angular
     style="width: 100%;"
       class="ag-theme-alpine table-form-grid"

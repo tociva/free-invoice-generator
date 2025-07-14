@@ -15,11 +15,11 @@ import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 export enum CustomerFormItem {
-  NAME = 'Name',
+  NAME = 'Customer Name',
   MOBILE = 'Mobile',
   EMAIL = 'Email',
   GSTIN = 'GSTIN',
-  ADDRESS = 'Address',
+  ADDRESS = 'Customer Address',
   COUNTRY = 'Country',
 }
 @Component({
@@ -58,7 +58,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
         case CustomerFormItem.ADDRESS:
           return 170;
         default:
-          return 35;
+          return 50;
       }
     },
   };
@@ -110,12 +110,12 @@ export class InvoiceCustomerComponent implements OnDestroy {
   };
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150,flex:1 },
+    { field: 'label', headerName: '', width: 150,flex:2 },
     {
       field: 'value',
       headerName: '',
       width: 200,
-      flex:2,
+      flex:3,
       editable: true,
       cellEditorSelector: this.findCustomerEditorComponent,
       cellRendererSelector: InvoiceCustomerComponent.findCustomerCellRenderer,

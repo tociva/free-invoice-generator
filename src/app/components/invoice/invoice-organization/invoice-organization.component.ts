@@ -25,8 +25,8 @@ import { Country } from '../store/model/country.model';
 import { selectInvoice } from '../store/selectors/invoice.selectors';
 
 export enum OrganizatonFormItem {
-  NAME = 'Name',
-  ADDRESS = 'Address',
+  NAME = 'My Name',
+  ADDRESS = 'My Address',
   AUTHPORITY_NAME = 'Authority Name',
   DESIGNATION = 'Designation',
   MOBILE = 'Mobile',
@@ -68,7 +68,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         case OrganizatonFormItem.ADDRESS:
           return 170;
         default:
-          return 35;
+          return 50;
       }
     },
   };

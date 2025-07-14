@@ -75,7 +75,26 @@ export const initialInvoiceState: InvoiceState = {
       phone: '',
       gstin: ''
     },
-    items: [],
+    items: [
+      {
+        name: '',
+        description: '',
+        quantity: 1,
+        price: 0,
+        itemTotal: 0,
+        discountAmount: 0,
+        discPercentage: 0,
+        subTotal: 0,
+        tax1Amount: 0,
+        tax1Percentage: 0,
+        tax2Amount: 0,
+        tax2Percentage: 0,
+        tax3Amount: 0,
+        tax3Percentage: 0,
+        taxTotal: 0,
+        grandTotal: 0,
+      }
+    ],
     itemTotal: 0,
     discountTotal: 0,
     subTotal: 0,

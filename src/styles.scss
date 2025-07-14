@@ -35,6 +35,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .table-form-container {
   max-width: 720px;
+  overflow: hidden;
 }
 
 .table-form-title {

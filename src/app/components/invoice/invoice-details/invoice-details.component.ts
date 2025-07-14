@@ -58,7 +58,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
   public detailsGridApi!: GridApi<FormColumnDef>;
 
-  rowHeight = FORM_ROW_HEIGHT;
+  rowHeight = 35;
 
   defaultColDef: ColDef<FormColumnDef> = {
     singleClickEdit: true,
@@ -73,12 +73,13 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     rowSelection: 'single',
     animateRows: true,
     enableBrowserTooltips: true,
+    domLayout: 'autoHeight',
     getRowHeight: (params) => {
       switch (params.data?.label) {
         case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
           return 70;
         default:
-          return 35;
+          return 50;
       }
     },
   };
@@ -158,18 +159,26 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
     this.store.dispatch(setInvoiceTaxOption({ option }));
   };
 
+  private findDateEditorComponent = () => {
+    const format = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat)?.value ?? 'DD-MM-YYYY';
+    return format;
+  };
+
   private findDetailsEditorComponent = (cellParams: ICellEditorParams<FormColumnDef>) => {
 
     switch (cellParams.data.label) {
 
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
+        {
+        const format = this.findDateEditorComponent();
         return {
           component: DatePickerEditorComponent,
           params: {
-            format: (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value,
+            format,
             value: cellParams.data.value
           }
+        };
         };
 
       case InvoiceDetailsFormItem.CURRENCY:
@@ -236,7 +245,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
         {
-          const dateFormatText = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat).value;
+          const dateFormatText = this.findDateEditorComponent();
           const date = params.data?.value as Date;
           const dateText = dayjs(date).format(dateFormatText);
           return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
@@ -387,21 +396,20 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         { label: InvoiceDetailsFormItem.INVOICE_NUMBER, value: invoice.number },
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
         { label: InvoiceDetailsFormItem.DUE_DATE, value: invoice.dueDate },
-        { label: InvoiceDetailsFormItem.CURRENCY, value: invoice.currency },
       ];
       if(!this.simple) {
         invoiceDetailsRowData.push(
+          { label: InvoiceDetailsFormItem.CURRENCY, value: invoice.currency },
           { label: InvoiceDetailsFormItem.DECIMAL_PLACES, value: invoice.decimalPlaces },
           { label: InvoiceDetailsFormItem.DELIVERY_STATE, value: invoice.deliveryState },
           { label: InvoiceDetailsFormItem.TAX_OPTION, value: invoice.taxOption },
           { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
           { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
-          { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
         );
       } 
-      invoiceDetailsRowData.push({ label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat });
       if(!this.simple) {
         invoiceDetailsRowData.push(
+          { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
           { label: InvoiceDetailsFormItem.ACCOUNT_NUMBER, value: invoice.accountNumber },
           { label: InvoiceDetailsFormItem.ACCOUNT_NAME, value: invoice.accountName },
           { label: InvoiceDetailsFormItem.BANK_NAME, value: invoice.bankName },
