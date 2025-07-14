@@ -3,4 +3,6 @@ export interface Currency {
   html: string;
   unicode: string;
   decimal: number;
+  shortName: string;
+  fraction: string;
 }

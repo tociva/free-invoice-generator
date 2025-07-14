@@ -8,7 +8,9 @@ export const sampleInvoice: Invoice = {
     name: 'Indian Rupee',
     html: '&#8377;',
     unicode: '20B9',
-    decimal: 2
+    decimal: 2,
+    shortName: 'INR',
+    fraction: 'Paisa'
   },
   decimalPlaces: 2,
   deliveryState: 'Kerala',
@@ -37,7 +39,9 @@ export const sampleInvoice: Invoice = {
         name: 'Indian Rupee',
         html: '&#8377;',
         unicode: '20B9',
-        decimal: 2
+        decimal: 2,
+        shortName: 'INR',
+        fraction: 'Paisa'
       },
       dateFormat: {
         name: '31-01-2022',
@@ -59,7 +63,9 @@ export const sampleInvoice: Invoice = {
         name: 'Indian Rupee',
         html: '&#8377;',
         unicode: '20B9',
-        decimal: 2
+        decimal: 2,
+        shortName: 'INR',
+        fraction: 'Paisa'
       },
       dateFormat: {
         name: '31-01-2022',

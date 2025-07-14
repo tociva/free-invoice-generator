@@ -1,6 +1,8 @@
 export class CurrencyUtil {
     static numberToWords(
       amount: number,
+      shortName: string,
+      fraction: string,
       decimalPlaces = 2,
       internationalNumbering = false
     ): string {
@@ -76,10 +78,10 @@ export class CurrencyUtil {
         : convertIndian(wholePart);
   
       const paisaWords = decimalPart
-        ? `and ${convertBelowThousand(decimalPart)} ${decimalPlaces === 2 ? 'Paise' : 'Cents'}`
+        ? `and ${convertBelowThousand(decimalPart)} ${fraction}`
         : '';
   
-      return `${mainWords} Rupees ${paisaWords}`.trim();
+      return `${shortName} ${mainWords} ${paisaWords}`.trim();
     }
   }
   

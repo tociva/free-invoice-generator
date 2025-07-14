@@ -14,7 +14,9 @@ export const initialInvoiceState: InvoiceState = {
       name: 'Indian Rupee',
       html: '&#8377;',
       unicode: '20B9',
-      decimal: 2
+      decimal: 2,
+      shortName: 'INR',
+      fraction: 'Paisa'
     },
     decimalPlaces: 2,
     deliveryState: '',
@@ -42,7 +44,9 @@ export const initialInvoiceState: InvoiceState = {
           name: 'Indian Rupee',
           html: '&#8377;',
           unicode: '20B9',
-          decimal: 2
+          decimal: 2,
+          shortName: 'INR',
+          fraction: 'Paisa'
         },
         dateFormat: {
           name: '24-06-2025',
@@ -64,7 +68,9 @@ export const initialInvoiceState: InvoiceState = {
           name: 'Indian Rupee',
           html: '&#8377;',
           unicode: '20B9',
-          decimal: 2
+          decimal: 2,
+          shortName: 'INR',
+          fraction: 'Paisa'
         },
         dateFormat: {
           name: '24-06-2025',

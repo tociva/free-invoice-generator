@@ -2,14 +2,33 @@ import { Country } from '../model/country.model';
 
 export const countries:Country[] = [
     {
-      'name': 'India',
+      'name': 'United States (US)',
+      'code': '1',
+      'iso': 'US',
+      'currency': {
+        'name': 'United States Dollar',
+        'html': '&#36;',
+        'unicode': '24',
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
+      },
+      'dateFormat': {
+        'name': 'MM/DD/YYYY',
+        'value': 'MM/DD/YYYY'
+      }
+    },
+    {
+      'name': 'India (IN)',
       'code': '91',
       'iso': 'IN',
       'currency': {
         'name': 'Indian Rupee',
         'html': '&#8377;',
         'unicode': '20B9',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'INR',
+        'fraction': 'Paisa'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -17,14 +36,67 @@ export const countries:Country[] = [
       }
     },
     {
-      'name': 'Afghanistan',
+      'name': 'United Kingdom (GB)',
+      'code': '44',
+      'iso': 'GB',
+      'currency': {
+        'name': 'British Pound Sterling',
+        'html': '&#163;',
+        'unicode': 'A3',  
+        'decimal': 2,
+        'shortName': 'GBP',
+        'fraction': 'Penny'
+      },
+      'dateFormat': {
+        'name': 'DD/MM/YYYY',
+        'value': 'DD/MM/YYYY'
+      }
+    },
+    {
+      'name': 'Canada (CA)',
+      'code': '1',
+      'iso': 'CA',
+      'currency': {
+        'name': 'Canadian Dollar',
+        'html': '&#36;',
+        'unicode': '24',
+        'decimal': 2,
+        'shortName': 'CAD',
+        'fraction': 'Cent'
+      },
+      'dateFormat': {
+        'name': 'YYYY-MM-DD',
+        'value': 'YYYY-MM-DD'
+      }
+    },
+    {
+      'name': 'Australia (AU)',
+      'code': '61',
+      'iso': 'AU',
+      'currency': {
+        'name': 'Australian Dollar',
+        'html': '&#36;',
+        'unicode': '24',
+        'decimal': 2,
+        'shortName': 'AUD',
+        'fraction': 'Cent'
+      },
+      'dateFormat': {
+        'name': '31/01/2022',
+        'value': 'DD/MM/YYYY'
+      }
+    },
+    {
+      'name': 'Afghanistan (AF)',
       'code': '93',
       'iso': 'AF',
       'currency': {
         'name': 'Afghan Afghani',
         'html': '&#1547;',
         'unicode': '60B',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AFN',
+        'fraction': 'Pul'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -39,7 +111,9 @@ export const countries:Country[] = [
         'name': 'Albanian Lek',
         'html': '&#76;&#101;&#107;',
         'unicode': '4C65',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ALL',
+        'fraction': 'Qindarka'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -54,7 +128,9 @@ export const countries:Country[] = [
         'name': 'Algerian Dinar',
         'html': '&#1583;.&#1580;',
         'unicode': '62C2E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'DZD',
+        'fraction': 'Centime'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -69,7 +145,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -84,7 +162,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -99,7 +179,9 @@ export const countries:Country[] = [
         'name': 'Angolan Kwanza',
         'html': '&#75;&#122;',
         'unicode': '4B7A',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AOA',
+        'fraction': 'Cêntimo'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -114,7 +196,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -129,7 +213,9 @@ export const countries:Country[] = [
         'name': 'Varied',
         'html': 'N/A',
         'unicode': 'N/A',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'N/A',
+        'fraction': 'N/A'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -144,7 +230,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -159,7 +247,9 @@ export const countries:Country[] = [
         'name': 'Argentine Peso',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ARS',
+        'fraction': 'Centavo'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -174,7 +264,9 @@ export const countries:Country[] = [
         'name': 'Armenian Dram',
         'html': '&#1423;',
         'unicode': '058F',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AMD',
+        'fraction': 'Luma'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -189,22 +281,9 @@ export const countries:Country[] = [
         'name': 'Aruban Florin',
         'html': '&#402;',
         'unicode': '192',
-        'decimal': 2
-      },
-      'dateFormat': {
-        'name': '31/01/2022',
-        'value': 'DD/MM/YYYY'
-      }
-    },
-    {
-      'name': 'Australia',
-      'code': '61',
-      'iso': 'AU',
-      'currency': {
-        'name': 'Australian Dollar',
-        'html': '&#36;',
-        'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AWG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -219,7 +298,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31.01.2022',
@@ -234,7 +315,9 @@ export const countries:Country[] = [
         'name': 'Azerbaijani Manat',
         'html': '&#8380;',
         'unicode': '20BC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AZN',
+        'fraction': 'Manat'
       },
       'dateFormat': {
         'name': '31.01.2022',
@@ -249,7 +332,9 @@ export const countries:Country[] = [
         'name': 'Bahamian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BSD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -264,7 +349,9 @@ export const countries:Country[] = [
         'name': 'Bahraini Dinar',
         'html': '&#1583;.&#1576;',
         'unicode': '62C2E',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'BHD',
+        'fraction': 'Fils'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -279,7 +366,9 @@ export const countries:Country[] = [
         'name': 'Bangladeshi Taka',
         'html': '&#2547;',
         'unicode': '9F3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BDT',
+        'fraction': 'Paisa'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -294,7 +383,9 @@ export const countries:Country[] = [
         'name': 'Barbadian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BBD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -309,7 +400,9 @@ export const countries:Country[] = [
         'name': 'Belarusian Ruble',
         'html': '&#112;&#46;',
         'unicode': '70',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BYN',
+        'fraction': 'Ruble'
       },
       'dateFormat': {
         'name': '31.01.2022',
@@ -324,7 +417,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31.01.2022',
@@ -339,7 +434,9 @@ export const countries:Country[] = [
         'name': 'Belize Dollar',
         'html': '&#66;&#90;&#36;',
         'unicode': '425A24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BZD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -354,7 +451,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -369,7 +468,9 @@ export const countries:Country[] = [
         'name': 'Bermudian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BMD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -384,7 +485,9 @@ export const countries:Country[] = [
         'name': 'Bhutanese Ngultrum',
         'html': '&#78;&#117;&#46;',
         'unicode': '4E75',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BTN',
+        'fraction': 'Ngultrum'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -399,7 +502,9 @@ export const countries:Country[] = [
         'name': 'Bolivian Boliviano',
         'html': '&#36;&#98;',
         'unicode': '2437',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BOB',
+        'fraction': 'Centavo'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -414,7 +519,9 @@ export const countries:Country[] = [
         'name': 'Bosnia and Herzegovina Convertible Mark',
         'html': '&#75;&#77;',
         'unicode': '4B4D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BAM',
+        'fraction': 'Mark'
       },
       'dateFormat': {
         'name': '31.01.2022',
@@ -429,7 +536,9 @@ export const countries:Country[] = [
         'name': 'Botswana Pula',
         'html': '&#80;',
         'unicode': '50',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'BWP',
+        'fraction': 'Pula'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -444,7 +553,9 @@ export const countries:Country[] = [
           'name': 'Brazilian Real',
           'html': '&#82;&#36;',
           'unicode': '5224',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'BRL',
+          'fraction': 'Centavo'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -459,7 +570,9 @@ export const countries:Country[] = [
           'name': 'United States Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'USD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '01/31/2022',
@@ -474,7 +587,9 @@ export const countries:Country[] = [
           'name': 'United States Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'USD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '01/31/2022',
@@ -489,7 +604,9 @@ export const countries:Country[] = [
           'name': 'Brunei Dollar',
           'html': '&#66;&#36;',
           'unicode': '4224',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'BND',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -504,7 +621,9 @@ export const countries:Country[] = [
           'name': 'Bulgarian Lev',
           'html': '&#1083;&#1074;',
           'unicode': '43B432',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'BGN',
+          'fraction': 'Lev'
         },
         'dateFormat': {
           'name': '31.01.2022',
@@ -519,7 +638,9 @@ export const countries:Country[] = [
           'name': 'West African CFA Franc',
           'html': '&#70;&#67;&#70;&#65;',
           'unicode': '46C46',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'XOF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -534,7 +655,9 @@ export const countries:Country[] = [
           'name': 'Burundian Franc',
           'html': '&#70;&#66;&#117;',
           'unicode': '46275',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'BIF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -549,7 +672,9 @@ export const countries:Country[] = [
           'name': 'Cambodian Riel',
           'html': '&#6107;',
           'unicode': '17DB',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'KHR',
+          'fraction': 'Riel'
         },
         'dateFormat': {
           'name': 'YYYY-MM-DD',
@@ -564,26 +689,13 @@ export const countries:Country[] = [
           'name': 'Central African CFA Franc',
           'html': '&#70;&#67;&#70;&#65;',
           'unicode': '46C46',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'XAF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
           'value': 'DD-MM-YYYY'
-        }
-      },
-      {
-        'name': 'Canada',
-        'code': '1',
-        'iso': 'CA',
-        'currency': {
-          'name': 'Canadian Dollar',
-          'html': '&#36;',
-          'unicode': '24',
-          'decimal': 2
-        },
-        'dateFormat': {
-          'name': 'YYYY-MM-DD',
-          'value': 'YYYY-MM-DD'
         }
       },
       {
@@ -594,7 +706,9 @@ export const countries:Country[] = [
           'name': 'Cape Verdean Escudo',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'XOF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -609,7 +723,9 @@ export const countries:Country[] = [
           'name': 'Cayman Islands Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'KYD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '01/31/2022',
@@ -624,7 +740,9 @@ export const countries:Country[] = [
           'name': 'Central African CFA Franc',
           'html': '&#70;&#67;&#70;&#65;',
           'unicode': '46C46',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'XAF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -639,7 +757,9 @@ export const countries:Country[] = [
           'name': 'Central African CFA Franc',
           'html': '&#70;&#67;&#70;&#65;',
           'unicode': '46C46',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'XAF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -654,7 +774,9 @@ export const countries:Country[] = [
           'name': 'Chilean Peso',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'CLP',
+          'fraction': 'Centavo'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -669,7 +791,9 @@ export const countries:Country[] = [
           'name': 'Chinese Yuan',
           'html': '&#165;',
           'unicode': 'A5',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'CNY',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'YYYY-MM-DD',
@@ -684,7 +808,9 @@ export const countries:Country[] = [
           'name': 'Australian Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'AUD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -699,7 +825,9 @@ export const countries:Country[] = [
           'name': 'Australian Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'AUD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -714,7 +842,9 @@ export const countries:Country[] = [
           'name': 'Colombian Peso',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'COP',
+          'fraction': 'Centavo'
         },
         'dateFormat': {
           'name': '31/01/2022',
@@ -729,7 +859,9 @@ export const countries:Country[] = [
           'name': 'Comorian Franc',
           'html': '&#67;&#70;',
           'unicode': '43',
-          'decimal': 0
+          'decimal': 0,
+          'shortName': 'KMF',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31-01-2022',
@@ -744,7 +876,9 @@ export const countries:Country[] = [
           'name': 'Cook Islands Dollar',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'CKD',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -759,7 +893,9 @@ export const countries:Country[] = [
           'name': 'Costa Rican Colón',
           'html': '&#8353;',
           'unicode': '20A1',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'CRC',
+          'fraction': 'Centavo'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -774,7 +910,9 @@ export const countries:Country[] = [
           'name': 'Croatian Kuna',
           'html': '&#107;&#110;',
           'unicode': '6B6E',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'HRK',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31.01.2022',
@@ -789,7 +927,9 @@ export const countries:Country[] = [
           'name': 'Cuban Peso',
           'html': '&#36;',
           'unicode': '24',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'CUP',
+          'fraction': 'Centavo'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -804,7 +944,9 @@ export const countries:Country[] = [
           'name': 'Netherlands Antillean Guilder',
           'html': '&#402;',
           'unicode': '192',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'ANG',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'DD-MM-YYYY',
@@ -819,7 +961,9 @@ export const countries:Country[] = [
           'name': 'Euro',
           'html': '&#8364;',
           'unicode': '20AC',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'EUR',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': 'DD/MM/YYYY',
@@ -834,7 +978,9 @@ export const countries:Country[] = [
           'name': 'Czech Koruna',
           'html': '&#75;&#269;',
           'unicode': '4B10D',
-          'decimal': 2
+          'decimal': 2,
+          'shortName': 'CZK',
+          'fraction': 'Cent'
         },
         'dateFormat': {
           'name': '31.01.2022',
@@ -849,7 +995,9 @@ export const countries:Country[] = [
         'name': 'Congolese Franc',
         'html': '&#70;&#67;',
         'unicode': '46',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'CDF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -864,7 +1012,9 @@ export const countries:Country[] = [
         'name': 'Danish Krone',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'DKK',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -879,7 +1029,9 @@ export const countries:Country[] = [
         'name': 'Djiboutian Franc',
         'html': '&#70;&#100;&#106;',
         'unicode': '46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'DJF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -894,7 +1046,9 @@ export const countries:Country[] = [
         'name': 'East Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -909,7 +1063,9 @@ export const countries:Country[] = [
         'name': 'Dominican Peso',
         'html': '&#82;&#68;&#36;',
         'unicode': '52',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'DOP',
+        'fraction': 'Centavo'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -924,7 +1080,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -939,7 +1097,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '01/31/2022',
@@ -954,7 +1114,9 @@ export const countries:Country[] = [
         'name': 'Egyptian Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EGP',
+        'fraction': 'Penny'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -969,7 +1131,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -984,7 +1148,9 @@ export const countries:Country[] = [
         'name': 'Central African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XAF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -999,7 +1165,9 @@ export const countries:Country[] = [
         'name': 'Eritrean Nakfa',
         'html': '&#78;&#102;&#107;',
         'unicode': '4E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ERN',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -1014,7 +1182,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1029,7 +1199,9 @@ export const countries:Country[] = [
         'name': 'Ethiopian Birr',
         'html': '&#66;&#114;',
         'unicode': '42',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ETB',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31/01/2022',
@@ -1044,7 +1216,9 @@ export const countries:Country[] = [
         'name': 'Falkland Islands Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'FKP',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1059,7 +1233,9 @@ export const countries:Country[] = [
         'name': 'Danish Krone',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'DKK',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -1074,7 +1250,9 @@ export const countries:Country[] = [
         'name': 'Fijian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'FJD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1089,7 +1267,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1104,7 +1284,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1119,7 +1301,9 @@ export const countries:Country[] = [
         'name': 'CFP Franc',
         'html': '&#70;',
         'unicode': '46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XPF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1134,7 +1318,9 @@ export const countries:Country[] = [
         'name': 'Central African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XAF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': '31-01-2022',
@@ -1150,7 +1336,9 @@ export const countries:Country[] = [
         'name': 'Gambian Dalasi',
         'html': '&#68;',
         'unicode': '44',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GMD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1165,7 +1353,9 @@ export const countries:Country[] = [
         'name': 'Georgian Lari',
         'html': '&#8382;',
         'unicode': '20BE',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GEL',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1180,7 +1370,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1195,7 +1387,9 @@ export const countries:Country[] = [
         'name': 'Ghanaian Cedi',
         'html': '&#8373;',
         'unicode': '20B5',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GHS',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1210,7 +1404,9 @@ export const countries:Country[] = [
         'name': 'Gibraltar Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GIP',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1225,7 +1421,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1240,7 +1438,9 @@ export const countries:Country[] = [
         'name': 'Danish Krone',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'DKK',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -1255,7 +1455,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -1270,7 +1472,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -1285,7 +1489,9 @@ export const countries:Country[] = [
         'name': 'Guatemalan Quetzal',
         'html': '&#81;',
         'unicode': '51',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'HTG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1300,7 +1506,9 @@ export const countries:Country[] = [
         'name': 'British Pound Sterling',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GBP',
+        'fraction': 'Penny'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1315,7 +1523,9 @@ export const countries:Country[] = [
         'name': 'Guinean Franc',
         'html': '&#70;&#71;',
         'unicode': '46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'GNF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1330,7 +1540,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1345,7 +1557,9 @@ export const countries:Country[] = [
         'name': 'Guyanese Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GYD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1360,7 +1574,9 @@ export const countries:Country[] = [
         'name': 'Haitian Gourde',
         'html': '&#71;',
         'unicode': '47',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'HTG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1375,7 +1591,9 @@ export const countries:Country[] = [
         'name': 'Honduran Lempira',
         'html': '&#76;',
         'unicode': '4C',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'HNL',
+        'fraction': 'Centavo'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1390,7 +1608,9 @@ export const countries:Country[] = [
         'name': 'Hong Kong Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'HKD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1405,7 +1625,9 @@ export const countries:Country[] = [
         'name': 'Hungarian Forint',
         'html': '&#70;&#116;',
         'unicode': '4674',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'HUF',
+        'fraction': 'Fillér'
       },
       'dateFormat': {
         'name': 'YYYY.MM.DD',
@@ -1420,7 +1642,9 @@ export const countries:Country[] = [
         'name': 'Icelandic Króna',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'ISK',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1435,7 +1659,9 @@ export const countries:Country[] = [
         'name': 'Indonesian Rupiah',
         'html': '&#82;&#112;',
         'unicode': '5270',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'IDR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -1450,7 +1676,9 @@ export const countries:Country[] = [
         'name': 'Iranian Rial',
         'html': '&#65020;',
         'unicode': 'FDFC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'IRR',
+        'fraction': 'Rial'
       },
       'dateFormat': {
         'name': 'YYYY/MM/DD',
@@ -1465,7 +1693,9 @@ export const countries:Country[] = [
         'name': 'Iraqi Dinar',
         'html': '&#1593;.&#1583;',
         'unicode': '6392E',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'IQD',
+        'fraction': 'Dinar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1480,7 +1710,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1495,7 +1727,9 @@ export const countries:Country[] = [
         'name': 'British Pound Sterling',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GBP',
+        'fraction': 'Penny'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1510,7 +1744,9 @@ export const countries:Country[] = [
         'name': 'Israeli New Shekel',
         'html': '&#8362;',
         'unicode': '20AA',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ILS',
+        'fraction': 'Shekel'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1525,7 +1761,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1540,7 +1778,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1555,7 +1795,9 @@ export const countries:Country[] = [
         'name': 'Jamaican Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'JMD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -1570,7 +1812,9 @@ export const countries:Country[] = [
         'name': 'Japanese Yen',
         'html': '&#165;',
         'unicode': 'A5',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'JPY',
+        'fraction': 'Yen'
       },
       'dateFormat': {
         'name': 'YYYY/MM/DD',
@@ -1585,7 +1829,9 @@ export const countries:Country[] = [
         'name': 'British Pound Sterling',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'GBP',
+        'fraction': 'Penny'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1600,7 +1846,9 @@ export const countries:Country[] = [
         'name': 'Jordanian Dinar',
         'html': '&#1583;.&#1571;',
         'unicode': '62C2E1',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'JOD',
+        'fraction': 'Dinar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1615,7 +1863,9 @@ export const countries:Country[] = [
         'name': 'Kazakhstani Tenge',
         'html': '&#8376;',
         'unicode': '20B8',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'KZT',
+        'fraction': 'Tenge'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1630,7 +1880,9 @@ export const countries:Country[] = [
         'name': 'Kenyan Shilling',
         'html': '&#75;&#83;&#104;',
         'unicode': '4B5348',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'KES',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1645,7 +1897,9 @@ export const countries:Country[] = [
         'name': 'Australian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AUD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1660,7 +1914,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1675,7 +1931,9 @@ export const countries:Country[] = [
         'name': 'Kuwaiti Dinar',
         'html': '&#1583;.&#1603;',
         'unicode': '62C2E3',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'KWD',
+        'fraction': 'Dinar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1690,7 +1948,9 @@ export const countries:Country[] = [
         'name': 'Kyrgyzstani Som',
         'html': '&#1083;&#1074;',
         'unicode': '43B432',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'KGS',
+        'fraction': 'Som'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1705,7 +1965,9 @@ export const countries:Country[] = [
         'name': 'Lao Kip',
         'html': '&#8365;',
         'unicode': '20AD',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'LAK',
+        'fraction': 'Kip'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1720,7 +1982,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1735,7 +1999,9 @@ export const countries:Country[] = [
         'name': 'Lebanese Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'LBP',
+        'fraction': 'Piastre'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1750,7 +2016,9 @@ export const countries:Country[] = [
         'name': 'Lesotho Loti',
         'html': '&#76;',
         'unicode': '4C',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'LSL',
+        'fraction': 'Loti'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1765,7 +2033,9 @@ export const countries:Country[] = [
         'name': 'Liberian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'LRD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -1780,7 +2050,9 @@ export const countries:Country[] = [
         'name': 'Libyan Dinar',
         'html': '&#1604;.&#1583;',
         'unicode': '6442E3',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'LYD',
+        'fraction': 'Dinar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1795,7 +2067,9 @@ export const countries:Country[] = [
         'name': 'Swiss Franc',
         'html': '&#67;&#72;&#70;',
         'unicode': '43',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'CHF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1810,7 +2084,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'YYYY-MM-DD',
@@ -1825,7 +2101,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1840,7 +2118,9 @@ export const countries:Country[] = [
         'name': 'Macanese Pataca',
         'html': '&#77;&#79;&#80;&#36;',
         'unicode': '4D4F5024',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MOP',
+        'fraction': 'Pataca'
       },
       'dateFormat': {
         'name': 'YYYY/MM/DD',
@@ -1855,7 +2135,9 @@ export const countries:Country[] = [
         'name': 'Macedonian Denar',
         'html': '&#1076;&#1077;&#1085;',
         'unicode': '4345D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MKD',
+        'fraction': 'Denar'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -1870,7 +2152,9 @@ export const countries:Country[] = [
         'name': 'Malagasy Ariary',
         'html': '&#65;&#114;',
         'unicode': '4172',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MGA',
+        'fraction': 'Ariary'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1885,7 +2169,9 @@ export const countries:Country[] = [
         'name': 'Malawian Kwacha',
         'html': '&#77;&#75;',
         'unicode': '4D4B',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MWK',
+        'fraction': 'Kwacha'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1900,7 +2186,9 @@ export const countries:Country[] = [
         'name': 'Malaysian Ringgit',
         'html': '&#82;&#77;',
         'unicode': '525D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MYR',
+        'fraction': 'Ringgit'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1915,7 +2203,9 @@ export const countries:Country[] = [
         'name': 'Maldivian Rufiyaa',
         'html': '&#46;&#82;&#102;',
         'unicode': '2E5266',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MVR',
+        'fraction': 'Rufiyaa'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1930,7 +2220,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1945,7 +2237,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1960,7 +2254,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -1975,7 +2271,9 @@ export const countries:Country[] = [
         'name': 'Mauritanian Ouguiya',
         'html': '&#85;&#77;',
         'unicode': '555D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MRO',
+        'fraction': 'Ouguiya'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -1990,7 +2288,9 @@ export const countries:Country[] = [
         'name': 'Mauritian Rupee',
         'html': '&#82;&#115;',
         'unicode': '5273',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MUR',
+        'fraction': 'Rupee'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2005,7 +2305,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2020,7 +2322,9 @@ export const countries:Country[] = [
         'name': 'Mexican Peso',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2035,7 +2339,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2050,7 +2356,9 @@ export const countries:Country[] = [
         'name': 'Moldovan Leu',
         'html': '&#76;',
         'unicode': '4C',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MDL',
+        'fraction': 'Leu'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2065,7 +2373,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2080,7 +2390,9 @@ export const countries:Country[] = [
         'name': 'Mongolian Tögrög',
         'html': '&#8366;',
         'unicode': '20AE',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MNT',
+        'fraction': 'Tögrög'
       },
       'dateFormat': {
         'name': 'YYYY.MM.DD',
@@ -2095,7 +2407,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2110,7 +2424,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2125,7 +2441,9 @@ export const countries:Country[] = [
         'name': 'Moroccan Dirham',
         'html': '&#1583;.&#1605;.',
         'unicode': '62C2E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MAD',
+        'fraction': 'Dirham'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2140,7 +2458,9 @@ export const countries:Country[] = [
         'name': 'Mozambican Metical',
         'html': '&#77;&#84;',
         'unicode': '4D54',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MZN',
+        'fraction': 'Metical'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2155,7 +2475,9 @@ export const countries:Country[] = [
         'name': 'Burmese Kyat',
         'html': '&#75;&#115;',
         'unicode': '4B73',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MMK',
+        'fraction': 'Kyat'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2170,7 +2492,9 @@ export const countries:Country[] = [
         'name': 'Namibian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NAD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2185,7 +2509,9 @@ export const countries:Country[] = [
         'name': 'Australian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AUD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2200,7 +2526,9 @@ export const countries:Country[] = [
         'name': 'Nepalese Rupee',
         'html': '&#8360;',
         'unicode': '20A8',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NPR',
+        'fraction': 'Rupee'
       },
       'dateFormat': {
         'name': 'YYYY-MM-DD',
@@ -2215,7 +2543,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2230,7 +2560,9 @@ export const countries:Country[] = [
         'name': 'Netherlands Antillean Guilder',
         'html': '&#402;',
         'unicode': '192',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ANG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2245,7 +2577,9 @@ export const countries:Country[] = [
         'name': 'CFP Franc',
         'html': '&#8355;',
         'unicode': '20AB',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XPF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2260,7 +2594,9 @@ export const countries:Country[] = [
         'name': 'New Zealand Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NZD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2275,7 +2611,9 @@ export const countries:Country[] = [
         'name': 'Nicaraguan Córdoba',
         'html': '&#67;&#36;',
         'unicode': '43',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NIO',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2290,7 +2628,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2305,7 +2645,9 @@ export const countries:Country[] = [
         'name': 'Nigerian Naira',
         'html': '&#8358;',
         'unicode': '20A6',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NGN',
+        'fraction': 'Naira'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2320,7 +2662,9 @@ export const countries:Country[] = [
         'name': 'New Zealand Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NZD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2335,7 +2679,9 @@ export const countries:Country[] = [
         'name': 'North Korean Won',
         'html': '&#8361;',
         'unicode': '20A9',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'KPW',
+        'fraction': 'Won'
       },
       'dateFormat': {
         'name': 'YYYY-MM-DD',
@@ -2350,7 +2696,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NOK',
+        'fraction': 'Krone'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2365,7 +2713,9 @@ export const countries:Country[] = [
         'name': 'Norwegian Krone',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NOK',
+        'fraction': 'Krone'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2380,7 +2730,9 @@ export const countries:Country[] = [
         'name': 'Omani Rial',
         'html': '&#65020;',
         'unicode': 'FDFC',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'OMR',
+        'fraction': 'Rial'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2396,7 +2748,9 @@ export const countries:Country[] = [
         'name': 'Pakistani Rupee',
         'html': '&#8360;',
         'unicode': '20A8',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'PKR',
+        'fraction': 'Rupee'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2411,7 +2765,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2426,7 +2782,9 @@ export const countries:Country[] = [
         'name': 'Israeli New Sheqel',
         'html': '&#8362;',
         'unicode': '20AA',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ILS',
+        'fraction': 'Shekel'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2441,7 +2799,9 @@ export const countries:Country[] = [
         'name': 'Panamanian Balboa',
         'html': '&#66;&#47;&#46;',
         'unicode': '422F2E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2456,7 +2816,9 @@ export const countries:Country[] = [
         'name': 'Papua New Guinean Kina',
         'html': '&#75;',
         'unicode': '4B',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'PGK',
+        'fraction': 'Kina'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2471,7 +2833,9 @@ export const countries:Country[] = [
         'name': 'Paraguayan Guaraní',
         'html': '&#8370;',
         'unicode': '20B2',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'PYG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2486,7 +2850,9 @@ export const countries:Country[] = [
         'name': 'Peruvian Sol',
         'html': '&#83;&#47;&#46;',
         'unicode': '532F2E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'PEN',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2501,7 +2867,9 @@ export const countries:Country[] = [
         'name': 'Philippine Piso',
         'html': '&#8369;',
         'unicode': '20B1',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'PHP',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2516,7 +2884,9 @@ export const countries:Country[] = [
         'name': 'New Zealand Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NZD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2531,7 +2901,9 @@ export const countries:Country[] = [
         'name': 'Polish Złoty',
         'html': '&#122;&#322;',
         'unicode': '7A142',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'PLN',
+        'fraction': 'Złoty'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2546,7 +2918,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2561,7 +2935,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2576,7 +2952,9 @@ export const countries:Country[] = [
         'name': 'Qatari Riyal',
         'html': '&#65020;',
         'unicode': 'FDFC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'QAR',
+        'fraction': 'Rial'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2591,7 +2969,9 @@ export const countries:Country[] = [
         'name': 'Central African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XAF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2606,7 +2986,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2621,7 +3003,9 @@ export const countries:Country[] = [
         'name': 'Romanian Leu',
         'html': '&#76;',
         'unicode': '4C',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'RON',
+        'fraction': 'Leu'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2636,7 +3020,9 @@ export const countries:Country[] = [
         'name': 'Russian Ruble',
         'html': '&#8381;',
         'unicode': '20BD',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'RUB',
+        'fraction': 'Ruble'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2651,7 +3037,9 @@ export const countries:Country[] = [
         'name': 'Rwandan Franc',
         'html': '&#1585;.&#1601;',
         'unicode': '6312E',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'RWF',
+        'fraction': 'Franc'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2667,7 +3055,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2682,7 +3072,9 @@ export const countries:Country[] = [
         'name': 'Saint Helena Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SHP',
+        'fraction': 'Pound'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2697,7 +3089,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2712,7 +3106,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2727,7 +3123,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2742,7 +3140,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2757,7 +3157,9 @@ export const countries:Country[] = [
         'name': 'Eastern Caribbean Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'XCD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -2772,7 +3174,9 @@ export const countries:Country[] = [
         'name': 'Samoan Tālā',
         'html': '&#87;&#83;&#36;',
         'unicode': '575324',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'WST',
+        'fraction': 'Tala'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2787,7 +3191,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2802,7 +3208,9 @@ export const countries:Country[] = [
         'name': 'São Tomé and Príncipe Dobra',
         'html': '&#68;&#98;',
         'unicode': '44',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'STN',
+        'fraction': 'Dobra'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2817,7 +3225,9 @@ export const countries:Country[] = [
         'name': 'Saudi Riyal',
         'html': '&#65020;',
         'unicode': 'FDFC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SAR',
+        'fraction': 'Rial'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2832,7 +3242,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2847,7 +3259,9 @@ export const countries:Country[] = [
         'name': 'Serbian Dinar',
         'html': '&#1044;&#1080;&#1085;&#46;',
         'unicode': '4149D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'RSD',
+        'fraction': 'Dinar'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2862,7 +3276,9 @@ export const countries:Country[] = [
         'name': 'Seychellois Rupee',
         'html': '&#82;&#115;',
         'unicode': '5273',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SCR',
+        'fraction': 'Rupee'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2877,7 +3293,9 @@ export const countries:Country[] = [
         'name': 'Sierra Leonean Leone',
         'html': '&#76;&#101;',
         'unicode': '4C65',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SLL',
+        'fraction': 'Leone'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2892,7 +3310,9 @@ export const countries:Country[] = [
         'name': 'Singapore Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SGD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2907,7 +3327,9 @@ export const countries:Country[] = [
         'name': 'Netherlands Antillean Guilder',
         'html': '&#402;',
         'unicode': '192',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ANG',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -2922,7 +3344,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2937,7 +3361,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -2952,7 +3378,9 @@ export const countries:Country[] = [
         'name': 'Solomon Islands Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SBD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2967,7 +3395,9 @@ export const countries:Country[] = [
         'name': 'Somali Shilling',
         'html': '&#83;',
         'unicode': '53',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'SOS',
+        'fraction': 'Shilling'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -2982,7 +3412,9 @@ export const countries:Country[] = [
         'name': 'South African Rand',
         'html': '&#82;',
         'unicode': '52',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ZAR',
+        'fraction': 'Rand'
       },
       'dateFormat': {
         'name': 'YYYY/MM/DD',
@@ -2997,7 +3429,9 @@ export const countries:Country[] = [
         'name': 'South Korean Won',
         'html': '&#8361;',
         'unicode': '20A9',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'KRW',
+        'fraction': 'Won'
       },
       'dateFormat': {
         'name': 'YYYY.MM.DD',
@@ -3012,7 +3446,9 @@ export const countries:Country[] = [
         'name': 'South Sudanese Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SSP',
+        'fraction': 'Pound'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3027,7 +3463,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3042,7 +3480,9 @@ export const countries:Country[] = [
         'name': 'Sri Lankan Rupee',
         'html': '&#8360;',
         'unicode': '20A8',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'LKR',
+        'fraction': 'Rupee'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3057,7 +3497,9 @@ export const countries:Country[] = [
         'name': 'Sudanese Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SDG',
+        'fraction': 'Pound'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3072,7 +3514,9 @@ export const countries:Country[] = [
         'name': 'Surinamese Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SRD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -3087,7 +3531,9 @@ export const countries:Country[] = [
         'name': 'Norwegian Krone',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NOK',
+        'fraction': 'Krone'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -3102,7 +3548,9 @@ export const countries:Country[] = [
         'name': 'Swazi Lilangeni',
         'html': '&#76;',
         'unicode': '4C',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SZL',
+        'fraction': 'Lilangeni'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3117,7 +3565,9 @@ export const countries:Country[] = [
         'name': 'Swedish Krona',
         'html': '&#107;&#114;',
         'unicode': '6B72',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SEK',
+        'fraction': 'Krona'
       },
       'dateFormat': {
         'name': 'YYYY-MM-DD',
@@ -3132,7 +3582,9 @@ export const countries:Country[] = [
         'name': 'Swiss Franc',
         'html': '&#67;&#72;&#70;',
         'unicode': '43',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'CHF',
+        'fraction': 'Franc'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -3147,7 +3599,9 @@ export const countries:Country[] = [
         'name': 'Syrian Pound',
         'html': '&#163;',
         'unicode': 'A3',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'SYP',
+        'fraction': 'Pound'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3163,7 +3617,9 @@ export const countries:Country[] = [
         'name': 'New Taiwan Dollar',
         'html': '&#78;&#84;&#36;',
         'unicode': '4E5424',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TWD',
+        'fraction': 'Dollar'
       },
       'dateFormat': {
         'name': 'YYYY/MM/DD',
@@ -3178,7 +3634,9 @@ export const countries:Country[] = [
         'name': 'Tajikistani Somoni',
         'html': '&#83;&#77;',
         'unicode': '534D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TJS',
+        'fraction': 'Somoni'
       },
       'dateFormat': {
         'name': 'DD-MM-YYYY',
@@ -3193,7 +3651,9 @@ export const countries:Country[] = [
         'name': 'Tanzanian Shilling',
         'html': '&#84;&#83;&#104;',
         'unicode': '545368',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TZS',
+        'fraction': 'Shilling'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3208,7 +3668,9 @@ export const countries:Country[] = [
         'name': 'Thai Baht',
         'html': '&#3647;',
         'unicode': 'E3F',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'THB',
+        'fraction': 'Baht'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3223,7 +3685,9 @@ export const countries:Country[] = [
         'name': 'West African CFA Franc',
         'html': '&#70;&#67;&#70;&#65;',
         'unicode': '46C46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XOF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3238,7 +3702,9 @@ export const countries:Country[] = [
         'name': 'New Zealand Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'NZD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3253,7 +3719,9 @@ export const countries:Country[] = [
         'name': 'Tongan Paʻanga',
         'html': '&#84;&#36;',
         'unicode': '54',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TOP',
+        'fraction': 'Paʻanga'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3268,7 +3736,9 @@ export const countries:Country[] = [
         'name': 'Trinidad and Tobago Dollar',
         'html': '&#84;&#84;&#36;',
         'unicode': '545424',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TTD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -3283,7 +3753,9 @@ export const countries:Country[] = [
         'name': 'Tunisian Dinar',
         'html': '&#1583;.&#1578;',
         'unicode': '62C2E',
-        'decimal': 3
+        'decimal': 3,
+        'shortName': 'TND',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3298,7 +3770,9 @@ export const countries:Country[] = [
         'name': 'Turkish Lira',
         'html': '&#8378;',
         'unicode': '20BA',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TRY',
+        'fraction': 'Lira'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -3313,7 +3787,9 @@ export const countries:Country[] = [
         'name': 'Turkmenistan Manat',
         'html': '&#109;',
         'unicode': '6D',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'TMT',
+        'fraction': 'Manat'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -3328,7 +3804,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -3343,7 +3821,9 @@ export const countries:Country[] = [
         'name': 'Australian Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'AUD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3358,7 +3838,9 @@ export const countries:Country[] = [
         'name': 'United States Dollar',
         'html': '&#36;',
         'unicode': '24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'USD',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'MM/DD/YYYY',
@@ -3373,7 +3855,9 @@ export const countries:Country[] = [
         'name': 'Ugandan Shilling',
         'html': '&#85;&#83;&#104;',
         'unicode': '555368',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'UGX',
+        'fraction': 'Shilling'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3388,56 +3872,13 @@ export const countries:Country[] = [
         'name': 'Ukrainian Hryvnia',
         'html': '&#8372;',
         'unicode': '20B4',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'UAH',
+        'fraction': 'Hryvnia'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
         'value': 'DD.MM.YYYY'
-      }
-    },
-    {
-      'name': 'United Arab Emirates',
-      'code': '971',
-      'iso': 'AE',
-      'currency': {
-        'name': 'United Arab Emirates Dirham',
-        'html': '&#1583;.&#1573;',
-        'unicode': '62C2E3',
-        'decimal': 2
-      },
-      'dateFormat': {
-        'name': 'DD/MM/YYYY',
-        'value': 'DD/MM/YYYY'
-      }
-    },
-    {
-      'name': 'United Kingdom',
-      'code': '44',
-      'iso': 'GB',
-      'currency': {
-        'name': 'British Pound Sterling',
-        'html': '&#163;',
-        'unicode': 'A3',
-        'decimal': 2
-      },
-      'dateFormat': {
-        'name': 'DD/MM/YYYY',
-        'value': 'DD/MM/YYYY'
-      }
-    },
-    {
-      'name': 'United States',
-      'code': '1',
-      'iso': 'US',
-      'currency': {
-        'name': 'United States Dollar',
-        'html': '&#36;',
-        'unicode': '24',
-        'decimal': 2
-      },
-      'dateFormat': {
-        'name': 'MM/DD/YYYY',
-        'value': 'MM/DD/YYYY'
       }
     },
     {
@@ -3448,7 +3889,9 @@ export const countries:Country[] = [
         'name': 'Uruguayan Peso',
         'html': '&#36;&#85;',
         'unicode': '2455',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'UYU',
+        'fraction': 'Peso'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3463,7 +3906,9 @@ export const countries:Country[] = [
         'name': 'Uzbekistani So\'m',
         'html': '&#1083;&#1074;',
         'unicode': '43B432',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'UZS',
+        'fraction': 'Som'
       },
       'dateFormat': {
         'name': 'DD.MM.YYYY',
@@ -3478,7 +3923,9 @@ export const countries:Country[] = [
         'name': 'Vanuatu Vatu',
         'html': '&#86;&#84;',
         'unicode': '5654',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'VUV',
+        'fraction': 'Vatu'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3493,7 +3940,9 @@ export const countries:Country[] = [
         'name': 'Euro',
         'html': '&#8364;',
         'unicode': '20AC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'EUR',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3508,7 +3957,9 @@ export const countries:Country[] = [
         'name': 'Venezuelan Bolívar',
         'html': '&#66;&#115;',
         'unicode': '4273',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'VES',
+        'fraction': 'Bolívar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3523,7 +3974,9 @@ export const countries:Country[] = [
         'name': 'Vietnamese Đồng',
         'html': '&#8363;',
         'unicode': '20AB',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'VND',
+        'fraction': 'Dong'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3538,7 +3991,9 @@ export const countries:Country[] = [
         'name': 'CFP Franc',
         'html': '&#70;',
         'unicode': '46',
-        'decimal': 0
+        'decimal': 0,
+        'shortName': 'XPF',
+        'fraction': 'Cent'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3553,7 +4008,9 @@ export const countries:Country[] = [
         'name': 'Moroccan Dirham',
         'html': '&#1583;.&#1605;.',
         'unicode': '62C2E',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'MAD',
+        'fraction': 'Dirham'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3568,7 +4025,9 @@ export const countries:Country[] = [
         'name': 'Yemeni Rial',
         'html': '&#65020;',
         'unicode': 'FDFC',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'YER',
+        'fraction': 'Rial'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3583,7 +4042,9 @@ export const countries:Country[] = [
         'name': 'Zambian Kwacha',
         'html': '&#90;&#75;',
         'unicode': '5A4B',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ZMW',
+        'fraction': 'Kwacha'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',
@@ -3598,7 +4059,9 @@ export const countries:Country[] = [
         'name': 'Zimbabwean Dollar',
         'html': '&#90;&#36;',
         'unicode': '5A24',
-        'decimal': 2
+        'decimal': 2,
+        'shortName': 'ZWL',
+        'fraction': 'Dollar'
       },
       'dateFormat': {
         'name': 'DD/MM/YYYY',

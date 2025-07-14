@@ -33,7 +33,10 @@ export class InvoiceAmountWordsComponent implements OnDestroy, OnInit {
       const grandTotal = numberToFixedDecimal(invoice.grandTotal, decimalPlaces);
       const unicodeChar = String.fromCharCode(parseInt(invoice.currency.unicode, 16));
       this.grandTotalValue = `${unicodeChar} ${grandTotal}`;
-      this.totalInWords = CurrencyUtil.numberToWords(invoice.grandTotal, decimalPlaces, invoice.internationalNumbering);
+      this.totalInWords = CurrencyUtil.numberToWords(invoice.grandTotal, 
+        invoice.currency.shortName,
+        invoice.currency.fraction,
+        decimalPlaces, invoice.internationalNumbering);
     });
   }
 
