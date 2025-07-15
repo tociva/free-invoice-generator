@@ -5,7 +5,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
 import dayjs from 'dayjs';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
-import { FORM_ROW_HEIGHT, OPTIONS_COUNT } from '../../../../util/constants';
+import { OPTIONS_COUNT } from '../../../../util/constants';
 import { displayAutoCompleteWithName, isMobile } from '../../../../util/daybook.util';
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';

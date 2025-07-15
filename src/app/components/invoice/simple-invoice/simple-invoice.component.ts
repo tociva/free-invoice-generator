@@ -20,6 +20,7 @@ import { TaxOption } from '../store/model/invoice.model';
 import { InvoiceSummaryComponent } from '../invoice-summary/invoice-summary.component';
 import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amount-words.component';
 import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile.component';
+import { SimpleInvoiceConfigComponent } from '../simple-invoice-config/simple-invoice-config.component';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -36,7 +37,8 @@ import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-ite
     InvoiceItemsComponent,
     InvoiceSummaryComponent,
     InvoiceAmountWordsComponent,
-    InvoiceItemsMobileComponent
+    InvoiceItemsMobileComponent,
+    SimpleInvoiceConfigComponent
     ],
   templateUrl: './simple-invoice.component.html',
   styleUrl: './simple-invoice.component.scss'
@@ -69,6 +71,8 @@ export class SimpleInvoiceComponent implements OnInit, AfterViewInit {
       const step = Number(params.step);
       if (!isNaN(step)) {
         this.stepIndex = step;
+      }else{
+        this.stepIndex = 0;
       }
     });
   }

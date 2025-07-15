@@ -13,6 +13,14 @@
 .mobile-step-title{
   display: none;
 }
+.simple-invoice-layout-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.simple-invoice-config-container{
+  width: 20%;
+}
 .stepper-swipe-container {
   touch-action: none; /* Allow all gestures */
   width: 100vw;

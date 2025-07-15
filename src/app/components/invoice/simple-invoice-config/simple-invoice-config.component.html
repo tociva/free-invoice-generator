@@ -1,0 +1,16 @@
+<div class="table-container table-form-container">
+    <ag-grid-angular
+      style="width: 100%;"
+        class="ag-theme-alpine table-form-grid"
+        [columnDefs]="invoiceDetailsColumnDefs"
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions"
+        [domLayout]="'autoHeight'"
+        [getRowId]="getRowId"
+        [headerHeight]="0"
+        [rowHeight]="rowHeight"
+        (gridReady)="onInvoiceDetailsGridReady($event)">
+      </ag-grid-angular>
+  </div>
+  
+  
