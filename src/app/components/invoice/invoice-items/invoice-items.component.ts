@@ -211,10 +211,10 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
 
     // Item Details Group
     const itemDetailsColumns: ColDef<InvoiceItemWithAction>[] = [
-      InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Click here to add item name', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
+      InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Type item name here', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
     ];
     if(invoice.hasItemDescription) {
-      itemDetailsColumns.push(InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Click here to add description', this.descriptionCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass));
+      itemDetailsColumns.push(InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Type item description here', this.descriptionCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass));
     }
     itemDetailsColumns.push(
       this.createItemLabelFormatedNumberColumn('price', 'Price', true, this.numberCellWidth, this.handleItemCellValueChanged, itemDetailsGroupClass),

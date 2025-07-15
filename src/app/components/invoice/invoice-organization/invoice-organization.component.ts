@@ -136,7 +136,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       flex: 2,
       editable: true,
       cellEditorSelector: this.findMyDetailsEditorComponent,
-      cellRendererSelector: InvoiceOrganizationComponent.findMyDetailsCellRenderer,
+      cellRendererSelector: InvoiceOrganizationComponent.findOrganizationCellRenderer,
       tooltipValueGetter: (params) => {
         const value = params.data?.value;
 
@@ -174,24 +174,37 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     },
   });
 
-  private static findMyDetailsCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
-    if (!params.data?.value) { return ''; }
-    switch (params.data.label) {
+  private static findOrganizationCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+    switch (params.data?.label) {
       case OrganizatonFormItem.COUNTRY: {
-        const dtF = params.data.value as Country;
+        const dtF = params.data?.value as Country;
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: dtF.name },
+          params: { labelValue: dtF?.name ?? '' },
+        };
+      }
+      case OrganizatonFormItem.NAME: {
+        let labelValueName = params.data?.value;
+        if(!labelValueName) {
+          labelValueName = 'Type your name here';
+        }
+        return {
+          component: LabelColumnRendererComponent,
+          params: { labelValue: labelValueName, multiLine: true },
         };
       }
       case OrganizatonFormItem.ADDRESS: {
+        let labelValueAddress = params.data?.value;
+        if(!labelValueAddress) {
+          labelValueAddress = 'Type your address here';
+        }
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: params.data.value, multiLine: true },
+          params: { labelValue: labelValueAddress, multiLine: true },
         };
       }
     }
-    return params.data.value;
+    return params.data?.value ?? '';
   };
 
   private static findLabelColumnRenderer = (params: ICellRendererParams<FormColumnDef>) => {

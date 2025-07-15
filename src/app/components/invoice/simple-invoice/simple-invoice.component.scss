@@ -38,6 +38,10 @@
 .spacer-div{
   width: 20%;
 }
+.stepper-actions-simple{
+  padding-bottom: 20px;
+  padding-top: 0px;
+}
 @media (max-width: $breakpoint-mobile) {
 
   ::ng-deep .mat-horizontal-stepper-header-container {
