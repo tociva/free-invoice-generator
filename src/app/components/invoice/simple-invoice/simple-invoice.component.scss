@@ -1,60 +1,85 @@
 @use '../../../../styles/variables' as *;
 @use '../../util/common.styles.scss' as *;
+
 // Stepper custom styles
 ::ng-deep .mat-horizontal-stepper-header-container {
-    background-color: #ffffff !important;
-    flex-wrap: wrap;
+  background-color: #ffffff !important;
+  flex-wrap: wrap;
 }
 
 ::ng-deep .mat-horizontal-content-container {
-    background-color: #ffffff !important;
-    padding: 16px;
+  background-color: #ffffff !important;
+  padding: 16px;
 }
-.mobile-step-title{
+
+.mobile-step-title {
   display: none;
 }
-.simple-invoice-layout-container{
+
+.simple-invoice-layout-container {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
-.simple-invoice-config-container{
-  width: 10%;
-  border: none;
+
+.simple-invoice-config-container {
+  width: 25%;
+  min-width: 240px;
 }
+
 .stepper-swipe-container {
-  touch-action: none; /* Allow all gestures */
+  touch-action: none;
   width: 100vw;
   height: 100vh;
 }
+
 .mobile-step-header {
   display: none;
 }
-.simple-invoice-layout{
-  width: 70%;
+
+.simple-invoice-layout {
+  flex: 1 1 70%;
+  max-width: 850px;
   margin: 0 auto;
 }
-.simple-invoice-row{
+
+.simple-invoice-row {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
-  padding: 10px;
+  gap: 20px;
+  padding: 10px 0;
 }
-.step-form-content{
+
+.step-form-content {
   flex: 1 1 30%;
+  min-width: 280px;
+  max-width: 100%;
 }
-.spacer-div{
-  width: 20%;
-}
-.spacer-div2{
-  width: 10%;
-}
-.stepper-actions-simple{
+
+// .spacer-div{
+//   width: 20%;
+// }
+// .spacer-div2{
+//   width: 5%;
+// }
+.stepper-actions-simple {
   padding-bottom: 20px;
   padding-top: 0px;
 }
 
+.a4-paper-container {
+  width: 905px;
+  min-height: 1123px;
+  background-color: #fff;
+  padding: 40px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  position: relative;
+}
 
 
 @media (max-width: $breakpoint-mobile) {
@@ -69,6 +94,13 @@
     margin-bottom: 50px;
   }
 
+  .a4-paper-container {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+    margin: 10px;
+  }
+
   .mobile-step-title {
     display: block;
     font-size: 1.2rem;
@@ -77,6 +109,7 @@
     text-align: center;
     background-color: #ffffff;
   }
+
   .mobile-step-header {
     display: flex;
     align-items: center;
@@ -84,20 +117,20 @@
     padding: 12px 16px;
     background-color: #ffffff;
     border-bottom: 1px solid #ffffff;
-  
+
     .mobile-step-title {
       font-size: 16px;
       font-weight: 600;
       text-align: center;
       flex: 1;
     }
-  
+
     button {
       color: #367588;
     }
   }
 
-   .simple-invoice-layout-container {
+  .simple-invoice-layout-container {
     flex-direction: column;
     gap: 16px;
   }
@@ -124,4 +157,3 @@
     flex: 1;
   }
 }
-
