@@ -18,45 +18,47 @@
   <!-- Step 1 -->
   <mat-step [label]="getStepLabel(0)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 0">
-      <div class="a4-paper-container">
-     <div class="simple-invoice-layout-container simple-invoice">
-        <div class="simple-invoice-layout">
-          <div class="simple-invoice-row">
-            <app-invoice-logo [hideLargeLogo]="true" class="step-form-content"></app-invoice-logo>
-            <div class="spacer-div"></div>
-            <app-invoice-details [simple]="true"  class="step-form-content"></app-invoice-details>
-          </div>
-          <div class="simple-invoice-row">
-            <app-invoice-organization [simple]="true" class="step-form-content"></app-invoice-organization>
-            <div class="spacer-div"></div>
-            <app-invoice-customer [simple]="true" class="step-form-content"></app-invoice-customer>
-          </div>
-          <app-invoice-items [simple]="true" *ngIf="!mobileView"></app-invoice-items>
-          <app-invoice-items-mobile [simple]="true" *ngIf="mobileView"></app-invoice-items-mobile>
-          <div class="simple-invoice-row">
-            <app-invoice-amount-words class="step-form-content"></app-invoice-amount-words>
-            <div class="spacer-div"></div>
-            <app-invoice-summary class="step-form-content"></app-invoice-summary>
-          </div>
-        </div>
-        </div>
-        
-        
-        <div class="simple-invoice-config-container simple-invoice"> 
-          <app-simple-invoice-config></app-simple-invoice-config>
-        </div>
-        <div class="spacer-div2"></div>
-      </div>
-      <div class="stepper-actions stepper-actions-simple">
-  <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
-    Next <mat-icon>arrow_forward</mat-icon>
-  </button>
-  
-  <button mat-stroked-button color="accent" class="next-btn1" (click)="gotToStep(2)">
-    Go to Preview <mat-icon>visibility</mat-icon>
-  </button>
-</div>
+      <!-- <div class="a4-paper-container"> -->
+        <div class="simple-invoice-layout-container simple-invoice">
+          <div class="spacer-div2"></div>
+          <div class="spacer-div2"></div>
 
+          <div class="simple-invoice-layout">
+            <div class="simple-invoice-row">
+              <app-invoice-logo [hideLargeLogo]="true" class="step-form-content"></app-invoice-logo>
+              <div class="spacer-div"></div>
+              <app-invoice-details [simple]="true"  class="step-form-content"></app-invoice-details>
+            </div>
+            <div class="simple-invoice-row">
+              <app-invoice-organization [simple]="true" class="step-form-content"></app-invoice-organization>
+              <div class="spacer-div"></div>
+              <app-invoice-customer [simple]="true" class="step-form-content"></app-invoice-customer>
+            </div>
+            <app-invoice-items [simple]="true" *ngIf="!mobileView"></app-invoice-items>
+            <app-invoice-items-mobile [simple]="true" *ngIf="mobileView"></app-invoice-items-mobile>
+            <div class="simple-invoice-row">
+              <app-invoice-amount-words class="step-form-content"></app-invoice-amount-words>
+              <div class="spacer-div"></div>
+              <app-invoice-summary class="step-form-content"></app-invoice-summary>
+            </div>
+          </div>
+
+          <div class="simple-invoice-config-container simple-invoice"> 
+            <app-simple-invoice-config></app-simple-invoice-config>
+          </div>
+          <div class="spacer-div2"></div>
+          <div class="spacer-div2"></div>
+          </div>
+      <!-- </div> -->
+      <div class="stepper-actions stepper-actions-simple">
+        <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
+          Next <mat-icon>arrow_forward</mat-icon>
+        </button>
+        
+        <button mat-stroked-button color="accent" class="next-btn1" (click)="gotToStep(2)">
+          Go to Preview <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
     </ng-container>
   </mat-step>
 

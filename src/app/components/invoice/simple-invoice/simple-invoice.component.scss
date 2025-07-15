@@ -24,7 +24,8 @@
 }
 
 .simple-invoice-config-container {
-  width: 25%;
+  margin-top: 20px;
+  width: 15%;
   min-width: 240px;
 }
 
@@ -41,7 +42,11 @@
 .simple-invoice-layout {
   flex: 1 1 70%;
   max-width: 850px;
-  margin: 0 auto;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 40px;
 }
 
 .simple-invoice-row {
@@ -58,27 +63,13 @@
   max-width: 100%;
 }
 
-// .spacer-div{
-//   width: 20%;
-// }
-// .spacer-div2{
-//   width: 5%;
-// }
 .stepper-actions-simple {
   padding-bottom: 20px;
   padding-top: 0px;
 }
 
-.a4-paper-container {
-  width: 905px;
-  min-height: 1123px;
-  background-color: #fff;
-  padding: 40px;
-  margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  position: relative;
+.spacer-div2{
+  width: 5%;
 }
 
 
@@ -93,14 +84,6 @@
   .next-btn1 {
     margin-bottom: 50px;
   }
-
-  .a4-paper-container {
-    width: 100%;
-    min-height: auto;
-    padding: 20px;
-    margin: 10px;
-  }
-
   .mobile-step-title {
     display: block;
     font-size: 1.2rem;

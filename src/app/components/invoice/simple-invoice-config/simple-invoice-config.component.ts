@@ -168,7 +168,7 @@ export class SimpleInvoiceConfigComponent implements OnInit, OnDestroy {
         {
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: params.data.value, labelClass: 'bold-medium-text' }
+            params: { labelValue: params.data.value, labelClass: 'text-14-700' }
           };
         }
 

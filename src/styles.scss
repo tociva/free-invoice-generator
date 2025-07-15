@@ -38,8 +38,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
-
-
 .table-container:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
@@ -107,6 +105,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   visibility: visible;
   opacity: 1;
 }
+
+/* Remove all borders inside the grid */
+.plain-grid .ag-cell,
+.plain-grid .ag-row,
+.plain-grid .ag-header-cell,
+.plain-grid .ag-header-group-cell,
+.plain-grid .ag-row-selected,
+.plain-grid .ag-row-hover {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove the grid's outer border/box/shadow */
+.plain-grid .ag-root,
+.plain-grid .ag-root-wrapper,
+.plain-grid .ag-root-wrapper-body,
+.plain-grid .ag-header {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 @media (max-width: $breakpoint-mobile) {
 
   .stepper-actions {
