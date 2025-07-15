@@ -335,7 +335,9 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
   const noDiscount = !invoice.hasItemDiscount;
   const noTax = invoice.taxOption === TaxOption.NON_TAXABLE;
 
-  if (noDescription && noDiscount && noTax) {
+  if (this.simple) {
+    this.nameCellWidth = 450;
+  } else if (noDescription && noDiscount && noTax) {
     this.nameCellWidth = 770;
   } else {
     this.nameCellWidth = 350;
@@ -344,7 +346,7 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
   this.descriptionCellWidth = 200;
 
   if(this.simple) {
-    this.numberCellWidth = 165;
+    this.numberCellWidth = 100;
   } else {
     this.numberCellWidth =110;
   }

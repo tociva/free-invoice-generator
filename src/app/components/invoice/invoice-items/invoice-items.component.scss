@@ -34,3 +34,13 @@
   display: block;
   min-width: 100%;
 }
+::ng-deep .custom-grid-header .ag-header {
+  background-color: #8dafb9 !important; // Light blue background
+  border-bottom: 1px solid #ccc !important;
+}
+
+::ng-deep .custom-grid-header .ag-header-cell-label {
+  color: #ffffff !important; // Dark blue text
+  font-size: 14px !important;
+}
+
