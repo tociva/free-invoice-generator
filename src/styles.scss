@@ -19,7 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-.table-container {
+.table-container  {
   width: 100%;
   background: #ffffff;
   border-radius: 12px;
@@ -29,6 +29,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   transition: box-shadow 0.3s ease;
   overflow-x: auto;
 }
+.simple-invoice .table-container {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.simple-invoice .table-container.invoice-amount-words {
+  background: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+
 
 .table-container:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);

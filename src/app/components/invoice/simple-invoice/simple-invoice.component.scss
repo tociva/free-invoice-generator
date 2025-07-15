@@ -19,7 +19,8 @@
   gap: 10px;
 }
 .simple-invoice-config-container{
-  width: 20%;
+  width: 10%;
+  border: none;
 }
 .stepper-swipe-container {
   touch-action: none; /* Allow all gestures */
@@ -46,24 +47,25 @@
 .spacer-div{
   width: 20%;
 }
+.spacer-div2{
+  width: 10%;
+}
 .stepper-actions-simple{
   padding-bottom: 20px;
   padding-top: 0px;
 }
+
+
+
 @media (max-width: $breakpoint-mobile) {
 
   ::ng-deep .mat-horizontal-stepper-header-container {
     display: none !important;
   }
 
-  .next-btn {
-    margin-left: 0;
-    margin-bottom: 50px;
-  }
-  .back-btn{
-    margin-bottom: 50px;
-  }
-  .next-btn1{
+  .next-btn,
+  .back-btn,
+  .next-btn1 {
     margin-bottom: 50px;
   }
 
@@ -95,18 +97,31 @@
     }
   }
 
-  .simple-invoice-layout{
+   .simple-invoice-layout-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .simple-invoice-layout,
+  .simple-invoice-config-container {
     width: 100%;
   }
 
-  .simple-invoice-row{
-    flex-direction: column;
-    padding: 10px 0px 10px 0px;
+  .simple-invoice-config-container {
+    margin-top: 10px;
   }
-  .spacer-div{
+
+  .simple-invoice-row {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .spacer-div {
     display: none;
   }
-  .step-form-content{
+
+  .step-form-content {
     flex: 1;
   }
 }
+
