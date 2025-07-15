@@ -1,10 +1,9 @@
-<div class="table-container">
-  <div class="table-form-title">Item Details</div>
-  <ag-grid-angular [style.width]="itemsGridWidth" class="ag-theme-alpine" [columnDefs]="itemsColumnDefs"
-      [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
-      (gridReady)="onItemsGridReady($event)">
+<div class="item-container">
+  <ag-grid-angular class="ag-theme-alpine item-grid" [style.width]="'100%'" [columnDefs]="itemsColumnDefs"
+    [domLayout]="'autoHeight'" [defaultColDef]="itemsDefaultColDef" [gridOptions]="gridOptions"
+    (gridReady)="onItemsGridReady($event)">
   </ag-grid-angular>
-  <button mat-raised-button class="add-item-button" (click)="onAddItem()">
+  <button mat-stroked-button class="add-item-button" (click)="onAddItem()">
     <mat-icon>add</mat-icon>
     Add an Item
   </button>

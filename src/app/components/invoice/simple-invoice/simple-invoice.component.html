@@ -18,7 +18,7 @@
   <!-- Step 1 -->
   <mat-step [label]="getStepLabel(0)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 0">
-      <div class="simple-invoice-layout-container">
+     <div class="simple-invoice-layout-container simple-invoice">
         <div class="simple-invoice-layout">
           <div class="simple-invoice-row">
             <app-invoice-logo [hideLargeLogo]="true" class="step-form-content"></app-invoice-logo>
@@ -38,11 +38,12 @@
             <app-invoice-summary class="step-form-content"></app-invoice-summary>
           </div>
         </div>
+        
         <div class="simple-invoice-config-container"> 
           <app-simple-invoice-config></app-simple-invoice-config>
         </div>
+        <div class="spacer-div2"></div>
       </div>
-
       <div class="stepper-actions stepper-actions-simple">
         <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
           Next <mat-icon>arrow_forward</mat-icon>

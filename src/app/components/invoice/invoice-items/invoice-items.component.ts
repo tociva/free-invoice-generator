@@ -211,7 +211,7 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
 
     // Item Details Group
     const itemDetailsColumns: ColDef<InvoiceItemWithAction>[] = [
-      InvoiceItemsComponent.createItemLabelStringColumn('name', 'Name', 'Type item name here', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
+      InvoiceItemsComponent.createItemLabelStringColumn('name', 'Item Name', 'Type item name here', this.nameCellWidth, this.handleNameCellValueChanged, itemDetailsGroupClass),
     ];
     if(invoice.hasItemDescription) {
       itemDetailsColumns.push(InvoiceItemsComponent.createItemLabelStringColumn('description', 'Description', 'Type item description here', this.descriptionCellWidth, this.handleDescriptionCellValueChanged, itemDetailsGroupClass));
@@ -330,10 +330,29 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
     }
   }
 
-  private setNumberCellWidth(invoice: Invoice): void {
-    this.descriptionCellWidth = 300;
+ private setNumberCellWidth(invoice: Invoice): void {
+  const noDescription = !invoice.hasItemDescription;
+  const noDiscount = !invoice.hasItemDiscount;
+  const noTax = invoice.taxOption === TaxOption.NON_TAXABLE;
+
+  if (noDescription && noDiscount && noTax) {
     this.nameCellWidth = 770;
+  } else {
+    this.nameCellWidth = 350;
   }
+
+  this.descriptionCellWidth = 200;
+
+  if(this.simple) {
+    this.numberCellWidth = 165;
+  } else {
+    this.numberCellWidth =110;
+  }
+}
+
+
+
+
 
   private refreshItemTable = (invoice: Invoice) => {
     this.decimalPlaces = invoice.decimalPlaces ?? DEFAULT_DECIMAL_PLACES;

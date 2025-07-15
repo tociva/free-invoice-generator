@@ -1,8 +1,36 @@
 @use '../../util/common.styles.scss' as *;
-.add-item-button{
-    @extend .primary-btn;
-    margin-top: 10px;
-    width: 50%;
-    float: right;
-    margin-right: 17px;
+
+.item-container {
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.add-item-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 5px;
+  background-color:#367588;
+
+  mat-icon {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #619aac;
+  }
+}
+
+
+.item-grid {
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+  min-width: 100%;
 }
