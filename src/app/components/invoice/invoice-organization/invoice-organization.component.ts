@@ -180,27 +180,30 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         const dtF = params.data?.value as Country;
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: dtF?.name ?? '', icon: 'arrow_drop_down_circle' },
+          params: {
+            labelValue: dtF?.name ?? '',
+            icon: 'arrow_drop_down_circle',
+          },
         };
       }
       case OrganizatonFormItem.NAME: {
         let labelValueName = params.data?.value;
-        if(!labelValueName) {
+        if (!labelValueName) {
           labelValueName = 'Type your name here';
         }
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: labelValueName, multiLine: true },
+          params: { labelValue: labelValueName, multiLine: true, labelClass: 'text-grey-14-500' },
         };
       }
       case OrganizatonFormItem.ADDRESS: {
         let labelValueAddress = params.data?.value;
-        if(!labelValueAddress) {
+        if (!labelValueAddress) {
           labelValueAddress = 'Type your address here';
         }
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: labelValueAddress, multiLine: true },
+          params: { labelValue: labelValueAddress, multiLine: true, labelClass: 'text-grey-14-500' },
         };
       }
     }
@@ -219,8 +222,14 @@ export class InvoiceOrganizationComponent implements OnDestroy {
     }
     return {
       component: LabelColumnRendererComponent,
-      params: { labelValue: params.data?.label ?? '', tooltip, maxLength: 10 },
+      params: {
+        labelValue: params.data?.label ?? '',
+        labelClass: 'text-14-500',
+        tooltip,
+        maxLength: 10,
+      },
     };
+
   };
 
   onMyDetailsGridReady(params: GridReadyEvent<FormColumnDef>): void {
@@ -230,12 +239,12 @@ export class InvoiceOrganizationComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((invoice) => {
         const { organization } = invoice;
-        const myDetailsRowDataTemp:FormColumnDef[] = [
+        const myDetailsRowDataTemp: FormColumnDef[] = [
           { label: OrganizatonFormItem.NAME, value: organization.name },
           { label: OrganizatonFormItem.ADDRESS, value: organization.address },
-          
+
         ];
-        if(!this.simple) {
+        if (!this.simple) {
           myDetailsRowDataTemp.push({ label: OrganizatonFormItem.COUNTRY, value: organization.country },
             { label: OrganizatonFormItem.EMAIL, value: organization.email },
             { label: OrganizatonFormItem.MOBILE, value: organization.phone },
@@ -243,7 +252,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
             { label: OrganizatonFormItem.AUTHPORITY_NAME, value: organization.authorityName },
             { label: OrganizatonFormItem.DESIGNATION, value: organization.authorityDesignation },);
         }
-        this.myDetailsRowData = myDetailsRowDataTemp; 
+        this.myDetailsRowData = myDetailsRowDataTemp;
       });
   }
 }

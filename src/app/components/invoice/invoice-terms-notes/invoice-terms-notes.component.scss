@@ -1,0 +1,27 @@
+.invoice-terms-notes {
+  .section {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 150%;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+      outline: none; 
+      transition: none;
+      box-shadow: none;
+    }
+  }
+}
+.invoice-terms-notes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 84%;
+}

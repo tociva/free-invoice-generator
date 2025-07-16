@@ -58,7 +58,9 @@ export class TemplateUtil {
       .replace('[[org_authority_designation]]',invoice.organization.authorityDesignation)
       .replace('[[account_number]]',invoice.accountNumber)
       .replace('[[account_name]]',invoice.accountName)
-      .replace('[[bank_name]]',invoice.bankName);
+      .replace('[[bank_name]]',invoice.bankName)
+      .replace('[[terms_and_conditions]]',invoice.terms)
+      .replace('[[notes]]',invoice.notes);
     return htmlS;
   
   }

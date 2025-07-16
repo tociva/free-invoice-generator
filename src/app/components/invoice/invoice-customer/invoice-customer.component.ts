@@ -110,7 +110,18 @@ export class InvoiceCustomerComponent implements OnDestroy {
   };
 
   customerColumnDefs: ColDef<FormColumnDef>[] = [
-    { field: 'label', headerName: '', width: 150,flex:2 },
+    {
+  field: 'label',
+  headerName: '',
+  width: 150,
+  flex: 2,
+  cellRenderer: LabelColumnRendererComponent,
+  cellRendererParams: (params: ICellRendererParams<FormColumnDef>) => ({
+    labelValue: params.value,
+    labelClass: 'text-14-500'
+  })
+}
+,
     {
       field: 'value',
       headerName: '',
@@ -180,7 +191,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
           labelValueAddress = 'Type customer address here';
         }
         return {component: LabelColumnRendererComponent,
-          params: {labelValue: labelValueAddress, multiLine: true}};
+          params: {labelValue: labelValueAddress, multiLine: true ,labelClass: 'text-grey-14-500'}};
       }
     case CustomerFormItem.NAME:
       {
@@ -189,7 +200,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
           labelValueName = 'Type customer name here';
         }
         return {component: LabelColumnRendererComponent,
-          params: {labelValue: labelValueName}};
+          params: {labelValue: labelValueName ,labelClass: 'text-grey-14-500'}};
       }
 
     }

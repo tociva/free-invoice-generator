@@ -21,6 +21,7 @@ import { InvoiceSummaryComponent } from '../invoice-summary/invoice-summary.comp
 import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amount-words.component';
 import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile.component';
 import { SimpleInvoiceConfigComponent } from '../simple-invoice-config/simple-invoice-config.component';
+import { InvoiceTermsNotesComponent } from '../invoice-terms-notes/invoice-terms-notes.component';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -38,8 +39,7 @@ import { SimpleInvoiceConfigComponent } from '../simple-invoice-config/simple-in
     InvoiceSummaryComponent,
     InvoiceAmountWordsComponent,
     InvoiceItemsMobileComponent,
-    SimpleInvoiceConfigComponent
-    ],
+    SimpleInvoiceConfigComponent, InvoiceTermsNotesComponent],
   templateUrl: './simple-invoice.component.html',
   styleUrl: './simple-invoice.component.scss'
 })

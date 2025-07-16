@@ -37,7 +37,7 @@
     <ng-container *ngIf="stepIndex === 1">
       <div class="step-data-container">
         <div class="spacer-div"></div>
-        <app-invoice-customer  class="step-form-content"></app-invoice-customer>
+        <app-invoice-customer class="step-form-content"></app-invoice-customer>
       </div>
     </ng-container>
     <div class="stepper-actions">
@@ -50,10 +50,16 @@
   <!-- Step 3 -->
   <mat-step [label]="getStepLabel(2)" [completed]="isStepComplete">
     <ng-container *ngIf="stepIndex === 2">
-      <div class="step-data-container">
-        <div class="spacer-div"></div>
-        <app-invoice-details class="step-form-content"></app-invoice-details>
+      <div class="step-data-container column-layout">
+        <div class="center-box">
+          <app-invoice-details></app-invoice-details>
+        </div>
+
+        <div class="terms-notes-wrapper">
+          <app-invoice-terms-notes></app-invoice-terms-notes>
+        </div>
       </div>
+
     </ng-container>
     <div class="stepper-actions">
       <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back</button>
@@ -67,7 +73,8 @@
     <ng-container *ngIf="stepIndex === 3">
       <div class="items-layout">
         <div class="invoice-items-wrapper" *ngIf="!mobileView"><app-invoice-items></app-invoice-items></div>
-        <div class="invoice-items-wrapper" *ngIf="mobileView"><app-invoice-items-mobile></app-invoice-items-mobile></div>
+        <div class="invoice-items-wrapper" *ngIf="mobileView"><app-invoice-items-mobile></app-invoice-items-mobile>
+        </div>
         <div class="invoice-summary-wrapper">
           <app-invoice-amount-words></app-invoice-amount-words>
           <div class="spacer-div"></div>

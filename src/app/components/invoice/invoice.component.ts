@@ -19,6 +19,7 @@ import { CloudDataService } from '../../services/cloud-data.service';
 import { isMobile } from '../../../util/daybook.util';
 import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile.component';
 import { InvoiceAmountWordsComponent } from './invoice-amount-words/invoice-amount-words.component';
+import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-notes.component';
 
 @Component({
   selector: 'app-invoice',
@@ -37,7 +38,8 @@ import { InvoiceAmountWordsComponent } from './invoice-amount-words/invoice-amou
     InvoiceOrganizationComponent,
     InvoiceLogoComponent,
     InvoiceItemsMobileComponent,
-    InvoiceAmountWordsComponent
+    InvoiceAmountWordsComponent,
+    InvoiceTermsNotesComponent
 ],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
