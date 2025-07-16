@@ -225,7 +225,10 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const cur = params.data.value as Currency;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
+            params: { 
+              labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}`,
+              icon: 'arrow_drop_down_circle',
+            }
           };
         }
       case InvoiceDetailsFormItem.DATE_FORMAT:
@@ -233,7 +236,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const dateFormat = params.data.value as DateFormat;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: dateFormat.value }
+            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle' }
+          };
+        }
+      case InvoiceDetailsFormItem.TAX_OPTION:
+        {
+          return {
+            component: LabelColumnRendererComponent,
+            params: { labelValue: params.data.value, icon: 'arrow_drop_down_circle' }
           };
         }
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:

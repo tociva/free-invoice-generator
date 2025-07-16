@@ -171,7 +171,7 @@ export class InvoiceCustomerComponent implements OnDestroy {
     case CustomerFormItem.COUNTRY:
       { const dtF = params.data?.value as Country;
       return {component: LabelColumnRendererComponent,
-        params: {labelValue: dtF.name}}; }
+        params: {labelValue: dtF.name, icon: 'arrow_drop_down_circle'}}; }
 
     case CustomerFormItem.ADDRESS:
       {

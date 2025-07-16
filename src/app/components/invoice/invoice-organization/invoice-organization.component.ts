@@ -180,7 +180,7 @@ export class InvoiceOrganizationComponent implements OnDestroy {
         const dtF = params.data?.value as Country;
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: dtF?.name ?? '' },
+          params: { labelValue: dtF?.name ?? '', icon: 'arrow_drop_down_circle' },
         };
       }
       case OrganizatonFormItem.NAME: {

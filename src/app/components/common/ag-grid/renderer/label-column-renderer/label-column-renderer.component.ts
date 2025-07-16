@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
+import { MatIconModule } from '@angular/material/icon';
 
 interface LabelColumn {
   labelValue: string;
@@ -9,11 +10,13 @@ interface LabelColumn {
   multiLine?: boolean;
   tooltip?: string;
   maxLength?: number;
+  icon?: string;
+  iconClass?: string;
 }
 
 @Component({
   selector: 'app-label-column-renderer',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './label-column-renderer.component.html',
   styleUrl: './label-column-renderer.component.scss'
 })
@@ -25,6 +28,9 @@ export class LabelColumnRendererComponent implements ICellRendererAngularComp {
 
   multiLine = false;
 
+  icon!: string;
+  
+  iconClass = 'icon-column';
   // eslint-disable-next-line class-methods-use-this
   refresh = (_params: ICellRendererParams): boolean => true;
 
@@ -47,7 +53,8 @@ export class LabelColumnRendererComponent implements ICellRendererAngularComp {
 
     }
     this.multiLine = params.multiLine ?? false;
-
+    this.icon = params.icon ?? '';
+    this.iconClass = params.iconClass ?? 'icon-column';
   }
 
 }

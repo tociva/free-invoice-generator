@@ -1,4 +1,9 @@
-<div *ngIf="multiLine" class="ag-pre {{labelClass}}" [innerHTML]="labelValue">
-</div>
-<div *ngIf="!multiLine" class="ag-label-div {{labelClass}}" [innerHTML]="labelValue">
+<div class="label-column-container">
+    <div *ngIf="multiLine" class="ag-pre {{labelClass}}" [innerHTML]="labelValue">
+    </div>
+    <div *ngIf="!multiLine" class="ag-label-div {{labelClass}}" [innerHTML]="labelValue">
+    </div>
+    <div>
+        <mat-icon aria-hidden="false" fontIcon="{{icon}}" class="{{iconClass}}"></mat-icon>
+    </div>
 </div>

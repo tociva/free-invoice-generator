@@ -152,7 +152,7 @@ export class SimpleInvoiceConfigComponent implements OnInit, OnDestroy {
           const cur = params.data.value as Currency;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}` }
+            params: { labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}`, icon: 'arrow_drop_down_circle'}
           };
         }
       case InvoiceDetailsFormItem.DATE_FORMAT:
@@ -160,7 +160,7 @@ export class SimpleInvoiceConfigComponent implements OnInit, OnDestroy {
           const dateFormat = params.data.value as DateFormat;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: dateFormat.value }
+            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle' }
           };
         }
       case InvoiceDetailsFormItem.CURRENCY_LABEL:
