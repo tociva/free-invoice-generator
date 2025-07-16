@@ -22,6 +22,7 @@ export const sampleInvoice: Invoice = {
   accountName:'',
   bankName:'',
   terms:'',
+  notes:'',
   dateFormat: {
     name: '31-01-2022',
     value: 'DD-MM-YYYY'

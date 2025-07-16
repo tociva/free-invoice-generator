@@ -134,9 +134,16 @@ export class InvoiceItemsComponent implements OnDestroy, OnInit {
       },
       cellRendererSelector: (params:ICellRendererParams<InvoiceItem>) => {
         const value = params.data?.[field];
-        const labelValue = typeof value === 'string' ? value.trim() : value?.toString();
+        const labelValueT = typeof value === 'string' ? value.trim() : value?.toString();
+        let labelValue = labelValueT;
+        let labelClass = '';
+        if(!labelValue || labelValue === '0') {
+          labelValue = placeholder;
+          labelClass = 'text-14-500';
+        }
         return {component: LabelColumnRendererComponent,
-          params: {labelValue: labelValue && labelValue !== '0' ? labelValue : placeholder,
+          params: {labelValue,
+            labelClass,
             multiLine: true}};
       },
       onCellValueChanged

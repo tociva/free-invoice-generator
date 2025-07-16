@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams, SuppressKeyboardEventParams } from 'ag-grid-community';
+import { ColDef, GetRowIdParams, GridApi, GridReadyEvent, ICellEditorParams, ICellRendererParams, NewValueParams } from 'ag-grid-community';
 import dayjs from 'dayjs';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { OPTIONS_COUNT } from '../../../../util/constants';
@@ -10,7 +10,6 @@ import { displayAutoCompleteWithName, isMobile } from '../../../../util/daybook.
 import { FormColumnDef } from '../../../../util/form-column-def.type';
 import { AutoCompleteEditorComponent } from '../../common/ag-grid/editor/auto-complete-editor/auto-complete-editor.component';
 import { DatePickerEditorComponent } from '../../common/ag-grid/editor/date-picker-editor/date-picker-editor.component';
-import { TextAreaEditorComponent } from '../../common/ag-grid/editor/text-area-editor/text-area-editor.component';
 import { CheckboxColumnRendererComponent } from '../../common/ag-grid/renderer/checkbox-column-renderer/checkbox-column-renderer.component';
 import { LabelColumnRendererComponent } from '../../common/ag-grid/renderer/label-column-renderer/label-column-renderer.component';
 import { patchInvoiceDetails, setInvoiceShowDiscount, setInvoiceTaxOption } from '../store/actions/invoice.action';
@@ -36,7 +35,6 @@ export enum InvoiceDetailsFormItem {
   ACCOUNT_NUMBER = 'Account Number',
   ACCOUNT_NAME = 'Account Name',
   BANK_NAME = 'Bank Name',
-  TERMS_AND_CONDITIONS = 'Terms & Conditions'
 }
 @Component({
   selector: 'app-invoice-details',
@@ -68,21 +66,21 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
   };
 
-  gridOptions: GridOptions<FormColumnDef> = {
-    suppressMenuHide: true,
-    rowSelection: 'single',
-    animateRows: true,
-    enableBrowserTooltips: true,
-    domLayout: 'autoHeight',
-    getRowHeight: (params) => {
-      switch (params.data?.label) {
-        case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
-          return 70;
-        default:
-          return 50;
-      }
-    },
-  };
+  // gridOptions: GridOptions<FormColumnDef> = {
+  //   suppressMenuHide: true,
+  //   rowSelection: 'single',
+  //   animateRows: true,
+  //   enableBrowserTooltips: true,
+  //   domLayout: 'autoHeight',
+  //   getRowHeight: (params) => {
+  //     switch (params.data?.label) {
+  //       case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+  //         return 70;
+  //       default:
+  //         return 50;
+  //     }
+  //   },
+  // };
 
   constructor(public store: Store) { }
 
@@ -171,14 +169,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       case InvoiceDetailsFormItem.INVOICE_DATE:
       case InvoiceDetailsFormItem.DUE_DATE:
         {
-        const format = this.findDateEditorComponent();
-        return {
-          component: DatePickerEditorComponent,
-          params: {
-            format,
-            value: cellParams.data.value
-          }
-        };
+          const format = this.findDateEditorComponent();
+          return {
+            component: DatePickerEditorComponent,
+            params: {
+              format,
+              value: cellParams.data.value,
+            }
+          };
         };
 
       case InvoiceDetailsFormItem.CURRENCY:
@@ -197,8 +195,8 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           }
         };
 
-      case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
-        return { component: TextAreaEditorComponent, params: { value: cellParams.data.value, rows: 5 } };
+      // case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+      //   return { component: TextAreaEditorComponent, params: { value: cellParams.data.value, rows: 5 } };
     }
 
     return {
@@ -225,9 +223,11 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const cur = params.data.value as Currency;
           return {
             component: LabelColumnRendererComponent,
-            params: { 
+            params: {
               labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}`,
               icon: 'arrow_drop_down_circle',
+              labelClass: 'text-grey-14-500',
+
             }
           };
         }
@@ -236,14 +236,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const dateFormat = params.data.value as DateFormat;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle' }
+            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle', labelClass: 'text-grey-14-500', }
           };
         }
       case InvoiceDetailsFormItem.TAX_OPTION:
         {
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: params.data.value, icon: 'arrow_drop_down_circle' }
+            params: { labelValue: params.data.value, icon: 'arrow_drop_down_circle', labelClass: 'text-grey-14-500', }
           };
         }
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
@@ -253,26 +253,40 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         return { component: CheckboxColumnRendererComponent, params: { selected: params.data.value, onToggle: this.handleShowDiscountToggle } };
 
       case InvoiceDetailsFormItem.INVOICE_DATE:
-      case InvoiceDetailsFormItem.DUE_DATE:
-        {
-          const dateFormatText = this.findDateEditorComponent();
-          const date = params.data?.value as Date;
-          const dateText = dayjs(date).format(dateFormatText);
-          return { component: LabelColumnRendererComponent, params: { labelValue: dateText } };
-        }
-      case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
-        {
-          return { component: LabelColumnRendererComponent, params: { labelValue: params.data.value, multiLine: true } };
-        }
+      case InvoiceDetailsFormItem.DUE_DATE: {
+        const dateFormatText = this.findDateEditorComponent();
+        const date = params.data?.value as Date;
+        const dateText = dayjs(date).format(dateFormatText);
+        return {
+          component: LabelColumnRendererComponent,
+          params: {
+            labelValue: dateText,
+            labelClass: 'text-grey-14-500',
+          }
+        };
+      }
 
+      case InvoiceDetailsFormItem.ACCOUNT_NUMBER:
+      case InvoiceDetailsFormItem.ACCOUNT_NAME:
+      case InvoiceDetailsFormItem.BANK_NAME:
+        return {
+          component: LabelColumnRendererComponent,
+          params: {
+            labelValue: params.data.value,
+            labelClass: 'text-grey-14-500',
+            multiLine: true,
+          }
+        };
     }
-    if (!params.data?.value) {
 
-      return '';
-
-    }
-    return params.data.value;
-
+    const val = params.data?.value ?? '';
+    return {
+      component: LabelColumnRendererComponent,
+      params: {
+        labelValue: val,
+        labelClass: 'text-grey-14-500',
+      }
+    };
   };
 
   private handleInvoiceDetailsCellValueChanged = (event: NewValueParams<FormColumnDef>) => {
@@ -358,7 +372,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           InvoiceDetailsFormItem.ACCOUNT_NAME,
           InvoiceDetailsFormItem.ACCOUNT_NUMBER,
           InvoiceDetailsFormItem.BANK_NAME,
-          InvoiceDetailsFormItem.TERMS_AND_CONDITIONS
+          // InvoiceDetailsFormItem.TERMS_AND_CONDITIONS
         ];
         return editableFields.includes(label as InvoiceDetailsFormItem);
       },
@@ -378,13 +392,13 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
 
         return '';
       },
-      suppressKeyboardEvent: (params: SuppressKeyboardEventParams<FormColumnDef>) => {
-        switch (params.data?.label) {
-          case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
-            return params.editing && params.event.key === 'Enter';
-        }
-        return false;
-      },
+      // suppressKeyboardEvent: (params: SuppressKeyboardEventParams<FormColumnDef>) => {
+      //   switch (params.data?.label) {
+      //     case InvoiceDetailsFormItem.TERMS_AND_CONDITIONS:
+      //       return params.editing && params.event.key === 'Enter';
+      //   }
+      //   return false;
+      // },
     }
   ];
 
@@ -394,6 +408,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       params: {
         labelValue: params.data?.label ?? '',
         maxLength: isMobile() ? 20 : 32,
+        labelClass: 'text-14-500',
       },
     };
   };
@@ -407,7 +422,7 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
         { label: InvoiceDetailsFormItem.INVOICE_DATE, value: invoice.date },
         { label: InvoiceDetailsFormItem.DUE_DATE, value: invoice.dueDate },
       ];
-      if(!this.simple) {
+      if (!this.simple) {
         invoiceDetailsRowData.push(
           { label: InvoiceDetailsFormItem.CURRENCY, value: invoice.currency },
           { label: InvoiceDetailsFormItem.DECIMAL_PLACES, value: invoice.decimalPlaces },
@@ -416,16 +431,16 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           { label: InvoiceDetailsFormItem.ITEM_DESCRIPTION, value: invoice.hasItemDescription },
           { label: InvoiceDetailsFormItem.SHOW_DISCOUNT, value: invoice.hasItemDiscount },
         );
-      } 
-      if(!this.simple) {
+      }
+      if (!this.simple) {
         invoiceDetailsRowData.push(
           { label: InvoiceDetailsFormItem.DATE_FORMAT, value: invoice.dateFormat },
           { label: InvoiceDetailsFormItem.ACCOUNT_NUMBER, value: invoice.accountNumber },
           { label: InvoiceDetailsFormItem.ACCOUNT_NAME, value: invoice.accountName },
           { label: InvoiceDetailsFormItem.BANK_NAME, value: invoice.bankName },
-          { label: InvoiceDetailsFormItem.TERMS_AND_CONDITIONS, value: invoice.terms },
+          // { label: InvoiceDetailsFormItem.TERMS_AND_CONDITIONS, value: invoice.terms },
         );
-      } 
+      }
       const allRows = this.detailsGridApi.getDisplayedRowCount();
       const existingData = [];
 

@@ -61,6 +61,7 @@ export interface Invoice {
   accountName:string;
   bankName:string;
   terms:string;
+  notes:string;
   deliveryState: string;
   organization: Organization,
   customer: Customer,

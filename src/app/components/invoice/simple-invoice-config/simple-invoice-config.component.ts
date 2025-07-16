@@ -119,11 +119,6 @@ export class SimpleInvoiceConfigComponent implements OnInit, OnDestroy {
     }
   });
 
-  private findDateEditorComponent = () => {
-    const format = (this.detailsGridApi.getRowNode(InvoiceDetailsFormItem.DATE_FORMAT)?.data?.value as DateFormat)?.value ?? 'DD-MM-YYYY';
-    return format;
-  };
-
   private findDetailsEditorComponent = (cellParams: ICellEditorParams<FormColumnDef>) => {
 
     switch (cellParams.data.label) {

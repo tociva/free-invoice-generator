@@ -109,6 +109,7 @@ export const initialInvoiceState: InvoiceState = {
     grandTotal: 0,
     grandTotalInWords: '',
     terms:'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
+    notes:'Type aditional notes here',
     smallLogo: '',
     largeLogo: ''
   },
