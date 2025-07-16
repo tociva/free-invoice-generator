@@ -53,11 +53,7 @@
       <!-- </div> -->
       <div class="stepper-actions stepper-actions-simple">
         <button mat-raised-button color="primary" class="next-btn1" (click)="gotToStep(1)">
-          Next <mat-icon>arrow_forward</mat-icon>
-        </button>
-        
-        <button mat-stroked-button color="accent" class="next-btn1" (click)="gotToStep(2)">
-          Go to Preview <mat-icon>visibility</mat-icon>
+          Next - Select Template <mat-icon>arrow_forward</mat-icon>
         </button>
       </div>
     </ng-container>
@@ -68,9 +64,9 @@
     <ng-container *ngIf="stepIndex === 1">
       <app-select-template [stepper]="stepper"></app-select-template>
     </ng-container>
-    <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="gotToStep(0)"><mat-icon>arrow_back</mat-icon> Back</button>
-      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(2)">Next
+    <div class="stepper-actions stepper-actions-simple">
+      <button mat-button class="back-btn" (click)="gotToStep(0)"><mat-icon>arrow_back</mat-icon> Back - Update Invoice</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="gotToStep(2)">Next - Preview and Download
         <mat-icon>arrow_forward</mat-icon></button>
     </div>
   </mat-step>
@@ -81,9 +77,9 @@
       <app-preview-invoice></app-preview-invoice>
     </ng-container>
     <div class="stepper-actions">
-      <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back</button>
+      <button mat-button class="back-btn" (click)="gotToStep(1)"><mat-icon>arrow_back</mat-icon> Back - Select Template</button>
       <button mat-raised-button color="accent" class="finish-btn"
-        (click)="gotToStep(0)"><mat-icon>check_circle</mat-icon> Finish</button>
+        (click)="gotToStep(0)"><mat-icon>check_circle</mat-icon> Finish - Create another invoice</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
