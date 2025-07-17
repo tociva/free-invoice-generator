@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blue Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f0f8ff;
+      font-family: "Segoe UI", sans-serif;
+      color: #2d2d2d;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      background: white;
+      margin: 40px auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .invoice-header {
+      background-color: #007acc;
+      padding: 30px 40px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .invoice-header img {
+      height: 60px;
+    }
+
+    .invoice-info {
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    .invoice-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 30px 0 10px;
+      color: #007acc;
+    }
+
+    .section {
+      padding: 0 40px;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #007acc;
+    }
+
+    .bill-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .bill-info div {
+      width: 48%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th {
+      background-color: #e6f3ff;
+      color: #004d80;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    td {
+      padding: 12px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    td:last-child,
+    th:last-child {
+      text-align: right;
+    }
+
+    .totals {
+      text-align: right;
+      font-size: 1rem;
+      margin-top: 30px;
+    }
+
+    .totals div {
+      margin-bottom: 6px;
+    }
+
+    .grand-total {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #007acc;
+    }
+
+    .inwords {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    .invoice-footer {
+      background: #f4faff;
+      padding: 20px 40px;
+      font-size: 0.85rem;
+      color: #666;
+      text-align: center;
+      border-top: 1px solid #dbefff;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="invoice-header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <div class="invoice-info">
+        <div><strong>Invoice #:</strong> [[invoice_number]]</div>
+        <div><strong>Date:</strong> [[invoice_date]]</div>
+        <div><strong>Due Date:</strong> [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="invoice-title">INVOICE</div>
+
+    <!-- Bill Info -->
+    <div class="section">
+      <div class="section-title">Billing Details</div>
+      <div class="bill-info">
+        <div>
+          <strong>From:</strong><br>
+          [[org_name]]<br>
+          [[org_address]]<br>
+          [[org_email]]<br>
+          [[org_phone]]
+        </div>
+        <div>
+          <strong>To:</strong><br>
+          [[customer_name]]<br>
+          [[customer_address]]<br>
+          [[customer_email]]<br>
+          [[customer_phone]]
+        </div>
+      </div>
+    </div>
+
+    <!-- Items -->
+    <div class="section">
+      <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_total]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+      <!-- Totals -->
+      <div class="totals">
+        <div>Item Total: [[itemtotal]]</div>
+        <div>Discount: [[discount]]</div>
+        <div>Subtotal: [[subtotal]]</div>
+        <div>Tax: [[tax_amount]]</div>
+        <div>Round Off: [[roundoff]]</div>
+        <div class="grand-total">Grand Total: [[grand_total]]</div>
+        <div class="inwords">[[grand_total_inwords]]</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="invoice-footer">
+      Thank you for your business! If you have any questions, contact us at [[org_email]] or [[org_phone]].
+    </div>
+</body>
+</html>

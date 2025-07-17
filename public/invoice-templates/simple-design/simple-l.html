@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elegant Cream Invoice</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #fef9f6;
+      color: #2e2e2e;
+      padding: 50px;
+    }
+
+    .invoice {
+      max-width: 800px;
+      margin: auto;
+      background: #fffdfb;
+      padding: 40px;
+      border: 1px solid #f0e8e0;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .top h1 {
+      font-size: 3rem;
+      font-weight: normal;
+      font-family: 'Brush Script MT', cursive;
+      margin: 0;
+    }
+
+    .invoice-meta {
+      text-align: right;
+      font-size: 0.9rem;
+      color: #9e877f;
+    }
+
+    .section {
+      margin-top: 30px;
+      font-size: 0.95rem;
+    }
+
+    .section strong {
+      display: inline-block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .from-to {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .from-to div {
+      width: 48%;
+    }
+
+    .logo {
+      background: #c49b76;
+      color: #fff;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: cursive;
+      font-size: 1.2rem;
+      float: right;
+      margin-top: -60px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+    }
+
+    th {
+      border-bottom: 2px solid #ddd;
+      text-align: left;
+      padding: 10px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    td:last-child,
+    th:last-child {
+      text-align: right;
+    }
+
+    .summary {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.95rem;
+    }
+
+    .summary table {
+      width: 300px;
+    }
+
+    .summary td {
+      padding: 6px 10px;
+    }
+
+    .summary .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .payment-options {
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .thankyou {
+      text-align: right;
+      font-size: 1.2rem;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .social {
+      font-size: 0.85rem;
+      text-align: right;
+      margin-top: 8px;
+      color: #9e877f;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Top Section -->
+    <div class="top">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <h1>Invoice</h1>
+      <div class="invoice-meta">
+        <div><strong>Invoice No:</strong> [[invoice_number]]</div>
+        <div><strong>Date:</strong> [[invoice_date]]</div>
+        <div><strong>Due Date:</strong> [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <!-- Billing Info -->
+    <div class="from-to">
+      <div>
+        <strong>Billed To:</strong><br>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]
+      </div>
+      <div>
+        <strong>From:</strong><br>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_phone]]
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Unit Price</th>
+          <th>Qty</th>
+          <th>Total ([[currency_symbol]])</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+      <table>
+        <tr>
+          <td>Subtotal:</td>
+          <td style="text-align:right;">[[itemtotal]]</td>
+        </tr>
+        <tr>
+          <td>Tax:</td>
+          <td style="text-align:right;">[[tax_amount]]</td>
+        </tr>
+        <tr>
+          <td>Discount:</td>
+          <td style="text-align:right;">[[discount]]</td>
+        </tr>
+        <tr>
+          <td>Round Off:</td>
+          <td style="text-align:right;">[[roundoff]]</td>
+        </tr>
+        <tr class="total">
+          <td>Total:</td>
+          <td style="text-align:right;">[[grand_total]]</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <div class="thankyou">Thank you!</div>
+      </div>
+    </div>
+</body>
+</html>
