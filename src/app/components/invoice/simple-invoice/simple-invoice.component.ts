@@ -22,6 +22,7 @@ import { InvoiceAmountWordsComponent } from '../invoice-amount-words/invoice-amo
 import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile.component';
 import { SimpleInvoiceConfigComponent } from '../simple-invoice-config/simple-invoice-config.component';
 import { InvoiceTermsNotesComponent } from '../invoice-terms-notes/invoice-terms-notes.component';
+import { addSearchTag, setSearchTags } from '../../templates/store/actions/template.actions';
 
 @Component({
   selector: 'app-simple-invoice',
