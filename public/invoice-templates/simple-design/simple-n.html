@@ -136,6 +136,10 @@
       font-weight: bold;
       color: #5f32d7;
     }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
 
     .logo img {
       height: 80px;
@@ -189,7 +193,7 @@
         <td>[[item_name]]</td>
         <td>[[item_quantity]]</td>
         <td>[[item_price]]</td>
-        <td>[[item_total]]</td>
+        <td>[[item_amount]]</td>
       </tr>
       [[items_end]]
     </tbody>
