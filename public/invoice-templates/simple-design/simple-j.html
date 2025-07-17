@@ -110,6 +110,10 @@
       color: #666;
       margin-top: 5px;
     }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
   </style>
 </head>
 <body>
@@ -159,7 +163,7 @@
           <td>[[item_name]]</td>
           <td>[[item_quantity]]</td>
           <td>[[item_price]]</td>
-          <td>[[item_total]]</td>
+          <td>[[item_amount]]</td>
         </tr>
         [[items_end]]
       </tbody>
