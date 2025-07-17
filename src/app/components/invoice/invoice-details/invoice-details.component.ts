@@ -226,7 +226,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
             params: {
               labelValue: `(${cur.html ?? ''}) ${cur.name ?? ''}`,
               icon: 'arrow_drop_down_circle',
-              labelClass: 'text-grey-14-500',
 
             }
           };
@@ -236,14 +235,14 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           const dateFormat = params.data.value as DateFormat;
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle', labelClass: 'text-grey-14-500', }
+            params: { labelValue: dateFormat.value, icon: 'arrow_drop_down_circle' }
           };
         }
       case InvoiceDetailsFormItem.TAX_OPTION:
         {
           return {
             component: LabelColumnRendererComponent,
-            params: { labelValue: params.data.value, icon: 'arrow_drop_down_circle', labelClass: 'text-grey-14-500', }
+            params: { labelValue: params.data.value, icon: 'arrow_drop_down_circle' }
           };
         }
       case InvoiceDetailsFormItem.ITEM_DESCRIPTION:
@@ -261,7 +260,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           component: LabelColumnRendererComponent,
           params: {
             labelValue: dateText,
-            labelClass: 'text-grey-14-500',
           }
         };
       }
@@ -273,7 +271,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
           component: LabelColumnRendererComponent,
           params: {
             labelValue: params.data.value,
-            labelClass: 'text-grey-14-500',
             multiLine: true,
           }
         };
@@ -284,7 +281,6 @@ export class InvoiceDetailsComponent implements OnDestroy, OnInit {
       component: LabelColumnRendererComponent,
       params: {
         labelValue: val,
-        labelClass: 'text-grey-14-500',
       }
     };
   };
