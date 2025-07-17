@@ -70,7 +70,12 @@
     .meta-right {
       text-align: right;
     }
-
+    .meta-right div{
+      line-height: 1.5;
+    }
+    .meta-left div{
+      line-height: 1.5;
+    }
     table {
       width: 90%;
       margin: 30px auto;
@@ -179,13 +184,17 @@
   <!-- Meta Info -->
   <div class="invoice-meta">
     <div class="meta-left">
+      <div>
       <strong>Invoice No:</strong> [[invoice_number]]<br>
       <strong>Invoice Date:</strong> [[invoice_date]]
+      </div>
     </div>
     <div class="meta-right">
       <strong>Client Name:</strong><br>
+      <div>
       [[customer_name]]<br>
       [[customer_address]]
+      </div>
     </div>
   </div>
 
