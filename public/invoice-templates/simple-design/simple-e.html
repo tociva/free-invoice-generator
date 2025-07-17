@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modern Invoice</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f2f5f9;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .invoice-card {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .invoice-header {
+      background-color: #3f51b5;
+      color: #fff;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .invoice-header img {
+      height: 60px;
+    }
+
+    .invoice-header .details {
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    .invoice-body {
+      padding: 40px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #3f51b5;
+    }
+
+    .bill-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .bill-box {
+      width: 48%;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    .invoice-table th {
+      background-color: #f0f2f7;
+      text-align: left;
+      padding: 12px;
+      font-size: 0.95rem;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .invoice-table td {
+      padding: 12px;
+      border-bottom: 1px solid #eaeaea;
+      font-size: 0.95rem;
+    }
+
+    .invoice-table td:last-child,
+    .invoice-table th:last-child {
+      text-align: right;
+    }
+
+    .totals {
+      text-align: right;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .grand-total {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #3f51b5;
+    }
+
+    .inwords {
+      font-style: italic;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="invoice-header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <div class="details">
+        <div><strong>Invoice #:</strong> [[invoice_number]]</div>
+        <div><strong>Date:</strong> [[invoice_date]]</div>
+        <div><strong>Due Date:</strong> [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="invoice-body">
+
+      <!-- Billing Info -->
+      <div class="bill-section">
+        <div class="bill-box">
+          <div class="section-title">Bill From</div>
+          <div><strong>[[org_name]]</strong></div>
+          <div>[[org_address]]</div>
+          <div>[[org_email]]</div>
+          <div>[[org_phone]]</div>
+        </div>
+        <div class="bill-box">
+          <div class="section-title">Bill To</div>
+          <div><strong>[[customer_name]]</strong></div>
+          <div>[[customer_address]]</div>
+          <div>[[customer_email]]</div>
+          <div>[[customer_phone]]</div>
+        </div>
+      </div>
+
+      <!-- Item Table -->
+      <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_total]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+      <!-- Totals -->
+      <div class="totals">
+        <div>Item Total: [[itemtotal]]</div>
+        <div>Discount: [[discount]]</div>
+        <div>Subtotal: [[subtotal]]</div>
+        <div>Tax: [[tax_amount]]</div>
+        <div>Round Off: [[roundoff]]</div>
+        <div class="grand-total">Grand Total: [[grand_total]]</div>
+        <div class="inwords">[[grand_total_inwords]]</div>
+      </div>
+    </div>
+</body>
+</html>

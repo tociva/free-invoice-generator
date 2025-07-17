@@ -30,7 +30,6 @@
     }
 
     .logo-circle {
-      background-color: #b22222;
       color: white;
       width: 100px;
       height: 100px;
@@ -41,6 +40,9 @@
       font-weight: bold;
       font-size: 18px;
       user-select: none;
+    }
+    .logo-circle img{
+      height: 80px;
     }
 
     .sender-info,
@@ -146,8 +148,6 @@
         <th>Item</th>
         <th>Quantity</th>
         <th>Price per unit</th>
-        <th>CGST</th>
-        <th>SGST</th>
         <th>Amount</th>
       </tr>
     </thead>
@@ -157,8 +157,6 @@
         <td>[[item_name]]</td>
         <td>[[item_quantity]]</td>
         <td>[[item_price]]</td>
-        <td>[[item_cgst]]</td>
-        <td>[[item_sgst]]</td>
         <td>[[item_amount]]</td>
       </tr>
       [[items_end]]

@@ -174,39 +174,48 @@ export class InvoiceCustomerComponent implements OnDestroy {
     }
   });
 
-  private static findCustomerCellRenderer = (params:ICellRendererParams<FormColumnDef>) => {
+  private static findCustomerCellRenderer = (params: ICellRendererParams<FormColumnDef>) => {
+  const value = params.data?.value;
 
-   
-    switch (params.data?.label) {
-
-    case CustomerFormItem.COUNTRY:
-      { const dtF = params.data?.value as Country;
-      return {component: LabelColumnRendererComponent,
-        params: {labelValue: dtF.name, icon: 'arrow_drop_down_circle'}}; }
-
-    case CustomerFormItem.ADDRESS:
-      {
-        let labelValueAddress = params.data?.value;
-        if(!labelValueAddress) {
-          labelValueAddress = 'Type customer address here';
-        }
-        return {component: LabelColumnRendererComponent,
-          params: {labelValue: labelValueAddress, multiLine: true ,labelClass: 'text-grey-14-500'}};
-      }
-    case CustomerFormItem.NAME:
-      {
-        let labelValueName = params.data?.value;
-        if(!labelValueName) {
-          labelValueName = 'Type customer name here';
-        }
-        return {component: LabelColumnRendererComponent,
-          params: {labelValue: labelValueName ,labelClass: 'text-grey-14-500'}};
-      }
-
+  switch (params.data?.label) {
+    case CustomerFormItem.COUNTRY: {
+      const dtF = value as Country;
+      return {
+        component: LabelColumnRendererComponent,
+        params: {
+          labelValue: dtF?.name ?? '',
+          icon: 'arrow_drop_down_circle',
+        },
+      };
     }
-    return params.data?.value ?? '';
-  
-  };
+
+    case CustomerFormItem.ADDRESS: {
+      const isPlaceholder = !value;
+      return {
+        component: LabelColumnRendererComponent,
+        params: {
+          labelValue: isPlaceholder ? 'Type customer address here' : value,
+          multiLine: true,
+          ...(isPlaceholder ? { labelClass: 'text-grey-14-500' } : {}),
+        },
+      };
+    }
+
+    case CustomerFormItem.NAME: {
+      const isPlaceholder = !value;
+      return {
+        component: LabelColumnRendererComponent,
+        params: {
+          labelValue: isPlaceholder ? 'Type customer name here' : value,
+          ...(isPlaceholder ? { labelClass: 'text-grey-14-500' } : {}),
+        },
+      };
+    }
+  }
+
+  return value ?? '';
+};
+
 
   onCustomerGridReady(params: GridReadyEvent<FormColumnDef>): void {
     this.customerGridApi = params.api;

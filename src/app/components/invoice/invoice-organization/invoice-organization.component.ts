@@ -186,27 +186,34 @@ export class InvoiceOrganizationComponent implements OnDestroy {
           },
         };
       }
+
       case OrganizatonFormItem.NAME: {
-        let labelValueName = params.data?.value;
-        if (!labelValueName) {
-          labelValueName = 'Type your name here';
-        }
+        const labelValue = params.data?.value;
+        const isPlaceholder = !labelValue;
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: labelValueName, multiLine: true, labelClass: 'text-grey-14-500' },
+          params: {
+            labelValue: isPlaceholder ? 'Type your name here' : labelValue,
+            multiLine: true,
+            ...(isPlaceholder ? { labelClass: 'text-grey-14-500' } : {}),
+          },
         };
       }
+
       case OrganizatonFormItem.ADDRESS: {
-        let labelValueAddress = params.data?.value;
-        if (!labelValueAddress) {
-          labelValueAddress = 'Type your address here';
-        }
+        const labelValue = params.data?.value;
+        const isPlaceholder = !labelValue;
         return {
           component: LabelColumnRendererComponent,
-          params: { labelValue: labelValueAddress, multiLine: true, labelClass: 'text-grey-14-500' },
+          params: {
+            labelValue: isPlaceholder ? 'Type your address here' : labelValue,
+            multiLine: true,
+            ...(isPlaceholder ? { labelClass: 'text-grey-14-500' } : {}),
+          },
         };
       }
     }
+
     return params.data?.value ?? '';
   };
 
