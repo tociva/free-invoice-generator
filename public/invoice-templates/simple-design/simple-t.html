@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Purple & Green Invoice</title>
+  <style>
+    body {
+      padding: 20px;
+      background: #f5f3f7;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 850px;
+      margin: 20px auto;
+      background: #9b59b6;
+      color: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    /* Header */
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .invoice-header div {
+      margin: 5px 0;
+    }
+
+    .invoice-header strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #d1ff57;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d1ff57;
+      margin: 10px 0;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #d1ff57;
+      color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    thead {
+      background: #b4f000;
+      color: #333;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    tr:nth-child(even) {
+      background: #f0ffd1;
+    }
+
+    /* Payment Info */
+    .payment-summary {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      width: 45%;
+      background: #fff;
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .totals {
+      width: 45%;
+      background: #fff;
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .totals strong {
+      color: #9b59b6;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .footer div {
+      margin: 5px 0;
+    }
+
+    .social {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .social i {
+      width: 20px;
+      height: 20px;
+      background: #d1ff57;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .invoice-header img{
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+    <!-- Header Info -->
+    <div class="invoice-header">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <div>
+        <strong>Invoice To:</strong>
+        [[customer_name]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]<br>
+        [[customer_address]]
+      </div>
+      <div>
+        <strong>Invoice Number:</strong>
+        [[invoice_number]]<br>
+        <strong>Invoice Date:</strong>
+        [[invoice_date]]<br>
+        <strong>Due Date:</strong>
+        [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Title -->
+    <h1>Invoice</h1>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Payment and Summary -->
+    <div class="payment-summary">
+      <div class="payment-method">
+        <strong>Card Payment</strong><br>
+        Bank: [[bank_name]]<br>
+        Account: [[account_number]]
+      </div>
+      <div class="totals">
+        <div><span>Subtotal:</span> <span>[[itemtotal]]</span></div>
+        <div><span>Tax:</span> <span>[[tax_amount]]</span></div>
+        <div><strong>Grand Total:</strong> <strong>[[grand_total]]</strong></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="social">
+        <i></i><i></i><i></i>
+        <span>[[org_name]]<br>
+          [[org_address]]<br>
+          [[org_email]]<br>
+          [[org_phone]]
+        </span>
+      </div>
+    </div>
+</body>
+</html>

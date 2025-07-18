@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kids Playful Invoice</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4fcf8;
+      font-family: 'Comic Neue', cursive, sans-serif;
+      color: #333;
+    }
+
+    .invoice-wrapper {
+      width: 210mm;
+      height: 297mm; /* A4 height */
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 6px solid #b3e5c1;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    /* HEADER SECTION */
+    .header {
+      background: linear-gradient(to right, #b3e5c1, #d1f4ff);
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      color: #317873;
+      margin: 0;
+      text-shadow: 1px 1px #fff;
+    }
+
+    .header img {
+      height: 80px;
+      margin-top: 15px;
+    }
+
+    .rainbow {
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(to right, #ff9999, #ffcc99, #fff799, #99ffcc, #99ccff, #cc99ff);
+      border-radius: 0 0 10px 10px;
+      margin-top: 15px;
+    }
+
+    /* DETAILS SECTION */
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .details-box {
+      background: #eafcf4;
+      padding: 15px;
+      border-radius: 12px;
+      width: 48%;
+      box-sizing: border-box;
+      border: 2px dashed #97d9a0;
+      margin-bottom: 10px;
+    }
+
+    .details-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #2d6354;
+    }
+
+    /* TABLE */
+    table {
+      width: 95%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #80d4c4;
+      color: white;
+    }
+
+    thead th, tbody td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #bce0fd;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f0fbf9;
+    }
+
+    /* TERMS */
+    .terms {
+      background: #fffbe6;
+      padding: 15px;
+      margin: 10px 20px;
+      border-radius: 10px;
+      border: 2px dashed #ffd166;
+    }
+
+    /* TOTALS */
+    .totals {
+      margin: 10px 20px;
+      text-align: right;
+      font-size: 1.1rem;
+      color: #2d6354;
+    }
+
+    .totals div {
+      margin-bottom: 5px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      background: #e8f9f1;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 15px;
+      color: #317873;
+    }
+
+    /* DECORATIVE ELEMENTS */
+    .cloud {
+      position: absolute;
+      background: #e3f7ff;
+      border-radius: 50%;
+    }
+
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: #e3f7ff;
+      border-radius: 50%;
+    }
+
+    .cloud1 {
+      width: 120px; height: 60px; top: 20px; left: 20px;
+    }
+    .cloud1::before { width: 80px; height: 80px; top: -20px; left: -30px; }
+    .cloud1::after { width: 80px; height: 80px; top: -20px; right: -30px; }
+
+    .cloud2 {
+      width: 100px; height: 50px; top: 40px; right: 40px;
+    }
+    .cloud2::before { width: 60px; height: 60px; top: -15px; left: -25px; }
+    .cloud2::after { width: 60px; height: 60px; top: -15px; right: -25px; }
+
+    /* STATIC BALLOONS */
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 45% 45%;
+      bottom: 10px;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      width: 2px;
+      height: 40px;
+      background: #666;
+      transform: translateX(-50%);
+    }
+
+    .balloon.red { background: #ff9999; left: 40px; }
+    .balloon.blue { background: #99ccff; left: 130px; }
+    .balloon.green { background: #99ffcc; right: 130px; }
+    .balloon.yellow { background: #ffe082; right: 40px; }
+
+    /* PRINT SETTINGS */
+    @page { size: A4; margin: 0; }
+    @media print {
+      body { background: #fff; }
+      .invoice-wrapper { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <!-- Decorative Elements -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="balloon red"></div>
+    <div class="balloon blue"></div>
+    <div class="balloon green"></div>
+    <div class="balloon yellow"></div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Kids Invoice</h1>
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <div class="rainbow"></div>
+    </div>
+
+    <!-- Details -->
+    <div class="details">
+      <div class="details-box">
+        <strong>From:</strong>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_email]]<br>
+        [[org_phone]]
+      </div>
+      <div class="details-box">
+        <strong>To:</strong>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_email]]<br>
+        [[customer_phone]]
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+   
+    <!-- Totals -->
+    <div class="totals">
+      <div>Subtotal: [[itemtotal]]</div>
+      <div>Tax: [[tax_amount]]</div>
+      <div>Discount: [[discount]]</div>
+      <div>Round Off: [[roundoff]]</div>
+      <div><strong>Total: [[grand_total]]</strong></div>
+      <div><em>[[grand_total_inwords]]</em></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Thank you for your business! Have a joyful day!
+    </div>
+
+     <!-- Terms -->
+    <div class="terms">
+      <strong>Terms & Conditions:</strong><br>
+      [[terms_and_conditions]]
+    </div>
+
+  </div>
+</body>
+</html>
