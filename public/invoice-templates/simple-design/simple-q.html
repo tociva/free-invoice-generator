@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Purple Modern Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .invoice-header {
+      background: #7b2cbf;
+      color: white;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .invoice-header h1 {
+      font-size: 3rem;
+      margin: 10px 0;
+    }
+
+    .header-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .header-meta div {
+      margin: 5px 0;
+    }
+
+    /* Left Info Panel */
+    .info-section {
+      display: flex;
+      padding: 30px 40px;
+    }
+
+    .left-panel {
+      background: #f3e7ff;
+      padding: 10px;
+      border-radius: 10px;
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    .left-panel h3 {
+      margin-top: 0;
+      color: #7b2cbf;
+    }
+
+    .left-panel p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .right-panel {
+      flex: 2;
+      padding: 10px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    thead {
+      background: #7b2cbf;
+      color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    /* Summary */
+    .summary {
+      padding: 20px 40px;
+      text-align: right;
+    }
+
+    .summary div {
+      margin: 5px 0;
+    }
+
+    .summary .total {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #7b2cbf;
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 20px 40px;
+      background: #f3e7ff;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .footer div {
+      margin: 5px 0;
+    }
+
+    .thank-you {
+      padding: 20px 40px;
+      text-align: center;
+      font-weight: bold;
+      color: #7b2cbf;
+    }
+    .invoice-header img{
+      height: 90px;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="invoice-header">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h1>[[org_name]]</h1>
+      <div class="header-meta">
+        <div>Invoice No: [[invoice_number]]</div>
+        <div>Date: [[invoice_date]]</div>
+        <div>Due Date: [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="left-panel">
+        <h3>To.</h3>
+        <p><strong>[[customer_name]]</strong></p>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+
+        <h3 style="margin-top: 15px;">Payment Method.</h3>
+        <p>Bank: [[bank_name]]</p>
+        <p>Account: [[account_name]]</p>
+      </div>
+
+      <div class="right-panel">
+        <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+      <div>Sub-Total: [[itemtotal]]</div>
+      <div>Tax ([[tax_amount]]): [[tax_amount]]</div>
+      <div>Discount: [[discount]]</div>
+      <div class="total">Total: [[grand_total]]</div>
+      <div><em>[[grand_total_inwords]]</em></div>
+    </div>
+
+    <!-- Thank You -->
+    <div class="thank-you">
+      Thank you for your Business!
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        Phone: [[org_phone]]<br>
+        Email: [[org_email]]
+      </div>
+      <div>
+        Address: [[org_address]]
+      </div>
+    </div>
+
+</body>
+</html>
