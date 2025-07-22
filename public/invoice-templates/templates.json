@@ -952,6 +952,134 @@
                     "sidebar",
                     "non-taxable"
                 ]
+            },
+            {
+                "name": "Simple-ar",
+                "path": "invoice-templates/simple-design/simple-ar.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-as",
+                "path": "invoice-templates/simple-design/simple-as.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-at",
+                "path": "invoice-templates/simple-design/simple-at.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-au",
+                "path": "invoice-templates/simple-design/simple-au.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-av",
+                "path": "invoice-templates/simple-design/simple-av.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aw",
+                "path": "invoice-templates/simple-design/simple-aw.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ax",
+                "path": "invoice-templates/simple-design/simple-ax.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ay",
+                "path": "invoice-templates/simple-design/simple-ay.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-az",
+                "path": "invoice-templates/simple-design/simple-az.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aaa",
+                "path": "invoice-templates/simple-design/simple-aaa.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aab",
+                "path": "invoice-templates/simple-design/simple-aab.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aac",
+                "path": "invoice-templates/simple-design/simple-aac.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aad",
+                "path": "invoice-templates/simple-design/simple-aad.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aae",
+                "path": "invoice-templates/simple-design/simple-aae.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aaf",
+                "path": "invoice-templates/simple-design/simple-aaf.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aag",
+                "path": "invoice-templates/simple-design/simple-aag.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
             }
         ]
     },

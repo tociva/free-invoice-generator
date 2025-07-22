@@ -73,7 +73,7 @@
       display: flex;
       justify-content: space-between;
       padding: 20px 30px;
-      margin-top: 20px;
+      margin-top: 80px;
       font-size: 14px;
     }
     .details-box h3 {
@@ -122,6 +122,11 @@
       font-weight: bold;
       color: #ff6f00;
     }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
 
     /* Footer Section */
     .footer {
@@ -145,7 +150,7 @@
     <!-- Top Banner -->
     <div class="top-banner">
       <h1>INVOICE</h1>
-      <img src="[[logo_large_src]]" alt="Logo">
+      <img src="[[logo_small_src]]" alt="Logo" />
     </div>
 
     <!-- Floating Total Card -->
@@ -222,7 +227,6 @@
       <div>
         [[org_email]]<br>
         [[org_phone]]<br>
-        [[org_website]]
       </div>
     </div>
   </div>

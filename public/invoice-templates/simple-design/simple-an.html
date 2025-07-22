@@ -69,6 +69,11 @@
       background: #f9c1c1;
       color: #333;
     }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
     /* Totals */
     .summary {
       text-align: right;
@@ -94,7 +99,7 @@
 <body>
   <div class="invoice-container">
     <div class="header">
-      <img src="[[logo_large_src]]" alt="Logo">
+      <img src="[[logo_small_src]]" alt="Logo" />
       <h1>INVOICE</h1>
     </div>
 
