@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Invoice – Timeline</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    body { margin: 0; font-family: 'Roboto', sans-serif; background: #f9f9f9; overflow: hidden; }
+    .invoice-container {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      background: #fff;
+      padding: 10mm;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10mm;
+      background: #0288d1;
+      color: #fff;
+      border-radius: 8px;
+      margin-bottom: 10mm;
+    }
+    .header img { height: 60px; margin-bottom: 5px; }
+    .header h1 { margin: 0; font-size: 24px; }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 10mm;
+    }
+    .info-section h3 { margin: 0 0 5px; color: #0288d1; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 20mm;
+      margin-bottom: 10mm;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8mm;
+      width: 4px;
+      height: 100%;
+      background: #0288d1;
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 10mm;
+      padding-left: 10mm;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -12mm;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      background: #0288d1;
+      border-radius: 50%;
+    }
+    .timeline-item h4 { margin: 0; color: #0288d1; }
+    .timeline-item div { font-size: 14px; margin-top: 2px; }
+
+    /* Totals */
+    .totals {
+      margin-top: auto;
+      text-align: right;
+      font-size: 15px;
+      padding: 10mm;
+      border-top: 1px solid #ccc;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      padding: 5mm;
+      color: #555;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <h1>[[org_name]] – Invoice</h1>
+    </div>
+    <div class="info-section">
+      <div>
+        <h3>Bill To</h3>
+        [[customer_name]]<br>[[customer_address]]<br>[[customer_phone]]<br>[[customer_email]]
+      </div>
+      <div style="text-align:right;">
+        <h3>Invoice Details</h3>
+        No: [[invoice_number]]<br>Date: [[invoice_date]]<br>Due: [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Timeline Services -->
+    <div class="timeline">
+      [[items_start]]
+      <div class="timeline-item">
+        <h4>[[item_name]]</h4>
+        <div>Qty: [[item_quantity]] | Price: [[item_price]] | Total: [[item_amount]]</div>
+      </div>
+      [[items_end]]
+    </div>
+
+    <!-- Totals -->
+    <div class="totals">
+     Item Total: [[itemtotal]]<br>
+      Discount: [[discount]]<br>
+      Subtotal: [[subtotal]]<br>
+      Round Off: [[roundoff]]<br>
+      Grand Total: <strong>[[grand_total]]</strong>
+    </div>
+
+    <div class="footer">
+      Questions? [[org_email]] | [[org_phone]]<br>
+      Terms: [[terms_and_conditions]]
+    </div>
+  </div>
+</body>
+</html>

@@ -840,6 +840,118 @@
                     "sidebar",
                     "non-taxable"
                 ]
+            },
+            {
+                "name": "Simple-ac",
+                "path": "invoice-templates/simple-design/simple-ac.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ad",
+                "path": "invoice-templates/simple-design/simple-ad.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ae",
+                "path": "invoice-templates/simple-design/simple-ae.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-af",
+                "path": "invoice-templates/simple-design/simple-af.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ag",
+                "path": "invoice-templates/simple-design/simple-ag.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ah",
+                "path": "invoice-templates/simple-design/simple-ah.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ai",
+                "path": "invoice-templates/simple-design/simple-ai.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aj",
+                "path": "invoice-templates/simple-design/simple-aj.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ak",
+                "path": "invoice-templates/simple-design/simple-ak.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-al",
+                "path": "invoice-templates/simple-design/simple-al.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-am",
+                "path": "invoice-templates/simple-design/simple-am.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-an",
+                "path": "invoice-templates/simple-design/simple-an.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ap",
+                "path": "invoice-templates/simple-design/simple-ap.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aq",
+                "path": "invoice-templates/simple-design/simple-aq.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
             }
         ]
     },
