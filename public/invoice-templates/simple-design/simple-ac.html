@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Invoice – Sidebar Layout</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #f5f7fa; overflow: hidden; }
+    .invoice-container {
+      display: flex;
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+    .sidebar {
+      width: 65mm;
+      background: linear-gradient(180deg, #0097a7, #004d60);
+      color: #fff;
+      padding: 20mm 10mm;
+      box-sizing: border-box;
+    }
+    .sidebar img {
+      height: 60px;
+      margin-bottom: 10mm;
+    }
+    .sidebar h2 { margin: 0; font-size: 22px; }
+    .sidebar div { font-size: 14px; margin-top: 5mm; }
+    .main-content {
+      flex: 1;
+      padding: 20mm;
+      box-sizing: border-box;
+    }
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10mm;
+    }
+    .invoice-header h1 { margin: 0; color: #004d60; }
+    .invoice-header .details { font-size: 14px; text-align: right; }
+    .bill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10mm;
+      font-size: 14px;
+    }
+    .bill-info h3 { margin: 0 0 5px; color: #004d60; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15mm;
+      font-size: 14px;
+    }
+    th, td { border-bottom: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #004d60; color: #fff; }
+    .totals { text-align: right; margin-top: 10mm; font-size: 15px; }
+    .total-due {
+      background: #b2dfdb;
+      padding: 10px;
+      font-weight: bold;
+      color: #004d60;
+      margin-top: 10mm;
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer {
+      margin-top: 20mm;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div class="sidebar">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <h2>[[org_name]]</h2>
+      <div>[[org_address]]</div>
+      <div>[[org_phone]]</div>
+      <div>[[org_email]]</div>
+    </div>
+    <div class="main-content">
+      <div class="invoice-header">
+        <h1>INVOICE</h1>
+        <div class="details">
+          Invoice No: [[invoice_number]]<br>
+          Date: [[invoice_date]]<br>
+          Due: [[payment_due_date]]
+        </div>
+      </div>
+      <div class="bill-info">
+        <div>
+          <h3>Bill To</h3>
+          [[customer_name]]<br>
+          [[customer_address]]<br>
+          [[customer_phone]]<br>
+          [[customer_email]]
+        </div>
+        <div>
+          <h3>From</h3>
+          [[org_name]]<br>
+          [[org_address]]<br>
+          [[org_phone]]<br>
+          [[org_email]]
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Service / Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+      <div class="totals">
+        <div><strong>Subtotal:</strong> [[subtotal]]</div>
+        <div><strong>Tax:</strong> [[tax_amount]]</div>
+        <div><strong>Grand Total:</strong> [[grand_total]]</div>
+      </div>
+      <div class="total-due">
+        <span>Total Due</span>
+        <span>[[grand_total]]</span>
+      </div>
+      <div class="footer">
+        Questions? Email [[org_email]] or call [[org_phone]].<br>
+        Account: [[account_name]] | Bank: [[bank_name]]<br>
+        Terms: [[terms_and_conditions]]
+      </div>
+    </div>
+  </div>
+</body>
+</html>
