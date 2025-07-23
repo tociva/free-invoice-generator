@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Template</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .decorative-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .decorative-elements::before,
+    .decorative-elements::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+      opacity: 0.1;
+    }
+
+    .decorative-elements::before {
+      width: 200px;
+      height: 200px;
+      top: -50px;
+      right: -50px;
+    }
+
+    .decorative-elements::after {
+      width: 150px;
+      height: 150px;
+      bottom: -30px;
+      left: -30px;
+      background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #5a67d8, #667eea);
+      color: white;
+      padding: 40px;
+      position: relative;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo img {
+      max-width: 100px;
+      max-height: 100px;
+      object-fit: contain;
+    }
+
+    .company-info h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .company-info p {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .invoice-title {
+      text-align: right;
+    }
+
+    .invoice-title h2 {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .invoice-meta {
+      background: #f8fafc;
+      padding: 20px 30px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .meta-section h3 {
+      color: #2d3748;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-section p {
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+
+    .invoice-details {
+      text-align: right;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .items-section {
+      padding: 40px;
+    }
+
+    .items-header {
+      background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .items-table th,
+    .items-table td {
+      text-align: center;
+      padding: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 14px;
+    }
+
+    .items-table th {
+      background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .item-description {
+      font-weight: 600;
+      color: #2d3748;
+      text-align: left;
+    }
+
+    .totals-section {
+      background: #f8fafc;
+      padding: 30px 40px;
+      border-top: 3px solid #667eea;
+    }
+
+    .totals-grid {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .totals-content {
+      width: 300px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .total-row:last-child {
+      border-bottom: none;
+      border-top: 2px solid #667eea;
+      font-weight: 700;
+      font-size: 18px;
+      color: #2d3748;
+      margin-top: 10px;
+      padding-top: 15px;
+    }
+
+    .total-label {
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .total-amount {
+      color: #2d3748;
+      font-weight: 600;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .thank-you {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .footer-text {
+      opacity: 0.9;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .authority-signature {
+      text-align: right;
+      margin-top: 30px;
+    }
+
+    .signature-line {
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+      width: 200px;
+      margin-left: auto;
+      margin-bottom: 10px;
+    }
+
+    .terms-notes {
+      background: #f8fafc;
+      padding: 20px 30px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .terms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .terms-section h4 {
+      color: #2d3748;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .terms-section p {
+      color: #4a5568;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .meta-grid,
+      .terms-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .items-table th,
+      .items-table td {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      .invoice-container {
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+    <div class="decorative-elements"></div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <div class="logo">
+            <img src="[[logo_small_src]]" alt="Logo" onerror="this.style.display='none'">
+          </div>
+          <div class="company-info">
+            <h1>[[org_name]]</h1>
+          </div>
+        </div>
+        <div class="invoice-title">
+          <h2>Invoice</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVOICE META -->
+    <div class="invoice-meta">
+      <div class="meta-grid">
+        <div class="meta-section">
+          <h3>Invoice To:</h3>
+          <p><strong>[[customer_name]]</strong></p>
+          <p>[[customer_address]]</p>
+          <p>[[customer_phone]]</p>
+          <p>[[customer_email]]</p>
+        </div>
+        <div class="meta-section invoice-details">
+          <h3>Invoice Details:</h3>
+          <div class="detail-item"><span class="detail-label">Invoice No:</span> [[invoice_number]]</div>
+          <div class="detail-item"><span class="detail-label">Invoice Date:</span> [[invoice_date]]</div>
+          <div class="detail-item"><span class="detail-label">Due Date:</span> [[payment_due_date]]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEMS TABLE -->
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td class="item-description">[[item_name]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- TOTALS -->
+    <div class="totals-section">
+      <div class="totals-grid">
+        <div class="totals-content">
+          <div class="total-row"><span class="total-label">Item Total:</span><span
+              class="total-amount">[[currency_symbol]][[itemtotal]]</span></div>
+          <div class="total-row"><span class="total-label">Discount:</span><span
+              class="total-amount">[[currency_symbol]][[discount]]</span></div>
+          <div class="total-row"><span class="total-label">Subtotal:</span><span
+              class="total-amount">[[currency_symbol]][[subtotal]]</span></div>
+          <div class="total-row"><span class="total-label">Tax:</span><span
+              class="total-amount">[[currency_symbol]][[tax_amount]]</span></div>
+          <div class="total-row"><span class="total-label">Round Off:</span><span
+              class="total-amount">[[currency_symbol]][[roundoff]]</span></div>
+          <div class="total-row"><span class="total-label">TOTAL AMOUNT:</span><span
+              class="total-amount">[[currency_symbol]][[grand_total]]</span></div>
+        </div>
+      </div>
+      <div style="margin-top: 20px; text-align: center; font-size: x-large; font-weight: 600; font-style: italic; color: #4a5568;">
+        Amount in words: [[grand_total_inwords]]
+      </div>
+    </div>
+
+    <!-- TERMS & NOTES -->
+    <div class="terms-notes">
+      <div class="terms-grid">
+        <div class="terms-section">
+          <h4>Notes:</h4>
+          <p>[[notes]]</p>
+        </div>
+        <div class="terms-section">
+          <h4>Terms & Conditions:</h4>
+          <p>[[terms_and_conditions]]</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="thank-you">Thank You!</div>
+      <div class="footer-text">
+        <p><strong>[[org_name]]</strong></p>
+        <p>[[org_address]]</p>
+        <p>[[org_phone]] | [[org_email]]</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
