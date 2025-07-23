@@ -5,6 +5,142 @@
         "description": "Simple invoice templates for daybook.cloud in scarlet red theme",
         "items": [
             {
+                "name": "Coral Breeze",
+                "path": "invoice-templates/simple-design/coral-breeze.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Crimson Edge",
+                "path": "invoice-templates/simple-design/crimson-edge.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Ruby Luxe",
+                "path": "invoice-templates/simple-design/ruby-luxe.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Violet Gradient",
+                "path": "invoice-templates/simple-design/violet-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Geometric Modern",
+                "path": "invoice-templates/simple-design/geometric-modern.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Watercolor Gradient",
+                "path": "invoice-templates/simple-design/watercolor-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Curved Gradient",
+                "path": "invoice-templates/simple-design/curved-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Geometric Shapes",
+                "path": "invoice-templates/simple-design/geometric-shapes.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Vibrant Gradient",
+                "path": "invoice-templates/simple-design/vibrant-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Split Gradient",
+                "path": "invoice-templates/simple-design/split-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Colorful Gradient",
+                "path": "invoice-templates/simple-design/colorful-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Vibrant Star Gradient",
+                "path": "invoice-templates/simple-design/vibrant-star-gradient.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Purple Geometric Elegance",
+                "path": "invoice-templates/simple-design/purple-geometric-elegance.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-aw",
+                "path": "invoice-templates/simple-design/simple-aw.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ax",
+                "path": "invoice-templates/simple-design/simple-ax.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-ay",
+                "path": "invoice-templates/simple-design/simple-ay.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Simple-az",
+                "path": "invoice-templates/simple-design/simple-az.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
                 "name": "Scarlet Red CGST-SGST",
                 "path": "invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html",
                 "tags": [
@@ -626,8 +762,8 @@
                 ]
             },
             {
-                "name": "Simple-a",
-                "path": "invoice-templates/simple-design/simple-a.html",
+                "name": "Classic Minimal ",
+                "path": "invoice-templates/simple-design/classic-minimal.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
@@ -826,32 +962,32 @@
                 ]
             },
             {
-                "name": "Simple-aa",
-                "path": "invoice-templates/simple-design/simple-aa.html",
+                "name": "Lavender Kids",
+                "path": "invoice-templates/simple-design/lavender-kids.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-ab",
-                "path": "invoice-templates/simple-design/simple-ab.html",
+                "name": "Fresh Curved",
+                "path": "invoice-templates/simple-design/fresh-curved.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-ac",
-                "path": "invoice-templates/simple-design/simple-ac.html",
+                "name": "Healthcare Invoice",
+                "path": "invoice-templates/simple-design/healthcare-invoice.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-ad",
-                "path": "invoice-templates/simple-design/simple-ad.html",
+                "name": "Wellness",
+                "path": "invoice-templates/simple-design/wellness.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
@@ -992,95 +1128,9 @@
                     "sidebar",
                     "non-taxable"
                 ]
-            },
-            {
-                "name": "Simple-aw",
-                "path": "invoice-templates/simple-design/simple-aw.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ax",
-                "path": "invoice-templates/simple-design/simple-ax.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ay",
-                "path": "invoice-templates/simple-design/simple-ay.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-az",
-                "path": "invoice-templates/simple-design/simple-az.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aaa",
-                "path": "invoice-templates/simple-design/simple-aaa.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aab",
-                "path": "invoice-templates/simple-design/simple-aab.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aac",
-                "path": "invoice-templates/simple-design/simple-aac.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aad",
-                "path": "invoice-templates/simple-design/simple-aad.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aae",
-                "path": "invoice-templates/simple-design/simple-aae.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aaf",
-                "path": "invoice-templates/simple-design/simple-aaf.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aag",
-                "path": "invoice-templates/simple-design/simple-aag.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
             }
+            
+            
         ]
     },
     {
