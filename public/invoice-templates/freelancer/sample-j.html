@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Wave Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            height: 280mm;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 25px 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: antiquewhite;
+        }
+
+        .header .logo img {
+            position: absolute;
+            right: 30px;
+            top: 25px;
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            border-radius: 50%;
+            padding: 5px;
+            z-index: 1;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="60"><path fill="white" d="M0 30 Q50 0 100 30 T200 30 T300 30 T400 30 T500 30 T600 30 T700 30 V60 H0 Z"/></svg>') repeat-x;
+            background-size: cover;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .meta {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .address-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .address-box h3 {
+            color: #2575fc;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .address-box p {
+            margin: 2px 0;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        thead {
+            background: #2575fc;
+            color: #fff;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .totals {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .totals .final {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 20px 30px;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .notes {
+            margin-top: 10px;
+            border-left: 4px solid #2575fc;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <h1>Invoice</h1>
+            <div class="logo"><img src="[[logo_small_src]]" alt="Logo"></div>
+            <div class="wave"></div>
+        </div>
+
+        <div class="content">
+            <div class="meta">
+                Invoice #: [[invoice_number]] | Date: [[invoice_date]] | Due: [[payment_due_date]]
+            </div>
+
+            <div class="address-section">
+                <div class="address-box">
+                    <h3>From:</h3>
+                    <p>[[org_name]]</p>
+                    <p>[[org_address]]</p>
+                    <p>[[org_phone]]</p>
+                    <p>[[org_email]]</p>
+                </div>
+                <div class="address-box">
+                    <h3>Bill To:</h3>
+                    <p>[[customer_name]]</p>
+                    <p>[[customer_address]]</p>
+                    <p>[[customer_phone]]</p>
+                    <p>[[customer_email]]</p>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [[items_start]]
+                    <tr>
+                        <td>[[item_name]]</td>
+                        <td>[[item_quantity]]</td>
+                        <td>[[currency_symbol]][[item_price]]</td>
+                        <td>[[currency_symbol]][[item_amount]]</td>
+                    </tr>
+                    [[items_end]]
+                </tbody>
+            </table>
+
+            <div class="totals">
+                <p>Item Total: [[currency_symbol]][[itemtotal]]</p>
+                <p>Discount: [[discount]]%</p>
+                <p>Subtotal: [[currency_symbol]][[subtotal]]</p>
+                <p>Tax: [[currency_symbol]][[tax_amount]]</p>
+                <p>Round Off: [[currency_symbol]][[roundoff]]</p>
+                <p class="final">Grand Total: [[currency_symbol]][[grand_total]]</p>
+                <p><em>[[grand_total_inwords]]</em></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="notes"><strong>Notes:</strong> [[notes]]</div>
+            <p><strong>Terms & Conditions:</strong> [[terms_and_conditions]]</p>
+            <p><strong>Payment:</strong> [[bank_name]] | [[account_number]] | [[account_name]]</p>
+            <p><strong>Authorized By:</strong> [[org_authority_name]], [[org_authority_designation]]</p>
+        </div>
+    </div>
+</body>
+
+</html>
