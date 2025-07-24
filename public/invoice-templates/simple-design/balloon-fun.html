@@ -9,82 +9,72 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f4fcf8;
       font-family: 'Comic Neue', cursive, sans-serif;
-      color: #333;
+      background: #fffaf5;
+      color: #444;
     }
 
     .invoice-wrapper {
-      width: 210mm;
-      height: 297mm; /* A4 height */
-      margin: 0 auto;
+      width: 200mm;
+      height: 280mm;
+      margin: 20px auto;
       background: #ffffff;
       border-radius: 20px;
-      border: 6px solid #b3e5c1;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      position: relative;
+      border: 5px solid #ffdde1;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      box-sizing: border-box;
-    }
-
-    /* HEADER SECTION */
-    .header {
-      background: linear-gradient(to right, #b3e5c1, #d1f4ff);
-      text-align: center;
-      padding: 30px 20px;
-      border-radius: 15px;
       position: relative;
     }
 
-    .header h1 {
+    /* HEADER */
+    .invoice-header {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 5px dashed #fff;
+      position: relative;
+    }
+
+    .invoice-header h1 {
       font-size: 3rem;
-      color: #317873;
+      color: #fff;
       margin: 0;
-      text-shadow: 1px 1px #fff;
+      text-shadow: 1px 1px 3px #e57373;
     }
 
-    .header img {
+    .invoice-header img {
       height: 100px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
-    .rainbow {
-      width: 100%;
-      height: 20px;
-      background: linear-gradient(to right, #ff9999, #ffcc99, #fff799, #99ffcc, #99ccff, #cc99ff);
-      border-radius: 0 0 10px 10px;
-      margin-top: 15px;
-    }
-
-    /* DETAILS SECTION */
-    .details {
+    /* DETAILS */
+    .invoice-details {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
-      padding: 0 20px;
-      flex-wrap: wrap;
+      padding: 20px 30px;
+      font-size: 1rem;
+      gap:10px;
     }
 
     .details-box {
-      background: #eafcf4;
-      padding: 15px;
-      border-radius: 12px;
       width: 48%;
-      box-sizing: border-box;
-      border: 2px dashed #97d9a0;
-      margin-bottom: 10px;
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px dashed #ffb347;
     }
 
     .details-box strong {
       display: block;
       margin-bottom: 5px;
-      color: #2d6354;
+      color: #444;
     }
 
     /* TABLE */
     table {
-      width: 95%;
+      width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
       border-radius: 10px;
@@ -92,13 +82,9 @@
     }
 
     thead {
-      background: #80d4c4;
+      background: #6ec1e4;
       color: white;
-    }
-
-    th:nth-child(n+2),
-    td:nth-child(n+2) {
-      text-align: right;
+      font-size: 1.1rem;
     }
 
     thead th, tbody td {
@@ -108,24 +94,25 @@
     }
 
     tbody tr:nth-child(even) {
-      background: #f0fbf9;
+      background: #f0faff;
     }
 
     /* TERMS */
     .terms {
-      background: #fffbe6;
+      background: #fff9e6;
       padding: 15px;
-      margin: 10px 20px;
+      margin: 10px 30px;
       border-radius: 10px;
       border: 2px dashed #ffd166;
+      font-size: 1rem;
     }
 
     /* TOTALS */
     .totals {
-      margin: 10px 20px;
+      margin: 10px 30px;
       text-align: right;
       font-size: 1.1rem;
-      color: #2d6354;
+      color: #333;
     }
 
     .totals div {
@@ -135,47 +122,28 @@
     /* FOOTER */
     .footer {
       text-align: center;
-      background: #e8f9f1;
+      background: #ffe4e1;
       padding: 15px;
-      border-radius: 10px;
       font-weight: bold;
-      margin-top: 15px;
-      color: #317873;
+      color: #444;
+      border-radius: 0 0 20px 20px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* DECORATIVE ELEMENTS */
-    .cloud {
-      position: absolute;
-      background: #e3f7ff;
-      border-radius: 50%;
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
     }
 
-    .cloud::before, .cloud::after {
-      content: '';
-      position: absolute;
-      background: #e3f7ff;
-      border-radius: 50%;
-    }
-
-    .cloud1 {
-      width: 120px; height: 60px; top: 20px; left: 20px;
-    }
-    .cloud1::before { width: 80px; height: 80px; top: -20px; left: -30px; }
-    .cloud1::after { width: 80px; height: 80px; top: -20px; right: -30px; }
-
-    .cloud2 {
-      width: 100px; height: 50px; top: 40px; right: 40px;
-    }
-    .cloud2::before { width: 60px; height: 60px; top: -15px; left: -25px; }
-    .cloud2::after { width: 60px; height: 60px; top: -15px; right: -25px; }
-
-    /* STATIC BALLOONS */
+    /* BALLOONS BELOW FOOTER */
     .balloon {
       position: absolute;
       width: 60px;
       height: 80px;
       border-radius: 50% 50% 45% 45%;
       bottom: 10px;
+      z-index: 0;
     }
 
     .balloon::before {
@@ -185,14 +153,14 @@
       left: 50%;
       width: 2px;
       height: 40px;
-      background: #666;
+      background: #888;
       transform: translateX(-50%);
     }
 
-    .balloon.red { background: #ff9999; left: 40px; }
-    .balloon.blue { background: #99ccff; left: 130px; }
-    .balloon.green { background: #99ffcc; right: 130px; }
-    .balloon.yellow { background: #ffe082; right: 40px; }
+    .balloon.red { background: #ff8a80; left: 60px; }
+    .balloon.blue { background: #80d8ff; left: 150px; }
+    .balloon.green { background: #a7ff83; left: 240px; }
+    .balloon.yellow { background: #ffe082; left: 330px; }
 
     /* PRINT SETTINGS */
     @page { size: A4; margin: 0; }
@@ -204,23 +172,14 @@
 </head>
 <body>
   <div class="invoice-wrapper">
-    <!-- Decorative Elements -->
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
-    <div class="balloon red"></div>
-    <div class="balloon blue"></div>
-    <div class="balloon green"></div>
-    <div class="balloon yellow"></div>
-
     <!-- Header -->
-    <div class="header">
-      <h1>Kids Invoice</h1>
+    <div class="invoice-header">
+      <h1>Invoice</h1>
       <img src="[[logo_small_src]]" alt="Logo" />
-      <div class="rainbow"></div>
     </div>
 
     <!-- Details -->
-    <div class="details">
+    <div class="invoice-details">
       <div class="details-box">
         <strong>From:</strong>
         [[org_name]]<br>
@@ -258,7 +217,7 @@
         [[items_end]]
       </tbody>
     </table>
-   
+
     <!-- Totals -->
     <div class="totals">
       <div>Subtotal: [[itemtotal]]</div>
@@ -274,12 +233,17 @@
       Thank you for your business! Have a joyful day!
     </div>
 
-     <!-- Terms -->
+    <!-- Terms -->
     <div class="terms">
       <strong>Terms & Conditions:</strong><br>
       [[terms_and_conditions]]
     </div>
 
+    <!-- Balloons -->
+    <div class="balloon red"></div>
+    <div class="balloon blue"></div>
+    <div class="balloon green"></div>
+    <div class="balloon yellow"></div>
   </div>
 </body>
 </html>

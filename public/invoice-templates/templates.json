@@ -109,32 +109,224 @@
                 ]
             },
             {
-                "name": "Simple-aw",
-                "path": "invoice-templates/simple-design/simple-aw.html",
+                "name": "Gradient Sidebar",
+                "path": "invoice-templates/simple-design/gradient-sidebar.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-ax",
-                "path": "invoice-templates/simple-design/simple-ax.html",
+                "name": "Abstract Pastel",
+                "path": "invoice-templates/simple-design/abstract-pastel.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-ay",
-                "path": "invoice-templates/simple-design/simple-ay.html",
+                "name": "Yellow Accent",
+                "path": "invoice-templates/simple-design/yellow-accent.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-az",
-                "path": "invoice-templates/simple-design/simple-az.html",
+                "name": "Tropical Sunset",
+                "path": "invoice-templates/simple-design/tropical-sunset.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Playful Baby",
+                "path": "invoice-templates/simple-design/playful-baby.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Balloon Fun",
+                "path": "invoice-templates/simple-design/balloon-fun.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Cheerful",
+                "path": "invoice-templates/simple-design/cheerful.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Lavender Kids",
+                "path": "invoice-templates/simple-design/lavender-kids.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Fresh Curved",
+                "path": "invoice-templates/simple-design/fresh-curved.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Healthcare Invoice",
+                "path": "invoice-templates/simple-design/healthcare-invoice.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Wellness",
+                "path": "invoice-templates/simple-design/wellness.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Essential Healthcare",
+                "path": "invoice-templates/simple-design/essential-healthcare.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "VitalCare",
+                "path": "invoice-templates/simple-design/vitalcare.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "HealthChrono",
+                "path": "invoice-templates/simple-design/healthchrono.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "MediPrime Split",
+                "path": "invoice-templates/simple-design/mediprime-split.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "NeoTech",
+                "path": "invoice-templates/simple-design/neotech.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Amber Stripe",
+                "path": "invoice-templates/simple-design/amber-stripe.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Opulence",
+                "path": "invoice-templates/simple-design/opulence.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "HoloTech",
+                "path": "invoice-templates/simple-design/holotech.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Vintage Luxe",
+                "path": "invoice-templates/simple-design/vintage-luxe.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "PeachAura",
+                "path": "invoice-templates/simple-design/peachaura.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Editorial Edge",
+                "path": "invoice-templates/simple-design/editorial-edge.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Vintage Gazette",
+                "path": "invoice-templates/simple-design/vintage-gazette.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Vibrant Edge",
+                "path": "invoice-templates/simple-design/vibrant-edge.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Purple Blaze",
+                "path": "invoice-templates/simple-design/purple-blaze.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Verdant Glow",
+                "path": "invoice-templates/simple-design/verdant-glow.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Deep Sea",
+                "path": "invoice-templates/simple-design/deep-sea.html",
+                "tags": [
+                    "sidebar",
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Elegant Wave",
+                "path": "invoice-templates/simple-design/elegant-wave.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
@@ -286,7 +478,8 @@
                 ]
             }
         ]
-    },{
+    },
+    {
         "theme": "Buissness-invoice-templates",
         "name": "Buissness Invoice Templates",
         "description": "Buissness invoice templates for daybook.cloud",
@@ -516,6 +709,104 @@
                     "leaf",
                     "freelacer",
                     "freelance"
+                ]
+            },
+            {
+                "name": "sample-a",
+                "path": "invoice-templates/freelancer/sample-a.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-b",
+                "path": "invoice-templates/freelancer/sample-b.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-c",
+                "path": "invoice-templates/freelancer/sample-c.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-d",
+                "path": "invoice-templates/freelancer/sample-d.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-e",
+                "path": "invoice-templates/freelancer/sample-e.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-f",
+                "path": "invoice-templates/freelancer/sample-f.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-g",
+                "path": "invoice-templates/freelancer/sample-g.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-h",
+                "path": "invoice-templates/freelancer/sample-h.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-i",
+                "path": "invoice-templates/freelancer/sample-i.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-j",
+                "path": "invoice-templates/freelancer/sample-j.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-k",
+                "path": "invoice-templates/freelancer/sample-k.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-l",
+                "path": "invoice-templates/freelancer/sample-l.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-m",
+                "path": "invoice-templates/freelancer/sample-m.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-n",
+                "path": "invoice-templates/freelancer/sample-n.html",
+                "tags": [
+                    "non-taxable"
                 ]
             }
         ]
@@ -770,367 +1061,173 @@
                 ]
             },
             {
-                "name": "Simple-b",
-                "path": "invoice-templates/simple-design/simple-b.html",
+                "name": "Clean Professional Red",
+                "path": "invoice-templates/simple-design/clean-professional-red.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-c",
-                "path": "invoice-templates/simple-design/simple-c.html",
+                "name": "Elegant Gray",
+                "path": "invoice-templates/simple-design/elegant-gray.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-d",
-                "path": "invoice-templates/simple-design/simple-d.html",
+                "name": "Bold Accent Business",
+                "path": "invoice-templates/simple-design/bold-accent-business.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-e",
-                "path": "invoice-templates/simple-design/simple-e.html",
+                "name": "Contemporary Business",
+                "path": "invoice-templates/simple-design/contemporary-business.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-f",
-                "path": "invoice-templates/simple-design/simple-f.html",
+                "name": "Corporate Sidebar",
+                "path": "invoice-templates/simple-design/corporate-sidebar.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-g",
-                "path": "invoice-templates/simple-design/simple-g.html",
+                "name": "Turquoise",
+                "path": "invoice-templates/simple-design/turquoise.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-h",
-                "path": "invoice-templates/simple-design/simple-h.html",
+                "name": "Warm Glow",
+                "path": "invoice-templates/simple-design/warm-glow.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-i",
-                "path": "invoice-templates/simple-design/simple-i.html",
+                "name": "Royal Indigo",
+                "path": "invoice-templates/simple-design/royal-indigo.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-j",
-                "path": "invoice-templates/simple-design/simple-j.html",
+                "name": "Fresh Mint",
+                "path": "invoice-templates/simple-design/fresh-mint.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-k",
-                "path": "invoice-templates/simple-design/simple-k.html",
+                "name": "Azure Classic",
+                "path": "invoice-templates/simple-design/azure-classic.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-l",
-                "path": "invoice-templates/simple-design/simple-l.html",
+                "name": "Classic Cream",
+                "path": "invoice-templates/simple-design/classic-cream.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-m",
-                "path": "invoice-templates/simple-design/simple-m.html",
+                "name": "Warm Beige",
+                "path": "invoice-templates/simple-design/warm-beige.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-n",
-                "path": "invoice-templates/simple-design/simple-n.html",
+                "name": "Lavender Stripe",
+                "path": "invoice-templates/simple-design/lavender-stripe.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-p",
-                "path": "invoice-templates/simple-design/simple-p.html",
+                "name": "Sunset Gradient",
+                "path": "invoice-templates/simple-design/sunset-gradient.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-q",
-                "path": "invoice-templates/simple-design/simple-q.html",
+                "name": "Contemporary Purple",
+                "path": "invoice-templates/simple-design/contemporary-purple.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-r",
-                "path": "invoice-templates/simple-design/simple-r.html",
+                "name": "Eco Green",
+                "path": "invoice-templates/simple-design/eco-green.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-s",
-                "path": "invoice-templates/simple-design/simple-s.html",
+                "name": "Sunburst Grey",
+                "path": "invoice-templates/simple-design/sunburst-grey.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-t",
-                "path": "invoice-templates/simple-design/simple-t.html",
+                "name": "Vibrant Duo",
+                "path": "invoice-templates/simple-design/vibrant-duo.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-u",
-                "path": "invoice-templates/simple-design/simple-u.html",
+                "name": "Steel Blue",
+                "path": "invoice-templates/simple-design/steel-blue.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-v",
-                "path": "invoice-templates/simple-design/simple-v.html",
+                "name": "Fresh Modern",
+                "path": "invoice-templates/simple-design/fresh-modern.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             },
             {
-                "name": "Simple-w",
-                "path": "invoice-templates/simple-design/simple-w.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-x",
-                "path": "invoice-templates/simple-design/simple-x.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-y",
-                "path": "invoice-templates/simple-design/simple-y.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-z",
-                "path": "invoice-templates/simple-design/simple-z.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Lavender Kids",
-                "path": "invoice-templates/simple-design/lavender-kids.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Fresh Curved",
-                "path": "invoice-templates/simple-design/fresh-curved.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Healthcare Invoice",
-                "path": "invoice-templates/simple-design/healthcare-invoice.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Wellness",
-                "path": "invoice-templates/simple-design/wellness.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ae",
-                "path": "invoice-templates/simple-design/simple-ae.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-af",
-                "path": "invoice-templates/simple-design/simple-af.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ag",
-                "path": "invoice-templates/simple-design/simple-ag.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ah",
-                "path": "invoice-templates/simple-design/simple-ah.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ai",
-                "path": "invoice-templates/simple-design/simple-ai.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aj",
-                "path": "invoice-templates/simple-design/simple-aj.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ak",
-                "path": "invoice-templates/simple-design/simple-ak.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-al",
-                "path": "invoice-templates/simple-design/simple-al.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-am",
-                "path": "invoice-templates/simple-design/simple-am.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-an",
-                "path": "invoice-templates/simple-design/simple-an.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ap",
-                "path": "invoice-templates/simple-design/simple-ap.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-aq",
-                "path": "invoice-templates/simple-design/simple-aq.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-ar",
-                "path": "invoice-templates/simple-design/simple-ar.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-as",
-                "path": "invoice-templates/simple-design/simple-as.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-at",
-                "path": "invoice-templates/simple-design/simple-at.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-au",
-                "path": "invoice-templates/simple-design/simple-au.html",
-                "tags": [
-                    "sidebar",
-                    "non-taxable"
-                ]
-            },
-            {
-                "name": "Simple-av",
-                "path": "invoice-templates/simple-design/simple-av.html",
+                "name": "Kids Care",
+                "path": "invoice-templates/simple-design/kids-care.html",
                 "tags": [
                     "sidebar",
                     "non-taxable"
                 ]
             }
-            
-            
         ]
     },
     {
@@ -1242,5 +1339,4 @@
             }
         ]
     }
-    
 ]
