@@ -808,6 +808,48 @@
                 "tags": [
                     "non-taxable"
                 ]
+            },
+            {
+                "name": "sample-o",
+                "path": "invoice-templates/freelancer/sample-o.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-p",
+                "path": "invoice-templates/freelancer/sample-p.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-q",
+                "path": "invoice-templates/freelancer/sample-q.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-r",
+                "path": "invoice-templates/freelancer/sample-r.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-s",
+                "path": "invoice-templates/freelancer/sample-s.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-t",
+                "path": "invoice-templates/freelancer/sample-t.html",
+                "tags": [
+                    "non-taxable"
+                ]
             }
         ]
     },
