@@ -850,6 +850,62 @@
                 "tags": [
                     "non-taxable"
                 ]
+            },
+            {
+                "name": "sample-u",
+                "path": "invoice-templates/freelancer/sample-u.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-v",
+                "path": "invoice-templates/freelancer/sample-v.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-w",
+                "path": "invoice-templates/freelancer/sample-w.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-x",
+                "path": "invoice-templates/freelancer/sample-x.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-y",
+                "path": "invoice-templates/freelancer/sample-y.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-z",
+                "path": "invoice-templates/freelancer/sample-z.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-aa",
+                "path": "invoice-templates/freelancer/sample-aa.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "sample-ab",
+                "path": "invoice-templates/freelancer/sample-ab.html",
+                "tags": [
+                    "non-taxable"
+                ]
             }
         ]
     },
