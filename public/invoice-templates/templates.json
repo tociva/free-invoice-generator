@@ -712,197 +712,239 @@
                 ]
             },
             {
-                "name": "sample-a",
-                "path": "invoice-templates/freelancer/sample-a.html",
+                "name": "Modern Gradient",
+                "path": "invoice-templates/freelancer/modern-gradient.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-b",
-                "path": "invoice-templates/freelancer/sample-b.html",
+                "name": "Elegant",
+                "path": "invoice-templates/freelancer/elegant.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-c",
-                "path": "invoice-templates/freelancer/sample-c.html",
+                "name": "Modern Dark",
+                "path": "invoice-templates/freelancer/modern-dark.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-d",
-                "path": "invoice-templates/freelancer/sample-d.html",
+                "name": "Black Red",
+                "path": "invoice-templates/freelancer/black-red.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-e",
-                "path": "invoice-templates/freelancer/sample-e.html",
+                "name": "Luxury Gold",
+                "path": "invoice-templates/freelancer/luxury-gold.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-f",
-                "path": "invoice-templates/freelancer/sample-f.html",
+                "name": "Pastel",
+                "path": "invoice-templates/freelancer/pastel.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-g",
-                "path": "invoice-templates/freelancer/sample-g.html",
+                "name": "Neon Blue",
+                "path": "invoice-templates/freelancer/neon-blue.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-h",
-                "path": "invoice-templates/freelancer/sample-h.html",
+                "name": "Fresh",
+                "path": "invoice-templates/freelancer/fresh.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-i",
-                "path": "invoice-templates/freelancer/sample-i.html",
+                "name": "Retro",
+                "path": "invoice-templates/freelancer/retro.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-j",
-                "path": "invoice-templates/freelancer/sample-j.html",
+                "name": "Gradient Wave",
+                "path": "invoice-templates/freelancer/gradient-wave.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-k",
-                "path": "invoice-templates/freelancer/sample-k.html",
+                "name": "Dark Modern",
+                "path": "invoice-templates/freelancer/dark-modern.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-l",
-                "path": "invoice-templates/freelancer/sample-l.html",
+                "name": "Polygon Tech",
+                "path": "invoice-templates/freelancer/polygon-tech.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-m",
-                "path": "invoice-templates/freelancer/sample-m.html",
+                "name": "Premium Curved",
+                "path": "invoice-templates/freelancer/premium-curved.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-n",
-                "path": "invoice-templates/freelancer/sample-n.html",
+                "name": "Creative Wave",
+                "path": "invoice-templates/freelancer/creative-wave.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-o",
-                "path": "invoice-templates/freelancer/sample-o.html",
+                "name": "Vertical Split",
+                "path": "invoice-templates/freelancer/vertical-split.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-p",
-                "path": "invoice-templates/freelancer/sample-p.html",
+                "name": "Minimalist",
+                "path": "invoice-templates/freelancer/minimalist.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-q",
-                "path": "invoice-templates/freelancer/sample-q.html",
+                "name": "Elegant Dark",
+                "path": "invoice-templates/freelancer/elegant-dark.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-r",
-                "path": "invoice-templates/freelancer/sample-r.html",
+                "name": "Minimal Pink",
+                "path": "invoice-templates/freelancer/minimal-pink.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-s",
-                "path": "invoice-templates/freelancer/sample-s.html",
+                "name": "Factura",
+                "path": "invoice-templates/freelancer/factura.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-t",
-                "path": "invoice-templates/freelancer/sample-t.html",
+                "name": "Sweet Shop",
+                "path": "invoice-templates/freelancer/sweet-shop.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-u",
-                "path": "invoice-templates/freelancer/sample-u.html",
+                "name": "Purple Clover",
+                "path": "invoice-templates/freelancer/purple-clover.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-v",
-                "path": "invoice-templates/freelancer/sample-v.html",
+                "name": "Modern Green",
+                "path": "invoice-templates/freelancer/modern-green.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-w",
-                "path": "invoice-templates/freelancer/sample-w.html",
+                "name": "Modern Purple",
+                "path": "invoice-templates/freelancer/modern-purple.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-x",
-                "path": "invoice-templates/freelancer/sample-x.html",
+                "name": "Creative Blue & Yellow",
+                "path": "invoice-templates/freelancer/creative-blue-and-yellow.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-y",
-                "path": "invoice-templates/freelancer/sample-y.html",
+                "name": "Leaf Pattern Blue",
+                "path": "invoice-templates/freelancer/leaf-pattern-blue.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-z",
-                "path": "invoice-templates/freelancer/sample-z.html",
+                "name": "Warm Gradient",
+                "path": "invoice-templates/freelancer/warm-gradient.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-aa",
-                "path": "invoice-templates/freelancer/sample-aa.html",
+                "name": "Jade Stripe",
+                "path": "invoice-templates/freelancer/jade-stripe.html",
                 "tags": [
                     "non-taxable"
                 ]
             },
             {
-                "name": "sample-ab",
-                "path": "invoice-templates/freelancer/sample-ab.html",
+                "name": "Royal Blue Gradient",
+                "path": "invoice-templates/freelancer/royal-blue-gradient.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Sunset Blaze",
+                "path": "invoice-templates/freelancer/sunset-blaze.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Copper Elegance",
+                "path": "invoice-templates/freelancer/copper-elegance.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Rose Blush",
+                "path": "invoice-templates/freelancer/rose-blush.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Emerald Flow",
+                "path": "invoice-templates/freelancer/emerald-flow.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Golden Edge",
+                "path": "invoice-templates/freelancer/golden-edge.html",
+                "tags": [
+                    "non-taxable"
+                ]
+            },
+            {
+                "name": "Crystal Blue",
+                "path": "invoice-templates/freelancer/crystal-blue.html",
                 "tags": [
                     "non-taxable"
                 ]
