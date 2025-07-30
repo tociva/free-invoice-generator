@@ -161,6 +161,56 @@
   .nav-btn:hover {
     background: var(--accent-color);
   }
+
+  /* Template Grid */
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.template-card {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.template-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-card:hover {
+  transform: scale(1.05);
+}
+
+.template-detail {
+  text-align: center;
+  padding: 20px;
+}
+
+.template-preview {
+  max-width: 90%;
+  height: auto;
+  margin: 20px auto;
+  display: block;
+}
+
+.back-btn {
+  display: inline-block;
+  margin: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+
   
   @media (max-width: 600px) {
     header {
