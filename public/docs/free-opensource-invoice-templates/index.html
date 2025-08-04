@@ -1,72 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Customizing Invoice Templates - Daybook.Cloud</title>
-<link rel="stylesheet" href="../css/style.css">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=36061&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customizing Invoice Templates - Daybook.Cloud</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header>
+<header>
   <span class="hamburger-container">
-  <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
-  
-  <label for="drawer-toggle" class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </label>
-  
-  <nav class="drawer">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/invoice">Create Invoice</a></li>
-      <li><a href="/templates">Templates</a></li>
-      <li><a href="/docs">Docs</a></li>
-    </ul>
-  </nav>
-  </span>
-    <div class="header-title">Free Invoice Generator by Daybook.Cloud </div>
-    <nav class="header-nav">
-      <a href="/">Home</a>
-      <a href="/invoice">Create Invoice</a>
-      <a href="/templates">Templates</a>
-      <a href="/docs">Docs</a>
+    <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
+    <label for="drawer-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav class="drawer">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/invoice">Create Invoice</a></li>
+        <li><a href="/templates">Templates</a></li>
+        <li><a href="/docs">Docs</a></li>
+      </ul>
     </nav>
-  </header>
-  <main>
-    <div class="template-header">
-      <a href="/templates/prev" class="nav-btn prev-btn">&laquo; Back</a>
-      <h1>List of all templates</h1>
-      <a href="/templates/next" class="nav-btn next-btn">Next &raquo;</a>
-    </div>
-    <div class="templates-grid">
-      <a href="/docs/free-opensource-invoice-templates/modern/coral-breeze.html" class="template-card">
+  </span>
+  <div class="header-title">Free Invoice Generator by Daybook.Cloud</div>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/invoice">Create Invoice</a>
+    <a href="/templates">Templates</a>
+    <a href="/docs">Docs</a>
+  </nav>
+</header>
+
+<main>
+  <div class="template-header">
+    <!-- <a href="/templates/prev" class="nav-btn prev-btn">&laquo; Back</a> -->
+    <h1>List of all templates</h1>
+    <a href="/docs/free-opensource-invoice-templates/page/2/index.html" class="nav-btn next-btn">Next &raquo;</a>
+  </div>
+
+  <div class="search-container" style="text-align:center; margin-top: 2rem;">
+  <input
+    type="text"
+    id="templateSearch"
+    placeholder="Search templates..."
+    style="padding: 0.5rem; width: 300px; font-size: 1rem;"
+  />
+</div>
+
+  <div class="templates-grid">
+  
+    <a href="/docs/free-opensource-invoice-templates/description/coral-breeze.html" class="template-card">
         <img src="/docs/assets/coral-breeze.png" alt="Coral Breeze">
         <h3>Coral Breeze</h3>
       </a>
-      <a href="/templates/crimson-edge.html" class="template-card">
-        <img src="/docs/assets/crimson-edge.png" alt="Crimson Edge">
-        <h3>Crimson Edge</h3>
-      </a>
-      <a href="/templates/ruby-luxe.html" class="template-card">
-        <img src="/docs/assets/ruby-luxe.png" alt="Ruby Luxe">
-        <h3>Ruby Luxe</h3>
-      </a>
-      <a href="/templates/violet-gradient.html" class="template-card">
-        <img src="/docs/assets/violet-gradient.png" alt="Violet Gradient">
-        <h3>Violet Gradient</h3>
-      </a>
-      <a href="/templates/geometric-modern.html" class="template-card">
-        <img src="/docs/assets/geometric-modern.png" alt="Geometric Modern">
-        <h3>Geometric Modern</h3>
-      </a>
-      <a href="/templates/watercolor-gradient.html" class="template-card">
-        <img src="/docs/assets/watercolor-gradient.png" alt="Watercolor Gradient">
-        <h3>Watercolor Gradient</h3>
-      </a>
-    </div>
-  </main>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/crimson-edge.html" class="template-card">
+      <img src="/docs/assets/crimson-edge.png" alt="Crimson Edge">
+      <h3>Crimson Edge</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/ruby-luxe.html" class="template-card">
+      <img src="/docs/assets/ruby-luxe.png" alt="Ruby Luxe">
+      <h3>Ruby Luxe</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/violet-gradient.html" class="template-card">
+      <img src="/docs/assets/violet-gradient.png" alt="Violet Gradient">
+      <h3>Violet Gradient</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/geometric-modern.html" class="template-card">
+      <img src="/docs/assets/geometric-modern.png" alt="Geometric Modern">
+      <h3>Geometric Modern</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/watercolor-gradient.html" class="template-card">
+      <img src="/docs/assets/watercolor-gradient.png" alt="Watercolor Gradient">
+      <h3>Watercolor Gradient</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/curved-gradient.html" class="template-card">
+      <img src="/docs/assets/curved-gradient.png" alt="Curved Gradient">
+      <h3>Curved Gradient</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/geometric-shapes.html" class="template-card">
+      <img src="/docs/assets/geometric-shapes.png" alt="geometric-shapes">
+      <h3>Geometric Shapes</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/vibrant-gradient.html" class="template-card">
+      <img src="/docs/assets/vibrant-gradient.png" alt="Vibrant Gradient">
+      <h3>Vibrant Gradient</h3>
+    </a>
+  
+    <a href="/docs/free-opensource-invoice-templates/description/split-gradient.html" class="template-card">
+      <img src="/docs/assets/split-gradient.png" alt="Split Gradient">
+      <h3>Split Gradient</h3>
+    </a>
+  
+</div>
+
+<div class="pagination">
+  
+
+  Page 1 of 10
+
+  
+    <a href="/docs/free-opensource-invoice-templates/page/2/index.html" class="nav-btn next-btn">Next &raquo;</a>
+  
+</div>
+
+</main>
+
 <footer>
   &copy; 2025 Daybook.Cloud. All rights reserved.
 </footer>
