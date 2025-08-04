@@ -44,7 +44,7 @@
       display: none;
   }
   main {
-    max-width: 1000px;
+    max-width: 1250px;
     margin: 2rem auto;
     padding: 0 1rem;
   }
@@ -165,30 +165,47 @@
   /* Template Grid */
 .templates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr); /* 5 templates per row */
+  gap: 25px; /* spacing between templates */
   padding: 20px;
+  justify-items: center; /* center cards if smaller than column */
 }
 
+
+
+
 .template-card {
+   width: 220px;  /* increase width */
+  height: 320px; /* increase height */
   text-decoration: none;
   color: inherit;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   text-align: center;
   background: #fff;
   transition: transform 0.2s ease;
 }
 
 .template-card img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 250px; /* fixed height for larger preview */
+  object-fit: contain; /* keeps aspect ratio without cropping */
+  display: block;
 }
 
-.template-card:hover {
+
+.template-card:hover img {
   transform: scale(1.05);
 }
+.template-card h3 {
+  font-size: 1.05rem;
+  margin-top: 8px;
+}
+
 
 .template-detail {
   text-align: center;
@@ -196,11 +213,11 @@
 }
 
 .template-preview {
-  max-width: 90%;
+  max-width: 100%;
   height: auto;
   margin: 20px auto;
   display: block;
-}
+}templates/aqua-edge
 
 .back-btn {
   display: inline-block;
@@ -209,6 +226,42 @@
   color: #333;
   font-weight: bold;
 }
+
+/* Modern Pagination Button */
+.pagination .next-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #367588, #4a9fb4);
+  color: white;
+  padding: 10px 28px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.pagination .next-btn:hover {
+  background: linear-gradient(90deg, #4a9fb4, #367588);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pagination .next-btn:active {
+  transform: scale(0.96);
+}
+.pagination {
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  text-align: center;
+  margin: 40px 0 20px 0;
+}
+
 
 
   
