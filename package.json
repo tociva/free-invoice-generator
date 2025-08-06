@@ -1,6 +1,6 @@
 {
   "name": "free-invoice-generator",
-  "version": "1.0.58",
+  "version": "1.0.59",
   "engines": {
     "node": "22.x",
     "yarn": "^4.0.0"
