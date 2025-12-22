@@ -1,4 +1,8 @@
 @theme {
   --color-background: var(--background-color);
   --color-text :var(--text-color);
+
+  --font-roboto: 'Roboto', sans-serif;
+  --font-lobster: 'Lobster', cursive;
+
 }

@@ -1,31 +1,27 @@
-<div class="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-10 text-center overflow-hidden">
+<div
+  class="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-10 text-center overflow-hidden"
+>
   <div
     class="w-full max-w-3xl rounded-3xl bg-white/90 backdrop-blur-md p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] animate-fadeIn"
   >
     <!-- Intro text -->
-    <div class="mb-8 text-center flex-1">
-      <span class="block text-lg font-semibold text-black/90">
-        No signups. No credit card.
-      </span>
-
-      <span class="text-gray-500">
-        Free &amp; open source on
-      </span>
-
+    <div class="my-8 text-lg flex-1 items-center gap-4 md:text-xl">
+      <span class="font-extrabold text-black/90">No signups. No credit card.</span>
+      <span class="text-gray-500">Free &amp; open source on</span>
       <a
         href="https://github.com/tociva/free-invoice-generator"
         target="_blank"
         rel="noopener"
-        class="inline-flex items-center gap-2 mt-2 px-3 py-1.5 rounded-md bg-gray-100 text-black transition-colors duration-300 hover:bg-black hover:text-white"
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-100 text-black transition-colors duration-300 hover:bg-black hover:text-white"
       >
-        <ng-icon name="bootstrapGithub" class="w-5 h-5" />
-        GitHub
+        <ng-icon name="bootstrapGithub" class="w-5 h-5" /> GitHub
       </a>
     </div>
 
     <!-- Main CTA -->
     <button
-      class="w-full sm:w-auto text-lg sm:text-xl font-medium px-6 sm:px-7 py-3 rounded-xl bg-background text-text cursor-pointer transition-all duration-200 ease-out shadow-[0_4px_16px_rgba(54,117,136,0.3)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(54,117,136,0.4)]"
+      class="w-full sm:w-auto text-xl sm:text-xl font-medium px-6 sm:px-7 py-3 rounded-xl bg-background text-text cursor-pointer transition-all duration-200 ease-out shadow-[0_4px_16px_rgba(54,117,136,0.3)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(54,117,136,0.4)]"
+      (click)="goToInvoiceCreator()"
     >
       Jump Right In — Make Your Invoice
     </button>
@@ -38,41 +34,28 @@
     </div>
 
     <!-- Upload section -->
-   <!-- DESKTOP: Drag & Drop + Button -->
-<div
-  class="hidden md:flex mx-auto w-full h-[20vh]
-         border-2 border-dashed border-gray-400
-         rounded-2xl p-6 bg-white
-         flex-col items-center justify-center
-         transition-colors duration-300"
->
-  <div class="italic mb-1 text-gray-600">
-    Drop your invoice JSON file here or click below
-  </div>
+    <!-- DESKTOP: Drag & Drop + Button -->
+    <div
+      class="hidden md:flex mx-auto w-full h-[20vh] border-2 border-dashed border-gray-400 rounded-2xl p-6 bg-white flex-col items-center justify-center transition-colors duration-300"
+    >
+      <div class="italic mb-1 text-gray-600">Drop your invoice JSON file here or click below</div>
 
-  <label
-    class="cursor-pointer bg-white text-sm font-semibold
-           px-5 py-3 rounded-md  border-gray-400
-           transition-colors duration-200 hover:bg-gray-200"
-  >
-    Browse JSON File
-    <input type="file" accept=".json" class="hidden" />
-  </label>
-   
-</div>
-   
+      <label
+        class="cursor-pointer bg-white text-sm font-semibold px-5 py-3 rounded-md border-gray-400 transition-colors duration-200 hover:bg-gray-200"
+      >
+        Browse JSON File
+        <input type="file" accept=".json" class="hidden" />
+      </label>
+    </div>
 
-<!-- MOBILE: Button only -->
-<div class="md:hidden flex justify-center">
-  <label
-    class="cursor-pointer bg-background text-text font-medium
-           px-5 py-3 rounded-md border border-gray-400
-           transition-colors duration-200 hover:bg-gray-100"
-  >
-    Upload Invoice JSON File
-    <input type="file" accept=".json" class="hidden" />
-  </label>
-</div>
-
+    <!-- MOBILE: Button only -->
+    <div class="md:hidden flex justify-center">
+      <label
+        class="cursor-pointer bg-background text-text font-medium px-5 py-3 rounded-md border border-gray-400 transition-colors duration-200 hover:bg-gray-100"
+      >
+        Upload Invoice JSON File
+        <input type="file" accept=".json" class="hidden" />
+      </label>
+    </div>
   </div>
 </div>

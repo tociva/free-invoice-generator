@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
   providers:[provideAppIcon()]
 })
 export class Header {
+  
   menuOpen = signal(false);
 
   toggleMenu(){

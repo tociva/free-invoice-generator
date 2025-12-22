@@ -1,6 +1,6 @@
 <div class="bg-background text-text flex justify-between items-center p-4 h-16">
-  <div class="font-bold text-text lg:text-xl md:text-xs">
-    Free Invoice Generator by Daybook.Cloud
+  <div class="font-extrabold text-text lg:text-xl md:text-xs">
+    <a routerLink="/simple-invoice">Free Invoice Generator by Daybook.Cloud</a>
   </div>
 
   <!-- Desktop Menu -->
@@ -25,7 +25,7 @@
 
 <!-- Mobile Menu -->
 @if(menuOpen()){
-<div class="md:hidden bg-background text-white flex flex-col gap-2 p-4" >
+<div class="md:hidden bg-background text-white flex flex-col gap-2 p-4">
   <a routerLink="/home" (click)="closeMenu()">Home</a>
   <a routerLink="/simple-invoice" (click)="closeMenu()">Simple Invoice</a>
   <a routerLink="/invoice" (click)="closeMenu()">Advance Invoice</a>

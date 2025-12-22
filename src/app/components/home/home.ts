@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { provideAppIcon } from '../../provider/icon-provider';
 import { NgIcon } from '@ng-icons/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,10 @@ import { NgIcon } from '@ng-icons/core';
   providers :[provideAppIcon()],
 })
 export class Home {
-  
 
+  router = inject(Router);
+
+  goToInvoiceCreator = () => {
+    this.router.navigate(['/simple-invoice'],{ queryParams: { step: 0 } });
+  }
 }
