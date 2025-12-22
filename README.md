@@ -1,47 +1,59 @@
-# 🧾 Free Invoice Generator
+# FreeInvoiceGenerator20
 
-**Free Invoice Generator** is an open-source, easy-to-use web application for creating professional invoices quickly and for free. No subscriptions, no hidden costs — just simple, clean invoicing for freelancers, small businesses, and anyone who wants to save time.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
 
-## ✨ Features
+## Development server
 
-✅ Completely free and open source  
-✅ Simple, user-friendly interface  
-✅ Customizable invoice details (client info, items, tax, discounts)  
-✅ Automatic calculation of totals and taxes  
-✅ PDF generation and download  
-✅ Multiple currencies and date formats  
-✅ Clean, professional invoice templates  
-✅ Works offline (PWA-ready, if configured)  
-✅ Mobile-friendly design  
-
----
-
-## 🚀 Demo
-
-You can try it out here (replace this with your actual link if hosted):
-
-**[Live Demo](https://free-invoice-generator.app)**
-
-
-## 🛠️ Getting Started
-
-Clone the repository and run it locally:
+To start a local development server, run:
 
 ```bash
-git clone https://github.com/tociva/free-invoice-generator
-cd free-invoice-generator
-yarn install
-yarn start
-```
-Then open your browser at http://localhost:4200.
-
-## 📦 Build for Production
-
-```
-yarn build
+ng serve
 ```
 
-## ✅ Lint the Code
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+
+```bash
+ng generate component component-name
 ```
-yarn lint
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
 ```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
