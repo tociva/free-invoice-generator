@@ -1,0 +1,36 @@
+<div class="bg-background text-text flex justify-between items-center p-4 h-16">
+  <div class="font-bold text-text lg:text-xl md:text-xs">
+    Free Invoice Generator by Daybook.Cloud
+  </div>
+
+  <!-- Desktop Menu -->
+  <div class="hidden md:flex gap-8 text-sm font-medium">
+    <a routerLink="/home">Home</a>
+    <a routerLink="/simple-invoice">Simple Invoice</a>
+    <a routerLink="/invoice">Advance Invoice</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a routerLink="/templates">Templates</a>
+    <a routerLink="/docs">Doc</a>
+  </div>
+
+  <!-- Hamburger Button -->
+  <button class="md:hidden text-text focus:outline-none" (click)="toggleMenu()">
+    <!-- Icon -->
+    <ng-icon
+      [name]="menuOpen() ? 'bootstrapX' : 'bootstrapList'"
+      class="w-10 h-15 text-4xl"
+    ></ng-icon>
+  </button>
+</div>
+
+<!-- Mobile Menu -->
+@if(menuOpen()){
+<div class="md:hidden bg-background text-white flex flex-col gap-2 p-4" >
+  <a routerLink="/home" (click)="closeMenu()">Home</a>
+  <a routerLink="/simple-invoice" (click)="closeMenu()">Simple Invoice</a>
+  <a routerLink="/invoice" (click)="closeMenu()">Advance Invoice</a>
+  <a href="https://github.com" target="_blank">GitHub</a>
+  <a routerLink="/templates" (click)="closeMenu()">Templates</a>
+  <a routerLink="/docs" (click)="closeMenu()">Doc</a>
+</div>
+}

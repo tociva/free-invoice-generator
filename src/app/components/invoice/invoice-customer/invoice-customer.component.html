@@ -1,7 +1,0 @@
-<div class="table-container table-form-container">
-  <div *ngIf="!simple" class="table-form-title">Customer Details</div>
-  <ag-grid-angular class="ag-theme-alpine table-form-grid" [rowData]="customerRowData"
-        [columnDefs]="customerColumnDefs" [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
-        [domLayout]="'autoHeight'" [getRowId]="getRowId" [headerHeight]="0" (gridReady)="onCustomerGridReady($event)">
-      </ag-grid-angular>
-</div>
