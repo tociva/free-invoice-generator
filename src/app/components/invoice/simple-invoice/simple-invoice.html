@@ -1,1 +1,66 @@
-<p>simple-invoice works!</p>
+<!-- STEPPER BAR -->
+<div class="max-w-8xl mx-auto px-6 py-6">
+
+  <div class="flex items-center w-full">
+
+    <ng-container *ngFor="let step of steps; let i = index">
+
+      <!-- STEP -->
+      <div
+        class="flex items-center gap-3 cursor-pointer whitespace-nowrap"
+        (click)="goToStep(step.id)"
+      >
+        <!-- NUMBER CIRCLE -->
+        <div
+          class="w-6 h-6 rounded-full flex items-center justify-center text-sm font-semibold"
+          [ngClass]="{
+            'bg-blue-600 text-white': currentStep === step.id,
+            'bg-gray-700 text-white': currentStep !== step.id
+          }"
+        >
+          {{ step.id }}
+        </div>
+
+        <!-- LABEL -->
+        <span
+          class="text-sm font family-sans"
+          [ngClass]="{
+            'text-blue-600': currentStep === step.id,
+            'text-gray-800': currentStep !== step.id
+          }"
+        >
+          {{ step.label }}
+        </span>
+      </div>
+
+      <!-- CONNECTOR LINE -->
+      <div
+        *ngIf="i < steps.length - 1"
+        class="flex-1 h-px mx-4"
+        [ngClass]="{
+          'bg-blue-600': currentStep > step.id,
+          'bg-gray-300': currentStep <= step.id
+        }"
+      ></div>
+      
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+<!-- STEP CONTENT -->
+<div class="max-w-8xl mx-auto px-6 py-8">
+  @if( currentStep === 1 ){<div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-gray-800">Fill invoice details</h2>
+  </div>}
+
+  @if( currentStep === 2 ){<div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-gray-800">Select a template</h2>
+  </div>}
+
+  @if( currentStep === 3 ){<div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-gray-800">Preview and Download</h2>
+  </div>}
+</div>
