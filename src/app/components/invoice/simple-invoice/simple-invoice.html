@@ -4,7 +4,8 @@
 
   <div class="flex items-center w-full overflow-x-auto">
 
-    <ng-container *ngFor="let step of steps; let i = index">
+    @for(step of steps; track step.id; let i = $index) {
+    <ng-container>
 
       <!-- STEP -->
       <div
@@ -15,8 +16,8 @@
         <div
           class="w-8 h-8 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-sm sm:text-sm font-semibold"
           [ngClass]="{
-            'bg-blue-600 text-white': currentStep === step.id,
-            'bg-gray-700 text-white': currentStep !== step.id
+            'bg-blue-600 text-white': currentStep() === step.id,
+            'bg-gray-700 text-white': currentStep() !== step.id
           }"
         >
           {{ step.id }}
@@ -26,8 +27,8 @@
         <span
           class="text-sm sm:text-base font family-sans"
           [ngClass]="{
-            'text-blue-600': currentStep === step.id,
-            'text-gray-800': currentStep !== step.id
+            'text-blue-600': currentStep() === step.id,
+            'text-gray-800': currentStep() !== step.id
           }"
         >
           {{ step.label }}
@@ -35,18 +36,19 @@
       </div>
 
       <!-- CONNECTOR LINE -->
+      @if(i < steps.length - 1) {
       <div
-        *ngIf="i < steps.length - 1"
         class="hidden sm:block flex-1 h-px mx-4"
         [ngClass]="{
-          'bg-blue-600': currentStep > step.id,
-          'bg-gray-300': currentStep <= step.id
+          'bg-blue-600': currentStep() > step.id,
+          'bg-gray-300': currentStep() <= step.id
         }"
       ></div>
+      }
       
 
     </ng-container>
-
+  }
   </div>
 
 </div>
@@ -57,22 +59,22 @@
     <button
       type="button"
       class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 disabled:opacity-50"
-      (click)="goToStep(currentStep - 1)"
-      [disabled]="currentStep === 1"
+      (click)="goToStep(currentStep() - 1)"
+      [disabled]="currentStep() === 1"
     >
       Prev
     </button>
 
     <div class="text-center flex-1 px-4">
-      <div class="text-sm text-gray-500">Step {{ currentStep }} of {{ steps.length }}</div>
-      <div class="text-base font-semibold text-gray-800 truncate">{{ steps[currentStep - 1]?.label }}</div>
+      <div class="text-sm text-gray-500">Step {{ currentStep() }} of {{ steps.length }}</div>
+      <div class="text-base font-semibold text-gray-800 truncate">{{ steps[currentStep() - 1]?.label }}</div>
     </div>
 
     <button
       type="button"
       class="px-3 py-1 rounded-md bg-blue-600 text-white disabled:opacity-50"
-      (click)="goToStep(currentStep + 1)"
-      [disabled]="currentStep === steps.length"
+      (click)="goToStep(currentStep() + 1)"
+      [disabled]="currentStep() === steps.length"
     >
       Next
     </button>
@@ -81,15 +83,15 @@
 
 <!-- STEP CONTENT -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
-  @if( currentStep === 1 ){
+  @if( currentStep() === 1 ){
     <app-preview-invoice></app-preview-invoice>
   }
 
- @if( currentStep === 2 ){<div class="bg-white rounded-lg shadow-md p-6 sm:p-8">
+ @if( currentStep() === 2 ){<div class="bg-white rounded-lg shadow-md p-6 sm:p-8">
     <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Select a template</h2>
   </div>}
 
-  @if( currentStep === 3 ){<div class="card-box-white">
+  @if( currentStep() === 3 ){<div class="card-box-white">
     <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Preview and Download</h2>
   </div>}
 </div>

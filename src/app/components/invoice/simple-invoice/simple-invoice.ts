@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 
@@ -10,7 +10,7 @@ import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
   styleUrl: './simple-invoice.css',
 })
 export class SimpleInvoice {
-  currentStep = 1;
+  currentStep = signal(1);
 
   steps = [
     { id: 1, label: 'Fill invoice details'},
@@ -19,6 +19,6 @@ export class SimpleInvoice {
   ];
 
   goToStep(stepId: number): void {
-    this.currentStep = stepId;
+    this.currentStep.set(stepId);
   }
 }

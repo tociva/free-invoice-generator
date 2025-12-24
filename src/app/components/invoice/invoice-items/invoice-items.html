@@ -5,23 +5,26 @@
       <span class="text-right flex gap-1 md:gap-4">Price <span class="hidden sm:inline">Qty</span> Total</span>
     </div>
     <div class="divide-y">
-      @for (item of items; track item.id) {
+      @for (item of items(); track item.id) {
         <div class="px-2 md:px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs md:text-sm hover:bg-gray-50 gap-2 sm:gap-4">
           <input
-            [(ngModel)]="item.name"
+            [value]="item.name"
+            (input)="updateItemField(item.id, 'name', $any($event.target).value)"
             type="text"
             class="flex-1 outline-none w-full sm:w-auto"
             placeholder="Item name"
           />
           <span class="text-right flex flex-wrap items-center gap-1 md:gap-4 w-full sm:w-auto justify-end">
             <input
-              [(ngModel)]="item.price"
+              [value]="item.price"
+              (input)="updateItemField(item.id, 'price', +$any($event.target).value)"
               type="number"
               class="w-16 md:w-24 text-right form-input text-xs md:text-sm"
               placeholder="Price"
             />
             <input
-              [(ngModel)]="item.qty"
+              [value]="item.qty"
+              (input)="updateItemField(item.id, 'qty', +$any($event.target).value)"
               type="number"
               min="1"
               class="w-12 md:w-16 text-center form-input text-xs md:text-sm"

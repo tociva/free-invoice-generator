@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 interface Organization {
   name: string;
@@ -11,7 +10,7 @@ interface Organization {
 @Component({
   selector: 'app-invoice-organization',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './invoice-organization.html',
   styleUrls: ['./invoice-organization.css'],
 })
@@ -21,6 +20,12 @@ export class InvoiceOrganizationComponent implements OnInit {
     address: 'My Address',
     details: 'String Towers, String Valley',
   };
+
+  organizationName: WritableSignal<string> = signal(this.organization.name);
+  organizationAddress: WritableSignal<string> = signal(this.organization.address);
+  organizationDetails: WritableSignal<string> = signal(this.organization.details);
+
+  constructor() {}
 
   ngOnInit(): void {}
 }

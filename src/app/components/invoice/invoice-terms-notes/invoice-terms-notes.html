@@ -2,7 +2,8 @@
   <div>
     <label class="block text-sm font-medium mb-2">Additional Notes</label>
     <textarea
-      [(ngModel)]="notes"
+      [value]="notesSig()"
+      (input)="notesSig.set($any($event.target).value)"
       class="textarea-input"
       placeholder="Type additional notes here"
     ></textarea>
@@ -10,7 +11,8 @@
   <div>
     <label class="block text-sm font-medium mb-2">Terms & Conditions</label>
     <textarea
-      [(ngModel)]="terms"
+      [value]="termsSig()"
+      (input)="termsSig.set($any($event.target).value)"
       class="textarea-input"
       placeholder="Type terms and conditions here"
     ></textarea>

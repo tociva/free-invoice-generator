@@ -1,8 +1,8 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
   <!-- Amount and Numbering -->
-  <div class="md:col-span-2 card-box">
+  <div class="sm:col-span-2 card-box">
     <label class="inline-flex items-center text-xs md:text-sm">
-      <input [(ngModel)]="internationalNumbering" type="checkbox" class="mr-2" />
+      <input [checked]="internationalNumberingSig()" (change)="internationalNumberingSig.set($any($event.target).checked)" type="checkbox" class="mr-2" />
       International Numbering
     </label>
     <div class="mt-4 text-center">
@@ -22,7 +22,8 @@
     <div class="text-xs md:text-sm flex justify-between mt-2">
       <span>Round Off</span>
       <input
-        [(ngModel)]="roundOff"
+        [value]="roundOffSig()"
+        (input)="roundOffSig.set(+$any($event.target).value)"
         type="number"
         class="w-16 md:w-20 text-right form-input text-xs md:text-sm"
       />

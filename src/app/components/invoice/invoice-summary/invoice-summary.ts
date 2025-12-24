@@ -1,21 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice-summary',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './invoice-summary.html',
   styleUrls: ['./invoice-summary.css'],
 })
 export class InvoiceSummaryComponent implements OnInit {
   @Input() totalAmount: number = 300000;
-
   internationalNumbering: boolean = true;
   roundOff: number = 0;
   currency: string = '₹';
   currencyCode: string = 'INR';
+
+  internationalNumberingSig: WritableSignal<boolean> = signal(this.internationalNumbering);
+  roundOffSig: WritableSignal<number> = signal(this.roundOff);
+
+  constructor() {}
 
   ngOnInit(): void {}
 

@@ -2,7 +2,8 @@
   <div class="detail-field">
     <div class="text-xs text-gray-500">Invoice Number</div>
     <input
-      [(ngModel)]="details.invoiceNumber"
+      [value]="invoiceNumber()"
+      (input)="invoiceNumber.set($any($event.target).value)"
       type="text"
       class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
@@ -12,7 +13,8 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Invoice Date</div>
       <input
-        [(ngModel)]="details.invoiceDate"
+        [value]="invoiceDate()"
+        (input)="invoiceDate.set($any($event.target).value)"
         type="text"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
@@ -20,7 +22,8 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Due Date</div>
       <input
-        [(ngModel)]="details.dueDate"
+        [value]="dueDate()"
+        (input)="dueDate.set($any($event.target).value)"
         type="text"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
