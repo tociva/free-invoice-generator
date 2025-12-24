@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 
 @Component({
   selector: 'app-simple-invoice',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PreviewInvoiceComponent],
   templateUrl: './simple-invoice.html',
   styleUrl: './simple-invoice.css',
 })
 export class SimpleInvoice {
-  currentStep = 1;
+  currentStep = signal(1);
 
   steps = [
     { id: 1, label: 'Fill invoice details'},
@@ -18,6 +19,6 @@ export class SimpleInvoice {
   ];
 
   goToStep(stepId: number): void {
-    this.currentStep = stepId;
+    this.currentStep.set(stepId);
   }
 }
