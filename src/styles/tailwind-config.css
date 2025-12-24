@@ -1,4 +1,35 @@
 @theme {
   --color-background: var(--background-color);
   --color-text :var(--text-color);
+
+  --font-roboto: 'Roboto', sans-serif;
+  --font-lobster: 'Lobster', cursive;
+
+}
+
+@layer utilities {
+  .animate-border-run {
+    @apply relative border-0; /* Tailwind utilities for base style */
+    
+    background-image:
+      linear-gradient(90deg, #808080 50%, transparent 50%), 
+      linear-gradient(90deg, #808080 50%, transparent 50%),
+      linear-gradient(0deg, #808080 50%, transparent 50%),
+      linear-gradient(0deg, #808080 50%, transparent 50%);
+    
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 20px 2px, 20px 2px, 2px 20px, 2px 20px;
+    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+    animation: border-run 0.3s linear infinite;
+  }
+
+  @keyframes border-run {
+    to {
+      background-position:
+        20px 0,
+        calc(100% - 20px) 100%,
+        0 calc(100% - 20px),
+        100% 20px;
+    }
+  }
 }

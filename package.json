@@ -1,6 +1,10 @@
 {
   "name": "free-invoice-generator-2.0",
   "version": "0.0.0",
+  "engines": {
+    "node": "22.x",
+    "yarn": "4.12.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
