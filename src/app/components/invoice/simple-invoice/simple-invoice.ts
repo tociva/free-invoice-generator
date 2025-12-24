@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 
 @Component({
   selector: 'app-simple-invoice',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PreviewInvoiceComponent],
   templateUrl: './simple-invoice.html',
   styleUrl: './simple-invoice.css',
 })

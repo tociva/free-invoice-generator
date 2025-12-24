@@ -1,0 +1,29 @@
+<div class="space-y-3">
+  <div class="detail-field">
+    <div class="text-xs text-gray-500">Invoice Number</div>
+    <input
+      [(ngModel)]="details.invoiceNumber"
+      type="text"
+      class="w-full text-right font-medium outline-none text-sm md:text-base"
+    />
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Invoice Date</div>
+      <input
+        [(ngModel)]="details.invoiceDate"
+        type="text"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Due Date</div>
+      <input
+        [(ngModel)]="details.dueDate"
+        type="text"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+  </div>
+</div>
