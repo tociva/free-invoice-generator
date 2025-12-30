@@ -8,7 +8,9 @@
           <app-invoice-logo></app-invoice-logo>
         </div>
         <div class="w-full sm:w-1/2">
-          <app-invoice-details></app-invoice-details>
+          <!-- <app-invoice-details [advanced]="true"></app-invoice-details> -->
+          <app-invoice-details (valueChange)="onInvoiceDetails($event)"></app-invoice-details>
+
         </div>
       </div>
 

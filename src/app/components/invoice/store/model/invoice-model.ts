@@ -48,9 +48,9 @@ export interface Customer {
 
 
 export interface Invoice {
-  number: string;
-  date: Date;
-  dueDate: Date;
+  invoiceNo: string;
+  invoiceDate: Date;
+  invoiceDueDate: Date;
   currency: Currency;
   decimalPlaces: number;
   dateFormat: DateFormat;

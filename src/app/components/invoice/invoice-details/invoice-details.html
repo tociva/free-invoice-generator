@@ -1,10 +1,11 @@
+
 <div class="space-y-3">
   <div class="detail-field">
     <div class="text-xs text-gray-500">Invoice Number</div>
     <input
-      [value]="invoiceNumber()"
-      (input)="invoiceNumber.set($any($event.target).value)"
-      type="text"
+    type="text"
+      [field]="invoiceDetails.invoiceNo"
+      placeholder="Enter invoice number"
       class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
   </div>
@@ -13,18 +14,18 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Invoice Date</div>
       <input
-        [value]="invoiceDate()"
-        (input)="invoiceDate.set($any($event.target).value)"
-        type="text"
+        [field]="invoiceDetails.invoiceDate"
+        type="date"
+        placeholder="Select invoice date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
     </div>
     <div class="detail-field">
       <div class="text-xs text-gray-500">Due Date</div>
       <input
-        [value]="dueDate()"
-        (input)="dueDate.set($any($event.target).value)"
-        type="text"
+        [field]="invoiceDetails.invoiceDueDate"
+        type="date"
+        placeholder="Select due date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
     </div>

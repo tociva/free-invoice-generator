@@ -1,31 +1,34 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, input, model, output, signal } from '@angular/core';
+// import { Invoice } from '../store/model/invoice-model';
+import { Field, form, required } from '@angular/forms/signals';
 
-interface InvoiceDetail {
-  invoiceNumber: string;
+type InvoiceForm = {
+  invoiceNo: string;
   invoiceDate: string;
-  dueDate: string;
-}
+  invoiceDueDate: string;
+};
 
 @Component({
   selector: 'app-invoice-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [Field],
   templateUrl: './invoice-details.html',
   styleUrls: ['./invoice-details.css'],
 })
-export class InvoiceDetailsComponent implements OnInit {
-  details: InvoiceDetail = {
-    invoiceNumber: 'INV-001',
-    invoiceDate: '24-06-2025',
-    dueDate: '01-07-2025',
-  };
+export class InvoiceDetailsComponent {
+  advanced = input(false);
 
-  invoiceNumber: WritableSignal<string> = signal(this.details.invoiceNumber);
-  invoiceDate: WritableSignal<string> = signal(this.details.invoiceDate);
-  dueDate: WritableSignal<string> = signal(this.details.dueDate);
+  invoiceModel = signal<InvoiceForm>({
+    invoiceNo: '',
+    invoiceDate: '',
+    invoiceDueDate: '',
+  });
+  invoiceDetails = form(this.invoiceModel);
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  valueChange = output<InvoiceForm>();
+  constructor() {
+    effect(() => {
+      this.valueChange.emit(this.invoiceModel());
+    });
+  }
 }
