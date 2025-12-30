@@ -1,26 +1,19 @@
 <div class="card-box">
-  <div class="font-semibold">
+
+    <div class="text-[1 rem] text-gray-500">My Name</div>
     <input
-      [value]="organizationName()"
-      (input)="organizationName.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-sm md:text-base"
+      [field]="organizationDetails.name"
+      placeholder="My name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
-  </div>
-  <div class="text-xs text-gray-600">
-    <input
-      [value]="organizationAddress()"
-      (input)="organizationAddress.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-xs md:text-sm"
-    />
-  </div>
-  <div class="mt-3 md:mt-4 text-xs md:text-sm text-gray-700">
-    <input
-      [value]="organizationDetails()"
-      (input)="organizationDetails.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-xs md:text-sm"
-    />
-  </div>
+
+ 
+    <div class="text-[1 rem] text-gray-500">My Address</div>
+    <textarea
+  [field]="organizationDetails.address"
+  placeholder="My address"
+  rows="2"
+  class="w-full text-right font-medium outline-none text-sm md:text-base resize-none"
+></textarea>
+
 </div>

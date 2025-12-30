@@ -1,32 +1,19 @@
 <div class="card-box">
-  <div class="font-semibold">
-    <input
-      [value]="customerName()"
-      (input)="customerName.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-sm md:text-base bg-transparent cursor-default"
-      readonly
-      aria-readonly="true"
-    />
-  </div>
 
-  <div class="text-xs text-gray-600">
+    <div class="text-[1 rem] text-gray-500">Customer Name</div>
     <input
-      [value]="customerAddress()"
-      (input)="customerAddress.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-xs md:text-sm bg-transparent cursor-default"
-      readonly
-      aria-readonly="true"
+      [field]="customerDetails.name"
+      placeholder="Customer name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
-  </div>
 
-  <div class="mt-3 md:mt-4 text-xs md:text-sm text-gray-700">
-    <input
-      [value]="customerDetails()"
-      (input)="customerDetails.set($any($event.target).value)"
-      type="text"
-      class="w-full outline-none text-xs md:text-sm"
-    />
-  </div>
+ 
+    <div class="text-[1 rem] text-gray-500">Address</div>
+    <textarea
+  [field]="customerDetails.address"
+  placeholder="Customer address"
+  rows="2"
+  class="w-full text-right font-medium outline-none text-sm md:text-base resize-none"
+></textarea>
+
 </div>

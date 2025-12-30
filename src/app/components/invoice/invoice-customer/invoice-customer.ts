@@ -1,31 +1,33 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, input, output, signal } from '@angular/core';
+import { Field, form } from '@angular/forms/signals';
 
-interface Customer {
+type CustomerForm = {
   name: string;
   address: string;
-  details: string;
-}
+};
 
 @Component({
   selector: 'app-invoice-customer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [Field],
   templateUrl: './invoice-customer.html',
   styleUrls: ['./invoice-customer.css'],
 })
-export class InvoiceCustomerComponent implements OnInit {
-  customer: Customer = {
-    name: 'Customer Name',
-    address: 'Customer Address',
-    details: 'Tom towers, tom valley',
-  };
+export class InvoiceCustomerComponent {
+  advanced = input(false);
 
-  customerName: WritableSignal<string> = signal(this.customer.name);
-  customerAddress: WritableSignal<string> = signal(this.customer.address);
-  customerDetails: WritableSignal<string> = signal(this.customer.details);
+  customerModel = signal<CustomerForm>({
+    name: '',
+    address: '',
+  });
 
-  constructor() {}
+  customerDetails = form(this.customerModel);
 
-  ngOnInit(): void {}
+  valueChange = output<CustomerForm>();
+
+  constructor() {
+    effect(() => {
+      this.valueChange.emit(this.customerModel());
+    });
+  }
 }
