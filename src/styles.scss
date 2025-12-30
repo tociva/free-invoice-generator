@@ -1,0 +1,154 @@
+/* You can add global styles to this file, and also import other style files */
+@use './styles/variables' as *;
+
+html, body { height: 100%; background-color: #ffffff; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.stepper-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 10px;
+  margin-bottom: 20px;
+  button {
+      min-width: 100px;
+      border-radius: 8px;
+      font-weight: 500;
+      z-index: 0;
+      cursor: pointer;
+  }
+}
+
+.table-container  {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 0px 10px 10px 10px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+  overflow-x: auto;
+}
+.simple-invoice .table-container {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.simple-invoice .table-container.invoice-amount-words {
+  background: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+.table-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+.table-form-container {
+  max-width: 720px;
+  overflow: hidden;
+}
+
+.table-form-title {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #2c3e50;
+}
+
+.table-form-grid {
+  width: 100%;
+  max-width: 100%;
+  font-size: 15px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* LabelColumnRenderer The ? icon */
+.tooltip-trigger {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  background-color: #eee;
+  color: #333;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  font-size: 0.85em;
+  transition: background-color 0.2s ease;
+}
+
+/* LabelColumnRenderer Tooltip text itself (hidden by default) */
+.tooltip-text {
+  visibility: hidden;
+  position: fixed;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+  font-size: 0.75em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}
+
+/* Show the tooltip on hover/focus */
+.tooltip-trigger:hover .tooltip-text,
+.tooltip-trigger:focus .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Remove all borders inside the grid */
+.plain-grid .ag-cell,
+.plain-grid .ag-row,
+.plain-grid .ag-header-cell,
+.plain-grid .ag-header-group-cell,
+.plain-grid .ag-row-selected,
+.plain-grid .ag-row-hover {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove the grid's outer border/box/shadow */
+.plain-grid .ag-root,
+.plain-grid .ag-root-wrapper,
+.plain-grid .ag-root-wrapper-body,
+.plain-grid .ag-header {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+@media (max-width: $breakpoint-mobile) {
+
+  .stepper-actions {
+    justify-content: center;
+    margin-bottom: 20px;
+
+    button {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+  
+  .table-form-container {
+    padding: 0 0 0 0;
+  }
+  .table-container{
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    margin-left: 0%;
+  }
+  
+  .table-form-title {
+    display: none;
+  }
+}

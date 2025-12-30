@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Codeso Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 10px;
+      background: #f4f7fa;
+      color: #333;
+    }
+
+    .invoice-box {
+      max-width: 850px;
+      margin: 20px auto;
+      padding: 40px;
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .top-banner {
+      height: 100px;
+      background-size: contain;
+      display: flex;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .company-info {
+      color: #106BA0;
+    }
+
+    .company-info h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .title {
+      text-align: right;
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .details-box {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .details-box .left,
+    .details-box .right {
+      width: 48%;
+    }
+
+    .details-box p {
+      margin: 5px 0;
+      font-size: 0.95em;
+    }
+
+    .highlight-box {
+      background: #e0f3ff;
+      padding: 15px;
+      margin-top: 10px;
+      border-left: 4px solid #106BA0;
+    }
+
+    .highlight-box strong {
+      display: inline-block;
+      width: 100px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    table thead {
+      background: #106BA0;
+      color: white;
+    }
+
+    table th, table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 0.95em;
+      text-align: left;
+    }
+
+    .summary {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .summary p {
+      margin: 4px 0;
+    }
+
+    .total-box {
+      background: #106BA0;
+      color: white;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1.3em;
+      margin-top: 10px;
+    }
+
+    .payment-method {
+      margin-top: 30px;
+    }
+
+    .payment-method p {
+      margin: 5px 0;
+      font-size: 0.95em;
+    }
+
+    .terms {
+      margin-top: 20px;
+      font-size: 0.85em;
+      color: #666;
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 50px;
+    }
+
+    .signature img {
+      height: 60px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85em;
+      color: #666;
+    }
+
+    .footer p {
+      margin: 5px 0;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="top-banner">
+       <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+
+    <div class="header">
+      <div class="company-info">
+        <h2>[[org_name]]</h2>
+      </div>
+    </div>
+
+    <div class="details-box">
+      <div class="left">
+        <p><strong>INVOICED TO:</strong>[[customer_name]]</p>
+        <p><strong>Phone:</strong>[[customer_phone]]</p>
+        <p><strong>Email:</strong>[[customer_email]]</p>
+        <p><strong>Address:</strong>[[customer_address]]</p>
+      </div>
+      <div class="right highlight-box">
+        <p><strong>Invoice Date:</strong>[[invoice_date]]</p>
+        <p><strong>Due Date:</strong> [[payment_due_date]]</p>
+        <p><strong>Invoice No:</strong>[[invoice_number]]</p>
+      </div>
+    </div>
+
+    <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      [[items_start]]
+      <tr>
+        <td>[[item_name]]</td>
+        <td>[[item_quantity]]</td>
+        <td>[[item_price]]</td>
+        <td>[[item_cgst]]</td>
+        <td>[[item_sgst]]</td>
+        <td>[[item_amount]]</td>
+      </tr>
+      [[items_end]]
+    </tbody>
+  </table>
+
+    <div class="summary">
+      <p><strong>Item Total:</strong>[[itemtotal]]</p>
+      <p><strong>Discount:</strong> [[discount]]</p>
+      <p><strong>Subtotal:</strong>[[subtotal]]</p>
+      <p><strong>Tax:</strong>[[tax_amount]]</p>
+      <p><strong>Round Off:</strong>[[roundoff]]</p>
+      <div class="total-box">Total:[[grand_total]]</div>
+    </div>
+
+    <div class="payment-method">
+      <p><strong>Payment Method</strong></p>
+      <p>ACCOUNT: 0123456789012345601</p>
+      <p>SWIFT: 12345678</p>
+      <p>Payment Details: paypal@domain.com</p>
+    </div>
+
+    <div class="signature">
+      <p>Company signature</p>
+    </div>
+
+    <div class="footer">
+      <p>[[org_phone]]</p>
+      <p>[[org_email]]</p>
+      <p>[[org_address]]</p>
+    </div>
+
+</body>
+</html>

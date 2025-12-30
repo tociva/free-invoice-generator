@@ -1,0 +1,45 @@
+@use '../../util/common.styles.scss' as *;
+
+.item-container {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.add-item-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 5px;
+  background-color:#367588;
+
+  mat-icon {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #619aac;
+  }
+}
+
+
+.item-grid {
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+  min-width: 100%;
+}
+::ng-deep .custom-grid-header .ag-header {
+  background-color: #8dafb9 !important; // Light blue background
+  border-bottom: 1px solid #ccc !important;
+}
+
+::ng-deep .custom-grid-header .ag-header-cell-label {
+  color: #ffffff !important; // Dark blue text
+  font-size: 14px !important;
+}
+

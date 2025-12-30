@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Template</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b6b 0%, #8b0000 100%);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, #ff6b6b, #8b0000);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15px;
+      height: 15px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .company-name {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .invoice-title {
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      text-align: right;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .invoice-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .invoice-details h3 {
+      color: #8b0000;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .invoice-details p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .items-table thead {
+      background: linear-gradient(135deg, #8b0000 0%, #ff6b6b 100%);
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    .items-table th {
+      padding: 15px;
+      text-align: left;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .items-table th:last-child {
+      text-align: right;
+    }
+
+    .items-table tbody tr {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+    }
+
+    .items-table tbody tr:nth-child(even) {
+      background: linear-gradient(135deg, #ffebeb 0%, #ffd6d6 100%);
+    }
+
+    .items-table td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+      color: #333;
+    }
+
+    .items-table td:last-child {
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .bottom-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      gap: 30px;
+    }
+
+    .client-info {
+      flex: 1;
+    }
+
+    .client-info h3 {
+      background: #8b0000;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .client-info p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .payment-info {
+      flex: 1;
+    }
+
+    .payment-info h3 {
+      background: #8b0000;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .totals {
+      margin-top: 20px;
+      font-size: 12px;
+      text-align: right;
+      z-index: 1;
+      position: relative;
+      line-height: 1.5;
+    }
+    .totals div {
+      margin: 5px 0;
+    }
+    .totals .total {
+      font-weight:600;
+      font-size:large;
+      background: #8b0000;
+      color: #fff;
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    .terms {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .terms h3 {
+      color: #8b0000;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .terms p {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .signature-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+
+    .signature {
+      text-align: center;
+    }
+
+    .signature h4 {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .signature-line {
+      width: 200px;
+      height: 2px;
+      background: #333;
+      margin: 0 auto;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #8b0000 0%, #ff6b6b 100%);
+      padding: 20px 30px;
+      text-align: center;
+    }
+
+    .footer p {
+      color: white;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .decorative-elements {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      opacity: 0.1;
+    }
+
+    .decorative-star {
+      width: 20px;
+      height: 20px;
+      background: #8b0000;
+      transform: rotate(45deg);
+      margin: 10px;
+      display: inline-block;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .invoice-container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .invoice-info {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .bottom-section {
+        flex-direction: column;
+      }
+
+      .invoice-title {
+        font-size: 36px;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .logo-section {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+    <div class="header">
+      <div class="decorative-elements">
+        <div class="decorative-star"></div>
+        <div class="decorative-star"></div>
+        <div class="decorative-star"></div>
+      </div>
+
+      <div class="logo-section">
+        <div class="logo">
+          <img src="[[logo_small_src]]" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%;">
+        </div>
+        <div class="company-name">[[org_name]]</div>
+      </div>
+
+      <div class="invoice-title">INVOICE</div>
+    </div>
+
+    <div class="content">
+      <div class="invoice-info">
+        <div class="invoice-details">
+          <h3>Invoice #</h3>
+          <p>[[invoice_number]]</p>
+        </div>
+        <div class="invoice-details">
+          <h3>Date</h3>
+          <p>[[invoice_date]]</p>
+        </div>
+        <div class="invoice-details">
+          <h3>Due Date</h3>
+          <p>[[payment_due_date]]</p>
+        </div>
+      </div>
+
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Price</th>
+            <th>Qty.</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <div class="bottom-section">
+        <div class="client-info">
+          <h3>Invoice to</h3>
+          <p><strong>[[customer_name]]</strong></p>
+          <p>[[customer_address]]</p>
+          <p>[[customer_phone]]</p>
+          <p>[[customer_email]]</p>
+        </div>
+
+        <div class="payment-info">
+          <h3>Payment Info</h3>
+          <p>Invoice No. [[invoice_number]]</p>
+          <p><strong>Account Name:</strong> [[account_name]]</p>
+          <p><strong>Account Number:</strong> [[account_number]]</p>
+          <p><strong>Bank Name:</strong> [[bank_name]]</p>
+        </div>
+
+        <div class="totals">
+     Item Total: [[itemtotal]]<br>
+      Discount: [[discount]]<br>
+      Subtotal: [[subtotal]]<br>
+      Round Off: [[roundoff]]<br>
+      <div class="total">Total: [[grand_total]]</div>
+    </div>
+      </div>
+
+      <div class="terms">
+        <h3>Terms & Conditions:</h3>
+        <p>[[terms_and_conditions]]</p>
+      </div>
+
+      <div class="terms" style="margin-top: 20px;">
+        <h3>Notes:</h3>
+        <p>[[notes]]</p>
+      </div>
+
+      <div class="signature-section">
+        <div class="signature">
+          <h4>[[org_authority_name]]</h4>
+          <h5 style="font-size: 12px; color: #999; margin-bottom: 20px;">[[org_authority_designation]]</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>[[org_name]] | [[org_address]] | [[org_phone]] | [[org_email]]</p>
+    </div>
+  </div>
+</body>
+
+</html>
