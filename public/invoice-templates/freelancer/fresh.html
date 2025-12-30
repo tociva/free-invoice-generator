@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Invoice Template</title>
+    <style>
+        @page { size: A4; margin: 0; }
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Curved Header */
+        .header {
+            background: linear-gradient(135deg, #3cba92, #0ba360);
+            padding: 40px 30px 60px 30px;
+            color: white;
+            position: relative;
+            text-align: left;
+            border-bottom-left-radius: 80px 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header .invoice-meta {
+            font-size: 1rem;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: white;
+            border-radius: 50%;
+            padding: 10px;
+        }
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+        }
+        .address-section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .address-box {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .address-box h3 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+        .address-box p {
+            margin: 3px 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* Items Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        thead {
+            background: #3cba92;
+            color: white;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+         table th:nth-child(2),
+        table th:nth-child(3),
+        table th:nth-child(4),
+        table th:nth-child(5),
+        table th:nth-child(6),
+        table td:nth-child(2),
+        table td:nth-child(3),
+        table td:nth-child(4),
+        table td:nth-child(5),
+        table td:nth-child(6) {
+            text-align: right;
+        }
+
+        /* Totals */
+        .totals {
+            margin-top: 25px;
+            text-align: right;
+        }
+        .totals p {
+            margin: 3px 0;
+            font-size: 0.95rem;
+        }
+        .totals .final {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0ba360;
+        }
+        .totals .words {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #444;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #fafafa;
+            padding: 20px 30px;
+            margin-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .footer-section {
+            margin-bottom: 10px;
+        }
+        .notes {
+            border-left: 4px solid #3cba92;
+            padding-left: 10px;
+            background: #f5fef9;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Invoice</h1>
+            <div class="invoice-meta">
+                Invoice #: [[invoice_number]]<br>
+                Date: [[invoice_date]]<br>
+                Due: [[payment_due_date]]
+            </div>
+            <div class="logo">
+                <img src="[[logo_small_src]]" alt="Logo">
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="address-section">
+                <div class="address-box">
+                    <h3>From:</h3>
+                    <p><strong>[[org_name]]</strong></p>
+                    <p>[[org_address]]</p>
+                    <p>📞 [[org_phone]]</p>
+                    <p>✉ [[org_email]]</p>
+                </div>
+                <div class="address-box">
+                    <h3>Bill To:</h3>
+                    <p><strong>[[customer_name]]</strong></p>
+                    <p>[[customer_address]]</p>
+                    <p>📞 [[customer_phone]]</p>
+                    <p>✉ [[customer_email]]</p>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [[items_start]]
+                    <tr>
+                        <td>[[item_name]]</td>
+                        <td>[[item_quantity]]</td>
+                        <td>[[currency_symbol]][[item_price]]</td>
+                        <td>[[currency_symbol]][[item_amount]]</td>
+                    </tr>
+                    [[items_end]]
+                </tbody>
+            </table>
+
+            <!-- Totals -->
+            <div class="totals">
+                <p>Item Total: [[currency_symbol]][[itemtotal]]</p>
+                <p>Discount: [[discount]]%</p>
+                <p>Subtotal: [[currency_symbol]][[subtotal]]</p>
+                <p>Tax: [[currency_symbol]][[tax_amount]]</p>
+                <p>Round Off: [[currency_symbol]][[roundoff]]</p>
+                <p class="final">Grand Total: [[currency_symbol]][[grand_total]]</p>
+                <p class="words">[[grand_total_inwords]]</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="notes"><strong>Notes:</strong> [[notes]]</div>
+            <div class="footer-section"><strong>Terms & Conditions:</strong> [[terms_and_conditions]]</div>
+            <div class="footer-section"><strong>Payment Details:</strong> [[bank_name]] | [[account_number]] | [[account_name]]</div>
+            <p><strong>Authorized By:</strong> [[org_authority_name]], [[org_authority_designation]]</p>
+        </div>
+    </div>
+</body>
+</html>

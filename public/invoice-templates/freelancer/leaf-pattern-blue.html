@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            page-break-inside: avoid;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .invoice-container {
+                width: 100%;
+                min-height: 100vh;
+                box-shadow: none;
+                margin: 0;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Decorative leaf pattern */
+        .invoice-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e3f2fd' fill-opacity='0.3'%3E%3Cpath d='M15 30c0-8.284 6.716-15 15-15s15 6.716 15 15-6.716 15-15 15-15-6.716-15-15zm15-10c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .invoice-content {
+            position: relative;
+            z-index: 2;
+            background: white;
+        }
+
+        /* Header */
+        .invoice-header {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: white;
+            padding: 10mm 15mm;
+            text-align: center;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .invoice-title {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin: 0;
+        }
+
+        /* Main content */
+        .invoice-body {
+            padding: 10mm;
+            min-height: calc(220mm - 180px);
+        }
+
+        .invoice-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20mm;
+            margin-bottom: 5mm;
+        }
+
+        .info-section h3 {
+            color: #42a5f5;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 80px;
+            max-height: 80px;
+        }
+
+        /* Items table */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fafafa;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .items-table thead {
+            background: #42a5f5;
+            color: white;
+        }
+
+        .items-table th,
+        .items-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 12px;
+        }
+
+        .items-table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table td {
+            color: #666;
+        }
+
+        .items-table .text-right {
+            text-align: right;
+        }
+
+        .items-table tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        /* Totals section */
+        .totals-section {
+            display: grid;
+            grid-template-columns: 1fr 60mm;
+            gap: 20mm;
+            margin-top: 10mm;
+        }
+
+        .payment-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #42a5f5;
+        }
+
+        .payment-info h4 {
+            color: #42a5f5;
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .payment-info p {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .totals-table {
+            width: 100%;
+        }
+
+        .totals-table tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .totals-table td {
+            padding: 8px 0;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .totals-table .total-row {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            border-top: 2px solid #42a5f5;
+        }
+
+        .totals-table .total-row td {
+            padding-top: 12px;
+        }
+
+        /* Footer */
+        .invoice-footer {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            color: white;
+            padding: 15px 15mm;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20mm;
+            align-items: center;
+        }
+
+        .footer-left h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .footer-left p {
+            opacity: 0.9;
+            font-size: 11px;
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer-right p {
+            opacity: 0.9;
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        /* Thank you message */
+        .thank-you {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        /* Notes and terms */
+        .notes-terms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15mm;
+            padding: 15px 15mm;
+            background: #f8f9fa;
+        }
+
+        .notes-terms h4 {
+            color: #42a5f5;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notes-terms p {
+            color: #666;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* Authority signature */
+        .signature-section {
+            text-align: right;
+            padding: 10px 15mm;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .signature-box {
+            display: inline-block;
+            text-align: center;
+            min-width: 40mm;
+        }
+
+        /* .signature-line {
+            border-top: 1px solid #666;
+            margin-bottom: 5px;
+            height: 30px;
+        } */
+
+        .signature-box p {
+            color: #666;
+            font-size: 11px;
+            margin: 2px 0;
+        }
+
+        /* Currency symbol styling */
+        .currency {
+            font-weight: 600;
+        }
+
+        /* Amount in words styling */
+        .amount-words {
+            margin-top: 8px; 
+            color: #666; 
+            font-style: italic; 
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+
+        /* Responsive design - simplified for A4 */
+        @media (max-width: 210mm) {
+            .invoice-info,
+            .totals-section,
+            .invoice-footer,
+            .notes-terms {
+                grid-template-columns: 1fr;
+                gap: 10mm;
+            }
+
+            .invoice-header,
+            .invoice-body {
+                padding: 10mm;
+            }
+
+            .invoice-title {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .items-table th,
+            .items-table td {
+                padding: 6px 5px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-content">
+            <!-- Header -->
+            <div class="invoice-header">
+                <div class="logo-container">
+                    <img src="[[logo_small_src]]" alt="Company Logo">
+                </div>
+                <h1 class="invoice-title">INVOICE</h1>
+            </div>
+
+            <!-- Body -->
+            <div class="invoice-body">
+                <!-- Invoice Info -->
+                <div class="invoice-info">
+                    <div class="info-section">
+                        <h3>Invoice To:</h3>
+                        <p><strong>[[customer_name]]</strong></p>
+                        <p>[[customer_address]]</p>
+                        <p>Phone: [[customer_phone]]</p>
+                        <p>Email: [[customer_email]]</p>
+                    </div>
+                    <div class="info-section">
+                        <h3>From:</h3>
+                        <p><strong>[[org_name]]</strong></p>
+                        <p>[[org_address]]</p>
+                        <p>Phone: [[org_phone]]</p>
+                        <p>Email: [[org_email]]</p>
+                        <br>
+                        <p><strong>Invoice #:</strong> [[invoice_number]]</p>
+                        <p><strong>Date:</strong> [[invoice_date]]</p>
+                        <p><strong>Due Date:</strong> [[payment_due_date]]</p>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <table class="items-table">
+                    <thead>
+                        <tr class="table-header">
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [[items_start]]
+                        <tr class="item-row">
+                            <td>
+                                <div class="item-name">[[item_name]]</div>
+                            </td>
+                            <td>[[item_quantity]]</td>
+                            <td>[[currency_symbol]][[item_price]]</td>
+                            <td>[[currency_symbol]][[item_amount]]</td>
+                        </tr>
+                        [[items_end]]
+                    </tbody>
+                </table>
+
+                <!-- Totals Section -->
+                <div class="totals-section">
+                    <div class="payment-info">
+                        <h4>Payment Method</h4>
+                        <p><strong>Bank Name:</strong> [[bank_name]]</p>
+                        <p><strong>Account Name:</strong> [[account_name]]</p>
+                        <p><strong>Account No:</strong> [[account_number]]</p>
+                    </div>
+                    <div>
+                        <table class="totals-table">
+                            <tr>
+                                <td>Sub Total:</td>
+                                <td class="text-right"><span class="currency">[[currency_symbol]]</span>[[itemtotal]]</td>
+                            </tr>
+                            <tr>
+                                <td>Discount:</td>
+                                <td class="text-right"><span class="currency">[[currency_symbol]]</span>[[discount]]</td>
+                            </tr>
+                            <tr>
+                                <td>After Discount:</td>
+                                <td class="text-right"><span class="currency">[[currency_symbol]]</span>[[subtotal]]</td>
+                            </tr>
+                            <tr>
+                                <td>Tax:</td>
+                                <td class="text-right"><span class="currency">[[currency_symbol]]</span>[[tax_amount]]</td>
+                            </tr>
+                            <tr>
+                                <td>Round Off:</td>
+                                <td class="text-right"><span class="currency">[[currency_symbol]]</span>[[roundoff]]</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Total:</strong></td>
+                                <td class="text-right"><strong><span class="currency">[[currency_symbol]]</span>[[grand_total]]</strong></td>
+                            </tr>
+                        </table>
+                        <p class="amount-words">
+                            Amount in words: [[grand_total_inwords]]
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes and Terms -->
+            <div class="notes-terms">
+                <div>
+                    <h4>Notes</h4>
+                    <p>[[notes]]</p>
+                </div>
+                <div>
+                    <h4>Terms & Conditions</h4>
+                    <p>[[terms_and_conditions]]</p>
+                </div>
+            </div>
+
+            <!-- Authority Signature -->
+            <div class="signature-section">
+                <div class="signature-box">
+                    <p><strong>[[org_authority_name]]</strong></p>
+                    <p>[[org_authority_designation]]</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="invoice-footer">
+                <div class="footer-left">
+                    <h4>[[org_name]]</h4>
+                    <p>Invoice No: [[invoice_number]]</p>
+                </div>
+                <div class="footer-right">
+                    <p>[[org_phone]]</p>
+                    <p>[[org_email]]</p>
+                    <p>[[org_address]]</p>
+                </div>
+            </div>
+
+            <!-- Thank You -->
+            <div class="thank-you">
+                Thank you for Purchase
+            </div>
+        </div>
+    </div>
+</body>
+</html>

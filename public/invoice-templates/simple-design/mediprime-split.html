@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Invoice – Split Screen</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #eef2f3; overflow: hidden; }
+    .invoice-wrapper {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      display: flex;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .left-section {
+      width: 40%;
+      background: #009688;
+      color: #fff;
+      padding: 15mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .left-section img { height: 70px; margin-bottom: 10px; }
+    .left-section h2 { margin: 0; }
+    .right-section {
+      width: 60%;
+      padding: 15mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+    .info {
+      margin-bottom: 10mm;
+      font-size: 14px;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    .info h3 { margin: 0 0 5px; color: #009688; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 10mm;
+    }
+    th, td { padding: 8px; border-bottom: 1px solid #ccc; }
+    th { background: #009688; color: #fff; }
+    .totals { text-align: right; font-size: 15px; }
+    .footer { margin-top: auto; font-size: 12px; color: #555; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <div class="left-section">
+      <div>
+        <img src="[[logo_small_src]]" alt="Logo">
+        <h2>[[org_name]]</h2>
+        <div>[[org_address]]</div>
+        <div>[[org_phone]]</div>
+        <div>[[org_email]]</div>
+      </div>
+      <div>
+        Invoice #: [[invoice_number]]<br>
+        Date: [[invoice_date]]<br>
+        Due: [[payment_due_date]]
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="info">
+        <h3>Bill To</h3>
+        [[customer_name]]<br>[[customer_address]]<br>[[customer_phone]]<br>[[customer_email]]
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th><th>Qty</th><th>Price</th><th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+      <div class="totals">
+        Item Total: [[itemtotal]]<br>
+      Discount: [[discount]]<br>
+      Subtotal: [[subtotal]]<br>
+      Round Off: [[roundoff]]<br>
+        <strong>Grand Total: [[grand_total]]</strong>
+      </div>
+      <div class="footer">
+        Questions? [[org_email]] | [[org_phone]]<br>
+        Terms: [[terms_and_conditions]]
+      </div>
+    </div>
+  </div>
+</body>
+</html>

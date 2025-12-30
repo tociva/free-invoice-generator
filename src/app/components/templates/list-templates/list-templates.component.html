@@ -1,0 +1,62 @@
+<div class="dashboard-container">
+  <!-- Top Tag Search Field -->
+  <div class="top-filter">
+    <form>
+      <mat-form-field appearance="outline" class="compact-chip-field">
+        <mat-label>Search</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Search filter">
+          <mat-chip-row *ngFor="let tag of selectedTags$ | async" (removed)="removeTag(tag)">
+            {{ tag }}
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+
+        <input placeholder="Add tag..." #tagInput [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addTag($event)" />
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <!-- Template Grid -->
+  <div class="template-card-grid">
+    <div *ngFor="let item of templates" class="template-card">
+      <div class="card-header">
+        <span class="card-title">{{ item.name }}</span>
+        <div class="template-actions">
+          <button mat-icon-button class="icon-button" matTooltip="Download PDF" (click)="downloadTemplateAsPDF(item)">
+            <mat-icon>picture_as_pdf</mat-icon>
+          </button>
+
+          <button mat-icon-button class="icon-button" matTooltip="Download HTML" (click)="downloadTemplateAsHTML(item)">
+            <mat-icon>download</mat-icon>
+          </button>
+
+          <button mat-icon-button class="icon-button" matTooltip="Preview" (click)="previewTemplate(item)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-preview">
+        <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name"
+          [attr.aria-label]="'Preview of ' + item.name"
+          class="preview-iframe" frameborder="0">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <mat-paginator [length]="totalItems$ | async" [pageSize]="itemsPerPage"
+    [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons color="primary" class="paginator">
+  </mat-paginator>
+</div>

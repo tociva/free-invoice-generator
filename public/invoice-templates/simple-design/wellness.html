@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+  margin: 0;
+  padding: 0;
+  background: #e9f5f4;
+  color: #333;
+  font-family: 'Poppins', Arial, sans-serif;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.invoice-container {
+  width: 210mm;
+  height: 297mm; /* Fix height to A4 */
+  margin: auto;
+  background: #fff;
+  padding: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden; /* Prevent internal scrollbars */
+}
+
+
+    /* Header */
+    .header {
+      background: #1f3c88;
+      color: #fff;
+      padding: 20mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left img {
+      height: 70px;
+      margin-bottom: 5px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .header-right div {
+      margin-bottom: 3px;
+    }
+
+    /* Info Section */
+    .info-section {
+      padding: 15mm 20mm;
+      display: flex;
+      justify-content: space-between;
+      background: #f8fafa;
+    }
+
+    .info-box {
+      width: 48%;
+      line-height: 1.6;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      color: #1f3c88;
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    /* Table */
+    .table-section {
+      padding: 10mm 20mm;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #1f3c88;
+      color: #fff;
+    }
+
+    .totals {
+      text-align: right;
+      padding-top: 10mm;
+      font-size: 15px;
+    }
+
+    .totals div {
+      margin-bottom: 5px;
+    }
+
+    /* Total Due */
+    .total-due {
+      background: #d1f2eb;
+      padding: 10mm 20mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #1f3c88;
+    }
+
+    /* Bottom Info */
+    .bottom-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 15mm 20mm;
+      background: #f8fafa;
+      border-top: 2px solid #1f3c88;
+      font-size: 13px;
+    }
+
+    .bottom-section div {
+      width: 30%;
+      line-height: 1.5;
+    }
+
+    /* Signature */
+    .signature-section {
+      text-align: right;
+      padding: 10mm 20mm;
+      font-size: 14px;
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 22px;
+      color: #1f3c88;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+
+    @media print {
+      body {
+        background: none;
+      }
+      .invoice-container {
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <img src="[[logo_small_src]]" alt="Healthcare Logo">
+        <h1>[[org_name]]</h1>
+      </div>
+      <div class="header-right">
+        <div><strong>INVOICE NO:</strong> [[invoice_number]]</div>
+        <div><strong>DATE:</strong> [[invoice_date]]</div>
+        <div><strong>DUE DATE:</strong> [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Bill From</h3>
+        <div>[[org_name]]</div>
+        <div>[[org_address]]</div>
+        <div>[[org_phone]]</div>
+        <div>[[org_email]]</div>
+      </div>
+        
+      <div class="info-box">
+        <h3>Bill To</h3>
+        <div>[[customer_name]]</div>
+        <div>[[customer_address]]</div>
+        <div>[[customer_phone]]</div>
+        <div>[[customer_email]]</div>
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Service / Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+      <div class="totals">
+        <div><strong>Subtotal:</strong> [[subtotal]]</div>
+        <div><strong>Tax:</strong> [[tax_amount]]</div>
+        <div><strong>Grand Total:</strong> [[grand_total]]</div>
+      </div>
+    </div>
+
+    <!-- Total Due -->
+    <div class="total-due">
+      <div>Total Due</div>
+      <div>[[grand_total]]</div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+      <div>
+        <strong>Questions?</strong><br>
+        Email: [[org_email]]<br>
+        Phone: [[org_phone]]
+      </div>
+      <div>
+        <strong>Payment Info:</strong><br>
+        Account: [[account_name]]<br>
+        Bank: [[bank_name]]
+      </div>
+      <div>
+        <strong>Terms & Conditions:</strong><br>
+        [[terms_and_conditions]]
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,8 +1,8 @@
 export interface Currency {
-    name : string;
-    html : string;
-    unicode : string;
-    decimal : string;
-    shortName :string;
-    fraction : string;
+  name: string;
+  html: string;
+  unicode: string;
+  decimal: number;
+  shortName: string;
+  fraction: string;
 }

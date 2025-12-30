@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Green Invoice Template</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header {
+      background: linear-gradient(120deg, #1f8f7c 50%, #e0f2f1 50%);
+      color: white;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .company-info {
+      width: 50%;
+    }
+
+    .company-info h2 {
+      margin: 0;
+      font-size: 1.6em;
+    }
+
+    .company-info p {
+      margin: 5px 0;
+      font-size: 0.9em;
+    }
+
+    .invoice-meta {
+      text-align: right;
+      color: #1f8f7c;
+      font-weight: bold;
+    }
+
+    .invoice-meta h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .invoice-meta p {
+      margin: 4px 0;
+      font-size: 0.9em;
+    }
+
+    .bill-to {
+      padding: 20px 30px;
+    }
+
+    .bill-to h3 {
+      margin: 0;
+    }
+
+    .bill-to p {
+      margin: 4px 0;
+      font-size: 0.9em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 20px;
+      font-size: 0.95em;
+    }
+
+    table thead {
+      background: #1f8f7c;
+      color: white;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .summary-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      flex-wrap: wrap;
+    }
+
+    .due-box {
+      background: #1f8f7c;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .payment-info {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .summary-table {
+      background: #e0f2f1;
+      padding: 20px;
+      min-width: 250px;
+    }
+
+    .summary-table p {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+
+    .summary-table p:last-child {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #1f8f7c;
+    }
+
+    .terms {
+      padding: 0 30px;
+      font-size: 0.85em;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .signature {
+      padding: 30px;
+      text-align: right;
+      font-size: 0.95em;
+    }
+
+    .footer {
+      text-align: center;
+      background: #1f8f7c;
+      color: white;
+      padding: 20px;
+      font-weight: bold;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="invoice-container">
+  <div class="header">
+    <div class="company-info">
+      <h2>[[org_name]]</h2>
+      <p>📞 [[org_phone]]</p>
+      <p>📧 [[org_email]]</p>
+      <p>🏢 [[org_address]]</p>
+    </div>
+    <div class="invoice-meta">
+      <h1>INVOICE</h1>
+      <p>Invoice No: [[invoice_number]]</p>
+      <p>Date: [[invoice_date]]</p>
+      <p>Due Date: [[payment_due_date]]</p>
+    </div>
+  </div>
+
+  <div class="bill-to">
+    <h3>Bill To:</h3>
+    <p><strong>[[customer_name]]</strong></p>
+    <p>[[customer_phone]]</p>
+    <p>[[customer_email]]</p>
+    <p>[[customer_address]]</p>
+  </div>
+
+  <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+  <div class="summary-section">
+    <div>
+      <div class="payment-info">
+        <h4>Payment Info:</h4>
+        <p>Account #: #123 456 785</p>
+        <p>A/c Name: Lorem Ipsum</p>
+        <p>Bank Details: Add your Bank</p>
+      </div>
+    </div>
+    <div class="summary-table">
+      <p><span>Item Total:</span> <span>[[itemtotal]]</span></p>
+      <p><span>Discount:</span> <span>[[discount]]</span></p>
+      <p><span>Sub Total:</span> <span>[[subtotal]]</span></p>
+      <p><span>Tax:</span> <span>[[tax_amount]]</span></p>
+      <p><span>Round Off:</span> <span>[[roundoff]]</span></p>
+      <p><span>Grand Total:</span> <span>[[grand_total]]</span></p>
+    </div>
+  </div>
+
+  <div class="signature">
+    Signature
+  </div>
+
+  <div class="footer">
+    THANK YOU FOR YOUR BUSINESS
+  </div>
+</div>
+
+</body>
+</html>

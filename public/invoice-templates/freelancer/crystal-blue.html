@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+            position: relative;
+            padding: 15px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: white;
+            top: 30%;
+            left: 20%;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 4px;
+            background: white;
+            top: 50%;
+            left: 20%;
+        } */
+
+        .logo-icon img {
+            max-width: 80px;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .brand-info h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .brand-tagline {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .invoice-title {
+            text-align: right;
+        }
+
+        .invoice-title h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .invoice-date {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .company-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .office-address, .bill-to {
+            width: 45%;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .address-info, .customer-info {
+            line-height: 1.6;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .customer-info strong {
+            font-size: 16px;
+        }
+
+        .total-banner {
+            background: linear-gradient(135deg, #20b2aa, #008b8b);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(32, 178, 170, 0.3);
+        }
+
+        .total-amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #20b2aa, #008b8b);
+            color: white;
+        }
+
+        .items-table th {
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table th:nth-child(2),
+        .items-table th:nth-child(3),
+        .items-table th:nth-child(4) {
+            text-align: right;
+        }
+
+        .items-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .items-table tbody tr:hover {
+            background-color: #f8fdfd;
+        }
+
+        .items-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .item-description {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .item-qty, .item-price, .item-total {
+            text-align: right;
+        }
+
+        .currency {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .calculations {
+            margin: 30px 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .calc-table {
+            width: 300px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .calc-row.subtotal {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .calc-row.total {
+            border-top: 2px solid #20b2aa;
+            padding-top: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .calc-label {
+            color: #666;
+        }
+
+        .calc-amount {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .payment-section {
+            margin: 30px 0;
+        }
+
+        .payment-method {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .payment-details {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .terms-section {
+            margin-top: 20px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .terms-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .terms-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .signature-section {
+            text-align: right;
+            margin-top: 30px;
+        }
+
+        .signature-line {
+            border-top: 2px solid #333;
+            width: 200px;
+            margin: 40px 0 15px auto;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .authority-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .authority-designation {
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .invoice-container {
+                margin: 0;
+                background: white;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <img src="[[logo_small_src]]" alt="Logo">
+                </div>
+                <div class="brand-info">
+                    <h2>[[org_name]]</h2>
+                </div>
+            </div>
+            <div class="invoice-title">
+                <h1>INVOICE</h1>
+                <div class="invoice-date">[[invoice_date]]</div>
+            </div>
+        </div>
+
+        <div class="company-details">
+            <div class="office-address">
+                <div class="section-label">Office Address</div>
+                <div class="address-info">
+                    [[org_address]]<br>
+                    [[org_phone]]<br>
+                    [[org_email]]
+                </div>
+            </div>
+            <div class="bill-to">
+                <div class="section-label">To:</div>
+                <div class="customer-info">
+                    <strong>[[customer_name]]</strong><br>
+                    [[customer_address]]<br>
+                    [[customer_phone]]<br>
+                    [[customer_email]]
+                </div>
+            </div>
+        </div>
+
+        <table class="items-table">
+            <thead class="table-header">
+                <tr>
+                    <th>ITEM DESCRIPTION</th>
+                    <th>QTY</th>
+                    <th>PRICE</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                [[items_start]]
+                <tr>
+                    <td class="item-description">[[item_name]]</td>
+                    <td class="item-qty">[[item_quantity]]</td>
+                    <td class="item-price"><span class="currency">[[currency_symbol]]</span> [[item_price]]</td>
+                    <td class="item-total"><span class="currency">[[currency_symbol]]</span> [[item_amount]]</td>
+                </tr>
+                [[items_end]]
+            </tbody>
+        </table>
+
+        <div class="calculations">
+            <div class="calc-table">
+                <div class="calc-row subtotal">
+                    <div class="calc-label">SUBTOTAL</div>
+                    <div class="calc-amount">[[currency_symbol]][[subtotal]]</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-label">Tax VAT [[tax_amount]]%</div>
+                    <div class="calc-amount">[[currency_symbol]][[tax_amount]]</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-label">DISCOUNT [[discount]]%</div>
+                    <div class="calc-amount">[[currency_symbol]][[discount]]</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-label">Round Off</div>
+                    <div class="calc-amount">[[currency_symbol]][[roundoff]]</div>
+                </div>
+                <div class="calc-row total">
+                    <div class="calc-label">TOTAL DUE</div>
+                    <div class="calc-amount">[[currency_symbol]][[grand_total]]</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <div class="payment-method">Payment Method</div>
+            <div class="payment-details">
+                Account Number: [[account_number]]<br>
+                Account Name: [[account_name]]<br>
+                Bank: [[bank_name]]<br>
+                Email: [[org_email]]
+            </div>
+        </div>
+
+        <div class="terms-section">
+            <div class="terms-title">Terms & Conditions</div>
+            <div class="terms-content">
+                [[terms_and_conditions]]
+            </div>
+            <br>
+            <div class="terms-title">Notes</div>
+            <div class="terms-content">
+                [[notes]]
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-line">
+                <div class="authority-name">[[org_authority_name]]</div>
+                <div class="authority-designation">[[org_authority_designation]]</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

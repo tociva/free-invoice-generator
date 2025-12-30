@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Wave Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    .invoice-header {
+      background: linear-gradient(to right, #b91477, #7a3fdc);
+      color: white;
+      padding: 50px 40px 100px;
+      position: relative;
+    }
+
+    .invoice-header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 70px;
+      width: 100%;
+      background: white;
+      border-top-left-radius: 100% 60px;
+      border-top-right-radius: 100% 60px;
+    }
+
+    .header-left {
+      float: left;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .header-right {
+      float: right;
+      text-align: right;
+    }
+
+    .invoice-meta {
+      margin-top: 60px;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .meta-left,
+    .meta-right {
+      width: 48%;
+      font-size: 0.95rem;
+    }
+
+    .meta-right {
+      text-align: right;
+    }
+    .meta-right div{
+      line-height: 1.5;
+    }
+    .meta-left div{
+      line-height: 1.5;
+    }
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    thead {
+      background-color: #f0f0f0;
+      color: #444;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    .summary {
+      width: 90%;
+      margin: 30px auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .summary-table {
+      width: 300px;
+      font-size: 0.95rem;
+    }
+
+    .summary-table td {
+      padding: 10px;
+    }
+
+    .summary-table .total {
+      background-color: #7a3fdc;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .footer {
+      width: 90%;
+      margin: 40px auto;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .footer-columns {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .footer-columns>div {
+      width: 48%;
+    }
+
+    .thank-you {
+      text-align: center;
+      color: #7a3fdc;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #888;
+      padding: 20px;
+      background: linear-gradient(to right, #b91477, #7a3fdc);
+      color: white;
+      text-align: center;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    .header-left img {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="invoice-header">
+    <div class="header-left">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h1>INVOICE</h1>
+    </div>
+    <div class="header-right">
+      <div><strong>[[org_name]]</strong></div>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <!-- Meta Info -->
+  <div class="invoice-meta">
+    <div class="meta-left">
+      <div>
+      <strong>Invoice No:</strong> [[invoice_number]]<br>
+      <strong>Invoice Date:</strong> [[invoice_date]]
+      </div>
+    </div>
+    <div class="meta-right">
+      <strong>Client Name:</strong><br>
+      <div>
+      [[customer_name]]<br>
+      [[customer_address]]
+      </div>
+    </div>
+  </div>
+
+  <!-- Item Table -->
+  <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+  <!-- Summary -->
+  <div class="summary">
+    <table class="summary-table">
+      <tr>
+        <td>Sub Total</td>
+        <td style="text-align:right;">[[itemtotal]]</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td style="text-align:right;">[[tax_amount]]</td>
+      </tr>
+      <tr class="total">
+        <td>GRAND TOTAL</td>
+        <td style="text-align:right;">[[grand_total]]</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Payment and Footer -->
+  <div class="footer">
+    <div class="thank-you">
+      THANKS FOR YOUR BUSINESS!
+    </div>
+  </div>
+
+  <!-- Bottom Note -->
+  <div class="footer-bottom">
+    [[terms_and_conditions]]
+  </div>
+</body>
+
+</html>

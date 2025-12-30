@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #914d87;
+      --gray: #777;
+      --light: #f9f9f9;
+      --border: #ddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #222;
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      margin-top: 30px;
+    }
+
+    .branding h1 {
+      font-size: 32px;
+      color: var(--primary);
+      margin: 0;
+      margin-left: 10px;
+    }
+
+    .logo img {
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    .meta {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      font-size: 14px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .info-section .block {
+      width: 48%;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border: 1px solid #eee;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--light);
+    }
+
+    .summary {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .summary table {
+      width: 320px;
+      font-size: 14px;
+      border-collapse: collapse;
+    }
+
+    .summary td {
+      padding: 8px;
+      border: none;
+    }
+
+    .summary td:first-child {
+      text-align: left;
+    }
+
+    .summary td:last-child {
+      text-align: right;
+    }
+
+    .summary .total td {
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+
+      header,
+      .meta,
+      .info-section,
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .info-section .block,
+      .summary table {
+        width: 100%;
+      }
+
+      .branding,
+      .logo {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="branding">
+      <h1>[[org_name]]</h1>
+    </div>
+    <div class="logo">
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+  </header>
+
+  <!-- Metadata -->
+  <div class="meta">
+    <div><strong>Invoice No:</strong> [[invoice_number]]</div>
+    <div><strong>Date:</strong> [[invoice_date]]</div>
+    <div><strong>Due:</strong> [[payment_due_date]]</div>
+  </div>
+
+  <!-- Info Blocks -->
+  <div class="info-section">
+    <div class="block">
+      <strong>To</strong><br />
+      [[customer_name]]<br />
+      [[customer_address]]<br />
+      [[customer_phone]]<br />
+      [[customer_email]]
+    </div>
+  </div>
+
+  <!-- Item Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      [[items_start]]
+      <tr>
+        <td>[[item_name]]</td>
+        <td>[[item_quantity]]</td>
+        <td>[[item_price]]</td>
+        <td>[[item_cgst]]</td>
+        <td>[[item_sgst]]</td>
+        <td>[[item_amount]]</td>
+      </tr>
+      [[items_end]]
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="summary">
+    <table>
+      <tr>
+        <td>Item Total</td>
+        <td>[[itemtotal]]</td>
+      </tr>
+      <tr>
+        <td>Discount</td>
+        <td>[[discount]]</td>
+      </tr>
+      <tr>
+        <td>Subtotal</td>
+        <td>[[subtotal]]</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td>[[tax_amount]]</td>
+      </tr>
+      <tr>
+        <td>Round Off</td>
+        <td>[[roundoff]]</td>
+      </tr>
+      <tr class="total">
+        <td>Total</td>
+        <td>[[grand_total]]</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <strong>Bank Payment Details</strong><br />
+      Bank Name: Your Bank<br />
+      Address: Bank Address<br />
+      IBAN: XXXXXX XXXXX<br />
+      SWIFT Code: XXXXXXX
+    </div>
+    <div>
+      <strong>Contact Info</strong><br />
+      [[org_address]]<br />
+      [[org_phone]]<br />
+      [[org_email]]
+    </div>
+  </div>
+</body>
+
+</html>

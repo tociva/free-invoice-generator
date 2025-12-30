@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+    }
+
+    .sidebar {
+      background: #e8e8e8;
+      width: 30%;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .sidebar img {
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #000;
+    }
+
+    .sidebar p {
+      font-size: 14px;
+      margin: 5px 0 15px;
+    }
+
+    .sidebar .section-title {
+      font-weight: bold;
+      margin-top: 25px;
+      color: #555;
+    }
+
+    .main {
+      width: 70%;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #000;
+    }
+
+    .main-header .invoice-meta {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .main-header .invoice-meta p {
+      margin: 4px 0;
+    }
+
+    .address {
+      font-size: 14px;
+      margin-top: 30px;
+    }
+
+    .address strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    table thead {
+      background: #dcdcdc;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+
+    .totals {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .totals p {
+      margin: 4px 0;
+    }
+
+    .signature {
+      margin-top: 50px;
+      text-align: left;
+    }
+
+    .signature .name {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      color: #000;
+    }
+
+    .signature .title {
+      font-size: 14px;
+      color: #666;
+    }
+     th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+    <div class="sidebar">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h3>INVOICE TO:</h3>
+      <p>
+        [[customer_name]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]<br>
+        [[customer_address]]
+      </p>
+
+      <div class="section-title">Payment Method :</div>
+      <p>
+        Bank: [[bank_name]]<br>
+        Name: [[bank_account_name]]<br>
+        No: [[bank_account_no]]<br><br>
+        Paypal: [[paypal_email]]<br><br>
+        We Accept: Visa, MasterCard, Cheque
+      </p>
+
+     
+
+      <p><strong>Thanks for your business!</strong></p>
+    </div>
+
+    <div class="main">
+      <div class="main-header">
+        <h1>[[org_name]]</h1>
+        <div class="invoice-meta">
+          <p><strong>Invoice No:</strong> [[invoice_number]]</p>
+          <p><strong>Date:</strong> [[invoice_date]]</p>
+          <p><strong>Due Date:</strong> [[payment_due_date]]</p>
+        </div>
+      </div>
+
+      <div class="address">
+        <strong>Address :</strong>
+        <p>
+          [[org_phone]]<br>
+          [[org_email]]<br>
+          [[org_address]]
+        </p>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <div class="totals">
+      <p><strong>Item Total:</strong> [[itemtotal]]</p>
+        <p><strong>Discount:</strong> [[discount]]</p>
+        <p><strong>Sub Total:</strong> [[subtotal]]</p>
+        <p><strong>Tax:</strong> [[tax_amount]]</p>
+        <p><strong>Round Off:</strong> [[roundoff]]</p>
+      <p><strong>GRAND TOTAL:</strong> [[grand_total]]</p>
+    </div>
+
+      <div class="signature">
+        <div class="name">[[signature_name]]</div>
+        <div class="title">[[signature_title]]</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
