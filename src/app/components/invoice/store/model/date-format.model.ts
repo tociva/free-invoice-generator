@@ -1,6 +1,4 @@
-
-  export interface DateFormat {
-    name: string;
-    value: string;
-  }
-  
+export interface DateFormat {
+    name : string;
+    value : string;
+}

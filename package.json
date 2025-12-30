@@ -1,55 +1,52 @@
 {
-  "name": "free-invoice-generator",
-  "version": "1.0.61",
+  "name": "free-invoice-generator-2.0",
+  "version": "0.0.0",
   "engines": {
     "node": "22.x",
-    "yarn": "^4.0.0"
+    "yarn": "4.12.0"
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "test": "ng test"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
   },
   "private": true,
+  "packageManager": "yarn@4.12.0",
   "dependencies": {
-    "@angular/cdk": "19.2.15",
-    "@angular/common": "^19.2.0",
-    "@angular/compiler": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/forms": "^19.2.0",
-    "@angular/material": "19.2.15",
-    "@angular/platform-browser": "^19.2.0",
-    "@angular/platform-browser-dynamic": "^19.2.0",
-    "@angular/router": "^19.2.0",
-    "@ngrx/effects": "^19.2.0",
-    "@ngrx/store": "19.2.0",
-    "ag-grid-angular": "^33.3.0",
-    "dayjs": "^1.11.13",
-    "html2pdf.js": "^0.10.3",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@ng-icons/bootstrap-icons": "^33.0.0",
+    "@ng-icons/core": "^33.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.11",
-    "@angular-eslint/builder": "19.7.1",
-    "@angular/cli": "^19.2.11",
-    "@angular/compiler-cli": "^19.2.0",
-    "@eslint/js": "^9.28.0",
-    "@types/jasmine": "~5.1.0",
-    "angular-eslint": "19.7.1",
-    "eslint": "^9.28.0",
-    "jasmine-core": "~5.6.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "8.33.1"
-  },
-  "packageManager": "yarn@4.9.2"
+    "@angular/build": "^21.0.3",
+    "@angular/cli": "^21.0.3",
+    "@angular/compiler-cli": "^21.0.0",
+    "@tailwindcss/postcss": "^4.1.12",
+    "jsdom": "^27.1.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.12",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
 }

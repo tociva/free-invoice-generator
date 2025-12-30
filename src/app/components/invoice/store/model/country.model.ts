@@ -1,11 +1,11 @@
-import { Currency } from './currency.model';
-import { DateFormat } from './date-format.model';
+import { Currency } from "./currency.model";
+import { DateFormat } from "./date-format.model";
 
-  export interface Country {
-    name: string;
-    code: string;
-    iso: string;
-    currency: Currency;
-    dateFormat: DateFormat;
-  }
-  
+
+export interface Country {
+    name : string;
+    code :string;
+    iso : string;
+    currency :Currency;
+    dateFormat : DateFormat;
+}

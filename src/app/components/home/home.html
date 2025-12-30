@@ -1,0 +1,42 @@
+<div
+  class="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-10 text-center overflow-hidden"
+>
+  <div
+    class="w-full max-w-3xl rounded-3xl bg-white/90 backdrop-blur-md p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] animate-fadeIn"
+  >
+    <!-- Intro text -->
+    <div class="my-8 text-lg flex-1 items-center gap-4 md:text-xl">
+      <span class="font-extrabold text-black/90">No signups. No credit card.</span>
+      <span class="text-gray-500">Free &amp; open source on</span>
+      <a
+        href="https://github.com/tociva/free-invoice-generator"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-100 text-black transition-colors duration-300 hover:bg-black hover:text-white"
+      >
+        <ng-icon name="bootstrapGithub" class="w-5 h-5" /> GitHub
+      </a>
+    </div>
+
+    <!-- Main CTA -->
+    <button
+      class="w-full sm:w-auto text-xl sm:text-xl font-medium px-6 sm:px-7 py-3 rounded-xl bg-background text-text cursor-pointer transition-all duration-200 ease-out shadow-[0_4px_16px_rgba(54,117,136,0.3)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(54,117,136,0.4)]"
+      (click)="goToInvoiceCreator()"
+    >
+      Jump Right In — Make Your Invoice
+    </button>
+
+    <!-- Divider -->
+    <div class="relative flex items-center my-10 text-gray-600 font-medium">
+      <div class="flex-1 h-px bg-linear-to-r from-transparent via-gray-400 to-transparent"></div>
+      <span class="px-4">or</span>
+      <div class="flex-1 h-px bg-linear-to-l from-transparent via-gray-400 to-transparent"></div>
+    </div>
+
+    <!-- Upload section -->
+    <!-- DESKTOP: Drag & Drop + Button -->
+    <div class="inline">
+      <app-file-upload></app-file-upload>
+    </div>
+  </div>
+</div>

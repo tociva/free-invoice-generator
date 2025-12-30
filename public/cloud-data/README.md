@@ -1,1 +1,0 @@
-## This folder is intentionally created. Please don't alter any content in it.
