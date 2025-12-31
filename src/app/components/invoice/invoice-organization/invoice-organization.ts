@@ -1,31 +1,33 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, input, output, signal } from '@angular/core';
+import { Field, form } from '@angular/forms/signals';
 
-interface Organization {
+type Organization = {
   name: string;
   address: string;
-  details: string;
-}
+};
 
 @Component({
   selector: 'app-invoice-organization',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ Field],
   templateUrl: './invoice-organization.html',
   styleUrls: ['./invoice-organization.css'],
 })
-export class InvoiceOrganizationComponent implements OnInit {
-  organization: Organization = {
-    name: 'My Name',
-    address: 'My Address',
-    details: 'String Towers, String Valley',
-  };
+export class InvoiceOrganizationComponent {
+  advanced = input(false);
 
-  organizationName: WritableSignal<string> = signal(this.organization.name);
-  organizationAddress: WritableSignal<string> = signal(this.organization.address);
-  organizationDetails: WritableSignal<string> = signal(this.organization.details);
+  organizationModel = signal<Organization>({
+    name: '',
+    address: '',
+  });
 
-  constructor() {}
+  organizationDetails = form(this.organizationModel);
 
-  ngOnInit(): void {}
+  valueChange = output<Organization>();
+
+  constructor() {
+    effect(() => {
+      this.valueChange.emit(this.organizationModel());
+    });
+  }
 }
