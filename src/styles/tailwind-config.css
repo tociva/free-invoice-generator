@@ -9,27 +9,128 @@
 
 @layer utilities {
   .animate-border-run {
-    @apply relative border-0; /* Tailwind utilities for base style */
-    
+    position: relative;
+    border: 3px solid transparent; /* hides normal/dashed border */
+    background-color: #eff6ff;
+
     background-image:
-      linear-gradient(90deg, #808080 50%, transparent 50%), 
-      linear-gradient(90deg, #808080 50%, transparent 50%),
-      linear-gradient(0deg, #808080 50%, transparent 50%),
-      linear-gradient(0deg, #808080 50%, transparent 50%);
-    
-    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-    background-size: 20px 2px, 20px 2px, 2px 20px, 2px 20px;
-    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+      linear-gradient(#eff6ff, #eff6ff),
+      repeating-linear-gradient(
+        230deg,
+        #9c9b9b 0,
+        #9c9b9b 10px,
+        transparent 10px,
+        transparent 20px
+      );
+
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+
     animation: border-run 0.3s linear infinite;
   }
+}
 
-  @keyframes border-run {
-    to {
-      background-position:
-        20px 0,
-        calc(100% - 20px) 100%,
-        0 calc(100% - 20px),
-        100% 20px;
-    }
+@keyframes border-run {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 0, 0 40px;
+  }
+}
+
+/* Global reusable utility classes */
+@layer components {
+/* Card/Border containers */
+  .card-box {
+    @apply border rounded p-2 sm:p-6 text-xs sm:text-sm;
+  }
+
+  .card-box-lg {
+    @apply border rounded p-4 sm:p-6 md:p-8;
+  }
+
+  .card-box-white {
+    @apply bg-white rounded-lg shadow-md p-4 sm:p-6 md:p-8;
+  }
+
+  /* Form inputs */
+  .form-input {
+    @apply outline-none border rounded px-2 py-1 text-xs sm:text-sm;
+  }
+
+  .form-input-lg {
+    @apply w-full outline-none border rounded px-3 py-2 text-xs text-gray-700;
+  }
+
+  .textarea-input {
+    @apply w-full border rounded p-2 h-20 sm:h-24 resize-none outline-none focus:ring-2 focus:ring-teal-600 text-xs sm:text-sm;
+  }
+
+  /* Detail fields */
+  .detail-field {
+    @apply border rounded px-2 sm:px-3 py-2 text-xs text-gray-700;
+  }
+
+  .detail-field-flex {
+    @apply flex-1 border rounded px-2 sm:px-3 py-2 text-xs text-gray-700;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-blue-600 text-white px-3 py-1 rounded-md disabled:opacity-50 text-xs sm:text-sm;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 px-3 py-1 rounded-md disabled:opacity-50 text-xs sm:text-sm;
+  }
+
+  .btn-action {
+    @apply bg-teal-600 text-white px-3 sm:px-4 py-2 rounded text-xs sm:text-sm hover:bg-teal-700;
+  }
+
+  /* Logo upload area */
+  .logo-upload {
+    @apply border-dashed border-2 border-gray-200 rounded p-3 sm:p-8 text-center text-xs sm:text-sm text-gray-500 cursor-pointer hover:bg-gray-50 transition;
+  }
+
+  /* Table header */
+  .table-header {
+    @apply bg-teal-600 text-white text-xs sm:text-sm px-3 sm:px-4 py-2 flex items-center justify-between;
+  }
+
+  /* Container layouts */
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6;
+  }
+
+  .invoice-wrapper {
+    @apply py-4 sm:py-6 md:py-8;
+  }
+
+  .invoice-container {
+    @apply flex justify-center;
+  }
+
+  .invoice-card {
+    @apply border border-gray-200 shadow-sm p-4 sm:p-6 md:p-8 w-full max-w-4xl;
+  }
+
+  /* Responsive grid */
+  .grid-2-col-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4;
+  }
+
+  .grid-4-col-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4;
+  }
+
+  /* Text utilities */
+  .text-muted {
+    @apply text-xs sm:text-sm text-gray-500;
+  }
+
+  .text-small {
+    @apply text-xs text-gray-600;
   }
 }
