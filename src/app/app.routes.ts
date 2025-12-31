@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { SimpleInvoice } from './components/invoice/simple-invoice/simple-invoice';
 import { Invoice } from './components/invoice/invoice';
+import { ListTemplates } from './components/list-templates/list-templates';
 
 export const routes: Routes = [
 
@@ -28,5 +29,11 @@ export const routes: Routes = [
         path:'',
         redirectTo:'simple-invoice',
         pathMatch:'full'
+    },
+    {
+    path:'templates',
+    pathMatch :'full',
+    loadComponent:()=>
+        import('./components/list-templates/list-templates').then(m=>ListTemplates)
     }
 ];
