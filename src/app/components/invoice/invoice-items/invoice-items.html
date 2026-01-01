@@ -35,8 +35,8 @@
               (click)="removeItem(item.id)"
               class="text-red-500 hover:text-red-700 text-lg md:text-xl"
             >
-              ×
-            </button>
+<ng-icon name="bootstrapTrashFill" class="w-5 h-5" />        
+    </button>
           </span>
         </div>
       }
@@ -48,7 +48,9 @@
       (click)="addItem()"
       class="bg-teal-600 text-white px-3 md:px-4 py-2 rounded text-xs md:text-sm hover:bg-teal-700 w-full sm:w-auto"
     >
-      + Add an Item
+      <ng-icon name="bootstrapPlusCircleFill" class="w-5 h-5" />        
+
+    Add an Item
     </button>
   </div>
 </div>

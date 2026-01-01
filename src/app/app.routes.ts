@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
-import { SimpleInvoice } from './components/invoice/simple-invoice/simple-invoice';
 import { Invoice } from './components/invoice/invoice';
+import { SimpleInvoice } from './components/invoice/simple-invoice/simple-invoice';
 import { ListTemplates } from './components/list-templates/list-templates';
 
 export const routes: Routes = [

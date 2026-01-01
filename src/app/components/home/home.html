@@ -34,8 +34,20 @@
     </div>
 
     <!-- Upload section -->
+     @if(isMobile()){
     <div class="inline">
-      <app-file-upload></app-file-upload>
+      <app-file-upload
+      mobileView = "Upload JSON Invoice File"
+      ></app-file-upload>
     </div>
+  }
+  @if(!isMobile()){
+    <div class="inline">
+     <app-file-upload
+    deskTopView="Drop your invoice JSON file here!"
+    >
+  </app-file-upload>
+  </div>
+  }
   </div>
 </div>

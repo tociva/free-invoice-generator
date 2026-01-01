@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FileSelect } from './file-select'
 
 @Component({
@@ -10,11 +10,11 @@ import { FileSelect } from './file-select'
 export class FileUpload {
 
 selectedFiles: File[] = [];
-isDragOver = false;
+  deskTopView = input<string>('');
+  mobileView = input<string>('');
 
   onFiles(files: File[]) {
     this.selectedFiles = files;
     console.log('Files:', files);
   }
-
-}
+} 

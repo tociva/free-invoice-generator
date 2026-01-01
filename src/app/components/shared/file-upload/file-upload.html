@@ -2,20 +2,15 @@
   appFileSelect
   fileUploadAccept=".json"
   (fileUploadFiles)="onFiles($event)"
-  class="w-full
-   /* Mobile (button style) */ 
-  flex items-center justify-center rounded-xl bg-background text-white h-10 
-  /* Desktop (drop zone style) */ 
-  md:h-[20vh] md:flex-col md:border-2 md:border-dashed md:border-gray-400 md:bg-white md:text-gray-700 md:rounded-2xl mx-auto transition-all duration-300 relative"
+  class="w-full flex items-center justify-center h-10 md:h-[20vh]
+         rounded-xl
+         bg-white border-2 border-dashed border-gray-400
+         cursor-pointer transition-all duration-300"
 >
-  <p class="mb-2 md:block hidden text-gray-500 italic">
-    Drop your invoice JSON file here or click below
-  </p>
-
-  <span class="font-semibold">
-    <span class="md:hidden">Upload Invoice Json File</span>
-    <span class="hidden md:inline">Browse JSON File</span>
+  <span class="text-lg text-gray-500 hidden md:block italic">
+    {{deskTopView()}}
   </span>
-
-  <span class="absolute inset-0 rounded-2xl hidden md:block drag-border"></span>
+  <span class="text-sm text-gray-500 md:hidden">
+    {{mobileView()}}
+  </span>
 </div>

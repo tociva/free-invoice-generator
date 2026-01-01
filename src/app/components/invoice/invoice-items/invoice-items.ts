@@ -1,5 +1,7 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIcon } from '@ng-icons/core';
+import { provideAppIcon } from '../../../provider/icon-provider';
 
 interface InvoiceItem {
   id: string;
@@ -11,9 +13,10 @@ interface InvoiceItem {
 @Component({
   selector: 'app-invoice-items',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgIcon],
   templateUrl: './invoice-items.html',
   styleUrls: ['./invoice-items.css'],
+  providers:[provideAppIcon()],
 })
 export class InvoiceItemsComponent implements OnInit {
   items: WritableSignal<InvoiceItem[]> = signal([
