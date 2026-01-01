@@ -46,9 +46,17 @@ export class SimpleInvoice {
   onInvoiceDetails(data :any){
     this.invoiceBasicDetails.set(data);
   }
+  logoFromChild: string | null = null;
+
+  onLogoChange(logo: string | null) {
+    console.log('Parent received logo:', logo );
+    this.logoFromChild = logo;
+  }
+
   constructor() {
   effect(() => {
       console.log('Parent preview data:', this.invoiceBasicDetails());
+
     });
   }  
 

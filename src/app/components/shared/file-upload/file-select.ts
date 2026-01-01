@@ -5,10 +5,12 @@ import { Directive, effect, ElementRef, HostListener, inject, input, output, sig
   standalone: true,
   host: {
   '[class.bg-gray-500]': 'isDragOver()',
-  '[class.animate-border-run]': 'isDragOver()',
+    '[class.animate-border-run]': 'isDragOver()',
+    '[style.cursor]': '"pointer"',
 },
 })
 export class FileSelect {
+
   private host = inject<ElementRef<HTMLElement>>(ElementRef);
   private fileInput = document.createElement('input');
 
@@ -22,45 +24,54 @@ export class FileSelect {
   constructor() {
     this.fileInput.type = 'file';
     this.fileInput.hidden = true;
-    this.fileInput.style.display = 'none';
+
+    this.fileInput.addEventListener('change', () => {
+      if (this.fileInput.files?.length) {
+        this.files.emit(Array.from(this.fileInput.files));
+        this.fileInput.value = '';
+      }
+    });
+
     this.host.nativeElement.appendChild(this.fileInput);
-    this.host.nativeElement.style.cursor = 'pointer';
 
     effect(() => {
       this.fileInput.accept = this.accept() ?? '';
     });
   }
+
   @HostListener('click')
-  onClick() {
+  onFileInput() {
     if (!this.disabled()) {
       this.fileInput.click();
     }
   }
-  @HostListener('change')
-  onChange() {
-    if (this.fileInput.files?.length) {
-      this.files.emit(Array.from(this.fileInput.files));
-      this.fileInput.value = '';
-    }
-  }
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
-      event.preventDefault();
+    event.preventDefault();
     this.isDragOver.set(true)
   }
 
   @HostListener('dragleave', ['$event'])
   onDragLeave(event: DragEvent) {
-      event.preventDefault();
+    event.preventDefault();
     this.isDragOver.set(false);
   }
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
+    event.preventDefault();
     this.isDragOver.set(false);
 
     if (!this.disabled() && event.dataTransfer?.files?.length) {
-      this.files.emit(Array.from(event.dataTransfer.files));
-    }
+  const validFiles = Array.from(event.dataTransfer.files).filter(f => this.isValidFile(f));
+  this.files.emit(validFiles);
+}
+
+  }
+
+  private isValidFile(file : File) : boolean{
+    const isJson = file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
+    const isImage = file.type.startsWith('image/');
+    return isJson || isImage;
   }
 }

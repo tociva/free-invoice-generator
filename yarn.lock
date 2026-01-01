@@ -2003,6 +2003,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ngrx/effects@npm:^21.0.1":
+  version: 21.0.1
+  resolution: "@ngrx/effects@npm:21.0.1"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@angular/core": ^21.0.0
+    "@ngrx/store": 21.0.1
+    rxjs: ^6.5.3 || ^7.5.0
+  checksum: 10c0/4949cf645fd50e8dbd55848400cdb6eeeeee04f97ceabbbef774b20035906cb8d4c847329e315ca957c8d423cc5286cf932109afe23b1ecb65ad637364995c30
+  languageName: node
+  linkType: hard
+
+"@ngrx/entity@npm:^21.0.1":
+  version: 21.0.1
+  resolution: "@ngrx/entity@npm:21.0.1"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@angular/core": ^21.0.0
+    "@ngrx/store": 21.0.1
+    rxjs: ^6.5.3 || ^7.5.0
+  checksum: 10c0/05eefbbbeebb4c6a2c9eb5bb4018ed0858a473b82ea932d8fcd0d72a3c15f9c956efd22dd6b6b332de989032d96bbcc933f77c3528041bfed559b9977f776d0d
+  languageName: node
+  linkType: hard
+
+"@ngrx/signals@npm:^21.0.1":
+  version: 21.0.1
+  resolution: "@ngrx/signals@npm:21.0.1"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@angular/core": ^21.0.0
+    rxjs: ^6.5.3 || ^7.4.0
+  peerDependenciesMeta:
+    rxjs:
+      optional: true
+  checksum: 10c0/32f65f2731b40f2024a07ad61e4f802650c1e76d46f5f4715e9b482a2fab7044463b65d17ded3f07cb3b7900495e20c4c4849be922eec56bd7324fc9aa007f45
+  languageName: node
+  linkType: hard
+
 "@npmcli/agent@npm:^4.0.0":
   version: 4.0.0
   resolution: "@npmcli/agent@npm:4.0.0"
@@ -4050,6 +4091,9 @@ __metadata:
     "@angular/router": "npm:^21.0.0"
     "@ng-icons/bootstrap-icons": "npm:^33.0.0"
     "@ng-icons/core": "npm:^33.0.0"
+    "@ngrx/effects": "npm:^21.0.1"
+    "@ngrx/entity": "npm:^21.0.1"
+    "@ngrx/signals": "npm:^21.0.1"
     "@tailwindcss/postcss": "npm:^4.1.12"
     jsdom: "npm:^27.1.0"
     postcss: "npm:^8.5.3"
@@ -6244,7 +6288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
