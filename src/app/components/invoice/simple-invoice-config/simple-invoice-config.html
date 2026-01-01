@@ -1,1 +1,48 @@
-<p>simple-invoice-config works!</p>
+<div class="w-full sm:w-56 sm:ml-6 mt-3 sm:mt-0 self-start">
+	<div class="text-xs font-semibold">Currency</div>
+	<div class="mb-4">
+		<div class="border rounded px-3 py-2 flex items-center justify-between text-xs text-gray-700">
+			<div class="text-sm">{{ config().currency === 'INR' ? '(₹) Indian Rupee' : config().currency }}</div>
+			<div class="flex items-center gap-2">
+				<select
+					class="outline-none bg-transparent p-0 text-sm appearance-none"
+					[value]="config().currency"
+					(change)="setCurrency($any($event.target).value)"
+				>
+					<option value="INR">INR</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EUR</option>
+					<option value="GBP">GBP</option>
+				</select>
+				<svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+					<path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+			</div>
+		</div>
+	</div>
+
+	<div class="text-xs font-semibold mb-2">Date Format</div>
+	<div class="mb-6">
+		<div class="border rounded px-3 py-2 flex items-center justify-between text-xs text-gray-700">
+			<div class="text-sm">{{ config().dateFormat }}</div>
+			<div class="flex items-center gap-2">
+				<select
+					class="outline-none bg-transparent p-0 text-sm appearance-none"
+					[value]="config().dateFormat"
+					(change)="setDateFormat($any($event.target).value)"
+				>
+					<option value="DD-MM-YYYY">DD-MM-YYYY</option>
+					<option value="MM-DD-YYYY">MM-DD-YYYY</option>
+					<option value="YYYY-MM-DD">YYYY-MM-DD</option>
+				</select>
+				<svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+					<path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="w-full sm:w-56 sm:ml-6 mt-2 sm:mt-2 self-start">
+	<button class="btn-action w-full" (click)="null">Preview and Download</button>
+</div>
