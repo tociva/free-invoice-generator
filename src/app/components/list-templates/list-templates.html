@@ -1,0 +1,60 @@
+<div class="dashboard-container">
+
+  <!-- Top-center global search -->
+  <div class="w-full flex justify-center mb-4">
+    <input
+      class="form-input w-10 sm:w-1/4 px-1 py-1"
+      placeholder="Add a tag"
+      (input)="globalSearch.set($any($event.target).value)"
+      aria-label="Search templates"
+    />
+  </div>
+
+  <!-- Top Tag Search Field -->
+
+  <!-- Template Grid -->
+  <div class="template-card-grid grid grid-cols-3 sm:grid-cols-10 lg:grid-cols-6 gap-4">
+    @for(item of pagedTemplates(); track item.id) {
+      <div class="template-card bg-white border rounded overflow-hidden shadow-sm">
+        <div class="p-3 flex items-start justify-between">
+          <div>
+            <div class="font-semibold text-sm">{{ item.name }}</div>
+            <div class="text-xs text-gray-500">{{ item.description }}</div>
+          </div>
+         
+        </div>
+
+        <div class="p-3 border-t">
+          <div class="h-40 overflow-hidden bg-gray-50 rounded">
+            <iframe [attr.srcdoc]="item.safeHTML" class="w-full h-full" frameborder="0" title="Preview"></iframe>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Paginator -->
+  <div class="mt-4 flex items-center justify-between">
+    <div class="text-sm text-gray-600">Showing page {{ currentPage() }} of {{ pages() }}</div>
+    <div class="flex items-center gap-2">
+      <button class="px-3 py-1 rounded bg-gray-100" (click)="prevPage()" [disabled]="currentPage() === 1">Prev</button>
+      <button class="px-3 py-1 rounded bg-gray-100" (click)="nextPage()" [disabled]="currentPage() === pages()">Next</button>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  @if(previewItem()) {
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white w-11/12 md:w-3/4 lg:w-2/3 rounded shadow-lg overflow-hidden">
+        <div class="flex items-center justify-between p-3 border-b">
+          <div class="font-semibold">Preview - {{ previewItem()?.name }}</div>
+          <button class="px-3 py-1 text-sm" (click)="previewTemplateId.set(null)">Close</button>
+        </div>
+        <div class="p-4 h-[70vh] overflow-auto">
+          <iframe [attr.srcdoc]="previewItem()?.safeHTML" class="w-full h-full" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
