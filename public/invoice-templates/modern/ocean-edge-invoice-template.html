@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 5px auto;
+      display: flex;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar {
+      background: #0a3d52;
+      color: #fff;
+      width: 30%;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar .top-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .sidebar .info {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .sidebar .info strong {
+      display: block;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .sidebar .due-date {
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    .sidebar .due-date span {
+      display: block;
+      font-size: 18px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .sidebar .logo {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .main {
+      background: #c1ede5;
+      width: 70%;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .main-header h1 {
+      color: #0a3d52;
+      font-size: 28px;
+    }
+
+    .main-header .company-info {
+      text-align: right;
+    }
+
+    .company-info h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #0a3d52;
+    }
+
+    .company-info p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    table thead {
+      background: #0a3d52;
+      color: white;
+    }
+
+    table th,
+    table td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    table tbody tr {
+      background: #d3f4ec;
+      border-bottom: 1px solid #aaa;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .totals p {
+      margin: 4px 0;
+    }
+
+    .terms {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .payment-info {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      text-align: center;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div class="sidebar">
+      <div class="top-section">
+        <h2>INVOICE</h2>
+
+        <div class="info">
+          <strong>Invoice Num:</strong>[[invoice_number]]<br>
+          <strong>Date Issued:</strong>[[invoice_date]]<br>
+          <strong>Issued To:</strong>[[customer_name]]<br>[[customer_address]]</p>
+        </div>
+
+        <div class="due-date">
+          <p><strong>DATE DUE:</strong></p>
+          <span>[[payment_due_date]]</span>
+        </div>
+      </div>
+
+      <div class="logo">
+        <img src="[[logo_small_src]]" alt="Logo" height="80" />
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="main-header">
+        <h1>INVOICE</h1>
+        <div class="company-info">
+          <h2>[[org_name]]</h2>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_cgst]]</td>
+            <td>[[item_sgst]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <div>
+          <p><strong>Item Total:</strong> [[itemtotal]]</p>
+        <p><strong>Discount:</strong> [[discount]]</p>
+        <p><strong>Sub Total:</strong> [[subtotal]]</p>
+        <p><strong>Tax:</strong> [[tax_amount]]</p>
+        <p><strong>Round Off:</strong> [[roundoff]]</p>
+      <p><strong>GRAND TOTAL:</strong> [[grand_total]]</p>
+        </div>
+      </div>
+
+      <div class="terms">
+        
+      </div>
+
+      <div class="payment-info">
+        <p><strong>PAYMENT INFORMATION</strong><br>[[payment_info]]</p>
+      </div>
+
+      <div class="footer">
+        <p>🏢 [[org_address]] | 📞 [[org_phone]] | 📧 [[org_email]]</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

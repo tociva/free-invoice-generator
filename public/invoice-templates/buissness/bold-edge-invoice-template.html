@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      padding: 10px;
+    }
+
+    .invoice-box {
+      max-width: 850px;
+      background: #fff;
+      padding: 20px;
+      border-left: 6px solid #f4511e;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #f4511e;
+      padding-bottom: 20px;
+    }
+
+    .logo {
+      color: #f4511e;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .logo img {
+      max-height: 80px;
+      margin-bottom: 8px;
+    }
+
+    .invoice-title {
+      text-align: right;
+    }
+
+    .invoice-title h2 {
+      margin: 0;
+      font-size: 32px;
+      color: #f4511e;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .client-info,
+    .invoice-info {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    thead th {
+      background-color: #f4511e;
+      color: white;
+      text-align: left;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .grand-total-box {
+      flex: 1 1 300px;
+    }
+
+    .grand-total-box p {
+      margin: 5px 0;
+      text-align: right;
+    }
+
+    .grand-total {
+      margin-top: 10px;
+      padding: 12px 20px;
+      background: #f4511e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+      border-radius: 4px;
+    }
+
+    .footer {
+      flex: 1 1 300px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+     th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .invoice-title {
+        text-align: left;
+        margin-top: 20px;
+      }
+
+      .totals {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .grand-total-box p,
+      .grand-total {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+    <div class="header">
+      <div class="logo">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <div>[[org_name]]</div>
+      </div>
+      <div class="invoice-title">
+        <h2>INVOICE</h2>
+        <div>Invoice No: [[invoice_number]]</div>
+        <div>Date: [[invoice_date]]</div>
+        <div>Due Date: [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <strong>TO:</strong>
+      <div class="client-info">
+        <strong>[[customer_name]]</strong><br />
+        📞 [[customer_phone]]<br />
+        📧 [[customer_email]]<br />
+        🏢 [[customer_address]]
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div class="footer">
+        <p>📞 [[org_phone]]</p>
+        <p>📧 [[org_email]]</p>
+        <p>🏢 [[org_address]]</p>
+      </div>
+
+      <div class="grand-total-box">
+        <p><strong>Item Total:</strong> [[itemtotal]]</p>
+        <p><strong>Discount:</strong> [[discount]]</p>
+        <p><strong>Sub Total:</strong> [[subtotal]]</p>
+        <p><strong>Tax:</strong> [[tax_amount]]</p>
+        <p><strong>Round Off:</strong> [[roundoff]]</p>
+        <div class="grand-total">GRAND TOTAL: [[grand_total]]</div>
+      </div>
+    </div>
+</body>
+
+</html>

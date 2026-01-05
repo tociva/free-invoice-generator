@@ -1,48 +1,101 @@
-<div class="w-full sm:w-56 sm:ml-6 mt-3 sm:mt-0 self-start">
-	<div class="text-xs font-semibold">Currency</div>
-	<div class="mb-4">
-		<div class="border rounded px-3 py-2 flex items-center justify-between text-xs text-gray-700">
-			<div class="text-sm">{{ config().currency === 'INR' ? '(₹) Indian Rupee' : config().currency }}</div>
-			<div class="flex items-center gap-2">
-				<select
-					class="outline-none bg-transparent p-0 text-sm appearance-none"
-					[value]="config().currency"
-					(change)="setCurrency($any($event.target).value)"
+<div class="w-full sm:w-44 sm:ml-8 mt-3 sm:mt-0 self-start">
+	<!-- Currency Section -->
+	<div class="mb-4 relative">
+		<div class="font-semibold text-sm text-black mb-1.5">Currency</div>
+		<div class="relative">
+			<!-- Input/Display Field -->
+			<div 
+				class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
+				(click)="toggleCurrencyDropdown()"
+			>
+				<span class="flex-1">{{ getSelectedCurrency().name }}</span>
+				<button
+					type="button"
+					class="w-6 h-6 rounded-full bg-teal-500 hover:bg-teal-600 flex items-center justify-center transition-colors shrink-0 ml-2"
+					(click)="toggleCurrencyDropdown(); $event.stopPropagation()"
+					aria-label="Select currency"
 				>
-					<option value="INR">INR</option>
-					<option value="USD">USD</option>
-					<option value="EUR">EUR</option>
-					<option value="GBP">GBP</option>
-				</select>
-				<svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-					<path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-				</svg>
+					<svg 
+						class="w-3 h-3 text-white transition-transform" 
+						[class.rotate-180]="currencyDropdownOpen()"
+						viewBox="0 0 24 24" 
+						fill="none" 
+						stroke="currentColor" 
+						stroke-width="2" 
+						stroke-linecap="round" 
+						stroke-linejoin="round"
+					>
+						<path d="M6 9l6 6 6-6"></path>
+					</svg>
+				</button>
 			</div>
+
+			<!-- Dropdown Menu -->
+			@if (currencyDropdownOpen()) {
+				<div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto">
+					@for (currency of currencies; track currency.code) {
+						<div
+							class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
+							[class.bg-gray-50]="config().currency === currency.code"
+							(click)="setCurrency(currency.code)"
+						>
+							{{ currency.name }}
+						</div>
+					}
+				</div>
+			}
 		</div>
 	</div>
 
-	<div class="text-xs font-semibold mb-2">Date Format</div>
-	<div class="mb-6">
-		<div class="border rounded px-3 py-2 flex items-center justify-between text-xs text-gray-700">
-			<div class="text-sm">{{ config().dateFormat }}</div>
-			<div class="flex items-center gap-2">
-				<select
-					class="outline-none bg-transparent p-0 text-sm appearance-none"
-					[value]="config().dateFormat"
-					(change)="setDateFormat($any($event.target).value)"
+	<!-- Date Format Section -->
+	<div class="mb-4 relative">
+		<div class="font-semibold text-sm text-black mb-1.5">Date Format</div>
+		<div class="relative">
+			<!-- Input/Display Field -->
+			<div 
+				class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
+				(click)="toggleDateFormatDropdown()"
+			>
+				<span class="flex-1">{{ getSelectedDateFormat().label }}</span>
+				<button
+					type="button"
+					class="w-6 h-6 rounded-full bg-teal-500 hover:bg-teal-600 flex items-center justify-center transition-colors shrink-0 ml-2"
+					(click)="toggleDateFormatDropdown(); $event.stopPropagation()"
+					aria-label="Select date format"
 				>
-					<option value="DD-MM-YYYY">DD-MM-YYYY</option>
-					<option value="MM-DD-YYYY">MM-DD-YYYY</option>
-					<option value="YYYY-MM-DD">YYYY-MM-DD</option>
-				</select>
-				<svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-					<path d="M6 9l6 6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-				</svg>
+					<svg 
+						class="w-3 h-3 text-white transition-transform" 
+						[class.rotate-180]="dateFormatDropdownOpen()"
+						viewBox="0 0 24 24" 
+						fill="none" 
+						stroke="currentColor" 
+						stroke-width="2" 
+						stroke-linecap="round" 
+						stroke-linejoin="round"
+					>
+						<path d="M6 9l6 6 6-6"></path>
+					</svg>
+				</button>
 			</div>
+
+			<!-- Dropdown Menu -->
+			@if (dateFormatDropdownOpen()) {
+				<div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50">
+					@for (format of dateFormats; track format.value) {
+						<div
+							class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
+							[class.bg-gray-50]="config().dateFormat === format.value"
+							(click)="setDateFormat(format.value)"
+						>
+							{{ format.label }}
+						</div>
+					}
+				</div>
+			}
 		</div>
 	</div>
 </div>
 
-<div class="w-full sm:w-56 sm:ml-6 mt-2 sm:mt-2 self-start">
+<div class="w-full sm:w-44 sm:ml-8 mt-2 sm:mt-2 self-start">
 	<button class="btn-action w-full" (click)="null">Preview and Download</button>
 </div>

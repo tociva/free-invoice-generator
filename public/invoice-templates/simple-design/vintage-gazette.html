@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newspaper Invoice (A4)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #fdfcfb;
+      color: #333;
+    }
+
+    .invoice-wrapper {
+      width: 210mm;
+      height: 297mm; /* A4 height */
+      margin: auto;
+      padding: 15mm;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #000;
+      margin-bottom: 10mm;
+    }
+    .header h1 {
+      font-size: 36px;
+      margin: 0;
+      font-family: 'Times New Roman', serif;
+      letter-spacing: 2px;
+    }
+    .header img {
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    /* Info Section */
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 10mm;
+    }
+    .info-box {
+      width: 48%;
+    }
+    .info-box h3 {
+      font-size: 16px;
+      margin: 0 0 5px;
+      border-bottom: 1px solid #333;
+      display: inline-block;
+    }
+
+    /* Table Section */
+    .table-section {
+      margin-bottom: 10mm;
+      flex: 1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #333;
+    }
+    th {
+      text-transform: uppercase;
+      background: #f1f1f1;
+    }
+
+    /* Totals */
+    .totals {
+      text-align: right;
+      font-size: 14px;
+      margin-bottom: 10mm;
+    }
+    .totals div {
+      margin-bottom: 4px;
+    }
+    .totals .total {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      border-top: 2px solid #000;
+      padding-top: 5mm;
+      margin-top: auto;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h1>INVOICE</h1>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Bill From</h3>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_phone]]<br>
+        [[org_email]]
+      </div>
+      <div class="info-box" style="text-align:right;">
+        <h3>Bill To</h3>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
+    </div>
+
+    <!-- Invoice Info -->
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Invoice Details</h3>
+        Invoice #: [[invoice_number]]<br>
+        Date: [[invoice_date]]<br>
+        Due: [[payment_due_date]]
+      </div>
+      <div class="info-box" style="text-align:right;">
+        <h3>Payment Info</h3>
+        Bank: [[bank_name]]<br>
+        Account: [[account_name]]<br>
+        No: [[account_number]]
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Totals -->
+    <div class="totals">
+      Item Total: [[itemtotal]]<br>
+        Discount: [[discount]]<br>
+        Subtotal: [[subtotal]]<br>
+        Round Off: [[roundoff]]<br>
+      <div class="total">Grand Total: [[grand_total]]</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Contact us: [[org_email]] | [[org_phone]] | [[org_website]]<br>
+      Thank you for your business!
+    </div>
+  </div>
+</body>
+</html>

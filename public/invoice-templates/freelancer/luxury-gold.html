@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Gold Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: #fef9f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            background: white;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 20px;
+        }
+
+        .invoice-title {
+            font-size: 2.4rem;
+            color: #d4af37;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        thead {
+            background: #d4af37;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table th:nth-child(2),
+        table th:nth-child(3),
+        table th:nth-child(4),
+        table th:nth-child(5),
+        table th:nth-child(6),
+        table td:nth-child(2),
+        table td:nth-child(3),
+        table td:nth-child(4),
+        table td:nth-child(5),
+        table td:nth-child(6) {
+            text-align: right;
+        }
+
+        .totals {
+            text-align: right;
+        }
+
+        .final {
+            font-size: 1.2rem;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .footer {
+            border-top: 2px solid #d4af37;
+            margin-top: 20px;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .terms {
+            max-width: 50%;
+        }
+
+        .contact-info,
+        .payment-info {
+            text-align: right;
+        }
+
+        .notes {
+            padding: 10px;
+            border-left: 3px solid #d4af37;
+            background: #faf5e4;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <h1 class="invoice-title">INVOICE</h1>
+            <div class="logo"><img src="[[logo_small_src]]" alt="Logo"></div>
+        </div>
+        <p><strong>[[org_name]]</strong><br>[[org_email]] | [[org_phone]]<br>[[org_address]]</p>
+        <p><strong>Bill
+                To:</strong><br>[[customer_name]]<br>[[customer_email]]<br>[[customer_phone]]<br>[[customer_address]]
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                [[items_start]]
+                <tr>
+                    <td>[[item_name]]</td>
+                    <td>[[item_quantity]]</td>
+                    <td>[[currency_symbol]][[item_price]]</td>
+                    <td>[[currency_symbol]][[item_amount]]</td>
+                </tr>
+                [[items_end]]
+            </tbody>
+        </table>
+        <div class="totals">
+            <p>Subtotal: [[currency_symbol]][[subtotal]]</p>
+            <p>Discount: -[[currency_symbol]][[discount]]</p>
+            <p class="final">Total: [[currency_symbol]][[grand_total]]</p>
+        </div>
+        <div class="footer">
+            <div class="notes">
+                <strong>Notes:</strong> [[notes]]
+            </div>
+            <div class="footer-section">
+                <div class="terms">
+                    <strong>Terms & Conditions:</strong>
+                    <p>[[terms_and_conditions]]</p>
+                </div>
+                <div class="contact-info">
+                    <p>Email: [[org_email]]</p>
+                    <p>Phone: [[org_phone]]</p>
+                </div>
+            </div>
+            <div class="payment-info">
+                <strong>Payment Details:</strong>
+                <p>Bank: [[bank_name]]</p>
+                <p>Account Name: [[account_name]]</p>
+                <p>Account No: [[account_number]]</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

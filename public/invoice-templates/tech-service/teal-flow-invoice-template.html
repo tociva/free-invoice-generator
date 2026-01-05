@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+      background: linear-gradient(to right, #009688, #00695c);
+      color: white;
+      padding: 40px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .header .logo h1 {
+      margin: 10px 0 0;
+      font-size: 28px;
+    }
+
+    .header .contact {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .invoice-info {
+      background: #fff;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-info .bill-to,
+    .invoice-info .dates {
+      width: 48%;
+      font-size: 14px;
+    }
+
+    .invoice-info .dates {
+      text-align: right;
+    }
+
+    .invoice-info strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    table.items {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table.items thead {
+      background: #e0f2f1;
+    }
+
+    table.items th,
+    table.items td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    table.items th {
+      font-weight: bold;
+      color: #004d40;
+    }
+
+    /* Right align numeric columns */
+    table.items td:nth-child(2),
+    table.items td:nth-child(3),
+    table.items td:nth-child(4),
+    table.items td:nth-child(5),
+    table.items td:nth-child(6),
+    table.items th:nth-child(2),
+    table.items th:nth-child(3),
+    table.items th:nth-child(4),
+    table.items th:nth-child(5),
+    table.items th:nth-child(6) {
+      text-align: right;
+    }
+
+    .totals {
+      max-width: 300px;
+      margin: 0 30px 20px auto;
+    }
+
+    .totals table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .totals td {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    .totals td:nth-child(2) {
+      text-align: right;
+    }
+
+    .totals .total-row {
+      background: #00796b;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px 30px;
+      flex-wrap: wrap;
+    }
+
+    .summary .payment-method {
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #f2f2f2;
+    }
+
+    .footer {
+      background: #004d40;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    img {
+      max-height: 50px;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="header">
+      <div class="logo">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <h1>[[org_name]]</h1>
+      </div>
+      <div class="contact">
+        [[org_address]]<br />
+        [[org_phone]]<br />
+        [[org_email]]
+      </div>
+    </div>
+
+    <div class="invoice-info">
+      <div class="bill-to">
+        <strong>[[customer_name]]</strong><br />
+        [[customer_address]]<br />
+        [[customer_phone]]<br />
+        [[customer_email]]
+      </div>
+      <div class="dates">
+        <strong>Invoice Number:</strong> [[invoice_number]]<br />
+        <strong>Invoice Date:</strong> [[invoice_date]]<br />
+        <strong>Payment Due:</strong> [[payment_due_date]]
+      </div>
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <table>
+        <tr>
+          <td>Item Total</td>
+          <td>[[itemtotal]]</td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>[[discount]]</td>
+        </tr>
+        <tr>
+          <td>Subtotal</td>
+          <td>[[subtotal]]</td>
+        </tr>
+        <tr>
+          <td>Tax</td>
+          <td>[[tax_amount]]</td>
+        </tr>
+        <tr>
+          <td>Round Off</td>
+          <td>[[roundoff]]</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total</td>
+          <td>[[grand_total]]</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="summary">
+      <div class="payment-method">
+        <strong>PAYMENT METHOD</strong><br />
+        Account No: 6789 9876 543<br />
+        Account Name: Your Name<br />
+        Bank Name: XYZ Bank
+      </div>
+    </div>
+
+    <div class="footer">
+      Thank you for your business
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Shop Invoice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #8B5FBF, #A855F7);
+            min-height: 100vh;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            height: 297mm;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(139, 95, 191, 0.3);
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B5FBF, #A855F7);
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donut-decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #D946EF;
+            opacity: 0.3;
+        }
+
+        .donut-1 {
+            top: -20px;
+            right: 50px;
+            background: radial-gradient(circle at 30% 30%, #F472B6, #D946EF);
+        }
+
+        .donut-2 {
+            top: 20px;
+            right: 150px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 40% 40%, #FB7185, #EC4899);
+        }
+
+        .donut-3 {
+            top: -10px;
+            right: 250px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 50% 50%, #A855F7, #8B5FBF);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .company-name {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-details {
+            font-size: 14px;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .invoice-info {
+            text-align: right;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .invoice-info h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .invoice-info p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .wavy-border {
+            height: 30px;
+            background: linear-gradient(135deg, #8B5FBF, #A855F7);
+            position: relative;
+        }
+
+        .wavy-border::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: radial-gradient(ellipse 50px 15px at 25px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 75px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 125px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 175px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 225px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 275px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 325px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 375px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 425px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 475px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 525px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 575px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 625px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 675px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 725px 0, white 50%, transparent 50%),
+                radial-gradient(ellipse 50px 15px at 775px 0, white 50%, transparent 50%);
+            background-size: 50px 30px;
+        }
+
+        .content {
+            padding: 40px;
+            background: #FEF7FF;
+        }
+
+        .customer-org-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 40px;
+        }
+
+        .customer-info,
+        .org-info {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 95, 191, 0.1);
+        }
+
+        .customer-info h3,
+        .org-info h3 {
+            color: #8B5FBF;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #A855F7;
+            padding-bottom: 5px;
+        }
+
+        .customer-info p,
+        .org-info p {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .invoice-title {
+            font-size: 48px;
+            color: #8B5FBF;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(139, 95, 191, 0.1);
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(139, 95, 191, 0.1);
+        }
+
+        .invoice-table thead {
+            background: linear-gradient(135deg, #8B5FBF, #A855F7);
+            color: white;
+        }
+
+        .invoice-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .invoice-table td {
+            padding: 15px;
+            border-bottom: 1px solid #F3E8FF;
+            color: #666;
+        }
+
+        .invoice-table tbody tr:hover {
+            background: #FEF7FF;
+        }
+
+        .invoice-table .text-right {
+            text-align: right;
+        }
+
+        .invoice-table .text-center {
+            text-align: center;
+        }
+
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .totals-table {
+            width: 400px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(139, 95, 191, 0.1);
+        }
+
+        .totals-table tr {
+            border-bottom: 1px solid #F3E8FF;
+        }
+
+        .totals-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .totals-table td {
+            padding: 12px 20px;
+            color: #666;
+        }
+
+        .totals-table .total-row {
+            background: linear-gradient(135deg, #8B5FBF, #A855F7);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .footer {
+            background: #FEF7FF;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thank-you {
+            font-size: 32px;
+            color: #8B5FBF;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-donuts {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #F472B6, #D946EF);
+            opacity: 0.1;
+        }
+
+        .footer-donut-1 {
+            bottom: -30px;
+            left: 50px;
+        }
+
+        .footer-donut-2 {
+            bottom: -20px;
+            right: 100px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 50% 50%, #A855F7, #8B5FBF);
+        }
+
+        /* .terms-notes {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .terms,
+        .notes {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 95, 191, 0.1);
+        }
+
+        .terms h3,
+        .notes h3 {
+            color: #8B5FBF;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #A855F7;
+            padding-bottom: 5px;
+        }
+
+        .terms p,
+        .notes p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        } */
+
+        .authority-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 95, 191, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .authority-section h3 {
+            color: #8B5FBF;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #A855F7;
+            padding-bottom: 5px;
+        }
+
+        .bank-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .bank-details,
+        .authority-details {
+            flex: 1;
+        }
+
+        .bank-details p,
+        .authority-details p {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .sprinkles {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: #F472B6;
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        .sprinkle-1 {
+            top: 20%;
+            left: 10%;
+            transform: rotate(45deg);
+            background: #F472B6;
+        }
+
+        .sprinkle-2 {
+            top: 30%;
+            left: 85%;
+            transform: rotate(-30deg);
+            background: #FB7185;
+        }
+
+        .sprinkle-3 {
+            top: 70%;
+            left: 15%;
+            transform: rotate(60deg);
+            background: #EC4899;
+        }
+
+        .sprinkle-4 {
+            top: 80%;
+            left: 90%;
+            transform: rotate(-45deg);
+            background: #A855F7;
+        }
+
+        .sprinkle-5 {
+            top: 15%;
+            left: 50%;
+            transform: rotate(20deg);
+            background: #D946EF;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .invoice-container {
+                box-shadow: none;
+                max-width: none;
+                margin: 0;
+            }
+
+            .donut-decoration,
+            .footer-donuts,
+            .sprinkles {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <!-- Decorative elements -->
+        <div class="sprinkles">
+            <div class="sprinkle-1 sprinkles"></div>
+            <div class="sprinkle-2 sprinkles"></div>
+            <div class="sprinkle-3 sprinkles"></div>
+            <div class="sprinkle-4 sprinkles"></div>
+            <div class="sprinkle-5 sprinkles"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="donut-decoration donut-1"></div>
+            <div class="donut-decoration donut-2"></div>
+            <div class="donut-decoration donut-3"></div>
+
+            <div class="header-content">
+                <div class="company-info">
+                    <img src="[[logo_small_src]]" alt="Logo" class="logo">
+                    <div class="company-name">[[org_name]]</div>
+                    <div class="company-details">
+                        [[org_address]]<br>
+                        [[org_phone]]<br>
+                        [[org_email]]
+                    </div>
+                </div>
+
+                <div class="invoice-info">
+                    <h3>Invoice Details</h3>
+                    <p><strong>Invoice #:</strong> [[invoice_number]]</p>
+                    <p><strong>Date:</strong> [[invoice_date]]</p>
+                    <p><strong>Due Date:</strong> [[payment_due_date]]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="wavy-border"></div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Customer and Organization Info -->
+            <div class="customer-org-section">
+                <div class="customer-info">
+                    <p><strong>[[customer_name]]</strong></p>
+                    <p>[[customer_address]]</p>
+                    <p>Phone: [[customer_phone]]</p>
+                    <p>Email: [[customer_email]]</p>
+                </div>
+
+                <div class="org-info">
+                    <p><strong>[[org_name]]</strong></p>
+                    <p>[[org_address]]</p>
+                    <p>Phone: [[org_phone]]</p>
+                    <p>Email: [[org_email]]</p>
+                </div>
+            </div>
+
+            <!-- <div class="invoice-title">Invoice</div> -->
+
+            <!-- Invoice Table -->
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th class="col-qty">Qty</th>
+                        <th class="col-desc">Item Description</th>
+                        <th class="col-price">Price</th>
+                        <th class="col-total">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [[items_start]]
+                    <tr>
+                        <td class="col-qty">[[item_quantity]]</td>
+                        <td class="col-desc">[[item_name]]</td>
+                        <td class="col-price">[[currency_symbol]][[item_price]]</td>
+                        <td class="col-total">[[currency_symbol]][[item_amount]]</td>
+                    </tr>
+                    [[items_end]]
+                </tbody>
+            </table>
+
+            <!-- Totals Section -->
+            <div class="totals-section">
+                <table class="totals-table">
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="text-right">[[currency_symbol]][[subtotal]]</td>
+                    </tr>
+                    <tr>
+                        <td>Discount</td>
+                        <td class="text-right">-[[currency_symbol]][[discount]]</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td class="text-right">[[currency_symbol]][[tax_amount]]</td>
+                    </tr>
+                    <tr>
+                        <td>Round Off</td>
+                        <td class="text-right">[[currency_symbol]][[roundoff]]</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL</strong></td>
+                        <td class="text-right"><strong>[[currency_symbol]][[grand_total]]</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px; padding: 10px; background: #F3E8FF; border-radius: 10px; text-align: center;">
+                <p style="color: #8B5FBF; font-style: italic;">
+                    <strong>Amount in Words:</strong> [[grand_total_inwords]]
+                </p>
+            </div>
+
+            <!-- Bank and Authority Info -->
+            <div class="authority-section">
+                <h3>Payment & Authority Information</h3>
+                <div class="bank-info">
+                    <div class="bank-details">
+                        <p><strong>Bank Details:</strong></p>
+                        <p>Account Name: [[account_name]]</p>
+                        <p>Account Number: [[account_number]]</p>
+                        <p>Bank Name: [[bank_name]]</p>
+                    </div>
+                    <div class="authority-details">
+                        <p><strong>Authorized By:</strong></p>
+                        <p>[[org_authority_name]]</p>
+                        <p>[[org_authority_designation]]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms and Notes -->
+            <!-- <div class="terms-notes">
+                <div class="terms">
+                    <h3>Terms & Conditions</h3>
+                    <p>[[terms_and_conditions]]</p>
+                </div>
+                <div class="notes">
+                    <h3>Notes</h3>
+                    <p>[[notes]]</p>
+                </div>
+            </div> -->
+
+            
+        </div>
+
+        <!-- Footer -->
+        <!-- <div class="footer">
+            <div class="footer-donuts footer-donut-1"></div>
+            <div class="footer-donuts footer-donut-2"></div>
+
+
+            <div
+                style="display: flex; justify-content: space-around; align-items: center; position: relative; z-index: 2;">
+                <div
+                    style="width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #F472B6, #D946EF); border: 8px solid white; box-shadow: 0 4px 15px rgba(139, 95, 191, 0.2);">
+                </div>
+                <div
+                    style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #A855F7, #8B5FBF); border: 6px solid white; box-shadow: 0 4px 15px rgba(139, 95, 191, 0.2);">
+                </div>
+                <div
+                    style="width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 45% 45%, #FB7185, #EC4899); border: 7px solid white; box-shadow: 0 4px 15px rgba(139, 95, 191, 0.2);">
+                </div>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>

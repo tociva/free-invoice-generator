@@ -1,0 +1,1635 @@
+[
+  {
+    "theme": "simple-scarlet-red",
+    "name": "Simple Scarlet Red",
+    "description": "Simple invoice templates for daybook.cloud in scarlet red theme",
+    "items": [
+      {
+        "name": "Coral Breeze",
+        "path": "invoice-templates/simple-design/coral-breeze.html",
+        "thumbnail": "/docs/assets/coral-breeze.png",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ]
+      },
+      {
+        "name": "Crimson Edge",
+        "path": "invoice-templates/simple-design/crimson-edge.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/crimson-edge.png"
+      },
+      {
+        "name": "Ruby Luxe",
+        "path": "invoice-templates/simple-design/ruby-luxe.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/ruby-luxe.png"
+      },
+      {
+        "name": "Violet Gradient",
+        "path": "invoice-templates/simple-design/violet-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/violet-gradient.png"
+      },
+      {
+        "name": "Geometric Modern",
+        "path": "invoice-templates/simple-design/geometric-modern.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/geometric-modern.png"
+      },
+      {
+        "name": "Watercolor Gradient",
+        "path": "invoice-templates/simple-design/watercolor-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/watercolor-gradient.png"
+      },
+      {
+        "name": "Curved Gradient",
+        "path": "invoice-templates/simple-design/curved-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/curved-gradient.png"
+      },
+      {
+        "name": "Geometric Shapes",
+        "path": "invoice-templates/simple-design/geometric-shapes.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/geometric-shapes.png"
+      },
+      {
+        "name": "Vibrant Gradient",
+        "path": "invoice-templates/simple-design/vibrant-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vibrant-gradient.png"
+      },
+      {
+        "name": "Split Gradient",
+        "path": "invoice-templates/simple-design/split-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/split-gradient.png"
+      },
+      {
+        "name": "Colorful Gradient",
+        "path": "invoice-templates/simple-design/colorful-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/colorful-gradient.png"
+      },
+      {
+        "name": "Vibrant Star Gradient",
+        "path": "invoice-templates/simple-design/vibrant-star-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vibrant-star-gradient.png"
+      },
+      {
+        "name": "Purple Geometric Elegance",
+        "path": "invoice-templates/simple-design/purple-geometric-elegance.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/purple-geometric-elegance.png"
+      },
+      {
+        "name": "Gradient Sidebar",
+        "path": "invoice-templates/simple-design/gradient-sidebar.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/gradient-sidebar.png"
+      },
+      {
+        "name": "Abstract Pastel",
+        "path": "invoice-templates/simple-design/abstract-pastel.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/abstract-pastel.png"
+      },
+      {
+        "name": "Yellow Accent",
+        "path": "invoice-templates/simple-design/yellow-accent.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/yellow-accent.png"
+      },
+      {
+        "name": "Tropical Sunset",
+        "path": "invoice-templates/simple-design/tropical-sunset.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/tropical-sunset.png"
+      },
+      {
+        "name": "Playful Baby",
+        "path": "invoice-templates/simple-design/playful-baby.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/playful-baby.png"
+      },
+      {
+        "name": "Balloon Fun",
+        "path": "invoice-templates/simple-design/balloon-fun.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/balloon-fun.png"
+      },
+      {
+        "name": "Cheerful",
+        "path": "invoice-templates/simple-design/cheerful.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/cheerful.png"
+      },
+      {
+        "name": "Lavender Kids",
+        "path": "invoice-templates/simple-design/lavender-kids.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/lavender-kids.png"
+      },
+      {
+        "name": "Fresh Curved",
+        "path": "invoice-templates/simple-design/fresh-curved.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/fresh-curved.png"
+      },
+      {
+        "name": "Healthcare Invoice",
+        "path": "invoice-templates/simple-design/healthcare-invoice.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/healthcare-invoice.png"
+      },
+      {
+        "name": "Wellness",
+        "path": "invoice-templates/simple-design/wellness.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/wellness.png"
+      },
+      {
+        "name": "Essential Healthcare",
+        "path": "invoice-templates/simple-design/essential-healthcare.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/essential-healthcare.png"
+      },
+      {
+        "name": "VitalCare",
+        "path": "invoice-templates/simple-design/vitalcare.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vitalcare.png"
+      },
+      {
+        "name": "HealthChrono",
+        "path": "invoice-templates/simple-design/healthchrono.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/healthchrono.png"
+      },
+      {
+        "name": "MediPrime Split",
+        "path": "invoice-templates/simple-design/mediprime-split.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/mediprime-split.png"
+      },
+      {
+        "name": "NeoTech",
+        "path": "invoice-templates/simple-design/neotech.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/neotech.png"
+      },
+      {
+        "name": "Amber Stripe",
+        "path": "invoice-templates/simple-design/amber-stripe.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/amber-stripe.png"
+      },
+      {
+        "name": "Opulence",
+        "path": "invoice-templates/simple-design/opulence.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/opulence.png"
+      },
+      {
+        "name": "HoloTech",
+        "path": "invoice-templates/simple-design/holotech.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/holotech.png"
+      },
+      {
+        "name": "Vintage Luxe",
+        "path": "invoice-templates/simple-design/vintage-luxe.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vintage-luxe.png"
+      },
+      {
+        "name": "PeachAura",
+        "path": "invoice-templates/simple-design/peachaura.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/peachaura.png"
+      },
+      {
+        "name": "Editorial Edge",
+        "path": "invoice-templates/simple-design/editorial-edge.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/editorial-edge.png"
+      },
+      {
+        "name": "Vintage Gazette",
+        "path": "invoice-templates/simple-design/vintage-gazette.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vintage-gazette.png"
+      },
+      {
+        "name": "Vibrant Edge",
+        "path": "invoice-templates/simple-design/vibrant-edge.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vibrant-edge.png"
+      },
+      {
+        "name": "Purple Blaze",
+        "path": "invoice-templates/simple-design/purple-blaze.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/purple-blaze.png"
+      },
+      {
+        "name": "Verdant Glow",
+        "path": "invoice-templates/simple-design/verdant-glow.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/verdant-glow.png"
+      },
+      {
+        "name": "Deep Sea",
+        "path": "invoice-templates/simple-design/deep-sea.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/deep-sea.png"
+      },
+      {
+        "name": "Elegant Wave",
+        "path": "invoice-templates/simple-design/elegant-wave.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/elegant-wave.png"
+      },
+      {
+        "name": "Scarlet Red CGST-SGST",
+        "path": "invoice-templates/red/scarlet/scarlet-red-invoice-cgst-sgst.html",
+        "tags": [
+          "simple",
+          "cgst",
+          "sgst",
+          "scarlet",
+          "red"
+        ],
+        "thumbnail": "/docs/assets/scarlet-red-invoice-cgst-sgst.png"
+      },
+      {
+        "name": "Scarlet Red IGST",
+        "path": "invoice-templates/red/scarlet/scarlet-red-invoice-igst.html",
+        "tags": [
+          "simple",
+          "igst",
+          "scarlet",
+          "red"
+        ],
+        "thumbnail": "/docs/assets/scarlet-red-invoice-igst.png"
+      },
+      {
+        "name": "Scarlet Red Non Taxable",
+        "path": "invoice-templates/red/scarlet/scarlet-red-invoice-non-taxable.html",
+        "tags": [
+          "simple",
+          "non-taxable",
+          "scarlet",
+          "red"
+        ],
+        "thumbnail": "/docs/assets/scarlet-red-invoice-non-taxable.png"
+      }
+    ]
+  },
+  {
+    "theme": "simple-royal-blue",
+    "name": "Simple royal blue",
+    "description": "Simple invoice templates for daybook.cloud in royal blue theme",
+    "items": [
+      {
+        "name": " Royal Blue CGST-SGST",
+        "path": "invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html",
+        "tags": [
+          "simple",
+          "cgst",
+          "sgst",
+          "royal-blue",
+          "blue"
+        ],
+        "thumbnail": "/docs/assets/blue-invoice-cgst-sgst.png"
+      },
+      {
+        "name": "Royal Blue IGST",
+        "path": "invoice-templates/blue/royal-blue/blue-invoice-igst.html",
+        "tags": [
+          "simple",
+          "igst",
+          "royal-blue",
+          "blue"
+        ],
+        "thumbnail": "/docs/assets/blue-invoice-igst.png"
+      },
+      {
+        "name": "Royal Blue Non Taxable",
+        "path": "invoice-templates/blue/royal-blue/blue-invoice-non-taxable.html",
+        "tags": [
+          "simple",
+          "non-taxable",
+          "royal-blue",
+          "blue"
+        ],
+        "thumbnail": "/docs/assets/blue-invoice-non-taxable.png"
+      }
+    ]
+  },
+  {
+    "theme": "simple-pale-green",
+    "name": "Simple Pale Green",
+    "description": "Simple invoice templates for daybook.cloud in pale green theme",
+    "items": [
+      {
+        "name": "Pale Green CGST-SGST",
+        "path": "invoice-templates/green/pale-green/green-invoice-cgst-sgst.html",
+        "tags": [
+          "simple",
+          "cgst",
+          "sgst",
+          "pale-green",
+          "green"
+        ],
+        "thumbnail": "/docs/assets/green-invoice-cgst-sgst.png"
+      },
+      {
+        "name": "Pale Green IGST",
+        "path": "invoice-templates/green/pale-green/green-invoice-igst.html",
+        "tags": [
+          "simple",
+          "igst",
+          "pale-green",
+          "green"
+        ],
+        "thumbnail": "/docs/assets/green-invoice-igst.png"
+      },
+      {
+        "name": "Pale Green Non Taxable",
+        "path": "invoice-templates/green/pale-green/green-invoice-non-taxable.html",
+        "tags": [
+          "simple",
+          "non-taxable",
+          "pale-green",
+          "green"
+        ],
+        "thumbnail": "/docs/assets/green-invoice-non-taxable.png"
+      }
+    ]
+  },
+  {
+    "theme": "Beauty-and-welness-invoice-templates",
+    "name": "Beuty and welness",
+    "description": "Beauty and welnesstemplates for daybook.cloud",
+    "items": [
+      {
+        "name": "Rose Quartz",
+        "path": "invoice-templates/beauty-and-wellness/rose-quartz-invoice-template.html",
+        "tags": [
+          "rose",
+          "cgst",
+          "sgst",
+          "quartz",
+          "green",
+          "beauty",
+          "Wellness"
+        ],
+        "thumbnail": "/docs/assets/rose-quartz-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Boutique-invoice-templates",
+    "name": "Boutique Invoice Templates",
+    "description": "Boutique invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Rose Clay",
+        "path": "invoice-templates/boutique/rose-clay-invoice-template.html",
+        "tags": [
+          "rose",
+          "cgst",
+          "sgst",
+          "clay",
+          "boutique"
+        ],
+        "thumbnail": "/docs/assets/rose-clay-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Buissness-invoice-templates",
+    "name": "Buissness Invoice Templates",
+    "description": "Buissness invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Amber Edge",
+        "path": "invoice-templates/buissness/amber-edge-invoice-template.html",
+        "tags": [
+          "amber",
+          "cgst",
+          "sgst",
+          "edge",
+          "buissness"
+        ],
+        "thumbnail": "/docs/assets/amber-edge-invoice-template.png"
+      },
+      {
+        "name": "Aqua Edge",
+        "path": "invoice-templates/buissness/aqua-edge-invoice-template.html",
+        "tags": [
+          "aqua",
+          "cgst",
+          "sgst",
+          "edge",
+          "buissness"
+        ],
+        "thumbnail": "/docs/assets/aqua-edge-invoice-template.png"
+      },
+      {
+        "name": "Bold Edge",
+        "path": "invoice-templates/buissness/bold-edge-invoice-template.html",
+        "tags": [
+          "bold",
+          "cgst",
+          "sgst",
+          "edge",
+          "buissness"
+        ],
+        "thumbnail": "/docs/assets/bold-edge-invoice-template.png"
+      },
+      {
+        "name": "Indigo stream",
+        "path": "invoice-templates/buissness/indigo-stream-invoice-template.html",
+        "tags": [
+          "indigo",
+          "cgst",
+          "sgst",
+          "stream",
+          "buissness"
+        ],
+        "thumbnail": "/docs/assets/indigo-stream-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Corporate-invoice-templates",
+    "name": "Corporate Invoice Templates",
+    "description": "Corporate invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Charcoal Line",
+        "path": "invoice-templates/corporate/charcoal-line-invoice-template.html",
+        "tags": [
+          "charcoal",
+          "cgst",
+          "sgst",
+          "line",
+          "corporate"
+        ],
+        "thumbnail": "/docs/assets/charcoal-line-invoice-template.png"
+      },
+      {
+        "name": "Navy Ledger",
+        "path": "invoice-templates/corporate/navy-ledger-invoice-template.html",
+        "tags": [
+          "navy",
+          "cgst",
+          "sgst",
+          "ledger",
+          "corporate"
+        ],
+        "thumbnail": "/docs/assets/navy-ledger-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Creative-Agency-invoice-templates",
+    "name": "Creative Agency Invoice Templates",
+    "description": "Creative Agency invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Aqua Slate",
+        "path": "invoice-templates/creative/aqua-slate-invoice-template.html",
+        "tags": [
+          "aqua",
+          "cgst",
+          "sgst",
+          "slate",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/aqua-slate-invoice-template.png"
+      },
+      {
+        "name": "Blush Grid",
+        "path": "invoice-templates/creative/blush-grid-invoice-template.html",
+        "tags": [
+          "blush",
+          "cgst",
+          "sgst",
+          "grid",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/blush-grid-invoice-template.png"
+      },
+      {
+        "name": "Copper Flame",
+        "path": "invoice-templates/creative/copper-flame-invoice-template.html",
+        "tags": [
+          "copper",
+          "cgst",
+          "sgst",
+          "flame",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/copper-flame-invoice-template.png"
+      },
+      {
+        "name": "Rainbow Mint",
+        "path": "invoice-templates/creative/rainbow-mint-invoice-template.html",
+        "tags": [
+          "rainbow",
+          "cgst",
+          "sgst",
+          "mint",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/rainbow-mint-invoice-template.png"
+      },
+      {
+        "name": "Royal Stripe",
+        "path": "invoice-templates/creative/royal-stripe-invoice-template.html",
+        "tags": [
+          "royal",
+          "cgst",
+          "sgst",
+          "stripe",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/royal-stripe-invoice-template.png"
+      },
+      {
+        "name": "Studio Luxe",
+        "path": "invoice-templates/creative/studio-luxe-invoice-template.html",
+        "tags": [
+          "royal",
+          "cgst",
+          "sgst",
+          "stripe",
+          "creative"
+        ],
+        "thumbnail": "/docs/assets/studio-luxe-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Elegant-invoice-templates",
+    "name": "Elegant Invoice Templates",
+    "description": "Elegant invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Blue Ledger",
+        "path": "invoice-templates/elegant/blue-ledger-invoice-template.html",
+        "tags": [
+          "blue",
+          "cgst",
+          "sgst",
+          "ledger",
+          "elegant"
+        ],
+        "thumbnail": "/docs/assets/blue-ledger-invoice-template.png"
+      },
+      {
+        "name": "Indigo Mark",
+        "path": "invoice-templates/elegant/indigo-mark-invoice-template.html",
+        "tags": [
+          "indigo",
+          "cgst",
+          "sgst",
+          "mark",
+          "elegant"
+        ],
+        "thumbnail": "/docs/assets/indigo-mark-invoice-template.png"
+      },
+      {
+        "name": "Mint Divide",
+        "path": "invoice-templates/elegant/mint-divide-invoice-template.html",
+        "tags": [
+          "mint",
+          "cgst",
+          "sgst",
+          "divide",
+          "elegant"
+        ],
+        "thumbnail": "/docs/assets/mint-divide-invoice-template.png"
+      },
+      {
+        "name": "Plum Accent",
+        "path": "invoice-templates/elegant/plum-accent-invoice-template.html",
+        "tags": [
+          "plum",
+          "cgst",
+          "sgst",
+          "accent",
+          "elegant"
+        ],
+        "thumbnail": "/docs/assets/plum-accent-invoice-template.png"
+      },
+      {
+        "name": "Slate Edge",
+        "path": "invoice-templates/elegant/slate-edge-invoice-template.html",
+        "tags": [
+          "slate",
+          "cgst",
+          "sgst",
+          "edge",
+          "elegant"
+        ],
+        "thumbnail": "/docs/assets/slate-edge-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Freelancer-invoice-templates",
+    "name": "Freelancer Invoice Templates",
+    "description": "Freelancer invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Greenleaf",
+        "path": "invoice-templates/freelancer/greenleaf-invoice-template.html",
+        "tags": [
+          "grean",
+          "cgst",
+          "sgst",
+          "leaf",
+          "freelacer",
+          "freelance"
+        ],
+        "thumbnail": "/docs/assets/greenleaf-invoice-template.png"
+      },
+      {
+        "name": "Modern Gradient",
+        "path": "invoice-templates/freelancer/modern-gradient.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/modern-gradient.png"
+      },
+      {
+        "name": "Elegant",
+        "path": "invoice-templates/freelancer/elegant.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/elegant.png"
+      },
+      {
+        "name": "Modern Dark",
+        "path": "invoice-templates/freelancer/modern-dark.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/modern-dark.png"
+      },
+      {
+        "name": "Black Red",
+        "path": "invoice-templates/freelancer/black-red.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/black-red.png"
+      },
+      {
+        "name": "Luxury Gold",
+        "path": "invoice-templates/freelancer/luxury-gold.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/luxury-gold.png"
+      },
+      {
+        "name": "Pastel",
+        "path": "invoice-templates/freelancer/pastel.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/pastel.png"
+      },
+      {
+        "name": "Neon Blue",
+        "path": "invoice-templates/freelancer/neon-blue.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/neon-blue.png"
+      },
+      {
+        "name": "Fresh",
+        "path": "invoice-templates/freelancer/fresh.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/fresh.png"
+      },
+      {
+        "name": "Retro",
+        "path": "invoice-templates/freelancer/retro.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/retro.png"
+      },
+      {
+        "name": "Gradient Wave",
+        "path": "invoice-templates/freelancer/gradient-wave.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/gradient-wave.png"
+      },
+      {
+        "name": "Dark Modern",
+        "path": "invoice-templates/freelancer/dark-modern.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/dark-modern.png"
+      },
+      {
+        "name": "Polygon Tech",
+        "path": "invoice-templates/freelancer/polygon-tech.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/polygon-tech.png"
+      },
+      {
+        "name": "Premium Curved",
+        "path": "invoice-templates/freelancer/premium-curved.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/premium-curved.png"
+      },
+      {
+        "name": "Creative Wave",
+        "path": "invoice-templates/freelancer/creative-wave.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/creative-wave.png"
+      },
+      {
+        "name": "Vertical Split",
+        "path": "invoice-templates/freelancer/vertical-split.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vertical-split.png"
+      },
+      {
+        "name": "Minimalist",
+        "path": "invoice-templates/freelancer/minimalist.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/minimalist.png"
+      },
+      {
+        "name": "Elegant Dark",
+        "path": "invoice-templates/freelancer/elegant-dark.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/elegant-dark.png"
+      },
+      {
+        "name": "Minimal Pink",
+        "path": "invoice-templates/freelancer/minimal-pink.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/minimal-pink.png"
+      },
+      {
+        "name": "Factura",
+        "path": "invoice-templates/freelancer/factura.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/factura.png"
+      },
+      {
+        "name": "Sweet Shop",
+        "path": "invoice-templates/freelancer/sweet-shop.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/sweet-shop.png"
+      },
+      {
+        "name": "Purple Clover",
+        "path": "invoice-templates/freelancer/purple-clover.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/purple-clover.png"
+      },
+      {
+        "name": "Modern Green",
+        "path": "invoice-templates/freelancer/modern-green.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/modern-green.png"
+      },
+      {
+        "name": "Modern Purple",
+        "path": "invoice-templates/freelancer/modern-purple.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/modern-purple.png"
+      },
+      {
+        "name": "Creative Blue & Yellow",
+        "path": "invoice-templates/freelancer/creative-blue-and-yellow.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/creative-blue-and-yellow.png"
+      },
+      {
+        "name": "Leaf Pattern Blue",
+        "path": "invoice-templates/freelancer/leaf-pattern-blue.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/leaf-pattern-blue.png"
+      },
+      {
+        "name": "Warm Gradient",
+        "path": "invoice-templates/freelancer/warm-gradient.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/warm-gradient.png"
+      },
+      {
+        "name": "Jade Stripe",
+        "path": "invoice-templates/freelancer/jade-stripe.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/jade-stripe.png"
+      },
+      {
+        "name": "Royal Blue Gradient",
+        "path": "invoice-templates/freelancer/royal-blue-gradient.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/royal-blue-gradient.png"
+      },
+      {
+        "name": "Sunset Blaze",
+        "path": "invoice-templates/freelancer/sunset-blaze.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/sunset-blaze.png"
+      },
+      {
+        "name": "Copper Elegance",
+        "path": "invoice-templates/freelancer/copper-elegance.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/copper-elegance.png"
+      },
+      {
+        "name": "Rose Blush",
+        "path": "invoice-templates/freelancer/rose-blush.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/rose-blush.png"
+      },
+      {
+        "name": "Emerald Flow",
+        "path": "invoice-templates/freelancer/emerald-flow.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/emerald-flow.png"
+      },
+      {
+        "name": "Golden Edge",
+        "path": "invoice-templates/freelancer/golden-edge.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/golden-edge.png"
+      },
+      {
+        "name": "Crystal Blue",
+        "path": "invoice-templates/freelancer/crystal-blue.html",
+        "tags": [
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/crystal-blue.png"
+      }
+    ]
+  },
+  {
+    "theme": "Healthcare-invoice-templates",
+    "name": "Healthcare Invoice Templates",
+    "description": "Healthcare invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Mint Balance",
+        "path": "invoice-templates/healthcare/mint-balance-invoice-template.html",
+        "tags": [
+          "mint",
+          "cgst",
+          "sgst",
+          "balance",
+          "freelacer",
+          "freelance"
+        ],
+        "thumbnail": "/docs/assets/mint-balance-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Modern-Buisness-invoice-templates",
+    "name": "Modern Buisness Invoice Templates",
+    "description": "Modern Buisness invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Amber craft",
+        "path": "invoice-templates/modern/amber-craft-invoice-template.html",
+        "tags": [
+          "amber",
+          "cgst",
+          "sgst",
+          "craft",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/amber-craft-invoice-template.png"
+      },
+      {
+        "name": "Amber Stripe",
+        "path": "invoice-templates/modern/amber-stripe-invoice-template.html",
+        "tags": [
+          "amber",
+          "cgst",
+          "sgst",
+          "stripe",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/amber-stripe-invoice-template.png"
+      },
+      {
+        "name": "Aqua Breeze",
+        "path": "invoice-templates/modern/aqua-breeze-invoice-template.html",
+        "tags": [
+          "aqua",
+          "cgst",
+          "sgst",
+          "breeze",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/aqua-breeze-invoice-template.png"
+      },
+      {
+        "name": "Aqua Glow",
+        "path": "invoice-templates/modern/aqua-glow-invoice-template.html",
+        "tags": [
+          "aqua",
+          "cgst",
+          "sgst",
+          "glow",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/aqua-glow-invoice-template.png"
+      },
+      {
+        "name": "Blush Wave",
+        "path": "invoice-templates/modern/blush-wave-invoice-template.html",
+        "tags": [
+          "blush",
+          "cgst",
+          "sgst",
+          "wave",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/blush-wave-invoice-template.png"
+      },
+      {
+        "name": "Cobalt Form",
+        "path": "invoice-templates/modern/cobalt-form-invoice-template.html",
+        "tags": [
+          "cobalt",
+          "cgst",
+          "sgst",
+          "form",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/cobalt-form-invoice-template.png"
+      },
+      {
+        "name": "Modern Blue",
+        "path": "invoice-templates/modern/modern-blue-invoice-template.html",
+        "tags": [
+          "modern",
+          "cgst",
+          "sgst",
+          "blue",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/modern-blue-invoice-template.png"
+      },
+      {
+        "name": "Mono Core",
+        "path": "invoice-templates/modern/mono-core-invoice-template.html",
+        "tags": [
+          "mono",
+          "cgst",
+          "sgst",
+          "core",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/mono-core-invoice-template.png"
+      },
+      {
+        "name": "Ocean Edge",
+        "path": "invoice-templates/modern/ocean-edge-invoice-template.html",
+        "tags": [
+          "ocean",
+          "cgst",
+          "sgst",
+          "edge",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/ocean-edge-invoice-template.png"
+      },
+      {
+        "name": "Skyline",
+        "path": "invoice-templates/modern/skyline-invoice-template.html",
+        "tags": [
+          "skyline",
+          "cgst",
+          "sgst",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/skyline-invoice-template.png"
+      },
+      {
+        "name": "Slate Gold",
+        "path": "invoice-templates/modern/slate-gold-invoice-template.html",
+        "tags": [
+          "slate",
+          "cgst",
+          "sgst",
+          "gold",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/slate-gold-invoice-template.png"
+      },
+      {
+        "name": "Teal Edge",
+        "path": "invoice-templates/modern/teal-edge-invoice-template.html",
+        "tags": [
+          "teal",
+          "cgst",
+          "sgst",
+          "edge",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/teal-edge-invoice-template.png"
+      },
+      {
+        "name": "Teal Mark",
+        "path": "invoice-templates/modern/teal-mark-invoice-template.html",
+        "tags": [
+          "teal",
+          "cgst",
+          "sgst",
+          "mark",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/teal-mark-invoice-template.png"
+      },
+      {
+        "name": "Verdant Edge",
+        "path": "invoice-templates/modern/verdant-edge-invoice-template.html",
+        "tags": [
+          "verdant",
+          "cgst",
+          "sgst",
+          "edge",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/verdant-edge-invoice-template.png"
+      },
+      {
+        "name": "Voilet Ledger",
+        "path": "invoice-templates/modern/violet-ledger-invoice-template.html",
+        "tags": [
+          "verdant",
+          "cgst",
+          "sgst",
+          "edge",
+          "modern"
+        ],
+        "thumbnail": "/docs/assets/violet-ledger-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Professional-invoice-templates",
+    "name": "Professional Invoice Templates",
+    "description": "Professional invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Violet Crest",
+        "path": "invoice-templates/professional/violet-crest-invoice-template.html",
+        "tags": [
+          "violet",
+          "cgst",
+          "sgst",
+          "crest",
+          "Professional"
+        ],
+        "thumbnail": "/docs/assets/violet-crest-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Retail-invoice-templates",
+    "name": "Retail Invoice Templates",
+    "description": "Retail invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Sunflare",
+        "path": "invoice-templates/retail/sunflare-invoice-template.html",
+        "tags": [
+          "Sunflare",
+          "cgst",
+          "sgst",
+          "Retail"
+        ],
+        "thumbnail": "/docs/assets/sunflare-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Simple-Design-invoice-templates",
+    "name": "Simple Design Invoice Templates",
+    "description": "Simple Design invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Sidebar Slate",
+        "path": "invoice-templates/simple-design/sidebar-slate-invoice-template.html",
+        "tags": [
+          "sidebar",
+          "cgst",
+          "sgst",
+          "slate",
+          "Retail"
+        ],
+        "thumbnail": "/docs/assets/sidebar-slate-invoice-template.png"
+      },
+      {
+        "name": "Classic Minimal ",
+        "path": "invoice-templates/simple-design/classic-minimal.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/classic-minimal.png"
+      },
+      {
+        "name": "Clean Professional Red",
+        "path": "invoice-templates/simple-design/clean-professional-red.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/clean-professional-red.png"
+      },
+      {
+        "name": "Elegant Gray",
+        "path": "invoice-templates/simple-design/elegant-gray.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/elegant-gray.png"
+      },
+      {
+        "name": "Bold Accent Business",
+        "path": "invoice-templates/simple-design/bold-accent-business.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/bold-accent-business.png"
+      },
+      {
+        "name": "Contemporary Business",
+        "path": "invoice-templates/simple-design/contemporary-business.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/contemporary-business.png"
+      },
+      {
+        "name": "Corporate Sidebar",
+        "path": "invoice-templates/simple-design/corporate-sidebar.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/corporate-sidebar.png"
+      },
+      {
+        "name": "Turquoise",
+        "path": "invoice-templates/simple-design/turquoise.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/turquoise.png"
+      },
+      {
+        "name": "Warm Glow",
+        "path": "invoice-templates/simple-design/warm-glow.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/warm-glow.png"
+      },
+      {
+        "name": "Royal Indigo",
+        "path": "invoice-templates/simple-design/royal-indigo.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/royal-indigo.png"
+      },
+      {
+        "name": "Fresh Mint",
+        "path": "invoice-templates/simple-design/fresh-mint.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/fresh-mint.png"
+      },
+      {
+        "name": "Azure Classic",
+        "path": "invoice-templates/simple-design/azure-classic.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/azure-classic.png"
+      },
+      {
+        "name": "Classic Cream",
+        "path": "invoice-templates/simple-design/classic-cream.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/classic-cream.png"
+      },
+      {
+        "name": "Warm Beige",
+        "path": "invoice-templates/simple-design/warm-beige.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/warm-beige.png"
+      },
+      {
+        "name": "Lavender Stripe",
+        "path": "invoice-templates/simple-design/lavender-stripe.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/lavender-stripe.png"
+      },
+      {
+        "name": "Sunset Gradient",
+        "path": "invoice-templates/simple-design/sunset-gradient.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/sunset-gradient.png"
+      },
+      {
+        "name": "Contemporary Purple",
+        "path": "invoice-templates/simple-design/contemporary-purple.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/contemporary-purple.png"
+      },
+      {
+        "name": "Eco Green",
+        "path": "invoice-templates/simple-design/eco-green.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/eco-green.png"
+      },
+      {
+        "name": "Sunburst Grey",
+        "path": "invoice-templates/simple-design/sunburst-grey.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/sunburst-grey.png"
+      },
+      {
+        "name": "Vibrant Duo",
+        "path": "invoice-templates/simple-design/vibrant-duo.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/vibrant-duo.png"
+      },
+      {
+        "name": "Steel Blue",
+        "path": "invoice-templates/simple-design/steel-blue.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/steel-blue.png"
+      },
+      {
+        "name": "Fresh Modern",
+        "path": "invoice-templates/simple-design/fresh-modern.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/fresh-modern.png"
+      },
+      {
+        "name": "Kids Care",
+        "path": "invoice-templates/simple-design/kids-care.html",
+        "tags": [
+          "sidebar",
+          "non-taxable"
+        ],
+        "thumbnail": "/docs/assets/kids-care.png"
+      }
+    ]
+  },
+  {
+    "theme": "Startup-invoice-templates",
+    "name": "Startup Invoice Templates",
+    "description": "Startup invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Blue Split",
+        "path": "invoice-templates/startup/blue-split-invoice-template.html",
+        "tags": [
+          "startup",
+          "cgst",
+          "sgst",
+          "sidebar",
+          "blue",
+          "split"
+        ],
+        "thumbnail": "/docs/assets/blue-split-invoice-template.png"
+      },
+      {
+        "name": "Inferno Line",
+        "path": "invoice-templates/startup/inferno-line-invoice-template.html",
+        "tags": [
+          "startup",
+          "cgst",
+          "sgst",
+          "inferno",
+          "line"
+        ],
+        "thumbnail": "/docs/assets/inferno-line-invoice-template.png"
+      },
+      {
+        "name": "Poppins Breeze",
+        "path": "invoice-templates/startup/poppins-breeze-invoice-template.html",
+        "tags": [
+          "startup",
+          "cgst",
+          "sgst",
+          "sidebar",
+          "poppins",
+          "breeze"
+        ],
+        "thumbnail": "/docs/assets/poppins-breeze-invoice-template.png"
+      }
+    ]
+  },
+  {
+    "theme": "Tech-Service-invoice-templates",
+    "name": "Tech Service Invoice Templates",
+    "description": "Tech Service invoice templates for daybook.cloud",
+    "items": [
+      {
+        "name": "Bluecrest",
+        "path": "invoice-templates/tech-service/bluecrest-invoice-template.html",
+        "tags": [
+          "blue",
+          "cgst",
+          "sgst",
+          "bluecrest",
+          "tech",
+          "service"
+        ],
+        "thumbnail": "/docs/assets/bluecrest-invoice-template.png"
+      },
+      {
+        "name": "Elegant Gold",
+        "path": "invoice-templates/tech-service/elegant-gold-invoice-template.html",
+        "tags": [
+          "gold",
+          "cgst",
+          "sgst",
+          "elegant",
+          "tech",
+          "service"
+        ],
+        "thumbnail": "/docs/assets/elegant-gold-invoice-template.png"
+      },
+      {
+        "name": "Modern Circle",
+        "path": "invoice-templates/tech-service/modern-circle-invoice-template.html",
+        "tags": [
+          "circle",
+          "cgst",
+          "sgst",
+          "modern",
+          "tech",
+          "service"
+        ],
+        "thumbnail": "/docs/assets/modern-circle-invoice-template.png"
+      },
+      {
+        "name": "Royal Plum",
+        "path": "invoice-templates/tech-service/royal-plum-invoice-template.html",
+        "tags": [
+          "royal",
+          "cgst",
+          "sgst",
+          "plum",
+          "tech",
+          "service"
+        ],
+        "thumbnail": "/docs/assets/royal-plum-invoice-template.png"
+      },
+      {
+        "name": "Teal Flow",
+        "path": "invoice-templates/tech-service/teal-flow-invoice-template.html",
+        "tags": [
+          "teal",
+          "cgst",
+          "sgst",
+          "flow",
+          "tech",
+          "service"
+        ],
+        "thumbnail": "/docs/assets/teal-flow-invoice-template.png"
+      }
+    ]
+  }
+]

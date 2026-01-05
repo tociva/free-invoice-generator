@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Invoice Template</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background: white;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: #ffc107;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      width: 150px;
+      height: 150px;
+      background: #666;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .geometric-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 10px;
+    }
+
+    .shape1 {
+      top: 20px;
+      left: 50px;
+      width: 60px;
+      height: 8px;
+      background: #ffc107;
+      transform: rotate(45deg);
+    }
+
+    .shape2 {
+      top: 40px;
+      left: 150px;
+      width: 40px;
+      height: 8px;
+      background: #ffc107;
+      transform: rotate(45deg);
+    }
+
+    .shape3 {
+      top: 60px;
+      right: 100px;
+      width: 50px;
+      height: 8px;
+      background: #ffc107;
+      transform: rotate(45deg);
+    }
+
+    .shape4 {
+      top: 10px;
+      right: 50px;
+      width: 30px;
+      height: 8px;
+      background: #666;
+      transform: rotate(45deg);
+    }
+
+    .shape5 {
+      bottom: 20px;
+      left: 80px;
+      width: 40px;
+      height: 8px;
+      background: #ccc;
+      transform: rotate(45deg);
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .invoice-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .company-info {
+      max-width: 250px;
+    }
+
+    .company-info h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .company-info p {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+
+    .invoice-details {
+      text-align: right;
+    }
+
+    .invoice-number {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .invoice-number span {
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .invoice-meta {
+      margin-top: 20px;
+    }
+
+    .invoice-meta p {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 3px;
+    }
+
+    .invoice-meta strong {
+      color: #333;
+    }
+
+    .content {
+      padding: 0 40px 40px;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .items-table thead {
+      background: #f8f9fa;
+    }
+
+    .items-table th {
+      padding: 15px;
+      text-align: left;
+      color: #333;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .items-table th:last-child,
+    .items-table td:last-child {
+      text-align: center;
+      background: #ffc107;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .items-table tbody tr {
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .items-table tbody tr:hover {
+      background: #f8f9fa;
+    }
+
+    .items-table td {
+      padding: 15px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .description-cell {
+      max-width: 300px;
+    }
+
+    .description-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .description-text {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .totals-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      gap: 40px;
+    }
+
+    .left-section {
+      flex: 1;
+    }
+
+    .terms-section {
+      margin-bottom: 30px;
+    }
+
+    .terms-section h3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .terms-section p {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    .thanks-message {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .payment-methods {
+      margin-top: 20px;
+    }
+
+    .payment-methods h4 {
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .payment-icons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .payment-icon {
+      padding: 5px 10px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      font-size: 10px;
+      color: #666;
+    }
+
+th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    /* Totals */
+    .totals {
+      margin-top: 20px;
+      font-size: 12px;
+      text-align: right;
+      z-index: 1;
+      position: relative;
+      line-height: 1.5;
+    }
+    .totals div {
+      margin: 5px 0;
+    }
+    .totals .total {
+      font-weight:600;
+      font-size: x-large;
+      background: #ffc107;
+      color: #fff;
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    .footer {
+      background: #f8f9fa;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-placeholder {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .company-footer {
+      text-align: right;
+    }
+
+    .company-footer p {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .signature-area {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .signature-line {
+      width: 200px;
+      height: 1px;
+      background: #333;
+      margin: 20px auto;
+    }
+
+    .signature-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .bottom-bar {
+      height: 10px;
+      background: #ffc107;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .invoice-container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .invoice-details {
+        text-align: left;
+      }
+
+      .totals-section {
+        flex-direction: column;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .items-table {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+    <div class="header">
+      <div class="geometric-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+        <div class="shape shape5"></div>
+      </div>
+
+      <div class="header-content">
+        <div class="company-info">
+          <div class="invoice-title">Invoice</div>
+          <h2>[[org_name]]</h2>
+          <p>[[org_address]]</p>
+          <p>Phone: [[org_phone]]</p>
+          <p>Email: [[org_email]]</p>
+        </div>
+
+        <div class="invoice-details">
+          <div class="invoice-number">
+            Invoice No#<br>
+            <span>[[invoice_number]]</span>
+          </div>
+
+          <div class="invoice-meta">
+            <p><strong>Date:</strong> [[invoice_date]]</p>
+            <p><strong>Due Date:</strong> [[payment_due_date]]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <div class="totals-section">
+        <div class="left-section">
+          <div class="terms-section">
+            <h3>Terms & Condition / Notes :</h3>
+            <p>[[terms_and_conditions]]</p>
+          </div>
+
+          <div class="thanks-message">
+            THANKS FOR YOUR BUSINESS
+          </div>
+        </div>
+
+        <div class="totals">
+          Item Total: [[itemtotal]]<br>
+          Discount: [[discount]]<br>
+          Subtotal: [[subtotal]]<br>
+          Round Off: [[roundoff]]<br>
+          <div class="total">Total: [[grand_total]]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="logo-section">
+        <div class="logo-placeholder">
+          <img src="[[logo_small_src]]" alt="Company Logo"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+        </div>
+      </div>
+
+      <!-- <div class="company-footer">
+        <p>[[org_email]]</p>
+        <p>[[org_phone]]</p>
+        <p>[[org_address]]</p>
+      </div> -->
+
+      <div class="signature-area">
+        <p style="font-weight: bold;">[[org_authority_name]]</p>
+        <p style="font-size: 10px; color: #999;">[[org_authority_designation]]</p>
+        <div class="signature-line"></div>
+        <p class="signature-text">Signature</p>
+      </div>
+    </div>
+
+    <div class="bottom-bar"></div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Invoice – Minimalist</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    body { margin: 0; font-family: 'Arial', sans-serif; background: #f5faff; overflow: hidden; }
+    .invoice-container {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      background: #fff;
+      padding: 20mm;
+      box-sizing: border-box;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      border-bottom: 3px solid #1976d2;
+      padding-bottom: 10mm;
+      margin-bottom: 10mm;
+    }
+    .header img { height: 60px; margin-bottom: 10px; }
+    .header h1 { margin: 0; font-size: 24px; color: #1976d2; }
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10mm;
+      font-size: 14px;
+    }
+    .info-box h3 { margin: 0 0 5px; color: #1976d2; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 10mm;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th { background: #1976d2; color: #fff; }
+    .totals {
+      text-align: right;
+      font-size: 15px;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    .total-due {
+      margin-top: 10mm;
+      background: #e3f2fd;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+    .footer {
+      margin-top: 20mm;
+      border-top: 1px solid #ccc;
+      padding-top: 5mm;
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <h1>[[org_name]]</h1>
+    </div>
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Bill To</h3>
+        [[customer_name]]<br>[[customer_address]]<br>[[customer_phone]]<br>[[customer_email]]
+      </div>
+      <div class="info-box" style="text-align: right;">
+        <h3>Invoice Details</h3>
+        No: [[invoice_number]]<br>Date: [[invoice_date]]<br>Due: [[payment_due_date]]
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Service / Item</th><th>Qty</th><th>Unit Price</th><th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+    <div class="totals">
+      <div><strong>Subtotal:</strong> [[subtotal]]</div>
+      <div><strong>Tax:</strong> [[tax_amount]]</div>
+      <div><strong>Grand Total:</strong> [[grand_total]]</div>
+    </div>
+    <div class="total-due">
+      <span>Total Due</span>
+      <span>[[grand_total]]</span>
+    </div>
+    <div class="footer">
+      Questions? Contact [[org_email]] or [[org_phone]] | Account: [[account_name]] | Bank: [[bank_name]]<br>
+      Terms: [[terms_and_conditions]]
+    </div>
+  </div>
+</body>
+</html>

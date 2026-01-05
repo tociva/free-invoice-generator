@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #eceff1;
+      color: #333;
+    }
+
+    .invoice-container {
+      width: 210mm;
+      height: 297mm;
+      background: #fff;
+      margin: auto;
+      padding: 20mm;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #673ab7, #512da8);
+      color: #fff;
+      padding: 15mm;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header img {
+      height: 60px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      margin: 0;
+      text-align: right;
+    }
+
+    .info-section {
+      margin-top: 15mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .info-section div {
+      width: 48%;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15mm 0;
+      font-size: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #673ab7;
+      color: #fff;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    td:last-child, th:last-child {
+      text-align: right;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    .totals {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    .totals .grand-total {
+      background: #673ab7;
+      color: #fff;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .notes-section {
+      margin-top: 10mm;
+      padding: 10px;
+      background: #ede7f6;
+      border-left: 4px solid #512da8;
+      font-size: 12px;
+    }
+
+    .notes-section h3 {
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: #512da8;
+    }
+
+    .terms-section {
+      margin-top: 10mm;
+      padding: 10px;
+      background: #f3f0f9;
+      border-left: 4px solid #673ab7;
+      font-size: 12px;
+    }
+
+    .terms-section h3 {
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: #512da8;
+    }
+
+    .signature-section {
+      text-align: right;
+      margin-top: 20mm;
+    }
+
+    .signature-section h4 {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div>
+      <!-- Header -->
+      <div class="header">
+        <img src="[[logo_small_src]]" alt="Logo">
+        <h1>INVOICE</h1>
+      </div>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <div>
+          <strong>Bill To:</strong><br>
+          [[customer_name]]<br>
+          [[customer_address]]<br>
+          [[customer_phone]]<br>
+          [[customer_email]]
+        </div>
+        <div>
+          <strong>Invoice Details:</strong><br>
+          Invoice #: [[invoice_number]]<br>
+          Date: [[invoice_date]]<br>
+          Due Date: [[payment_due_date]]
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+
+      <!-- Totals -->
+      <div class="totals">
+        <div>Item Total: [[itemtotal]]</div>
+        <div>Discount: [[discount]]</div>
+        <div>Subtotal: [[subtotal]]</div>
+        <div>Tax: [[tax_amount]]</div>
+        <div>Round Off: [[roundoff]]</div>
+        <div class="grand-total">Grand Total: [[grand_total]]</div>
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-section">
+        <h3>Notes:</h3>
+        [[notes]]
+      </div>
+
+      <!-- Terms & Conditions -->
+      <div class="terms-section">
+        <h3>Terms & Conditions:</h3>
+        [[terms_and_conditions]]
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-section">
+      <h4>[[org_authority_name]]</h4>
+      <p>[[org_authority_designation]]</p>
+    </div>
+  </div>
+</body>
+</html>
