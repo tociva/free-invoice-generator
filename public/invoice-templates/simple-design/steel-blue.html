@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blue-Grey Invoice</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 850px;
+      margin: 20px auto;
+      background: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    /* Header */
+    .header {
+      background: #2f4f6f;
+      color: #fff;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      max-width: 50%;
+    }
+
+    .header-left h1 {
+      font-size: 1.6rem;
+      margin: 0;
+      font-weight: normal;
+      color: #ffffff;
+    }
+
+    .header-left .company-name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #a8d0e6;
+    }
+
+    .header-right {
+      text-align: right;
+    }
+
+    .header-right .total-due {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #a8ff60;
+    }
+
+    /* Invoice Details */
+    .details {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      font-size: 0.9rem;
+    }
+
+    .details div {
+      max-width: 45%;
+    }
+
+    .details strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Table */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #e3eaf2;
+      color: #333;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th:last-child, td:last-child {
+      text-align: right;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+
+    /* Summary */
+    .summary {
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .summary-left {
+      max-width: 50%;
+    }
+
+    .summary-right {
+      text-align: right;
+      max-width: 40%;
+    }
+
+    .summary-right div {
+      margin: 5px 0;
+    }
+
+    .summary-right .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2f4f6f;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 15px 30px;
+      font-size: 0.85rem;
+      background: #f4f4f4;
+      text-align: center;
+      color: #555;
+    }
+    .header-left img{
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <div class="company-name">[[org_name]]</div>
+        <h1>Invoice to</h1>
+        <p>
+          <strong>[[customer_name]]</strong><br>
+          [[customer_address]]<br>
+          [[customer_phone]]<br>
+          [[customer_email]]
+        </p>
+      </div>
+      <div class="header-right">
+        <div>Total Due</div>
+        <div class="total-due">[[grand_total]]</div>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="details">
+      <div>
+        <strong>Invoice #</strong> [[invoice_number]]<br>
+        <strong>Invoice Date:</strong> [[invoice_date]]<br>
+      </div>
+      <div>
+        [[org_address]]<br>
+        [[org_phone]]<br>
+        [[org_email]]
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+      <div class="summary-left">
+        <strong>Terms & Conditions</strong><br>
+        [[terms_and_conditions]]
+        <br><br>
+        <strong>Bank Transfer:</strong><br>
+        [[bank_name]]<br>
+        Account: [[account_number]]<br>
+        We accept Visa, MasterCard, AMEX
+      </div>
+      <div class="summary-right">
+        <div>Sub Total: [[itemtotal]]</div>
+        <div>Tax: [[tax_amount]]</div>
+        <div>Discount: [[discount]]</div>
+        <div>Round Off: [[roundoff]]</div>
+        <div class="total">Total: [[grand_total]]</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Thank you for your business!
+    </div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Green Modern Invoice</title>
+  <style>
+    body {
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    /* Top Banner */
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px;
+      background: #008060;
+      color: #ffffff;
+      flex-wrap: wrap;
+    }
+
+    .banner-left h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .banner-left p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+
+    .banner-right {
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .banner-right p {
+      margin: 5px 0;
+    }
+
+    /* Invoice Heading */
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: #f8f8f8;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .invoice-header h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    .invoice-header .meta {
+      text-align: right;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px auto;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #d6eadf;
+      color: #333;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    /* Payment & Summary */
+    .bottom-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      max-width: 45%;
+    }
+
+    .summary {
+      max-width: 45%;
+      text-align: right;
+    }
+
+    .summary div {
+      margin-bottom: 6px;
+    }
+
+    .summary .total-due {
+      background: #008060;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.85rem;
+      color: #555;
+      background: #f8f8f8;
+    }
+    .banner-left img{
+      height: 100px;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+  </style>
+</head>
+<body>
+    <!-- Banner -->
+    <div class="banner">
+      <div class="banner-left">
+        <img src="[[logo_small_src]]" alt="Logo" />
+        <h1>[[org_name]]</h1>
+        <p>[[org_phone]]</p>
+        <p>[[org_address]]</p>
+      </div>
+      <div class="banner-right">
+        <p><strong>Invoice To:</strong> [[customer_name]]</p>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
+    </div>
+
+    <!-- Invoice Header -->
+    <div class="invoice-header">
+      <h2>INVOICE</h2>
+      <div class="meta">
+        <p><strong>Invoice Date:</strong> [[invoice_date]]</p>
+        <p><strong>Invoice No:</strong> [[invoice_number]]</p>
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Payment & Summary -->
+    <div class="bottom-section">
+      <div class="payment-method">
+        
+      </div>
+      <div class="summary">
+        <div>Sub Total: [[itemtotal]]</div>
+        <div>Tax VAT: [[tax_amount]]</div>
+        <div>Discount: [[discount]]</div>
+        <div class="total-due">Total Due: [[grand_total]]</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      THANK YOU FOR YOUR BUSINESS!
+    </div>
+</body>
+</html>

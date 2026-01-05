@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kids Playful Invoice</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', cursive, sans-serif;
+      background: #fffaf5;
+      color: #444;
+    }
+
+    .invoice-wrapper {
+      width: 200mm;
+      height: 280mm;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 5px solid #ffdde1;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* HEADER */
+    .invoice-header {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 5px dashed #fff;
+      position: relative;
+    }
+
+    .invoice-header h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin: 0;
+      text-shadow: 1px 1px 3px #e57373;
+    }
+
+    .invoice-header img {
+      height: 100px;
+      margin-top: 10px;
+    }
+
+    /* DETAILS */
+    .invoice-details {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      font-size: 1rem;
+      gap:10px;
+    }
+
+    .details-box {
+      width: 48%;
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px dashed #ffb347;
+    }
+
+    .details-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    /* TABLE */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #6ec1e4;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    thead th, tbody td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #bce0fd;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f0faff;
+    }
+
+    /* TERMS */
+    .terms {
+      background: #fff9e6;
+      padding: 15px;
+      margin: 10px 30px;
+      border-radius: 10px;
+      border: 2px dashed #ffd166;
+      font-size: 1rem;
+    }
+
+    /* TOTALS */
+    .totals {
+      margin: 10px 30px;
+      text-align: right;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .totals div {
+      margin-bottom: 5px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      background: #ffe4e1;
+      padding: 15px;
+      font-weight: bold;
+      color: #444;
+      border-radius: 0 0 20px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+    /* BALLOONS BELOW FOOTER */
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 45% 45%;
+      bottom: 10px;
+      z-index: 0;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      width: 2px;
+      height: 40px;
+      background: #888;
+      transform: translateX(-50%);
+    }
+
+    .balloon.red { background: #ff8a80; left: 60px; }
+    .balloon.blue { background: #80d8ff; left: 150px; }
+    .balloon.green { background: #a7ff83; left: 240px; }
+    .balloon.yellow { background: #ffe082; left: 330px; }
+
+    /* PRINT SETTINGS */
+    @page { size: A4; margin: 0; }
+    @media print {
+      body { background: #fff; }
+      .invoice-wrapper { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <!-- Header -->
+    <div class="invoice-header">
+      <h1>Invoice</h1>
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+
+    <!-- Details -->
+    <div class="invoice-details">
+      <div class="details-box">
+        <strong>From:</strong>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_email]]<br>
+        [[org_phone]]
+      </div>
+      <div class="details-box">
+        <strong>To:</strong>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_email]]<br>
+        [[customer_phone]]
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div>Subtotal: [[itemtotal]]</div>
+      <div>Tax: [[tax_amount]]</div>
+      <div>Discount: [[discount]]</div>
+      <div>Round Off: [[roundoff]]</div>
+      <div><strong>Total: [[grand_total]]</strong></div>
+      <div><em>[[grand_total_inwords]]</em></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Thank you for your business! Have a joyful day!
+    </div>
+
+    <!-- Terms -->
+    <div class="terms">
+      <strong>Terms & Conditions:</strong><br>
+      [[terms_and_conditions]]
+    </div>
+
+    <!-- Balloons -->
+    <div class="balloon red"></div>
+    <div class="balloon blue"></div>
+    <div class="balloon green"></div>
+    <div class="balloon yellow"></div>
+  </div>
+</body>
+</html>

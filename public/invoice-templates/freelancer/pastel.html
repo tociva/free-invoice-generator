@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastel Invoice</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #fdf6f0;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffb6b9, #fae3d9);
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 8px;
+        }
+
+        .invoice-title {
+            font-size: 2.2rem;
+            color: #444;
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        thead {
+            background: #ffb6b9;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .totals {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .final {
+            font-size: 1.2rem;
+            color: #ff6b81;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fae3d9;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        table th:nth-child(2),
+        table th:nth-child(3),
+        table th:nth-child(4),
+        table th:nth-child(5),
+        table th:nth-child(6),
+        table td:nth-child(2),
+        table td:nth-child(3),
+        table td:nth-child(4),
+        table td:nth-child(5),
+        table td:nth-child(6) {
+            text-align: right;
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .terms {
+            max-width: 50%;
+        }
+
+        .contact-info,
+        .payment-info {
+            text-align: right;
+        }
+
+        .notes {
+            background: #ffe3e3;
+            padding: 10px;
+            border-left: 4px solid #ff6b81;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <h1 class="invoice-title">INVOICE</h1>
+            <div class="logo"><img src="[[logo_small_src]]" alt="Logo"></div>
+        </div>
+        <p><strong>[[org_name]]</strong><br>[[org_email]] | [[org_phone]]<br>[[org_address]]</p>
+        <p><strong>Bill
+                To:</strong><br>[[customer_name]]<br>[[customer_email]]<br>[[customer_phone]]<br>[[customer_address]]
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                [[items_start]]
+                <tr>
+                    <td>[[item_name]]</td>
+                    <td>[[item_quantity]]</td>
+                    <td>[[currency_symbol]][[item_price]]</td>
+                    <td>[[currency_symbol]][[item_amount]]</td>
+                </tr>
+                [[items_end]]
+            </tbody>
+        </table>
+        <div class="totals">
+            <p>Subtotal: [[currency_symbol]][[subtotal]]</p>
+            <p>Discount: -[[currency_symbol]][[discount]]</p>
+            <p class="final">Total: [[currency_symbol]][[grand_total]]</p>
+        </div>
+        <div class="footer">
+            <div class="notes">
+                <strong>Notes:</strong> [[notes]]
+            </div>
+            <div class="footer-section">
+                <div class="terms">
+                    <strong>Terms & Conditions:</strong>
+                    <p>[[terms_and_conditions]]</p>
+                </div>
+                <div class="contact-info">
+                    <p>Email: [[org_email]]</p>
+                    <p>Phone: [[org_phone]]</p>
+                </div>
+            </div>
+            <div class="payment-info">
+                <strong>Payment Details:</strong>
+                <p>Bank: [[bank_name]]</p>
+                <p>Account: [[account_number]]</p>
+                <p>Account Name: [[account_name]]</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

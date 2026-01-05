@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invoice Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      padding: 10px;
+    }
+
+    .invoice-box {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+
+    .header {
+      border-bottom: 4px solid #9c27b0;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      color: #000;
+      margin: 0;
+    }
+
+    .company {
+      text-align: right;
+    }
+
+    .company strong {
+      font-size: xx-large;
+    }
+
+    .company h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .company small {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .contact-box {
+      background: #9c27b0;
+      color: #fff;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 6px;
+    }
+
+    .contact-box p {
+      margin: 5px 0;
+      font-size: 13px;
+    }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .info-section .to,
+    .info-section .meta {
+      font-size: 14px;
+    }
+
+    .to {
+      margin-left: 10px;
+    }
+
+    .meta {
+      margin-right: 10px;
+      text-align: right;
+    }
+
+    .info-section strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    thead {
+      background: #9c27b0;
+      color: white;
+    }
+
+    th,
+    td {
+      padding: 12px 16px;
+      font-size: 14px;
+      border: 1px solid #eee;
+    }
+
+    th:nth-child(2),
+    th:nth-child(3),
+    th:nth-child(4),
+    th:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+      text-align: right;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    .totals {
+      max-width: 300px;
+      margin-left: auto;
+      font-size: 14px;
+    }
+
+    .totals p {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .totals .total {
+      font-size: 16px;
+      font-weight: bold;
+      background: #9c27b0;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      border-radius: 25px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 50px;
+    }
+
+    .signature p {
+      margin: 4px 0;
+    }
+
+    .signature img {
+      height: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .info-section {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .company {
+        text-align: left;
+        margin-top: 10px;
+      }
+
+      .meta {
+        text-align: left;
+      }
+
+      .totals {
+        max-width: 100%;
+      }
+
+      .signature {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo" height="80"/>
+      <div class="company">
+        <strong>[[org_name]]</strong>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-box">
+      <p>[[org_address]]</p>
+      <p>[[org_phone]]</p>
+      <p>[[org_email]]</p>
+    </div>
+
+    <!-- Invoice To + Meta -->
+    <div class="info-section">
+      <div class="to">
+        <strong>[[customer_name]]</strong>
+        <p>[[customer_address]]</p>
+        <p>[[customer_phone]]</p>
+        <p>[[customer_email]]</p>
+      </div>
+      <div class="meta">
+        <p>Invoice #: [[invoice_number]]</p>
+        <p>Date: [[invoice_date]]</p>
+        <p>Due: [[payment_due_date]]</p>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>CGST</th>
+          <th>SGST</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_cgst]]</td>
+          <td>[[item_sgst]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <p><span>Item Total:</span><span>[[itemtotal]]</span></p>
+      <p><span>Discount:</span><span>[[discount]]</span></p>
+      <p><span>Subtotal:</span><span>[[subtotal]]</span></p>
+      <p><span>Tax:</span><span>[[tax_amount]]</span></p>
+      <p><span>Round Off:</span><span>[[roundoff]]</span></p>
+      <p class="total"><span>Total:</span><span>[[grand_total]]</span></p>
+    </div>
+
+    <!-- Payment Info -->
+    <div class="footer">
+      <p><strong>Payment Via Bank</strong></p>
+      <p>Bank Name: Business Inc</p>
+      <p>Bank Address: 123 Main Street</p>
+      <p>SWIFT Code: 12345678</p>
+      <p>Bank Account #: 123 456 789</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magazine Style Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #f4f5f7;
+      color: #333;
+    }
+
+    .invoice-wrapper {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Top Banner */
+    .top-banner {
+      background: linear-gradient(90deg, #ff6f00, #ff8f00);
+      color: #fff;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+    .top-banner img {
+      height: 60px;
+    }
+    .top-banner h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    /* Floating Total Card */
+    .total-card {
+      position: absolute;
+      right: 30px;
+      top: 110px;
+      background: #fff;
+      color: #333;
+      padding: 15px 25px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .total-card span {
+      display: block;
+      color: #ff6f00;
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    /* Invoice Details */
+    .details-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      margin-top: 80px;
+      font-size: 14px;
+    }
+    .details-box h3 {
+      margin: 0 0 5px;
+      color: #ff6f00;
+      font-size: 16px;
+    }
+
+    /* Table Section */
+    .table-section {
+      padding: 0 30px;
+      margin-top: 20px;
+      flex-grow: 1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    th {
+      background: #ff6f00;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Summary Panel */
+    .summary {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 30px;
+      background: #fff7ed;
+      border-top: 2px solid #ff8f00;
+      font-size: 14px;
+    }
+    .summary div {
+      text-align: right;
+      margin-left: 30px;
+    }
+    .summary .total {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6f00;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+
+    /* Footer Section */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      border-top: 5px solid #ff6f00;
+    }
+    .footer h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+      color: #ffcc80;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <!-- Top Banner -->
+    <div class="top-banner">
+      <h1>INVOICE</h1>
+      <img src="[[logo_small_src]]" alt="Logo" />
+    </div>
+
+    <!-- Floating Total Card -->
+    <div class="total-card">
+      Total Due
+      <span>[[grand_total]]</span>
+    </div>
+
+    <!-- Details Section -->
+    <div class="details-section">
+      <div class="details-box">
+        <h3>Bill To</h3>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
+      <div class="details-box" style="text-align:right;">
+        <h3>Invoice Info</h3>
+        Invoice #: [[invoice_number]]<br>
+        Date: [[invoice_date]]<br>
+        Due: [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+      <div>
+        Subtotal:<br>
+        Tax:<br>
+        <span class="total">Grand Total:</span>
+      </div>
+      <div>
+       Item Total: [[itemtotal]]<br>
+        Discount: [[discount]]<br>
+        Subtotal: [[subtotal]]<br>
+        Round Off: [[roundoff]]<br>
+        <span class="total">[[grand_total]]</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <h3>Payment Info</h3>
+        Bank: [[bank_name]]<br>
+        Account: [[account_name]]<br>
+        No: [[account_number]]
+      </div>
+      <div>
+        [[org_email]]<br>
+        [[org_phone]]<br>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

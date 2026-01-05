@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Baby Themed Invoice</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+    body {
+      padding: 0;
+      margin: 0;
+      background: #fff7f0;
+      font-family: 'Comic Neue', cursive, sans-serif;
+      color: #444;
+    }
+
+    .invoice-container {
+      width: 210mm;
+      /* A4 width */
+      height: 297mm;
+      /* A4 height */
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border: 5px solid #ffd7d7;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    /* Print-friendly settings */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .invoice-container {
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      background: linear-gradient(to right, #ffd1dc, #ffe5b4);
+      padding: 30px 20px;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    .header img {
+      height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      color: #ff6f61;
+      margin: 5px 0;
+    }
+
+    .header-info {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #444;
+      flex-wrap: wrap;
+    }
+
+    .header-info div {
+      margin: 5px 10px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      font-size: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead th {
+      background: #ffb347;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    td,
+    th {
+      border: 1px solid #ffd6a5;
+      padding: 10px;
+      text-align: center;
+    }
+
+    td:first-child {
+      text-align: left;
+    }
+
+    /* Terms */
+    .terms {
+      margin-top: 20px;
+      font-size: 1rem;
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px dashed #ffcc80;
+    }
+
+    /* Totals */
+    .totals {
+      text-align: right;
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .totals div {
+      margin-bottom: 5px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1rem;
+      color: #555;
+      background: #ffe4e1;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    /* Decorative Bottom */
+    .bottom-banner {
+      margin-top: 40px;
+      background: #ffe5b4;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 0 0 15px 15px;
+      position: relative;
+    }
+
+    .css-star {
+      width: 40px;
+      height: 40px;
+      background: #ff6f61;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+          50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .css-star.left {
+      left: 20px;
+    }
+
+    .css-star.right {
+      right: 20px;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+
+    <!-- Header -->
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo" />
+      <h1>Invoice</h1>
+      <div class="header-info">
+        <div>
+          <strong>Date:</strong> [[invoice_date]]<br>
+          <strong>No:</strong> [[invoice_number]]
+        </div>
+        <div>
+          From:<br>
+          <strong>[[org_name]]</strong><br>
+          <strong>[[org_address]]</strong>
+        </div>
+        <div>
+          To:<br>
+          <strong>[[customer_name]]<br></strong>
+          <strong>[[customer_address]]</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+
+    <!-- Totals -->
+    <div class="totals">
+      <div>Sub Total: [[itemtotal]]</div>
+      <div>Tax: [[tax_amount]]</div>
+      <div>Discount: [[discount]]</div>
+      <div>Round Off: [[roundoff]]</div>
+      <div><strong>Total: [[grand_total]]</strong></div>
+      <div><em>[[grand_total_inwords]]</em></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Thank you for your business! Have a joyful day!
+    </div>
+
+    <!-- Terms -->
+    <div class="terms">
+      <strong>Terms & Conditions:</strong><br>
+      [[terms_and_conditions]]
+    </div>
+
+
+    <!-- Bottom Decoration -->
+    <div class="bottom-banner">
+      <div class="css-star left"></div>
+      <div class="css-star right"></div>
+    </div>
+  </div>
+</body>
+
+</html>

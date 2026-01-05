@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mint Invoice</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f2fdfb;
+      color: #2e2e2e;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .invoice {
+      max-width: 900px;
+      margin: auto;
+      background-color: #ffffff;
+      border: 1px solid #d1f5ee;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    }
+
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #d1f5ee;
+      padding-bottom: 20px;
+    }
+
+    .invoice-header img {
+      height: 100px;
+    }
+
+    .invoice-meta {
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    .invoice-title {
+      margin: 30px 0 10px;
+      font-size: 2rem;
+      color: #2bbf9f;
+    }
+
+    .address-block {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .address-block div {
+      width: 48%;
+    }
+
+    .section-title {
+      color: #2bbf9f;
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th {
+      background-color: #e9fdf9;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+      color: #109f86;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    td:last-child, th:last-child {
+      text-align: right;
+    }
+
+    .totals {
+      text-align: right;
+      margin-top: 30px;
+      font-size: 1rem;
+    }
+
+    .totals div {
+      margin-bottom: 6px;
+    }
+
+    .grand-total {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #109f86;
+    }
+
+    .inwords {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="invoice-header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <div class="invoice-meta">
+        <div><strong>Invoice #:</strong> [[invoice_number]]</div>
+        <div><strong>Date:</strong> [[invoice_date]]</div>
+        <div><strong>Due Date:</strong> [[payment_due_date]]</div>
+      </div>
+    </div>
+
+    <div class="invoice-title">Invoice</div>
+
+    <!-- Bill Info -->
+    <div class="address-block">
+      <div>
+        <div class="section-title">Bill From</div>
+        <div><strong>[[org_name]]</strong></div>
+        <div>[[org_address]]</div>
+        <div>[[org_email]]</div>
+        <div>[[org_phone]]</div>
+      </div>
+      <div>
+        <div class="section-title">Bill To</div>
+        <div><strong>[[customer_name]]</strong></div>
+        <div>[[customer_address]]</div>
+        <div>[[customer_email]]</div>
+        <div>[[customer_phone]]</div>
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        [[items_start]]
+        <tr>
+          <td>[[item_name]]</td>
+          <td>[[item_quantity]]</td>
+          <td>[[item_price]]</td>
+          <td>[[item_amount]]</td>
+        </tr>
+        [[items_end]]
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div>Item Total: [[itemtotal]]</div>
+      <div>Discount: [[discount]]</div>
+      <div>Subtotal: [[subtotal]]</div>
+      <div>Tax: [[tax_amount]]</div>
+      <div>Round Off: [[roundoff]]</div>
+      <div class="grand-total">Grand Total: [[grand_total]]</div>
+      <div class="inwords">[[grand_total_inwords]]</div>
+    </div>
+</body>
+</html>

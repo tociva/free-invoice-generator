@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .invoice-wrapper {
+      width: 210mm;
+      min-height: 297mm;
+      margin: auto;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header Section */
+    .header {
+      background: #ff7043;
+      color: #fff;
+      padding: 20mm 20mm 10mm;
+      position: relative;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .header img {
+      position: absolute;
+      top: 20mm;
+      right: 20mm;
+      height: 60px;
+    }
+    .header-details {
+      margin-top: 10mm;
+      font-size: 14px;
+    }
+
+    /* Info Section */
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 15mm 20mm;
+      background: #fafafa;
+      border-left: 8px solid #ff7043;
+      margin: 10mm 0;
+    }
+    .info-box {
+      width: 45%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .info-box h3 {
+      margin: 0 0 5px;
+      color: #ff7043;
+      font-size: 16px;
+    }
+
+    /* Items Table */
+    .table-section {
+      padding: 0 20mm;
+      margin-top: 5mm;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: #424242;
+      color: #fff;
+    }
+
+    /* Totals Section */
+    .totals-section {
+      padding: 10mm 20mm;
+      text-align: right;
+      font-size: 15px;
+      background: #fafafa;
+      border-left: 8px solid #ff7043;
+      margin: 10mm 0;
+    }
+    .total-due {
+      margin-top: 5mm;
+      background: #ffccbc;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #bf360c;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 4px;
+    }
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+
+
+    /* Footer Section */
+    .footer {
+      padding: 10mm 20mm;
+      border-top: 2px solid #ff7043;
+      font-size: 12px;
+      text-align: center;
+      color: #555;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <h1>INVOICE</h1>
+      <img src="[[logo_small_src]]" alt="Logo">
+      <div class="header-details">
+        Invoice #: [[invoice_number]]<br>
+        Date: [[invoice_date]]<br>
+        Due Date: [[payment_due_date]]
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="info-box">
+        <h3>Bill To</h3>
+        [[customer_name]]<br>
+        [[customer_address]]<br>
+        [[customer_phone]]<br>
+        [[customer_email]]
+      </div>
+      <div class="info-box">
+        <h3>From</h3>
+        [[org_name]]<br>
+        [[org_address]]<br>
+        [[org_phone]]<br>
+        [[org_email]]
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Totals Section -->
+    <div class="totals-section">
+      Item Total: [[itemtotal]]<br>
+      Discount: [[discount]]<br>
+      Subtotal: [[subtotal]]<br>
+      Round Off: [[roundoff]]<br>
+      <div class="total-due">
+        <span>Grand Total</span>
+        <span>[[grand_total]]</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Questions? Email [[org_email]] | Call [[org_phone]]<br>
+      Account: [[account_name]] | Bank: [[bank_name]]<br>
+      Terms: [[terms_and_conditions]]
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Invoice Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            font-size: 12px;
+            color: #334155;
+        }
+
+        .invoice-container {
+            width: 210mm;
+            min-height: 297mm;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            color: white;
+            padding: 30px;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+            min-height: 120px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .invoice-info {
+            flex: 1;
+        }
+
+        .invoice-title {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .invoice-meta {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .company-logo {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            min-width: 120px;
+        }
+
+        .company-logo img {
+            max-width: 80px;
+            max-height: 80px;
+        }
+
+        .company-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .bill-payment-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 30px;
+            margin-top: -20px;
+        }
+
+        .bill-to, .payment-method {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #14b8a6;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #14b8a6;
+            margin-bottom: 12px;
+        }
+
+        .contact-info {
+            line-height: 1.6;
+            font-size: 11px;
+        }
+
+        .contact-info div {
+            margin-bottom: 3px;
+        }
+
+        .items-section {
+            margin: 0 30px 20px 30px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.1);
+        }
+
+        .items-table thead {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            color: white;
+        }
+
+        .items-table th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table th:nth-child(2),
+        .items-table th:nth-child(3),
+        .items-table th:nth-child(4) {
+            text-align: center;
+        }
+
+        .items-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .items-table tbody tr:hover {
+            background: rgba(20, 184, 166, 0.05);
+        }
+
+        .items-table tbody tr:nth-child(even) {
+            background: rgba(20, 184, 166, 0.02);
+        }
+
+        .items-table tbody tr:nth-child(even):hover {
+            background: rgba(20, 184, 166, 0.08);
+        }
+
+        .items-table td {
+            padding: 15px 20px;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        .items-table td:nth-child(2),
+        .items-table td:nth-child(3),
+        .items-table td:nth-child(4) {
+            text-align: center;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 30px;
+        }
+
+        .total-box {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .footer-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            padding: 30px;
+            background: #f8fafc;
+            margin-top: 30px;
+        }
+
+        .contact-section h3 {
+            color: #14b8a6;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .contact-details {
+            line-height: 1.6;
+            font-size: 11px;
+        }
+
+        .signature-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #cbd5e1;
+            width: 200px;
+            margin: 20px 0 5px 0;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .thank-you h2 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .terms-section h3 {
+            color: #14b8a6;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .terms-text {
+            font-size: 10px;
+            line-height: 1.4;
+            color: #64748b;
+        }
+
+        .footer-accent {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 150px;
+            height: 60px;
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: none;
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .items-table thead {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .total-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .footer-accent {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="header-content">
+                <div class="invoice-info">
+                    <div class="invoice-title">INVOICE</div>
+                    <div class="invoice-meta">
+                        <div>No. [[invoice_number]]</div>
+                        <div>Date. [[invoice_date]]</div>
+                    </div>
+                </div>
+                <div class="company-logo">
+                    <img src="[[logo_small_src]]" alt="Company Logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="bill-payment-section">
+            <div class="bill-to">
+                <div class="section-title">Bill to.</div>
+                <div class="contact-info">
+                    <div><strong>[[customer_name]]</strong></div>
+                    <div>Phone: [[customer_phone]]</div>
+                    <div>Email: [[customer_email]]</div>
+                    <div>Address: [[customer_address]]</div>
+                </div>
+            </div>
+
+            <div class="payment-method">
+                <div class="section-title">Payment Method.</div>
+                <div class="contact-info">
+                    <div><strong>Bank Details</strong></div>
+                    <div>Account: [[account_name]]</div>
+                    <div>Number: [[account_number]]</div>
+                    <div>Bank: [[bank_name]]</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="items-section">
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Item Description</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [[items_start]]
+                    <tr>
+                        <td class="item-name">[[item_name]]</td>
+                        <td>[[item_quantity]]</td>
+                        <td>[[currency_symbol]][[item_price]]</td>
+                        <td>[[currency_symbol]][[item_amount]]</td>
+                    </tr>
+                    [[items_end]]
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-section">
+            <div class="total-box">
+                <div class="total-label">Grand Total</div>
+                <div class="total-amount">[[currency_symbol]][[grand_total]]</div>
+            </div>
+        </div>
+
+        <div class="thank-you">
+            <h2>THANK YOU</h2>
+        </div>
+
+        <div class="footer-section">
+            <div class="contact-section">
+                <div class="signature-section">
+                    <div>Best Regards,</div>
+                    <div class="signature-line"></div>
+                    <div><strong>[[org_authority_name]]</strong></div>
+                    <div style="font-size: 10px; color: #64748b;">[[org_authority_designation]]</div>
+                </div>
+
+                <h3>Contact.</h3>
+                <div class="contact-details">
+                    <div>Phone: [[org_phone]]</div>
+                    <div>Mail: [[org_email]]</div>
+                    <div>Address: [[org_address]]</div>
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <h3>Terms and Conditions.</h3>
+                <div class="terms-text">
+                    [[terms_and_conditions]]
+                </div>
+                <div style="margin-top: 15px;">
+                    <strong style="font-size: 11px;">Notes:</strong><br>
+                    <span class="terms-text">[[notes]]</span>
+                </div>
+                <div style="margin-top: 15px; font-style: italic; font-size: 10px;">
+                    Amount in Words: [[grand_total_inwords]]
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-accent"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Invoice</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f6f7fb;
+      color: #333;
+    }
+
+    .invoice-container {
+      width: 210mm;
+      min-height: 297mm;
+      background: #fff;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Wave Header */
+    .header {
+      background: linear-gradient(135deg, #2E3192, #1BFFFF);
+      color: #fff;
+      padding: 40px 30px 80px;
+      position: relative;
+      clip-path: ellipse(120% 100% at 50% 0%);
+    }
+
+    .header img {
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .header .company-name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Floating Card */
+    .invoice-info {
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 130px;
+      right: 30px;
+      width: 200px;
+      font-size: 12px;
+      color: #333;
+    }
+
+    .invoice-info h1 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #2E3192;
+    }
+
+    /* Bill To */
+    .bill-section {
+      padding: 170px 30px 20px;
+      font-size: 13px;
+    }
+
+    .bill-section h3 {
+      margin: 0 0 5px;
+      color: #2E3192;
+    }
+
+    /* Table */
+    .table-section {
+      padding: 0 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #2E3192;
+      color: #fff;
+    }
+
+    td:last-child,
+    th:last-child {
+      text-align: right;
+    }
+
+    th:nth-child(n+2),
+    td:nth-child(n+2) {
+      text-align: right;
+    }
+    /* Totals */
+    .totals {
+      background: #f1f3f8;
+      padding: 15px 20px;
+      margin: 20px 30px;
+      border-radius: 8px;
+      text-align: right;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .totals .total {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2E3192;
+    }
+
+    .terms-section {
+      padding: 20px;
+      font-size: 11px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .terms-section strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #2E3192;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+      <img src="[[logo_small_src]]" alt="Logo">
+      <div class="company-name">[[org_name]]</div>
+    </div>
+
+    <!-- Floating Invoice Info -->
+    <div class="invoice-info">
+      <h1>INVOICE</h1>
+      Invoice No: [[invoice_number]]<br>
+      Date: [[invoice_date]]<br>
+      Due: [[payment_due_date]]
+    </div>
+
+    <!-- Bill To -->
+    <div class="bill-section">
+      <h3>Bill To:</h3>
+      [[customer_name]]<br>
+      [[customer_address]]<br>
+      [[customer_phone]]<br>
+      [[customer_email]]
+    </div>
+
+    <!-- Table -->
+    <div class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[items_start]]
+          <tr>
+            <td>[[item_name]]</td>
+            <td>[[item_quantity]]</td>
+            <td>[[item_price]]</td>
+            <td>[[item_amount]]</td>
+          </tr>
+          [[items_end]]
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Totals -->
+    <div class="totals">
+      Subtotal: [[subtotal]]<br>
+      Tax: [[tax_amount]]<br>
+      <div class="total">Grand Total: [[grand_total]]</div>
+    </div>
+
+    <div class="notes">
+      Notes : [[notes]]
+    </div>
+    <!-- Footer -->
+
+    <div class="terms-section">
+      <strong>Terms & Conditions:</strong>
+      [[terms_and_conditions]]
+    </div>
+
+    <div class="footer">
+      THANK YOU FOR YOUR BUSINESS
+    </div>
+  </div>
+</body>
+
+</html>

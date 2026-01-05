@@ -1,0 +1,59 @@
+@if (isOpen()) {
+  <div
+    class="dialog-backdrop fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-[fadeIn_0.2s_ease-out]"
+    (click)="onBackdropClick($event)"
+  >
+    <div
+      class="relative flex items-center justify-center w-full max-w-6xl animate-[slideUp_0.3s_ease-out]"
+      (click)="$event.stopPropagation()"
+    >
+      @if (safeHtml()) {
+        <!-- A4 Size Container with Close Button -->
+        <div class="invoice-preview-container bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 border-white rounded-lg overflow-hidden relative transform transition-all duration-300 hover:shadow-[0_25px_70px_-15px_rgba(0,0,0,0.4)]" 
+             style="width: 794px; height: 1123px; max-width: calc(100% - 2rem); max-height: calc(100vh - 2rem); aspect-ratio: 210 / 297;">
+          
+          <!-- Close Button in Top Right Corner -->
+          <button
+            class="absolute top-3 right-3 z-10 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 group"
+            (click)="onClose()"
+            aria-label="Close dialog"
+          >
+            <svg
+              class="w-5 h-5 text-gray-700 group-hover:text-gray-900 group-hover:rotate-90 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          
+          <iframe
+            [attr.srcdoc]="safeHtml()"
+            class="w-full h-full border-0"
+            frameborder="0"
+            title="Invoice Preview"
+            scrolling="auto"
+          ></iframe>
+        </div>
+      } @else {
+        <div class="bg-white rounded-2xl shadow-2xl p-12 min-h-[400px] flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 text-gray-300">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <p class="text-base md:text-lg text-gray-500 font-medium">No invoice preview available</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
