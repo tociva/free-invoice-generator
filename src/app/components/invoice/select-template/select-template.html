@@ -4,249 +4,194 @@
     <div class="relative w-full max-w-xs sm:max-w-md md:max-w-xl">
       <!-- Search Icon -->
       <div class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-        <svg 
-          class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 transition-colors duration-200"
-          [class.text-teal-500]="globalSearch().length > 0"
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 transition-colors duration-200"
+          [class.text-teal-500]="globalSearch().length > 0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
-      
+
       <!-- Search Input -->
-      <input
-        type="text"
-        class="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2 sm:py-2.5 md:py-2 bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl shadow-sm 
+      <input type="text" class="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2 sm:py-2.5 md:py-2 bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl shadow-sm 
                text-sm sm:text-base text-gray-900 placeholder-gray-400
                focus:outline-none focus:border-teal-500 focus:ring-2 sm:focus:ring-4 focus:ring-teal-500/10 
                transition-all duration-200 ease-in-out
-               hover:border-gray-300 hover:shadow-md"
-        placeholder="Search templates..."
-        [value]="globalSearch()"
-        (input)="globalSearch.set($any($event.target).value); currentPage.set(1)"
-        (focus)="onSearchFocus()"
-        (blur)="onSearchBlur()"
-        aria-label="Search templates"
-      />
-      
+               hover:border-gray-300 hover:shadow-md" placeholder="Search templates..." [value]="globalSearch()"
+        (input)="globalSearch.set($any($event.target).value); currentPage.set(1)" (focus)="onSearchFocus()"
+        (blur)="onSearchBlur()" aria-label="Search templates" />
+
       <!-- Clear Button (shown when there's text) -->
       @if (globalSearch().length > 0) {
-        <button
-          type="button"
-          class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-1 sm:p-1.5 rounded-full 
+      <button type="button" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-1 sm:p-1.5 rounded-full 
                  bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700
                  transition-all duration-200 flex items-center justify-center
-                 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
-          (click)="clearSearch()"
-          aria-label="Clear search"
-        >
-          <svg 
-            class="w-3.5 h-3.5 sm:w-4 sm:h-4" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+                 focus:outline-none focus:ring-2 focus:ring-teal-500/20" (click)="clearSearch()"
+        aria-label="Clear search">
+        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
       }
-      
+
       <!-- Results Count Badge (shown when searching) -->
       @if (globalSearch().length > 0) {
-        <div class="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 
+      <div class="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 
                     px-2 sm:px-3 py-0.5 sm:py-1 bg-teal-500 text-white text-xs font-medium rounded-full 
                     shadow-md whitespace-nowrap">
-          {{ totalItems() }} {{ totalItems() === 1 ? 'template' : 'templates' }} found
-        </div>
+        {{ totalItems() }} {{ totalItems() === 1 ? 'template' : 'templates' }} found
+      </div>
       }
     </div>
   </div>
 
   <!-- Template Grid with Optimistic Loading -->
   @if (initialLoadComplete() || templates().length > 0) {
-    <div class="w-full px-2 sm:px-0">
-      <!-- Grid Container -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
-        @for(item of pagedTemplates(); track item.id) {
-          <div 
-            (click)="selectTemplate(item.id)"
-            class="template-card bg-white border-2 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-            [class.ring-2]="item.isSelected"
-            [class.ring-teal-500]="item.isSelected"
-            [class.border-teal-500]="item.isSelected"
-            [class.border-gray-200]="!item.isSelected"
-            [style.animation]="'fadeIn 0.4s ease-out forwards'"
-            [style.animation-delay]="($index * 30) + 'ms'"
-            style="opacity: 0;"
-          >
-            <!-- Card Header with Title -->
-            <div class="card-header flex items-center justify-between p-2 sm:p-2.5 md:p-3 border-b border-gray-200 bg-white">
-              <span class="card-title font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate flex-1 pr-1">{{ item.name }}</span>
-              @if (item.isSelected) {
-                <div class="ml-1 sm:ml-2 shrink-0">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-teal-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              }
-            </div>
-
-            <!-- Card Preview Area with iframe -->
-            <div class="card-preview relative bg-gray-50 overflow-hidden h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60">
-              @if (item.safeHTML) {
-                <iframe 
-                  [attr.srcdoc]="item.safeHTML" 
-                  [attr.title]="item.name"
-                  [attr.aria-label]="'Preview of ' + item.name"
-                  class="preview-iframe w-full h-full border-0 pointer-events-none overflow-hidden transition-opacity duration-300"
-                  frameborder="0"
-                  style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%;"
-                ></iframe>
-              } @else {
-                <!-- Skeleton Loader (Optimistic UI) -->
-                <div class="w-full h-full flex items-center justify-center animate-pulse">
-                  <div class="text-center w-full px-4">
-                    <div class="h-8 bg-gray-200 rounded mb-3 mx-auto max-w-[60%]"></div>
-                    <div class="space-y-2">
-                      <div class="h-2 bg-gray-200 rounded w-full"></div>
-                      <div class="h-2 bg-gray-200 rounded w-5/6 mx-auto"></div>
-                      <div class="h-2 bg-gray-200 rounded w-4/6 mx-auto"></div>
-                    </div>
-                    <div class="mt-4 h-16 bg-gray-200 rounded"></div>
-                  </div>
-                </div>
-              }
-            </div>
+  <div class="w-full px-2 sm:px-0">
+    <!-- Grid Container -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
+      @for(item of pagedTemplates(); track item.id) {
+      <div (click)="selectTemplate(item.id)"
+        class="template-card bg-white border-2 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+        [class.ring-2]="item.isSelected" [class.ring-teal-500]="item.isSelected"
+        [class.border-teal-500]="item.isSelected" [class.border-gray-200]="!item.isSelected"
+        [style.animation]="'fadeIn 0.4s ease-out forwards'" [style.animation-delay]="($index * 30) + 'ms'"
+        style="opacity: 0;">
+        <!-- Card Header with Title -->
+        <div
+          class="card-header flex items-center justify-between p-2 sm:p-2.5 md:p-3 border-b border-gray-200 bg-white">
+          <span class="card-title font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate flex-1 pr-1">{{
+            item.name }}</span>
+          @if (item.isSelected) {
+          <div class="ml-1 sm:ml-2 shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-teal-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd" />
+            </svg>
           </div>
-        }
-      </div>
-    </div>
-
-    <!-- Pagination -->
-    @if (totalItems() > 0) {
-      <div class="mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8 w-full bg-white border-t border-gray-200 px-2 sm:px-0">
-        <!-- Results Info - Mobile -->
-        <div class="text-xs sm:text-sm text-gray-600 text-center mb-3 sm:mb-4 sm:hidden">
-          Page <span class="font-semibold text-gray-900">{{ currentPage() }}</span> of 
-          <span class="font-semibold text-gray-900">{{ pages() }}</span>
+          }
         </div>
 
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 md:gap-6">
-          <!-- Results Info - Desktop -->
-          <div class="hidden sm:block text-xs md:text-sm text-gray-700 font-medium">
-            Showing <span class="font-semibold text-gray-900">{{ startIndex() }}</span> to 
-            <span class="font-semibold text-gray-900">{{ endIndex() }}</span> of 
-            <span class="font-semibold text-gray-900">{{ totalItems() }}</span> templates
-          </div>
-
-          <!-- Pagination Controls -->
-          <div class="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 w-full sm:w-auto justify-center overflow-x-auto pb-1 sm:pb-0">
-            <!-- First Page Button - Hidden on mobile -->
-            <button
-              class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
-              (click)="goToFirstPage()"
-              [disabled]="currentPage() === 1"
-              aria-label="First page"
-              title="First page"
-            >
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <!-- Previous Page Button -->
-            <button
-              class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
-              (click)="prevPage()"
-              [disabled]="currentPage() === 1"
-              aria-label="Previous page"
-              title="Previous page"
-            >
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <!-- Page Numbers -->
-            <div class="flex items-center gap-0.5 sm:gap-1">
-              @for(page of pageNumbers(); track $index) {
-                @if (page === '...') {
-                  <span class="px-1 sm:px-1.5 md:px-2 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-400 font-medium">...</span>
-                } @else {
-                  <button
-                    class="min-w-9 sm:min-w-10 md:min-w-9 px-1.5 sm:px-2 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 rounded-md touch-manipulation"
-                    [class.bg-blue-600]="currentPage() === page"
-                    [class.text-white]="currentPage() === page"
-                    [class.shadow-sm]="currentPage() === page"
-                    [class.border]="currentPage() !== page"
-                    [class.border-gray-300]="currentPage() !== page"
-                    [class.bg-white]="currentPage() !== page"
-                    [class.text-gray-700]="currentPage() !== page"
-                    [class.hover:bg-gray-50]="currentPage() !== page"
-                    [class.hover:border-gray-400]="currentPage() !== page"
-                    [class.hover:text-gray-900]="currentPage() !== page"
-                    [class.active:bg-gray-100]="currentPage() !== page"
-                    (click)="handlePageClick(page)"
-                    [attr.aria-current]="currentPage() === page ? 'page' : null"
-                    [attr.aria-label]="'Page ' + page"
-                    [title]="'Go to page ' + page"
-                  >
-                    {{ page }}
-                  </button>
-                }
-              }
+        <!-- Card Preview Area with iframe -->
+        <div class="card-preview relative bg-gray-50 overflow-hidden h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60">
+          @if (item.safeHTML) {
+          <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
+            class="preview-iframe w-full h-full border-0 pointer-events-none overflow-hidden transition-opacity duration-300"
+            frameborder="0"
+            style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%;"></iframe>
+          } @else {
+          <!-- Skeleton Loader (Optimistic UI) -->
+          <div class="w-full h-full flex items-center justify-center animate-pulse">
+            <div class="text-center w-full px-4">
+              <div class="h-8 bg-gray-200 rounded mb-3 mx-auto max-w-[60%]"></div>
+              <div class="space-y-2">
+                <div class="h-2 bg-gray-200 rounded w-full"></div>
+                <div class="h-2 bg-gray-200 rounded w-5/6 mx-auto"></div>
+                <div class="h-2 bg-gray-200 rounded w-4/6 mx-auto"></div>
+              </div>
+              <div class="mt-4 h-16 bg-gray-200 rounded"></div>
             </div>
-
-            <!-- Next Page Button -->
-            <button
-              class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
-              (click)="nextPage()"
-              [disabled]="currentPage() === pages()"
-              aria-label="Next page"
-              title="Next page"
-            >
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            <!-- Last Page Button - Hidden on mobile -->
-            <button
-              class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
-              (click)="goToLastPage()"
-              [disabled]="currentPage() === pages()"
-              aria-label="Last page"
-              title="Last page"
-            >
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-              </svg>
-            </button>
           </div>
+          }
         </div>
       </div>
-    }
-  } @else {
-    <!-- Loading State -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-0">
-      @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
-        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm animate-pulse">
-          <div class="h-10 sm:h-12 bg-gray-200"></div>
-          <div class="h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60 bg-gray-100"></div>
-        </div>
       }
     </div>
+  </div>
+
+  <!-- Pagination -->
+  @if (totalItems() > 0) {
+  <div
+    class="mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8 w-full bg-white border-t border-gray-200 px-2 sm:px-0">
+    <!-- Results Info - Mobile -->
+    <div class="text-xs sm:text-sm text-gray-600 text-center mb-3 sm:mb-4 sm:hidden">
+      Page <span class="font-semibold text-gray-900">{{ currentPage() }}</span> of
+      <span class="font-semibold text-gray-900">{{ pages() }}</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 md:gap-6">
+      <!-- Results Info - Desktop -->
+      <div class="hidden sm:block text-xs md:text-sm text-gray-700 font-medium">
+        Showing <span class="font-semibold text-gray-900">{{ startIndex() }}</span> to
+        <span class="font-semibold text-gray-900">{{ endIndex() }}</span> of
+        <span class="font-semibold text-gray-900">{{ totalItems() }}</span> templates
+      </div>
+
+      <!-- Pagination Controls -->
+      <div
+        class="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 w-full sm:w-auto justify-center overflow-x-auto pb-1 sm:pb-0">
+        <!-- First Page Button - Hidden on mobile -->
+        <button
+          class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
+          (click)="goToFirstPage()" [disabled]="currentPage() === 1" aria-label="First page" title="First page">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Previous Page Button -->
+        <button
+          class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
+          (click)="prevPage()" [disabled]="currentPage() === 1" aria-label="Previous page" title="Previous page">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Page Numbers -->
+        <div class="flex items-center gap-0.5 sm:gap-1">
+          @for(page of pageNumbers(); track $index) {
+          @if (page === '...') {
+          <span class="px-1 sm:px-1.5 md:px-2 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-400 font-medium">...</span>
+          } @else {
+          <button
+            class="min-w-9 sm:min-w-10 md:min-w-9 px-1.5 sm:px-2 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 rounded-md touch-manipulation"
+            [class.bg-blue-600]="currentPage() === page" [class.text-white]="currentPage() === page"
+            [class.shadow-sm]="currentPage() === page" [class.border]="currentPage() !== page"
+            [class.border-gray-300]="currentPage() !== page" [class.bg-white]="currentPage() !== page"
+            [class.text-gray-700]="currentPage() !== page" [class.hover:bg-gray-50]="currentPage() !== page"
+            [class.hover:border-gray-400]="currentPage() !== page" [class.hover:text-gray-900]="currentPage() !== page"
+            [class.active:bg-gray-100]="currentPage() !== page" (click)="handlePageClick(page)"
+            [attr.aria-current]="currentPage() === page ? 'page' : null" [attr.aria-label]="'Page ' + page"
+            [title]="'Go to page ' + page">
+            {{ page }}
+          </button>
+          }
+          }
+        </div>
+
+        <!-- Next Page Button -->
+        <button
+          class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
+          (click)="nextPage()" [disabled]="currentPage() === pages()" aria-label="Next page" title="Next page">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        <!-- Last Page Button - Hidden on mobile -->
+        <button
+          class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
+          (click)="goToLastPage()" [disabled]="currentPage() === pages()" aria-label="Last page" title="Last page">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+  } @else {
+  <!-- Loading State -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-0">
+    @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm animate-pulse">
+      <div class="h-10 sm:h-12 bg-gray-200"></div>
+      <div class="h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60 bg-gray-100"></div>
+    </div>
+    }
+  </div>
   }
 </div>
