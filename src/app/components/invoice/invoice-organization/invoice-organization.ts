@@ -1,33 +1,24 @@
-import { Component, effect, input, output, signal } from '@angular/core';
-import { Field, form } from '@angular/forms/signals';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InvoiceForm, OrganizationForm } from '../store/models/invoice-form.model';
+import { countryStore } from '../store/country/country.store';
 
-type Organization = {
-  name: string;
-  address: string;
-};
 
 @Component({
   selector: 'app-invoice-organization',
   standalone: true,
-  imports: [ Field],
+  imports: [ ReactiveFormsModule],
   templateUrl: './invoice-organization.html',
   styleUrls: ['./invoice-organization.css'],
+  providers :[countryStore]
 })
 export class InvoiceOrganizationComponent {
-  advanced = input(false);
+advanced = input<boolean>(false);
+public countryStore = inject(countryStore);
+ngOnInit(): void {
+  this.countryStore.loadCountry();
+}
 
-  organizationModel = signal<Organization>({
-    name: '',
-    address: '',
-  });
+  public InvoiceOrganizationForm = input.required<FormGroup<OrganizationForm>>();
 
-  organizationDetails = form(this.organizationModel);
-
-  valueChange = output<Organization>();
-
-  constructor() {
-    effect(() => {
-      this.valueChange.emit(this.organizationModel());
-    });
-  }
 }

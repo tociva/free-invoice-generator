@@ -1,5 +1,7 @@
-import { Component, EventEmitter, HostListener, Output, signal } from '@angular/core';
+import { Component, HostListener, input, signal, OnInit } from '@angular/core';
 import { FileUpload } from '../../shared/file-upload/file-upload';
+import { FormGroup } from '@angular/forms';
+import { InvoiceForm } from '../store/models/invoice-form.model';
 
 @Component({
   selector: 'app-invoice-logo',
@@ -8,44 +10,52 @@ import { FileUpload } from '../../shared/file-upload/file-upload';
   templateUrl: './invoice-logo.html',
 })
 export class InvoiceLogoComponent {
+  isMobile = signal(window.innerWidth <= 768);
+  uploadedImageUrl = signal<string | null>(null);
+  loadingImage = signal(false);
+  InvoiceLogo = input.required<FormGroup<InvoiceForm>>();
 
-   isMobile = signal(window.innerWidth <= 768);
+  advanced = input<boolean>(false);
+
+
   @HostListener('window:resize')
   onResize() {
     this.isMobile.set(window.innerWidth <= 768);
   }
 
-  logoUrl: string | null = null;
+  // ngOnInit(): void {
+  //   const controlUrl = this.InvoiceLogo().get('smallLogo')?.value;
+  //   if (controlUrl) {
+  //     this.uploadedImageUrl.set(controlUrl);
+  //   }
+  // }
 
-  @Output() logoChange = new EventEmitter<string | null>();
-
-  onLogoUpload(event: Event) {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        this.logoUrl = reader.result as string;
-
-        // 🔹 Log the loaded image data
-        console.log('Child: logo loaded', this.logoUrl);
-
-        // 🔹 Emit to parent
-        this.logoChange.emit(this.logoUrl);
-
-        // 🔹 Log after emit
-        console.log('Child: logoChange emitted');
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    } else {
-      console.log('Child: no file selected');
+  public onFilesReceived(file: File) {
+    if (!file.type.startsWith('image/')) {
+      console.warn('Unsupported file type:', file.type);
+      return;
     }
+
+    this.loadingImage.set(true);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      if (result && typeof result === 'string') {
+        this.uploadedImageUrl.set(result);
+        // console.log('Uploaded image URL:', this.uploadedImageUrl());
+
+        this.loadingImage.set(false);
+        //  this.InvoiceLogo().get('smallLogo')?.setValue(result);
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
-  removeLogo() {
-    this.logoUrl = null;
-    this.logoChange.emit(null);
+  removeImage() {
+    this.uploadedImageUrl.set(null);
+
+    // this.InvoiceLogo().get('smallLogo')?.setValue('');
   }
 }
+

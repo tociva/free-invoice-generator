@@ -1,33 +1,22 @@
-import { Component, effect, input, output, signal } from '@angular/core';
-import { Field, form } from '@angular/forms/signals';
+import { Component, inject, input, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CustomerForm, InvoiceForm } from '../store/models/invoice-form.model';
+import { countryStore } from '../store/country/country.store';
 
-type CustomerForm = {
-  name: string;
-  address: string;
-};
 
 @Component({
   selector: 'app-invoice-customer',
   standalone: true,
-  imports: [Field],
+  imports: [ReactiveFormsModule],
   templateUrl: './invoice-customer.html',
   styleUrls: ['./invoice-customer.css'],
+  providers:[countryStore],
 })
-export class InvoiceCustomerComponent {
-  advanced = input(false);
-
-  customerModel = signal<CustomerForm>({
-    name: '',
-    address: '',
-  });
-
-  customerDetails = form(this.customerModel);
-
-  valueChange = output<CustomerForm>();
-
-  constructor() {
-    effect(() => {
-      this.valueChange.emit(this.customerModel());
-    });
-  }
+export class InvoiceCustomerComponent implements OnInit {
+advanced = input<boolean>(false);
+public countryStore = inject(countryStore);
+ngOnInit(): void {
+  this.countryStore.loadCountry();
+}
+public InvoiceCustomerForm = input.required<FormGroup<CustomerForm>>();
 }

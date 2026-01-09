@@ -1,10 +1,9 @@
-
-<div class="space-y-3">
+<div class="space-y-3" [formGroup]="InvoiceDetailsForm()">
   <div class="detail-field">
     <div class="text-xs text-gray-500">Invoice Number</div>
     <input
-    type="text"
-      [field]="invoiceDetails.invoiceNo"
+      type="text"
+      formControlName="invoiceNo"
       placeholder="Enter invoice number"
       class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
@@ -14,7 +13,7 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Invoice Date</div>
       <input
-        [field]="invoiceDetails.invoiceDate"
+        formControlName="invoiceDate"
         type="date"
         placeholder="Select invoice date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
@@ -23,11 +22,114 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Due Date</div>
       <input
-        [field]="invoiceDetails.invoiceDueDate"
+        formControlName="invoiceDueDate"
         type="date"
         placeholder="Select due date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
     </div>
   </div>
+  @if(advanced()){
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Currency</div>
+      <select
+        formControlName="currency"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+        <option value="">Select Currency</option>
+        <option value="INR">INR ₹</option>
+        <option value="USD">USD $</option>
+        <option value="EUR">EUR €</option>
+      </select>
+      </div>
+
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Decimal Places</div>
+      <input
+        formControlName="decimalPlaces"
+        type="text"
+        placeholder="Decimal Places"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Delivery State </div>
+      <input
+        formControlName="deliveryState"
+        type="text"
+        placeholder="Delivery State "
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Tax Option</div>
+      <select
+        formControlName="currency"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+        <option value="">Select Tax Option</option>
+        <option value="inclusive">Inclusive</option>
+        <option value="exclusive">Exclusive</option>
+        <option value="none">No Tax</option>
+      </select>
+      </div>
+     <div class="detail-field flex items-center gap-2 mt-4">
+      <input
+        type="checkbox"
+        class="w-4 h-4 accent-blue-500"
+      />
+      <label class="text-sm text-gray-600">
+        Show Item Description
+      </label>
+    </div>
+
+     <div class="detail-field flex items-center gap-2 mt-4">
+      <input
+        type="checkbox"
+        class="w-4 h-4 accent-blue-500"
+      />
+      <label class="text-sm text-gray-600">
+        Show Item Discount
+      </label>
+    </div>
+     <div class="detail-field">
+      <div class="text-xs text-gray-500">Date Format</div>
+      <select
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+        <option value="">Select Date Format Option</option>
+        <option value="MM.DD.YY">MM.DD.YY</option>
+        <option value="MM/DD/YY">MM/DD/YY</option>
+        <option value="DD/MM/YYYY">DD.MM.YYYY</option>
+      </select>
+      </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Account Number</div>
+      <input
+        formControlName="accountNumber"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Account Name</div>
+      <input
+       formControlName="accountName"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Bank Name</div>
+      <input
+       formControlName="bankName"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+
+  }
 </div>

@@ -1,14 +1,22 @@
-import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, input, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InvoiceForm } from '../store/models/invoice-form.model';
 
 @Component({
   selector: 'app-invoice-summary',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './invoice-summary.html',
   styleUrls: ['./invoice-summary.css'],
 })
 export class InvoiceSummaryComponent implements OnInit {
+
+  InvoiceSummary = input.required<FormGroup<InvoiceForm>>();
+
+ 
+  
+
+
   @Input() totalAmount: number = 300000;
   internationalNumbering: boolean = true;
   roundOff: number = 0;
@@ -18,9 +26,13 @@ export class InvoiceSummaryComponent implements OnInit {
   internationalNumberingSig: WritableSignal<boolean> = signal(this.internationalNumbering);
   roundOffSig: WritableSignal<number> = signal(this.roundOff);
 
-  constructor() {}
+  constructor() {
+   
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   getGrandTotal(): number {
     return this.totalAmount + this.roundOff;

@@ -1,11 +1,27 @@
- @if(isMobile()){
-    <div class="inline">
-      <app-file-upload mobileView = "Upload Small Image Logo"
-      ></app-file-upload>
-    </div>
-  }
-  @if(!isMobile()){
-     <div class="inline">
-      <app-file-upload deskTopView = "Drop your Image Logo here or click Here"></app-file-upload>
-    </div>
-  }
+@if(!advanced() || !uploadedImageUrl()){
+  <app-file-upload
+    [deskTopView]="!isMobile() ? 'Drop your Image Logo here or click Here' : ''"
+    [mobileView]="isMobile() ? 'Upload Small Image Logo' : ''"
+    (fileChanged)="onFilesReceived($event)"
+  ></app-file-upload>
+}
+@if (loadingImage()) {
+  <div class="p-4 text-gray-500">Loading image...</div>
+}
+
+@if (uploadedImageUrl() || advanced() && !loadingImage()) {
+  <div class="relative border-2 border-dashed border-gray-300 p-2 rounded-md w-full flex items-center justify-center">
+    <img
+      [src]="uploadedImageUrl()"
+      alt="Uploaded Logo"
+      class="max-w-xs max-h-20 object-contain"
+    />
+    <button
+      type="button"
+      (click)="removeImage()"
+      class="relative top-1 left-2 bg-red-500 text-white rounded w-8 h-8 flex items-center justify-center hover:bg-red-600"
+    >
+      ✕
+    </button>
+  </div>
+}

@@ -1,19 +1,48 @@
-<div class="card-box">
+<div class="card-box" [formGroup]="InvoiceCustomerForm()">
+  <div class="text-[1rem] text-gray-500">Customer Name</div>
+  <input
+    formControlName="name"
+    placeholder="Customer name"
+    class="w-full text-right font-medium outline-none text-sm md:text-base"
+  />
 
-    <div class="text-[1 rem] text-gray-500">Customer Name</div>
+  <div class="text-[1rem] text-gray-500 mt-2">Address</div>
+  <textarea
+    formControlName="address"
+    placeholder="Customer address"
+    rows="2"
+    class="w-full text-right font-medium outline-none text-sm md:text-base"
+  ></textarea>
+
+  @if(advanced()){
+  <div class="text-[1rem] text-gray-500 mt-2">Country</div>
+
+  <select class="text-right font-medium outline-none text-sm md:text-base float-right">
+    @for( country of countryStore.countries(); track $index){
+    <option value="option1">{{ country.name }}</option>
+    }
+  </select>
+  <div class="text-[1rem] text-gray-500 mt-5">Mobile</div>
     <input
-      [field]="customerDetails.name"
-      placeholder="Customer name"
+      formControlName="phone"
+      placeholder="Customer Phone Number"
       class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
 
- 
-    <div class="text-[1 rem] text-gray-500">Address</div>
-    <textarea
-  [field]="customerDetails.address"
-  placeholder="Customer address"
-  rows="2"
-  class="w-full text-right font-medium outline-none text-sm md:text-base resize-none"
-></textarea>
+  <div class="text-[1rem] text-gray-500 mt-5">Email ID</div>
+  <input
+    formControlName="email"
+    placeholder="Customer name"
+    class="w-full text-right font-medium outline-none text-sm md:text-base"
+  />
 
+  <!-- Third Input -->
+  <div class="text-[1rem] text-gray-500 mt-5">GSTIN</div>
+  <input
+    formControlName="gstin"
+    placeholder="GSTIN Number"
+    class="w-full text-right font-medium outline-none text-sm md:text-base"
+  />
+
+  }
 </div>

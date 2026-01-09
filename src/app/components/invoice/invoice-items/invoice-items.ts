@@ -1,49 +1,125 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, effect, input, OnDestroy } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { provideAppIcon } from '../../../provider/icon-provider';
-
-interface InvoiceItem {
-  id: string;
-  name: string;
-  price: number;
-  qty: number;
-}
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InvoiceItemForm } from '../store/models/invoice-form.model';
+import { combineLatest, startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-items',
   standalone: true,
-  imports: [CommonModule,NgIcon],
+  imports: [ReactiveFormsModule, NgIcon],
   templateUrl: './invoice-items.html',
   styleUrls: ['./invoice-items.css'],
-  providers:[provideAppIcon()],
+  providers: [provideAppIcon()],
 })
-export class InvoiceItemsComponent implements OnInit {
-  items: WritableSignal<InvoiceItem[]> = signal([
-    { id: '1', name: 'Web Development', price: 100000, qty: 1 },
-    { id: '2', name: 'Android App Development', price: 200000, qty: 1 },
-  ]);
+export class InvoiceItemsComponent implements OnDestroy {
 
-  ngOnInit(): void {}
+  public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();
 
-  addItem(): void {
-    const newItem: InvoiceItem = { id: Date.now().toString(), name: '', price: 0, qty: 1 };
-    this.items.update((arr) => [...arr, newItem]);
+  advanced = input<boolean>(false);
+  
+  
+  constructor() {
+  effect(() => {
+    const items = this.InvoiceItemForm();
+    items.controls.forEach(item => {
+      if (!this.itemSubscriptions.has(item)) {
+        this.subscribeToItem(item);
+      }
+    });
+  });
+}
+  
+
+  addItem() {
+    const newItem = this.createItemForm();
+    this.InvoiceItemForm().push(newItem);
+    this.subscribeToItem(newItem);
   }
 
-  removeItem(id: string): void {
-    this.items.update((arr) => arr.filter((item) => item.id !== id));
+  removeItem(index: number) {
+    const item = this.InvoiceItemForm().at(index);
+    this.unsubscribeItem(item);
+    this.InvoiceItemForm().removeAt(index);
   }
 
-  getItemTotal(item: InvoiceItem): number {
-    return item.price * item.qty;
-  }
+ private createItemForm(): FormGroup<InvoiceItemForm> {
+  return new FormGroup<InvoiceItemForm>({
+    name: new FormControl('', {
+      nonNullable: true,
+    }),
 
-  getTotalAmount(): number {
-    return this.items().reduce((sum, item) => sum + this.getItemTotal(item), 0);
-  }
+    description: new FormControl<string | null>(null),
 
-  updateItemField(id: string, field: keyof InvoiceItem, value: any) {
-    this.items.update((arr) => arr.map((it) => (it.id === id ? { ...it, [field]: value } : it)));
-  }
+    quantity: new FormControl(1, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(1)],
+    }),
+
+    price: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(0)],
+    }),
+
+    itemTotal: new FormControl(0, { nonNullable: true }),
+
+    discountAmount: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0)],
+    }),
+
+    discPercentage: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0), Validators.max(100)],
+    }),
+
+    subTotal: new FormControl(0, { nonNullable: true }),
+
+    tax1Amount: new FormControl(0, { nonNullable: true }),
+    tax1Percentage: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0), Validators.max(100)],
+    }),
+
+    tax2Amount: new FormControl(0, { nonNullable: true }),
+    tax2Percentage: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0), Validators.max(100)],
+    }),
+
+    tax3Amount: new FormControl(0, { nonNullable: true }),
+    tax3Percentage: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0), Validators.max(100)],
+    }),
+
+    taxTotal: new FormControl(0, { nonNullable: true }),
+    grandTotal: new FormControl(0, { nonNullable: true }),
+  });
+}
+private itemSubscriptions = new Map<FormGroup<InvoiceItemForm>, Subscription>();
+
+
+ private subscribeToItem(item: FormGroup<InvoiceItemForm>) {
+  const sub = combineLatest([
+    item.controls.quantity.valueChanges.pipe(startWith(item.controls.quantity.value)),
+    item.controls.price.valueChanges.pipe(startWith(item.controls.price.value)),
+  ]).subscribe(([qty, price]) => {
+    item.controls.itemTotal.setValue(qty * price, { emitEvent: false });
+  });
+  this.itemSubscriptions.set(item, sub);
+}
+
+
+ private unsubscribeItem(item: FormGroup<InvoiceItemForm>) {
+  this.itemSubscriptions.get(item)?.unsubscribe();
+  this.itemSubscriptions.delete(item);
+}
+
+
+ngOnDestroy() {
+  this.itemSubscriptions.forEach(sub => sub.unsubscribe());
+}
+
 }

@@ -1,43 +1,48 @@
-import { Directive, effect, ElementRef, HostListener, inject, input, output, signal } from '@angular/core';
+import {
+  Directive,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 
 @Directive({
   selector: '[appFileSelect]',
   standalone: true,
   host: {
-  '[class.bg-gray-500]': 'isDragOver()',
+    '[class.bg-gray-500]': 'isDragOver()',
     '[class.animate-border-run]': 'isDragOver()',
     '[style.cursor]': '"pointer"',
-},
+  },
 })
-export class FileSelect {
-
+export class FileSelect implements OnInit {
   private host = inject<ElementRef<HTMLElement>>(ElementRef);
   private fileInput = document.createElement('input');
 
   accept = input<string | undefined>(undefined, { alias: 'fileUploadAccept' });
   disabled = input(false, { alias: 'fileUploadDisabled' });
-  files = output<File[]>({ alias: 'fileUploadFiles' });
-
+  files = output<File>({ alias: 'fileUploadFiles' });
+  error = output<string>({ alias: 'fileUploadError' });
   isDragOver = signal(false);
 
-
-  constructor() {
+ ngOnInit(): void {
     this.fileInput.type = 'file';
     this.fileInput.hidden = true;
-
-    this.fileInput.addEventListener('change', () => {
-      if (this.fileInput.files?.length) {
-        this.files.emit(Array.from(this.fileInput.files));
-        this.fileInput.value = '';
-      }
-    });
-
     this.host.nativeElement.appendChild(this.fileInput);
 
-    effect(() => {
-      this.fileInput.accept = this.accept() ?? '';
+    this.fileInput.addEventListener('change', () => {
+      const file = this.fileInput.files?.[0];
+      if (file) {
+        this.handleFile(file);
+      }
+      this.fileInput.value = '';
     });
   }
+
 
   @HostListener('click')
   onFileInput() {
@@ -48,7 +53,7 @@ export class FileSelect {
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
     event.preventDefault();
-    this.isDragOver.set(true)
+    this.isDragOver.set(true);
   }
 
   @HostListener('dragleave', ['$event'])
@@ -62,15 +67,23 @@ export class FileSelect {
     event.preventDefault();
     this.isDragOver.set(false);
 
-    if (!this.disabled() && event.dataTransfer?.files?.length) {
-  const validFiles = Array.from(event.dataTransfer.files).filter(f => this.isValidFile(f));
-  this.files.emit(validFiles);
-}
+    if (this.disabled() || !event.dataTransfer?.files?.length) return;
 
+    const file = event.dataTransfer.files[0];
+    this.handleFile(file);
   }
 
-  private isValidFile(file : File) : boolean{
-    const isJson = file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
+  private handleFile(file: File) {
+    if (this.isValidFile(file)) {
+      this.files.emit(file);
+    } else {
+      this.error.emit(`Invalid file type: ${file.name}`);
+    }
+  }
+
+  private isValidFile(file: File): boolean {
+    const isJson =
+      file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
     const isImage = file.type.startsWith('image/');
     return isJson || isImage;
   }
