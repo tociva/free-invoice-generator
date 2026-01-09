@@ -4,50 +4,35 @@
     @for(step of steps; track step.id; let i = $index) {
     <ng-container>
       <!-- STEP -->
-      <div
-        class="inline-flex items-center gap-3 cursor-pointer whitespace-nowrap mr-4"
-        (click)="goToStep(step.id)"
-      >
+      <div class="inline-flex items-center gap-3 cursor-pointer whitespace-nowrap mr-4" (click)="goToStep(step.id)">
         <!-- NUMBER CIRCLE -->
         <div
           class="w-8 h-8 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-sm font-semibold text-white"
-          [class.bg-blue-600]="currentStep() === step.id"
-          [class.bg-gray-700]="currentStep() !== step.id"
-        >
+          [class.bg-blue-600]="currentStep() === step.id" [class.bg-gray-700]="currentStep() !== step.id">
           {{ step.id }}
         </div>
         <!-- LABEL -->
-        <span
-          class="text-sm sm:text-base"
-          [class.text-blue-600]="currentStep() === step.id"
-          [class.text-gray-800]="currentStep() !== step.id"
-        >
+        <span class="text-sm sm:text-base" [class.text-blue-600]="currentStep() === step.id"
+          [class.text-gray-800]="currentStep() !== step.id">
           {{ step.label }}
         </span>
       </div>
 
       <!-- CONNECTOR LINE -->
-      @if(i < steps.length - 1) {
-      <div
-        class="hidden sm:block flex-1 h-px mx-4"
-        [class.bg-blue-600]="currentStep() > step.id"
-        [class.bg-gray-300]="currentStep() <= step.id"
-      ></div>
-      }
-    </ng-container>
-    }
+      @if(i < steps.length - 1) { <div class="hidden sm:block flex-1 h-px mx-4"
+        [class.bg-blue-600]="currentStep() > step.id" [class.bg-gray-300]="currentStep() <= step.id">
   </div>
+  }
+  </ng-container>
+  }
+</div>
 </div>
 
 <!-- MOBILE HEADER -->
 <div class="sm:hidden bg-white shadow-sm">
   <div class="max-w-8xl mx-auto px-4 py-3 flex items-center justify-between">
-    <button
-      type="button"
-      class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 disabled:opacity-50"
-      (click)="goToStep(currentStep() - 1)"
-      [disabled]="isFirstStep()"
-    >
+    <button type="button" class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 disabled:opacity-50"
+      (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
       Prev
     </button>
 
@@ -58,12 +43,8 @@
       </div>
     </div>
 
-    <button
-      type="button"
-      class="px-3 py-1 rounded-md bg-blue-600 text-white disabled:opacity-50"
-      (click)="goToStep(currentStep() + 1)"
-      [disabled]="isLastStep()"
-    >
+    <button type="button" class="px-3 py-1 rounded-md bg-blue-600 text-white disabled:opacity-50"
+      (click)="goToStep(currentStep() + 1)" [disabled]="isLastStep()">
       Next
     </button>
   </div>
@@ -104,10 +85,10 @@
       </div>
       <app-simple-invoice-config></app-simple-invoice-config>
     </div>
-    
+
     <!-- Navigation Buttons -->
-    <div class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 pb-24 sm:pb-28">
-      <button
+    <div class="flex items-center justify-end mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 pb-24 sm:pb-28">
+      <!-- <button
         type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
         (click)="goToStep(currentStep() - 1)"
@@ -117,15 +98,12 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
         <span>Previous</span>
-      </button>
+      </button> -->
 
-      <button
-        type="button"
+      <button type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-teal-500 hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
-        (click)="goToStep(currentStep() + 1)"
-        [disabled]="isLastStep()"
-      >
-        <span>Next</span>
+        (click)="goToStep(currentStep() + 1)" [disabled]="isLastStep()">
+        <span>Next-Select Template</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
@@ -135,38 +113,32 @@
   } @if(currentStep() === 2) {
   <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6 lg:p-8">
     @defer (on immediate) {
-      <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
+    <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
     } @placeholder {
-      <div class="flex items-center justify-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-      </div>
+    <div class="flex items-center justify-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+    </div>
     } @loading (minimum 200ms) {
-      <div class="flex items-center justify-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-      </div>
+    <div class="flex items-center justify-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+    </div>
     }
-    
+
     <!-- Navigation Buttons -->
     <div class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
-      <button
-        type="button"
+      <button type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
-        (click)="goToStep(currentStep() - 1)"
-        [disabled]="isFirstStep()"
-      >
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span>Previous</span>
+        <span>Back-Update Invoice</span>
       </button>
 
-      <button
-        type="button"
+      <button type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-teal-500 hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
-        (click)="goToStep(currentStep() + 1)"
-        [disabled]="isLastStep()"
-      >
-        <span>Next</span>
+        (click)="goToStep(currentStep() + 1)" [disabled]="isLastStep()">
+        <span>Next-Preview & Download</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
@@ -176,38 +148,32 @@
   } @if(currentStep() === 3) {
   <div class="space-y-6 pb-24 sm:pb-28">
     @defer (on immediate) {
-      <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
+    <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
     } @placeholder {
-      <div class="flex items-center justify-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-      </div>
+    <div class="flex items-center justify-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+    </div>
     } @loading (minimum 200ms) {
-      <div class="flex items-center justify-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-      </div>
+    <div class="flex items-center justify-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+    </div>
     }
-    
+
     <!-- Navigation Buttons -->
     <div class="flex items-center justify-between pt-4 sm:pt-6">
-      <button
-        type="button"
+      <button type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2 shadow-sm"
-        (click)="goToStep(currentStep() - 1)"
-        [disabled]="isFirstStep()"
-      >
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span>Previous</span>
+        <span>Back-Select Template</span>
       </button>
 
-      <button
-        type="button"
+      <button type="button"
         class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-teal-500 hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
-        (click)="goToStep(currentStep() + 1)"
-        [disabled]="isLastStep()"
-      >
-        <span>Next</span>
+        (click)="goToStep(currentStep() - 2)">
+        <span>Finish - Create another Invoice</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>

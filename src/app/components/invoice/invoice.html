@@ -1,1 +1,227 @@
-<p>invoice works!</p>
+<!-- DESKTOP STEPPER -->
+<div class="hidden sm:block w-full py-4 md:py-6">
+    <div class="flex items-center w-full px-4 sm:px-6">
+      @for(step of steps; track step.id; let i = $index) {
+      <ng-container>
+        <!-- STEP -->
+        <div class="inline-flex items-center gap-3 cursor-pointer whitespace-nowrap mr-4" (click)="goToStep(step.id)">
+          <!-- NUMBER CIRCLE -->
+          <div
+            class="w-8 h-8 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-sm font-semibold text-white"
+            [class.bg-blue-600]="currentStep() === step.id" [class.bg-gray-700]="currentStep() !== step.id">
+            {{ step.id }}
+          </div>
+          <!-- LABEL -->
+          <span class="text-sm sm:text-base" [class.text-blue-600]="currentStep() === step.id"
+            [class.text-gray-800]="currentStep() !== step.id">
+            {{ step.label }}
+          </span>
+        </div>
+  
+        <!-- CONNECTOR LINE -->
+        @if(i < steps.length - 1) { <div class="hidden sm:block flex-1 h-px mx-4"
+          [class.bg-blue-600]="currentStep() > step.id" [class.bg-gray-300]="currentStep() <= step.id">
+    </div>
+    }
+    </ng-container>
+    }
+    </div>
+  </div>
+  
+  <!-- MOBILE HEADER -->
+  <div class="sm:hidden bg-white shadow-sm">
+    <div class="max-w-8xl mx-auto px-4 py-3 flex items-center justify-between">
+      <button type="button" class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 disabled:opacity-50"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        Prev
+      </button>
+  
+      <div class="text-center flex-1 px-4">
+        <div class="text-sm text-gray-500">Step {{ currentStep() }} of {{ steps.length }}</div>
+        <div class="text-base font-semibold text-gray-800 truncate">
+          {{ steps[currentStep() - 1]?.label }}
+        </div>
+      </div>
+  
+      <button type="button" class="px-3 py-1 rounded-md bg-blue-600 text-white disabled:opacity-50"
+        (click)="goToStep(currentStep() + 1)" [disabled]="isLastStep()">
+        Next
+      </button>
+    </div>
+  </div>
+  
+  <!-- STEP CONTENT -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
+    @if(currentStep() === 1) {
+    <div class="advanced-invoice-container">
+      <div class="flex flex-col lg:flex-row gap-6 items-start">
+        <!-- Center: My Organization -->
+        <div class="flex-1 flex justify-center">
+          <div class="w-full max-w-2xl">
+            <app-invoice-organization [advanced]="true"></app-invoice-organization>
+          </div>
+        </div>
+  
+        <!-- Right Column: Logo Uploads -->
+        <div class="space-y-4 lg:shrink-0">
+          <div class="max-w-64">
+            <app-file-upload 
+              deskTopView="Drag or Click to Upload Small Logo"
+              mobileView="Upload Small Logo">
+            </app-file-upload>
+          </div>
+          <div class="max-w-64">
+            <app-file-upload 
+              deskTopView="Drag or Click to Upload Large Logo"
+              mobileView="Upload Large Logo">
+            </app-file-upload>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Navigation Button -->
+      <div class="flex items-center justify-end mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+        <button
+          type="button"
+          class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+          (click)="goToStep(currentStep() + 1)"
+          [disabled]="isLastStep()">
+          <span>Next</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  
+    @if(currentStep() === 2) {
+    <div class="advanced-invoice-container">
+      <app-invoice-customer></app-invoice-customer>
+
+      <div class="flex items-center justify-end mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+        <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+        <button
+          type="button"
+          class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+          (click)="goToStep(currentStep() + 1)"
+          [disabled]="isLastStep()">
+          <span>Next</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  
+    @if(currentStep() === 3) {
+    <div class="advanced-invoice-container">
+      <app-invoice-details></app-invoice-details>
+
+      <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+
+      <button
+        type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+        (click)="goToStep(currentStep() + 1)"
+        [disabled]="isLastStep()">
+        <span>Next</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    }
+  
+    @if(currentStep() === 4) {
+    <div class="advanced-invoice-container">
+      <app-invoice-items></app-invoice-items>
+
+      <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+
+      <button
+        type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+        (click)="goToStep(currentStep() + 1)"
+        [disabled]="isLastStep()">
+        <span>Next</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    }
+  
+    @if(currentStep() === 5) {
+    <div class="advanced-invoice-container">
+      <app-select-template></app-select-template>
+
+      <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+
+      <button
+        type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+        (click)="goToStep(currentStep() + 1)"
+        [disabled]="isLastStep()">
+        <span>Next</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    }
+  
+    @if(currentStep() === 6) {
+    <div class="advanced-invoice-container">
+      <app-preview-invoice></app-preview-invoice>
+
+      <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white flex items-center gap-2"
+        (click)="goToStep(currentStep() - 1)" [disabled]="isFirstStep()">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+
+      <button type="button"
+        class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-teal-500 hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
+        (click)="goToStep(currentStep() - 5)">
+        <span>Finish - Create another Invoice</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    }
+  </div>
+  
