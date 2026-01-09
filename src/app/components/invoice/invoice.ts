@@ -6,10 +6,11 @@ import { InvoiceDetailsComponent } from "./invoice-details/invoice-details";
 import { InvoiceItemsComponent } from "./invoice-items/invoice-items";
 import { SelectTemplateComponent } from "./select-template/select-template";
 import { PreviewInvoiceComponent } from "./preview-invoice/preview-invoice";
+import { InvoiceSummaryComponent } from "./invoice-summary/invoice-summary";
 
 @Component({
   selector: 'app-invoice',
-  imports: [InvoiceOrganizationComponent, FileUpload, InvoiceCustomerComponent, InvoiceDetailsComponent, InvoiceItemsComponent, SelectTemplateComponent, PreviewInvoiceComponent],
+  imports: [InvoiceOrganizationComponent, FileUpload, InvoiceCustomerComponent, InvoiceDetailsComponent, InvoiceItemsComponent, SelectTemplateComponent, PreviewInvoiceComponent, InvoiceSummaryComponent],
   templateUrl: './invoice.html',
   styleUrl: './invoice.css',
 })
