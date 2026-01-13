@@ -1,34 +1,33 @@
-import { Component, effect, input, model, output, signal } from '@angular/core';
-// import { Invoice } from '../store/model/invoice-model';
-import { Field, form, required } from '@angular/forms/signals';
-
-type InvoiceForm = {
-  invoiceNo: string;
-  invoiceDate: string;
-  invoiceDueDate: string;
-};
+import { Component, inject, input, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InvoiceForm } from '../store/models/invoice-form.model';
+import { dateFormatStore } from '../store/date-format/date-format.store';
+import { currencyStore } from '../store/currency/currency.store';
+import { TaxOption } from '../store/models/invoice-model';
+import { Currency } from '../store/currency/currency.model';
 
 @Component({
   selector: 'app-invoice-details',
-  standalone: true,
-  imports: [Field],
+  imports: [ReactiveFormsModule],
   templateUrl: './invoice-details.html',
   styleUrls: ['./invoice-details.css'],
+  providers: [dateFormatStore, currencyStore],
 })
-export class InvoiceDetailsComponent {
-  advanced = input(false);
+export class InvoiceDetailsComponent implements OnInit {
+  advanced = input<boolean>(false);
+  currencyStore = inject(currencyStore);
+  dateFormatStore = inject(dateFormatStore);
 
-  invoiceModel = signal<InvoiceForm>({
-    invoiceNo: '',
-    invoiceDate: '',
-    invoiceDueDate: '',
-  });
-  invoiceDetails = form(this.invoiceModel);
+  taxOptions = Object.values(TaxOption);
 
-  valueChange = output<InvoiceForm>();
-  constructor() {
-    effect(() => {
-      this.valueChange.emit(this.invoiceModel());
-    });
+  ngOnInit(): void {
+    this.currencyStore.loadCurrency();
+    this.dateFormatStore.loadDateFormat();
+  }
+
+  public InvoiceDetailsForm = input.required<FormGroup<InvoiceForm>>();
+
+  formatDateForInput(date: Date | null) {
+    return date ? date.toISOString().substring(0, 10) : '';
   }
 }

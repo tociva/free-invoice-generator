@@ -1,10 +1,9 @@
-
-<div class="space-y-3">
+<div class="space-y-3" [formGroup]="InvoiceDetailsForm()">
   <div class="detail-field">
     <div class="text-xs text-gray-500">Invoice Number</div>
     <input
-    type="text"
-      [field]="invoiceDetails.invoiceNo"
+      type="text"
+      formControlName="invoiceNo"
       placeholder="Enter invoice number"
       class="w-full text-right font-medium outline-none text-sm md:text-base"
     />
@@ -14,7 +13,7 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Invoice Date</div>
       <input
-        [field]="invoiceDetails.invoiceDate"
+        formControlName="invoiceDate"
         type="date"
         placeholder="Select invoice date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
@@ -23,11 +22,117 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Due Date</div>
       <input
-        [field]="invoiceDetails.invoiceDueDate"
+        formControlName="invoiceDueDate"
         type="date"
         placeholder="Select due date"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       />
     </div>
   </div>
+  @if(advanced()){
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Currency</div>
+      <select
+        formControlName="currency"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+      @for(currency of currencyStore.currencies(); track $index){
+        <option [ngValue]="currency">{{ currency.symbol }} - {{ currency.name }}</option>
+      }
+      </select>
+      </div>
+
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Decimal Places</div>
+      <input
+        formControlName="decimalPlaces"
+        type="text"
+        placeholder="Decimal Places"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Delivery State </div>
+      <input
+        formControlName="deliveryState"
+        type="text"
+        placeholder="Delivery State "
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Tax Option</div>
+      <select
+        formControlName="taxOption"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+      @for (option of taxOptions; track $index) {
+    <option [value]="option">
+      {{ option }}
+    </option>
+  }
+      </select>
+      </div>
+     <div class="detail-field flex items-center gap-2 mt-4">
+      <input
+        type="checkbox"
+        formControlName="hasItemDescription"
+        class="w-4 h-4 accent-blue-500"
+      />
+      <label class="text-sm text-gray-600">
+        Show Item Description
+      </label>
+    </div>
+
+     <div class="detail-field flex items-center gap-2 mt-4">
+      <input
+        type="checkbox"
+        formControlName="hasItemDiscount"
+
+        class="w-4 h-4 accent-blue-500"
+      />
+      <label class="text-sm text-gray-600">
+        Show Item Discount
+      </label>
+    </div>
+     <div class="detail-field">
+      <div class="text-xs text-gray-500">Date Format</div>
+      <select
+      formControlName="dateFormat"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      >
+      @for( dateFormat of dateFormatStore.dateFormat();track $index){
+        <option [ngValue]="dateFormat">{{ dateFormat.name }}</option>
+      }
+      </select>
+      </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Account Number</div>
+      <input
+        formControlName="accountNumber"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Account Name</div>
+      <input
+       formControlName="accountName"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+    <div class="detail-field">
+      <div class="text-xs text-gray-500">Bank Name</div>
+      <input
+       formControlName="bankName"
+        type="text"
+        placeholder="Date Format"
+        class="w-full text-right font-medium outline-none text-sm md:text-base"
+      />
+    </div>
+
+  }
 </div>

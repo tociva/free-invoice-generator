@@ -1,6 +1,6 @@
-import { Country } from "./country.model";
-import { Currency } from "./currency.model";
-import { DateFormat } from "./date-format.model";
+import { Country } from "../country/country.model";
+import { Currency } from "../currency/currency.model";
+import { DateFormat } from "../date-format/date-format.model";
 
 export enum TaxOption {
   CGST_SGST = 'CGST & SGST',

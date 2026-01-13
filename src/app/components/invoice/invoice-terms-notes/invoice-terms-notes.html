@@ -1,18 +1,20 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+  [formGroup]="InvoiceTermsNotes()"
+>
   <div>
     <label class="block text-sm font-medium mb-2">Additional Notes</label>
     <textarea
-      [value]="notesSig()"
-      (input)="notesSig.set($any($event.target).value)"
+      formControlName="notes"
       class="textarea-input"
       placeholder="Type additional notes here"
     ></textarea>
   </div>
+
   <div>
     <label class="block text-sm font-medium mb-2">Terms & Conditions</label>
     <textarea
-      [value]="termsSig()"
-      (input)="termsSig.set($any($event.target).value)"
+      formControlName="terms"
       class="textarea-input"
       placeholder="Type terms and conditions here"
     ></textarea>

@@ -1,101 +1,92 @@
 <div class="w-full sm:w-44 sm:ml-8 mt-3 sm:mt-0 self-start">
-	<!-- Currency Section -->
-	<div class="mb-4 relative">
-		<div class="font-semibold text-sm text-black mb-1.5">Currency</div>
-		<div class="relative">
-			<!-- Input/Display Field -->
-			<div 
-				class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
-				(click)="toggleCurrencyDropdown()"
-			>
-				<span class="flex-1">{{ getSelectedCurrency().name }}</span>
-				<button
-					type="button"
-					class="w-6 h-6 rounded-full bg-teal-500 hover:bg-teal-600 flex items-center justify-center transition-colors shrink-0 ml-2"
-					(click)="toggleCurrencyDropdown(); $event.stopPropagation()"
-					aria-label="Select currency"
-				>
-					<svg 
-						class="w-3 h-3 text-white transition-transform" 
-						[class.rotate-180]="currencyDropdownOpen()"
-						viewBox="0 0 24 24" 
-						fill="none" 
-						stroke="currentColor" 
-						stroke-width="2" 
-						stroke-linecap="round" 
-						stroke-linejoin="round"
-					>
-						<path d="M6 9l6 6 6-6"></path>
-					</svg>
-				</button>
-			</div>
+  <!-- Currency Section -->
+  <div class="mb-4 relative">
+    <div class="font-semibold text-sm text-black mb-1.5">Currency</div>
+    <div class="relative" [formGroup]="InvoiceConfiq()">
+      <!-- Input/Display Field -->
+      <div
+        class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
+        (click)="toggleCurrencyDropdown()"
+      >
+        <span class="flex-1">{{ InvoiceConfiq().get('currency')?.value?.name || 'Select Currency' }}</span>
+        <button
+          type="button"
+          class="w-6 h-6 rounded-full bg-background text-white flex items-center justify-center transition-colors shrink-0 ml-2"
+          (click)="toggleCurrencyDropdown(); $event.stopPropagation()"
+          aria-label="Select currency"
+        >
+          <ng-icon
+            name="'bootstrapChevronDown'"
+            class="w-4 h-4 transition-transform"
+            [class.rotate-180]="currencyDropdownOpen()"
+          ></ng-icon>
+        </button>
+      </div>
 
-			<!-- Dropdown Menu -->
-			@if (currencyDropdownOpen()) {
-				<div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto">
-					@for (currency of currencies; track currency.code) {
-						<div
-							class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
-							[class.bg-gray-50]="config().currency === currency.code"
-							(click)="setCurrency(currency.code)"
-						>
-							{{ currency.name }}
-						</div>
-					}
-				</div>
-			}
-		</div>
-	</div>
+      <!-- Dropdown Menu -->
+      @if (currencyDropdownOpen()) {
+      <div
+        class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
+      >
+        @for (currency of currencyStore.currencies(); track $index;) {
+        <div
+          class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
+          (click)="setCurrency(currency)"
+        >
+          {{ currency.symbol }} - {{ currency.name }}
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
 
-	<!-- Date Format Section -->
-	<div class="mb-4 relative">
-		<div class="font-semibold text-sm text-black mb-1.5">Date Format</div>
-		<div class="relative">
-			<!-- Input/Display Field -->
-			<div 
-				class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
-				(click)="toggleDateFormatDropdown()"
-			>
-				<span class="flex-1">{{ getSelectedDateFormat().label }}</span>
-				<button
-					type="button"
-					class="w-6 h-6 rounded-full bg-teal-500 hover:bg-teal-600 flex items-center justify-center transition-colors shrink-0 ml-2"
-					(click)="toggleDateFormatDropdown(); $event.stopPropagation()"
-					aria-label="Select date format"
-				>
-					<svg 
-						class="w-3 h-3 text-white transition-transform" 
-						[class.rotate-180]="dateFormatDropdownOpen()"
-						viewBox="0 0 24 24" 
-						fill="none" 
-						stroke="currentColor" 
-						stroke-width="2" 
-						stroke-linecap="round" 
-						stroke-linejoin="round"
-					>
-						<path d="M6 9l6 6 6-6"></path>
-					</svg>
-				</button>
-			</div>
+  <!-- Date Format Section -->
+  <div class="mb-4 relative">
+    <div class="font-semibold text-sm text-black mb-1.5">Date Format</div>
+    <div class="relative">
+      <!-- Input/Display Field -->
+      <div
+        class="w-full px-2.5 py-1.5 border border-gray-300 rounded bg-white text-sm text-black cursor-pointer flex items-center justify-between"
+        (click)="toggleDateFormatDropdown()"
+      >
+        <span class="flex-1">{{ InvoiceConfiq().get('dateFormat')?.value?.value || 'Select Format' }}</span>
+        <button
+          type="button"
+          class="w-6 h-6 rounded-full bg-background text-white flex items-center justify-center transition-colors shrink-0 ml-2"
+          (click)="toggleDateFormatDropdown(); $event.stopPropagation()"
+          aria-label="Select date format"
+        >
+          <ng-icon
+            name="'bootstrapChevronDown'"
+            class="w-4 h-4 transition-transform"
+            [class.rotate-180]="dateFormatDropdownOpen()"
+          ></ng-icon>
+        </button>
+      </div>
 
-			<!-- Dropdown Menu -->
-			@if (dateFormatDropdownOpen()) {
-				<div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50">
-					@for (format of dateFormats; track format.value) {
-						<div
-							class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
-							[class.bg-gray-50]="config().dateFormat === format.value"
-							(click)="setDateFormat(format.value)"
-						>
-							{{ format.label }}
-						</div>
-					}
-				</div>
-			}
-		</div>
-	</div>
+      <!-- Dropdown Menu -->
+      @if (dateFormatDropdownOpen()) {
+      <div
+        class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
+      >
+        @for (format of dateFormatStore.dateFormat(); track $index) {
+        <div
+          class="px-3 py-1.5 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors"
+          (click)="setDateFormat(format)"
+        >
+          {{ format.name }}
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
 </div>
 
 <div class="w-full sm:w-44 sm:ml-8 mt-2 sm:mt-2 self-start">
-	<button class="btn-action w-full" (click)="null">Preview and Download</button>
+  
+  <button class="btn-action w-auto bg-background" (click)="(null)">
+    <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
+    Preview and Download</button>
 </div>

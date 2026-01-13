@@ -1,0 +1,145 @@
+import { Invoice, TaxOption } from "./models/invoice-model";
+
+
+export interface InvoiceState {
+    invoice : Invoice;
+    isloading : boolean;
+    error :string |null;
+}
+
+export const initialInvoiceState : InvoiceState = {
+    invoice:
+    {
+        invoiceNo: 'INV-0001',
+        invoiceDate: new Date('2025-06-24'),
+        invoiceDueDate: new Date('2025-07-01'),
+      currency: {
+          code: "INR",
+    name: "Indian Rupee",
+    symbol: "₹",
+    numericcode: 356,
+    minorunit: 2,
+    fraction: "Paisa"
+        },
+    decimalPlaces: 2,
+    deliveryState: 'Karnataka',
+    taxOption: TaxOption.CGST_SGST,
+    hasItemDescription: false,
+    hasItemDiscount: false,
+    internationalNumbering: true,
+    dateFormat: {
+      name: '24-06-2025',
+      value: 'DD-MM-YYYY'
+    },
+    accountNumber:'225522552255',
+    accountName:'Joeh Doe',
+    bankName:'Bank Of Stringhills',
+    organization: {
+      name: 'Stringhills Labs',
+      authorityName: 'Joeh Doe',
+      authorityDesignation:'Manager',
+      address: 'String Towers,String Valley',
+      country: {
+        name: 'India',
+        code: '91',
+        iso: 'IN',
+        phone:'91',
+        currencycode : 'INR',
+        dateformat :'DD-MM-YYYY',
+       currency: {
+          code: "INR",
+    name: "Indian Rupee",
+    symbol: "₹",
+    numericcode: 356,
+    minorunit: 2,
+    fraction: "Paisa"
+        },
+        dateFormat: {
+          name: '24-06-2025',
+          value: 'DD-MM-YYYY'
+        }
+      },
+      email: 'stringlabs@string.com',
+      phone: '2255225522',
+      gstin: '5522552255'
+    },
+    customer: {
+      name: 'Tom Technologies',
+      address: 'Tom towers,tom valley',
+      country: {
+        name: 'India',
+        code: '91',
+        iso: 'IN',
+        phone:'91',
+        currencycode : 'INR',
+        dateformat :'DD-MM-YYYY',
+        currency: {
+          code: "INR",
+    name: "Indian Rupee",
+    symbol: "₹",
+    numericcode: 356,
+    minorunit: 2,
+    fraction: "Paisa"
+        },
+        dateFormat: {
+          name: '24-06-2025',
+          value: 'DD-MM-YYYY'
+        }
+      },
+      email: 'tomtechnologies@gmail.com',
+      phone: '1234567890',
+      gstin: '1234567890'
+    },
+    items: [
+      {
+        name: 'Web Development',
+        description: 'Website development',
+        quantity: 1,
+        price: 10000,
+        itemTotal: 10000,
+        discountAmount: 0,
+        discPercentage: 0,
+        subTotal: 10000,
+        tax1Amount: 0,
+        tax1Percentage: 0,
+        tax2Amount: 0,
+        tax2Percentage: 0,
+        tax3Amount: 0,
+        tax3Percentage: 0,
+        taxTotal: 0,
+        grandTotal: 10000,
+      },
+      {
+        name: 'Android App Development',
+        description: 'Android application Development',
+        quantity: 1,
+        price: 20000,
+        itemTotal: 20000,
+        discountAmount: 0,
+        discPercentage: 0,
+        subTotal: 20000,
+        tax1Amount: 0,
+        tax1Percentage: 0,
+        tax2Amount: 0,
+        tax2Percentage: 0,
+        tax3Amount: 0,
+        tax3Percentage: 0,
+        taxTotal: 0,
+        grandTotal: 20000,
+      }
+    ],
+    itemTotal: 30000,
+    discountTotal: 0,
+    subTotal: 30000,
+    taxTotal: 0,
+    roundOff: 0,
+    grandTotal: 30000,
+    grandTotalInWords: 'Three Lakhs',
+    terms:'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
+    notes:'Type aditional notes here',
+    smallLogo: 'SmallLogo.jpg',
+    largeLogo: 'largeLogo.jpg'
+  },
+  error: null,
+  isloading : false,
+};
