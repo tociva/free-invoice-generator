@@ -1,7 +1,7 @@
 export class CurrencyUtil {
     static numberToWords(
       amount: number,
-      shortName: string,
+      code: string,
       fraction: string,
       decimalPlaces = 2,
       internationalNumbering = false
@@ -81,7 +81,7 @@ export class CurrencyUtil {
         ? `and ${convertBelowThousand(decimalPart)} ${fraction}`
         : '';
   
-      return `${shortName} ${mainWords} ${paisaWords}`.trim();
+      return `${code} ${mainWords} ${paisaWords}`.trim();
     }
 
    

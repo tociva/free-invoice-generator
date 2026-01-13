@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { InvoiceOrganizationComponent } from './invoice-organization/invoice-organization';
 import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
@@ -12,6 +12,8 @@ import { InvoiceForm } from './store/models/invoice-form.model';
 import { createInvoice } from './store/models/invoice-form.factory';
 import { InvoiceLogoComponent } from './invoice-logo/invoice-logo';
 import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-notes';
+import { JsonPipe } from '@angular/common';
+import { InvoiceFormService } from './store/models/invoice-form';
 
 @Component({
   selector: 'app-invoice',
@@ -25,11 +27,12 @@ import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-
     InvoiceSummaryComponent,
     InvoiceLogoComponent,
     InvoiceTermsNotesComponent,
+    JsonPipe
   ],
   templateUrl: './invoice.html',
   styleUrl: './invoice.css',
 })
-export class Invoice {
+export class Invoice implements OnInit {
   currentStep = signal(1);
 
   steps = [
@@ -47,10 +50,40 @@ export class Invoice {
   goToStep(stepId: number): void {
     this.currentStep.set(stepId);
   }
-  private store = inject(invoiceStore);
-  private fb = inject(FormBuilder);
-  formInvoice!: FormGroup<InvoiceForm>;
-  constructor() {
-    this.formInvoice = createInvoice(this.fb, this.store.invoice());
-  }
+
+ formInvoice = inject(InvoiceFormService).form;
+ hasItemDescription = signal(false);
+  hasItemDiscount = signal(false);
+  internationalNumbering =signal(false);
+selectedTaxOption = signal<string>(
+  this.formInvoice.get('taxOption')?.value || ''
+);
+  eff = effect(()=>{
+    console.log(this.selectedTaxOption());
+    
+  })
+
+
+
+  ngOnInit() {
+  this.formInvoice.get('hasItemDescription')?.valueChanges.subscribe(value => {
+    this.hasItemDescription.set(value);
+  });
+
+  this.formInvoice.get('hasItemDiscount')?.valueChanges.subscribe(value => {
+    this.hasItemDiscount.set(value);
+  });
+  
+this.formInvoice.get('taxOption')?.valueChanges.subscribe(value => {
+    this.selectedTaxOption.set(value); 
+  });
+this.formInvoice.get('internationalNumbering')?.valueChanges.subscribe(value => {
+    this.internationalNumbering.set(value); 
+  });
+  
+ }
+
+ 
+ 
+ 
 }

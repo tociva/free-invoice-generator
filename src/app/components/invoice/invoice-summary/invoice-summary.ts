@@ -13,6 +13,9 @@ export class InvoiceSummaryComponent implements OnInit {
 
   InvoiceSummary = input.required<FormGroup<InvoiceForm>>();
 
+  advanced = input<boolean>(false);
+  hasItemDiscount = input<boolean>();
+  selectedTaxOption = input<string>('');
  
   
 

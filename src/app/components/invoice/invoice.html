@@ -197,11 +197,18 @@
   </div>
   } @if(currentStep() === 4) {
   <div class="advanced-invoice-container">
-    <app-invoice-items 
-    [InvoiceItemForm]="formInvoice.controls.items"
+   <app-invoice-items
+  [InvoiceItemForm]="formInvoice.controls.items"
+  [advanced]="true"
+  [hasItemDescription]="hasItemDescription()"
+  [hasItemDiscount]="hasItemDiscount()"
+  [selectedTaxOption]="selectedTaxOption()">
+</app-invoice-items>
+
+    <app-invoice-summary [InvoiceSummary]="formInvoice"
     [advanced]="true"
-    ></app-invoice-items>
-    <app-invoice-summary [InvoiceSummary]="formInvoice"></app-invoice-summary>
+    [hasItemDiscount]="hasItemDiscount()"
+    ></app-invoice-summary>
 
     <div
       class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200"
@@ -311,3 +318,4 @@
   </div>
   }
 </div>
+<div class="border-4 p-8 py-5 mb-10">{{ formInvoice.value | json }}</div>

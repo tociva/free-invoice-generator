@@ -15,8 +15,11 @@ export function createInvoice(fb: FormBuilder, storeInvoice: any): FormGroup<Inv
       nonNullable: true,
       validators: Validators.required,
     }),
+    invoiceDueDate: fb.control<Date>(storeInvoice.invoiceDueDate ?? new Date(), {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
 
-    invoiceDueDate: fb.control<Date | null>(storeInvoice.invoiceDueDate ?? null),
 
     currency: fb.control<Currency | null>(storeInvoice.currency ?? null, Validators.required),
 
@@ -33,9 +36,9 @@ export function createInvoice(fb: FormBuilder, storeInvoice: any): FormGroup<Inv
       validators: Validators.required,
     }),
 
-    hasItemDescription: fb.control(true, { nonNullable: true }),
-    hasItemDiscount: fb.control(false, { nonNullable: true }),
-    internationalNumbering: fb.control(false, { nonNullable: true }),
+    hasItemDescription: fb.control(storeInvoice.hasItemDescription ?? '', { nonNullable: true }),
+    hasItemDiscount: fb.control(storeInvoice.hasItemDiscount ?? '', { nonNullable: true }),
+    internationalNumbering: fb.control(storeInvoice.internationalNumbering ?? '', { nonNullable: true }),
 
     accountNumber: fb.control(storeInvoice.accountNumber ?? '', Validators.required),
     accountName: fb.control(storeInvoice.accountName ?? '', Validators.required),

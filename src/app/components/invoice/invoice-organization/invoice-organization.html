@@ -16,9 +16,11 @@
   @if(advanced()){
   <div class="text-[1rem] text-gray-500 mt-2">Country</div>
 
-  <select class="text-right font-medium outline-none text-sm md:text-base float-right">
+  <select class="text-right font-medium outline-none text-sm md:text-base float-right"
+  formControlName="country"
+  >
     @for( country of countryStore.countries(); track $index){
-    <option value="option1">{{ country.name }}</option>
+    <option [ngValue]="country">{{ country.name }}</option>
     }
   </select>
   <div class="text-[1rem] text-gray-500 mt-5">Email</div>

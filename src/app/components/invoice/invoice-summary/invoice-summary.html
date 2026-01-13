@@ -2,7 +2,9 @@
   <!-- Amount and Numbering -->
   <div class="sm:col-span-2 card-box" [formGroup]="InvoiceSummary()">
     <label class="inline-flex items-center text-xs md:text-sm">
-      <input [checked]="internationalNumberingSig()" (change)="internationalNumberingSig.set($any($event.target).checked)" type="checkbox" class="mr-2" />
+      <input    
+        formControlName="internationalNumbering"
+ type="checkbox" class="mr-2" />
       International Numbering
     </label>
     <div class="mt-4 text-center">
@@ -19,6 +21,20 @@
       <span>Item Total</span>
       <span>{{ InvoiceSummary().get('itemTotal')?.value }}</span>
     </div>
+    @if(advanced()){
+      <div class="text-xs md:text-sm flex justify-between">
+      <span>Discount Total</span>
+      <span>{{ InvoiceSummary().get('discountTotal')?.value }}</span>
+    </div>
+    <div class="text-xs md:text-sm flex justify-between">
+      <span>Sub Total</span>
+      <span>{{ InvoiceSummary().get('subTotal')?.value }}</span>
+    </div>
+    <div class="text-xs md:text-sm flex justify-between">
+      <span>Tax Total</span>
+      <span>{{ InvoiceSummary().get('taxTotal')?.value }}</span>
+    </div>
+    }
     <div class="text-xs md:text-sm flex justify-between mt-2">
       <span>Round Off</span>
       <input

@@ -6,16 +6,19 @@ export const invoiceStore = signalStore(
   { providedIn: 'root' },
   withState(initialInvoiceState),
   withMethods((store)=>({
-    // method to call the basic invoice details
-    addBasicDetail(invoiceNo:string,invoiceDate:Date,invoiceDueDate:Date){
-      patchState(store, (state)=>({
-        invoice : {
+
+    setInvoice(invoice :Partial<Invoice>){
+      patchState(store,(state)=>({
+        invoice:{
           ...state.invoice,
-          invoiceNo,
-          invoiceDate,
-          invoiceDueDate
+          ...invoice
         },
+        isloading:false,
+        error :null
       }));
+    },
+    resetInvoice(){
+
     },
 
   }))

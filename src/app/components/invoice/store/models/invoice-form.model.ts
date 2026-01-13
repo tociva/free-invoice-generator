@@ -25,7 +25,7 @@ export interface InvoiceItemForm {
 export interface OrganizationForm {
   name: FormControl<string>;
   address: FormControl<string>;
-  country: FormControl<Country | null>;
+  country: FormControl<Country>;
   email: FormControl<string>;
   phone: FormControl<string>;
   gstin: FormControl<string>;
@@ -36,7 +36,7 @@ export interface OrganizationForm {
 export interface CustomerForm {
   name: FormControl<string>;
   address: FormControl<string>;
-  country: FormControl<Country | null>;
+  country: FormControl<Country>;
   email: FormControl<string>;
   phone: FormControl<string>;
   gstin: FormControl<string>;
@@ -45,7 +45,7 @@ export interface CustomerForm {
 export interface InvoiceForm {
   invoiceNo: FormControl<string>;
   invoiceDate: FormControl<Date>;
-  invoiceDueDate: FormControl<Date | null>;
+  invoiceDueDate: FormControl<Date>;
   currency: FormControl<Currency | null>;
   decimalPlaces: FormControl<number | null>;
   dateFormat: FormControl<DateFormat | null>;

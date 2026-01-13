@@ -36,10 +36,9 @@
         formControlName="currency"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       >
-        <option value="">Select Currency</option>
-        <option value="INR">INR ₹</option>
-        <option value="USD">USD $</option>
-        <option value="EUR">EUR €</option>
+      @for(currency of currencyStore.currencies(); track $index){
+        <option [ngValue]="currency">{{ currency.symbol }} - {{ currency.name }}</option>
+      }
       </select>
       </div>
 
@@ -64,18 +63,20 @@
     <div class="detail-field">
       <div class="text-xs text-gray-500">Tax Option</div>
       <select
-        formControlName="currency"
+        formControlName="taxOption"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       >
-        <option value="">Select Tax Option</option>
-        <option value="inclusive">Inclusive</option>
-        <option value="exclusive">Exclusive</option>
-        <option value="none">No Tax</option>
+      @for (option of taxOptions; track $index) {
+    <option [value]="option">
+      {{ option }}
+    </option>
+  }
       </select>
       </div>
      <div class="detail-field flex items-center gap-2 mt-4">
       <input
         type="checkbox"
+        formControlName="hasItemDescription"
         class="w-4 h-4 accent-blue-500"
       />
       <label class="text-sm text-gray-600">
@@ -86,6 +87,8 @@
      <div class="detail-field flex items-center gap-2 mt-4">
       <input
         type="checkbox"
+        formControlName="hasItemDiscount"
+
         class="w-4 h-4 accent-blue-500"
       />
       <label class="text-sm text-gray-600">
@@ -95,12 +98,12 @@
      <div class="detail-field">
       <div class="text-xs text-gray-500">Date Format</div>
       <select
+      formControlName="dateFormat"
         class="w-full text-right font-medium outline-none text-sm md:text-base"
       >
-        <option value="">Select Date Format Option</option>
-        <option value="MM.DD.YY">MM.DD.YY</option>
-        <option value="MM/DD/YY">MM/DD/YY</option>
-        <option value="DD/MM/YYYY">DD.MM.YYYY</option>
+      @for( dateFormat of dateFormatStore.dateFormat();track $index){
+        <option [ngValue]="dateFormat">{{ dateFormat.name }}</option>
+      }
       </select>
       </div>
     <div class="detail-field">
