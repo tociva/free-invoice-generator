@@ -3,6 +3,7 @@ import { InvoiceOrganizationComponent } from './invoice-organization/invoice-org
 import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
 import { InvoiceItemsComponent } from './invoice-items/invoice-items';
+import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile';
 import { SelectTemplateComponent } from './select-template/select-template';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice';
 import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary';
@@ -21,6 +22,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     InvoiceCustomerComponent,
     InvoiceDetailsComponent,
     InvoiceItemsComponent,
+    InvoiceItemsMobileComponent,
     SelectTemplateComponent,
     PreviewInvoiceComponent,
     InvoiceSummaryComponent,

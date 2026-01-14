@@ -1,0 +1,214 @@
+@if(isMobile()){
+<div class="space-y-4">
+  @for (item of InvoiceItemForm().controls; track $index) {
+    <div [formGroup]="item" class="bg-white rounded-lg border border-gray-300 shadow-sm relative">
+      <!-- Item Header with Delete Button -->
+      <div class="flex justify-between items-center p-4 pb-2">
+        <h3 class="text-sm font-semibold text-gray-800">Item #{{ $index + 1 }}</h3>
+        <button
+          type="button"
+          class="text-red-500 hover:text-red-700 p-1"
+          (click)="removeItem($index)"
+        >
+          <ng-icon name="bootstrapTrashFill" class="w-5 h-5" />
+        </button>
+      </div>
+
+      <div class="px-4 pb-4 space-y-2">
+        <!-- Item Name -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <label class="text-sm text-gray-700">Name</label>
+          <input 
+            formControlName="name" 
+            class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-1/2"
+            placeholder="Item name" 
+          />
+        </div>
+
+        <!-- Description -->
+        @if (advanced() && hasItemDescription()) {
+          <div class="flex justify-between items-center py-2 border-b border-gray-200">
+            <label class="text-sm text-gray-700">Description</label>
+            <input 
+              formControlName="description" 
+              class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-1/2" 
+              placeholder="Description"
+            />
+          </div>
+        }
+
+        <!-- Quantity -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <label class="text-sm text-gray-700">Quantity</label>
+          <input
+            formControlName="quantity"
+            type="number"
+            (change)="updateItemTotal($index)"
+            class="text-right text-sm border-none outline-none bg-transparent w-20"
+            placeholder="1"
+          />
+        </div>
+
+        <!-- Price -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <label class="text-sm text-gray-700">Price</label>
+          <input
+            formControlName="price"
+            type="number"
+            (change)="updateItemTotal($index)"
+            class="text-right text-sm border-none outline-none bg-transparent w-24"
+            placeholder="0"
+          />
+        </div>
+
+        <!-- Total -->
+        <div class="flex justify-between items-center py-2 border-b border-gray-200">
+          <label class="text-sm text-gray-700">Total</label>
+          <input
+            formControlName="itemTotal"
+            readonly
+            class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+          />
+        </div>
+
+        <!-- Discount -->
+        @if (advanced() && hasItemDiscount()) {
+          <div class="flex justify-between items-center py-2 border-b border-gray-200">
+            <label class="text-sm text-gray-700">Discount %</label>
+            <input
+              formControlName="discPercentage"
+              type="number"
+              (change)="updateItemTotal($index)"
+              placeholder="0"
+              class="text-right text-sm border-none outline-none bg-transparent w-20"
+            />
+          </div>
+
+          <div class="flex justify-between items-center py-2 border-b border-gray-200">
+            <label class="text-sm text-gray-700">Discount Value</label>
+            <input
+              formControlName="discountAmount"
+              readonly
+              placeholder="0"
+              class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+            />
+          </div>
+
+          <div class="flex justify-between items-center py-2 border-b border-gray-200">
+            <label class="text-sm text-gray-700">SubTotal</label>
+            <input
+              formControlName="subTotal"
+              readonly
+              class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+            />
+          </div>
+        }
+
+        <!-- Taxes -->
+        @if (advanced()) {
+          @if(selectedTaxOption() == 'CGST & SGST') {
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">CGST %</label>
+              <input
+                formControlName="tax1Percentage"
+                type="number"
+                (change)="updateItemTotal($index)"
+                placeholder="0"
+                class="text-right text-sm border-none outline-none bg-transparent w-20"
+              />
+            </div>
+
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">CGST Value</label>
+              <input
+                formControlName="tax1Amount"
+                readonly
+                placeholder="0"
+                class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+              />
+            </div>
+
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">SGST %</label>
+              <input
+                formControlName="tax2Percentage"
+                type="number"
+                (change)="updateItemTotal($index)"
+                placeholder="0"
+                class="text-right text-sm border-none outline-none bg-transparent w-20"
+              />
+            </div>
+
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">SGST Value</label>
+              <input
+                formControlName="tax2Amount"
+                readonly
+                placeholder="0"
+                class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+              />
+            </div>
+          }
+
+          @if(selectedTaxOption() == 'IGST') {
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">IGST %</label>
+              <input
+                formControlName="tax3Percentage"
+                type="number"
+                (change)="updateItemTotal($index)"
+                placeholder="0"
+                class="text-right text-sm border-none outline-none bg-transparent w-20"
+              />
+            </div>
+
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">IGST Value</label>
+              <input
+                formControlName="tax3Amount"
+                readonly
+                placeholder="0"
+                class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+              />
+            </div>
+          }
+
+          @if((selectedTaxOption() == 'IGST') || (selectedTaxOption() == 'CGST & SGST')) {
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+              <label class="text-sm text-gray-700">Tax Total</label>
+              <input
+                formControlName="taxTotal"
+                readonly
+                class="text-right text-sm text-blue-600 border-none outline-none bg-transparent w-24"
+              />
+            </div>
+          }
+        }
+
+        @if(advanced() && selectedTaxOption() != 'Non Taxable') {
+          <div class="flex justify-between items-center py-2">
+            <label class="text-sm font-semibold text-gray-700">Grand Total</label>
+            <input
+              formControlName="grandTotal"
+              readonly
+              class="text-right text-sm font-semibold text-blue-600 border-none outline-none bg-transparent w-24"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ADD ITEM -->
+  <div class="text-center">
+    <button
+      type="button"
+      (click)="addItem()"
+      class="bg-background text-white px-4 py-3 rounded-md text-sm w-full flex items-center justify-center gap-2"
+    >
+      <ng-icon name="bootstrapPlusCircleFill" class="w-5 h-5" />
+      <span>Add Item</span>
+    </button>
+  </div>
+</div>
+}

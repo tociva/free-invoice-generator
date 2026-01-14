@@ -3,6 +3,7 @@ import {
   input,
   OnInit,
   signal,
+  HostListener,
 } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { provideAppIcon } from '../../../provider/icon-provider';
@@ -27,6 +28,12 @@ export class InvoiceItemsComponent implements OnInit {
   selectedTaxOption = input<string>('');
 
   items = signal<any[]>([]);
+  isMobile = signal(window.innerWidth <= 768);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile.set(window.innerWidth <= 768);
+  }
 
   constructor() {}
   ngOnInit(): void {
