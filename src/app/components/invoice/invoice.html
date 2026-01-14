@@ -85,17 +85,15 @@
       </div>
 
       <!-- Right Column: Logo Uploads -->
-      <div class="space-y-4 lg:shrink-0">
-        <div class="max-w-64">
-          <app-invoice-logo
-            [InvoiceLogo]="formInvoice"
-            [advanced]="true"
-            ></app-invoice-logo>
+      <div class="space-y-1 lg:shrink-0">
+        <div class="max-w-full">
+          <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
+          logoField="smallLogo"
+          ></app-invoice-logo>
         </div>
-        <div class="max-w-64">
-          <app-invoice-logo
-            [InvoiceLogo]="formInvoice"
-            [advanced]="true"
+        <div class="max-w-full">
+          <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
+          logoField="largeLogo"
           ></app-invoice-logo>
         </div>
       </div>
@@ -157,9 +155,7 @@
   </div>
   } @if(currentStep() === 3) {
   <div class="advanced-invoice-container">
-    <app-invoice-details [InvoiceDetailsForm]="formInvoice"
-    [advanced]="true"    
-    ></app-invoice-details>
+    <app-invoice-details [InvoiceDetailsForm]="formInvoice" [advanced]="true"></app-invoice-details>
     <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
 
     <div
@@ -197,17 +193,19 @@
   </div>
   } @if(currentStep() === 4) {
   <div class="advanced-invoice-container">
-   <app-invoice-items
-  [InvoiceItemForm]="formInvoice.controls.items"
-  [advanced]="true"
-  [hasItemDescription]="hasItemDescription()"
-  [hasItemDiscount]="hasItemDiscount()"
-  [selectedTaxOption]="selectedTaxOption()">
-</app-invoice-items>
+    <app-invoice-items
+      [InvoiceItemForm]="formInvoice.controls.items"
+      [advanced]="true"
+      [hasItemDescription]="hasItemDescription()"
+      [hasItemDiscount]="hasItemDiscount()"
+      [selectedTaxOption]="selectedTaxOption()"
+    >
+    </app-invoice-items>
 
-    <app-invoice-summary [InvoiceSummary]="formInvoice"
-    [advanced]="true"
-    [hasItemDiscount]="hasItemDiscount()"
+    <app-invoice-summary
+      [InvoiceSummary]="formInvoice"
+      [advanced]="true"
+      [hasItemDiscount]="hasItemDiscount()"
     ></app-invoice-summary>
 
     <div
@@ -318,4 +316,3 @@
   </div>
   }
 </div>
-<div class="border-4 p-8 py-5 mb-10">{{ formInvoice.value | json }}</div>

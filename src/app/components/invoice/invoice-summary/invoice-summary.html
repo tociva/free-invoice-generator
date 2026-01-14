@@ -2,15 +2,16 @@
   <!-- Amount and Numbering -->
   <div class="sm:col-span-2 card-box" [formGroup]="InvoiceSummary()">
     <label class="inline-flex items-center text-xs md:text-sm">
-      <input    
-        formControlName="internationalNumbering"
- type="checkbox" class="mr-2" />
+      <input formControlName="internationalNumbering" type="checkbox" class="mr-2" />
       International Numbering
     </label>
     <div class="mt-4 text-center">
-      <div class="text-2xl md:text-4xl font-bold">{{ currency }} {{ InvoiceSummary().get('itemTotal')?.value }}</div>
+      <div class="text-2xl md:text-4xl font-bold">
+        {{ invoiceService.symbol() }}
+        {{ InvoiceSummary().get('itemTotal')?.value }}
+      </div>
       <div class="text-xs md:text-sm text-gray-700 mt-2">
-        {{ currencyCode }} {{ getAmountInWords(totalAmount) }}
+        {{ InvoiceSummary().get('grandTotalInWords')?.value }}
       </div>
     </div>
   </div>
@@ -21,8 +22,8 @@
       <span>Item Total</span>
       <span>{{ InvoiceSummary().get('itemTotal')?.value }}</span>
     </div>
-    @if(advanced()){
-      <div class="text-xs md:text-sm flex justify-between">
+    @if(advanced() && hasItemDiscount()){
+    <div class="text-xs md:text-sm flex justify-between">
       <span>Discount Total</span>
       <span>{{ InvoiceSummary().get('discountTotal')?.value }}</span>
     </div>
@@ -30,6 +31,8 @@
       <span>Sub Total</span>
       <span>{{ InvoiceSummary().get('subTotal')?.value }}</span>
     </div>
+    } @if(advanced() || selectedTaxOption() == 'CGST & SGST' || selectedTaxOption() == 'IGST'){
+
     <div class="text-xs md:text-sm flex justify-between">
       <span>Tax Total</span>
       <span>{{ InvoiceSummary().get('taxTotal')?.value }}</span>
@@ -49,4 +52,3 @@
     </div>
   </div>
 </div>
-

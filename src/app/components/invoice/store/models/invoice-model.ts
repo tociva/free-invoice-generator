@@ -10,7 +10,7 @@ export enum TaxOption {
 
 export interface InvoiceItem {
   name: string;
-  description: string;
+  description: string | null;
   quantity: number;
   price: number;
   itemTotal: number;
@@ -49,24 +49,32 @@ export interface Customer {
 
 export interface Invoice {
   invoiceNo: string;
-  invoiceDate: Date;
-  invoiceDueDate: Date;
-  currency: Currency;
-  decimalPlaces: number;
-  dateFormat: DateFormat;
-  taxOption: TaxOption;
+  invoiceDate: Date | null;
+  invoiceDueDate: Date | null;
+
+  currency: Currency | null;
+  decimalPlaces: number | null;
+  dateFormat: DateFormat | null;
+
+  taxOption: TaxOption | null;
+
   hasItemDescription: boolean;
   hasItemDiscount: boolean;
   internationalNumbering: boolean;
-  accountNumber:string;
-  accountName:string;
-  bankName:string;
-  terms:string;
-  notes:string;
+
+  accountNumber: string;
+  accountName: string;
+  bankName: string;
+
+  terms: string;
+  notes: string;
   deliveryState: string;
-  organization: Organization,
-  customer: Customer,
-  items: InvoiceItem[]
+
+  organization: Organization | null;
+  customer: Customer | null;
+
+  items: InvoiceItem[];
+
   itemTotal: number;
   discountTotal: number;
   subTotal: number;
@@ -74,6 +82,7 @@ export interface Invoice {
   roundOff: number;
   grandTotal: number;
   grandTotalInWords: string;
-  smallLogo: string;
-  largeLogo: string;
+
+  smallLogo: string | null;
+  largeLogo: string | null;
 }

@@ -29,7 +29,7 @@ export class FileSelect implements OnInit {
   error = output<string>({ alias: 'fileUploadError' });
   isDragOver = signal(false);
 
- ngOnInit(): void {
+  ngOnInit(): void {
     this.fileInput.type = 'file';
     this.fileInput.hidden = true;
     this.host.nativeElement.appendChild(this.fileInput);
@@ -42,7 +42,6 @@ export class FileSelect implements OnInit {
       this.fileInput.value = '';
     });
   }
-
 
   @HostListener('click')
   onFileInput() {
@@ -82,9 +81,12 @@ export class FileSelect implements OnInit {
   }
 
   private isValidFile(file: File): boolean {
-    const isJson =
-      file.type === 'application/json' || file.name.toLowerCase().endsWith('.json');
-    const isImage = file.type.startsWith('image/');
-    return isJson || isImage;
+    if (!this.accept()) return true;
+    const acceptedTypes = this.accept()!
+      .split(',')
+      .map((t) => t.trim().toLowerCase());
+    return acceptedTypes.some(
+      (type) => file.type === type || file.name.toLowerCase().endsWith(type.replace('.', ''))
+    );
   }
 }

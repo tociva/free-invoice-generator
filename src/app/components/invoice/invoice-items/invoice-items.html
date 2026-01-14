@@ -81,12 +81,11 @@
           </div>
         </th>
 
-        }
-        @if((selectedTaxOption() == 'IGST') || (selectedTaxOption() == 'CGST & SGST')){
+        } @if((selectedTaxOption() == 'IGST') || (selectedTaxOption() == 'CGST & SGST')){
         <th class="px-4 py-3 border border-solid" rowspan="2">Tax Total</th>
         }
-        }
-        @if(advanced()){
+       } 
+       @if(advanced() && selectedTaxOption() != 'Non Taxable'){
         <th class="px-4 py-3 border border-solid" rowspan="2">Grand Total</th>
         }
         <th class="px-4 py-3 border border-solid" rowspan="2">Action</th>
@@ -98,7 +97,8 @@
       @for (item of InvoiceItemForm().controls; track $index) {
       <tr [formGroup]="item" class="text-center">
         <td class="px-3 py border border-solid text-left">
-          <input formControlName="name" class="form-input border-none outline-0 w-full" />
+          <input formControlName="name" class="form-input border-none outline-0 w-full"
+          placeholder="Enter item name" />
         </td>
 
         @if (advanced() && hasItemDescription()) {
@@ -226,8 +226,7 @@
           </div>
         </td>
 
-        }
-        @if((selectedTaxOption() == 'IGST') || (selectedTaxOption() == 'CGST & SGST')){
+        } @if((selectedTaxOption() == 'IGST') || (selectedTaxOption() == 'CGST & SGST')){
 
         <td class="px-3 py border border-solid">
           <input
@@ -236,19 +235,15 @@
             class="form-input text-center w-20 border-none"
           />
         </td>
-      }
-       
-
-        }
-        @if(advanced()){
- <td class="px-3 py border border-solid">
+        } } @if(advanced() && selectedTaxOption() != 'Non Taxable'){
+        <td class="px-3 py border border-solid">
           <input
             formControlName="grandTotal"
             readonly
             class="form-input text-center w-20 border-none"
           />
         </td>
-      }
+        }
         <td class="px-3 py border border-solid">
           <button
             type="button"

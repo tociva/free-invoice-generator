@@ -18,9 +18,8 @@ export const invoiceStore = signalStore(
       }));
     },
     resetInvoice(){
-
+      patchState(store,initialInvoiceState)
     },
-
   }))
  
 );

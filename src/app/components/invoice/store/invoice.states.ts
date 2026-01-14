@@ -1,26 +1,24 @@
-import { Invoice, TaxOption } from "./models/invoice-model";
-
+import { Invoice, TaxOption } from './models/invoice-model';
 
 export interface InvoiceState {
-    invoice : Invoice;
-    isloading : boolean;
-    error :string |null;
+  invoice: Invoice;
+  isloading: boolean;
+  error: string | null;
 }
 
-export const initialInvoiceState : InvoiceState = {
-    invoice:
-    {
-        invoiceNo: 'INV-0001',
-        invoiceDate: new Date('2025-06-24'),
-        invoiceDueDate: new Date('2025-07-01'),
-      currency: {
-          code: "INR",
-    name: "Indian Rupee",
-    symbol: "₹",
-    numericcode: 356,
-    minorunit: 2,
-    fraction: "Paisa"
-        },
+export const initialInvoiceState: InvoiceState = {
+  invoice: {
+    invoiceNo: 'INV-0001',
+    invoiceDate: new Date('2025-06-24'),
+    invoiceDueDate: new Date('2025-07-01'),
+    currency: {
+      code: 'INR',
+      name: 'Indian Rupee',
+      symbol: '₹',
+      numericcode: 356,
+      minorunit: 2,
+      fraction: 'Paisa',
+    },
     decimalPlaces: 2,
     deliveryState: 'Karnataka',
     taxOption: TaxOption.CGST_SGST,
@@ -29,39 +27,39 @@ export const initialInvoiceState : InvoiceState = {
     internationalNumbering: true,
     dateFormat: {
       name: '24-06-2025',
-      value: 'DD-MM-YYYY'
+      value: 'DD-MM-YYYY',
     },
-    accountNumber:'225522552255',
-    accountName:'Joeh Doe',
-    bankName:'Bank Of Stringhills',
+    accountNumber: '225522552255',
+    accountName: 'Joeh Doe',
+    bankName: 'Bank Of Stringhills',
     organization: {
       name: 'Stringhills Labs',
       authorityName: 'Joeh Doe',
-      authorityDesignation:'Manager',
+      authorityDesignation: 'Manager',
       address: 'String Towers,String Valley',
       country: {
         name: 'India',
         code: '91',
         iso: 'IN',
-        phone:'91',
-        currencycode : 'INR',
-        dateformat :'DD-MM-YYYY',
-       currency: {
-          code: "INR",
-    name: "Indian Rupee",
-    symbol: "₹",
-    numericcode: 356,
-    minorunit: 2,
-    fraction: "Paisa"
+        phone: '91',
+        currencycode: 'INR',
+        dateformat: 'DD-MM-YYYY',
+        currency: {
+          code: 'INR',
+          name: 'Indian Rupee',
+          symbol: '₹',
+          numericcode: 356,
+          minorunit: 2,
+          fraction: 'Paisa',
         },
         dateFormat: {
           name: '24-06-2025',
-          value: 'DD-MM-YYYY'
-        }
+          value: 'DD-MM-YYYY',
+        },
       },
       email: 'stringlabs@string.com',
       phone: '2255225522',
-      gstin: '5522552255'
+      gstin: '5522552255',
     },
     customer: {
       name: 'Tom Technologies',
@@ -70,25 +68,25 @@ export const initialInvoiceState : InvoiceState = {
         name: 'India',
         code: '91',
         iso: 'IN',
-        phone:'91',
-        currencycode : 'INR',
-        dateformat :'DD-MM-YYYY',
+        phone: '91',
+        currencycode: 'INR',
+        dateformat: 'DD-MM-YYYY',
         currency: {
-          code: "INR",
-    name: "Indian Rupee",
-    symbol: "₹",
-    numericcode: 356,
-    minorunit: 2,
-    fraction: "Paisa"
+          code: 'INR',
+          name: 'Indian Rupee',
+          symbol: '₹',
+          numericcode: 356,
+          minorunit: 2,
+          fraction: 'Paisa',
         },
         dateFormat: {
           name: '24-06-2025',
-          value: 'DD-MM-YYYY'
-        }
+          value: 'DD-MM-YYYY',
+        },
       },
       email: 'tomtechnologies@gmail.com',
       phone: '1234567890',
-      gstin: '1234567890'
+      gstin: '1234567890',
     },
     items: [
       {
@@ -126,7 +124,7 @@ export const initialInvoiceState : InvoiceState = {
         tax3Percentage: 0,
         taxTotal: 0,
         grandTotal: 20000,
-      }
+      },
     ],
     itemTotal: 30000,
     discountTotal: 0,
@@ -135,11 +133,12 @@ export const initialInvoiceState : InvoiceState = {
     roundOff: 0,
     grandTotal: 30000,
     grandTotalInWords: 'Three Lakhs',
-    terms:'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
-    notes:'Type aditional notes here',
-    smallLogo: 'SmallLogo.jpg',
-    largeLogo: 'largeLogo.jpg'
+    terms:
+      'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
+    notes: 'Type aditional notes here',
+    smallLogo: '',
+    largeLogo: '',
   },
   error: null,
-  isloading : false,
+  isloading: false,
 };
