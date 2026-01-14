@@ -1,138 +1,155 @@
-<div class="space-y-3" [formGroup]="InvoiceDetailsForm()">
-  <div class="detail-field">
-    <div class="text-xs text-gray-500">Invoice Number</div>
+<div class="card-box" [formGroup]="InvoiceDetailsForm()">
+  <!-- Invoice Number -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Invoice Number</div>
     <input
       type="text"
       formControlName="invoiceNo"
       placeholder="Enter invoice number"
-      class="w-full text-right font-medium outline-none text-sm md:text-base"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
     />
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Invoice Date</div>
-      <input
-        formControlName="invoiceDate"
-        type="date"
-        placeholder="Select invoice date"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Due Date</div>
-      <input
-        formControlName="invoiceDueDate"
-        type="date"
-        placeholder="Select due date"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
+  <!-- Invoice Date and Due Date -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Invoice Date</div>
+    <input
+      formControlName="invoiceDate"
+      type="date"
+      placeholder="Select invoice date"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Due Date</div>
+    <input
+      formControlName="invoiceDueDate"
+      type="date"
+      placeholder="Select due date"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
   </div>
   @if(advanced()){
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Currency</div>
-      <select
-        formControlName="currency"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      >
+  <!-- Currency -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Currency</div>
+    <select
+      formControlName="currency"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    >
       @for(currency of currencyStore.currencies(); track $index){
         <option [ngValue]="currency">{{ currency.symbol }} - {{ currency.name }}</option>
       }
-      </select>
-      </div>
+    </select>
+  </div>
 
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Decimal Places</div>
-      <input
-        formControlName="decimalPlaces"
-        type="text"
-        placeholder="Decimal Places"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Delivery State </div>
-      <input
-        formControlName="deliveryState"
-        type="text"
-        placeholder="Delivery State "
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Tax Option</div>
-      <select
-        formControlName="taxOption"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      >
+  <!-- Decimal Places -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Decimal Places</div>
+    <input
+      formControlName="decimalPlaces"
+      type="text"
+      placeholder="Decimal Places"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Delivery State -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Delivery State</div>
+    <input
+      formControlName="deliveryState"
+      type="text"
+      placeholder="Delivery State"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Tax Option -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Tax Option</div>
+    <select
+      formControlName="taxOption"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    >
       @for (option of taxOptions; track $index) {
-    <option [value]="option">
-      {{ option }}
-    </option>
-  }
-      </select>
-      </div>
-     <div class="detail-field flex items-center gap-2 mt-4">
+        <option [value]="option">{{ option }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Show Item Description -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Item Description</div>
+    <div class="flex items-center gap-2">
       <input
         type="checkbox"
         formControlName="hasItemDescription"
         class="w-4 h-4 accent-blue-500"
       />
-      <label class="text-sm text-gray-600">
-        Show Item Description
-      </label>
+      <label class="text-sm text-gray-600">Show Item Description</label>
     </div>
+  </div>
 
-     <div class="detail-field flex items-center gap-2 mt-4">
+  <!-- Show Item Discount -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Item Discount</div>
+    <div class="flex items-center gap-2">
       <input
         type="checkbox"
         formControlName="hasItemDiscount"
-
         class="w-4 h-4 accent-blue-500"
       />
-      <label class="text-sm text-gray-600">
-        Show Item Discount
-      </label>
+      <label class="text-sm text-gray-600">Show Item Discount</label>
     </div>
-     <div class="detail-field">
-      <div class="text-xs text-gray-500">Date Format</div>
-      <select
+  </div>
+
+  <!-- Date Format -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Date Format</div>
+    <select
       formControlName="dateFormat"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      >
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    >
       @for( dateFormat of dateFormatStore.dateFormat();track $index){
         <option [ngValue]="dateFormat">{{ dateFormat.name }}</option>
       }
-      </select>
-      </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Account Number</div>
-      <input
-        formControlName="accountNumber"
-        type="text"
-        placeholder="Date Format"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Account Name</div>
-      <input
-       formControlName="accountName"
-        type="text"
-        placeholder="Date Format"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
-    <div class="detail-field">
-      <div class="text-xs text-gray-500">Bank Name</div>
-      <input
-       formControlName="bankName"
-        type="text"
-        placeholder="Date Format"
-        class="w-full text-right font-medium outline-none text-sm md:text-base"
-      />
-    </div>
+    </select>
+  </div>
+
+  <!-- Account Number -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Account Number</div>
+    <input
+      formControlName="accountNumber"
+      type="text"
+      placeholder="Account Number"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Account Name -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Account Name</div>
+    <input
+      formControlName="accountName"
+      type="text"
+      placeholder="Account Name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Bank Name -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Bank Name</div>
+    <input
+      formControlName="bankName"
+      type="text"
+      placeholder="Bank Name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
   }
 </div>

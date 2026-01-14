@@ -1,90 +1,133 @@
 <div class="card-box" [formGroup]="InvoiceOrganizationForm()">
-  <div class="text-[1rem] text-gray-500">My Name</div>
-  <input
-    formControlName="name"
-    placeholder="My name"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
+  <!-- My Name -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">My Name</div>
+    <input
+      formControlName="name"
+      placeholder="My name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
-  <div class="text-[1 rem] text-gray-500">My Address</div>
-  <textarea
-    formControlName="address"
-    placeholder="My address"
-    rows="2"
-    class="w-full text-right font-medium outline-none text-sm md:text-base resize-none"
-  ></textarea>
+  <!-- My Address -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-start mb-4">
+    <div class="text-[1rem] text-gray-500 pt-1">My Address</div>
+    <textarea
+      formControlName="address"
+      placeholder="My address"
+      rows="2"
+      class="w-full text-right font-medium outline-none text-sm md:text-base resize-none border border-gray-300 rounded px-2 py-1"
+    ></textarea>
+  </div>
+
   @if(advanced()){
-  <div class="text-[1rem] text-gray-500 mt-2">Country</div>
-
-  <select class="text-right font-medium outline-none text-sm md:text-base float-right"
-  formControlName="country"
-  >
-    @for( country of countryStore.countries(); track $index){
-    <option [ngValue]="country">{{ country.name }}</option>
-    }
-  </select>
-  <div class="text-[1rem] text-gray-500 mt-5">Email</div>
-  <input
-    formControlName="email"
-    placeholder="OrganizationForm email Number"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
-  <div class="text-[1rem] text-gray-500 mt-5">Mobile</div>
-  <input
-    formControlName="phone"
-    placeholder="OrganizationForm Phone Number"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
-  <div class="text-[1rem] text-gray-500 mt-5">GSTIN</div>
-  <input
-    formControlName="gstin"
-    placeholder="OrganizationForm gstin Number"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
-  <!-- Authority Name -->
-  <div class="mt-5 relative flex items-center">
-    <label class="text-[1rem] text-gray-500">Authori..</label>
-
-    <!-- Tooltip Icon -->
-    <div class="ml-1 relative group cursor-pointer">
-      <span class="text-gray-400 font-bold">?</span>
-
-      <!-- Tooltip text (hidden by default) -->
-      <div
-        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-      >
-        Authority Name
+  <!-- Country -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Country</div>
+    <div class="relative">
+      <input
+        type="text"
+        [value]="getSelectedCountryName()"
+        (input)="onCountrySearch($event)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        placeholder="Search country..."
+        class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      />
+      
+      @if(countryDropdownOpen()) {
+      <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto">
+        @if(filteredCountries().length > 0) {
+          @for(country of filteredCountries(); track country.code) {
+          <div
+            class="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors text-right"
+            (mousedown)="$event.preventDefault(); selectCountry(country)"
+          >
+            {{ country.name }}
+          </div>
+          }
+        } @else {
+          <div class="px-3 py-2 text-sm text-gray-500 text-center">
+            No countries found
+          </div>
+        }
       </div>
+      }
     </div>
   </div>
 
-  <input
-    formControlName="authorityName"
-    placeholder="Authority Name"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
+  <!-- Email -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Email</div>
+    <input
+      formControlName="email"
+      placeholder="OrganizationForm email Number"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Mobile -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Mobile</div>
+    <input
+      formControlName="phone"
+      placeholder="OrganizationForm Phone Number"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- GSTIN -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">GSTIN</div>
+    <input
+      formControlName="gstin"
+      placeholder="OrganizationForm gstin Number"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
+
+  <!-- Authority Name -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="relative flex items-center">
+      <label class="text-[1rem] text-gray-500">Authori..</label>
+      <!-- Tooltip Icon -->
+      <div class="ml-1 relative group cursor-pointer">
+        <span class="text-gray-400 font-bold">?</span>
+        <!-- Tooltip text (hidden by default) -->
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+        >
+          Authority Name
+        </div>
+      </div>
+    </div>
+    <input
+      formControlName="authorityName"
+      placeholder="Authority Name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
   <!-- Authority Designation -->
-  <div class="mt-5 relative flex items-center">
-    <label class="text-[1rem] text-gray-500">Designa..</label>
-
-    <!-- Tooltip Icon -->
-    <div class="ml-1 relative group cursor-pointer">
-      <span class="text-gray-400 font-bold">?</span>
-
-      <div
-        class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-      >
-        Authority Designation
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="relative flex items-center">
+      <label class="text-[1rem] text-gray-500">Designa..</label>
+      <!-- Tooltip Icon -->
+      <div class="ml-1 relative group cursor-pointer">
+        <span class="text-gray-400 font-bold">?</span>
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+        >
+          Authority Designation
+        </div>
       </div>
     </div>
+    <input
+      formControlName="authorityDesignation"
+      placeholder="Authority Designation"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
   </div>
-
-  <input
-    formControlName="authorityDesignation"
-    placeholder="Authority Designation"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
 
   }
 </div>

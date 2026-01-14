@@ -1,5 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { dateFormatStore } from '../store/date-format/date-format.store';
 import { currencyStore } from '../store/currency/currency.store';
@@ -7,7 +8,7 @@ import { TaxOption } from '../store/models/invoice-model';
 
 @Component({
   selector: 'app-invoice-details',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './invoice-details.html',
   styleUrls: ['./invoice-details.css'],
 })
