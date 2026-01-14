@@ -15,6 +15,7 @@ import { InvoiceFormService } from '../store/models/invoice-form';
 import { Invoice } from '../store/models/invoice-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceCalculationService } from '../store/services/calculation.services';
+import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -30,6 +31,7 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
     SimpleInvoiceConfig,
     SelectTemplateComponent,
     PreviewInvoiceComponent,
+    InvoiceItemsMobileComponent
   ],
   templateUrl: './simple-invoice.html',
   styleUrl: './simple-invoice.css',
