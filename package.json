@@ -39,6 +39,8 @@
     "@ngrx/entity": "^21.0.1",
     "@ngrx/signals": "^21.0.1",
     "dayjs": "^1.11.19",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -47,6 +49,8 @@
     "@angular/cli": "^21.0.3",
     "@angular/compiler-cli": "^21.0.0",
     "@tailwindcss/postcss": "^4.1.12",
+    "@types/html2canvas": "^1.0.0",
+    "@types/jspdf": "^2.0.0",
     "jsdom": "^27.1.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.12",

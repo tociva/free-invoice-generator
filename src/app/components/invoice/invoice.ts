@@ -35,6 +35,7 @@ export class Invoice implements OnInit {
   store = inject(invoiceStore);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  selectedTemplate = signal<any>(null);
   steps = [
     { id: 1, label: 'My Organization Info & Logo' },
     { id: 2, label: 'Customer Details' },
@@ -69,6 +70,10 @@ export class Invoice implements OnInit {
 
   })
 
+  }
+
+  onTemplateSelected(template: any) {
+    this.selectedTemplate.set(template);
   }
   
   formInvoice = inject(InvoiceFormService).form;
@@ -112,6 +117,6 @@ export class Invoice implements OnInit {
   saveCurrentStepState() {
   const invoice = this.formInvoice.getRawValue();
   this.store.setInvoice(invoice); 
-  this.store.resetInvoice();
+  // this.store.resetInvoice();
 }
 }

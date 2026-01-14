@@ -1,48 +1,90 @@
 <div class="card-box" [formGroup]="InvoiceCustomerForm()">
-  <div class="text-[1rem] text-gray-500">Customer Name</div>
-  <input
-    formControlName="name"
-    placeholder="Customer name"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
+  <!-- Customer Name -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Customer Name</div>
+    <input
+      formControlName="name"
+      placeholder="Customer name"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
-  <div class="text-[1rem] text-gray-500 mt-2">Address</div>
-  <textarea
-    formControlName="address"
-    placeholder="Customer address"
-    rows="2"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  ></textarea>
+  <!-- Address -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-start mb-4">
+    <div class="text-[1rem] text-gray-500 pt-1">Address</div>
+    <textarea
+      formControlName="address"
+      placeholder="Customer address"
+      rows="2"
+      class="w-full text-right font-medium outline-none text-sm md:text-base resize-none border border-gray-300 rounded px-2 py-1"
+    ></textarea>
+  </div>
 
   @if(advanced()){
-  <div class="text-[1rem] text-gray-500 mt-2">Country</div>
+  <!-- Country -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Country</div>
+    <div class="relative">
+      <input
+        type="text"
+        [value]="getSelectedCountryName()"
+        (input)="onCountrySearch($event)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        placeholder="Search country..."
+        class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      />
+      
+      @if(countryDropdownOpen()) {
+      <div class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto">
+        @if(filteredCountries().length > 0) {
+          @for(country of filteredCountries(); track country.code) {
+          <div
+            class="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors text-right"
+            (mousedown)="$event.preventDefault(); selectCountry(country)"
+          >
+            {{ country.name }}
+          </div>
+          }
+        } @else {
+          <div class="px-3 py-2 text-sm text-gray-500 text-center">
+            No countries found
+          </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
 
-  <select class="text-right font-medium outline-none text-sm md:text-base float-right">
-    @for( country of countryStore.countries(); track $index){
-    <option value="option1">{{ country.name }}</option>
-    }
-  </select>
-  <div class="text-[1rem] text-gray-500 mt-5">Mobile</div>
+  <!-- Mobile -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Mobile</div>
     <input
       formControlName="phone"
       placeholder="Customer Phone Number"
-      class="w-full text-right font-medium outline-none text-sm md:text-base"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
     />
+  </div>
 
-  <div class="text-[1rem] text-gray-500 mt-5">Email ID</div>
-  <input
-    formControlName="email"
-    placeholder="Customer name"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
+  <!-- Email ID -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">Email ID</div>
+    <input
+      formControlName="email"
+      placeholder="Customer email"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
-  <!-- Third Input -->
-  <div class="text-[1rem] text-gray-500 mt-5">GSTIN</div>
-  <input
-    formControlName="gstin"
-    placeholder="GSTIN Number"
-    class="w-full text-right font-medium outline-none text-sm md:text-base"
-  />
+  <!-- GSTIN -->
+  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="text-[1rem] text-gray-500">GSTIN</div>
+    <input
+      formControlName="gstin"
+      placeholder="GSTIN Number"
+      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    />
+  </div>
 
   }
 </div>
