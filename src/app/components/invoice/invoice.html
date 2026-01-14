@@ -236,6 +236,15 @@
     >
     </app-invoice-items>
 
+    <app-invoice-items-mobile
+      [InvoiceItemForm]="formInvoice.controls.items"
+      [advanced]="true"
+      [hasItemDescription]="hasItemDescription()"
+      [hasItemDiscount]="hasItemDiscount()"
+      [selectedTaxOption]="selectedTaxOption()"
+    >
+    </app-invoice-items-mobile>
+
     <app-invoice-summary
       [InvoiceSummary]="formInvoice"
       [advanced]="true"
