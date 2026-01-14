@@ -10,9 +10,5 @@ import { InvoiceForm } from '../store/models/invoice-form.model';
   styleUrls: ['./invoice-terms-notes.css'],
 })
 export class InvoiceTermsNotesComponent {
-
-    public InvoiceTermsNotes = input.required<FormGroup<InvoiceForm>>();
-
-
-  
+  public InvoiceTermsNotes = input.required<FormGroup<InvoiceForm>>();
 }

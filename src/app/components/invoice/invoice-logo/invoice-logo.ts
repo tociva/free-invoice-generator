@@ -1,4 +1,4 @@
-import { Component, HostListener, input, signal, OnInit } from '@angular/core';
+import { Component, HostListener, input, signal, OnInit, effect } from '@angular/core';
 import { FileUpload } from '../../shared/file-upload/file-upload';
 import { FormGroup } from '@angular/forms';
 import { InvoiceForm } from '../store/models/invoice-form.model';
@@ -14,21 +14,25 @@ export class InvoiceLogoComponent {
   uploadedImageUrl = signal<string | null>(null);
   loadingImage = signal(false);
   InvoiceLogo = input.required<FormGroup<InvoiceForm>>();
+  logoField = input<'smallLogo' | 'largeLogo'>('smallLogo');
 
   advanced = input<boolean>(false);
-
 
   @HostListener('window:resize')
   onResize() {
     this.isMobile.set(window.innerWidth <= 768);
   }
+  eff = effect(() => {
+    const value = this.InvoiceLogo()?.get(this.logoField())?.value;
+    this.uploadedImageUrl.set(value || null);
+  });
 
-  // ngOnInit(): void {
-  //   const controlUrl = this.InvoiceLogo().get('smallLogo')?.value;
-  //   if (controlUrl) {
-  //     this.uploadedImageUrl.set(controlUrl);
-  //   }
-  // }
+  ngOnInit(): void {
+    const controlUrl = this.InvoiceLogo().get('smallLogo')?.value;
+    if (controlUrl) {
+      this.uploadedImageUrl.set(controlUrl);
+    }
+  }
 
   public onFilesReceived(file: File) {
     if (!file.type.startsWith('image/')) {
@@ -43,10 +47,7 @@ export class InvoiceLogoComponent {
       const result = reader.result;
       if (result && typeof result === 'string') {
         this.uploadedImageUrl.set(result);
-        // console.log('Uploaded image URL:', this.uploadedImageUrl());
-
-        this.loadingImage.set(false);
-        //  this.InvoiceLogo().get('smallLogo')?.setValue(result);
+        this.InvoiceLogo()?.get(this.logoField())?.setValue(result);
       }
     };
     reader.readAsDataURL(file);
@@ -54,8 +55,6 @@ export class InvoiceLogoComponent {
 
   removeImage() {
     this.uploadedImageUrl.set(null);
-
-    // this.InvoiceLogo().get('smallLogo')?.setValue('');
+    this.InvoiceLogo().get('smallLogo')?.setValue('');
   }
 }
-

@@ -1,8 +1,7 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CustomerForm, InvoiceForm } from '../store/models/invoice-form.model';
+import { CustomerForm } from '../store/models/invoice-form.model';
 import { countryStore } from '../store/country/country.store';
-
 
 @Component({
   selector: 'app-invoice-customer',
@@ -10,13 +9,12 @@ import { countryStore } from '../store/country/country.store';
   imports: [ReactiveFormsModule],
   templateUrl: './invoice-customer.html',
   styleUrls: ['./invoice-customer.css'],
-  providers:[countryStore],
 })
 export class InvoiceCustomerComponent implements OnInit {
-advanced = input<boolean>(false);
-public countryStore = inject(countryStore);
-ngOnInit(): void {
-  this.countryStore.loadCountry();
-}
-public InvoiceCustomerForm = input.required<FormGroup<CustomerForm>>();
+  advanced = input<boolean>(false);
+  public countryStore = inject(countryStore);
+  ngOnInit(): void {
+    this.countryStore.loadCountry();
+  }
+  public InvoiceCustomerForm = input.required<FormGroup<CustomerForm>>();
 }

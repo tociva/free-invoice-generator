@@ -11,6 +11,5 @@ import { JsonPipe } from '@angular/common';
 export class Testing {
   store = inject(invoiceStore);
 
-  // ✅ READ invoice from state
   invoice =this.store.invoice
 }

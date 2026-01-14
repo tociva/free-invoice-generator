@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { currencyStore } from '../store/currency/currency.store';
-import { provideAppIcon } from '../../../provider/icon-provider';
 import { NgIcon } from '@ng-icons/core';
 import { dateFormatStore } from '../store/date-format/date-format.store';
 import { Currency } from '../store/currency/currency.model';
@@ -15,7 +14,6 @@ import { DateFormat } from '../store/date-format/date-format.model';
   imports: [CommonModule, ReactiveFormsModule, NgIcon],
   templateUrl: './simple-invoice-config.html',
   styleUrls: ['./simple-invoice-config.css'],
-  providers: [currencyStore, provideAppIcon(), dateFormatStore],
 })
 export class SimpleInvoiceConfig implements OnInit {
   private elementRef = inject(ElementRef);
@@ -32,8 +30,10 @@ export class SimpleInvoiceConfig implements OnInit {
   dateFormatDropdownOpen = signal(false);
 
   setCurrency(currency: Currency) {
-    this.InvoiceConfiq().get('currency')?.setValue(currency);
-    this.currencyDropdownOpen.set(false);
+  const currencyCtrl = this.InvoiceConfiq().get('currency') as FormGroup;
+  if (!currencyCtrl) return;
+  currencyCtrl.setValue(currency); 
+  this.currencyDropdownOpen.set(false);
   }
 
   setDateFormat(dateFormat : DateFormat){

@@ -9,13 +9,12 @@ import { SimpleInvoiceConfig } from '../simple-invoice-config/simple-invoice-con
 import { SelectTemplateComponent } from '../select-template/select-template';
 import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 import { invoiceStore } from '../store/invoice.store';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { CurrencyUtil } from '../store/currency/currency.util';
+import { FormArray } from '@angular/forms';
 import { InvoiceOrganizationComponent } from '../invoice-organization/invoice-organization';
 import { InvoiceFormService } from '../store/models/invoice-form';
 import { Invoice } from '../store/models/invoice-model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InvoiceCalculationService } from '../store/services/calculation.services';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -39,6 +38,7 @@ export class SimpleInvoice implements OnInit {
   totalAmount: number = 300000;
   store = inject(invoiceStore);
   router = inject(Router);
+  route = inject(ActivatedRoute);
 
   currentStep = signal(1);
 
@@ -51,89 +51,58 @@ export class SimpleInvoice implements OnInit {
   isFirstStep = computed(() => this.currentStep() === 1);
   isLastStep = computed(() => this.currentStep() === this.steps.length);
 
+  constructor(){
+    this.route.queryParams.subscribe(param =>{
+      const step = Number(param['step']);
+      if(step && step >= 1 && step <= this.steps.length){
+        this.currentStep.set(step);
+      }
+    });
+  }
+ 
+
   goToStep(stepId: number): void {
-    // this.currentStep.set(stepId);
     if (stepId >= 1 && stepId <= this.steps.length) {
       if (stepId > this.currentStep()) {
         this.saveInvoiceState();
       }
       this.currentStep.set(stepId);
     }
+    this.router.navigate([],{
+      relativeTo:this.route,
+      queryParams:{stepId},
+      queryParamsHandling:'merge',
+      replaceUrl :true
+    })
   }
-
-  // invoiceBasicDetails =signal<any>([]);
-  // onInvoiceDetails(data :any){
-  //   this.invoiceBasicDetails.set(data);
-  // }
   selectedTemplate = signal<any>(null);
 
   onTemplateSelected(template: any) {
     this.selectedTemplate.set(template);
   }
   formInvoice = inject(InvoiceFormService).form;
-  grandTotal = signal(0);
-
-  items = signal<any[]>([]);
-
-  ngOnInit(): void {
+  calcService = inject(InvoiceCalculationService);
+  ngOnInit() {
     const itemsArray = this.formInvoice.get('items') as FormArray;
+
     itemsArray.valueChanges.subscribe(() => {
-      this.items.set(itemsArray.getRawValue());
-      this.calculateGrandTotal();
+      this.calcService.calculateTotals(this.formInvoice);
     });
 
-    this.items.set(itemsArray.getRawValue());
-    this.formInvoice.get('')
-  }
-
-  calculateGrandTotal() {
-    const items = this.formInvoice.get('items') as FormArray;
-    const total = items.controls.reduce(
-      (sum, item) => sum + (item.get('itemTotal')?.value || 0),
-      0
-    );
-    const disAmount = items.controls.reduce(
-      (sum ,disamt) => sum +(disamt.get('discountAmount')?.value || 0),
-      0
-    )
-    const subT = items.controls.reduce(
-      (sum,subT) => sum +(subT.get('subTotal')?.value || 0),
-      0
-    )
-    const taxT = items.controls.reduce(
-      (sum,taxT) => sum +(taxT.get('taxTotal')?.value || 0),
-      0
-    )
-    const grandT = items.controls.reduce(
-      (sum,grandT) => sum +(grandT.get('grandTotal')?.value || 0),
-      0
-    )
-
-    const roundOff = this.formInvoice.get('roundOff')?.value || 0;
-    this.formInvoice.get('discountTotal')?.setValue(disAmount, { emitEvent: false });
-    this.formInvoice.get('subTotal')?.setValue(subT, { emitEvent: false });
-
-    this.formInvoice.get('itemTotal')?.setValue(total, { emitEvent: false });
-    this.formInvoice.get('grandTotal')?.setValue(grandT, { emitEvent: false });
-  this.formInvoice.get('taxTotal')?.setValue(taxT, { emitEvent: false });
-
-    this.grandTotal.set(grandT);
+    this.calcService.calculateTotals(this.formInvoice);
   }
 
 
-  grandTotalInWords = computed(() =>
-    CurrencyUtil.numberToWords(this.grandTotal(), 'INR', 'Paisa', 2, false)
-  );
-
-eff= effect(() => {
-  const code = this.formInvoice.get('currency')?.value;
-  console.log(code);
+  bindGrandTotalEffect = effect(() => {
+    const words = this.calcService.grandTotalInWords();
+    this.formInvoice.get('grandTotalInWords')?.setValue(words, { emitEvent: false });
+  });
   
-  console.log('Grand Total in Words:', this.grandTotalInWords());
-});
+
   saveInvoiceState() {
     const invoice = this.formInvoice.getRawValue() as Invoice;
     this.store.setInvoice(invoice);
-    this.router.navigate(['/Testing']);
+    // this.store.resetInvoice();
+    // this.router.navigate(['/Testing']);
   }
 }

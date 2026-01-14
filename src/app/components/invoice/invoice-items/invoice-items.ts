@@ -1,10 +1,6 @@
 import {
   Component,
-  computed,
-  effect,
-  inject,
   input,
-  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -12,7 +8,6 @@ import { NgIcon } from '@ng-icons/core';
 import { provideAppIcon } from '../../../provider/icon-provider';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
-import { combineLatest, startWith, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -34,7 +29,6 @@ export class InvoiceItemsComponent implements OnInit {
   items = signal<any[]>([]);
 
   constructor() {}
-  // Sync FormArray → signal
   ngOnInit(): void {
     this.items.set(this.InvoiceItemForm().getRawValue());
 
@@ -106,7 +100,6 @@ export class InvoiceItemsComponent implements OnInit {
       taxTotal: tax1Amount + tax2Amount + tax3Amount,
     };
   }
-
   addItem() {
     const newItem = this.createItemForm();
     this.InvoiceItemForm().push(newItem);
