@@ -84,15 +84,18 @@ export class SimpleInvoice implements OnInit {
   }
   formInvoice = inject(InvoiceFormService).form;
   calcService = inject(InvoiceCalculationService);
+
   ngOnInit() {
-    const itemsArray = this.formInvoice.get('items') as FormArray;
+  const itemsArray = this.formInvoice.get('items') as FormArray;
 
-    itemsArray.valueChanges.subscribe(() => {
-      this.calcService.calculateTotals(this.formInvoice);
-    });
+  this.calcService.initFormSubscriptions(this.formInvoice);
 
+  this.calcService.calculateTotals(this.formInvoice);
+
+  itemsArray.valueChanges.subscribe(() => {
     this.calcService.calculateTotals(this.formInvoice);
-  }
+  });
+}
 
 
   bindGrandTotalEffect = effect(() => {

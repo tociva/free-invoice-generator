@@ -3,6 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormGroup } from '@angular/forms';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { InvoiceTemplateService } from '../store/services/invoice-template.service';
+import { NgIcon } from '@ng-icons/core';
 
 type TemplateItem = {
   id: string;
@@ -19,7 +20,7 @@ type TemplateItem = {
 @Component({
   selector: 'app-preview-invoice',
   standalone: true,
-  imports: [],
+  imports: [NgIcon],
   templateUrl: './preview-invoice.html',
 })
 export class PreviewInvoiceComponent implements OnInit {
@@ -45,11 +46,11 @@ export class PreviewInvoiceComponent implements OnInit {
 
   updatePreview(): void {
     const template = this.selectedTemplate();
-    const form = this.invoiceForm();
+    // const form = this.invoiceForm();
     
-    if (template?.html && form) {
+    if (template?.html) {
       // Generate invoice HTML by replacing placeholders with actual values
-      let generatedHtml = this.templateService.generateInvoiceHtml(template.html, form);
+      let generatedHtml = this.templateService.generateInvoiceHtml(template.html);
       
       // Inject CSS to hide scrollbars and ensure proper display
       let htmlWithStyles = generatedHtml;
@@ -103,7 +104,7 @@ export class PreviewInvoiceComponent implements OnInit {
     if (template?.html) {
       // Generate invoice HTML with replaced placeholders if form is available
       const html = form 
-        ? this.templateService.generateInvoiceHtml(template.html, form)
+        ? this.templateService.generateInvoiceHtml(template.html)
         : template.html;
       
       const blob = new Blob([html], { type: 'text/html' });
@@ -129,7 +130,7 @@ export class PreviewInvoiceComponent implements OnInit {
     if (!template?.html) return;
 
     // Generate filled HTML if form exists, otherwise use raw template HTML.
-    const html = form ? this.templateService.generateInvoiceHtml(template.html, form) : template.html;
+    const html = form ? this.templateService.generateInvoiceHtml(template.html) : template.html;
 
     // Dynamically import to keep initial bundle smaller.
     const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([

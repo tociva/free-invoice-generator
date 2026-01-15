@@ -1,6 +1,5 @@
 <div class="relative w-full rounded-xl border-2 border-dashed border-gray-400 bg-white flex items-center justify-center h-40 cursor-pointer">
 
-  <!-- Show upload instructions only if no image is uploaded -->
   @if (!uploadedImageUrl()){
     <app-file-upload
       [fileUploadAccept]="'.png,.jpg,.jpeg,.gif'"
@@ -11,15 +10,13 @@
     ></app-file-upload>
   }
 
-  <!-- Show uploaded image inside the same area -->
   @if (uploadedImageUrl()){
     <img
       [src]="uploadedImageUrl()"
       alt="Uploaded Image"
-      class="absolute inset-0 w-full h-full object-contain rounded-xl"
+      class="block inset-0 w-full h-full object-contain rounded-xl"
     />
 
-    <!-- Remove button -->
     <button
       type="button"
       (click)="removeImage()"

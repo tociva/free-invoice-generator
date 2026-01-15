@@ -3,10 +3,15 @@ import { FormGroup } from '@angular/forms';
 import { InvoiceForm } from '../models/invoice-form.model';
 import { InvoiceCalculationService } from './calculation.services';
 import { CurrencyUtil } from '../currency/currency.util';
+import { InvoiceFormService } from '../models/invoice-form';
+import { invoiceStore } from '../invoice.store';
+import dayjs from 'dayjs';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceTemplateService {
   private calcService = inject(InvoiceCalculationService);
+  public store = inject(invoiceStore);
+
 
   /**
    * Generates invoice HTML by replacing placeholders in template with actual invoice data
@@ -14,11 +19,11 @@ export class InvoiceTemplateService {
    * @param invoiceForm - The invoice form containing all the data
    * @returns HTML string with all placeholders replaced with actual values
    */
-  generateInvoiceHtml(templateHtml: string, invoiceForm: FormGroup<InvoiceForm>): string {
+  generateInvoiceHtml(templateHtml: string): string {
     let html = templateHtml;
 
     // Get form values
-    const formValue = invoiceForm.getRawValue();
+    const formValue = this.store.invoice;
     
     // Replace organization placeholders
     html = this.replaceOrganizationPlaceholders(html, formValue.organization);
@@ -27,19 +32,19 @@ export class InvoiceTemplateService {
     html = this.replaceCustomerPlaceholders(html, formValue.customer);
     
     // Replace invoice details placeholders
-    html = this.replaceInvoiceDetailsPlaceholders(html, formValue, this.calcService);
+    html = this.replaceInvoiceDetailsPlaceholders(html, formValue);
     
     // Replace items placeholders (this handles the loop)
-    html = this.replaceItemsPlaceholders(html, formValue.items);
+    html = this.replaceItemsPlaceholders(html, formValue.items());
     
-    // Replace summary/totals placeholders
-    html = this.replaceSummaryPlaceholders(html, formValue, this.calcService);
+    // // Replace summary/totals placeholders
+    html = this.replaceSummaryPlaceholders(html, formValue);
     
-    // Replace logo placeholders
-    html = this.replaceLogoPlaceholders(html, formValue.smallLogo, formValue.largeLogo);
+    // // Replace logo placeholders
+    html = this.replaceLogoPlaceholders(html, formValue.smallLogo(), formValue.largeLogo());
     
-    // Replace terms and notes
-    html = this.replaceTermsPlaceholders(html, formValue.terms, formValue.notes);
+    // // Replace terms and notes
+    html = this.replaceTermsPlaceholders(html, formValue.terms(), formValue.notes());
     
     // Replace bank/account placeholders
     html = this.replaceBankPlaceholders(html, formValue);
@@ -96,21 +101,22 @@ export class InvoiceTemplateService {
   /**
    * Replace invoice details placeholders
    */
+  // dateFormatValue = this.store.invoice.dateFormat()?.value;
+
   private replaceInvoiceDetailsPlaceholders(
     html: string,
     formValue: any,
-    calcService: InvoiceCalculationService
   ): string {
     const replacements: Record<string, string> = {
       '[[invoice_number]]': formValue.invoiceNo || '',
-      '[[invoice_date]]': this.formatDate(formValue.invoiceDate, formValue.dateFormat),
-      '[[payment_due_date]]': this.formatDate(formValue.invoiceDueDate, formValue.dateFormat),
+      '[[invoice_date]]': this.formatDate(formValue.invoiceDate()),
+      '[[payment_due_date]]': this.formatDate(formValue.invoiceDueDate()),
       '[[delivery_state]]': formValue.deliveryState || '',
     };
 
     // Add currency symbol if available
     if (formValue.currency) {
-      replacements['[[currency_symbol]]'] = calcService.symbol() || formValue.currency.symbol || '';
+      replacements['[[currency_symbol]]'] = formValue.currency.symbol || '';
       replacements['[[currency_code]]'] = formValue.currency.code || '';
       replacements['[[currency_name]]'] = formValue.currency.name || '';
     }
@@ -183,22 +189,21 @@ export class InvoiceTemplateService {
   private replaceSummaryPlaceholders(
     html: string,
     formValue: any,
-    calcService: InvoiceCalculationService
   ): string {
     const replacements: Record<string, string> = {
-      '[[itemtotal]]': this.formatNumber(formValue.itemTotal || 0),
-      '[[item_total]]': this.formatNumber(formValue.itemTotal || 0),
-      '[[discount]]': this.formatNumber(formValue.discountTotal || 0),
-      '[[discount_total]]': this.formatNumber(formValue.discountTotal || 0),
-      '[[subtotal]]': this.formatNumber(formValue.subTotal || 0),
-      '[[sub_total]]': this.formatNumber(formValue.subTotal || 0),
-      '[[tax_amount]]': this.formatNumber(formValue.taxTotal || 0),
-      '[[tax_total]]': this.formatNumber(formValue.taxTotal || 0),
-      '[[roundoff]]': this.formatNumber(formValue.roundOff || 0),
-      '[[round_off]]': this.formatNumber(formValue.roundOff || 0),
-      '[[grand_total]]': this.formatNumber(formValue.grandTotal || 0),
-      '[[grand_total_inwords]]': calcService.grandTotalInWords() || '',
-      '[[grand_total_in_words]]': calcService.grandTotalInWords() || '',
+      '[[itemtotal]]': formValue.itemTotal || 0,
+      '[[item_total]]': formValue.itemTotal || 0,
+      '[[discount]]': formValue.discountTotal || 0,
+      '[[discount_total]]': formValue.discountTotal || 0,
+      '[[subtotal]]': formValue.subTotal || 0,
+      '[[sub_total]]': formValue.subTotal || 0,
+      '[[tax_amount]]': formValue.taxTotal || 0,
+      '[[tax_total]]': formValue.taxTotal || 0,
+      '[[roundoff]]': formValue.roundOff || 0,
+      '[[round_off]]': formValue.roundOff || 0,
+      '[[grand_total]]': formValue.grandTotal || 0,
+      '[[grand_total_inwords]]': formValue.grandTotalInWords() || '',
+      '[[grand_total_in_words]]': formValue.grandTotalInWords() || '',
     };
 
     return this.replaceAll(html, replacements);
@@ -246,7 +251,19 @@ export class InvoiceTemplateService {
   /**
    * Format date according to date format
    */
-  private formatDate(date: Date | null, dateFormat: any): string {
+private formatDate(date?: Date | string): string {
+  const dateFormatValue = this.store.invoice.dateFormat()?.value || 'DD-MM-YYYY';
+
+  if (!date) return '';
+
+  return dayjs(date).isValid()
+    ? dayjs(date).format(dateFormatValue)
+    : '';
+}
+
+
+
+  private formatDate22(date: Date | null, dateFormat: any): string {
     if (!date) return '';
     
     const d = new Date(date);

@@ -2,6 +2,7 @@ import { Component, OnInit, signal, computed, effect, output } from '@angular/co
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { NgIcon } from '@ng-icons/core';
 
 type TemplateItem = {
   id: string;
@@ -30,7 +31,7 @@ type TemplateTheme = {
 @Component({
   selector: 'app-select-template',
   standalone: true,
-  imports: [],
+  imports: [NgIcon],
   templateUrl: './select-template.html',
   styleUrls: ['./select-template.css'],
 })

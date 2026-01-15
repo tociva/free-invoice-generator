@@ -1,6 +1,7 @@
 import { Component, input, output, model, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NgIcon } from '@ng-icons/core';
 
 export interface InvoicePreviewDialogData {
   invoiceHtml?: string;
@@ -11,7 +12,7 @@ export interface InvoicePreviewDialogData {
 @Component({
   selector: 'app-invoice-preview-dialog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgIcon],
   templateUrl: './invoice-preview-dialog.html',
   styleUrls: ['./invoice-preview-dialog.css'],
 })

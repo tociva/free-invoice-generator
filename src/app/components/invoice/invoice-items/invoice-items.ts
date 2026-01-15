@@ -4,12 +4,12 @@ import {
   OnInit,
   signal,
   HostListener,
+  effect,
 } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import { provideAppIcon } from '../../../provider/icon-provider';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoice-items',
@@ -17,9 +17,8 @@ import { CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, NgIcon, CommonModule],
   templateUrl: './invoice-items.html',
   styleUrls: ['./invoice-items.css'],
-  providers: [provideAppIcon()],
 })
-export class InvoiceItemsComponent implements OnInit {
+export class InvoiceItemsComponent {
   public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();
   advanced = input<boolean>(false);
 
@@ -30,19 +29,24 @@ export class InvoiceItemsComponent implements OnInit {
   items = signal<any[]>([]);
   isMobile = signal(window.innerWidth <= 768);
 
+  
+
   @HostListener('window:resize')
   onResize() {
     this.isMobile.set(window.innerWidth <= 768);
   }
 
   constructor() {}
-  ngOnInit(): void {
-    this.items.set(this.InvoiceItemForm().getRawValue());
+  // ngOnInit(): void {
+  //   this.items.set(this.InvoiceItemForm().getRawValue());
 
-    this.InvoiceItemForm().valueChanges.subscribe(() => {
-      this.items.set(this.InvoiceItemForm().getRawValue());
-    });
-  }
+  //   this.InvoiceItemForm().valueChanges.subscribe(() => {
+  //     this.items.set(this.InvoiceItemForm().getRawValue());
+  //   });
+  // }
+  eff= effect(()=>{
+    this.items.set(this.InvoiceItemForm().getRawValue());
+  });
 
   updateItemTotal(index: number) {
     const item = this.InvoiceItemForm().at(index);
