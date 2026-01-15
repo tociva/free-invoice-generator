@@ -4,6 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog';
+import { NgIcon } from '@ng-icons/core';
 
 type TemplateItem = {
   id: string;
@@ -31,7 +32,7 @@ type TemplateTheme = {
 @Component({
   selector: 'app-list-templates',
   standalone: true,
-  imports: [CommonModule, InvoicePreviewDialogComponent],
+  imports: [CommonModule, InvoicePreviewDialogComponent,NgIcon],
   templateUrl: './list-templates.html',
   styleUrls: ['./list-templates.css'],
 })

@@ -14,9 +14,8 @@ export const initialDateFormatState: DateFormatState = {
 };
 
 export const DateFormatConvert = {
-   format: 'YYYY-MM-DD',
-   toString(date: Date | string): string {
-    return dayjs(date).format(this.format);
+   toString(date: Date | string, format: string): string {
+    return dayjs(date).format(format);
   }
   // toString(date: Date | string, format: string = 'YYYY-MM-DD'): string {
   //   return dayjs(date).format(format);

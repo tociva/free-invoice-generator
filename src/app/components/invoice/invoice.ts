@@ -14,6 +14,7 @@ import { InvoiceCalculationService } from './store/services/calculation.services
 import { FormArray } from '@angular/forms';
 import { invoiceStore } from './store/invoice.store';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-invoice',
@@ -28,6 +29,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     InvoiceSummaryComponent,
     InvoiceLogoComponent,
     InvoiceTermsNotesComponent,
+    NgIcon
   ],
   templateUrl: './invoice.html',
   styleUrl: './invoice.css',
@@ -104,12 +106,13 @@ export class Invoice implements OnInit {
     });
     const itemsArray = this.formInvoice.get('items') as FormArray;
 
-    itemsArray.valueChanges.subscribe(() => {
-      this.calcService.calculateTotals(this.formInvoice);
-    });
+  this.calcService.initFormSubscriptions(this.formInvoice);
 
-  
+  this.calcService.calculateTotals(this.formInvoice);
+
+  itemsArray.valueChanges.subscribe(() => {
     this.calcService.calculateTotals(this.formInvoice);
+  });
   }
 
     bindGrandTotalEffect = effect(() => {
