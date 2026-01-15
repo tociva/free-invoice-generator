@@ -19,7 +19,7 @@ export class InvoiceTemplateService {
    * @param invoiceForm - The invoice form containing all the data
    * @returns HTML string with all placeholders replaced with actual values
    */
-  generateInvoiceHtml(templateHtml: string): string {
+  generateInvoiceHtml(templateHtml: string, form: FormGroup<InvoiceForm>): string {
     let html = templateHtml;
 
     // Get form values

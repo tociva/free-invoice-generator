@@ -75,16 +75,28 @@
       <!-- Invoice Preview Container -->
       <div class="flex justify-center items-start min-h-150 p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-50">
         @if (previewHtml()) {
-          <div 
-            class="bg-white shadow-md mx-auto"
-            style="max-width: 794px; width: 100%; aspect-ratio: 210 / 297;"
+          <div
+            #previewViewport
+            class="w-full flex justify-center items-start h-[calc(100vh-12rem)] sm:h-auto sm:max-h-none"
           >
-            <iframe
-              [attr.srcdoc]="previewHtml()"
-              class="block w-full h-full border-0 bg-white"
-              frameborder="0"
-              style="min-height: 1123px;"
-            ></iframe>
+            <div
+              class="bg-white shadow-md mx-auto overflow-hidden"
+              [style.width.px]="scaledWidth()"
+              [style.height.px]="scaledHeight()"
+            >
+              <div
+                class="origin-top-left"
+                [style.transform]="'scale(' + previewScale() + ')'"
+                [style.width.px]="baseWidth"
+                [style.height.px]="baseHeight"
+              >
+                <iframe
+                  [attr.srcdoc]="previewHtml()"
+                  class="block w-full h-full border-0 bg-white"
+                  frameborder="0"
+                ></iframe>
+              </div>
+            </div>
           </div>
         } @else {
           <!-- No Template Selected -->
