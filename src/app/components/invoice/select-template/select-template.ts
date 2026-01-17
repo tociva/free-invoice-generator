@@ -1,32 +1,14 @@
-import { Component, OnInit, signal, computed, effect, output } from '@angular/core';
+import { Component, OnInit, signal, computed, effect, output, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { NgIcon } from '@ng-icons/core';
-
-type TemplateItem = {
-  id: string;
-  name: string;
-  description: string;
-  path: string;
-  html: string;
-  safeHTML?: SafeHtml;
-  tags?: string[];
-  thumbnail?: string;
-  isSelected: boolean;
-};
-
-type TemplateTheme = {
-  theme: string;
-  name: string;
-  description: string;
-  items: Array<{
-    name: string;
-    path: string;
-    tags?: string[];
-    thumbnail?: string;
-  }>;
-};
+import { TemplateUtil } from '../utils/templates.utils';
+import { TemplateService } from '../store/services/template.services';
+import { templateStore } from '../store/template/template.store';
+import { sampleInvoice } from '../../list-templates/template.utils';
+import { TemplateItem } from '../store/template/template.model';
+import { invoiceStore } from '../store/invoice.store';
 
 @Component({
   selector: 'app-select-template',
@@ -36,55 +18,103 @@ type TemplateTheme = {
   styleUrls: ['./select-template.css'],
 })
 export class SelectTemplateComponent implements OnInit {
+  templateService = inject(TemplateService);
+  templateStore = inject(templateStore);
+  private _http = inject(HttpClient);
+
+  // SOURCE DATA
   templates = signal<TemplateItem[]>([]);
-  loading = signal<boolean>(true);
-  initialLoadComplete = signal<boolean>(false);
-  selectedTemplateId = signal<string | null>(null);
-  selectedTemplate = signal<TemplateItem | null>(null);
 
-  // outputs
-  templateSelected = output<TemplateItem | null>();
-
-  // global search box (top center)
+  // UI STATE
   globalSearch = signal('');
   searchFocused = signal(false);
 
-  // pagination
+  showSuggestion = computed(() => this.searchFocused() && this.globalSearch().length > 0);
+  onShow() {
+    this.searchFocused.set(true);
+  }
+  selectedTemplate = signal<TemplateItem | null>(null);
+  templateSelected = output<TemplateItem>();
+  isSelected = signal(false);
+
+  selectTemplate(item: TemplateItem) {
+    this.selectedTemplate.set(item);
+    this.isSelected.set(true);
+    this.templateSelected.emit(item);
+    console.log(item);
+  }
+
+  store = inject(invoiceStore);
+  invoice = this.store.invoice;
+  // PAGINATION
   itemsPerPage = signal(10);
   currentPage = signal(1);
 
-  // filtered by global search
+  async ngOnInit() {
+    this.templateStore.loadTemplates();
+  }
+
+  eff = effect(() => {
+    const items = this.templateStore.templateItems();
+    if (!items.length) return;
+
+    (async () => {
+      const tmpls = await Promise.all(
+        items.map(async (item) => {
+          const template = await firstValueFrom(
+            this._http.get(item.path, { responseType: 'text' }),
+          );
+
+          // const html = TemplateUtil.fillTemplate(template,sampleInvoice);
+          const safeHTML = this.templateService.createWrappedSafeHtml(template);
+
+          return { ...item, template, html: template, safeHTML };
+        }),
+      );
+
+      this.templates.set(tmpls);
+    })();
+  });
+
   filteredTemplates = computed(() => {
-    const q = this.globalSearch().toLowerCase();
+    const q = this.globalSearch().toLowerCase().trim();
     if (!q) return this.templates();
-    return this.templates().filter(t => 
-      t.name.toLowerCase().includes(q) || 
-      t.description.toLowerCase().includes(q) ||
-      t.tags?.some(tag => tag.toLowerCase().includes(q))
+
+    return this.templates().filter(
+      (item) =>
+        item.name.toLowerCase().includes(q) ||
+        item.tags?.some((tag) => tag.toLowerCase().includes(q)),
     );
   });
 
-  totalItems = computed(() => this.filteredTemplates().length);
-
-  pagedTemplates = computed(() => {
-    const list = this.filteredTemplates();
-    const page = this.currentPage();
-    const per = this.itemsPerPage();
-    const start = (page - 1) * per;
-    const selectedId = this.selectedTemplateId();
-    // Ensure selected state is maintained
-    return list.slice(start, start + per).map(template => ({
-      ...template,
-      isSelected: template.id === selectedId
-    }));
+  displayedTemplates = computed(() => {
+    const start = (this.currentPage() - 1) * this.itemsPerPage();
+    return this.filteredTemplates().slice(start, start + this.itemsPerPage());
   });
 
-  pages = computed(() => Math.max(1, Math.ceil(this.totalItems() / this.itemsPerPage())));
-
+  totalItems = computed(() => this.filteredTemplates().length);
+  pages = computed(() => Math.ceil(this.totalItems() / this.itemsPerPage()));
   startIndex = computed(() => (this.currentPage() - 1) * this.itemsPerPage() + 1);
   endIndex = computed(() => Math.min(this.currentPage() * this.itemsPerPage(), this.totalItems()));
 
-  // Get page numbers to display (show current page and nearby pages)
+  selectTag(tag: string): void {
+    this.globalSearch.set(tag);
+    this.searchFocused.set(false);
+    this.currentPage.set(1);
+  }
+
+  clearSearch() {
+    this.globalSearch.set('');
+    this.currentPage.set(1);
+  }
+
+  nextPage() {
+    this.currentPage.update((p) => Math.min(this.pages(), p + 1));
+  }
+
+  prevPage() {
+    this.currentPage.update((p) => Math.max(1, p - 1));
+  }
   pageNumbers = computed(() => {
     const total = this.pages();
     const current = this.currentPage();
@@ -121,124 +151,7 @@ export class SelectTemplateComponent implements OnInit {
     
     return pages;
   });
-
-  Math: Math = Math;
-
-  constructor(
-    private sanitizer: DomSanitizer,
-    private _http: HttpClient
-  ) {
-    effect(() => {
-      // reset page if current page is out of range
-      const pages = Math.max(1, Math.ceil(this.totalItems() / this.itemsPerPage()));
-      if (this.currentPage() > pages) this.currentPage.set(pages);
-    });
-  }
-
-  async ngOnInit() {
-    await this.loadTemplates();
-  }
-
-  async loadTemplates() {
-    try {
-      this.loading.set(true);
-      const themes: TemplateTheme[] = await firstValueFrom(
-        this._http.get<TemplateTheme[]>('/invoice-templates/templates.json')
-      ) || [];
-      
-      // Flatten all template items first (optimistic - show structure immediately)
-      const allTemplateItems: Array<{ theme: TemplateTheme; item: TemplateTheme['items'][0] }> = [];
-      for (const theme of themes) {
-        for (const item of theme.items) {
-          allTemplateItems.push({ theme, item });
-        }
-      }
-      
-      // Set initial empty templates with structure (optimistic UI)
-      this.templates.set(
-        allTemplateItems.map(({ theme, item }) => ({
-          id: `${theme.theme}-${item.name}`,
-          name: item.name,
-          description: theme.description,
-          path: item.path,
-          html: '',
-          safeHTML: undefined,
-          tags: item.tags,
-          thumbnail: item.thumbnail,
-          isSelected: false,
-        }))
-      );
-      
-      // Mark initial load as complete (show skeleton cards)
-      this.initialLoadComplete.set(true);
-      this.loading.set(false);
-      
-      // Load HTML content progressively (optimistic - show cards immediately)
-      const loadPromises = allTemplateItems.map(async ({ theme, item }, index) => {
-        try {
-          const html = await firstValueFrom(
-            this._http.get(`/${item.path}`, { responseType: 'text' })
-          ) || '';
-          
-          // Inject CSS to hide scrollbars in the template HTML
-          let htmlWithNoScroll = html;
-          const noScrollStyle = '<style>body { overflow: hidden !important; } html { overflow: hidden !important; }</style>';
-          
-          if (html.includes('</head>')) {
-            htmlWithNoScroll = html.replace('</head>', noScrollStyle + '</head>');
-          } else if (html.includes('<head>')) {
-            htmlWithNoScroll = html.replace('<head>', '<head>' + noScrollStyle);
-          } else {
-            htmlWithNoScroll = noScrollStyle + html;
-          }
-          
-          // Update template optimistically as it loads
-          this.templates.update(templates => {
-            const updated = [...templates];
-            if (updated[index]) {
-              updated[index] = {
-                ...updated[index],
-                html: html,
-                safeHTML: this.sanitizer.bypassSecurityTrustHtml(htmlWithNoScroll),
-              };
-            }
-            return updated;
-          });
-        } catch (error) {
-          console.warn(`Failed to load template: ${item.path}`, error);
-        }
-      });
-      
-      // Wait for all templates to load (but UI is already showing)
-      await Promise.all(loadPromises);
-    } catch (error) {
-      console.error('Failed to load templates:', error);
-      this.loading.set(false);
-    }
-  }
-
-  selectTemplate(id: string): void {
-    this.selectedTemplateId.set(id);
-    const selected = this.templates().find(t => t.id === id);
-    if (selected) {
-      this.selectedTemplate.set(selected);
-      this.templateSelected.emit(selected);
-    }
-    this.templates.update(templates => 
-      templates.map(template => ({
-        ...template,
-        isSelected: template.id === id
-      }))
-    );
-  }
-
-  nextPage() {
-    this.currentPage.update(p => Math.min(this.pages(), p + 1));
-  }
-
-  prevPage() {
-    this.currentPage.update(p => Math.max(1, p - 1));
-  }
+ 
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.pages()) {
@@ -264,20 +177,5 @@ export class SelectTemplateComponent implements OnInit {
     if (this.isPageNumber(page)) {
       this.goToPage(page);
     }
-  }
-
-  onSearchFocus() {
-    this.searchFocused.set(true);
-  }
-
-  onSearchBlur() {
-    this.searchFocused.set(false);
-  }
-
-  clearSearch() {
-    this.globalSearch.set('');
-    this.currentPage.set(1);
-    // Scroll to top optimistically
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

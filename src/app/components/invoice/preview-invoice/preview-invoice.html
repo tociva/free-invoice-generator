@@ -74,7 +74,7 @@
 
       <!-- Invoice Preview Container -->
       <div class="flex justify-center items-start min-h-150 p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-50">
-        @if (previewHtml()) {
+        @if (selectedTemplate()) {
           <div
             #previewViewport
             class="w-full flex justify-center items-start h-[calc(100vh-12rem)] sm:h-auto sm:max-h-none"

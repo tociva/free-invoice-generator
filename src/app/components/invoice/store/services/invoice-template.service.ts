@@ -6,12 +6,11 @@ import { CurrencyUtil } from '../currency/currency.util';
 import { InvoiceFormService } from '../models/invoice-form';
 import { invoiceStore } from '../invoice.store';
 import dayjs from 'dayjs';
+import { Invoice } from '../models/invoice-model';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceTemplateService {
-  private calcService = inject(InvoiceCalculationService);
-  public store = inject(invoiceStore);
-
+store = inject(invoiceStore);
 
   /**
    * Generates invoice HTML by replacing placeholders in template with actual invoice data
@@ -19,35 +18,34 @@ export class InvoiceTemplateService {
    * @param invoiceForm - The invoice form containing all the data
    * @returns HTML string with all placeholders replaced with actual values
    */
-  generateInvoiceHtml(templateHtml: string, form: FormGroup<InvoiceForm>): string {
-    let html = templateHtml;
+  generateInvoiceHtml(html: string, invoice: Invoice): string {
+
 
     // Get form values
-    const formValue = this.store.invoice;
     
     // Replace organization placeholders
-    html = this.replaceOrganizationPlaceholders(html, formValue.organization);
+    html = this.replaceOrganizationPlaceholders(html, invoice.organization);
     
     // Replace customer placeholders
-    html = this.replaceCustomerPlaceholders(html, formValue.customer);
+    html = this.replaceCustomerPlaceholders(html, invoice.customer);
     
     // Replace invoice details placeholders
-    html = this.replaceInvoiceDetailsPlaceholders(html, formValue);
+    html = this.replaceInvoiceDetailsPlaceholders(html, invoice);
     
     // Replace items placeholders (this handles the loop)
-    html = this.replaceItemsPlaceholders(html, formValue.items());
+    html = this.replaceItemsPlaceholders(html, invoice.items);
     
     // // Replace summary/totals placeholders
-    html = this.replaceSummaryPlaceholders(html, formValue);
+    html = this.replaceSummaryPlaceholders(html, invoice);
     
     // // Replace logo placeholders
-    html = this.replaceLogoPlaceholders(html, formValue.smallLogo(), formValue.largeLogo());
+    html = this.replaceLogoPlaceholders(html, invoice.smallLogo, invoice.largeLogo);
     
     // // Replace terms and notes
-    html = this.replaceTermsPlaceholders(html, formValue.terms(), formValue.notes());
+    html = this.replaceTermsPlaceholders(html, invoice.terms, invoice.notes);
     
     // Replace bank/account placeholders
-    html = this.replaceBankPlaceholders(html, formValue);
+    html = this.replaceBankPlaceholders(html, invoice);
 
     return html;
   }

@@ -117,11 +117,11 @@
 
       <button
         type="button"
-        class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-white bg-teal-500 rounded-lg shadow-md"
+        class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-white bg-background rounded-lg shadow-md"
         (click)="goToStep(currentStep() + 1)"
         [disabled]="isLastStep()"
       >
-        Next
+        Select Template
       </button>
     </div>
   </div>
@@ -129,7 +129,7 @@
 
   <!-- STEP 2: Select Template -->
   @if(currentStep() === 2) {
-  <div class="bg-white rounded-lg shadow-md p-6">
+  <div class="bg-white rounded-lg shadow-md">
     @defer (on immediate) {
     <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
     } @placeholder {
@@ -143,22 +143,23 @@
     }
 
     <!-- Navigation -->
-    <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-      <button
-        type="button"
-        class="px-4 py-2 text-gray-700 bg-white border rounded-lg"
-        (click)="goToStep(currentStep() - 1)"
-      >
-        Previous
-      </button>
-      <button
-        type="button"
-        class="px-4 py-2 text-white bg-teal-500 rounded-lg shadow-md"
-        (click)="goToStep(currentStep() + 1)"
-      >
-        Next
-      </button>
-    </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4">
+  <button
+    type="button"
+    class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
+    (click)="goToStep(currentStep() - 1)"
+  >
+    Back Update Invoice
+  </button>
+  <button
+    type="button"
+    class="w-full sm:w-auto px-4 py-2 text-white bg-background rounded-lg shadow-md"
+    (click)="goToStep(currentStep() + 1)"
+  >
+    Preview and Download
+  </button>
+</div>
+
   </div>
   }
 
@@ -178,21 +179,21 @@
     }
 
     <!-- Navigation -->
-    <div class="flex items-center justify-between pt-4 sm:pt-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4">
       <button
         type="button"
-        class="px-4 py-2 text-gray-700 bg-white border rounded-lg"
+    class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
         (click)="goToStep(currentStep() - 1)"
       >
-        Previous
+        Back - Select Template
       </button>
       <button
         type="button"
-        class="px-4 py-2 text-white bg-teal-500 rounded-lg shadow-md"
+    class="w-full sm:w-auto px-4 py-2 text-white bg-background border rounded-lg"
         (click)="goToStep(currentStep() + 1)"
         [disabled]="isLastStep()"
       >
-        Next
+        Finish- Create another Invoice
       </button>
     </div>
   </div>

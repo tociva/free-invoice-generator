@@ -5,8 +5,6 @@ export interface TemplateState {
   templateItems: TemplateItem[];
   isLoaded: boolean;
   error: string | null;
-  currentPage: number;
-  pageSize: number;
   searchTags: string[];
   selectedTemplatePath: string | null;
 }
@@ -15,8 +13,20 @@ export const initialTemplateState : TemplateState ={
     templateItems:[],
     isLoaded :false,
     error:null,
-    currentPage:0,
-    pageSize :10,
     searchTags:[],
     selectedTemplatePath :'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html'
 }
+//tags 
+
+export interface TagState {
+    tags: string[];
+    selectedTags: string[];
+    error: string | null;
+  }
+  
+  export const initialTagState: TagState = {
+    tags: [],
+    selectedTags: [],
+    error: null
+  };
+  

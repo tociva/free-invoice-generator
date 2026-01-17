@@ -103,18 +103,18 @@ export class InvoiceCalculationService {
 
     invoiceForm
       .get('itemTotal')
-      ?.setValue(this.formatNumberWithDP(itemSum, dp), { emitEvent: false });
+      ?.setValue(itemSum, { emitEvent: false });
     invoiceForm
       .get('discountTotal')
-      ?.setValue(this.formatNumberWithDP(discountSum, dp), { emitEvent: false });
+      ?.setValue(discountSum, { emitEvent: false });
     invoiceForm
       .get('subTotal')
-      ?.setValue(this.formatNumberWithDP(subSum, dp), { emitEvent: false });
+      ?.setValue(subSum, { emitEvent: false });
     invoiceForm
       .get('taxTotal')
-      ?.setValue(this.formatNumberWithDP(taxSum, dp), { emitEvent: false });
+      ?.setValue(taxSum, { emitEvent: false });
     invoiceForm
       .get('grandTotal')
-      ?.setValue(this.formatNumberWithDP(grandSum + roundOffValue, dp), { emitEvent: false });
+      ?.setValue(grandSum + roundOffValue, { emitEvent: false });
   }
 }
