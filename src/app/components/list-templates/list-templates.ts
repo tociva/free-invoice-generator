@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, signal, OnInit, inject } from '@angular/core';
+import { Component, computed, effect, signal, OnInit, inject, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog';
@@ -31,13 +31,15 @@ export class ListTemplates implements OnInit {
 
   // UI STATE
   globalSearch = signal('');
-  searchFocused = signal(false);
-
-  showSuggestion = computed(
-    () => this.searchFocused() && this.globalSearch().length > 0
-  );
-  onShow(){
-    this.searchFocused.set(true)
+  showDropdown = signal(false);
+  
+ onInputClick(event: MouseEvent) {
+    this.showDropdown.set(true);
+    event.stopPropagation(); 
+  }
+   @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    this.showDropdown.set(false);
   }
 
   // PAGINATION
@@ -75,8 +77,15 @@ export class ListTemplates implements OnInit {
       this.templates.set(tmpls);
     })();
   });
+  filteredTags = computed(() => {
+    const query = this.globalSearch().toLowerCase();
+    return this.templateStore
+      .searchTags()
+      .filter(tag => tag.toLowerCase().includes(query));
+  });
 
-  filteredTemplates = computed(() => {
+  
+  filteredTemplatesTags = computed(() => {
     const q = this.globalSearch().toLowerCase().trim();
     if (!q) return this.templates();
 
@@ -85,17 +94,21 @@ export class ListTemplates implements OnInit {
       item.tags?.some(tag => tag.toLowerCase().includes(q))
     );
   });
+  onInputChange(value: string) {
+    this.globalSearch.set(value);
+    this.showDropdown.set(this.filteredTags().length > 0);
+  }
 
   displayedTemplates = computed(() => {
     const start = (this.currentPage() - 1) * this.itemsPerPage();
-    return this.filteredTemplates().slice(
+    return this.filteredTemplatesTags().slice(
       start,
       start + this.itemsPerPage()
     );
   });
 
 
-  totalItems = computed(() => this.filteredTemplates().length);
+  totalItems = computed(() => this.filteredTemplatesTags().length);
   pages = computed(() => Math.ceil(this.totalItems() / this.itemsPerPage()));
   startIndex = computed(() => (this.currentPage() - 1) * this.itemsPerPage() + 1);
   endIndex = computed(() =>
@@ -104,7 +117,7 @@ export class ListTemplates implements OnInit {
 
   selectTag(tag: string): void {
     this.globalSearch.set(tag);
-    this.searchFocused.set(false);
+    this.showDropdown.set(false);
     this.currentPage.set(1);
   }
 

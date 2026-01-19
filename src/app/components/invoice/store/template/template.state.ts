@@ -7,6 +7,7 @@ export interface TemplateState {
   error: string | null;
   searchTags: string[];
   selectedTemplatePath: string | null;
+  loadingTemplateHtml: boolean;
 }
 export const initialTemplateState : TemplateState ={
     templates:[],
@@ -14,19 +15,20 @@ export const initialTemplateState : TemplateState ={
     isLoaded :false,
     error:null,
     searchTags:[],
-    selectedTemplatePath :'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html'
+    selectedTemplatePath :'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html',
+    loadingTemplateHtml :false
 }
 //tags 
 
-export interface TagState {
-    tags: string[];
-    selectedTags: string[];
-    error: string | null;
-  }
+// export interface TagState {
+//     tags: string[];
+//     selectedTags: string[];
+//     error: string | null;
+//   }
   
-  export const initialTagState: TagState = {
-    tags: [],
-    selectedTags: [],
-    error: null
-  };
+//   export const initialTagState: TagState = {
+//     tags: [],
+//     selectedTags: [],
+//     error: null
+//   };
   

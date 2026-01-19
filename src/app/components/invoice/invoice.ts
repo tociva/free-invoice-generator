@@ -15,6 +15,9 @@ import { FormArray } from '@angular/forms';
 import { invoiceStore } from './store/invoice.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
+import { TemplateLoaderService } from './store/services/template-loader.service';
+import { TemplateItem } from './store/template/template.model';
+import { templateStore } from './store/template/template.store';
 
 @Component({
   selector: 'app-invoice',
@@ -39,7 +42,6 @@ export class Invoice implements OnInit {
   store = inject(invoiceStore);
   router = inject(Router);
   route = inject(ActivatedRoute);
-  selectedTemplate = signal<any>(null);
   steps = [
     { id: 1, label: 'My Organization Info & Logo' },
     { id: 2, label: 'Customer Details' },
@@ -76,9 +78,9 @@ export class Invoice implements OnInit {
 
   }
 
-  onTemplateSelected(template: any) {
-    this.selectedTemplate.set(template);
-  }
+  // onTemplateSelected(template: any) {
+  //   this.selectedTemplate.set(template);
+  // }
   
   formInvoice = inject(InvoiceFormService).form;
   hasItemDescription = signal(false);
@@ -86,10 +88,14 @@ export class Invoice implements OnInit {
   internationalNumbering = signal(false);
   selectedTaxOption = signal<string>(this.formInvoice.get('taxOption')?.value || '');
   calcService = inject(InvoiceCalculationService);
-
+  private templateLoader = inject(TemplateLoaderService);
+  
+    templates = signal<TemplateItem[]>([]);
+    selectedTemplate = signal<TemplateItem | null>(null);
+      templateStore = inject(templateStore);
     
 
-  ngOnInit() {
+ async ngOnInit() {
     this.formInvoice.get('hasItemDescription')?.valueChanges.subscribe((value) => {
       this.hasItemDescription.set(value);
     });
@@ -113,7 +119,18 @@ export class Invoice implements OnInit {
   itemsArray.valueChanges.subscribe(() => {
     this.calcService.calculateTotals(this.formInvoice);
   });
+   const loadedTemplates = await this.templateLoader.loadTemplates();
+    this.templates.set(loadedTemplates);
+
+    const defaultPath = this.templateStore.selectedTemplatePath();
+    const defaultTemplate = loadedTemplates.find(t => t.path === defaultPath);
+    if (defaultTemplate) this.onTemplateSelected(defaultTemplate);
   }
+
+  onTemplateSelected(item: TemplateItem) {
+    this.selectedTemplate.set(item);
+  }
+  
 
     bindGrandTotalEffect = effect(() => {
     const words = this.calcService.grandTotalInWords();

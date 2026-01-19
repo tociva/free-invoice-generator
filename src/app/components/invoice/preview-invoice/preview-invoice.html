@@ -74,39 +74,33 @@
 
       <!-- Invoice Preview Container -->
       <div class="flex justify-center items-start min-h-150 p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-50">
-        @if (selectedTemplate()) {
           <div
             #previewViewport
             class="w-full flex justify-center items-start h-[calc(100vh-12rem)] sm:h-auto sm:max-h-none"
           >
+         
             <div
               class="bg-white shadow-md mx-auto overflow-hidden"
               [style.width.px]="scaledWidth()"
               [style.height.px]="scaledHeight()"
             >
-              <div
+            
+            <div
                 class="origin-top-left"
                 [style.transform]="'scale(' + previewScale() + ')'"
                 [style.width.px]="baseWidth"
                 [style.height.px]="baseHeight"
               >
+            
                 <iframe
                   [attr.srcdoc]="previewHtml()"
                   class="block w-full h-full border-0 bg-white"
                   frameborder="0"
                 ></iframe>
+              
               </div>
             </div>
           </div>
-        } @else {
-          <!-- No Template Selected -->
-          <div class="flex flex-col items-center justify-center py-20 text-center">
-<ng-icon name="bootstrapFileText" style="width: 150px; height: 150px; color: #D1D5DB;" />
-
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">No Template Selected</h3>
-            <p class="text-sm text-gray-500">Please select a template from previous step to preview it here.</p>
-          </div>
-        }
       </div>
     </div>
   </div>

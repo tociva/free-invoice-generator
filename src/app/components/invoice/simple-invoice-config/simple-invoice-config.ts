@@ -9,6 +9,7 @@ import { Currency } from '../store/currency/currency.model';
 import { DateFormat } from '../store/date-format/date-format.model';
 import { Router } from '@angular/router';
 import { templateStore } from '../store/template/template.store';
+import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 
 @Component({
   selector: 'app-simple-invoice-config',
@@ -68,12 +69,6 @@ export class SimpleInvoiceConfig implements OnInit {
       this.closeDropdowns();
     }
   }
-  private templateStore = inject(templateStore);
-  eff =effect(()=>{
-    console.log(this.templateStore.selectedTemplatePath());
-    
-  })
-  goToPreview(){
-    // this.router.navigate([this.url])
-  }
+ 
+
 }

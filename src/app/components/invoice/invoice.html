@@ -89,12 +89,13 @@
         <div class="space-y-1">
           <div class="max-w-full">
             <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
-            logoField="smallLogo"
+            logoField="smallLogo" [logoField]="'smallLogo'"
             ></app-invoice-logo>
           </div>
           <div class="max-w-full">
             <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
-            logoField="largeLogo"
+            [logoField]="'largeLogo'"
+            logoField="largeLogo" 
             ></app-invoice-logo>
           </div>
         </div>
@@ -263,7 +264,10 @@
   </div>
   } @if(currentStep() === 5) {
   <div class="advanced-invoice-container">
-    <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
+    <app-select-template (templateSelected)="onTemplateSelected($event)"
+        [templates]="templates()"
+      [selectedTemplate]="selectedTemplate()"
+        ></app-select-template>
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
       <div class="flex-1 flex justify-center">
@@ -299,7 +303,6 @@
   <div class="advanced-invoice-container">
     <app-preview-invoice
       [selectedTemplate]="selectedTemplate()"
-      [invoiceForm]="formInvoice"
     ></app-preview-invoice>
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">

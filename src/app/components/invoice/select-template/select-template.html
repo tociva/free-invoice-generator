@@ -14,13 +14,16 @@
       <!-- Input -->
       <input
         type="text"
-        class="w-full pl-12 pr-10 py-2.5 bg-white border-2 border-gray-200 rounded-xl shadow-sm text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all"
+        class="w-full pl-12 pr-10 py-2.5 bg-white border-2 border-gray-200 rounded-xl shadow-sm
+               text-sm sm:text-base text-gray-900 placeholder-gray-400
+               focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10
+               transition-all"
         placeholder="Search templates by name, description, or tags..."
         [value]="globalSearch()"
-        (focus)="onShow()"
-        (blur)="searchFocused()"
-        (input)="globalSearch.set($any($event.target).value)"
-        aria-label="Search templates"
+    (click)="onInputClick($event)"
+          (blur)="showDropdown()"
+    (input)="onInputChange($any($event.target).value)"
+            aria-label="Search templates"
       />
 
       <!-- Clear -->
@@ -36,12 +39,13 @@
       }
 
       <!-- Search Suggestions -->
-      @if (templateStore.searchTags().length > 0 && showSuggestion()) {
+       @if (showDropdown() && filteredTags().length > 0) {
         <ul
-          class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+          class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg
+                 max-h-60 overflow-y-auto"
           role="listbox"
         >
-          @for (tag of templateStore.searchTags(); track $index) {
+          @for (tag of filteredTags(); track $index) {
             <li
               class="px-4 py-2 hover:bg-teal-100 cursor-pointer text-sm"
               (click)="selectTag(tag)"

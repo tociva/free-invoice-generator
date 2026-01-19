@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed, effect, output, inject } from '@angular/core';
+import { Component, OnInit, signal, computed, effect, output, inject, input, HostListener } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -9,6 +9,7 @@ import { templateStore } from '../store/template/template.store';
 import { sampleInvoice } from '../../list-templates/template.utils';
 import { TemplateItem } from '../store/template/template.model';
 import { invoiceStore } from '../store/invoice.store';
+import { patchState } from '@ngrx/signals';
 
 @Component({
   selector: 'app-select-template',
@@ -17,32 +18,50 @@ import { invoiceStore } from '../store/invoice.store';
   templateUrl: './select-template.html',
   styleUrls: ['./select-template.css'],
 })
-export class SelectTemplateComponent implements OnInit {
+export class SelectTemplateComponent {
   templateService = inject(TemplateService);
   templateStore = inject(templateStore);
   private _http = inject(HttpClient);
 
   // SOURCE DATA
-  templates = signal<TemplateItem[]>([]);
+  // templates = signal<TemplateItem[]>([]);
 
   // UI STATE
   globalSearch = signal('');
-  searchFocused = signal(false);
-
-  showSuggestion = computed(() => this.searchFocused() && this.globalSearch().length > 0);
-  onShow() {
-    this.searchFocused.set(true);
+  showDropdown = signal(false);
+  
+ onInputClick(event: MouseEvent) {
+    this.showDropdown.set(true);
+    event.stopPropagation(); 
   }
-  selectedTemplate = signal<TemplateItem | null>(null);
+   @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    this.showDropdown.set(false);
+  }
+   onInputChange(value: string) {
+    this.globalSearch.set(value);
+    this.showDropdown.set(this.filteredTags().length > 0);
+  }
+
+
+  templates = input<TemplateItem[]>([]);
+  selectedTemplate = input<TemplateItem | null>(null);
   templateSelected = output<TemplateItem>();
   isSelected = signal(false);
 
   selectTemplate(item: TemplateItem) {
-    this.selectedTemplate.set(item);
-    this.isSelected.set(true);
+    // this.selectedTemplate.set(item);
+    // this.isSelected.set(true);
     this.templateSelected.emit(item);
-    console.log(item);
+
   }
+  filteredTags = computed(() => {
+    const query = this.globalSearch().toLowerCase();
+    return this.templateStore
+      .searchTags()
+      .filter(tag => tag.toLowerCase().includes(query) && !this.excludeTags().includes(tag));
+  });
+  excludeTags = signal<string[]>(['IGST', 'CGST & SGST','Non-Taxable']);
 
   store = inject(invoiceStore);
   invoice = this.store.invoice;
@@ -50,31 +69,27 @@ export class SelectTemplateComponent implements OnInit {
   itemsPerPage = signal(10);
   currentPage = signal(1);
 
-  async ngOnInit() {
-    this.templateStore.loadTemplates();
-  }
+//  async ngOnInit() {
+//   await this.templateStore.loadTemplates();
+//   const items = this.templateStore.templateItems();
+//   if (!items.length) return;
 
-  eff = effect(() => {
-    const items = this.templateStore.templateItems();
-    if (!items.length) return;
+//   const loaded: TemplateItem[] = [];
 
-    (async () => {
-      const tmpls = await Promise.all(
-        items.map(async (item) => {
-          const template = await firstValueFrom(
-            this._http.get(item.path, { responseType: 'text' }),
-          );
+//   for (const item of items) {
+//     const template = await firstValueFrom(this._http.get(item.path, { responseType: 'text' }));
+//     const safeHTML = this.templateService.createWrappedSafeHtml(template);
+//     const tmpl = { ...item, template, html: template, safeHTML };
+//     loaded.push(tmpl);
+//     this.templates.set([...loaded]); 
 
-          // const html = TemplateUtil.fillTemplate(template,sampleInvoice);
-          const safeHTML = this.templateService.createWrappedSafeHtml(template);
+//     if (item.path === this.templateStore.selectedTemplatePath()) {
+//       this.selectedTemplate.set(tmpl);
+//       this.templateSelected.emit(tmpl);
+//     }
+//   }
+// }
 
-          return { ...item, template, html: template, safeHTML };
-        }),
-      );
-
-      this.templates.set(tmpls);
-    })();
-  });
 
   filteredTemplates = computed(() => {
     const q = this.globalSearch().toLowerCase().trim();
@@ -99,7 +114,7 @@ export class SelectTemplateComponent implements OnInit {
 
   selectTag(tag: string): void {
     this.globalSearch.set(tag);
-    this.searchFocused.set(false);
+    this.showDropdown.set(false);
     this.currentPage.set(1);
   }
 

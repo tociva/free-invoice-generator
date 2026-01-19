@@ -12,27 +12,26 @@ export const templateStore = signalStore(
     async loadTemplates() {
       try {
         const templates = await firstValueFrom(
-          http.get<Template[]>('/invoice-templates/templates.json')
+          http.get<Template[]>('/invoice-templates/templates.json'),
         );
 
-        const templateItems = templates.flatMap(t => t.items);
-        const allTags = templateItems.flatMap(item => item.tags ?? []);
+        const templateItems = templates.flatMap((t) => t.items);
+        const allTags = templateItems.flatMap((item) => item.tags ?? []);
         const uniqueTags = Array.from(new Set(allTags));
 
         patchState(store, {
-          templates:templates,
-          templateItems:templateItems,
+          templates: templates,
+          templateItems: templateItems,
           searchTags: uniqueTags,
           isLoaded: true,
-          error: null
+          error: null,
         });
-
       } catch (err: any) {
         patchState(store, {
           isLoaded: false,
-          error: err?.message || 'Failed to load templates'
+          error: err?.message || 'Failed to load templates',
         });
       }
     },
-  }))
+  })),
 );
