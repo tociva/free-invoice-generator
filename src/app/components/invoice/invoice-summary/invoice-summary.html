@@ -8,7 +8,7 @@
     <div class="mt-4 text-center">
       <div class="text-2xl md:text-4xl font-bold">
         {{ invoiceService.symbol() }}
-        {{ InvoiceSummary().get('grandTotal')?.value }}
+        {{ InvoiceSummary().get('grandTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()}}
       </div>
       <div class="text-xs md:text-sm text-gray-700 mt-2">
         {{ InvoiceSummary().get('grandTotalInWords')?.value }}
@@ -20,22 +20,22 @@
   <div class="card-box" [formGroup]="InvoiceSummary()">
     <div class="text-xs md:text-sm flex justify-between">
       <span>Item Total</span>
-      <span>{{ InvoiceSummary().get('itemTotal')?.value }}</span>
+      <span>{{ InvoiceSummary().get('itemTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces() }}</span>
     </div>
     @if(advanced() && hasItemDiscount()){
     <div class="text-xs md:text-sm flex justify-between">
       <span>Discount Total</span>
-      <span>{{ InvoiceSummary().get('discountTotal')?.value }}</span>
+      <span>{{ InvoiceSummary().get('discountTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces() }}</span>
     </div>
     <div class="text-xs md:text-sm flex justify-between">
       <span>Sub Total</span>
-      <span>{{ InvoiceSummary().get('subTotal')?.value }}</span>
+      <span>{{ InvoiceSummary().get('subTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces() }}</span>
     </div>
     } @if(advanced() || selectedTaxOption() == 'CGST & SGST' || selectedTaxOption() == 'IGST'){
 
     <div class="text-xs md:text-sm flex justify-between">
       <span>Tax Total</span>
-      <span>{{ InvoiceSummary().get('taxTotal')?.value }}</span>
+      <span>{{ InvoiceSummary().get('taxTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces() }}</span>
     </div>
     }
     <div class="text-xs md:text-sm flex justify-between mt-2">
@@ -48,7 +48,7 @@
     </div>
     <div class="text-xs md:text-sm flex justify-between mt-2 font-semibold border-t pt-2">
       <span>Grand Total</span>
-      <span>{{ InvoiceSummary().get('grandTotal')?.value }}</span>
+      <span>{{ InvoiceSummary().get('grandTotal')?.value | number:'1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces() }}</span>
     </div>
   </div>
 </div>

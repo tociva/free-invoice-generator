@@ -1,102 +1,132 @@
-<div class="space-y-4 sm:space-y-5 md:space-y-6">
-  <!-- Top-center global search -->
-  <div class="w-full flex justify-center px-2 sm:px-0">
-    <div class="relative w-full max-w-xs sm:max-w-md md:max-w-xl">
+<div class="dashboard-container sm:px-4 md:px-6 lg:px-8">
+  <!-- Global Search -->
+  <div class="w-full flex justify-center mt-2 sm:mt-8 md:mt-10 mb-6 sm:mb-8">
+    <div class="relative w-full max-w-xl">
       <!-- Search Icon -->
-      <div class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-        <ng-icon name="bootstrapSearch"
-         class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 transition-colors duration-200"
-         [class.text-teal-500]="globalSearch().length > 0" />
-
+      <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+        <ng-icon
+          name="bootstrapSearch"
+          class="w-5 h-5 text-gray-400"
+          [class.text-teal-500]="globalSearch().length > 0"
+        />
       </div>
 
-      <!-- Search Input -->
-      <input type="text" class="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2 sm:py-2.5 md:py-2 bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl shadow-sm 
+      <!-- Input -->
+      <input
+        type="text"
+        class="w-full pl-12 pr-10 py-2.5 bg-white border-2 border-gray-200 rounded-xl shadow-sm
                text-sm sm:text-base text-gray-900 placeholder-gray-400
-               focus:outline-none focus:border-teal-500 focus:ring-2 sm:focus:ring-4 focus:ring-teal-500/10 
-               transition-all duration-200 ease-in-out
-               hover:border-gray-300 hover:shadow-md" placeholder="Search templates..." [value]="globalSearch()"
-        (input)="globalSearch.set($any($event.target).value); currentPage.set(1)" (focus)="onSearchFocus()"
-        (blur)="onSearchBlur()" aria-label="Search templates" />
+               focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10
+               transition-all"
+        placeholder="Search templates by name, description, or tags..."
+        [value]="globalSearch()"
+    (click)="onInputClick($event)"
+          (blur)="showDropdown()"
+    (input)="onInputChange($any($event.target).value)"
+            aria-label="Search templates"
+      />
 
-      <!-- Clear Button (shown when there's text) -->
+      <!-- Clear -->
       @if (globalSearch().length > 0) {
-      <button type="button" class="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-1 sm:p-1.5 rounded-full 
-                 bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700
-                 transition-all duration-200 flex items-center justify-center
-                 focus:outline-none focus:ring-2 focus:ring-teal-500/20" (click)="clearSearch()"
-        aria-label="Clear search">
-        <ng-icon name="bootstrapX" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
-      </button>
+        <button
+          type="button"
+          class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-gray-100 hover:bg-gray-200"
+          (click)="clearSearch()"
+          aria-label="Clear search"
+        >
+          <ng-icon name="bootstrapX" class="w-4 h-4 text-gray-600" />
+        </button>
       }
 
-      <!-- Results Count Badge (shown when searching) -->
-      @if (globalSearch().length > 0) {
-      <div class="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 
-                    px-2 sm:px-3 py-0.5 sm:py-1 bg-teal-500 text-white text-xs font-medium rounded-full 
-                    shadow-md whitespace-nowrap">
-        {{ totalItems() }} {{ totalItems() === 1 ? 'template' : 'templates' }} found
-      </div>
+      <!-- Search Suggestions -->
+       @if (showDropdown() && filteredTags().length > 0) {
+        <ul
+          class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg
+                 max-h-60 overflow-y-auto"
+          role="listbox"
+        >
+          @for (tag of filteredTags(); track $index) {
+            <li
+              class="px-4 py-2 hover:bg-teal-100 cursor-pointer text-sm"
+              (click)="selectTag(tag)"
+              role="option"
+            >
+              {{ tag }}
+            </li>
+          }
+        </ul>
       }
     </div>
   </div>
 
-  <!-- Template Grid with Optimistic Loading -->
-  @if (initialLoadComplete() || templates().length > 0) {
-  <div class="w-full px-2 sm:px-0">
-    <!-- Grid Container -->
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
-      @for(item of pagedTemplates(); track item.id) {
-      <div (click)="selectTemplate(item.id)"
-        class="template-card bg-white border-2 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-        [class.ring-2]="item.isSelected" [class.ring-teal-500]="item.isSelected"
-        [class.border-teal-500]="item.isSelected" [class.border-gray-200]="!item.isSelected"
-        [style.animation]="'fadeIn 0.4s ease-out forwards'" [style.animation-delay]="($index * 30) + 'ms'"
-        style="opacity: 0;">
-        <!-- Card Header with Title -->
+  <!-- Template Grid -->
+  @if (templateStore.isLoaded() && templates().length > 0) {
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
+      @for (item of displayedTemplates(); track $index) {
         <div
-          class="card-header flex items-center justify-between p-2 sm:p-2.5 md:p-3 border-b border-gray-200 bg-white">
-          <span class="card-title font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate flex-1 pr-1">{{
-            item.name }}</span>
-          @if (item.isSelected) {
-          <div class="ml-1 sm:ml-2 shrink-0">
-            <ng-icon name="bootstrapCheckCircleFill" class="w-4 h-4 sm:w-5 sm:h-5 text-teal-500" />
-          </div>
-          }
-        </div>
+          class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all"
+          [style.animation]="'fadeIn 0.4s ease-out forwards'"
+          [style.animation-delay]="$index * 30 + 'ms'"
+        >
+          <!-- Header -->
+          <div
+            (click)="selectTemplate(item)"
+            class="template-card bg-white border-2 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+            [class.ring-2]="selectedTemplate() === item"
+            [class.ring-teal-500]="selectedTemplate() === item"
+            [class.border-teal-500]="selectedTemplate() === item"
+            [class.border-gray-200]="selectedTemplate() !== item"
+            [style.animation]="'fadeIn 0.4s ease-out forwards'"
+            [style.animation-delay]="$index * 30 + 'ms'"
+            style="opacity: 0"
+          >
+            <!-- Card Header with Title -->
+            <div
+              class="card-header flex items-center justify-between p-2 sm:p-2.5 md:p-3 border-b border-gray-200 bg-white"
+            >
+              <span
+                class="card-title font-semibold text-xs sm:text-sm md:text-base text-gray-900 truncate flex-1 pr-1"
+                >{{ item.name }}</span
+              >
+              @if (selectedTemplate() === item) {
+                <div class="ml-1 sm:ml-2 shrink-0">
+                  <ng-icon
+                    name="bootstrapCheckCircleFill"
+                    class="w-4 h-4 sm:w-5 sm:h-5 text-teal-500"
+                  />
+                </div>
+              }
+            </div>
+          
 
-        <!-- Card Preview Area with iframe -->
-        <div class="card-preview relative bg-gray-50 overflow-hidden h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60">
-          @if (item.safeHTML) {
-          <iframe [attr.srcdoc]="item.safeHTML" [attr.title]="item.name" [attr.aria-label]="'Preview of ' + item.name"
+          <!-- Preview -->
+                    <div class="card-preview relative bg-gray-50 overflow-hidden h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60">
+
+            @if (item.safeHTML) {
+              <iframe
+                [attr.srcdoc]="item.safeHTML"
+                [attr.title]="item.name"
             class="preview-iframe w-full h-full border-0 pointer-events-none overflow-hidden transition-opacity duration-300"
             frameborder="0"
             style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%;"></iframe>
-          } @else {
-          <!-- Skeleton Loader (Optimistic UI) -->
-          <div class="w-full h-full flex items-center justify-center animate-pulse">
-            <div class="text-center w-full px-4">
-              <div class="h-8 bg-gray-200 rounded mb-3 mx-auto max-w-[60%]"></div>
-              <div class="space-y-2">
-                <div class="h-2 bg-gray-200 rounded w-full"></div>
-                <div class="h-2 bg-gray-200 rounded w-5/6 mx-auto"></div>
-                <div class="h-2 bg-gray-200 rounded w-4/6 mx-auto"></div>
+
+            } @else {
+              <div class="w-full h-full flex items-center justify-center animate-pulse">
+                <div class="w-3/4 h-24 bg-gray-200 rounded"></div>
               </div>
-              <div class="mt-4 h-16 bg-gray-200 rounded"></div>
-            </div>
+            }
           </div>
-          }
+          </div>
         </div>
-      </div>
       }
     </div>
-  </div>
+  }
 
-  <!-- Pagination -->
-  @if (totalItems() > 0) {
+ <!-- Pagination -->
+ @if (totalItems() > 0) {
   <div
-    class="mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8 w-full bg-white border-t border-gray-200 px-2 sm:px-0">
+    class="sm:mt-6 md:mt-8 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8 w-full bg-white px-2 sm:px-0">
     <!-- Results Info - Mobile -->
     <div class="text-xs sm:text-sm text-gray-600 text-center mb-3 sm:mb-4 sm:hidden">
       Page <span class="font-semibold text-gray-900">{{ currentPage() }}</span> of
@@ -110,10 +140,25 @@
         <span class="font-semibold text-gray-900">{{ endIndex() }}</span> of
         <span class="font-semibold text-gray-900">{{ totalItems() }}</span> templates
       </div>
+    
 
       <!-- Pagination Controls -->
       <div
         class="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 w-full sm:w-auto justify-center overflow-x-auto pb-1 sm:pb-0">
+  <span class="text-gray-700 font-medium">Items Per Page:</span>
+  
+  <select
+     [value]="itemsPerPage()"
+     (change)="itemsPerPage.set($any($event.target).value)"
+    class="w-20 md:w-32 lg:w-24 p-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-colors"
+  >
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+  </select>
+
+
         <!-- First Page Button - Hidden on mobile -->
         <button
           class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
@@ -127,6 +172,7 @@
           (click)="prevPage()" [disabled]="currentPage() === 1" aria-label="Previous page" title="Previous page">
           <ng-icon name="bootstrapChevronLeft" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto text-gray-600" />
         </button>
+        
 
         <!-- Page Numbers -->
         <div class="flex items-center gap-0.5 sm:gap-1">
@@ -166,13 +212,13 @@
       </div>
     </div>
   </div>
-  }
-  } @else {
+}
+  @else {
   <!-- Loading State -->
   <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-0">
     @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
-    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm animate-pulse">
+    <div class="bg-white border rounded-lg overflow-hidden shadow-sm animate-pulse">
       <div class="h-10 sm:h-12 bg-gray-200"></div>
       <div class="h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60 bg-gray-100"></div>
     </div>

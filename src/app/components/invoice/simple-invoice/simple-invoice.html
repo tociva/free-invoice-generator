@@ -1,38 +1,38 @@
 <!-- DESKTOP STEPPER -->
 <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-6">
   <div class="flex items-center w-full overflow-x-auto">
-    @for(step of steps; track step.id; let i = $index) {
-    <ng-container>
-      <!-- STEP -->
-      <div
-        class="inline-flex items-center gap-3 cursor-pointer whitespace-nowrap mr-4"
-        (click)="goToStep(step.id)"
-      >
+    @for (step of steps; track step.id; let i = $index) {
+      <ng-container>
+        <!-- STEP -->
         <div
-          class="w-8 h-8 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-sm font-semibold text-white"
-          [class.bg-blue-600]="currentStep() === step.id"
-          [class.bg-gray-700]="currentStep() !== step.id"
+          class="inline-flex items-center gap-3 cursor-pointer whitespace-nowrap mr-4"
+          (click)="goToStep(step.id)"
         >
-          {{ step.id }}
+          <div
+            class="w-8 h-8 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-sm font-semibold text-white"
+            [class.bg-blue-600]="currentStep() === step.id"
+            [class.bg-gray-700]="currentStep() !== step.id"
+          >
+            {{ step.id }}
+          </div>
+          <span
+            class="text-sm sm:text-base"
+            [class.text-blue-600]="currentStep() === step.id"
+            [class.text-gray-800]="currentStep() !== step.id"
+          >
+            {{ step.label }}
+          </span>
         </div>
-        <span
-          class="text-sm sm:text-base"
-          [class.text-blue-600]="currentStep() === step.id"
-          [class.text-gray-800]="currentStep() !== step.id"
-        >
-          {{ step.label }}
-        </span>
-      </div>
 
-      <!-- CONNECTOR LINE -->
-      @if(i < steps.length - 1) {
-      <div
-        class="hidden sm:block flex-1 h-px mx-4"
-        [class.bg-blue-600]="currentStep() > step.id"
-        [class.bg-gray-300]="currentStep() <= step.id"
-      ></div>
-      }
-    </ng-container>
+        <!-- CONNECTOR LINE -->
+        @if (i < steps.length - 1) {
+          <div
+            class="hidden sm:block flex-1 h-px mx-4"
+            [class.bg-blue-600]="currentStep() > step.id"
+            [class.bg-gray-300]="currentStep() <= step.id"
+          ></div>
+        }
+      </ng-container>
     }
   </div>
 </div>
@@ -70,131 +70,153 @@
 <!-- STEP CONTENT -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
   <!-- STEP 1: Invoice Form -->
-  @if(currentStep() === 1) {
-  <div class="invoice-wrapper">
-    <div class="invoice-container flex flex-col lg:flex-row">
-      <div class="invoice-card space-y-4 md:space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 md:gap-4">
-          <div class="w-full sm:w-1/2">
-            <app-invoice-logo [InvoiceLogo]="formInvoice"
-            logoField="smallLogo"
-            ></app-invoice-logo>
+  @if (currentStep() === 1) {
+    <div class="invoice-wrapper">
+      <div class="invoice-container flex flex-col lg:flex-row">
+        <div class="invoice-card space-y-4 md:space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 md:gap-4">
+            <div class="w-full sm:w-1/2">
+              <app-invoice-logo
+                [InvoiceLogo]="formInvoice"
+                logoField="smallLogo"
+              ></app-invoice-logo>
+            </div>
+            <div class="w-full sm:w-1/2">
+              <app-invoice-details [InvoiceDetailsForm]="formInvoice"></app-invoice-details>
+            </div>
           </div>
-          <div class="w-full sm:w-1/2">
-            <app-invoice-details [InvoiceDetailsForm]="formInvoice"></app-invoice-details>
+
+          <div class="grid-2-col-responsive">
+            <app-invoice-organization
+              [InvoiceOrganizationForm]="formInvoice.controls.organization"
+            ></app-invoice-organization>
+            <app-invoice-customer
+              [InvoiceCustomerForm]="formInvoice.controls.customer"
+            ></app-invoice-customer>
           </div>
-        </div>
 
-        <div class="grid-2-col-responsive">
-          <app-invoice-organization
-            [InvoiceOrganizationForm]="formInvoice.controls.organization"
-          ></app-invoice-organization>
-          <app-invoice-customer
-            [InvoiceCustomerForm]="formInvoice.controls.customer"
-          ></app-invoice-customer>
+          <app-invoice-items [InvoiceItemForm]="formInvoice.controls.items"></app-invoice-items>
+          <app-invoice-items-mobile
+            [InvoiceItemForm]="formInvoice.controls.items"
+          ></app-invoice-items-mobile>
+          <app-invoice-summary [InvoiceSummary]="formInvoice"></app-invoice-summary>
+          <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
         </div>
+        <div class="w-full sm:w-60 flex flex-col gap-2 lg:ml-5">
+          <!-- Invoice Config Component -->
+          <app-simple-invoice-config [InvoiceConfiq]="formInvoice"></app-simple-invoice-config>
 
-        <app-invoice-items [InvoiceItemForm]="formInvoice.controls.items"></app-invoice-items>
-        <app-invoice-items-mobile [InvoiceItemForm]="formInvoice.controls.items"></app-invoice-items-mobile>
-        <app-invoice-summary [InvoiceSummary]="formInvoice"></app-invoice-summary>
-        <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
+          <!-- Button -->
+          <button
+            class="btn-action flex items-center justify-center gap-2 w-full sm:w-auto bg-background px-4 py-2 rounded hover:bg-gray-100 transition"
+            (click)="temp()"
+          >
+            <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
+            Preview and Download
+          </button>
+        </div>
       </div>
-      <app-simple-invoice-config [InvoiceConfiq]="formInvoice"></app-simple-invoice-config>
-    </div>
 
-    <!-- Navigation -->
-    <div
-      class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 pb-24 sm:pb-28"
-    >
-      <button
-        type="button"
-        class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-gray-700 bg-white border rounded-lg"
-        (click)="goToStep(currentStep() - 1)"
-        [disabled]="isFirstStep()"
+      <!-- Navigation -->
+      <div
+        class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 pb-24 sm:pb-28"
       >
-        Previous
-      </button>
+        <button
+          type="button"
+          class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-gray-700 bg-white border rounded-lg"
+          (click)="goToStep(currentStep() - 1)"
+          [disabled]="isFirstStep()"
+        >
+          Previous
+        </button>
 
-      <button
-        type="button"
-        class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-white bg-teal-500 rounded-lg shadow-md"
-        (click)="goToStep(currentStep() + 1)"
-        [disabled]="isLastStep()"
-      >
-        Next
-      </button>
+        <button
+          type="button"
+          class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-white bg-background rounded-lg shadow-md"
+          (click)="goToStep(currentStep() + 1)"
+          [disabled]="isLastStep()"
+        >
+          Select Template
+        </button>
+      </div>
     </div>
-  </div>
   }
 
   <!-- STEP 2: Select Template -->
-  @if(currentStep() === 2) {
-  <div class="bg-white rounded-lg shadow-md p-6">
-    @defer (on immediate) {
-    <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
-    } @placeholder {
-    <div class="flex items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-    </div>
-    } @loading (minimum 200ms) {
-    <div class="flex items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-    </div>
-    }
+  @if (currentStep() === 2) {
+    <div class="bg-white rounded-lg shadow-md">
+      @defer (on immediate) {
+        <app-select-template
+          (templateSelected)="onTemplateSelected($event)"
+          [templates]="templates()"
+          [selectedTemplate]="selectedTemplate()"
+        ></app-select-template>
+      } @placeholder {
+        <div class="flex items-center justify-center py-20">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+        </div>
+      } @loading (minimum 200ms) {
+        <div class="flex items-center justify-center py-20">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+        </div>
+      }
 
-    <!-- Navigation -->
-    <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-      <button
-        type="button"
-        class="px-4 py-2 text-gray-700 bg-white border rounded-lg"
-        (click)="goToStep(currentStep() - 1)"
+      <!-- Navigation -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4"
       >
-        Previous
-      </button>
-      <button
-        type="button"
-        class="px-4 py-2 text-white bg-teal-500 rounded-lg shadow-md"
-        (click)="goToStep(currentStep() + 1)"
-      >
-        Next
-      </button>
+        <button
+          type="button"
+          class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
+          (click)="goToStep(currentStep() - 1)"
+        >
+          Back Update Invoice
+        </button>
+        <button
+          type="button"
+          class="w-full sm:w-auto px-4 py-2 text-white bg-background rounded-lg shadow-md"
+          (click)="goToStep(currentStep() + 1)"
+        >
+          Preview and Download
+        </button>
+      </div>
     </div>
-  </div>
   }
 
   <!-- STEP 3: Preview -->
-  @if(currentStep() === 3) {
-  <div class="space-y-6 pb-24 sm:pb-28">
-    @defer (on immediate) {
-    <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
-    } @placeholder {
-    <div class="flex items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-    </div>
-    } @loading (minimum 200ms) {
-    <div class="flex items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
-    </div>
-    }
+  @if (currentStep() === 3) {
+    <div class="space-y-6 pb-24 sm:pb-28">
+      @defer (on immediate) {
+        <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
+      } @placeholder {
+        <div class="flex items-center justify-center py-20">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+        </div>
+      } @loading (minimum 200ms) {
+        <div class="flex items-center justify-center py-20">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+        </div>
+      }
 
-    <!-- Navigation -->
-    <div class="flex items-center justify-between pt-4 sm:pt-6">
-      <button
-        type="button"
-        class="px-4 py-2 text-gray-700 bg-white border rounded-lg"
-        (click)="goToStep(currentStep() - 1)"
+      <!-- Navigation -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4"
       >
-        Previous
-      </button>
-      <button
-        type="button"
-        class="px-4 py-2 text-white bg-teal-500 rounded-lg shadow-md"
-        (click)="goToStep(currentStep() + 1)"
-        [disabled]="isLastStep()"
-      >
-        Next
-      </button>
+        <button
+          type="button"
+          class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
+          (click)="goToStep(currentStep() - 1)"
+        >
+          Back - Select Template
+        </button>
+        <button
+          type="button"
+          class="w-full sm:w-auto px-4 py-2 text-white bg-background border rounded-lg"
+          (click)="goToStep(currentStep() - 2)"
+        >
+          Finish- Create another Invoice
+        </button>
+      </div>
     </div>
-  </div>
   }
 </div>

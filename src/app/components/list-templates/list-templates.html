@@ -1,74 +1,83 @@
 <div class="dashboard-container px-2 sm:px-4 md:px-6 lg:px-8 pb-24 sm:pb-28">
 
-  <!-- Top-center global search -->
+  <!-- Global Search -->
   <div class="w-full flex justify-center mt-6 sm:mt-8 md:mt-10 mb-6 sm:mb-8">
     <div class="relative w-full max-w-xl">
+
       <!-- Search Icon -->
       <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-       <ng-icon 
-  name="bootstrapSearch" 
-  class="w-5 h-5 text-gray-400 transition-colors duration-200"
-  [class.text-teal-500]="globalSearch().length > 0" 
-/>
-
+        <ng-icon
+          name="bootstrapSearch"
+          class="w-5 h-5 text-gray-400"
+          [class.text-teal-500]="globalSearch().length > 0"
+        />
       </div>
-      
-      <!-- Search Input -->
+
+      <!-- Input -->
       <input
         type="text"
-        class="w-full pl-12 pr-4 py-2.5 sm:py-2 bg-white border-2 border-gray-200 rounded-xl shadow-sm 
+        class="w-full pl-12 pr-10 py-2.5 bg-white border-2 border-gray-200 rounded-xl shadow-sm
                text-sm sm:text-base text-gray-900 placeholder-gray-400
-               focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 
-               transition-all duration-200 ease-in-out
-               hover:border-gray-300 hover:shadow-md"
+               focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10
+               transition-all"
         placeholder="Search templates by name, description, or tags..."
         [value]="globalSearch()"
-        (input)="globalSearch.set($any($event.target).value)"
-        (focus)="onSearchFocus()"
-        (blur)="onSearchBlur()"
-        aria-label="Search templates"
+    (click)="onInputClick($event)"
+          (blur)="showDropdown()"
+    (input)="onInputChange($any($event.target).value)"
+            aria-label="Search templates"
       />
-      
-      <!-- Clear Button (shown when there's text) -->
+
+      <!-- Clear -->
       @if (globalSearch().length > 0) {
         <button
           type="button"
-          class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full 
-                 bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700
-                 transition-all duration-200 flex items-center justify-center
-                 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+          class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-gray-100 hover:bg-gray-200"
           (click)="clearSearch()"
           aria-label="Clear search"
         >
-        <ng-icon name="bootstrapX" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
+          <ng-icon name="bootstrapX" class="w-4 h-4 text-gray-600" />
         </button>
       }
-      
-      <!-- Results Count Badge (shown when searching) -->
-      @if (globalSearch().length > 0) {
-        <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 
-                    px-3 py-1 bg-teal-500 text-white text-xs font-medium rounded-full 
-                    shadow-md whitespace-nowrap">
-          {{ totalItems() }} {{ totalItems() === 1 ? 'template' : 'templates' }} found
-        </div>
+
+      <!-- Search Suggestions -->
+      @if (showDropdown() && filteredTags().length > 0) {
+        <ul
+          class="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg
+                 max-h-60 overflow-y-auto"
+          role="listbox"
+        >
+          @for (tag of filteredTags(); track $index) {
+            <li
+              class="px-4 py-2 hover:bg-teal-100 cursor-pointer text-sm"
+              (click)="selectTag(tag)"
+              role="option"
+            >
+              {{ tag }}
+            </li>
+          }
+        </ul>
       }
+
     </div>
   </div>
 
-  <!-- Template Grid with Optimistic Loading -->
-  @if (initialLoadComplete() || templates().length > 0) {
-    <div class="w-full">
-      <!-- Grid Container -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
-        @for(item of pagedTemplates(); track item.id) {
-          <div class="template-card bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-               [style.animation]="'fadeIn 0.4s ease-out forwards'"
-               [style.animation-delay]="($index * 30) + 'ms'"
-               style="opacity: 0;">
-            <!-- Card Header with Title and Actions -->
-            <div class="card-header flex items-center justify-between p-2 sm:p-2.5 md:p-3 border-b border-gray-200 bg-white">
-              <span class="card-title font-semibold text-xs sm:text-sm text-gray-900 truncate flex-1 mr-2">{{ item.name }}</span>
-              <div class="template-actions flex items-center gap-0.5 sm:gap-1 shrink-0">
+  <!-- Template Grid -->
+  @if (templateStore.isLoaded() && templates().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+      @for (item of displayedTemplates(); track $index) {
+        <div
+          class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all"
+          [style.animation]="'fadeIn 0.4s ease-out forwards'"
+          [style.animation-delay]="$index * 30 + 'ms'"
+        >
+
+          <!-- Header -->
+          <div class="flex items-center justify-between p-3 border-b">
+            <span class="font-semibold text-sm truncate">{{ item.name }}</span>
+
+            <div class="template-actions flex items-center gap-0.5 sm:gap-1 shrink-0">
                 <button 
                   class="p-1 sm:p-1.5 hover:bg-gray-100 rounded transition-colors text-gray-600 hover:text-gray-900" 
                   (click)="downloadTemplateAsPDF(item); $event.stopPropagation()"
@@ -91,144 +100,137 @@
                   <ng-icon name="bootstrapEye" class="w-5 h-5 text-gray-400 transition-colors duration-200" />
                 </button>
               </div>
-            </div>
-
-            <!-- Card Preview Area with iframe -->
-            <div class="card-preview relative bg-gray-50 overflow-hidden h-45 sm:h-50 md:h-55 lg:h-60">
-              @if (item.safeHTML) {
-                <iframe 
-                  [attr.srcdoc]="item.safeHTML" 
-                  [attr.title]="item.name"
-                  [attr.aria-label]="'Preview of ' + item.name"
-                  class="preview-iframe w-full h-full border-0 pointer-events-none overflow-hidden transition-opacity duration-300"
-                  frameborder="0"
-                  style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%;"
-                ></iframe>
-              } @else {
-                <!-- Skeleton Loader (Optimistic UI) -->
-                <div class="w-full h-full flex items-center justify-center animate-pulse">
-                  <div class="text-center w-full px-4">
-                    <div class="h-8 bg-gray-200 rounded mb-3 mx-auto max-w-[60%]"></div>
-                    <div class="space-y-2">
-                      <div class="h-2 bg-gray-200 rounded w-full"></div>
-                      <div class="h-2 bg-gray-200 rounded w-5/6 mx-auto"></div>
-                      <div class="h-2 bg-gray-200 rounded w-4/6 mx-auto"></div>
-                    </div>
-                    <div class="mt-4 h-16 bg-gray-200 rounded"></div>
-                  </div>
-                </div>
-              }
-            </div>
           </div>
-        }
-      </div>
+
+          <!-- Preview -->
+          <div class="relative bg-gray-50 overflow-hidden h-50">
+            @if (item.safeHTML) {
+              <iframe
+                [attr.srcdoc]="item.safeHTML"
+                [attr.title]="item.name"
+                class="w-full h-full border-0 pointer-events-none"
+                style="transform:scale(0.4);transform-origin:top left;width:250%;height:250%"
+              ></iframe>
+            } @else {
+              <div class="w-full h-full flex items-center justify-center animate-pulse">
+                <div class="w-3/4 h-24 bg-gray-200 rounded"></div>
+              </div>
+            }
+          </div>
+
+        </div>
+      }
+
     </div>
-
-    <!-- Pagination -->
-    @if (totalItems() > 0) {
-      <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 pb-6 sm:pb-8 w-full bg-white border-t border-gray-200">
-        <!-- Results Info - Mobile -->
-        <div class="text-xs sm:text-sm text-gray-600 text-center mb-4 sm:hidden">
-          Page <span class="font-semibold text-gray-900">{{ currentPage() }}</span> of 
-          <span class="font-semibold text-gray-900">{{ pages() }}</span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
-          <!-- Results Info - Desktop -->
-          <div class="hidden sm:block text-sm text-gray-700 font-medium">
-            Showing <span class="font-semibold text-gray-900">{{ startIndex() }}</span> to 
-            <span class="font-semibold text-gray-900">{{ endIndex() }}</span> of 
-            <span class="font-semibold text-gray-900">{{ totalItems() }}</span> templates
-          </div>
-
-          <!-- Pagination Controls -->
-          <div class="flex items-center gap-1 sm:gap-1.5 w-full sm:w-auto justify-center">
-            <!-- First Page Button - Hidden on mobile -->
-            <button
-              class="hidden sm:flex px-2.5 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
-              (click)="goToFirstPage()"
-              [disabled]="currentPage() === 1"
-              aria-label="First page"
-              title="First page"
-            >
-              <ng-icon name="bootstrapChevronDoubleLeft" class="w-4 h-4 text-gray-600" />
-            </button>
-
-            <!-- Previous Page Button -->
-            <button
-              class="px-3 sm:px-2.5 py-2.5 sm:py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-11 sm:min-w-0"
-              (click)="prevPage()"
-              [disabled]="currentPage() === 1"
-              aria-label="Previous page"
-              title="Previous page"
-            >
-             <ng-icon name="bootstrapChevronLeft" class="w-4 h-4 mx-auto text-gray-600" />
-            </button>
-
-            <!-- Page Numbers -->
-            <div class="flex items-center gap-0.5 sm:gap-1">
-              @for(page of pageNumbers(); track $index) {
-                @if (page === '...') {
-                  <span class="px-1.5 sm:px-2 py-2 text-xs sm:text-sm text-gray-400 font-medium">...</span>
-                } @else {
-                  <button
-                    class="min-w-10 sm:min-w-9 px-2 sm:px-3 py-2.5 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-200 rounded-md touch-manipulation"
-                    [class.bg-blue-600]="currentPage() === page"
-                    [class.text-white]="currentPage() === page"
-                    [class.shadow-sm]="currentPage() === page"
-                    [class.border]="currentPage() !== page"
-                    [class.border-gray-300]="currentPage() !== page"
-                    [class.bg-white]="currentPage() !== page"
-                    [class.text-gray-700]="currentPage() !== page"
-                    [class.hover:bg-gray-50]="currentPage() !== page"
-                    [class.hover:border-gray-400]="currentPage() !== page"
-                    [class.hover:text-gray-900]="currentPage() !== page"
-                    [class.active:bg-gray-100]="currentPage() !== page"
-                    (click)="handlePageClick(page)"
-                    [attr.aria-current]="currentPage() === page ? 'page' : null"
-                    [attr.aria-label]="'Page ' + page"
-                    [title]="'Go to page ' + page"
-                  >
-                    {{ page }}
-                  </button>
-                }
-              }
-            </div>
-
-            <!-- Next Page Button -->
-            <button
-              class="px-3 sm:px-2.5 py-2.5 sm:py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-11 sm:min-w-0"
-              (click)="nextPage()"
-              [disabled]="currentPage() === pages()"
-              aria-label="Next page"
-              title="Next page"
-            >
-              <ng-icon name="bootstrapChevronRight" class="w-4 h-4 mx-auto text-gray-600" />
-            </button>
-
-            <!-- Last Page Button - Hidden on mobile -->
-            <button
-              class="hidden sm:flex px-2.5 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
-              (click)="goToLastPage()"
-              [disabled]="currentPage() === pages()"
-              aria-label="Last page"
-              title="Last page"
-            >
-             <ng-icon name="bootstrapChevronDoubleRight" class="w-4 h-4 text-gray-600" />
-            </button>
-          </div>
-        </div>
-      </div>
-    }
   }
 
-  <!-- Invoice Preview Dialog -->
+  <!-- Pagination -->
+ @if (totalItems() > 0) {
+  <div
+    class="mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 md:pb-8 w-full bg-white border-gray-200 px-2 sm:px-0">
+    <!-- Results Info - Mobile -->
+    <div class="text-xs sm:text-sm text-gray-600 text-center mb-3 sm:mb-4 sm:hidden">
+      Page <span class="font-semibold text-gray-900">{{ currentPage() }}</span> of
+      <span class="font-semibold text-gray-900">{{ pages() }}</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 md:gap-6">
+      <!-- Results Info - Desktop -->
+      <div class="hidden sm:block text-xs md:text-sm text-gray-700 font-medium">
+        Showing <span class="font-semibold text-gray-900">{{ startIndex() }}</span> to
+        <span class="font-semibold text-gray-900">{{ endIndex() }}</span> of
+        <span class="font-semibold text-gray-900">{{ totalItems() }}</span> templates
+      </div>
+    
+
+      <!-- Pagination Controls -->
+      <div
+        class="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 w-full sm:w-auto justify-center overflow-x-auto pb-1 sm:pb-0">
+  <span class="text-gray-700 md:text-xs">Items Per Page:</span>
+  
+  <select
+     [value]="itemsPerPage()"
+     (change)="itemsPerPage.set($any($event.target).value)"
+    class="w-20 md:w-32 lg:w-24 p-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-colors"
+  >
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+  </select>
+
+
+        <!-- First Page Button - Hidden on mobile -->
+        <button
+          class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
+          (click)="goToFirstPage()" [disabled]="currentPage() === 1" aria-label="First page" title="First page">
+         <ng-icon name="bootstrapChevronDoubleLeft" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
+        </button>
+
+        <!-- Previous Page Button -->
+        <button
+          class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
+          (click)="prevPage()" [disabled]="currentPage() === 1" aria-label="Previous page" title="Previous page">
+          <ng-icon name="bootstrapChevronLeft" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto text-gray-600" />
+        </button>
+        
+
+        <!-- Page Numbers -->
+        <div class="flex items-center gap-0.5 sm:gap-1">
+          @for(page of pageNumbers(); track $index) {
+          @if (page === '...') {
+          <span class="px-1 sm:px-1.5 md:px-2 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-400 font-medium">...</span>
+          } @else {
+          <button
+            class="min-w-9 sm:min-w-10 md:min-w-9 px-1.5 sm:px-2 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium transition-all duration-200 rounded-md touch-manipulation"
+            [class.bg-blue-600]="currentPage() === page" [class.text-white]="currentPage() === page"
+            [class.shadow-sm]="currentPage() === page" [class.border]="currentPage() !== page"
+            [class.border-gray-300]="currentPage() !== page" [class.bg-white]="currentPage() !== page"
+            [class.text-gray-700]="currentPage() !== page" [class.hover:bg-gray-50]="currentPage() !== page"
+            [class.hover:border-gray-400]="currentPage() !== page" [class.hover:text-gray-900]="currentPage() !== page"
+            [class.active:bg-gray-100]="currentPage() !== page" (click)="handlePageClick(page)"
+            [attr.aria-current]="currentPage() === page ? 'page' : null" [attr.aria-label]="'Page ' + page"
+            [title]="'Go to page ' + page">
+            {{ page }}
+          </button>
+          }
+          }
+        </div>
+
+        <!-- Next Page Button -->
+        <button
+          class="px-2.5 sm:px-2.5 md:px-3 py-2 sm:py-2 md:py-2.5 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 active:bg-gray-100 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300 flex-1 sm:flex-initial min-w-10 sm:min-w-11"
+          (click)="nextPage()" [disabled]="currentPage() === pages()" aria-label="Next page" title="Next page">
+          <ng-icon name="bootstrapChevronRight" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mx-auto text-gray-600" />
+        </button>
+
+        <!-- Last Page Button - Hidden on mobile -->
+        <button
+          class="hidden sm:flex px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 hover:border-gray-400 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-600 disabled:hover:border-gray-300"
+          (click)="goToLastPage()" [disabled]="currentPage() === pages()" aria-label="Last page" title="Last page">
+          <ng-icon name="bootstrapChevronDoubleRight" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
+        </button>
+      </div>
+    </div>
+  </div>
+}
+  @else {
+  <!-- Loading State -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-0">
+    @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm animate-pulse">
+      <div class="h-10 sm:h-12 bg-gray-200"></div>
+      <div class="h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60 bg-gray-100"></div>
+    </div>
+    }
+  </div>
+  }
+  <!-- Preview Dialog -->
   <app-invoice-preview-dialog
     [(isOpen)]="previewDialogOpen"
     [invoiceHtml]="previewTemplateHtml()"
     [invoiceTitle]="'Template Preview'"
     [templateName]="previewTemplateName()"
-    (download)="handleDownload()"
-    (print)="handlePrint()"
   />
 </div>

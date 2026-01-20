@@ -73,9 +73,9 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
   @if(currentStep() === 1) {
   <div class="advanced-invoice-container">
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row justify-end">
       <!-- Center: My Organization -->
-      <div class="flex-1 flex justify-center">
+      <div class="flex-1 flex justify-end items-center">
         <div class="w-full max-w-2xl">
           <app-invoice-organization
             [InvoiceOrganizationForm]="formInvoice.controls.organization"
@@ -89,12 +89,13 @@
         <div class="space-y-1">
           <div class="max-w-full">
             <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
-            logoField="smallLogo"
+            logoField="smallLogo" [logoField]="'smallLogo'"
             ></app-invoice-logo>
           </div>
           <div class="max-w-full">
             <app-invoice-logo [InvoiceLogo]="formInvoice" [advanced]="true"
-            logoField="largeLogo"
+            [logoField]="'largeLogo'"
+            logoField="largeLogo" 
             ></app-invoice-logo>
           </div>
         </div>
@@ -102,13 +103,13 @@
     </div>
 
     <!-- Navigation Button -->
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
-      <div class="flex-1 flex justify-center">
+    <div class="flex flex-col lg:flex-row gap-6 items-center">
+      <div class="flex-1 flex justify-between">
         <div class="w-full max-w-2xl">
-          <div class="flex items-center justify-end mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200">
+          <div class="flex items-center justify-between mt-6 sm:mt-8 mb-10 sm:mb-15 pt-4 sm:pt-6 border-gray-200">
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
               (click)="goToStep(currentStep() + 1)"
               [disabled]="isLastStep()"
             >
@@ -134,11 +135,11 @@
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
-      <div class="flex-1 flex justify-center">
+    <div class="flex flex-col lg:flex-row gap-6 justify-between">
+      <div class="flex-1 flex justify-between">
         <div class="w-full max-w-2xl">
           <div
-            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200"
+            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-15 pt-4 sm:pt-6 border-gray-200"
           >
             <button
               type="button"
@@ -151,7 +152,7 @@
             </button>
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
               (click)="goToStep(currentStep() + 1)"
               [disabled]="isLastStep()"
             >
@@ -175,11 +176,11 @@
       </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row gap-6 justify-between">
       <div class="flex-1 flex justify-center">
         <div class="w-full max-w-2xl">
           <div
-            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200"
+            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-15 pt-4 sm:pt-6 border-t border-gray-200"
           >
             <button
               type="button"
@@ -193,7 +194,7 @@
 
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
               (click)="goToStep(currentStep() + 1)"
               [disabled]="isLastStep()"
             >
@@ -231,11 +232,11 @@
       [hasItemDiscount]="hasItemDiscount()"
     ></app-invoice-summary>
 
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row gap-6 justify-between">
       <div class="flex-1 flex justify-center">
         <div class="w-full max-w-2xl">
           <div
-            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200"
+            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-15 pt-4 sm:pt-6 border-t border-gray-200"
           >
             <button
               type="button"
@@ -249,7 +250,7 @@
 
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
               (click)="goToStep(currentStep() + 1)"
               [disabled]="isLastStep()"
             >
@@ -263,13 +264,16 @@
   </div>
   } @if(currentStep() === 5) {
   <div class="advanced-invoice-container">
-    <app-select-template (templateSelected)="onTemplateSelected($event)"></app-select-template>
+    <app-select-template (templateSelected)="onTemplateSelected($event)"
+        [templates]="templates()"
+      [selectedTemplate]="selectedTemplate()"
+        ></app-select-template>
 
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row gap-6 justify-between">
       <div class="flex-1 flex justify-center">
         <div class="w-full max-w-2xl">
           <div
-            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200"
+            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-15 pt-4 sm:pt-6 border-t border-gray-200"
           >
             <button
               type="button"
@@ -283,7 +287,7 @@
 
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-blue-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
               (click)="goToStep(currentStep() + 1)"
               [disabled]="isLastStep()"
             >
@@ -299,14 +303,13 @@
   <div class="advanced-invoice-container">
     <app-preview-invoice
       [selectedTemplate]="selectedTemplate()"
-      [invoiceForm]="formInvoice"
     ></app-preview-invoice>
 
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row gap-6 justify-between">
       <div class="flex-1 flex justify-center">
         <div class="w-full max-w-2xl">
           <div
-            class="flex items-center justify-between mt-6 sm:mt-8 mb-8 sm:mb-12 pt-4 sm:pt-6 border-t border-gray-200"
+            class="flex items-center justify-between mt-6 sm:mt-8 mb-15 sm:mb-20 pt-4 sm:pt-6 border-t border-gray-200"
           >
             <button
               type="button"
@@ -320,7 +323,7 @@
 
             <button
               type="button"
-              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-teal-500 hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
+              class="px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white bg-background hover:bg-teal-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-teal-500 flex items-center gap-2"
               (click)="goToStep(currentStep() - 5)"
             >
               <span>Finish - Create another Invoice</span>

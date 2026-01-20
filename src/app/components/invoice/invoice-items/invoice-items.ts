@@ -5,11 +5,13 @@ import {
   signal,
   HostListener,
   effect,
+  inject,
 } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
 import { CommonModule, DecimalPipe } from '@angular/common';
+import { InvoiceCalculationService } from '../store/services/calculation.services';
 
 @Component({
   selector: 'app-invoice-items',
@@ -21,6 +23,8 @@ import { CommonModule, DecimalPipe } from '@angular/common';
 export class InvoiceItemsComponent {
   public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();
   advanced = input<boolean>(false);
+    invoiceService = inject(InvoiceCalculationService)
+
 
   hasItemDescription = input<boolean>();
   hasItemDiscount = input<boolean>();
@@ -47,6 +51,7 @@ export class InvoiceItemsComponent {
   eff= effect(()=>{
     this.items.set(this.InvoiceItemForm().getRawValue());
   });
+  
 
   updateItemTotal(index: number) {
     const item = this.InvoiceItemForm().at(index);

@@ -5,18 +5,30 @@ export interface TemplateState {
   templateItems: TemplateItem[];
   isLoaded: boolean;
   error: string | null;
-  currentPage: number;
-  pageSize: number;
   searchTags: string[];
   selectedTemplatePath: string | null;
+  loadingTemplateHtml: boolean;
 }
 export const initialTemplateState : TemplateState ={
     templates:[],
     templateItems:[],
     isLoaded :false,
     error:null,
-    currentPage:0,
-    pageSize :10,
     searchTags:[],
-    selectedTemplatePath :'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html'
+    selectedTemplatePath :'invoice-templates/blue/royal-blue/blue-invoice-cgst-sgst.html',
+    loadingTemplateHtml :false
 }
+//tags 
+
+// export interface TagState {
+//     tags: string[];
+//     selectedTags: string[];
+//     error: string | null;
+//   }
+  
+//   export const initialTagState: TagState = {
+//     tags: [],
+//     selectedTags: [],
+//     error: null
+//   };
+  

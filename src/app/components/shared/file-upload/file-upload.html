@@ -2,10 +2,12 @@
   appFileSelect
   [fileUploadAccept]="fileUploadAccept()"
   (fileUploadFiles)="onFileInput($event)"
+
   class="w-full flex items-center justify-center h-12 md:h-[20vh]
          rounded-xl
-         bg-white border-gray-400
-         cursor-pointer transition-all duration-300"
+         border-2 border-dashed border-gray-400
+         bg-white cursor-pointer transition-all duration-300
+        "
 >
   <span class="text-lg text-gray-500 hidden md:block italic">
     {{deskTopView()}}

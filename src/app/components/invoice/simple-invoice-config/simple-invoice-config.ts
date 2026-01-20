@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, ElementRef, inject, input, OnInit } from '@angular/core';
+import { Component, signal, HostListener, ElementRef, inject, input, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceForm } from '../store/models/invoice-form.model';
@@ -7,6 +7,9 @@ import { NgIcon } from '@ng-icons/core';
 import { dateFormatStore } from '../store/date-format/date-format.store';
 import { Currency } from '../store/currency/currency.model';
 import { DateFormat } from '../store/date-format/date-format.model';
+import { Router } from '@angular/router';
+import { templateStore } from '../store/template/template.store';
+import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
 
 @Component({
   selector: 'app-simple-invoice-config',
@@ -66,4 +69,6 @@ export class SimpleInvoiceConfig implements OnInit {
       this.closeDropdowns();
     }
   }
+ 
+
 }

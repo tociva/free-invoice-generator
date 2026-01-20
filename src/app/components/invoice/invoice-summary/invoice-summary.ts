@@ -2,11 +2,12 @@ import { Component, effect, inject, input, Input, OnInit, signal, WritableSignal
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { InvoiceCalculationService } from '../store/services/calculation.services';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoice-summary',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './invoice-summary.html',
   styleUrls: ['./invoice-summary.css'],
 })
