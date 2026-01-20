@@ -19,7 +19,7 @@ import { NgIcon } from '@ng-icons/core';
 import { invoiceStore } from '../store/invoice.store';
 import { TemplateUtil } from '../utils/templates.utils';
 import { TemplateService } from '../store/services/template.services';
-import { TemplateItem } from '../store/template/template.model';
+import { Template, TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
 import { firstValueFrom, sample } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -44,6 +44,7 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
   private templateService = inject(TemplateService);
   private resizeObserver?: ResizeObserver;
   private previewViewportRef?: ElementRef<HTMLDivElement>;
+  
 
   @ViewChild('previewViewport')
   set previewViewport(element: ElementRef<HTMLDivElement> | undefined) {
@@ -125,9 +126,10 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  handleDownloadPDF(): void {
-    TemplateUtil.downloadTemplateAsPDF;
-  }
+  handleDownloadPDF(item: TemplateItem | null): void {
+  if (!item?.safeHTML) return;
+  TemplateUtil.downloadTemplateAsPDF(item);
+}
 
   handleDownloadJSON(): void {
     const invoiceData = this.invoiceStore.invoice();
@@ -140,10 +142,22 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
     URL.revokeObjectURL(link.href);
   }
 
-  handleDownloadHTML(): void {}
+  handleDownloadHTML(item: TemplateItem | null): void {
+  if (!item?.safeHTML) return;
+  TemplateUtil.downloadTemplateAsHTML(item);
+  }
 
   handleViewCode(): void {
-    console.log('View Code');
+  const template = this.selectedTemplate();
+  const blob = new Blob([template?.html || ''], { type: 'text/html' });
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${template?.name || 'template'}.html`;
+  a.click();
+
+  window.URL.revokeObjectURL(url);
   }
 
   private startResizeObserver(): void {

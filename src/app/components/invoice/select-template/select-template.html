@@ -61,7 +61,8 @@
 
   <!-- Template Grid -->
   @if (templateStore.isLoaded() && templates().length > 0) {
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-2">
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
       @for (item of displayedTemplates(); track $index) {
         <div
           class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all"
@@ -100,14 +101,16 @@
           
 
           <!-- Preview -->
-          <div class="relative bg-gray-50 overflow-hidden h-50">
+                    <div class="card-preview relative bg-gray-50 overflow-hidden h-40 sm:h-45 md:h-50 lg:h-55 xl:h-60">
+
             @if (item.safeHTML) {
               <iframe
                 [attr.srcdoc]="item.safeHTML"
                 [attr.title]="item.name"
-                class="w-full h-full border-0 pointer-events-none"
-                style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%"
-              ></iframe>
+            class="preview-iframe w-full h-full border-0 pointer-events-none overflow-hidden transition-opacity duration-300"
+            frameborder="0"
+            style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%;"></iframe>
+
             } @else {
               <div class="w-full h-full flex items-center justify-center animate-pulse">
                 <div class="w-3/4 h-24 bg-gray-200 rounded"></div>

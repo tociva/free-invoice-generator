@@ -29,7 +29,7 @@
             <button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
-              (click)="handleDownloadPDF()"
+                (click)="handleDownloadPDF(selectedTemplate())"
               title="Download PDF"
             >
               <ng-icon name="bootstrapFileEarmarkPdfFill" class="w-4 h-4" />
@@ -51,7 +51,7 @@
             <button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
-              (click)="handleDownloadHTML()"
+              (click)="handleDownloadHTML(selectedTemplate())"
               title="Download HTML"
             >
               <ng-icon name="bootstrapFileEarmarkCode" class="w-4 h-4" />
