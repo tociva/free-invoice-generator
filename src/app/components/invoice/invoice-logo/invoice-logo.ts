@@ -1,12 +1,21 @@
-import { Component, HostListener, input, signal, OnInit, effect } from '@angular/core';
-import { FileUpload } from '../../shared/file-upload/file-upload';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  effect,
+  input,
+  signal,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TngButtonComponent } from '@tailng-ui/components';
+import { FileUpload } from '../../shared/file-upload/file-upload';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 
 @Component({
   selector: 'app-invoice-logo',
   standalone: true,
-  imports: [FileUpload],
+  imports: [TngButtonComponent, FileUpload],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './invoice-logo.html',
 })
 export class InvoiceLogoComponent {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DomSanitizer } from '@angular/platform-browser';
+import { testProviders } from '../../testing/test-providers';
 import { InvoicePreviewDialogComponent } from './invoice-preview-dialog';
 
 describe('InvoicePreviewDialogComponent', () => {
@@ -8,8 +8,8 @@ describe('InvoicePreviewDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: testProviders,
       imports: [InvoicePreviewDialogComponent],
-      providers: [DomSanitizer],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InvoicePreviewDialogComponent);
@@ -21,4 +21,3 @@ describe('InvoicePreviewDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

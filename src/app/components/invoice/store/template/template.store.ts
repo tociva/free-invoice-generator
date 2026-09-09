@@ -1,37 +1,55 @@
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { initialTemplateState } from './template.state';
-import { Template } from './template.model';
-import { firstValueFrom } from 'rxjs';
 import { inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { sampleInvoice } from '../../../list-templates/template.utils';
+import { TemplateUtil } from '../../utils/templates.utils';
+import { TemplateLoaderService } from '../services/template-loader.service';
+import { TemplateService } from '../services/template.services';
+import { initialTemplateState } from './template.state';
 
 export const templateStore = signalStore(
   withState(initialTemplateState),
-
-  withMethods((store, http = inject(HttpClient)) => ({
-    async loadTemplates() {
-      try {
-        const templates = await firstValueFrom(
-          http.get<Template[]>('/invoice-templates/templates.json'),
-        );
-
-        const templateItems = templates.flatMap((t) => t.items);
-        const allTags = templateItems.flatMap((item) => item.tags ?? []);
-        const uniqueTags = Array.from(new Set(allTags));
-
-        patchState(store, {
-          templates: templates,
-          templateItems: templateItems,
-          searchTags: uniqueTags,
-          isLoaded: true,
-          error: null,
-        });
-      } catch (err: any) {
-        patchState(store, {
-          isLoaded: false,
-          error: err?.message || 'Failed to load templates',
-        });
-      }
+  withMethods(
+    (store, loader = inject(TemplateLoaderService), rendering = inject(TemplateService)) => {
+      let pending: Promise<void> | undefined;
+      return {
+        selectTemplate(path: string) {
+          patchState(store, { selectedTemplatePath: path });
+        },
+        loadTemplates(): Promise<void> {
+          if (pending) return pending;
+          if (store.isLoaded()) return Promise.resolve();
+          patchState(store, { loadingTemplateHtml: true, error: null });
+          pending = (async () => {
+            try {
+              const templates = await loader.loadCatalog();
+              const result = await loader.loadTemplates(
+                templates.flatMap((template) => template.items),
+              );
+              const templateItems = result.items.map((item) => ({
+                ...item,
+                safeHTML: rendering.createWrappedSafeHtml(
+                  TemplateUtil.fillTemplate(item.html ?? '', sampleInvoice),
+                ),
+              }));
+              patchState(store, {
+                templates,
+                templateItems,
+                searchTags: [...new Set(templateItems.flatMap((item) => item.tags ?? []))],
+                isLoaded: result.errors.length === 0,
+                error: result.errors.join(' ') || null,
+              });
+            } catch (error: unknown) {
+              patchState(store, {
+                error: error instanceof Error ? error.message : 'Failed to load templates',
+              });
+            } finally {
+              patchState(store, { loadingTemplateHtml: false });
+              pending = undefined;
+            }
+          })();
+          return pending;
+        },
+      };
     },
-  })),
+  ),
 );

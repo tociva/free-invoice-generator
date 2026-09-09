@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TemplateService {
+  constructor(private sanitizer: DomSanitizer) {}
 
-  constructor(private sanitizer: DomSanitizer) { }
-
+  // Only application-owned HTML with escaped invoice data may cross this boundary.
   createWrappedSafeHtml(html: string): SafeHtml {
-  const wrapperStyle = `
+    const wrapperStyle = `
    <style>
   @page {
     size: A4;
@@ -34,6 +34,6 @@ export class TemplateService {
 
   `;
 
-  return this.sanitizer.bypassSecurityTrustHtml(wrapperStyle + html);
-}
+    return this.sanitizer.bypassSecurityTrustHtml(wrapperStyle + html);
+  }
 }

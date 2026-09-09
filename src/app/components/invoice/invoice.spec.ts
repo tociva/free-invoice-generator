@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { testProviders } from '../../testing/test-providers';
 
 import { Invoice } from './invoice';
 
@@ -8,9 +9,9 @@ describe('Invoice', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Invoice]
-    })
-    .compileComponents();
+      providers: testProviders,
+      imports: [Invoice],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Invoice);
     component = fixture.componentInstance;

@@ -1,0 +1,17 @@
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+
+# TailNG currently declares Angular 21; Angular 22 integration is regression-tested locally.
+peerDependencyRules:
+  allowedVersions:
+    '@tailng-ui/components@0.117.0>@angular/core': '22'
+    '@tailng-ui/components@0.117.0>@angular/common': '22'
+    '@tailng-ui/components@0.117.0>@angular/forms': '22'
+    '@tailng-ui/components@0.117.0>@angular/platform-browser': '22'
+    '@tailng-ui/components@0.117.0>@angular/router': '22'
+    '@tailng-ui/primitives@0.85.0>@angular/core': '22'
+    '@tailng-ui/theme@0.75.0>@angular/core': '22'

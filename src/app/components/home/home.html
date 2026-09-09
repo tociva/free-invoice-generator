@@ -19,12 +19,12 @@
     </div>
 
     <!-- Main CTA -->
-    <button
+    <tng-button
       class="w-full sm:w-auto text-xl sm:text-xl font-medium px-6 sm:px-7 py-3 rounded-xl bg-background text-text cursor-pointer transition-all duration-200 ease-out shadow-[0_4px_16px_rgba(54,117,136,0.3)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(54,117,136,0.4)]"
       (click)="goToInvoiceCreator()"
     >
       Jump Right In — Make Your Invoice
-    </button>
+    </tng-button>
 
     <!-- Divider -->
     <div class="relative flex items-center my-10 text-gray-600 font-medium">
@@ -34,28 +34,37 @@
     </div>
 
     <!-- Upload section -->
-     @if(isMobile()){
-    <div class="bg-background rounded-2xl p-2">
-      <app-file-upload 
-      mobileView = "Upload JSON Invoice File"
-      (fileChanged)="onFilesReceived($event)"
-      ></app-file-upload>
-    </div>
-  }
-  @if(!isMobile()){
-    <div class="border-2 border-dashed rounded-2xl border-gray-500">
-     <app-file-upload 
-    deskTopView="Drop your invoice JSON file here!"
-    (fileChanged)="onFilesReceived($event)"
-    >
-  </app-file-upload>
-  </div>
-  }
-  @if(errorMessage()){
-    <div class="px-4 py-2 bg-red-100 text-red-700 border border-red-400 rounded-md font-semibold shadow-md">{{ errorMessage() }}</div>
-  }
-  @if(successMessage()){
-    <div class="px-4 py-2 bg-green-100 text-green-700 border border-green-400 rounded-md font-semibold shadow-md">{{ successMessage() }}</div>
-  }
+    @if (isMobile()) {
+      <div class="bg-background rounded-2xl p-2">
+        <app-file-upload
+          mobileView="Upload JSON Invoice File"
+          (fileChanged)="onFilesReceived($event)"
+        ></app-file-upload>
+      </div>
+    }
+    @if (!isMobile()) {
+      <div class="border-2 border-dashed rounded-2xl border-gray-500">
+        <app-file-upload
+          deskTopView="Drop your invoice JSON file here!"
+          (fileChanged)="onFilesReceived($event)"
+        >
+        </app-file-upload>
+      </div>
+    }
+    @if (errorMessage()) {
+      <div
+        role="alert"
+        class="px-4 py-2 bg-red-100 text-red-700 border border-red-400 rounded-md font-semibold shadow-md"
+      >
+        {{ errorMessage() }}
+      </div>
+    }
+    @if (successMessage()) {
+      <div
+        class="px-4 py-2 bg-green-100 text-green-700 border border-green-400 rounded-md font-semibold shadow-md"
+      >
+        {{ successMessage() }}
+      </div>
+    }
   </div>
 </div>

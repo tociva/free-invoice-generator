@@ -1,6 +1,8 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { CurrencyUtil } from '../currency/currency.util';
+import { InvoiceForm } from '../models/invoice-form.model';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceCalculationService {
@@ -20,101 +22,67 @@ export class InvoiceCalculationService {
       this.code(),
       this.fraction(),
       this.decimalPlaces(),
-      this.hasInternational()
-    )
+      this.hasInternational(),
+    ),
   );
 
-  private formatNumberWithDP(value: number, dp: number): string {
-    const parts = value.toFixed(dp).split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
+  private activeForm?: FormGroup<InvoiceForm>;
+  private subscriptions = new Subscription();
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.subscriptions.unsubscribe());
   }
 
-  initFormSubscriptions(invoiceForm: FormGroup) {
-    const decimalCtrl = invoiceForm.get('decimalPlaces');
-    if (decimalCtrl) {
-      decimalCtrl.valueChanges.subscribe((value) => this.decimalPlaces.set(Number(value) || 2));
-      this.decimalPlaces.set(Number(decimalCtrl.value) || 2);
-    }
-
-    const internationalCtrl = invoiceForm.get('internationalNumbering');
-    if (internationalCtrl) {
-      internationalCtrl.valueChanges.subscribe((value) => this.hasInternational.set(!!value));
-      this.hasInternational.set(!!internationalCtrl.value);
-    }
-
-    const currency = invoiceForm.get('currency') as FormGroup;
-    if (currency) {
-      currency.valueChanges.subscribe((value) => {
-        this.code.set(value.code || 'INR');
-        this.fraction.set(value.fraction || '');
-        this.symbol.set(value.symbol || '₹');
-      });
-      this.code.set(currency.get('code')?.value || 'INR');
-      this.fraction.set(currency.get('fraction')?.value || '');
-      this.symbol.set(currency.get('symbol')?.value || '₹');
-    }
-
-    const roundOffCtrl = invoiceForm.get('roundOff') as FormControl;
-    if (roundOffCtrl) {
-      roundOffCtrl.valueChanges.subscribe((value) => {
-        this.roundOff.set(Number(value) || 0);
-        this.calculateTotals(invoiceForm);
-      });
-      this.roundOff.set(Number(roundOffCtrl.value) || 0);
-    }
-
-    const itemsArray = invoiceForm.get('items') as FormArray;
-    if (itemsArray) {
-      itemsArray.valueChanges.subscribe(() => this.calculateTotals(invoiceForm));
-    }
+  initFormSubscriptions(invoiceForm: FormGroup<InvoiceForm>) {
+    if (this.activeForm === invoiceForm) return;
+    this.subscriptions.unsubscribe();
+    this.subscriptions = new Subscription();
+    this.activeForm = invoiceForm;
+    this.subscriptions.add(
+      invoiceForm.valueChanges.subscribe(() => this.calculateTotals(invoiceForm)),
+    );
+    this.calculateTotals(invoiceForm);
   }
 
-  calculateTotals(invoiceForm: FormGroup) {
+  calculateTotals(invoiceForm: FormGroup<InvoiceForm>) {
     const items = invoiceForm.get('items') as FormArray;
-    if (!items || items.length === 0) return;
-
-    const dp = this.decimalPlaces();
+    const value = invoiceForm.getRawValue();
+    this.decimalPlaces.set(value.decimalPlaces ?? 2);
+    this.hasInternational.set(value.internationalNumbering);
+    this.roundOff.set(value.roundOff || 0);
+    this.code.set(value.currency?.code || 'INR');
+    this.fraction.set(value.currency?.fraction || '');
+    this.symbol.set(value.currency?.symbol || '\u20b9');
 
     const itemSum = items.controls.reduce(
       (sum, i) => sum + Number(i.get('itemTotal')?.value || 0),
-      0
+      0,
     );
     const discountSum = items.controls.reduce(
       (sum, i) => sum + Number(i.get('discountAmount')?.value || 0),
-      0
+      0,
     );
     const subSum = items.controls.reduce(
       (sum, i) => sum + Number(i.get('subTotal')?.value || 0),
-      0
+      0,
     );
     const taxSum = items.controls.reduce(
       (sum, i) => sum + Number(i.get('taxTotal')?.value || 0),
-      0
+      0,
     );
     const grandSum = items.controls.reduce(
       (sum, i) => sum + Number(i.get('grandTotal')?.value || 0),
-      0
+      0,
     );
 
     const roundOffValue = this.roundOff();
 
     this.grandTotal.set(grandSum);
 
-    invoiceForm
-      .get('itemTotal')
-      ?.setValue(itemSum, { emitEvent: false });
-    invoiceForm
-      .get('discountTotal')
-      ?.setValue(discountSum, { emitEvent: false });
-    invoiceForm
-      .get('subTotal')
-      ?.setValue(subSum, { emitEvent: false });
-    invoiceForm
-      .get('taxTotal')
-      ?.setValue(taxSum, { emitEvent: false });
-    invoiceForm
-      .get('grandTotal')
-      ?.setValue(grandSum + roundOffValue, { emitEvent: false });
+    invoiceForm.get('itemTotal')?.setValue(itemSum, { emitEvent: false });
+    invoiceForm.get('discountTotal')?.setValue(discountSum, { emitEvent: false });
+    invoiceForm.get('subTotal')?.setValue(subSum, { emitEvent: false });
+    invoiceForm.get('taxTotal')?.setValue(taxSum, { emitEvent: false });
+    invoiceForm.get('grandTotal')?.setValue(grandSum + roundOffValue, { emitEvent: false });
+    invoiceForm.controls.grandTotalInWords.setValue(this.grandTotalInWords(), { emitEvent: false });
   }
 }
