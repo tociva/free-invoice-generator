@@ -1,8 +1,8 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Country } from '../country/country.model';
 import { Currency } from '../currency/currency.model';
 import { DateFormat } from '../date-format/date-format.model';
 import { TaxOption } from './invoice-model';
-import { Country } from '../country/country.model';
 
 export interface InvoiceItemForm {
   name: FormControl<string>;
@@ -44,8 +44,8 @@ export interface CustomerForm {
 
 export interface InvoiceForm {
   invoiceNo: FormControl<string>;
-  invoiceDate: FormControl<Date>;
-  invoiceDueDate: FormControl<Date>;
+  invoiceDate: FormControl<Date | null>;
+  invoiceDueDate: FormControl<Date | null>;
   currency: FormControl<Currency | null>;
   decimalPlaces: FormControl<number | null>;
   dateFormat: FormControl<DateFormat | null>;

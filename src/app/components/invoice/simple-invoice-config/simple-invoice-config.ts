@@ -1,21 +1,27 @@
-import { Component, signal, HostListener, ElementRef, inject, input, OnInit, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InvoiceForm } from '../store/models/invoice-form.model';
-import { currencyStore } from '../store/currency/currency.store';
-import { NgIcon } from '@ng-icons/core';
-import { dateFormatStore } from '../store/date-format/date-format.store';
+import { TailngSelect } from '../../shared/tailng-select';
 import { Currency } from '../store/currency/currency.model';
+import { currencyStore } from '../store/currency/currency.store';
 import { DateFormat } from '../store/date-format/date-format.model';
-import { Router } from '@angular/router';
-import { templateStore } from '../store/template/template.store';
-import { PreviewInvoiceComponent } from '../preview-invoice/preview-invoice';
+import { dateFormatStore } from '../store/date-format/date-format.store';
+import { InvoiceForm } from '../store/models/invoice-form.model';
 
 @Component({
   selector: 'app-simple-invoice-config',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgIcon],
+  imports: [TailngSelect, ReactiveFormsModule],
   templateUrl: './simple-invoice-config.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./simple-invoice-config.css'],
 })
 export class SimpleInvoiceConfig implements OnInit {
@@ -33,13 +39,13 @@ export class SimpleInvoiceConfig implements OnInit {
   dateFormatDropdownOpen = signal(false);
 
   setCurrency(currency: Currency) {
-  const currencyCtrl = this.InvoiceConfiq().get('currency') as FormGroup;
-  if (!currencyCtrl) return;
-  currencyCtrl.setValue(currency); 
-  this.currencyDropdownOpen.set(false);
+    const currencyCtrl = this.InvoiceConfiq().get('currency') as FormGroup;
+    if (!currencyCtrl) return;
+    currencyCtrl.setValue(currency);
+    this.currencyDropdownOpen.set(false);
   }
 
-  setDateFormat(dateFormat : DateFormat){
+  setDateFormat(dateFormat: DateFormat) {
     this.InvoiceConfiq().get('dateFormat')?.setValue(dateFormat);
     this.dateFormatDropdownOpen.set(false);
   }
@@ -69,6 +75,4 @@ export class SimpleInvoiceConfig implements OnInit {
       this.closeDropdowns();
     }
   }
- 
-
 }

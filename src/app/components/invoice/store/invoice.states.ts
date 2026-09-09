@@ -132,7 +132,7 @@ export const initialInvoiceState: InvoiceState = {
     taxTotal: 0,
     roundOff: 0,
     grandTotal: 30000,
-    grandTotalInWords: 'Three Lakhs',
+    grandTotalInWords: 'INR Thirty Thousand',
     terms:
       'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
     notes: 'Type aditional notes here',

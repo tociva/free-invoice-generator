@@ -1,13 +1,21 @@
 # FreeInvoiceGenerator20
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+Angular 22 invoice generator using Reactive Forms, NgRx Signal Store, TailNG and Tailwind CSS 4.
+
+Requires Node **>=22.22.3 <23** and **pnpm 10.34.5**. See [migration notes](MIGRATION.md) for dependency compatibility, changes and validation.
+
+## Install dependencies
+
+```bash
+pnpm install
+```
 
 ## Development server
 
 To start a local development server, run:
 
 ```bash
-ng serve
+pnpm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -31,17 +39,17 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
+pnpm build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This will compile your project and store the build artifacts in the `dist/free-invoice-generator/browser/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
 To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
 ```bash
-ng test
+pnpm test
 ```
 
 ## Running end-to-end tests
@@ -49,10 +57,10 @@ ng test
 For end-to-end (e2e) testing, run:
 
 ```bash
-ng e2e
+pnpm test:e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Playwright uses installed Microsoft Edge on Windows and Chromium elsewhere. On Linux, install the test browser with `pnpm exec playwright install --with-deps chromium`. The test command starts the local development server automatically.
 
 ## Additional Resources
 

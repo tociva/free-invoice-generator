@@ -1,155 +1,226 @@
 <div class="card-box" [formGroup]="InvoiceDetailsForm()">
   <!-- Invoice Number -->
   <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Invoice Number</div>
-    <input
-      type="text"
-      formControlName="invoiceNo"
-      placeholder="Enter invoice number"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
+    <label
+      for="invoice-details-invoiceNo"
+      id="invoice-details-invoiceNo-label"
+      class="text-[1rem] text-gray-500"
+      >Invoice Number</label
+    >
+    <tng-input-field class="min-w-0" size="sm"
+      ><input
+        tngInput
+        type="text"
+        id="invoice-details-invoiceNo"
+        formControlName="invoiceNo"
+        required
+        aria-describedby="invoice-number-error"
+        [ariaInvalid]="
+          InvoiceDetailsForm().controls.invoiceNo.invalid &&
+          InvoiceDetailsForm().controls.invoiceNo.touched
+        "
+        placeholder="Enter invoice number"
+        class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+    /></tng-input-field>
   </div>
 
+  @if (
+    InvoiceDetailsForm().controls.invoiceNo.invalid &&
+    InvoiceDetailsForm().controls.invoiceNo.touched
+  ) {
+    <p id="invoice-number-error" role="alert" class="text-sm text-red-700">
+      Invoice number is required.
+    </p>
+  }
   <!-- Invoice Date and Due Date -->
   <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Invoice Date</div>
-    <input
+    <label
+      for="invoice-details-invoiceDate"
+      id="invoice-details-invoiceDate-label"
+      class="text-[1rem] text-gray-500"
+      >Invoice Date</label
+    >
+    <app-tailng-date
       formControlName="invoiceDate"
-      type="date"
-      placeholder="Select invoice date"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      inputId="invoice-details-invoiceDate"
+      label="Invoice Date"
     />
   </div>
 
   <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Due Date</div>
-    <input
+    <label
+      for="invoice-details-invoiceDueDate"
+      id="invoice-details-invoiceDueDate-label"
+      class="text-[1rem] text-gray-500"
+      >Due Date</label
+    >
+    <app-tailng-date
       formControlName="invoiceDueDate"
-      type="date"
-      placeholder="Select due date"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      inputId="invoice-details-invoiceDueDate"
+      label="Due Date"
     />
   </div>
-  @if(advanced()){
-  <!-- Currency -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Currency</div>
-    <select
-      formControlName="currency"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    >
-      @for(currency of currencyStore.currencies(); track $index){
-        <option [ngValue]="currency">{{ currency.symbol }} - {{ currency.name }}</option>
-      }
-    </select>
-  </div>
-
-  <!-- Decimal Places -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Decimal Places</div>
-    <input
-      formControlName="decimalPlaces"
-      type="text"
-      placeholder="Decimal Places"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
-  </div>
-
-  <!-- Delivery State -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Delivery State</div>
-    <input
-      formControlName="deliveryState"
-      type="text"
-      placeholder="Delivery State"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
-  </div>
-
-  <!-- Tax Option -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Tax Option</div>
-    <select
-      formControlName="taxOption"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    >
-      @for (option of taxOptions; track $index) {
-        <option [value]="option">{{ option }}</option>
-      }
-    </select>
-  </div>
-
-  <!-- Show Item Description -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Item Description</div>
-    <div class="flex items-center gap-2">
-      <input
-        type="checkbox"
-        formControlName="hasItemDescription"
-        class="w-4 h-4 accent-blue-500"
+  @if (advanced()) {
+    <!-- Currency -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-currency"
+        id="invoice-details-currency-label"
+        class="text-[1rem] text-gray-500"
+        >Currency</label
+      >
+      <app-tailng-select
+        formControlName="currency"
+        [options]="currencyStore.currencies()"
+        labelId="invoice-details-currency-label"
       />
-      <label class="text-sm text-gray-600">Show Item Description</label>
     </div>
-  </div>
 
-  <!-- Show Item Discount -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Item Discount</div>
-    <div class="flex items-center gap-2">
-      <input
-        type="checkbox"
-        formControlName="hasItemDiscount"
-        class="w-4 h-4 accent-blue-500"
+    <!-- Decimal Places -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-decimalPlaces"
+        id="invoice-details-decimalPlaces-label"
+        class="text-[1rem] text-gray-500"
+        >Decimal Places</label
+      >
+      <tng-input-field class="min-w-0" size="sm"
+        ><input
+          tngInput
+          id="invoice-details-decimalPlaces"
+          formControlName="decimalPlaces"
+          type="number"
+          min="0"
+          max="5"
+          placeholder="Decimal Places"
+          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      /></tng-input-field>
+    </div>
+
+    <!-- Delivery State -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-deliveryState"
+        id="invoice-details-deliveryState-label"
+        class="text-[1rem] text-gray-500"
+        >Delivery State</label
+      >
+      <tng-input-field class="min-w-0" size="sm"
+        ><input
+          tngInput
+          id="invoice-details-deliveryState"
+          formControlName="deliveryState"
+          type="text"
+          placeholder="Delivery State"
+          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      /></tng-input-field>
+    </div>
+
+    <!-- Tax Option -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-taxOption"
+        id="invoice-details-taxOption-label"
+        class="text-[1rem] text-gray-500"
+        >Tax Option</label
+      >
+      <app-tailng-select
+        formControlName="taxOption"
+        [options]="taxOptions"
+        labelId="invoice-details-taxOption-label"
       />
-      <label class="text-sm text-gray-600">Show Item Discount</label>
     </div>
-  </div>
 
-  <!-- Date Format -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Date Format</div>
-    <select
-      formControlName="dateFormat"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    >
-      @for( dateFormat of dateFormatStore.dateFormat();track $index){
-        <option [ngValue]="dateFormat">{{ dateFormat.name }}</option>
-      }
-    </select>
-  </div>
+    <!-- Show Item Description -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <div class="text-[1rem] text-gray-500">Item Description</div>
+      <div class="flex items-center gap-2">
+        <tng-checkbox tngAngularForms formControlName="hasItemDescription"
+          >Show Item Description</tng-checkbox
+        >
+      </div>
+    </div>
 
-  <!-- Account Number -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Account Number</div>
-    <input
-      formControlName="accountNumber"
-      type="text"
-      placeholder="Account Number"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
-  </div>
+    <!-- Show Item Discount -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <div class="text-[1rem] text-gray-500">Item Discount</div>
+      <div class="flex items-center gap-2">
+        <tng-checkbox tngAngularForms formControlName="hasItemDiscount"
+          >Show Item Discount</tng-checkbox
+        >
+      </div>
+    </div>
 
-  <!-- Account Name -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Account Name</div>
-    <input
-      formControlName="accountName"
-      type="text"
-      placeholder="Account Name"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
-  </div>
+    <!-- Date Format -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-dateFormat"
+        id="invoice-details-dateFormat-label"
+        class="text-[1rem] text-gray-500"
+        >Date Format</label
+      >
+      <app-tailng-select
+        formControlName="dateFormat"
+        [options]="dateFormatStore.dateFormat()"
+        labelId="invoice-details-dateFormat-label"
+      />
+    </div>
 
-  <!-- Bank Name -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-    <div class="text-[1rem] text-gray-500">Bank Name</div>
-    <input
-      formControlName="bankName"
-      type="text"
-      placeholder="Bank Name"
-      class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
-    />
-  </div>
+    <!-- Account Number -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-accountNumber"
+        id="invoice-details-accountNumber-label"
+        class="text-[1rem] text-gray-500"
+        >Account Number</label
+      >
+      <tng-input-field class="min-w-0" size="sm"
+        ><input
+          tngInput
+          id="invoice-details-accountNumber"
+          formControlName="accountNumber"
+          type="text"
+          placeholder="Account Number"
+          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      /></tng-input-field>
+    </div>
 
+    <!-- Account Name -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-accountName"
+        id="invoice-details-accountName-label"
+        class="text-[1rem] text-gray-500"
+        >Account Name</label
+      >
+      <tng-input-field class="min-w-0" size="sm"
+        ><input
+          tngInput
+          id="invoice-details-accountName"
+          formControlName="accountName"
+          type="text"
+          placeholder="Account Name"
+          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      /></tng-input-field>
+    </div>
+
+    <!-- Bank Name -->
+    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+      <label
+        for="invoice-details-bankName"
+        id="invoice-details-bankName-label"
+        class="text-[1rem] text-gray-500"
+        >Bank Name</label
+      >
+      <tng-input-field class="min-w-0" size="sm"
+        ><input
+          tngInput
+          id="invoice-details-bankName"
+          formControlName="bankName"
+          type="text"
+          placeholder="Bank Name"
+          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+      /></tng-input-field>
+    </div>
   }
 </div>

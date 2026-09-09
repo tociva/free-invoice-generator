@@ -1,7 +1,15 @@
-import { Component, input, output, model, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { NgIcon } from '@ng-icons/core';
+import { TngDialogComponent } from '@tailng-ui/components';
 
 export interface InvoicePreviewDialogData {
   invoiceHtml?: string;
@@ -12,8 +20,9 @@ export interface InvoicePreviewDialogData {
 @Component({
   selector: 'app-invoice-preview-dialog',
   standalone: true,
-  imports: [CommonModule,NgIcon],
+  imports: [CommonModule, TngDialogComponent],
   templateUrl: './invoice-preview-dialog.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-preview-dialog.css'],
 })
 export class InvoicePreviewDialogComponent {
@@ -63,4 +72,3 @@ export class InvoicePreviewDialogComponent {
     }
   }
 }
-

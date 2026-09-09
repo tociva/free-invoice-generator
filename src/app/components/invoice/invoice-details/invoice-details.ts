@@ -1,15 +1,33 @@
-import { Component, inject, input, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InvoiceForm } from '../store/models/invoice-form.model';
-import { dateFormatStore } from '../store/date-format/date-format.store';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  TngCheckboxAngularFormsAdapter,
+  TngCheckboxComponent,
+  TngInputFieldComponent,
+} from '@tailng-ui/components';
+import { TngInput } from '@tailng-ui/primitives';
+import { TailngDate } from '../../shared/tailng-date';
+import { TailngSelect } from '../../shared/tailng-select';
 import { currencyStore } from '../store/currency/currency.store';
+import { dateFormatStore } from '../store/date-format/date-format.store';
+import { InvoiceForm } from '../store/models/invoice-form.model';
 import { TaxOption } from '../store/models/invoice-model';
 
 @Component({
   selector: 'app-invoice-details',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    TailngSelect,
+    TailngDate,
+    TngInputFieldComponent,
+    TngCheckboxComponent,
+    TngCheckboxAngularFormsAdapter,
+    TngInput,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   templateUrl: './invoice-details.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-details.css'],
 })
 export class InvoiceDetailsComponent implements OnInit {

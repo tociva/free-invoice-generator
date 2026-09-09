@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { testProviders } from '../../../testing/test-providers';
 import { SelectTemplateComponent } from './select-template';
 
 describe('SelectTemplateComponent', () => {
@@ -7,6 +8,7 @@ describe('SelectTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: testProviders,
       imports: [SelectTemplateComponent],
     }).compileComponents();
 

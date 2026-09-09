@@ -1,27 +1,37 @@
-import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
-import { InvoiceOrganizationComponent } from './invoice-organization/invoice-organization';
-import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
-import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
-import { InvoiceItemsComponent } from './invoice-items/invoice-items';
-import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile';
-import { SelectTemplateComponent } from './select-template/select-template';
-import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice';
-import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary';
-import { InvoiceLogoComponent } from './invoice-logo/invoice-logo';
-import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-notes';
-import { InvoiceFormService } from './store/models/invoice-form';
-import { InvoiceCalculationService } from './store/services/calculation.services';
-import { FormArray } from '@angular/forms';
-import { invoiceStore } from './store/invoice.store';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
-import { TemplateLoaderService } from './store/services/template-loader.service';
+import { TngButtonComponent } from '@tailng-ui/components';
+import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
+import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
+import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile';
+import { InvoiceItemsComponent } from './invoice-items/invoice-items';
+import { InvoiceLogoComponent } from './invoice-logo/invoice-logo';
+import { InvoiceOrganizationComponent } from './invoice-organization/invoice-organization';
+import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary';
+import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-notes';
+import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice';
+import { SelectTemplateComponent } from './select-template/select-template';
+import { invoiceStore } from './store/invoice.store';
+import { InvoiceFormService } from './store/models/invoice-form';
+import { InvoiceCalculationService } from './store/services/calculation.services';
 import { TemplateItem } from './store/template/template.model';
 import { templateStore } from './store/template/template.store';
 
 @Component({
   selector: 'app-invoice',
   imports: [
+    TngButtonComponent,
     InvoiceOrganizationComponent,
     InvoiceCustomerComponent,
     InvoiceDetailsComponent,
@@ -32,12 +42,14 @@ import { templateStore } from './store/template/template.store';
     InvoiceSummaryComponent,
     InvoiceLogoComponent,
     InvoiceTermsNotesComponent,
-    NgIcon
+    NgIcon,
   ],
   templateUrl: './invoice.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './invoice.css',
 })
 export class Invoice implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
   currentStep = signal(1);
   store = inject(invoiceStore);
   router = inject(Router);
@@ -53,92 +65,90 @@ export class Invoice implements OnInit {
 
   isFirstStep = computed(() => this.currentStep() === 1);
   isLastStep = computed(() => this.currentStep() === this.steps.length);
-  constructor(){
-    this.route.queryParams.subscribe(params=>{
+  constructor() {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
       const step = Number(params['step']);
-      if(step && step >=1  && step<=this.steps.length){
-        this.currentStep.set(step);
-      }
-    })
+      this.currentStep.set(
+        Number.isInteger(step) && step >= 1 && step <= this.steps.length ? step : 1,
+      );
+    });
   }
 
   goToStep(stepId: number): void {
+    if (!Number.isInteger(stepId) || stepId < 1 || stepId > this.steps.length) return;
     this.saveCurrentStepState();
-     if (stepId < 1) stepId = 1;
-  if (stepId > this.steps.length) stepId = this.steps.length;
+    if (stepId < 1) stepId = 1;
+    if (stepId > this.steps.length) stepId = this.steps.length;
 
-  this.currentStep.set(stepId);
-  this.router.navigate([],{
-    relativeTo:this.route,
-    queryParams:{stepId},
-    queryParamsHandling:'merge',
-    replaceUrl:true
-
-  })
-
+    this.currentStep.set(stepId);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { step: stepId },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  // onTemplateSelected(template: any) {
-  //   this.selectedTemplate.set(template);
-  // }
-  
   formInvoice = inject(InvoiceFormService).form;
-  hasItemDescription = signal(false);
-  hasItemDiscount = signal(false);
+  hasItemDescription = signal(this.formInvoice.controls.hasItemDescription.value);
+  hasItemDiscount = signal(this.formInvoice.controls.hasItemDiscount.value);
   internationalNumbering = signal(false);
   selectedTaxOption = signal<string>(this.formInvoice.get('taxOption')?.value || '');
   calcService = inject(InvoiceCalculationService);
-  private templateLoader = inject(TemplateLoaderService);
-  
-    templates = signal<TemplateItem[]>([]);
-    selectedTemplate = signal<TemplateItem | null>(null);
-      templateStore = inject(templateStore);
-    
 
- async ngOnInit() {
-    this.formInvoice.get('hasItemDescription')?.valueChanges.subscribe((value) => {
-      this.hasItemDescription.set(value);
-    });
+  templates = computed(() => this.templateStore.templateItems());
+  selectedTemplate = computed(
+    () =>
+      this.templates().find((item) => item.path === this.templateStore.selectedTemplatePath()) ??
+      this.templates()[0] ??
+      null,
+  );
+  templateStore = inject(templateStore);
 
-    this.formInvoice.get('hasItemDiscount')?.valueChanges.subscribe((value) => {
-      this.hasItemDiscount.set(value);
-    });
+  async ngOnInit() {
+    this.formInvoice
+      .get('hasItemDescription')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.hasItemDescription.set(value);
+      });
 
-    this.formInvoice.get('taxOption')?.valueChanges.subscribe((value) => {
-      this.selectedTaxOption.set(value);
-    });
-    this.formInvoice.get('internationalNumbering')?.valueChanges.subscribe((value) => {
-      this.internationalNumbering.set(value);
-    });
-    const itemsArray = this.formInvoice.get('items') as FormArray;
+    this.formInvoice
+      .get('hasItemDiscount')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.hasItemDiscount.set(value);
+      });
 
-  this.calcService.initFormSubscriptions(this.formInvoice);
+    this.formInvoice
+      .get('taxOption')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.selectedTaxOption.set(value);
+      });
+    this.formInvoice
+      .get('internationalNumbering')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        this.internationalNumbering.set(value);
+      });
 
-  this.calcService.calculateTotals(this.formInvoice);
+    this.calcService.initFormSubscriptions(this.formInvoice);
 
-  itemsArray.valueChanges.subscribe(() => {
     this.calcService.calculateTotals(this.formInvoice);
-  });
-   const loadedTemplates = await this.templateLoader.loadTemplates();
-    this.templates.set(loadedTemplates);
-
-    const defaultPath = this.templateStore.selectedTemplatePath();
-    const defaultTemplate = loadedTemplates.find(t => t.path === defaultPath);
-    if (defaultTemplate) this.onTemplateSelected(defaultTemplate);
+    await this.templateStore.loadTemplates();
   }
 
   onTemplateSelected(item: TemplateItem) {
-    this.selectedTemplate.set(item);
+    this.templateStore.selectTemplate(item.path);
   }
-  
 
-    bindGrandTotalEffect = effect(() => {
+  bindGrandTotalEffect = effect(() => {
     const words = this.calcService.grandTotalInWords();
     this.formInvoice.get('grandTotalInWords')?.setValue(words, { emitEvent: false });
   });
   saveCurrentStepState() {
-  const invoice = this.formInvoice.getRawValue();
-  this.store.setInvoice(invoice); 
-  // this.store.resetInvoice();
-}
+    const invoice = this.formInvoice.getRawValue();
+    this.store.setInvoice(invoice);
+    // this.store.resetInvoice();
+  }
 }

@@ -1,24 +1,27 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
-import { provideAppIcon } from '../../provider/icon-provider';
-import { NgIcon } from '@ng-icons/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FileUpload } from '../shared/file-upload/file-upload';
+import { NgIcon } from '@ng-icons/core';
+import { TngButtonComponent } from '@tailng-ui/components';
 import { invoiceStore } from '../invoice/store/invoice.store';
-import { Invoice } from '../invoice/store/models/invoice-model';
+import { InvoiceFormService } from '../invoice/store/models/invoice-form';
+import { parseInvoiceJson } from '../invoice/store/models/invoice-import';
+import { FileUpload } from '../shared/file-upload/file-upload';
 
 @Component({
   selector: 'app-home',
-  imports: [NgIcon, FileUpload],
+  imports: [TngButtonComponent, NgIcon, FileUpload],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [],
 })
 export class Home {
   router = inject(Router);
-  jsonFile= signal<string>('');
+  jsonFile = signal<string>('');
   store = inject(invoiceStore);
-  errorMessage = signal<string>('');   
-  successMessage = signal<string>(''); 
+  private readonly invoiceForm = inject(InvoiceFormService);
+  errorMessage = signal<string>('');
+  successMessage = signal<string>('');
 
   goToInvoiceCreator = () => {
     this.router.navigate(['/simple-invoice']);
@@ -31,8 +34,6 @@ export class Home {
   public onFilesReceived(file: File) {
     if (file.type === 'application/json' || file.name.endsWith('.json')) {
       this.handleJsonFile(file);
-      this.successMessage.set('Upload JSON File Successfully!')
-      this.clearMessageAfterDelay();
     } else {
       this.errorMessage.set('Invalid JSON File!');
       this.clearMessageAfterDelay();
@@ -45,22 +46,29 @@ export class Home {
       const reader = new FileReader();
       reader.onload = () => {
         try {
-          const invoice: Invoice = JSON.parse(reader.result as string) as any;
+          const invoice = parseInvoiceJson(String(reader.result ?? ''));
+          this.invoiceForm.replaceInvoice(invoice);
           this.store.setInvoice(invoice);
+          this.errorMessage.set('');
+          this.successMessage.set('Invoice imported successfully.');
           this.router.navigate(['/simple-invoice']);
         } catch (err) {
-          console.error('Invalid JSON File', err);
+          this.successMessage.set('');
+          this.errorMessage.set(
+            err instanceof Error ? err.message : 'Could not import this invoice.',
+          );
         }
       };
+      reader.onerror = () => this.errorMessage.set('Could not read the selected file.');
       reader.readAsText(file);
     } else {
       console.error('Only JSON files are allowed.');
     }
   }
-  private clearMessageAfterDelay(){
-    setTimeout(()=>{
+  private clearMessageAfterDelay() {
+    setTimeout(() => {
       this.errorMessage.set('');
       this.successMessage.set('');
-    },3000);
+    }, 3000);
   }
 }

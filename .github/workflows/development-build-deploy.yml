@@ -24,10 +24,13 @@ jobs:
       - name: Set up Node 22
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22.23.2'
+
+      - name: Enable pnpm
+        run: corepack enable
 
       - name: Increment version
-        run: yarn version patch
+        run: pnpm version patch --no-git-tag-version
 
       - name: Get branch name
         run: |
@@ -58,11 +61,11 @@ jobs:
           git commit -m "ci: bump version to $VERSION [skip ci]"
           git push origin HEAD:$BRANCH_NAME
 
-      - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+      - name: Install dependencies with pnpm
+        run: pnpm install --frozen-lockfile
 
       - name: Build Angular App (production)
-        run: yarn build --configuration production
+        run: pnpm build --configuration production
             
       - name: Add deployment info to info.txt
         run: |
@@ -76,7 +79,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages with Wrangler
         run: |
-          yarn dlx wrangler pages deploy dist/free-invoice-generator/browser \
+          pnpm dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
             --branch main
         env:

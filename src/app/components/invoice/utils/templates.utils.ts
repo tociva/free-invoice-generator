@@ -1,10 +1,16 @@
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
+import { safeLogo } from '../store/models/invoice-import';
 import { Invoice } from '../store/models/invoice-model';
 import { TemplateItem } from '../store/template/template.model';
 
 export class TemplateUtil {
+  private static escapeHtml(value: string): string {
+    return value.replace(
+      /[&<>"']/g,
+      (char) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char] ?? char,
+    );
+  }
 
   /**
    * Extracts the [[items_start]] ... [[items_end]] section from a template
@@ -23,28 +29,35 @@ export class TemplateUtil {
 
     // Fill items
     const itemRowTemplate = this.extractItemsSection(html);
-    const filledItems = invoice.items.map(item =>
-      itemRowTemplate
-        .replaceAll('[[item_name]]', item.name)
-        .replaceAll('[[item_quantity]]', item.quantity.toFixed(decimal))
-        .replaceAll('[[item_price]]', item.price.toFixed(decimal))
-        .replaceAll('[[item_cgst]]', (item.tax1Amount ?? 0).toFixed(decimal))
-        .replaceAll('[[item_sgst]]', (item.tax2Amount ?? 0).toFixed(decimal))
-        .replaceAll('[[item_amount]]', item.grandTotal.toFixed(decimal))
-    ).join('');
+    const filledItems = invoice.items
+      .map((item) =>
+        itemRowTemplate
+          .replaceAll('[[item_name]]', () => this.escapeHtml(item.name))
+          .replaceAll('[[item_quantity]]', item.quantity.toFixed(decimal))
+          .replaceAll('[[item_price]]', item.price.toFixed(decimal))
+          .replaceAll('[[item_cgst]]', (item.tax1Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_igst]]', (item.tax3Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_sgst]]', (item.tax2Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_amount]]', item.grandTotal.toFixed(decimal)),
+      )
+      .join('');
 
     const itemsRegex = /\[\[items_start\]\][\s\S]*?\[\[items_end\]\]/;
-    let result = html.replace(itemsRegex, filledItems);
+    let result = html.replace(itemsRegex, () => filledItems);
 
     // Replace other placeholders
     const replacements: Record<string, string> = {
       '[[invoice_number]]': invoice.invoiceNo ?? '',
       '[[invoice_date]]': invoice.invoiceDate ? dayjs(invoice.invoiceDate).format(dateFormat) : '',
-      '[[payment_due_date]]': invoice.invoiceDueDate ? dayjs(invoice.invoiceDueDate).format(dateFormat) : '',
+      '[[payment_due_date]]': invoice.invoiceDueDate
+        ? dayjs(invoice.invoiceDueDate).format(dateFormat)
+        : '',
       '[[customer_name]]': invoice.customer?.name ?? '',
       '[[customer_address]]': invoice.customer?.address ?? '',
       '[[customer_phone]]': invoice.customer?.phone ?? '',
       '[[customer_email]]': invoice.customer?.email ?? '',
+      '[[org_authority_name]]': invoice.organization?.authorityName ?? '',
+      '[[org_authority_designation]]': invoice.organization?.authorityDesignation ?? '',
       '[[org_name]]': invoice.organization?.name ?? '',
       '[[org_address]]': invoice.organization?.address ?? '',
       '[[org_phone]]': invoice.organization?.phone ?? '',
@@ -57,18 +70,18 @@ export class TemplateUtil {
       '[[roundoff]]': invoice.roundOff.toFixed(decimal),
       '[[grand_total]]': invoice.grandTotal.toFixed(decimal),
       '[[grand_total_inwords]]': invoice.grandTotalInWords ?? '',
-      '[[logo_small_src]]': invoice.smallLogo ?? '',
-      '[[logo_large_src]]': invoice.largeLogo ?? '',
+      '[[logo_small_src]]': safeLogo(invoice.smallLogo),
+      '[[logo_large_src]]': safeLogo(invoice.largeLogo),
       '[[account_number]]': invoice.accountNumber ?? '',
       '[[account_name]]': invoice.accountName ?? '',
       '[[bank_name]]': invoice.bankName ?? '',
       '[[terms_and_conditions]]': invoice.terms ?? '',
-      '[[notes]]': invoice.notes ?? ''
+      '[[notes]]': invoice.notes ?? '',
     };
 
     // Replace all placeholders
     for (const [placeholder, value] of Object.entries(replacements)) {
-      result = result.replaceAll(placeholder, value);
+      result = result.replaceAll(placeholder, () => this.escapeHtml(value));
     }
 
     return result;
@@ -77,9 +90,13 @@ export class TemplateUtil {
   /**
    * Download a TemplateItem as PDF
    */
-  public static downloadTemplateAsPDF(item: TemplateItem): void {
+  public static async downloadTemplateAsPDF(item: TemplateItem): Promise<void> {
+    const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+      import('html2canvas'),
+      import('jspdf'),
+    ]);
     const container = document.createElement('div');
-    container.innerHTML = item.html;
+    container.innerHTML = item.html ?? '';
     container.style.position = 'fixed';
     container.style.top = '0';
     container.style.left = '0';
@@ -124,7 +141,7 @@ export class TemplateUtil {
    * Download a TemplateItem as HTML
    */
   public static downloadTemplateAsHTML(item: TemplateItem): void {
-    const blob = new Blob([item.template], { type: 'text/html' });
+    const blob = new Blob([item.html ?? ''], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');

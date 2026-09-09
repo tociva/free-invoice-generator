@@ -1,39 +1,50 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
-  input,
-  OnInit,
-  signal,
-  HostListener,
+  DestroyRef,
   effect,
+  HostListener,
   inject,
+  input,
+  inject as lifecycleInject,
+  signal,
 } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgIcon } from '@ng-icons/core';
+import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
+import { TngInput } from '@tailng-ui/primitives';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { InvoiceItem } from '../store/models/invoice-model';
 import { InvoiceCalculationService } from '../store/services/calculation.services';
 
 @Component({
   selector: 'app-invoice-items',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIcon, CommonModule],
+  imports: [
+    TngButtonComponent,
+    TngInputFieldComponent,
+    TngInput,
+    ReactiveFormsModule,
+    NgIcon,
+    CommonModule,
+  ],
   templateUrl: './invoice-items.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-items.css'],
 })
 export class InvoiceItemsComponent {
   public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();
   advanced = input<boolean>(false);
-    invoiceService = inject(InvoiceCalculationService)
-
+  invoiceService = inject(InvoiceCalculationService);
 
   hasItemDescription = input<boolean>();
   hasItemDiscount = input<boolean>();
   selectedTaxOption = input<string>('');
 
-  items = signal<any[]>([]);
+  private readonly destroyRef = lifecycleInject(DestroyRef);
+  items = signal<InvoiceItem[]>([]);
   isMobile = signal(window.innerWidth <= 768);
-
-  
 
   @HostListener('window:resize')
   onResize() {
@@ -41,17 +52,9 @@ export class InvoiceItemsComponent {
   }
 
   constructor() {}
-  // ngOnInit(): void {
-  //   this.items.set(this.InvoiceItemForm().getRawValue());
-
-  //   this.InvoiceItemForm().valueChanges.subscribe(() => {
-  //     this.items.set(this.InvoiceItemForm().getRawValue());
-  //   });
-  // }
-  eff= effect(()=>{
+  eff = effect(() => {
     this.items.set(this.InvoiceItemForm().getRawValue());
   });
-  
 
   updateItemTotal(index: number) {
     const item = this.InvoiceItemForm().at(index);
@@ -59,30 +62,30 @@ export class InvoiceItemsComponent {
     const price = item.get('price')?.value || 0;
     const qty = item.get('quantity')?.value || 0;
     const discPer = item.get('discPercentage')?.value || 0;
-    const subTotal = item.get('subTotal')?.value || 0;
+
     const tax1Per = item.get('tax1Percentage')?.value || 0;
     const tax2Per = item.get('tax2Percentage')?.value || 0;
     const tax3Per = item.get('tax3Percentage')?.value || 0;
 
     const baseTotal = this.calculateBaseTotal(price, qty);
     const discountAmount = this.calculateDiscount(baseTotal, discPer);
-    const itemTotal = this.calculateItemTotal(baseTotal, discountAmount, subTotal);
+    const itemTotal = this.calculateItemTotal(baseTotal, discountAmount);
 
     const taxes = this.calculateTaxTotal(itemTotal, tax1Per, tax2Per, tax3Per);
     const grandTotal = itemTotal + taxes.taxTotal;
 
     item.patchValue(
       {
-        itemTotal : baseTotal,
+        itemTotal: baseTotal,
         discountAmount,
-        subTotal:itemTotal,
+        subTotal: itemTotal,
         tax1Amount: taxes.tax1Amount,
         tax2Amount: taxes.tax2Amount,
         tax3Amount: taxes.tax3Amount,
         taxTotal: taxes.taxTotal,
         grandTotal,
       },
-      { emitEvent: true }
+      { emitEvent: true },
     );
   }
   private calculateBaseTotal(price: number, qty: number): number {
@@ -92,12 +95,8 @@ export class InvoiceItemsComponent {
   private calculateDiscount(amount: number, discPer: number): number {
     return (amount * discPer) / 100;
   }
-  private calculateItemTotal(baseTotal: number, discountAmount: number, subTotal?: number): number {
-    if (subTotal && subTotal > 0 && this.hasItemDiscount()) {
-      return baseTotal - discountAmount;
-    }
-
-    return baseTotal;
+  private calculateItemTotal(baseTotal: number, discountAmount: number): number {
+    return this.hasItemDiscount() ? baseTotal - discountAmount : baseTotal;
   }
 
   private calculateTax(amount: number, taxPer: number): number {

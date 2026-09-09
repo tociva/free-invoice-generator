@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { testProviders } from './testing/test-providers';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: testProviders,
       imports: [App],
     }).compileComponents();
   });
@@ -18,6 +20,6 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, free-invoice-generator-2.0');
+    expect(compiled.querySelector('app-header')?.textContent).toContain('Free Invoice Generator');
   });
 });

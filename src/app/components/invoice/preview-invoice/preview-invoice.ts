@@ -1,10 +1,10 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
-  SecurityContext,
   ViewChild,
   computed,
   effect,
@@ -12,23 +12,21 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FormGroup } from '@angular/forms';
-import { InvoiceForm } from '../store/models/invoice-form.model';
+import { SafeHtml } from '@angular/platform-browser';
 import { NgIcon } from '@ng-icons/core';
+import { TngButtonComponent } from '@tailng-ui/components';
 import { invoiceStore } from '../store/invoice.store';
-import { TemplateUtil } from '../utils/templates.utils';
+import { Invoice } from '../store/models/invoice-model';
 import { TemplateService } from '../store/services/template.services';
-import { Template, TemplateItem } from '../store/template/template.model';
+import { TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
-import { firstValueFrom, sample } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { sampleInvoice } from '../../list-templates/template.utils';
+import { TemplateUtil } from '../utils/templates.utils';
 
 @Component({
   selector: 'app-preview-invoice',
   standalone: true,
-  imports: [NgIcon],
+  imports: [TngButtonComponent, NgIcon],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './preview-invoice.html',
 })
 export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -44,7 +42,6 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
   private templateService = inject(TemplateService);
   private resizeObserver?: ResizeObserver;
   private previewViewportRef?: ElementRef<HTMLDivElement>;
-  
 
   @ViewChild('previewViewport')
   set previewViewport(element: ElementRef<HTMLDivElement> | undefined) {
@@ -76,7 +73,6 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
 
   templateStore = inject(templateStore);
   invoiceStore = inject(invoiceStore);
-  http = inject(HttpClient);
 
   updatePreview(): void {
     const template = this.selectedTemplate();
@@ -85,41 +81,16 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
       this.renderPreviewHtml(template.html, form);
     }
   }
-  // private async fetchTemplateHtml(path: string): Promise<string | null> {
-  //   try {
-  //     const templateHtml = await firstValueFrom(
-  //       this.http.get(path, { responseType: 'text' })
-  //     );
-  //           console.log(templateHtml);
-
-  //     return templateHtml || null;
-      
-  //   } catch (err) {
-  //     console.error('Failed to fetch template:', err);
-  //     return null;
-  //   }
-  // }
-
-  // async updateTemplateView(){
-  //   const path = this.templateStore.selectedTemplatePath();
-  //     if (!path) return;
-  //     console.log(path);
-      
-
-  //     const templateHtml = await this.fetchTemplateHtml(path);
-  //     if (!templateHtml) return;
-
-  //     this.renderPreviewHtml(templateHtml, sampleInvoice);
-
-  // }
-  private renderPreviewHtml(templateHtml: string, data: any): void {
+  private renderPreviewHtml(templateHtml: string, data: Invoice): void {
     const filledHtml = TemplateUtil.fillTemplate(templateHtml, data);
     const safeHTML = this.templateService.createWrappedSafeHtml(filledHtml);
     this.previewHtml.set(safeHTML);
   }
 
   handlePrint(): void {
-    const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+    const iframe = this.previewViewportRef?.nativeElement.querySelector(
+      'iframe',
+    ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.focus();
       iframe.contentWindow.print();
@@ -127,9 +98,12 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   handleDownloadPDF(item: TemplateItem | null): void {
-  if (!item?.safeHTML) return;
-  TemplateUtil.downloadTemplateAsPDF(item);
-}
+    if (!item?.safeHTML) return;
+    TemplateUtil.downloadTemplateAsPDF({
+      ...item,
+      html: TemplateUtil.fillTemplate(item.html ?? '', this.invoiceStore.invoice()),
+    });
+  }
 
   handleDownloadJSON(): void {
     const invoiceData = this.invoiceStore.invoice();
@@ -143,21 +117,24 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   handleDownloadHTML(item: TemplateItem | null): void {
-  if (!item?.safeHTML) return;
-  TemplateUtil.downloadTemplateAsHTML(item);
+    if (!item?.safeHTML) return;
+    TemplateUtil.downloadTemplateAsHTML({
+      ...item,
+      html: TemplateUtil.fillTemplate(item.html ?? '', this.invoiceStore.invoice()),
+    });
   }
 
   handleViewCode(): void {
-  const template = this.selectedTemplate();
-  const blob = new Blob([template?.html || ''], { type: 'text/html' });
-  const url = window.URL.createObjectURL(blob);
+    const template = this.selectedTemplate();
+    const blob = new Blob([template?.html || ''], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
 
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${template?.name || 'template'}.html`;
-  a.click();
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${template?.name || 'template'}.html`;
+    a.click();
 
-  window.URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url);
   }
 
   private startResizeObserver(): void {

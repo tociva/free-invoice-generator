@@ -1,4 +1,4 @@
-import { SafeHtml } from "@angular/platform-browser";
+import { SafeHtml } from '@angular/platform-browser';
 
 export interface Template {
   theme: string;
@@ -12,8 +12,7 @@ export interface TemplateItem {
   path: string;
   tags: string[];
   taxType?: 'IGST' | 'CGST & SGST' | 'Non-Taxable';
-  color: 'Red' | 'Blue'| 'Green'| 'Yellow';
-  html: string;
-  safeHTML: SafeHtml;
-  template: string;
+  color: 'Red' | 'Blue' | 'Green' | 'Yellow';
+  html?: string;
+  safeHTML?: SafeHtml;
 }

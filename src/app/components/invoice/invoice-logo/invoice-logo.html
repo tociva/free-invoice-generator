@@ -1,28 +1,29 @@
-<div class="relative w-full rounded-xl  bg-white flex items-center justify-center h- cursor-pointer mt-5">
-
-  @if (!uploadedImageUrl()){
+<div
+  class="relative w-full rounded-xl bg-white flex items-center justify-center h- cursor-pointer mt-5"
+>
+  @if (!uploadedImageUrl()) {
     <app-file-upload
       [fileUploadAccept]="'.png,.jpg,.jpeg,.gif'"
-    [deskTopView]="!isMobile() ? 'Tap to Drop your ' + logoField() + ' here' : ''"
-    [mobileView]="isMobile() ? 'Tap to Upload ' + logoField() : ''"
-          (fileChanged)="onFilesReceived($event)"
+      [deskTopView]="!isMobile() ? 'Tap to Drop your ' + logoField() + ' here' : ''"
+      [mobileView]="isMobile() ? 'Tap to Upload ' + logoField() : ''"
+      (fileChanged)="onFilesReceived($event)"
       class="w-full h-full flex items-center justify-center"
     ></app-file-upload>
   }
 
-  @if (uploadedImageUrl()){
+  @if (uploadedImageUrl()) {
     <img
       [src]="uploadedImageUrl()"
       alt="Uploaded Image"
       class="block inset-0 w-50 h-50 object-contain rounded-xl"
     />
 
-    <button
+    <tng-button
       type="button"
       (click)="removeImage()"
       class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600"
     >
       ✕
-    </button>
+    </tng-button>
   }
 </div>

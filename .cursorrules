@@ -1,7 +1,7 @@
 It is an angular project.
 It uses ngrx for state management.
 It uses scss for styling.
-It uses material ui for components.
+It uses TailNG components with Tailwind CSS 4.
 It is a standalone project.
 It is a web app.
 It is a single page app.

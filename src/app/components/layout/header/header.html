@@ -5,7 +5,7 @@
 
   <!-- Desktop Menu -->
   <div class="hidden md:flex gap-8 text-sm font-medium">
-        <a routerLink="/Testing">Test Data</a>
+    <a routerLink="/Testing">Test Data</a>
 
     <a routerLink="/home">Home</a>
     <a routerLink="/simple-invoice">Simple Invoice</a>
@@ -16,23 +16,31 @@
   </div>
 
   <!-- Hamburger Button -->
-  <button class="md:hidden text-text focus:outline-none" (click)="toggleMenu()">
+  <button
+    tngPress
+    type="button"
+    [ariaExpanded]="menuOpen()"
+    ariaControls="mobile-navigation"
+    class="md:hidden text-text focus:outline-none"
+    (click)="toggleMenu()"
+  >
     <!-- Icon -->
     <ng-icon
       [name]="menuOpen() ? 'bootstrapX' : 'bootstrapList'"
       class="w-10 h-15 text-4xl"
     ></ng-icon>
+    <span class="sr-only">Menu</span>
   </button>
 </div>
 
 <!-- Mobile Menu -->
-@if(menuOpen()){
-<div class="md:hidden bg-background text-white flex flex-col gap-2 p-4">
-  <a routerLink="/home" (click)="closeMenu()">Home</a>
-  <a routerLink="/simple-invoice" (click)="closeMenu()">Simple Invoice</a>
-  <a routerLink="/invoice" (click)="closeMenu()">Advance Invoice</a>
-  <a href="https://github.com" target="_blank">GitHub</a>
-  <a routerLink="/templates" (click)="closeMenu()">Templates</a>
-  <a href="/docs/index.html" (click)="closeMenu()">Doc</a>
-</div>
+@if (menuOpen()) {
+  <div id="mobile-navigation" class="md:hidden bg-background text-white flex flex-col gap-2 p-4">
+    <a routerLink="/home" (click)="closeMenu()">Home</a>
+    <a routerLink="/simple-invoice" (click)="closeMenu()">Simple Invoice</a>
+    <a routerLink="/invoice" (click)="closeMenu()">Advance Invoice</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a routerLink="/templates" (click)="closeMenu()">Templates</a>
+    <a href="/docs/index.html" (click)="closeMenu()">Doc</a>
+  </div>
 }

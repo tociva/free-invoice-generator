@@ -40,14 +40,14 @@
 <!-- MOBILE HEADER -->
 <div class="sm:hidden bg-white shadow-sm">
   <div class="max-w-8xl mx-auto px-4 py-3 flex items-center justify-between">
-    <button
+    <tng-button
       type="button"
       class="px-3 py-1 rounded-md bg-gray-100 text-gray-700 disabled:opacity-50"
       (click)="goToStep(currentStep() - 1)"
       [disabled]="isFirstStep()"
     >
       Prev
-    </button>
+    </tng-button>
 
     <div class="text-center flex-1 px-4">
       <div class="text-sm text-gray-500">Step {{ currentStep() }} of {{ steps.length }}</div>
@@ -56,14 +56,14 @@
       </div>
     </div>
 
-    <button
+    <tng-button
       type="button"
       class="px-3 py-1 rounded-md bg-blue-600 text-white disabled:opacity-50"
       (click)="goToStep(currentStep() + 1)"
       [disabled]="isLastStep()"
     >
       Next
-    </button>
+    </tng-button>
   </div>
 </div>
 
@@ -107,13 +107,13 @@
           <app-simple-invoice-config [InvoiceConfiq]="formInvoice"></app-simple-invoice-config>
 
           <!-- Button -->
-          <button
+          <tng-button
             class="btn-action flex items-center justify-center gap-2 w-full sm:w-auto bg-background px-4 py-2 rounded hover:bg-gray-100 transition"
             (click)="temp()"
           >
             <ng-icon name="bootstrapCheckCircleFill"></ng-icon>
             Preview and Download
-          </button>
+          </tng-button>
         </div>
       </div>
 
@@ -121,23 +121,23 @@
       <div
         class="flex items-center justify-between mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 pb-24 sm:pb-28"
       >
-        <button
+        <tng-button
           type="button"
           class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-gray-700 bg-white border rounded-lg"
           (click)="goToStep(currentStep() - 1)"
           [disabled]="isFirstStep()"
         >
           Previous
-        </button>
+        </tng-button>
 
-        <button
+        <tng-button
           type="button"
           class="px-4 sm:px-6 py-2 text-sm sm:text-base font-medium text-white bg-background rounded-lg shadow-md"
           (click)="goToStep(currentStep() + 1)"
           [disabled]="isLastStep()"
         >
           Select Template
-        </button>
+        </tng-button>
       </div>
     </div>
   }
@@ -165,20 +165,20 @@
       <div
         class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4"
       >
-        <button
+        <tng-button
           type="button"
           class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
           (click)="goToStep(currentStep() - 1)"
         >
           Back Update Invoice
-        </button>
-        <button
+        </tng-button>
+        <tng-button
           type="button"
           class="w-full sm:w-auto px-4 py-2 text-white bg-background rounded-lg shadow-md"
           (click)="goToStep(currentStep() + 1)"
         >
           Preview and Download
-        </button>
+        </tng-button>
       </div>
     </div>
   }
@@ -202,20 +202,20 @@
       <div
         class="flex flex-col sm:flex-row items-center justify-between my-6 py-4 border-gray-200 gap-4"
       >
-        <button
+        <tng-button
           type="button"
           class="w-full sm:w-auto px-4 py-2 text-gray-700 bg-white border rounded-lg"
           (click)="goToStep(currentStep() - 1)"
         >
           Back - Select Template
-        </button>
-        <button
+        </tng-button>
+        <tng-button
           type="button"
           class="w-full sm:w-auto px-4 py-2 text-white bg-background border rounded-lg"
           (click)="goToStep(currentStep() - 2)"
         >
           Finish- Create another Invoice
-        </button>
+        </tng-button>
       </div>
     </div>
   }

@@ -4,7 +4,9 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
       <!-- Header with Template Name and Action Buttons -->
       <div class="bg-white border-b border-gray-200 px-3 sm:px-4 py-2 sm:py-3">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4"
+        >
           <!-- Left: Template Name -->
           <div class="flex items-center">
             <h1 class="text-lg sm:text-xl font-bold text-gray-900">
@@ -15,94 +17,91 @@
           <!-- Right: Action Buttons -->
           <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
             <!-- Print Button -->
-            <button
+            <tng-button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
               (click)="handlePrint()"
               title="Print"
             >
               <ng-icon name="bootstrapPrinter" class="w-4 h-4" />
-              <span class="hidden sm:inline">Print</span>
-            </button>
+              <span class="sr-only sm:not-sr-only">Print</span>
+            </tng-button>
 
             <!-- PDF Button -->
-            <button
+            <tng-button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
-                (click)="handleDownloadPDF(selectedTemplate())"
+              (click)="handleDownloadPDF(selectedTemplate())"
               title="Download PDF"
             >
               <ng-icon name="bootstrapFileEarmarkPdfFill" class="w-4 h-4" />
-              <span class="hidden sm:inline">PDF</span>
-            </button>
+              <span class="sr-only sm:not-sr-only">PDF</span>
+            </tng-button>
 
             <!-- JSON Button -->
-            <button
+            <tng-button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
               (click)="handleDownloadJSON()"
               title="Download JSON"
             >
               <ng-icon name="bootstrapFileEarmarkCode" class="w-4 h-4" />
-              <span class="hidden sm:inline">{{ '{' }} {{ '}' }} JSON</span>
-            </button>
+              <span class="sr-only sm:not-sr-only">{{ '{' }} {{ '}' }} JSON</span>
+            </tng-button>
 
             <!-- HTML Button -->
-            <button
+            <tng-button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
               (click)="handleDownloadHTML(selectedTemplate())"
               title="Download HTML"
             >
               <ng-icon name="bootstrapFileEarmarkCode" class="w-4 h-4" />
-              <span class="hidden sm:inline">HTML</span>
-            </button>
+              <span class="sr-only sm:not-sr-only">HTML</span>
+            </tng-button>
 
             <!-- Code Button -->
-            <button
+            <tng-button
               type="button"
               class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
               (click)="handleViewCode()"
               title="View Code"
             >
               <ng-icon name="bootstrapFileCode" class="w-4 h-4" />
-              <span class="hidden sm:inline">&lt; &gt; Code</span>
-            </button>
+              <span class="sr-only sm:not-sr-only">&lt; &gt; Code</span>
+            </tng-button>
           </div>
         </div>
       </div>
 
       <!-- Invoice Preview Container -->
       <div class="flex justify-center items-start min-h-150 p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-50">
+        <div
+          #previewViewport
+          class="w-full flex justify-center items-start h-[calc(100vh-12rem)] sm:h-auto sm:max-h-none"
+        >
           <div
-            #previewViewport
-            class="w-full flex justify-center items-start h-[calc(100vh-12rem)] sm:h-auto sm:max-h-none"
+            class="bg-white shadow-md mx-auto overflow-hidden"
+            [style.width.px]="scaledWidth()"
+            [style.height.px]="scaledHeight()"
           >
-         
             <div
-              class="bg-white shadow-md mx-auto overflow-hidden"
-              [style.width.px]="scaledWidth()"
-              [style.height.px]="scaledHeight()"
+              class="origin-top-left"
+              [style.transform]="'scale(' + previewScale() + ')'"
+              [style.width.px]="baseWidth"
+              [style.height.px]="baseHeight"
             >
-            
-            <div
-                class="origin-top-left"
-                [style.transform]="'scale(' + previewScale() + ')'"
-                [style.width.px]="baseWidth"
-                [style.height.px]="baseHeight"
-              >
-            
-                <iframe
-                  [attr.srcdoc]="previewHtml()"
-                  class="block w-full h-full border-0 bg-white"
-                  frameborder="0"
-                ></iframe>
-              
-              </div>
+              <iframe
+                sandbox="allow-same-origin allow-modals"
+                title="Invoice preview"
+                [attr.srcdoc]="previewHtml()"
+                class="block w-full h-full border-0 bg-white"
+                frameborder="0"
+              ></iframe>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
