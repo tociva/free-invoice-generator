@@ -61,16 +61,20 @@
   @if (advanced()) {
     <!-- Currency -->
     <div class="app-form-row">
-      <label
-        for="invoice-details-currency"
-        id="invoice-details-currency-label"
-        class="app-field-label"
-        >Currency</label
-      >
-      <app-tailng-select
-        formControlName="currency"
-        [options]="currencyStore.currencies()"
+      <label id="invoice-details-currency-label" class="app-field-label">Currency</label>
+      <tng-autocomplete
+        class="app-field"
         labelId="invoice-details-currency-label"
+        placeholder="Search currency..."
+        ariaLabel="Currency"
+        [options]="filteredCurrencies()"
+        [getOptionValue]="currencyValue"
+        [getOptionLabel]="currencyLabel"
+        [query]="currencyQuery()"
+        (queryChange)="currencyQuery.set($event)"
+        (openChange)="onCurrencyOpenChange($event)"
+        [value]="currencyKeyOf(InvoiceDetailsForm().get('currency')?.value ?? null)"
+        (valueChange)="onCurrencyValueChange($event)"
       />
     </div>
 
@@ -116,16 +120,20 @@
 
     <!-- Tax Option -->
     <div class="app-form-row">
-      <label
-        for="invoice-details-taxOption"
-        id="invoice-details-taxOption-label"
-        class="app-field-label"
-        >Tax Option</label
-      >
-      <app-tailng-select
-        formControlName="taxOption"
-        [options]="taxOptions"
+      <label id="invoice-details-taxOption-label" class="app-field-label">Tax Option</label>
+      <tng-autocomplete
+        class="app-field"
         labelId="invoice-details-taxOption-label"
+        placeholder="Search tax option..."
+        ariaLabel="Tax Option"
+        [options]="filteredTaxOptions()"
+        [getOptionValue]="taxValue"
+        [getOptionLabel]="taxLabel"
+        [query]="taxOptionQuery()"
+        (queryChange)="taxOptionQuery.set($event)"
+        (openChange)="onTaxOptionOpenChange($event)"
+        [value]="taxKeyOf(InvoiceDetailsForm().get('taxOption')?.value ?? null)"
+        (valueChange)="onTaxOptionValueChange($event)"
       />
     </div>
 
@@ -151,16 +159,20 @@
 
     <!-- Date Format -->
     <div class="app-form-row">
-      <label
-        for="invoice-details-dateFormat"
-        id="invoice-details-dateFormat-label"
-        class="app-field-label"
-        >Date Format</label
-      >
-      <app-tailng-select
-        formControlName="dateFormat"
-        [options]="dateFormatStore.dateFormat()"
+      <label id="invoice-details-dateFormat-label" class="app-field-label">Date Format</label>
+      <tng-autocomplete
+        class="app-field"
         labelId="invoice-details-dateFormat-label"
+        placeholder="Search date format..."
+        ariaLabel="Date Format"
+        [options]="filteredDateFormats()"
+        [getOptionValue]="dateFormatValue"
+        [getOptionLabel]="dateFormatLabel"
+        [query]="dateFormatQuery()"
+        (queryChange)="dateFormatQuery.set($event)"
+        (openChange)="onDateFormatOpenChange($event)"
+        [value]="dateFormatKeyOf(InvoiceDetailsForm().get('dateFormat')?.value ?? null)"
+        (valueChange)="onDateFormatValueChange($event)"
       />
     </div>
 
