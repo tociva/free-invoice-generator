@@ -1,9 +1,19 @@
-import { TngCardComponent, TngInputFieldComponent } from '@tailng-ui/components';
+import {
+  TngCardComponent,
+  TngInputFieldComponent,
+  TngAutocompleteComponent,
+} from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TngInput } from '@tailng-ui/primitives';
-import { CountrySearchService } from '../store/country/country-search.service';
 import { Country } from '../store/country/country.model';
 import { countryStore } from '../store/country/country.store';
 import { CustomerForm } from '../store/models/invoice-form.model';
@@ -11,7 +21,14 @@ import { CustomerForm } from '../store/models/invoice-form.model';
 @Component({
   selector: 'app-invoice-customer',
   standalone: true,
-  imports: [TngCardComponent, TngInputFieldComponent, TngInput, ReactiveFormsModule, CommonModule],
+  imports: [
+    TngCardComponent,
+    TngInputFieldComponent,
+    TngAutocompleteComponent,
+    TngInput,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   templateUrl: './invoice-customer.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-customer.css'],
@@ -19,70 +36,66 @@ import { CustomerForm } from '../store/models/invoice-form.model';
 export class InvoiceCustomerComponent {
   advanced = input<boolean>(false);
   public countryStore = inject(countryStore);
-  private countrySearchService = inject(CountrySearchService);
 
-  // Create search state using the service
-  private searchState = this.countrySearchService.createSearchState();
-  countrySearchTerm = this.searchState.searchTerm;
-  countryDropdownOpen = this.searchState.dropdownOpen;
-  isEditingCountry = this.searchState.isEditing;
+  public InvoiceCustomerForm = input.required<FormGroup<CustomerForm>>();
 
-  // Filtered countries using the service
-  filteredCountries = this.countrySearchService.createFilteredCountriesSignal(
-    this.countryStore.countries,
-    this.countrySearchTerm,
-  );
+  // ---------------------------------------------------------------------
+  // Country search – same pattern as organization / currency / date format.
+  // tng-autocomplete does NOT filter options itself.
+  // ---------------------------------------------------------------------
+  readonly countryQuery = signal('');
+
+  readonly filteredCountries = computed<readonly Country[]>(() => {
+    const q = this.countryQuery().trim().toLowerCase();
+    const list = this.countryStore.countries();
+    if (!q) {
+      return list;
+    }
+    return list.filter((c) => c.name.toLowerCase().startsWith(q));
+  });
+
+  // Display: country name (same as your old dropdown)
+  readonly countryLabel = (c: Country) => c.name;
+
+  // String() so a numeric 91 and a string "91" are treated as the same key
+  readonly countryValue = (c: Country) => String(c.code);
+
+  // Resolve the form's country object to the store's matching option:
+  // by code first (with String() coercion), then by name (covers saved/
+  // default objects whose `code` holds the dialing code, e.g. 91 for
+  // India). Returns null when nothing matches, so the input shows EMPTY
+  // instead of a raw code.
+  countryKeyOf(value: Country | null): string | null {
+    if (!value) {
+      return null;
+    }
+    const list = this.countryStore.countries();
+    const byCode = list.find((c) => String(c.code) === String(value.code));
+    const match =
+      byCode ?? (value.name ? list.find((c) => c.name === value.name) : undefined);
+    return match ? String(match.code) : null;
+  }
+
+  // Only write to the form on a real pick; clearing the text keeps the selection
+  onCountryValueChange(key: string | null) {
+    if (!key) {
+      return;
+    }
+    const match = this.countryStore.countries().find((c) => String(c.code) === String(key));
+    if (match) {
+      this.InvoiceCustomerForm().get('country')?.setValue(match);
+    }
+  }
+
+  onCountryOpenChange(open: boolean) {
+    if (open) {
+      this.countryQuery.set('');
+    } else {
+      this.InvoiceCustomerForm().get('country')?.markAsTouched();
+    }
+  }
 
   ngOnInit(): void {
     this.countryStore.loadCountry();
   }
-
-  public InvoiceCustomerForm = input.required<FormGroup<CustomerForm>>();
-
-  // Get selected country from form
-  get selectedCountry(): Country | null {
-    return this.InvoiceCustomerForm().get('country')?.value ?? null;
-  }
-
-  // Expose service methods directly with form integration
-  onCountrySearch = (event: Event) =>
-    this.countrySearchService.onCountrySearch(
-      event,
-      this.countrySearchTerm,
-      this.isEditingCountry,
-      this.countryDropdownOpen,
-    );
-
-  selectCountry = (country: Country) => {
-    const selected = this.countrySearchService.selectCountry(
-      country,
-      this.countrySearchTerm,
-      this.isEditingCountry,
-      this.countryDropdownOpen,
-    );
-    this.InvoiceCustomerForm().patchValue({ country: selected });
-  };
-
-  getSelectedCountryName = () =>
-    this.countrySearchService.getSelectedCountryName(
-      this.selectedCountry,
-      this.countrySearchTerm(),
-      this.isEditingCountry(),
-    );
-
-  onInputFocus = () =>
-    this.countrySearchService.onInputFocus(
-      this.selectedCountry,
-      this.countrySearchTerm,
-      this.isEditingCountry,
-      this.countryDropdownOpen,
-    );
-
-  onInputBlur = () =>
-    this.countrySearchService.onInputBlur(
-      this.selectedCountry,
-      this.countrySearchTerm,
-      this.isEditingCountry,
-      this.countryDropdownOpen,
-    );
 }
