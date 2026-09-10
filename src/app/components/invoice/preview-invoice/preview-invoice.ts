@@ -1,3 +1,4 @@
+import { TngButtonComponent, TngCardComponent } from '@tailng-ui/components';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -14,7 +15,6 @@ import {
 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent } from '@tailng-ui/components';
 import { invoiceStore } from '../store/invoice.store';
 import { Invoice } from '../store/models/invoice-model';
 import { TemplateService } from '../store/services/template.services';
@@ -25,9 +25,10 @@ import { TemplateUtil } from '../utils/templates.utils';
 @Component({
   selector: 'app-preview-invoice',
   standalone: true,
-  imports: [TngButtonComponent, NgIcon],
+  imports: [TngCardComponent, TngButtonComponent, NgIcon],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './preview-invoice.html',
+  styleUrl: './preview-invoice.css',
 })
 export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedTemplate = input<TemplateItem | null>(null);

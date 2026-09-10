@@ -1,192 +1,176 @@
 @if (!isMobile()) {
-  <div class="space-y-4 overflow-x-auto">
-    <table
-      class="min-w-full rounded-lg bg-white text-sm text-white border-collapse border border-gray-400 table-fixed"
-    >
+  <div class="app-item-table-scroll">
+    <table class="app-item-table">
       <!-- HEADER -->
-      <thead class="bg-background border border-solid text-xs h-20">
+      <thead>
         <!-- First row -->
-        <tr class="text-center">
-          <th class="px border border-solid" rowspan="2">Item Name</th>
+        <tr>
+          <th rowspan="2">Item Name</th>
           @if (advanced() && hasItemDescription()) {
-            <th class="px-4 py-3 border border-solid" rowspan="2">Description</th>
+            <th rowspan="2">Description</th>
           }
-          <th class="px-4 py-3 border border-solid" rowspan="2">Price</th>
-          <th class="px-4 py-3 border border-solid" rowspan="2">Qty</th>
-          <th class="px-4 py-3 border border-solid" rowspan="2">Total</th>
+          <th rowspan="2">Price</th>
+          <th rowspan="2">Qty</th>
+          <th rowspan="2">Total</th>
 
           @if (advanced() && hasItemDiscount()) {
             <!-- Discount parent -->
-            <th
-              class="px-4 py-3 border border-solid"
-              style="writing-mode: vertical-rl; transform: rotate(180deg)"
-              rowspan="2"
-            >
+            <th style="writing-mode: vertical-rl; transform: rotate(180deg)" rowspan="2">
               Discount
             </th>
 
             <!-- % and Value stacked in second column -->
-            <th class="px-1 py-1">
-              <div class="flex flex-col">
+            <th>
+              <div class="app-item-values">
                 <span>%</span>
                 <span>Value</span>
               </div>
             </th>
-            <th class="px-4 py-3 border border-solid" rowspan="2">SubTotal</th>
+            <th rowspan="2">SubTotal</th>
           }
           @if (advanced()) {
             @if (selectedTaxOption() == 'CGST & SGST') {
-              <th
-                class="px-4 py-3 border border-solid"
-                style="writing-mode: vertical-rl; transform: rotate(180deg)"
-                rowspan="2"
-              >
-                CGST
-              </th>
+              <th style="writing-mode: vertical-rl; transform: rotate(180deg)" rowspan="2">CGST</th>
 
               <!-- % and Value stacked in second column -->
-              <th class="px-1 py-1">
-                <div class="flex flex-col">
+              <th>
+                <div class="app-item-values">
                   <span>%</span>
                   <span>Value</span>
                 </div>
               </th>
-              <th
-                class="px-4 py-3 border border-solid"
-                style="writing-mode: vertical-rl; transform: rotate(180deg)"
-                rowspan="2"
-              >
-                SGST
-              </th>
+              <th style="writing-mode: vertical-rl; transform: rotate(180deg)" rowspan="2">SGST</th>
 
               <!-- % and Value stacked in second column -->
-              <th class="px-1 py-1">
-                <div class="flex flex-col">
+              <th>
+                <div class="app-item-values">
                   <span>%</span>
                   <span>Value</span>
                 </div>
               </th>
             }
             @if (selectedTaxOption() == 'IGST') {
-              <th
-                class="px-4 py-3 border border-solid"
-                style="writing-mode: vertical-rl; transform: rotate(180deg)"
-                rowspan="2"
-              >
-                IGST
-              </th>
+              <th style="writing-mode: vertical-rl; transform: rotate(180deg)" rowspan="2">IGST</th>
 
               <!-- % and Value stacked in second column -->
-              <th class="px-1 py-1">
-                <div class="flex flex-col">
+              <th>
+                <div class="app-item-values">
                   <span>%</span>
                   <span>Value</span>
                 </div>
               </th>
             }
             @if (selectedTaxOption() == 'IGST' || selectedTaxOption() == 'CGST & SGST') {
-              <th class="px-4 py-3 border border-solid" rowspan="2">Tax Total</th>
+              <th rowspan="2">Tax Total</th>
             }
           }
           @if (advanced() && selectedTaxOption() != 'Non Taxable') {
-            <th class="px-4 py-3 border border-solid" rowspan="2">Grand Total</th>
+            <th rowspan="2">Grand Total</th>
           }
-          <th class="px-4 py-3 border border-solid" rowspan="2">Action</th>
+          <th rowspan="2">Action</th>
         </tr>
       </thead>
 
       <!-- BODY -->
-      <tbody class="divide-y divide-gray-400 h-25 text-black">
+      <tbody>
         @for (item of InvoiceItemForm().controls; track $index) {
-          <tr [formGroup]="item" class="text-center">
-            <td class="px-3 py border border-solid text-left">
-              <tng-input-field class="min-w-0" size="sm"
+          <tr [formGroup]="item">
+            <td>
+              <tng-input-field class="app-field" size="sm"
                 ><input
+                  aria-label="Item name"
                   tngInput
                   formControlName="name"
-                  class="form-input border-none outline-0 w-full"
+                  class="app-field-control"
                   placeholder="Enter item name"
               /></tng-input-field>
             </td>
 
             @if (advanced() && hasItemDescription()) {
-              <td class="px-3 py border border-solid">
-                <tng-input-field class="min-w-0" size="sm"
+              <td>
+                <tng-input-field class="app-field" size="sm"
                   ><input
+                    aria-label="description"
                     tngInput
                     formControlName="description"
-                    class="form-input border-none outline-0 w-full"
+                    class="app-field-control"
                 /></tng-input-field>
               </td>
             }
 
-            <td class="px-3 py border border-solid">
-              <tng-input-field class="min-w-0" size="sm"
+            <td>
+              <tng-input-field class="app-field" size="sm"
                 ><input
+                  aria-label="Price"
                   tngInput
                   formControlName="price"
                   type="number"
                   (change)="updateItemTotal($index)"
-                  class="form-input text-center w-20 border-none outline-0"
+                  class="app-field-control app-field-control--numeric"
               /></tng-input-field>
             </td>
 
-            <td class="px-3 py border border-solid">
-              <tng-input-field class="min-w-0" size="sm"
+            <td>
+              <tng-input-field class="app-field" size="sm"
                 ><input
+                  aria-label="Quantity"
                   tngInput
                   formControlName="quantity"
                   type="number"
                   (change)="updateItemTotal($index)"
-                  class="form-input text-center w-15 border-none outline-0"
+                  class="app-field-control app-field-control--numeric"
               /></tng-input-field>
             </td>
 
-            <td class="px-3 py border border-solid">
-              <tng-input-field class="min-w-0" size="sm"
+            <td>
+              <tng-input-field class="app-field" size="sm"
                 ><input
+                  aria-label="Item total"
                   tngInput
                   formControlName="itemTotal"
                   readonly
-                  class="form-input text-center w-20 border-none"
+                  class="app-field-control app-field-control--numeric"
               /></tng-input-field>
             </td>
 
             @if (advanced() && hasItemDiscount()) {
               <!-- Empty cells for alignment -->
-              <td class="px-3 py-1" colspan="1"></td>
+              <td colspan="1"></td>
 
               <!-- Discount % and Amount stacked -->
-              <td class="px-3 py gap flex justify-center">
-                <div class="flex flex-col space-y-1">
-                  <tng-input-field class="min-w-0" size="sm"
+              <td>
+                <div class="app-item-values">
+                  <tng-input-field class="app-field" size="sm"
                     ><input
+                      aria-label="Discount percentage"
                       tngInput
                       formControlName="discPercentage"
                       type="number"
                       (change)="updateItemTotal($index)"
                       placeholder="%"
-                      class="form-input w-15 border-none"
+                      class="app-field-control app-field-control--numeric"
                   /></tng-input-field>
-                  <tng-input-field class="min-w-0" size="sm"
+                  <tng-input-field class="app-field" size="sm"
                     ><input
+                      aria-label="Discount amount"
                       tngInput
                       formControlName="discountAmount"
                       readonly
                       placeholder="Value"
-                      class="form-input w-15 border-none"
+                      class="app-field-control app-field-control--numeric"
                   /></tng-input-field>
                 </div>
               </td>
 
               <!-- Subtotal -->
-              <td class="px-3 py border border-solid">
-                <tng-input-field class="min-w-0" size="sm"
+              <td>
+                <tng-input-field class="app-field" size="sm"
                   ><input
+                    aria-label="Subtotal"
                     tngInput
                     formControlName="subTotal"
                     readonly
-                    class="form-input text-center w-20 border-none"
+                    class="app-field-control app-field-control--numeric"
                 /></tng-input-field>
               </td>
             }
@@ -194,106 +178,116 @@
             <!-- Taxes -->
             @if (advanced()) {
               @if (selectedTaxOption() == 'CGST & SGST') {
-                <td class="px-3 py-1" colspan="1"></td>
-                <td class="px-3 py gap flex justify-center">
-                  <div class="flex flex-col space-y-1">
-                    <tng-input-field class="min-w-0" size="sm"
+                <td colspan="1"></td>
+                <td>
+                  <div class="app-item-values">
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="CGST percentage"
                         tngInput
                         formControlName="tax1Percentage"
                         type="number"
                         (change)="updateItemTotal($index)"
                         placeholder="%"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
-                    <tng-input-field class="min-w-0" size="sm"
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="CGST value"
                         tngInput
                         formControlName="tax1Amount"
                         readonly
                         placeholder="Value"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
                   </div>
                 </td>
-                <td class="px-3 py-1" colspan="1"></td>
-                <td class="px-3 py gap flex justify-center">
-                  <div class="flex flex-col space-y-1">
-                    <tng-input-field class="min-w-0" size="sm"
+                <td colspan="1"></td>
+                <td>
+                  <div class="app-item-values">
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="SGST percentage"
                         tngInput
                         formControlName="tax2Percentage"
                         type="number"
                         (change)="updateItemTotal($index)"
                         placeholder="%"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
-                    <tng-input-field class="min-w-0" size="sm"
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="SGST value"
                         tngInput
                         formControlName="tax2Amount"
                         readonly
                         placeholder="Value"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
                   </div>
                 </td>
               }
               @if (selectedTaxOption() == 'IGST') {
-                <td class="px-3 py-1" colspan="1"></td>
-                <td class="px-3 py gap flex justify-center">
-                  <div class="flex flex-col space-y-1">
-                    <tng-input-field class="min-w-0" size="sm"
+                <td colspan="1"></td>
+                <td>
+                  <div class="app-item-values">
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="IGST percentage"
                         tngInput
                         formControlName="tax3Percentage"
                         type="number"
                         (change)="updateItemTotal($index)"
                         placeholder="%"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
-                    <tng-input-field class="min-w-0" size="sm"
+                    <tng-input-field class="app-field" size="sm"
                       ><input
+                        aria-label="IGST value"
                         tngInput
                         formControlName="tax3Amount"
                         readonly
                         placeholder="Value"
-                        class="form-input w-15 border-none"
+                        class="app-field-control app-field-control--numeric"
                     /></tng-input-field>
                   </div>
                 </td>
               }
               @if (selectedTaxOption() == 'IGST' || selectedTaxOption() == 'CGST & SGST') {
-                <td class="px-3 py border border-solid">
-                  <tng-input-field class="min-w-0" size="sm"
+                <td>
+                  <tng-input-field class="app-field" size="sm"
                     ><input
+                      aria-label="Tax total"
                       tngInput
                       formControlName="taxTotal"
                       readonly
-                      class="form-input text-center w-20 border-none"
+                      class="app-field-control app-field-control--numeric"
                   /></tng-input-field>
                 </td>
               }
             }
             @if (advanced() && selectedTaxOption() != 'Non Taxable') {
-              <td class="px-3 py border border-solid">
-                <tng-input-field class="min-w-0" size="sm"
+              <td>
+                <tng-input-field class="app-field" size="sm"
                   ><input
+                    aria-label="Grand total"
                     tngInput
                     formControlName="grandTotal"
                     readonly
-                    class="form-input text-center w-20 border-none"
+                    class="app-field-control app-field-control--numeric"
                 /></tng-input-field>
               </td>
             }
-            <td class="px-3 py border border-solid">
+            <td>
               <tng-button
+                size="sm"
+                tone="danger"
+                appearance="solid"
                 type="button"
-                class="text-red-500 hover:text-red-700"
                 (click)="removeItem($index)"
               >
-                <ng-icon name="bootstrapTrashFill" class="w-5 h-5" />
-                <span class="sr-only">Remove item</span></tng-button
+                <ng-icon name="bootstrapTrashFill" />
+                <span class="app-sr-only">Remove item</span></tng-button
               >
             </td>
           </tr>
@@ -302,13 +296,9 @@
     </table>
 
     <!-- ADD ITEM -->
-    <div class="text-center mb-5">
-      <tng-button
-        type="button"
-        (click)="addItem()"
-        class="bg-background text-white px-4 py-2 rounded-md text-sm w-full sm:w-auto"
-      >
-        <ng-icon name="bootstrapPlusCircleFill" class="mr-1" /> Add Item
+    <div class="app-item-actions">
+      <tng-button size="sm" tone="primary" appearance="solid" type="button" (click)="addItem()">
+        <ng-icon name="bootstrapPlusCircleFill" /> Add Item
       </tng-button>
     </div>
   </div>

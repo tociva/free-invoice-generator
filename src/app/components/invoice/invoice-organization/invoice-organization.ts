@@ -1,7 +1,11 @@
+import {
+  TngCardComponent,
+  TngInputFieldComponent,
+  TngTooltipComponent,
+} from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TngInputFieldComponent } from '@tailng-ui/components';
 import { TngInput } from '@tailng-ui/primitives';
 import { CountrySearchService } from '../store/country/country-search.service';
 import { Country } from '../store/country/country.model';
@@ -11,7 +15,14 @@ import { OrganizationForm } from '../store/models/invoice-form.model';
 @Component({
   selector: 'app-invoice-organization',
   standalone: true,
-  imports: [TngInputFieldComponent, TngInput, ReactiveFormsModule, CommonModule],
+  imports: [
+    TngTooltipComponent,
+    TngCardComponent,
+    TngInputFieldComponent,
+    TngInput,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   templateUrl: './invoice-organization.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-organization.css'],

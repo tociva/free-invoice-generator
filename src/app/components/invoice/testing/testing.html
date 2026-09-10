@@ -1,24 +1,17 @@
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8 space-y-6">
-  <h2 class="text-2xl font-semibold text-gray-800 border-b pb-3">
-    Invoice Preview
-  </h2>
+<div class="app-page app-data-page">
+  <h2 class="app-card-heading app-card-heading--bordered">Invoice Preview</h2>
 
-  <div class="text-sm text-gray-700">
-    <span class="font-medium">Invoice No:</span>
-    <span class="ml-2 text-gray-900">{{ invoice().invoiceNo }}</span>
-        <span class="ml-2 text-gray-900">{{ invoice().dateFormat?.value }}</span>
-
+  <div class="app-supporting-text">
+    <span class="app-strong">Invoice No:</span>
+    <span class="app-data-value">{{ invoice().invoiceNo }}</span>
+    <span class="app-data-value">{{ invoice().dateFormat?.value }}</span>
   </div>
 
   <div>
-    <h3 class="text-sm font-semibold text-gray-600 mb-2">
-      Raw Invoice Data
-    </h3>
+    <h3 class="app-card-heading">Raw Invoice Data</h3>
 
-    <pre
-      class="bg-gray-100 rounded-lg p-4 text-xs text-gray-800 overflow-x-auto"
-    >
-{{ invoice() | json }}
+    <pre class="app-data-code"
+      >{{ invoice() | json }}
     </pre>
   </div>
 </div>

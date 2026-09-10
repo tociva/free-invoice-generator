@@ -1,46 +1,103 @@
-<div class="bg-background text-text flex justify-between items-center p-4 h-16">
-  <div class="font-extrabold text-text lg:text-xl md:text-xs">
-    <a routerLink="/simple-invoice">Free Invoice Generator by Daybook.Cloud</a>
+﻿<header class="app-header">
+  <div class="app-header-inner">
+    <div class="app-header-brand">
+      <a routerLink="/simple-invoice">Free Invoice Generator <span>by Daybook.Cloud</span></a>
+    </div>
+
+    <nav class="app-header-navigation" aria-label="Main navigation">
+      <a routerLink="/Testing" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
+        >Test Data</a
+      >
+      <a routerLink="/home" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
+        >Home</a
+      >
+      <a
+        routerLink="/simple-invoice"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        >Simple Invoice</a
+      >
+      <a routerLink="/invoice" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
+        >Advance Invoice</a
+      >
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a
+        routerLink="/templates"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        >Templates</a
+      >
+      <a href="/docs/index.html">Doc</a>
+    </nav>
+
+    <div class="app-header-actions">
+      <tng-button
+        size="sm"
+        tone="neutral"
+        [ariaPressed]="theme.darkMode()"
+        [title]="theme.darkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+        (click)="theme.toggleDarkMode()"
+      >
+        <tng-icon [icon]="theme.darkMode() ? 'bootstrap:sun' : 'bootstrap:moon'" size="1.25rem" />
+        <span class="app-sr-only">Dark mode</span>
+      </tng-button>
+      <tng-button
+        size="sm"
+        tone="neutral"
+        [ariaExpanded]="menuOpen()"
+        ariaControls="mobile-navigation"
+        class="app-header-menu"
+        (click)="toggleMenu()"
+      >
+        <ng-icon
+          [name]="menuOpen() ? 'bootstrapX' : 'bootstrapList'"
+          class="app-header-menu-icon"
+          aria-hidden="true"
+        />
+        <span class="app-sr-only">Menu</span>
+      </tng-button>
+    </div>
   </div>
 
-  <!-- Desktop Menu -->
-  <div class="hidden md:flex gap-8 text-sm font-medium">
-    <a routerLink="/Testing">Test Data</a>
-
-    <a routerLink="/home">Home</a>
-    <a routerLink="/simple-invoice">Simple Invoice</a>
-    <a routerLink="/invoice">Advance Invoice</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-    <a routerLink="/templates">Templates</a>
-    <a href="/docs/index.html">Doc</a>
-  </div>
-
-  <!-- Hamburger Button -->
-  <button
-    tngPress
-    type="button"
-    [ariaExpanded]="menuOpen()"
-    ariaControls="mobile-navigation"
-    class="md:hidden text-text focus:outline-none"
-    (click)="toggleMenu()"
-  >
-    <!-- Icon -->
-    <ng-icon
-      [name]="menuOpen() ? 'bootstrapX' : 'bootstrapList'"
-      class="w-10 h-15 text-4xl"
-    ></ng-icon>
-    <span class="sr-only">Menu</span>
-  </button>
-</div>
-
-<!-- Mobile Menu -->
-@if (menuOpen()) {
-  <div id="mobile-navigation" class="md:hidden bg-background text-white flex flex-col gap-2 p-4">
-    <a routerLink="/home" (click)="closeMenu()">Home</a>
-    <a routerLink="/simple-invoice" (click)="closeMenu()">Simple Invoice</a>
-    <a routerLink="/invoice" (click)="closeMenu()">Advance Invoice</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-    <a routerLink="/templates" (click)="closeMenu()">Templates</a>
-    <a href="/docs/index.html" (click)="closeMenu()">Doc</a>
-  </div>
-}
+  @if (menuOpen()) {
+    <nav id="mobile-navigation" class="app-header-mobile" aria-label="Mobile navigation">
+      <a
+        routerLink="/Testing"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Test Data</a
+      >
+      <a
+        routerLink="/home"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Home</a
+      >
+      <a
+        routerLink="/simple-invoice"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Simple Invoice</a
+      >
+      <a
+        routerLink="/invoice"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Advance Invoice</a
+      >
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a
+        routerLink="/templates"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Templates</a
+      >
+      <a href="/docs/index.html" (click)="closeMenu()">Doc</a>
+    </nav>
+  }
+</header>

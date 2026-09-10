@@ -1,4 +1,12 @@
 import {
+  TngButtonComponent,
+  TngCardComponent,
+  TngEmptyComponent,
+  TngInputFieldComponent,
+  TngProgressSpinnerComponent,
+  TngSelectComponent,
+} from '@tailng-ui/components';
+import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -9,7 +17,6 @@ import {
   signal,
 } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
 import { TngInput } from '@tailng-ui/primitives';
 import { invoiceStore } from '../store/invoice.store';
 import { TemplateService } from '../store/services/template.services';
@@ -19,7 +26,16 @@ import { templateStore } from '../store/template/template.store';
 @Component({
   selector: 'app-select-template',
   standalone: true,
-  imports: [TngButtonComponent, TngInputFieldComponent, TngInput, NgIcon],
+  imports: [
+    TngEmptyComponent,
+    TngSelectComponent,
+    TngProgressSpinnerComponent,
+    TngCardComponent,
+    TngButtonComponent,
+    TngInputFieldComponent,
+    TngInput,
+    NgIcon,
+  ],
   templateUrl: './select-template.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./select-template.css'],

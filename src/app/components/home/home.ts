@@ -1,7 +1,7 @@
+import { TngButtonComponent, TngCardComponent } from '@tailng-ui/components';
 import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent } from '@tailng-ui/components';
 import { invoiceStore } from '../invoice/store/invoice.store';
 import { InvoiceFormService } from '../invoice/store/models/invoice-form';
 import { parseInvoiceJson } from '../invoice/store/models/invoice-import';
@@ -9,7 +9,7 @@ import { FileUpload } from '../shared/file-upload/file-upload';
 
 @Component({
   selector: 'app-home',
-  imports: [TngButtonComponent, NgIcon, FileUpload],
+  imports: [TngCardComponent, TngButtonComponent, NgIcon, FileUpload],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -1,7 +1,7 @@
+import { TngCardComponent, TngInputFieldComponent } from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TngInputFieldComponent } from '@tailng-ui/components';
 import { TngInput } from '@tailng-ui/primitives';
 import { CountrySearchService } from '../store/country/country-search.service';
 import { Country } from '../store/country/country.model';
@@ -11,7 +11,7 @@ import { CustomerForm } from '../store/models/invoice-form.model';
 @Component({
   selector: 'app-invoice-customer',
   standalone: true,
-  imports: [TngInputFieldComponent, TngInput, ReactiveFormsModule, CommonModule],
+  imports: [TngCardComponent, TngInputFieldComponent, TngInput, ReactiveFormsModule, CommonModule],
   templateUrl: './invoice-customer.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./invoice-customer.css'],

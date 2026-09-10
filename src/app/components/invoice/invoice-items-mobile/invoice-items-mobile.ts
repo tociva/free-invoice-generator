@@ -1,3 +1,8 @@
+import {
+  TngButtonComponent,
+  TngCardComponent,
+  TngInputFieldComponent,
+} from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -12,7 +17,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
 import { TngInput } from '@tailng-ui/primitives';
 import { provideAppIcon } from '../../../provider/icon-provider';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
@@ -22,6 +26,7 @@ import { InvoiceItem } from '../store/models/invoice-model';
   selector: 'app-invoice-items-mobile',
   standalone: true,
   imports: [
+    TngCardComponent,
     TngButtonComponent,
     TngInputFieldComponent,
     TngInput,
