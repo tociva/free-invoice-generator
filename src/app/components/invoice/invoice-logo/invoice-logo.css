@@ -1,1 +1,23 @@
-/* No additional styles needed - using Tailwind utilities */
+/* Shared application compositions are defined in src/styles/invoice.css. */
+.app-invoice-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+.app-invoice-logo-upload {
+  width: 100%;
+}
+.app-invoice-logo-image {
+  width: 12.5rem;
+  height: 12.5rem;
+  object-fit: contain;
+  border-radius: var(--tng-radius-lg);
+}
+.app-invoice-logo-remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}

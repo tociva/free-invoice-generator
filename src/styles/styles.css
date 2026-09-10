@@ -1,45 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-@import 'tailwindcss';
 @import '@tailng-ui/theme/index.css';
-@import './tailwind-config.css';
 @import './font.css';
-
-:root {
-  --background-color: #367588;
-  --text-color: #fdf6ec;
-}
-
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-}
-
-/* Preserve invoice-editor density while using TailNG behavior and themes. */
-tng-input-field,
-app-tailng-select,
-app-tailng-date {
-  min-width: 0;
-  display: block;
-}
-tng-input-field {
-  --tng-control-height-md: 2rem;
-}
-tng-dialog.invoice-dialog {
-  --tng-dialog-width: min(56rem, calc(100vw - 2rem));
-}
-
-/* Existing button utilities belong to the component shell; avoid a second painted box. */
-tng-button {
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-tng-button > button {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  tng-button.md\:hidden {
-    display: none !important;
-  }
-}
+@import './globals.css';
+@import './design-system.css';
+@import './invoice.css';
+@import './catalog.css';

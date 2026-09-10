@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  width: 100%;
+}
+.app-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--app-upload-min-height, 10rem);
+  padding: var(--app-upload-padding, 1rem);
+  border: 2px dashed var(--app-upload-border-color, var(--tng-semantic-border-strong));
+  border-radius: var(--tng-radius-lg);
+  background: var(--tng-semantic-background-surface);
+  color: var(--tng-semantic-foreground-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--tng-motion-durationNormal),
+    border-color var(--tng-motion-durationNormal);
+}
+.app-upload:hover,
+.app-upload.app-upload--dragging {
+  background: var(--app-brand-tint-10);
+  border-color: var(--tng-semantic-accent-brand);
+}
+.app-upload-mobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .app-upload {
+    min-height: var(--app-upload-min-height, 3rem);
+  }
+  .app-upload-mobile {
+    display: block;
+  }
+  .app-upload-desktop {
+    display: none;
+  }
+}

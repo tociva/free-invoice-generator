@@ -1,23 +1,27 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5" [formGroup]="InvoiceTermsNotes()">
+<div class="app-form-grid app-invoice-notes" [formGroup]="InvoiceTermsNotes()">
   <div>
-    <label class="block text-sm font-medium mb-2">Additional Notes</label>
-    <tng-input-field class="min-w-0" size="sm">
+    <label for="invoice-notes" class="app-field-label">Additional Notes</label>
+    <tng-input-field class="app-field" size="sm">
       <textarea
+        aria-label="Additional Notes"
         tngInput
+        id="invoice-notes"
         formControlName="notes"
-        class="textarea-input"
+        class="app-notes-control"
         placeholder="Type additional notes here"
       ></textarea>
     </tng-input-field>
   </div>
 
   <div>
-    <label class="block text-sm font-medium mb-2">Terms & Conditions</label>
-    <tng-input-field class="min-w-0" size="sm">
+    <label for="invoice-terms" class="app-field-label">Terms & Conditions</label>
+    <tng-input-field class="app-field" size="sm">
       <textarea
+        aria-label="Terms & Conditions"
         tngInput
+        id="invoice-terms"
         formControlName="terms"
-        class="textarea-input"
+        class="app-notes-control"
         placeholder="Type terms and conditions here"
       ></textarea>
     </tng-input-field>

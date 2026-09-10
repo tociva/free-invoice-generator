@@ -1,3 +1,11 @@
+import {
+  TngButtonComponent,
+  TngCardComponent,
+  TngEmptyComponent,
+  TngInputFieldComponent,
+  TngProgressSpinnerComponent,
+  TngSelectComponent,
+} from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -10,7 +18,6 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
 import { TngInput } from '@tailng-ui/primitives';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog';
 import { TemplateService } from '../invoice/store/services/template.services';
@@ -23,6 +30,10 @@ import { sampleInvoice } from './template.utils';
   selector: 'app-list-templates',
   standalone: true,
   imports: [
+    TngEmptyComponent,
+    TngSelectComponent,
+    TngProgressSpinnerComponent,
+    TngCardComponent,
     TngButtonComponent,
     TngInputFieldComponent,
     TngInput,

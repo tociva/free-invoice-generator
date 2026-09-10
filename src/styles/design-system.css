@@ -1,0 +1,296 @@
+/* Public application compositions. TNG owns control appearance and interaction. */
+:root {
+  --app-brand-tint-10: color-mix(in srgb, var(--tng-semantic-accent-brand) 10%, transparent);
+  --app-success-tint-10: color-mix(in srgb, var(--tng-semantic-accent-success) 10%, transparent);
+  --app-warning-tint-10: color-mix(in srgb, var(--tng-semantic-accent-warning) 10%, transparent);
+  --app-danger-tint-10: color-mix(in srgb, var(--tng-semantic-accent-danger) 10%, transparent);
+  --app-danger-tint-7: color-mix(in srgb, var(--tng-semantic-accent-danger) 7%, transparent);
+  --app-danger-tint-25: color-mix(in srgb, var(--tng-semantic-accent-danger) 25%, transparent);
+  --tng-control-radius: var(--tng-radius-control);
+  --tng-control-font-size: var(--tng-typography-textSm);
+  --tng-overlay-shadow: var(--app-shadow-overlay);
+}
+.app-page {
+  width: 100%;
+  max-width: var(--app-page-max-width);
+  margin-inline: auto;
+  padding: 2rem var(--app-page-padding-inline) var(--app-page-padding-bottom);
+}
+.app-page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.app-page-title {
+  font-size: var(--tng-typography-textTitle);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.app-page-description {
+  margin-top: 0.75rem;
+  color: var(--tng-semantic-foreground-secondary);
+  max-width: 65ch;
+}
+.app-page-actions,
+.app-actions,
+.app-card-actions,
+.app-state-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.app-eyebrow {
+  font-size: var(--tng-typography-textXs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tng-semantic-foreground-muted);
+}
+.app-eyebrow--brand {
+  color: var(--tng-semantic-accent-brand);
+  letter-spacing: 0.06em;
+}
+.app-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.app-card-heading--bordered {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--tng-semantic-border-subtle);
+}
+.app-card-heading-content {
+  flex: 1;
+  min-width: 0;
+}
+.app-card-heading h2,
+.app-state-title {
+  font-size: var(--tng-typography-textLg);
+  font-weight: 700;
+}
+.app-card-heading p {
+  margin-top: 0.25rem;
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textSm);
+}
+.app-card-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+.app-icon-box {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: var(--tng-radius-md);
+  background: var(--app-brand-tint-10);
+  color: var(--tng-semantic-accent-brand);
+}
+.app-icon-box--small {
+  width: 2rem;
+  height: 2rem;
+}
+.app-icon-box--large {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.app-icon-box--muted {
+  background: var(--tng-semantic-background-muted);
+  color: var(--tng-semantic-foreground-muted);
+}
+.app-icon-box--bordered {
+  border: 1px solid var(--tng-semantic-border-subtle);
+  background: transparent;
+}
+.app-icon-box--success {
+  background: var(--app-success-tint-10);
+  color: var(--tng-semantic-accent-success);
+}
+.app-icon-box--warning {
+  background: var(--app-warning-tint-10);
+  color: var(--tng-semantic-accent-warning);
+}
+.app-icon-box--danger {
+  background: var(--app-danger-tint-10);
+  color: var(--tng-semantic-accent-danger);
+}
+.app-form-error,
+.app-form-success {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--app-danger-tint-25);
+  border-radius: var(--tng-radius-md);
+  background: var(--app-danger-tint-7);
+  color: var(--tng-semantic-accent-danger);
+  font-size: var(--tng-typography-textSm);
+}
+.app-form-success {
+  border-color: var(--tng-semantic-accent-success);
+  background: var(--app-success-tint-10);
+  color: var(--tng-semantic-accent-success);
+}
+.app-state {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--tng-semantic-border-subtle);
+  border-radius: var(--tng-radius-lg);
+  background: var(--tng-semantic-background-surface);
+  text-align: center;
+}
+.app-state--bare {
+  border: 0;
+  background: transparent;
+}
+.app-state-icon {
+  color: var(--tng-semantic-accent-brand);
+  font-size: 2rem;
+}
+.app-state-description {
+  color: var(--tng-semantic-foreground-muted);
+  max-width: 48ch;
+}
+.app-grid-2,
+.app-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--app-grid-gap);
+}
+.app-span-full {
+  grid-column: 1 / -1;
+}
+.app-form-row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 7.5rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.app-form-row:last-child {
+  margin-bottom: 0;
+}
+.app-field-label {
+  display: block;
+  color: var(--tng-semantic-foreground-secondary);
+  font-size: var(--tng-typography-textSm);
+}
+.app-field {
+  min-width: 0;
+}
+.app-field > label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.app-field-control {
+  min-width: 0;
+  width: 100%;
+}
+.app-field-control--numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.app-notes-control {
+  min-height: 6rem;
+  resize: vertical;
+}
+.app-form-options {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.app-supporting-text {
+  color: var(--tng-semantic-foreground-secondary);
+  font-size: var(--tng-typography-textSm);
+}
+.app-strong {
+  font-weight: 600;
+}
+.app-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.app-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1000;
+  padding: 0.75rem;
+  background: var(--tng-semantic-background-surface);
+  transform: translateY(-200%);
+}
+.app-skip-link:focus {
+  transform: none;
+}
+tng-input-field,
+app-tailng-select,
+app-tailng-date {
+  display: block;
+  min-width: 0;
+}
+tng-card {
+  min-width: 0;
+}
+/* TNG 0.117 has no card border-color input or custom property. */
+tng-card.app-home-card > .tng-card {
+  border-color: var(--tng-semantic-border-subtle);
+}
+/* TNG 0.117 hardcodes white for solid tones. Use its public appearance/tone
+   attributes to restore semantic contrast, including bright dark-mode accents. */
+tng-button
+  .tng-button[data-appearance='solid'][data-tone]:is(
+    [data-tone='primary'],
+    [data-tone='danger'],
+    [data-tone='success']
+  ) {
+  color: var(--tng-semantic-foreground-inverse);
+}
+tng-button
+  .tng-button[data-appearance='solid'][data-tone='primary'][data-size]:not(:disabled):not(
+    [data-disabled]
+  ):hover {
+  background: var(--tng-semantic-accent-brandHover);
+}
+tng-button .tng-button[data-appearance='solid'][data-tone='primary']:not(:disabled):active {
+  background: var(--tng-semantic-accent-brandActive);
+}
+tng-dialog.invoice-dialog {
+  --tng-dialog-width: min(56rem, calc(100vw - 2rem));
+}
+@media (max-width: 700px) {
+  .app-page {
+    padding: 1.5rem 1rem 3rem;
+  }
+  .app-page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .app-grid-2,
+  .app-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-span-full {
+    grid-column: auto;
+  }
+}

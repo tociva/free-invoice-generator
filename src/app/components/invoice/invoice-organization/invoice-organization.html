@@ -1,48 +1,48 @@
-<div class="card-box" [formGroup]="InvoiceOrganizationForm()">
+<tng-card padding="md" class="app-invoice-fields" [formGroup]="InvoiceOrganizationForm()">
   <!-- My Name -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+  <div class="app-form-row">
     <label
       for="invoice-organization-name"
       id="invoice-organization-name-label"
-      class="text-[1rem] text-gray-500"
+      class="app-field-label"
       >My Name</label
     >
-    <tng-input-field class="min-w-0" size="sm"
+    <tng-input-field class="app-field" size="sm"
       ><input
         tngInput
         id="invoice-organization-name"
         formControlName="name"
         placeholder="My name"
-        class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+        class="app-field-control"
     /></tng-input-field>
   </div>
 
   <!-- My Address -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-start mb-4">
+  <div class="app-form-row">
     <label
       for="invoice-organization-address"
       id="invoice-organization-address-label"
-      class="text-[1rem] text-gray-500 pt-1"
+      class="app-field-label"
       >My Address</label
     >
-    <tng-input-field class="min-w-0" size="sm">
+    <tng-input-field class="app-field" size="sm">
       <textarea
         tngInput
         id="invoice-organization-address"
         formControlName="address"
         placeholder="My address"
         rows="2"
-        class="w-full text-right font-medium outline-none text-sm md:text-base resize-none border border-gray-300 rounded px-2 py-1"
+        class="app-field-control app-notes-control"
       ></textarea>
     </tng-input-field>
   </div>
 
   @if (advanced()) {
     <!-- Country -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-      <div class="text-[1rem] text-gray-500">Country</div>
-      <div class="relative">
-        <tng-input-field class="min-w-0" size="sm"
+    <div class="app-form-row">
+      <div class="app-field-label">Country</div>
+      <div class="app-country-search">
+        <tng-input-field class="app-field" size="sm"
           ><input
             tngInput
             type="text"
@@ -50,25 +50,28 @@
             (input)="onCountrySearch($event)"
             (focus)="onInputFocus()"
             (blur)="onInputBlur()"
+            aria-label="Country"
             placeholder="Search country..."
-            class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+            class="app-field-control"
         /></tng-input-field>
 
         @if (countryDropdownOpen()) {
-          <div
-            class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
-          >
+          <div class="app-suggestions">
             @if (filteredCountries().length > 0) {
               @for (country of filteredCountries(); track country.code) {
                 <div
-                  class="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer text-gray-700 transition-colors text-right"
+                  class="app-suggestion"
+                  role="button"
+                  tabindex="0"
+                  (keydown.enter)="selectCountry(country)"
+                  (keydown.space)="$event.preventDefault(); selectCountry(country)"
                   (mousedown)="$event.preventDefault(); selectCountry(country)"
                 >
                   {{ country.name }}
                 </div>
               }
             } @else {
-              <div class="px-3 py-2 text-sm text-gray-500 text-center">No countries found</div>
+              <div class="app-supporting-text">No countries found</div>
             }
           </div>
         }
@@ -76,104 +79,93 @@
     </div>
 
     <!-- Email -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-organization-email"
         id="invoice-organization-email-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Email</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-organization-email"
           formControlName="email"
           placeholder="OrganizationForm email Number"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Mobile -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-organization-phone"
         id="invoice-organization-phone-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Mobile</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-organization-phone"
           formControlName="phone"
           placeholder="OrganizationForm Phone Number"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- GSTIN -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-organization-gstin"
         id="invoice-organization-gstin-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >GSTIN</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-organization-gstin"
           formControlName="gstin"
           placeholder="OrganizationForm gstin Number"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Authority Name -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-      <div class="relative flex items-center">
-        <label class="text-[1rem] text-gray-500">Authori..</label>
+    <div class="app-form-row">
+      <div class="app-form-options">
+        <label for="organization-authorityName" class="app-field-label">Authority</label>
         <!-- Tooltip Icon -->
-        <div class="ml-1 relative group cursor-pointer">
-          <span class="text-gray-400 font-bold">?</span>
-          <!-- Tooltip text (hidden by default) -->
-          <div
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-          >
-            Authority Name
-          </div>
-        </div>
+        <tng-tooltip text="Authority Name" triggerLabel="About authority name" />
       </div>
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
+          aria-label="Authority Name"
           tngInput
+          id="organization-authorityName"
           formControlName="authorityName"
           placeholder="Authority Name"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Authority Designation -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-      <div class="relative flex items-center">
-        <label class="text-[1rem] text-gray-500">Designa..</label>
+    <div class="app-form-row">
+      <div class="app-form-options">
+        <label for="organization-authorityDesignation" class="app-field-label">Designation</label>
         <!-- Tooltip Icon -->
-        <div class="ml-1 relative group cursor-pointer">
-          <span class="text-gray-400 font-bold">?</span>
-          <div
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs rounded bg-gray-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-          >
-            Authority Designation
-          </div>
-        </div>
+        <tng-tooltip text="Authority Designation" triggerLabel="About authority designation" />
       </div>
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
+          aria-label="Authority Designation"
           tngInput
+          id="organization-authorityDesignation"
           formControlName="authorityDesignation"
           placeholder="Authority Designation"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
   }
-</div>
+</tng-card>

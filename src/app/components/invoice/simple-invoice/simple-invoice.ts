@@ -1,4 +1,9 @@
 import {
+  TngButtonComponent,
+  TngCardComponent,
+  TngProgressSpinnerComponent,
+} from '@tailng-ui/components';
+import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -11,7 +16,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
-import { TngButtonComponent } from '@tailng-ui/components';
 import { InvoiceCustomerComponent } from '../invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from '../invoice-details/invoice-details';
 import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile';
@@ -34,6 +38,8 @@ import { templateStore } from '../store/template/template.store';
   selector: 'app-simple-invoice',
   standalone: true,
   imports: [
+    TngProgressSpinnerComponent,
+    TngCardComponent,
     TngButtonComponent,
     InvoiceLogoComponent,
     InvoiceDetailsComponent,

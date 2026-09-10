@@ -14,8 +14,10 @@ import {
   selector: '[appFileSelect]',
   standalone: true,
   host: {
-    '[class.bg-gray-500]': 'isDragOver()',
-    '[class.animate-border-run]': 'isDragOver()',
+    '[class.app-upload--dragging]': 'isDragOver()',
+    role: 'button',
+    '[attr.tabindex]': 'disabled() ? -1 : 0',
+    '[attr.aria-disabled]': 'disabled()',
     '[style.cursor]': '"pointer"',
   },
 })
@@ -47,6 +49,13 @@ export class FileSelect implements OnInit {
   onFileInput() {
     if (!this.disabled()) {
       this.fileInput.click();
+    }
+  }
+  @HostListener('keydown', ['$event'])
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onFileInput();
     }
   }
   @HostListener('dragover', ['$event'])
@@ -86,7 +95,7 @@ export class FileSelect implements OnInit {
       .split(',')
       .map((t) => t.trim().toLowerCase());
     return acceptedTypes.some(
-      (type) => file.type === type || file.name.toLowerCase().endsWith(type.replace('.', ''))
+      (type) => file.type === type || file.name.toLowerCase().endsWith(type.replace('.', '')),
     );
   }
 }

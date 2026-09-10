@@ -1,0 +1,7 @@
+.app-footer {
+  padding: 1rem;
+  text-align: center;
+  background: var(--tng-semantic-background-brand);
+  color: var(--tng-semantic-foreground-onBrand);
+  font-size: var(--tng-typography-textSm);
+}
