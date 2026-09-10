@@ -1,18 +1,36 @@
 <div class="w-full sm:w-44 sm:ml-8 mt-3 sm:mt-0 self-start space-y-4" [formGroup]="InvoiceConfiq()">
   <div>
     <label id="simple-currency-label" class="font-semibold text-sm">Currency</label>
-    <app-tailng-select
-      formControlName="currency"
-      [options]="currencyStore.currencies()"
+    <tng-autocomplete
+      class="w-full"
       labelId="simple-currency-label"
+      placeholder="Search currency…"
+      ariaLabel="Currency"
+      [options]="filteredCurrencies()"
+      [getOptionValue]="currencyValue"
+      [getOptionLabel]="currencyLabel"
+      [query]="currencyQuery()"
+      (queryChange)="currencyQuery.set($event)"
+      (openChange)="onCurrencyOpenChange($event)"
+      [value]="currencyKeyOf(InvoiceConfiq().get('currency')?.value ?? null)"
+      (valueChange)="onCurrencyValueChange($event)"
     />
   </div>
   <div>
     <label id="simple-format-label" class="font-semibold text-sm">Date Format</label>
-    <app-tailng-select
-      formControlName="dateFormat"
-      [options]="dateFormatStore.dateFormat()"
+    <tng-autocomplete
+      class="w-full"
       labelId="simple-format-label"
+      placeholder="Search date format…"
+      ariaLabel="Date Format"
+      [options]="filteredDateFormats()"
+      [getOptionValue]="dateFormatValue"
+      [getOptionLabel]="dateFormatLabel"
+      [query]="dateFormatQuery()"
+      (queryChange)="dateFormatQuery.set($event)"
+      (openChange)="onDateFormatOpenChange($event)"
+      [value]="dateFormatKeyOf(InvoiceConfiq().get('dateFormat')?.value ?? null)"
+      (valueChange)="onDateFormatValueChange($event)"
     />
   </div>
 </div>
