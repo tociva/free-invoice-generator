@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
+  TngCardComponent,
   TngCheckboxAngularFormsAdapter,
   TngCheckboxComponent,
   TngInputFieldComponent,
 } from '@tailng-ui/components';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TngInput } from '@tailng-ui/primitives';
 import { TailngDate } from '../../shared/tailng-date';
 import { TailngSelect } from '../../shared/tailng-select';
@@ -17,6 +18,7 @@ import { TaxOption } from '../store/models/invoice-model';
 @Component({
   selector: 'app-invoice-details',
   imports: [
+    TngCardComponent,
     TailngSelect,
     TailngDate,
     TngInputFieldComponent,

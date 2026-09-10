@@ -15,14 +15,23 @@ import {
   bootstrapFileText,
   bootstrapGithub,
   bootstrapList,
+  bootstrapMoon,
   bootstrapPlusCircleFill,
   bootstrapPrinter,
   bootstrapSearch,
+  bootstrapSun,
   bootstrapTrash,
   bootstrapTrashFill,
   bootstrapX,
 } from '@ng-icons/bootstrap-icons';
 import { provideIcons } from '@ng-icons/core';
+import { createTngIconPack, provideTngIcons } from '@tailng-ui/icons/core';
+
+export const provideAppThemeIcons = () =>
+  provideTngIcons({
+    defaultPack: 'bootstrap',
+    packs: [createTngIconPack('bootstrap', { sun: bootstrapSun, moon: bootstrapMoon })],
+  });
 
 export const provideAppIcon = () =>
   provideIcons({
@@ -48,5 +57,4 @@ export const provideAppIcon = () =>
     bootstrapChevronDoubleRight,
     bootstrapDownload,
     bootstrapEye,
-     
   });

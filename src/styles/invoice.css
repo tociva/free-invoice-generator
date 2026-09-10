@@ -1,0 +1,274 @@
+/* Shared invoice compositions used by both editors. */
+.app-invoice-section {
+  min-width: 0;
+}
+.app-invoice-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--app-grid-gap);
+}
+.app-invoice-main {
+  flex: 1;
+  min-width: 0;
+}
+.app-invoice-form {
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
+.app-invoice-aside {
+  flex: 0 0 13rem;
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.app-invoice-editor {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+}
+.app-invoice-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tng-semantic-border-subtle);
+}
+.app-invoice-config {
+  display: grid;
+  gap: 1rem;
+}
+.app-invoice-config label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.app-invoice-notes {
+  margin-top: 1.25rem;
+}
+.app-invoice-notes label {
+  margin-bottom: 0.5rem;
+}
+.app-invoice-fields {
+  display: block;
+}
+.app-stepper {
+  max-width: var(--app-content-max-width);
+  margin-inline: auto;
+  padding: 1.5rem;
+}
+.app-stepper-list {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.25rem;
+}
+.app-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.app-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--tng-radius-full);
+  background: var(--tng-semantic-background-muted);
+  font-size: var(--tng-typography-textSm);
+  font-weight: 600;
+}
+.app-step-label {
+  font-size: var(--tng-typography-textSm);
+}
+.app-step-connector {
+  min-width: 1rem;
+  flex: 1;
+  height: 1px;
+  background: var(--tng-semantic-border-default);
+}
+.app-step-label.app-step--active {
+  color: var(--tng-semantic-accent-brand);
+  font-weight: 600;
+}
+.app-step-number.app-step--active,
+.app-step-connector.app-step--active {
+  background: var(--tng-semantic-accent-brand);
+  color: var(--tng-semantic-foreground-inverse);
+}
+.app-stepper-mobile {
+  display: none;
+  background: var(--tng-semantic-background-surface);
+}
+.app-stepper-mobile-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+}
+.app-stepper-current {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+.app-item-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.app-item-table {
+  width: 100%;
+  font-size: var(--tng-typography-textSm);
+  background: var(--tng-semantic-background-surface);
+}
+.app-item-table thead {
+  background: var(--tng-semantic-background-brand);
+  color: var(--tng-semantic-foreground-onBrand);
+}
+.app-item-table th,
+.app-item-table td {
+  padding: 0.5rem;
+  border: 1px solid var(--tng-semantic-border-default);
+  text-align: center;
+}
+.app-item-table th {
+  font-size: var(--tng-typography-textXs);
+  font-weight: 600;
+}
+.app-item-table input {
+  min-width: 3rem;
+}
+.app-item-table td:first-child {
+  min-width: 9rem;
+}
+.app-item-table input[readonly] {
+  color: var(--tng-semantic-foreground-secondary);
+}
+.app-item-values {
+  display: grid;
+  gap: 0.25rem;
+}
+.app-item-actions {
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem;
+}
+.app-mobile-item .app-card-heading {
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.app-mobile-item .app-form-row {
+  margin: 0;
+  padding-block: 0.25rem;
+}
+.app-invoice-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr);
+  gap: var(--app-grid-gap);
+}
+.app-summary-value {
+  margin-top: 1rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.app-summary-total {
+  font-family: var(--tng-typography-fontHeading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+.app-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--tng-typography-textSm);
+  font-variant-numeric: tabular-nums;
+}
+.app-summary-row tng-input-field {
+  max-width: 6rem;
+}
+.app-summary-row--total {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--tng-semantic-border-subtle);
+  font-weight: 700;
+}
+.app-country-search {
+  position: relative;
+  min-width: 0;
+}
+.app-suggestions {
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  z-index: 50;
+  max-height: 15rem;
+  overflow-y: auto;
+  margin-top: 0.25rem;
+  padding: 0.25rem;
+  background: var(--tng-semantic-background-elevated);
+  border: 1px solid var(--tng-semantic-border-default);
+  border-radius: var(--tng-radius-md);
+  box-shadow: var(--app-shadow-overlay);
+}
+.app-suggestion {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: var(--tng-typography-textSm);
+  color: var(--tng-semantic-foreground-primary);
+}
+.app-suggestion:hover,
+.app-suggestion:focus-visible {
+  background: var(--app-brand-tint-10);
+}
+.app-document-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--tng-semantic-background-document);
+  color-scheme: light;
+}
+@media (max-width: 1023px) {
+  .app-invoice-columns {
+    flex-direction: column;
+  }
+  .app-invoice-main,
+  .app-invoice-aside {
+    width: 100%;
+    flex-basis: auto;
+  }
+  .app-invoice-config {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .app-invoice-summary {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 639px) {
+  .app-stepper {
+    display: none;
+  }
+  .app-stepper-mobile {
+    display: block;
+  }
+  .app-invoice-config {
+    grid-template-columns: 1fr;
+  }
+  .app-invoice-editor {
+    --tng-card-padding: 0.75rem;
+  }
+  .app-invoice-navigation {
+    align-items: stretch;
+  }
+}

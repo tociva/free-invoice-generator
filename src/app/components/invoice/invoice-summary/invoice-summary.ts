@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
+  TngCardComponent,
   TngCheckboxAngularFormsAdapter,
   TngCheckboxComponent,
   TngInputFieldComponent,
 } from '@tailng-ui/components';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TngInput } from '@tailng-ui/primitives';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { InvoiceCalculationService } from '../store/services/calculation.services';
@@ -14,6 +15,7 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
   selector: 'app-invoice-summary',
   standalone: true,
   imports: [
+    TngCardComponent,
     TngInputFieldComponent,
     TngCheckboxComponent,
     TngCheckboxAngularFormsAdapter,

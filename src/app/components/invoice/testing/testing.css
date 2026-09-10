@@ -1,0 +1,13 @@
+.app-data-page {
+  max-width: 48rem;
+}
+.app-data-value {
+  margin-inline-start: 0.5rem;
+}
+.app-data-code {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: var(--tng-radius-md);
+  background: var(--tng-semantic-background-canvas);
+  font: var(--tng-typography-textXs)/1.5 var(--tng-typography-fontMono);
+}

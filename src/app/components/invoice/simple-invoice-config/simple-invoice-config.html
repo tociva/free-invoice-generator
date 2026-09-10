@@ -1,6 +1,6 @@
-<div class="w-full sm:w-44 sm:ml-8 mt-3 sm:mt-0 self-start space-y-4" [formGroup]="InvoiceConfiq()">
+<div class="app-invoice-config" [formGroup]="InvoiceConfiq()">
   <div>
-    <label id="simple-currency-label" class="font-semibold text-sm">Currency</label>
+    <label id="simple-currency-label" class="app-field-label">Currency</label>
     <app-tailng-select
       formControlName="currency"
       [options]="currencyStore.currencies()"
@@ -8,7 +8,7 @@
     />
   </div>
   <div>
-    <label id="simple-format-label" class="font-semibold text-sm">Date Format</label>
+    <label id="simple-format-label" class="app-field-label">Date Format</label>
     <app-tailng-select
       formControlName="dateFormat"
       [options]="dateFormatStore.dateFormat()"

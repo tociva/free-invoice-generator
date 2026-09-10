@@ -1,13 +1,13 @@
-<div class="card-box" [formGroup]="InvoiceDetailsForm()">
+<tng-card padding="md" class="app-invoice-fields" [formGroup]="InvoiceDetailsForm()">
   <!-- Invoice Number -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+  <div class="app-form-row">
     <label
       for="invoice-details-invoiceNo"
       id="invoice-details-invoiceNo-label"
-      class="text-[1rem] text-gray-500"
+      class="app-field-label"
       >Invoice Number</label
     >
-    <tng-input-field class="min-w-0" size="sm"
+    <tng-input-field class="app-field" size="sm"
       ><input
         tngInput
         type="text"
@@ -20,7 +20,7 @@
           InvoiceDetailsForm().controls.invoiceNo.touched
         "
         placeholder="Enter invoice number"
-        class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+        class="app-field-control"
     /></tng-input-field>
   </div>
 
@@ -28,16 +28,14 @@
     InvoiceDetailsForm().controls.invoiceNo.invalid &&
     InvoiceDetailsForm().controls.invoiceNo.touched
   ) {
-    <p id="invoice-number-error" role="alert" class="text-sm text-red-700">
-      Invoice number is required.
-    </p>
+    <p id="invoice-number-error" role="alert" class="app-form-error">Invoice number is required.</p>
   }
   <!-- Invoice Date and Due Date -->
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+  <div class="app-form-row">
     <label
       for="invoice-details-invoiceDate"
       id="invoice-details-invoiceDate-label"
-      class="text-[1rem] text-gray-500"
+      class="app-field-label"
       >Invoice Date</label
     >
     <app-tailng-date
@@ -47,11 +45,11 @@
     />
   </div>
 
-  <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+  <div class="app-form-row">
     <label
       for="invoice-details-invoiceDueDate"
       id="invoice-details-invoiceDueDate-label"
-      class="text-[1rem] text-gray-500"
+      class="app-field-label"
       >Due Date</label
     >
     <app-tailng-date
@@ -62,11 +60,11 @@
   </div>
   @if (advanced()) {
     <!-- Currency -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-currency"
         id="invoice-details-currency-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Currency</label
       >
       <app-tailng-select
@@ -77,14 +75,14 @@
     </div>
 
     <!-- Decimal Places -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-decimalPlaces"
         id="invoice-details-decimalPlaces-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Decimal Places</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-details-decimalPlaces"
@@ -93,35 +91,35 @@
           min="0"
           max="5"
           placeholder="Decimal Places"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Delivery State -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-deliveryState"
         id="invoice-details-deliveryState-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Delivery State</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-details-deliveryState"
           formControlName="deliveryState"
           type="text"
           placeholder="Delivery State"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Tax Option -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-taxOption"
         id="invoice-details-taxOption-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Tax Option</label
       >
       <app-tailng-select
@@ -132,9 +130,9 @@
     </div>
 
     <!-- Show Item Description -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-      <div class="text-[1rem] text-gray-500">Item Description</div>
-      <div class="flex items-center gap-2">
+    <div class="app-form-row">
+      <div class="app-field-label">Item Description</div>
+      <div class="app-form-options">
         <tng-checkbox tngAngularForms formControlName="hasItemDescription"
           >Show Item Description</tng-checkbox
         >
@@ -142,9 +140,9 @@
     </div>
 
     <!-- Show Item Discount -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
-      <div class="text-[1rem] text-gray-500">Item Discount</div>
-      <div class="flex items-center gap-2">
+    <div class="app-form-row">
+      <div class="app-field-label">Item Discount</div>
+      <div class="app-form-options">
         <tng-checkbox tngAngularForms formControlName="hasItemDiscount"
           >Show Item Discount</tng-checkbox
         >
@@ -152,11 +150,11 @@
     </div>
 
     <!-- Date Format -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-dateFormat"
         id="invoice-details-dateFormat-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Date Format</label
       >
       <app-tailng-select
@@ -167,60 +165,60 @@
     </div>
 
     <!-- Account Number -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-accountNumber"
         id="invoice-details-accountNumber-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Account Number</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-details-accountNumber"
           formControlName="accountNumber"
           type="text"
           placeholder="Account Number"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Account Name -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-accountName"
         id="invoice-details-accountName-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Account Name</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-details-accountName"
           formControlName="accountName"
           type="text"
           placeholder="Account Name"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
 
     <!-- Bank Name -->
-    <div class="grid grid-cols-[120px_1fr] gap-4 items-center mb-4">
+    <div class="app-form-row">
       <label
         for="invoice-details-bankName"
         id="invoice-details-bankName-label"
-        class="text-[1rem] text-gray-500"
+        class="app-field-label"
         >Bank Name</label
       >
-      <tng-input-field class="min-w-0" size="sm"
+      <tng-input-field class="app-field" size="sm"
         ><input
           tngInput
           id="invoice-details-bankName"
           formControlName="bankName"
           type="text"
           placeholder="Bank Name"
-          class="w-full text-right font-medium outline-none text-sm md:text-base border border-gray-300 rounded px-2 py-1"
+          class="app-field-control"
       /></tng-input-field>
     </div>
   }
-</div>
+</tng-card>

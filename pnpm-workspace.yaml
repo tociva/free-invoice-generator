@@ -15,3 +15,8 @@ peerDependencyRules:
     '@tailng-ui/components@0.117.0>@angular/router': '22'
     '@tailng-ui/primitives@0.85.0>@angular/core': '22'
     '@tailng-ui/theme@0.75.0>@angular/core': '22'
+    '@tailng-ui/icons@0.21.0>@angular/core': '22'
+
+# Reuse the app's NgIcon implementation to avoid duplicate component IDs (NG0912).
+overrides:
+  '@tailng-ui/icons@0.21.0>@ng-icons/core': '33.0.0'

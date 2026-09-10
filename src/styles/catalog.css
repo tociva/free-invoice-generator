@@ -1,0 +1,139 @@
+/* Shared by the catalog route and the invoice template picker. */
+.app-catalog {
+  min-width: 0;
+}
+.app-catalog-search {
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem 2rem;
+}
+.app-search {
+  position: relative;
+  width: 100%;
+  max-width: 36rem;
+}
+.app-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  color: var(--tng-semantic-foreground-muted);
+}
+.app-search--active {
+  color: var(--tng-semantic-accent-brand);
+}
+.app-search-input {
+  padding-inline: 2.25rem 3rem;
+}
+.app-search-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.25rem;
+  transform: translateY(-50%);
+}
+.app-template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--app-grid-gap);
+}
+.app-template-card {
+  overflow: hidden;
+  --tng-card-padding: 0;
+}
+.app-template-card--selectable {
+  cursor: pointer;
+}
+.app-template-card--selected {
+  outline: 2px solid var(--tng-semantic-accent-brand);
+  outline-offset: 2px;
+}
+.app-template-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--tng-semantic-border-subtle);
+}
+.app-template-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: var(--tng-typography-textSm);
+}
+.app-template-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.app-template-selected {
+  color: var(--tng-semantic-accent-brand);
+}
+.app-template-preview {
+  position: relative;
+  height: 14rem;
+  overflow: hidden;
+  background: var(--tng-semantic-background-canvas);
+}
+.app-template-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+  color-scheme: light;
+}
+.app-template-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.app-pagination {
+  margin-top: 2rem;
+  padding-block: 1rem;
+}
+.app-pagination-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.app-pagination-controls,
+.app-pagination-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.app-pagination-summary {
+  color: var(--tng-semantic-foreground-secondary);
+  font-size: var(--tng-typography-textSm);
+}
+.app-pagination-mobile {
+  display: none;
+}
+.app-page-size {
+  width: 5rem;
+}
+@media (max-width: 639px) {
+  .app-pagination-mobile {
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .app-pagination-summary,
+  tng-button.app-pagination-edge {
+    display: none;
+  }
+  .app-pagination-layout {
+    justify-content: center;
+  }
+}
