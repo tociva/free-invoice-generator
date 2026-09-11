@@ -3,7 +3,7 @@ name: Build and Deploy to Development
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [development]
   workflow_dispatch:
 
 jobs:
@@ -20,6 +20,8 @@ jobs:
 
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          ref: development
 
       - name: Set up Node 22
         uses: actions/setup-node@v4
@@ -34,7 +36,7 @@ jobs:
 
       - name: Get branch name
         run: |
-          BRANCH_NAME=${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}
+          BRANCH_NAME=development
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
