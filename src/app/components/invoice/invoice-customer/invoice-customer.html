@@ -51,7 +51,28 @@
         (openChange)="onCountryOpenChange($event)"
         [value]="countryKeyOf(InvoiceCustomerForm().get('country')?.value ?? null)"
         (valueChange)="onCountryValueChange($event)"
-      />
+      >
+        <ng-template
+          #tngAutocompleteOptionTpl
+          let-option="option"
+          let-label="label"
+        >
+          <span class="country-option">
+            <span
+              [class]="countryFlagClass(option)"
+              aria-hidden="true"
+            ></span>
+            <span class="country-option-label">{{ label }}</span>
+          </span>
+        </ng-template>
+
+        <ng-template #tngAutocompleteSelectedTpl let-option="option">
+          <span
+            [class]="countryFlagClass(option)"
+            aria-hidden="true"
+          ></span>
+        </ng-template>
+      </tng-autocomplete>
     </div>
 
     <!-- Mobile -->
