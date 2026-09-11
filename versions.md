@@ -1,4 +1,10 @@
 # Version Details
+## Version: 0.0.1
+## Date: 2026-09-11
+BRANCH_NAME=tailwind
+BUILD_VERSION=v0.0.1-tailwind
+
+# Version Details
 ## Version: 1.0.61
 ## Date: 2025-08-08
 BRANCH_NAME=master
