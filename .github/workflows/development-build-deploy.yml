@@ -83,7 +83,7 @@ jobs:
         run: |
           pnpm dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
-            --branch main
+            --branch $BRANCH_NAME
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
