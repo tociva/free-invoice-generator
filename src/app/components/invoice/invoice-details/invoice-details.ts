@@ -1,5 +1,6 @@
 import {
   TngCardComponent,
+  TngDatepickerComponent,
   TngCheckboxAngularFormsAdapter,
   TngCheckboxComponent,
   TngInputFieldComponent,
@@ -17,7 +18,6 @@ import {
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TngInput } from '@tailng-ui/primitives';
-import { TailngDate } from '../../shared/tailng-date';
 import { Currency } from '../store/currency/currency.model';
 import { currencyStore } from '../store/currency/currency.store';
 import { DateFormat } from '../store/date-format/date-format.model';
@@ -25,12 +25,14 @@ import { dateFormatStore } from '../store/date-format/date-format.store';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 import { TaxOption } from '../store/models/invoice-model';
 
+type InvoiceDateField = 'invoiceDate' | 'invoiceDueDate';
+
 @Component({
   selector: 'app-invoice-details',
   imports: [
     TngCardComponent,
     TngAutocompleteComponent,
-    TailngDate,
+    TngDatepickerComponent,
     TngInputFieldComponent,
     TngCheckboxComponent,
     TngCheckboxAngularFormsAdapter,
@@ -64,9 +66,7 @@ export class InvoiceDetailsComponent implements OnInit {
     if (!q) {
       return list;
     }
-    return list.filter((c) =>
-      this.stringFields(c).some((t) => t.toLowerCase().startsWith(q)),
-    );
+    return list.filter((c) => this.stringFields(c).some((t) => t.toLowerCase().startsWith(q)));
   });
 
   readonly filteredTaxOptions = computed(() => {
@@ -173,13 +173,26 @@ export class InvoiceDetailsComponent implements OnInit {
     }
   }
 
+  invoiceDateValue(field: InvoiceDateField): Date | null {
+    return this.coerceDate(this.InvoiceDetailsForm().controls[field].value);
+  }
+
+  onInvoiceDateValueChange(field: InvoiceDateField, value: unknown) {
+    this.InvoiceDetailsForm().controls[field].setValue(this.coerceDate(value));
+  }
+
+  markInvoiceDateTouched(field: InvoiceDateField) {
+    this.InvoiceDetailsForm().controls[field].markAsTouched();
+  }
+
   ngOnInit(): void {
     this.currencyStore.loadCurrency();
     this.dateFormatStore.loadDateFormat();
   }
 
-  formatDateForInput(date: Date | null) {
-    return date ? date.toISOString().substring(0, 10) : '';
+  private coerceDate(value: unknown): Date | null {
+    const date = value instanceof Date ? value : typeof value === 'string' ? new Date(value) : null;
+    return date && Number.isFinite(date.getTime()) ? date : null;
   }
 
   private currencyText(c: Currency): string {

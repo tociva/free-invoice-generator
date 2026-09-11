@@ -2,6 +2,8 @@ import {
   TngButtonComponent,
   TngCardComponent,
   TngProgressSpinnerComponent,
+  TngStepperComponent,
+  type TngStepperStep,
 } from '@tailng-ui/components';
 import {
   ChangeDetectionStrategy,
@@ -53,6 +55,7 @@ import { templateStore } from '../store/template/template.store';
     PreviewInvoiceComponent,
     InvoiceItemsMobileComponent,
     TngIcon,
+    TngStepperComponent,
   ],
   templateUrl: './simple-invoice.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -84,6 +87,14 @@ export class SimpleInvoice implements OnInit {
     { id: 3, label: 'Preview and Download' },
   ];
 
+  stepperSteps = computed<readonly TngStepperStep[]>(() =>
+    this.steps.map((step) => ({
+      value: step.id,
+      label: step.label,
+      completed: step.id < this.currentStep(),
+    })),
+  );
+
   isFirstStep = computed(() => this.currentStep() === 1);
   isLastStep = computed(() => this.currentStep() === this.steps.length);
 
@@ -109,6 +120,10 @@ export class SimpleInvoice implements OnInit {
       queryParams: { step: stepId },
       queryParamsHandling: 'merge',
     });
+  }
+
+  onStepperValueChange(value: string | number): void {
+    this.goToStep(Number(value));
   }
   // selectedTemplate = computed(() => this.templates().find(item => item.path === this.templateStore.selectedTemplatePath()) ?? this.templates()[0] ?? null);
 

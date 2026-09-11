@@ -38,10 +38,20 @@
       class="app-field-label"
       >Invoice Date</label
     >
-    <app-tailng-date
-      formControlName="invoiceDate"
-      inputId="invoice-details-invoiceDate"
-      label="Invoice Date"
+    <tng-datepicker
+      [value]="invoiceDateValue('invoiceDate')"
+      [disabled]="InvoiceDetailsForm().controls.invoiceDate.disabled"
+      inputAriaLabel="Invoice Date"
+      id="invoice-details-invoiceDate"
+      [required]="true"
+      [fullWidth]="true"
+      [invalid]="
+        InvoiceDetailsForm().controls.invoiceDate.invalid &&
+        InvoiceDetailsForm().controls.invoiceDate.touched
+      "
+      (valueChange)="onInvoiceDateValueChange('invoiceDate', $event)"
+      (closed)="markInvoiceDateTouched('invoiceDate')"
+      (focusout)="markInvoiceDateTouched('invoiceDate')"
     />
   </div>
 
@@ -52,10 +62,20 @@
       class="app-field-label"
       >Due Date</label
     >
-    <app-tailng-date
-      formControlName="invoiceDueDate"
-      inputId="invoice-details-invoiceDueDate"
-      label="Due Date"
+    <tng-datepicker
+      [value]="invoiceDateValue('invoiceDueDate')"
+      [disabled]="InvoiceDetailsForm().controls.invoiceDueDate.disabled"
+      inputAriaLabel="Due Date"
+      id="invoice-details-invoiceDueDate"
+      [required]="true"
+      [fullWidth]="true"
+      [invalid]="
+        InvoiceDetailsForm().controls.invoiceDueDate.invalid &&
+        InvoiceDetailsForm().controls.invoiceDueDate.touched
+      "
+      (valueChange)="onInvoiceDateValueChange('invoiceDueDate', $event)"
+      (closed)="markInvoiceDateTouched('invoiceDueDate')"
+      (focusout)="markInvoiceDateTouched('invoiceDueDate')"
     />
   </div>
   @if (advanced()) {
