@@ -1,7 +1,46 @@
 .app-footer {
-  padding: 1rem;
-  text-align: center;
+  width: 100%;
   background: var(--tng-semantic-background-brand);
   color: var(--tng-semantic-foreground-onBrand);
   font-size: var(--tng-typography-textSm);
+}
+
+.app-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.75rem;
+  padding-block: 0.875rem;
+}
+
+.app-footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.85rem;
+}
+
+.app-footer a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .app-footer-inner {
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 1rem;
+    text-align: center;
+  }
+
+  .app-footer-links {
+    justify-content: center;
+  }
 }

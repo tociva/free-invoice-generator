@@ -16,9 +16,8 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIcon } from '@ng-icons/core';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
-import { provideAppIcon } from '../../../provider/icon-provider';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
 import { InvoiceItem } from '../store/models/invoice-model';
 
@@ -31,13 +30,12 @@ import { InvoiceItem } from '../store/models/invoice-model';
     TngInputFieldComponent,
     TngInput,
     ReactiveFormsModule,
-    NgIcon,
+    TngIcon,
     CommonModule,
   ],
   templateUrl: './invoice-items-mobile.html',
   styleUrls: ['./invoice-items-mobile.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  providers: [provideAppIcon()],
 })
 export class InvoiceItemsMobileComponent implements OnInit {
   public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();

@@ -16,7 +16,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { NgIcon } from '@ng-icons/core';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { invoiceStore } from '../store/invoice.store';
 import { TemplateService } from '../store/services/template.services';
@@ -34,7 +34,7 @@ import { templateStore } from '../store/template/template.store';
     TngButtonComponent,
     TngInputFieldComponent,
     TngInput,
-    NgIcon,
+    TngIcon,
   ],
   templateUrl: './select-template.html',
   changeDetection: ChangeDetectionStrategy.Eager,

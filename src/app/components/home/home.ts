@@ -1,18 +1,20 @@
-import { TngButtonComponent, TngCardComponent } from '@tailng-ui/components';
-import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgIcon } from '@ng-icons/core';
+import { TngIcon } from '@tailng-ui/icons';
+import {
+  TngFileUploadDirective,
+  type TngFileUploadRejectedEvent,
+  type TngFileUploadSelectedEvent,
+} from '@tailng-ui/primitives';
 import { invoiceStore } from '../invoice/store/invoice.store';
 import { InvoiceFormService } from '../invoice/store/models/invoice-form';
 import { parseInvoiceJson } from '../invoice/store/models/invoice-import';
-import { FileUpload } from '../shared/file-upload/file-upload';
 
 @Component({
   selector: 'app-home',
-  imports: [TngCardComponent, TngButtonComponent, NgIcon, FileUpload],
+  imports: [TngIcon, TngFileUploadDirective],
   templateUrl: './home.html',
   styleUrl: './home.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [],
 })
 export class Home {
@@ -26,11 +28,30 @@ export class Home {
   goToInvoiceCreator = () => {
     this.router.navigate(['/simple-invoice']);
   };
-  isMobile = signal(window.innerWidth <= 768);
-  @HostListener('window:resize')
-  onResize() {
-    this.isMobile.set(window.innerWidth <= 768);
+
+  public onFilesSelected(event: TngFileUploadSelectedEvent) {
+    const file = event.files[0];
+    if (file) {
+      this.onFilesReceived(file);
+    }
   }
+
+  public onFilesRejected(event: TngFileUploadRejectedEvent) {
+    const rejected = event.rejected[0];
+    this.successMessage.set('');
+    this.errorMessage.set(rejected?.message ?? 'Invalid JSON File!');
+    this.clearMessageAfterDelay();
+  }
+
+  public onFileInputChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) {
+      this.onFilesReceived(file);
+    }
+    input.value = '';
+  }
+
   public onFilesReceived(file: File) {
     if (file.type === 'application/json' || file.name.endsWith('.json')) {
       this.handleJsonFile(file);

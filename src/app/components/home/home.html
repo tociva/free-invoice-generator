@@ -1,63 +1,165 @@
-<div class="app-home">
-  <tng-card padding="none" class="app-home-card">
-    <div class="app-home-content">
-      <div class="app-home-heading">
-        <p class="app-eyebrow app-eyebrow--brand">Daybook.Cloud</p>
-        <h1 class="app-home-title">Create your next invoice</h1>
-        <p class="app-home-description">
-          Make an invoice, choose a template, and download it for free.
+<section class="landing-page">
+  <div class="landing-container page-container">
+    <section class="hero" aria-labelledby="landing-title">
+      <div class="hero-content">
+        <p class="hero-badge">FREE &bull; OPEN SOURCE &bull; NO SIGNUP</p>
+        <h1 id="landing-title" class="hero-title">
+          Create Professional <span>Invoices</span> in Seconds
+        </h1>
+        <p class="hero-description">
+          Generate clean, professional invoices instantly. Free to use, open source, and no credit
+          card required.
         </p>
-      </div>
-      <!-- Intro text -->
-      <div class="app-home-intro">
-        <p class="app-strong">No signups. No credit card.</p>
-        <p class="app-home-reassurance">
-          <span>Free &amp; open source on</span>
-          <a
-            href="https://github.com/tociva/free-invoice-generator"
-            target="_blank"
-            rel="noopener"
-            class="app-home-source"
-          >
-            <ng-icon name="bootstrapGithub" /> GitHub
-          </a>
-        </p>
+
+        <div class="hero-features" aria-label="Key benefits">
+          <div class="feature-item">
+            <span class="feature-icon" aria-hidden="true">
+              <tng-icon icon="zap" />
+            </span>
+            <span>
+              <strong>Fast &amp; Free</strong>
+              <small>No signup needed</small>
+            </span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon" aria-hidden="true">
+              <tng-icon icon="lock" />
+            </span>
+            <span>
+              <strong>100% Private</strong>
+              <small>Works in your browser</small>
+            </span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon" aria-hidden="true">
+              <tng-icon icon="code" />
+            </span>
+            <span>
+              <strong>Open Source</strong>
+              <small>Available on GitHub</small>
+            </span>
+          </div>
+        </div>
       </div>
 
-      <!-- Main CTA -->
-      <tng-button
-        size="md"
-        tone="primary"
-        appearance="solid"
-        class="app-home-cta"
-        (click)="goToInvoiceCreator()"
-      >
-        Make Your Invoice
-      </tng-button>
+      <div class="invoice-preview" aria-label="Invoice preview">
+        <div class="invoice-paper">
+          <div class="invoice-preview-header">
+            <div>
+              <strong>Your Company</strong>
+              <span>123 Business Street</span>
+              <span>City, State 12345</span>
+              <span>info@yourcompany.com</span>
+            </div>
+            <div class="invoice-preview-meta">
+              <h2>INVOICE</h2>
+              <span>Invoice #: INV-001</span>
+              <span>Date: Jan 15, 2025</span>
+              <span>Due Date: Jan 30, 2025</span>
+            </div>
+          </div>
 
-      <!-- Divider -->
-      <div class="app-home-divider">
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Web Design Service</td>
+                <td>1</td>
+                <td>$500.00</td>
+                <td>$500.00</td>
+              </tr>
+              <tr>
+                <td>Development</td>
+                <td>10</td>
+                <td>$75.00</td>
+                <td>$750.00</td>
+              </tr>
+              <tr>
+                <td>Consultation</td>
+                <td>2</td>
+                <td>$100.00</td>
+                <td>$200.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="invoice-totals">
+            <div>
+              <span>Subtotal:</span>
+              <strong>$1,450.00</strong>
+            </div>
+            <div>
+              <span>Tax (10%):</span>
+              <strong>$145.00</strong>
+            </div>
+            <div class="invoice-total">
+              <span>Total:</span>
+              <strong>$1,595.00</strong>
+            </div>
+          </div>
+
+          <p class="invoice-note">Thank you for your business!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="action-card" aria-label="Create or import invoice">
+      <div class="action-card-intro">
+        <p>
+          <strong>No signups. No credit card.</strong>
+          <span>Free &amp; open source on GitHub.</span>
+        </p>
+        <a
+          href="https://github.com/tociva/free-invoice-generator"
+          target="_blank"
+          rel="noopener"
+          class="secondary-button"
+        >
+          <tng-icon icon="github" /> GitHub
+        </a>
+      </div>
+
+      <button type="button" class="primary-cta" (click)="goToInvoiceCreator()">
+        Jump Right In &mdash; Make Your Invoice &rarr;
+      </button>
+
+      <div class="home-divider">
         <span>or</span>
       </div>
 
-      <!-- Upload section -->
-      @if (isMobile()) {
-        <div class="app-home-upload">
-          <app-file-upload
-            mobileView="Upload JSON Invoice File"
-            (fileChanged)="onFilesReceived($event)"
-          ></app-file-upload>
-        </div>
-      }
-      @if (!isMobile()) {
-        <div class="app-home-upload">
-          <app-file-upload
-            deskTopView="Drop your invoice JSON file here!"
-            (fileChanged)="onFilesReceived($event)"
-          >
-          </app-file-upload>
-        </div>
-      }
+      <label
+        appFileSelect
+        tngFileUpload
+        accept=".json,application/json"
+        role="button"
+        tabindex="0"
+        class="upload-zone"
+        (filesSelected)="onFilesSelected($event)"
+        (filesRejected)="onFilesRejected($event)"
+        (keydown.enter)="homeUploadInput.click()"
+        (keydown.space)="$event.preventDefault(); homeUploadInput.click()"
+      >
+        <input
+          #homeUploadInput
+          type="file"
+          accept=".json,application/json"
+          hidden
+          (change)="onFileInputChange($event)"
+        />
+        <span class="upload-icon" aria-hidden="true">
+          <tng-icon icon="cloud-upload" />
+        </span>
+        <span class="upload-title">Drop your invoice JSON file here or click below</span>
+        <span class="upload-button">Browse JSON File</span>
+      </label>
+
       @if (errorMessage()) {
         <div role="alert" class="app-form-error">
           {{ errorMessage() }}
@@ -68,6 +170,6 @@
           {{ successMessage() }}
         </div>
       }
-    </div>
-  </tng-card>
-</div>
+    </section>
+  </div>
+</section>

@@ -17,7 +17,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgIcon } from '@ng-icons/core';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog';
 import { TemplateService } from '../invoice/store/services/template.services';
@@ -39,7 +39,7 @@ import { sampleInvoice } from './template.utils';
     TngInput,
     CommonModule,
     InvoicePreviewDialogComponent,
-    NgIcon,
+    TngIcon,
     FormsModule,
   ],
   templateUrl: './list-templates.html',

@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIcon } from '@ng-icons/core';
+import { TngIcon } from '@tailng-ui/icons';
 import { InvoiceCustomerComponent } from '../invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from '../invoice-details/invoice-details';
 import { InvoiceItemsMobileComponent } from '../invoice-items-mobile/invoice-items-mobile';
@@ -52,7 +52,7 @@ import { templateStore } from '../store/template/template.store';
     SelectTemplateComponent,
     PreviewInvoiceComponent,
     InvoiceItemsMobileComponent,
-    NgIcon,
+    TngIcon,
   ],
   templateUrl: './simple-invoice.html',
   changeDetection: ChangeDetectionStrategy.Eager,
