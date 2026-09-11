@@ -1,68 +1,11 @@
-<!-- DESKTOP STEPPER -->
-<div class="app-stepper">
-  <div class="app-stepper-list">
-    @for (step of steps; track step.id; let i = $index) {
-      <ng-container>
-        <!-- STEP -->
-        <div
-          class="app-step"
-          role="button"
-          tabindex="0"
-          (keydown.enter)="goToStep(step.id)"
-          (keydown.space)="$event.preventDefault(); goToStep(step.id)"
-          [attr.aria-current]="currentStep() === step.id ? 'step' : null"
-          (click)="goToStep(step.id)"
-        >
-          <div class="app-step-number" [class.app-step--active]="currentStep() === step.id">
-            {{ step.id }}
-          </div>
-          <span class="app-step-label" [class.app-step--active]="currentStep() === step.id">
-            {{ step.label }}
-          </span>
-        </div>
 
-        <!-- CONNECTOR LINE -->
-        @if (i < steps.length - 1) {
-          <div class="app-step-connector" [class.app-step--active]="currentStep() > step.id"></div>
-        }
-      </ng-container>
-    }
-  </div>
-</div>
-
-<!-- MOBILE HEADER -->
-<div class="app-stepper-mobile">
-  <div class="app-stepper-mobile-content">
-    <tng-button
-      size="sm"
-      tone="neutral"
-      appearance="outline"
-      type="button"
-      (click)="goToStep(currentStep() - 1)"
-      [disabled]="isFirstStep()"
-    >
-      Prev
-    </tng-button>
-
-    <div class="app-stepper-current">
-      <div class="app-supporting-text">Step {{ currentStep() }} of {{ steps.length }}</div>
-      <div class="app-strong">
-        {{ steps[currentStep() - 1]?.label }}
-      </div>
-    </div>
-
-    <tng-button
-      size="sm"
-      tone="primary"
-      appearance="solid"
-      type="button"
-      (click)="goToStep(currentStep() + 1)"
-      [disabled]="isLastStep()"
-    >
-      Next
-    </tng-button>
-  </div>
-</div>
+<tng-stepper
+  ariaLabel="Invoice steps"
+  orientation="horizontal"
+  [steps]="stepperSteps()"
+  [value]="currentStep()"
+  (valueChange)="onStepperValueChange($event)"
+/>
 
 <!-- STEP CONTENT -->
 <div class="app-page">

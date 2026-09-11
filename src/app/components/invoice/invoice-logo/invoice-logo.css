@@ -8,7 +8,32 @@
   margin-top: 1rem;
 }
 .app-invoice-logo-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  min-height: var(--app-upload-min-height, 10rem);
+  padding: var(--app-upload-padding, 1rem);
+  border: 2px dashed var(--app-upload-border-color, var(--tng-semantic-border-strong));
+  border-radius: var(--tng-radius-lg);
+  background: var(--tng-semantic-background-surface);
+  color: var(--tng-semantic-foreground-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--tng-motion-durationNormal),
+    border-color var(--tng-motion-durationNormal);
+}
+.app-invoice-logo-upload:hover,
+.app-invoice-logo-upload[data-dragging] {
+  background: var(--app-brand-tint-10);
+  border-color: var(--tng-semantic-accent-brand);
+}
+.app-invoice-logo-upload[data-rejected] {
+  border-color: var(--tng-semantic-accent-danger);
+}
+.app-invoice-logo-upload-mobile {
+  display: none;
 }
 .app-invoice-logo-image {
   width: 12.5rem;
@@ -20,4 +45,16 @@
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .app-invoice-logo-upload {
+    min-height: var(--app-upload-min-height, 3rem);
+  }
+  .app-invoice-logo-upload-mobile {
+    display: block;
+  }
+  .app-invoice-logo-upload-desktop {
+    display: none;
+  }
 }

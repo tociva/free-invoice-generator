@@ -1,22 +1,24 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
-  effect,
+  computed,
   HostListener,
-  inject,
   input,
-  inject as lifecycleInject,
   signal,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
+import {
+  TngButtonComponent,
+  TngInputFieldComponent,
+  TngTableCellTemplate,
+  TngTableComponent,
+  type TngTableColumn,
+} from '@tailng-ui/components';
 import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
-import { InvoiceItem } from '../store/models/invoice-model';
-import { InvoiceCalculationService } from '../store/services/calculation.services';
+
+type InvoiceItemRow = FormGroup<InvoiceItemForm>;
 
 @Component({
   selector: 'app-invoice-items',
@@ -24,10 +26,11 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
   imports: [
     TngButtonComponent,
     TngInputFieldComponent,
+    TngTableComponent,
+    TngTableCellTemplate,
     TngInput,
     ReactiveFormsModule,
     TngIcon,
-    CommonModule,
   ],
   templateUrl: './invoice-items.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -36,25 +39,97 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
 export class InvoiceItemsComponent {
   public InvoiceItemForm = input.required<FormArray<FormGroup<InvoiceItemForm>>>();
   advanced = input<boolean>(false);
-  invoiceService = inject(InvoiceCalculationService);
 
   hasItemDescription = input<boolean>();
   hasItemDiscount = input<boolean>();
   selectedTaxOption = input<string>('');
 
-  private readonly destroyRef = lifecycleInject(DestroyRef);
-  items = signal<InvoiceItem[]>([]);
   isMobile = signal(window.innerWidth <= 768);
+
+  tableColumns = computed<readonly TngTableColumn<InvoiceItemRow>[]>(() => {
+    const columns: TngTableColumn<InvoiceItemRow>[] = [
+      { id: 'name', label: 'Item Name', width: '12rem' },
+    ];
+
+    if (this.advanced() && this.hasItemDescription()) {
+      columns.push({ id: 'description', label: 'Description', width: '14rem' });
+    }
+
+    columns.push(
+      { id: 'price', label: 'Price', align: 'end', width: '8rem' },
+      { id: 'quantity', label: 'Qty', align: 'end', width: '7rem' },
+      { id: 'itemTotal', label: 'Total', align: 'end', width: '8rem' },
+    );
+
+    if (this.advanced() && this.hasItemDiscount()) {
+      columns.push(
+        {
+          id: 'discount',
+          label: 'Discount',
+          headerAlign: 'center',
+          children: [
+            { id: 'discPercentage', label: '%', align: 'end', width: '7rem' },
+            { id: 'discountAmount', label: 'Value', align: 'end', width: '8rem' },
+          ],
+        },
+        { id: 'subTotal', label: 'SubTotal', align: 'end', width: '8rem' },
+      );
+    }
+
+    if (this.advanced()) {
+      if (this.selectedTaxOption() === 'CGST & SGST') {
+        columns.push(
+          {
+            id: 'cgst',
+            label: 'CGST',
+            headerAlign: 'center',
+            children: [
+              { id: 'tax1Percentage', label: '%', align: 'end', width: '7rem' },
+              { id: 'tax1Amount', label: 'Value', align: 'end', width: '8rem' },
+            ],
+          },
+          {
+            id: 'sgst',
+            label: 'SGST',
+            headerAlign: 'center',
+            children: [
+              { id: 'tax2Percentage', label: '%', align: 'end', width: '7rem' },
+              { id: 'tax2Amount', label: 'Value', align: 'end', width: '8rem' },
+            ],
+          },
+        );
+      }
+
+      if (this.selectedTaxOption() === 'IGST') {
+        columns.push({
+          id: 'igst',
+          label: 'IGST',
+          headerAlign: 'center',
+          children: [
+            { id: 'tax3Percentage', label: '%', align: 'end', width: '7rem' },
+            { id: 'tax3Amount', label: 'Value', align: 'end', width: '8rem' },
+          ],
+        });
+      }
+
+      if (this.selectedTaxOption() === 'IGST' || this.selectedTaxOption() === 'CGST & SGST') {
+        columns.push({ id: 'taxTotal', label: 'Tax Total', align: 'end', width: '8rem' });
+      }
+    }
+
+    if (this.advanced() && this.selectedTaxOption() !== 'Non Taxable') {
+      columns.push({ id: 'grandTotal', label: 'Grand Total', align: 'end', width: '9rem' });
+    }
+
+    columns.push({ id: 'action', label: 'Action', align: 'center', width: '6rem' });
+
+    return columns;
+  });
 
   @HostListener('window:resize')
   onResize() {
     this.isMobile.set(window.innerWidth <= 768);
   }
-
-  constructor() {}
-  eff = effect(() => {
-    this.items.set(this.InvoiceItemForm().getRawValue());
-  });
 
   updateItemTotal(index: number) {
     const item = this.InvoiceItemForm().at(index);

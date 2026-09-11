@@ -1,12 +1,26 @@
 <div class="app-invoice-logo">
   @if (!uploadedImageUrl()) {
-    <app-file-upload
-      [fileUploadAccept]="'.png,.jpg,.jpeg,.gif'"
-      [deskTopView]="!isMobile() ? 'Tap to Drop your ' + logoField() + ' here' : ''"
-      [mobileView]="isMobile() ? 'Tap to Upload ' + logoField() : ''"
-      (fileChanged)="onFilesReceived($event)"
+    <label
+      tngFileUpload
+      accept=".png,.jpg,.jpeg,.gif,image/png,image/jpeg,image/gif"
+      role="button"
+      tabindex="0"
       class="app-invoice-logo-upload"
-    ></app-file-upload>
+      (filesSelected)="onFilesSelected($event)"
+      (filesRejected)="onFilesRejected($event)"
+      (keydown.enter)="invoiceLogoUploadInput.click()"
+      (keydown.space)="$event.preventDefault(); invoiceLogoUploadInput.click()"
+    >
+      <input
+        #invoiceLogoUploadInput
+        type="file"
+        accept=".png,.jpg,.jpeg,.gif,image/png,image/jpeg,image/gif"
+        hidden
+        (change)="onFileInputChange($event)"
+      />
+      <span class="app-invoice-logo-upload-desktop"> Tap to Drop your {{ logoField() }} here </span>
+      <span class="app-invoice-logo-upload-mobile"> Tap to Upload {{ logoField() }} </span>
+    </label>
   }
 
   @if (uploadedImageUrl()) {

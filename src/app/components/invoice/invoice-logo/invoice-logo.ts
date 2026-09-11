@@ -1,25 +1,22 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  effect,
-  input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TngButtonComponent } from '@tailng-ui/components';
-import { FileUpload } from '../../shared/file-upload/file-upload';
+import {
+  TngFileUploadDirective,
+  type TngFileUploadRejectedEvent,
+  type TngFileUploadSelectedEvent,
+} from '@tailng-ui/primitives';
 import { InvoiceForm } from '../store/models/invoice-form.model';
 
 @Component({
   selector: 'app-invoice-logo',
   standalone: true,
-  imports: [TngButtonComponent, FileUpload],
+  imports: [TngButtonComponent, TngFileUploadDirective],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './invoice-logo.html',
+  styleUrl: './invoice-logo.css',
 })
 export class InvoiceLogoComponent {
-  isMobile = signal(window.innerWidth <= 768);
   uploadedImageUrl = signal<string | null>(null);
   loadingImage = signal(false);
   InvoiceLogo = input.required<FormGroup<InvoiceForm>>();
@@ -27,20 +24,39 @@ export class InvoiceLogoComponent {
 
   advanced = input<boolean>(false);
 
-  @HostListener('window:resize')
-  onResize() {
-    this.isMobile.set(window.innerWidth <= 768);
-  }
   eff = effect(() => {
     const value = this.InvoiceLogo()?.get(this.logoField())?.value;
     this.uploadedImageUrl.set(value || null);
   });
 
   ngOnInit(): void {
-    const controlUrl = this.InvoiceLogo().get('smallLogo')?.value;
+    const controlUrl = this.InvoiceLogo().get(this.logoField())?.value;
     if (controlUrl) {
       this.uploadedImageUrl.set(controlUrl);
     }
+  }
+
+  public onFilesSelected(event: TngFileUploadSelectedEvent) {
+    const file = event.files[0];
+    if (file) {
+      this.onFilesReceived(file);
+    }
+  }
+
+  public onFilesRejected(event: TngFileUploadRejectedEvent) {
+    const rejected = event.rejected[0];
+    if (rejected) {
+      console.warn(rejected.message);
+    }
+  }
+
+  public onFileInputChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) {
+      this.onFilesReceived(file);
+    }
+    input.value = '';
   }
 
   public onFilesReceived(file: File) {
@@ -64,6 +80,6 @@ export class InvoiceLogoComponent {
 
   removeImage() {
     this.uploadedImageUrl.set(null);
-    this.InvoiceLogo().get('smallLogo')?.setValue('');
+    this.InvoiceLogo().get(this.logoField())?.setValue('');
   }
 }
