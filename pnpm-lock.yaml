@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@tailng-ui/icons@0.21.0>@ng-icons/core': 33.0.0
+
 importers:
 
   .:
@@ -1145,13 +1148,6 @@ packages:
 
   '@ng-icons/bootstrap-icons@33.0.0':
     resolution: {integrity: sha512-N4XZMJOIwAGd0QcubccNngf/yxdZVPPU5oQx1hUchNJcCcItI8jYY5KDhZZoTc7ZvDwotzK4T085PJzfAKY2Gw==}
-
-  '@ng-icons/core@32.5.0':
-    resolution: {integrity: sha512-6zAXQ5vryaclOWEVzprFJjJAW6NSOl0eBm+I6BwmcMk+vR+1vHU82DNpNTbUE9Wn4CGXEP1yd+S+pTKIaRTXjg==}
-    peerDependencies:
-      '@angular/common': '>=20.0.0'
-      '@angular/core': '>=20.0.0'
-      rxjs: ^6.5.3 || ^7.4.0
 
   '@ng-icons/core@33.0.0':
     resolution: {integrity: sha512-yLRBA6FnvW16dCCqiSoA7YrCwsPcrrwmh/VylmMLHZuBe7lmPnBJ5JE8hILU9HmYr+HPPXoH47esu881M7lftA==}
@@ -4061,13 +4057,6 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@ng-icons/core@32.5.0(@angular/common@22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)':
-    dependencies:
-      '@angular/common': 22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)
-      '@angular/core': 22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2)
-      rxjs: 7.8.2
-      tslib: 2.8.1
-
   '@ng-icons/core@33.0.0(@angular/common@22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)':
     dependencies:
       '@angular/common': 22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)
@@ -4421,7 +4410,7 @@ snapshots:
   '@tailng-ui/icons@0.21.0(@angular/common@22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)':
     dependencies:
       '@angular/core': 22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2)
-      '@ng-icons/core': 32.5.0(@angular/common@22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)
+      '@ng-icons/core': 33.0.0(@angular/common@22.1.5(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.5(@angular/compiler@22.1.5)(rxjs@7.8.2))(rxjs@7.8.2)
       '@ng-icons/lucide': 33.4.0
       tslib: 2.8.1
     transitivePeerDependencies:
