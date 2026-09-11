@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TngInput } from '@tailng-ui/primitives';
-import { Country } from '../store/country/country.model';
+import { Country, countryFlagClass } from '../store/country/country.model';
 import { countryStore } from '../store/country/country.store';
 import { CustomerForm } from '../store/models/invoice-form.model';
 
@@ -59,6 +59,9 @@ export class InvoiceCustomerComponent {
 
   // String() so a numeric 91 and a string "91" are treated as the same key
   readonly countryValue = (c: Country) => String(c.code);
+
+  readonly countryFlagClass = (country: Country): string =>
+    countryFlagClass(country.code);
 
   // Resolve the form's country object to the store's matching option:
   // by code first (with String() coercion), then by name (covers saved/

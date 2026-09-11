@@ -4,3 +4,21 @@
 @import './design-system.css';
 @import './invoice.css';
 @import './catalog.css';
+@import './flags.css';
+
+/* Country autocomplete option rows. The tng-autocomplete overlay is appended
+   to document.body, so these styles must be global rather than component-scoped. */
+.country-option {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.country-option-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
