@@ -1,4 +1,10 @@
 # Version Details
+## Version: 0.0.3
+## Date: 2026-09-11
+BRANCH_NAME=development
+BUILD_VERSION=v0.0.3-development
+
+# Version Details
 ## Version: 0.0.2
 ## Date: 2026-09-11
 BRANCH_NAME=tailwind
