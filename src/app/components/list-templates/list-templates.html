@@ -13,61 +13,41 @@
 <div class="app-page app-catalog">
   <!-- Global Search -->
   <div class="app-catalog-search">
-    <div class="app-search">
-      <!-- Search Icon -->
-      <div class="app-search-icon">
-        <tng-icon icon="search" [class.app-search--active]="globalSearch().length > 0" />
-      </div>
-
-      <!-- Input -->
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          type="text"
-          class="app-search-input"
-          placeholder="Search templates by name, description, or tags..."
-          [value]="globalSearch()"
-          (click)="onInputClick($event)"
-          (blur)="showDropdown()"
-          #templateSearch
-          (input)="onInputChange(templateSearch.value)"
-          aria-label="Search templates"
-      /></tng-input-field>
-
-      <!-- Clear -->
-      @if (globalSearch().length > 0) {
-        <tng-button
-          size="sm"
-          tone="neutral"
-          appearance="outline"
-          type="button"
-          class="app-search-clear"
-          (click)="clearSearch()"
-          aria-label="Clear search"
-        >
-          <tng-icon icon="x" />
-          <span class="app-sr-only">Clear search</span></tng-button
-        >
-      }
-
-      <!-- Search Suggestions -->
-      @if (showDropdown() && filteredTags().length > 0) {
-        <ul class="app-suggestions" aria-label="Suggested template tags">
-          @for (tag of filteredTags(); track $index) {
-            <li
-              class="app-suggestion"
-              (click)="selectTag(tag)"
-              role="button"
-              tabindex="0"
-              (keydown.enter)="selectTag(tag)"
-              (keydown.space)="$event.preventDefault(); selectTag(tag)"
-            >
-              {{ tag }}
-            </li>
-          }
-        </ul>
-      }
+    <div class="app-template-search-button">
+      <tng-button
+        size="lg"
+        tone="neutral"
+        appearance="outline"
+        type="button"
+        (click)="openSearch()"
+        aria-haspopup="dialog"
+        [ariaExpanded]="searchOpen()"
+        aria-label="Search templates"
+        title="Search templates (Ctrl K)"
+      >
+        <span class="app-template-search-label">
+          <tng-icon icon="search" />
+          <span>Search</span>
+        </span>
+        <kbd class="app-search-shortcut">Ctrl K</kbd>
+      </tng-button>
     </div>
+
+    @if (searchOpen()) {
+      <tng-command-palette
+        [open]="true"
+        [query]="paletteQuery()"
+        [options]="filteredTags()"
+        placeholder="Search templates by name, description, or tags..."
+        ariaLabel="Search templates"
+        emptyText="No matching template tags"
+        [getOptionValue]="getTagValue"
+        [getOptionLabel]="getTagLabel"
+        (openChange)="onSearchOpenChange($event)"
+        (queryChange)="onInputChange($event)"
+        (optionSelect)="selectTag($event.option)"
+      />
+    }
   </div>
 
   <!-- Template Grid -->

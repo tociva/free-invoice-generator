@@ -1,8 +1,8 @@
 import {
   TngButtonComponent,
   TngCardComponent,
+  TngCommandPaletteComponent,
   TngEmptyComponent,
-  TngInputFieldComponent,
   TngProgressSpinnerComponent,
   TngSelectComponent,
 } from '@tailng-ui/components';
@@ -17,7 +17,6 @@ import {
   signal,
 } from '@angular/core';
 import { TngIcon } from '@tailng-ui/icons';
-import { TngInput } from '@tailng-ui/primitives';
 import { invoiceStore } from '../store/invoice.store';
 import { TemplateService } from '../store/services/template.services';
 import { TemplateItem } from '../store/template/template.model';
@@ -32,8 +31,7 @@ import { templateStore } from '../store/template/template.store';
     TngProgressSpinnerComponent,
     TngCardComponent,
     TngButtonComponent,
-    TngInputFieldComponent,
-    TngInput,
+    TngCommandPaletteComponent,
     TngIcon,
   ],
   templateUrl: './select-template.html',
@@ -49,21 +47,35 @@ export class SelectTemplateComponent {
 
   // UI STATE
   globalSearch = signal('');
-  showDropdown = signal(false);
+  paletteQuery = signal('');
+  searchOpen = signal(false);
 
-  onInputClick(event: MouseEvent) {
-    this.showDropdown.set(true);
-    event.stopPropagation();
+  @HostListener('document:keydown', ['$event'])
+  onGlobalSearchShortcut(event: KeyboardEvent): void {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      this.openSearch();
+    }
   }
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: MouseEvent) {
-    this.showDropdown.set(false);
+
+  openSearch(): void {
+    this.paletteQuery.set('');
+    this.searchOpen.set(true);
   }
-  onInputChange(value: string) {
-    this.globalSearch.set(value);
-    this.currentPage.set(1);
-    this.showDropdown.set(this.filteredTags().length > 0);
+
+  onSearchOpenChange(open: boolean): void {
+    if (open) {
+      this.paletteQuery.set('');
+    }
+    this.searchOpen.set(open);
   }
+
+  onInputChange(value: string): void {
+    this.paletteQuery.set(value);
+  }
+
+  getTagValue = (tag: string): string => tag;
+  getTagLabel = (tag: string): string => tag;
 
   templates = input<TemplateItem[]>([]);
   selectedTemplate = input<TemplateItem | null>(null);
@@ -76,7 +88,7 @@ export class SelectTemplateComponent {
     this.templateSelected.emit(item);
   }
   filteredTags = computed(() => {
-    const query = this.globalSearch().toLowerCase();
+    const query = this.paletteQuery().toLowerCase();
     return this.templateStore
       .searchTags()
       .filter((tag) => tag.toLowerCase().includes(query) && !this.excludeTags().includes(tag));
@@ -112,8 +124,8 @@ export class SelectTemplateComponent {
 
   selectTag(tag: string): void {
     this.globalSearch.set(tag);
-    this.showDropdown.set(false);
     this.currentPage.set(1);
+    this.searchOpen.set(false);
   }
 
   clearSearch() {
