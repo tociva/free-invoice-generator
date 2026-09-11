@@ -7,6 +7,7 @@ import { TemplateService } from '../services/template.services';
 import { initialTemplateState } from './template.state';
 
 export const templateStore = signalStore(
+  { providedIn: 'root' },
   withState(initialTemplateState),
   withMethods(
     (store, loader = inject(TemplateLoaderService), rendering = inject(TemplateService)) => {

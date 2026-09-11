@@ -4,6 +4,7 @@ import { Currency } from './currency.model';
 import { currencies } from './currency.data';
 
 export const currencyStore = signalStore(
+  { providedIn: 'root' },
   withState(initialCurrencyState),
   withMethods((store) => ({
     loadCurrency() {

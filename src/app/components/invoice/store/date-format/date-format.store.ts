@@ -4,6 +4,7 @@ import { DateFormat } from './date-format.model';
 import { dateFormats } from './date-format.data';
 
 export const dateFormatStore = signalStore(
+  { providedIn: 'root' },
   withState(initialDateFormatState),
   withMethods((store) => ({
     loadDateFormat() {

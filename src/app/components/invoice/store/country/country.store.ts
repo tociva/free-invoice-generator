@@ -4,6 +4,7 @@ import { countries } from './country.data';
 import { Country } from './country.model';
 
 export const countryStore = signalStore(
+  { providedIn: 'root' },
   withState(initialCountryState),
   withMethods((store) => ({
     loadCountry() {
