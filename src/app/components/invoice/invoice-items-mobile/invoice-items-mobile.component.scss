@@ -1,0 +1,56 @@
+@use '../../../../styles/variables' as *;
+
+.invoice-items-mobile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2px;
+  background: #f9f9f9;
+}
+
+.invoice-item-mobile-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.item-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.item-remove-btn {
+  color: #f44336;
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+.full-width-green-btn {
+  width: 100%;
+  justify-content: center;    /* center icon+text inside button */
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  border: 2px solid $primary-color; /* elegant green border */
+  background-color: $primary-color;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(22,163,74,0.1);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+
+  /* Optional: rounded corners */
+  border-radius: 6px;
+}

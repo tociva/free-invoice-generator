@@ -1,4 +1,4 @@
-# FreeInvoiceGenerator20
+# 🧾 Free Invoice Generator
 
 Angular 22 invoice generator using Reactive Forms, NgRx Signal Store, TailNG and Tailwind CSS 4.
 
@@ -10,28 +10,38 @@ Requires Node **>=22.22.3 <23** and **pnpm 10.34.5**. See [migration notes](MIGR
 pnpm install
 ```
 
-## Development server
+## ✨ Features
 
-To start a local development server, run:
+✅ Completely free and open source  
+✅ Simple, user-friendly interface  
+✅ Customizable invoice details (client info, items, tax, discounts)  
+✅ Automatic calculation of totals and taxes  
+✅ PDF generation and download  
+✅ Multiple currencies and date formats  
+✅ Clean, professional invoice templates  
+✅ Works offline (PWA-ready, if configured)  
+✅ Mobile-friendly design  
+
+---
+
+## 🚀 Demo
+
+You can try it out here (replace this with your actual link if hosted):
+
+**[Live Demo](https://free-invoice-generator.app)**
+
+
+## 🛠️ Getting Started
+
+Clone the repository and run it locally:
 
 ```bash
 pnpm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+## ✅ Lint the Code
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+yarn lint
 ```
 
 ## Building

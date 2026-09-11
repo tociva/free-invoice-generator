@@ -1,0 +1,15 @@
+.auto-grid-completer {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    position:absolute;
+    top:0px;
+    height:100%;
+    width: 100%;
+  }
+  
+  .auto-grid-completer:focus {
+    outline: none;
+  }
+  

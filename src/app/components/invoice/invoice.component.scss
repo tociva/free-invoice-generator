@@ -1,0 +1,137 @@
+@use '../../../styles/variables' as *;
+@use '../util/common.styles.scss' as *;
+
+.mobile-step-title{
+  display: none;
+}
+.mobile-step-header {
+  display: none;
+}
+.step-data-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.step-form-content{
+  flex: 1 1 50%;
+}
+.spacer-div{
+  width: 20%;
+}
+
+.column-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 20px;
+}
+
+.center-box {
+  width: 100%;
+  max-width: 700px;
+}
+
+.terms-notes-wrapper {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+app-invoice-terms-notes {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+app-invoice-terms-notes textarea {
+  width: 100%;
+  min-height: 100px;
+}
+
+
+.items-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.invoice-items-wrapper {
+  width: 100%;
+}
+
+.invoice-summary-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+.invoice-summary-content{
+  min-width: 400px;
+}
+
+@media (max-width: $breakpoint-mobile) {
+
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+
+::ng-deep .mat-horizontal-content-container {
+    background-color: #ffffff !important;
+    padding: 2px !important;
+  }
+
+  .next-btn {
+    margin-left: 0;
+    margin-bottom: 50px;
+  }
+  .back-btn{
+    margin-bottom: 50px;
+  }
+  .next-btn1{
+    margin-bottom: 50px;
+  }
+  .mobile-step-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 12px;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  .mobile-step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+  
+    .mobile-step-title {
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      flex: 1;
+    }
+  
+    button {
+      color: #367588;
+    }
+  }
+  .step-data-container{
+    flex-direction: column;
+  }
+  .spacer-div{
+    display: none;
+  }
+  .invoice-summary-wrapper{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .items-layout{
+    padding: 0px;
+  }
+}

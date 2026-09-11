@@ -1,0 +1,39 @@
+.icon-column {
+    cursor: pointer;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
+  .icon-green {
+    @extend .icon-column;
+    color: #0062FF;
+  }
+  .icon-danger {
+    @extend .icon-column;
+    color: #FF5722;
+  }
+  .icon-green-rotate {
+    color: #0062FF;
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  
+  }
+  @-moz-keyframes spin { 50% { -moz-transform: rotateY(90deg); } }
+  @-webkit-keyframes spin { 50% { -webkit-transform: rotateY(90deg); } }
+  @keyframes spin { 50% { -webkit-transform: rotateY(90deg); transform:rotateY(90deg); } }
+  
+  
+  @keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+  }
+  

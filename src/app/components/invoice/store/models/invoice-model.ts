@@ -46,7 +46,6 @@ export interface Customer {
   gstin: string;
 }
 
-
 export interface Invoice {
   invoiceNo: string;
   invoiceDate: Date | null;

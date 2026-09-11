@@ -1,0 +1,38 @@
+<div class="invoice-items-mobile-container">
+  <div
+    *ngFor="let item of invoiceItems; let idx = index"
+    class="invoice-item-mobile-item"
+  >
+    <div class="invoice-item-header">
+      <span class="item-title">Item #{{ idx + 1 }}</span>
+      <button mat-icon-button class="item-remove-btn" (click)="removeItem(idx)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <ag-grid-angular
+      class="ag-theme-alpine address-grid no-header"
+      style="width: 100%;"
+      [columnDefs]="invoiceItemsColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [gridOptions]="gridOptions"
+      [domLayout]="'autoHeight'"
+      [getRowId]="getItemsRowId"
+      [headerHeight]="0"
+      [rowHeight]="rowHeight"
+      (gridReady)="onInvoiceItemsGridReady($event, item, idx)"
+      (cellValueChanged)="handleItemCellValueChanged($event, idx)"
+    ></ag-grid-angular>
+  </div>
+
+  <div class="invoice-item-mobile-item-add">
+    <button
+      mat-stroked-button
+      class="full-width-green-btn"
+      (click)="addItem()"
+    >
+      <mat-icon>add</mat-icon> Add Item
+    </button>
+  </div>
+  
+</div>

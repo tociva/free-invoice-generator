@@ -1,0 +1,33 @@
+.primary-btn {
+  background-color: #367588;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.next-btn {
+  @extend .primary-btn;
+}
+.next-btn1 {
+  @extend .primary-btn;
+}
+
+.next-btn3 {
+  @extend .primary-btn;
+}
+
+.next-btnn {
+  margin-left: auto;
+}
+
+.finish-btn {
+  @extend .primary-btn;
+  margin-bottom: 50px;
+}
+
+.back-btn {
+  @extend .primary-btn;
+  color: #555;
+  background-color: transparent;
+  border: 1px solid #367588;
+}
