@@ -1,13 +1,10 @@
-﻿<header class="app-header">
-  <div class="app-header-inner">
+<header class="app-header site-header">
+  <div class="app-header-inner site-header__inner page-container">
     <div class="app-header-brand">
-      <a routerLink="/simple-invoice">Free Invoice Generator <span>by Daybook.Cloud</span></a>
+      <a routerLink="/home">Free Invoice Generator <span>by Daybook.Cloud</span></a>
     </div>
 
     <nav class="app-header-navigation" aria-label="Main navigation">
-      <a routerLink="/Testing" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
-        >Test Data</a
-      >
       <a routerLink="/home" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
         >Home</a
       >
@@ -15,31 +12,34 @@
         routerLink="/simple-invoice"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
-        >Simple Invoice</a
+        >SimpleInvoice</a
       >
       <a routerLink="/invoice" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
-        >Advance Invoice</a
+        >Advanced Invoice</a
       >
-      <a href="https://github.com" target="_blank">GitHub</a>
+      <!-- <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener"
+        >GitHub</a
+      > -->
       <a
         routerLink="/templates"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         >Templates</a
       >
-      <a href="/docs/index.html">Doc</a>
+      <!-- <a href="/docs/index.html">Docs</a> -->
     </nav>
 
     <div class="app-header-actions">
       <tng-button
         size="sm"
         tone="neutral"
+        appearance="ghost"
+        class="app-theme-toggle"
         [ariaPressed]="theme.darkMode()"
         [title]="theme.darkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
         (click)="theme.toggleDarkMode()"
       >
-        <tng-icon [icon]="theme.darkMode() ? 'bootstrap:sun' : 'bootstrap:moon'" size="1.25rem" />
-        <span class="app-sr-only">Dark mode</span>
+        <tng-icon [icon]="theme.darkMode() ? 'sun' : 'moon'" size="1.25rem" />
       </tng-button>
       <tng-button
         size="sm"
@@ -49,25 +49,22 @@
         class="app-header-menu"
         (click)="toggleMenu()"
       >
-        <ng-icon
-          [name]="menuOpen() ? 'bootstrapX' : 'bootstrapList'"
-          class="app-header-menu-icon"
+        <span
+          class="app-header-menu-glyph"
+          [class.app-header-menu-glyph--open]="menuOpen()"
           aria-hidden="true"
-        />
+        ></span>
         <span class="app-sr-only">Menu</span>
       </tng-button>
     </div>
   </div>
 
   @if (menuOpen()) {
-    <nav id="mobile-navigation" class="app-header-mobile" aria-label="Mobile navigation">
-      <a
-        routerLink="/Testing"
-        routerLinkActive="app-nav-link--active"
-        ariaCurrentWhenActive="page"
-        (click)="closeMenu()"
-        >Test Data</a
-      >
+    <nav
+      id="mobile-navigation"
+      class="app-header-mobile page-container"
+      aria-label="Mobile navigation"
+    >
       <a
         routerLink="/home"
         routerLinkActive="app-nav-link--active"
@@ -80,16 +77,18 @@
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >Simple Invoice</a
+        >SimpleInvoice</a
       >
       <a
         routerLink="/invoice"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >Advance Invoice</a
+        >Advanced Invoice</a
       >
-      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener"
+        >GitHub</a
+      >
       <a
         routerLink="/templates"
         routerLinkActive="app-nav-link--active"
@@ -97,7 +96,7 @@
         (click)="closeMenu()"
         >Templates</a
       >
-      <a href="/docs/index.html" (click)="closeMenu()">Doc</a>
+      <a href="/docs/index.html" (click)="closeMenu()">Docs</a>
     </nav>
   }
 </header>

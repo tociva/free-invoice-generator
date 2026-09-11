@@ -11,8 +11,8 @@ import {
   signal,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIcon } from '@ng-icons/core';
 import { TngButtonComponent, TngInputFieldComponent } from '@tailng-ui/components';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { InvoiceItemForm } from '../store/models/invoice-form.model';
 import { InvoiceItem } from '../store/models/invoice-model';
@@ -26,7 +26,7 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
     TngInputFieldComponent,
     TngInput,
     ReactiveFormsModule,
-    NgIcon,
+    TngIcon,
     CommonModule,
   ],
   templateUrl: './invoice-items.html',

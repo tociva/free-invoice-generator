@@ -16,7 +16,7 @@
     <div class="app-search">
       <!-- Search Icon -->
       <div class="app-search-icon">
-        <ng-icon name="bootstrapSearch" [class.app-search--active]="globalSearch().length > 0" />
+        <tng-icon icon="search" [class.app-search--active]="globalSearch().length > 0" />
       </div>
 
       <!-- Input -->
@@ -45,7 +45,7 @@
           (click)="clearSearch()"
           aria-label="Clear search"
         >
-          <ng-icon name="bootstrapX" />
+          <tng-icon icon="x" />
           <span class="app-sr-only">Clear search</span></tng-button
         >
       }
@@ -87,7 +87,7 @@
                 (click)="downloadTemplateAsPDF(item); $event.stopPropagation()"
                 title="Download PDF"
               >
-                <ng-icon name="bootstrapFileEarmarkPdfFill" />
+                <tng-icon icon="file-text" />
                 <span class="app-sr-only">Download PDF</span></tng-button
               >
               <tng-button
@@ -97,7 +97,7 @@
                 (click)="downloadTemplateAsHTML(item); $event.stopPropagation()"
                 title="Download HTML"
               >
-                <ng-icon name="bootstrapDownload" />
+                <tng-icon icon="download" />
                 <span class="app-sr-only">Download HTML</span></tng-button
               >
               <tng-button
@@ -107,7 +107,7 @@
                 (click)="previewTemplate(item); $event.stopPropagation()"
                 title="Preview"
               >
-                <ng-icon name="bootstrapEye" />
+                <tng-icon icon="eye" />
                 <span class="app-sr-only">Preview</span></tng-button
               >
             </div>
@@ -175,7 +175,7 @@
             aria-label="First page"
             title="First page"
           >
-            <ng-icon name="bootstrapChevronDoubleLeft" />
+            <tng-icon icon="chevrons-left" />
             <span class="app-sr-only">First page</span></tng-button
           >
 
@@ -189,7 +189,7 @@
             aria-label="Previous page"
             title="Previous page"
           >
-            <ng-icon name="bootstrapChevronLeft" />
+            <tng-icon icon="chevron-left" />
             <span class="app-sr-only">Previous page</span></tng-button
           >
 
@@ -224,7 +224,7 @@
             aria-label="Next page"
             title="Next page"
           >
-            <ng-icon name="bootstrapChevronRight" />
+            <tng-icon icon="chevron-right" />
             <span class="app-sr-only">Next page</span></tng-button
           >
 
@@ -239,7 +239,7 @@
             aria-label="Last page"
             title="Last page"
           >
-            <ng-icon name="bootstrapChevronDoubleRight" />
+            <tng-icon icon="chevrons-right" />
             <span class="app-sr-only">Last page</span></tng-button
           >
         </div>
