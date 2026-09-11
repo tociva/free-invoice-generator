@@ -1,8 +1,8 @@
 import {
   TngButtonComponent,
   TngCardComponent,
+  TngCommandPaletteComponent,
   TngEmptyComponent,
-  TngInputFieldComponent,
   TngProgressSpinnerComponent,
   TngSelectComponent,
 } from '@tailng-ui/components';
@@ -18,7 +18,6 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TngIcon } from '@tailng-ui/icons';
-import { TngInput } from '@tailng-ui/primitives';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog';
 import { TemplateService } from '../invoice/store/services/template.services';
 import { TemplateItem } from '../invoice/store/template/template.model';
@@ -35,8 +34,7 @@ import { sampleInvoice } from './template.utils';
     TngProgressSpinnerComponent,
     TngCardComponent,
     TngButtonComponent,
-    TngInputFieldComponent,
-    TngInput,
+    TngCommandPaletteComponent,
     CommonModule,
     InvoicePreviewDialogComponent,
     TngIcon,
@@ -65,16 +63,35 @@ export class ListTemplates implements OnInit {
 
   // UI STATE
   globalSearch = signal('');
-  showDropdown = signal(false);
+  paletteQuery = signal('');
+  searchOpen = signal(false);
 
-  onInputClick(event: MouseEvent) {
-    this.showDropdown.set(true);
-    event.stopPropagation();
+  @HostListener('document:keydown', ['$event'])
+  onGlobalSearchShortcut(event: KeyboardEvent): void {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      this.openSearch();
+    }
   }
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: MouseEvent) {
-    this.showDropdown.set(false);
+
+  openSearch(): void {
+    this.paletteQuery.set('');
+    this.searchOpen.set(true);
   }
+
+  onSearchOpenChange(open: boolean): void {
+    if (open) {
+      this.paletteQuery.set('');
+    }
+    this.searchOpen.set(open);
+  }
+
+  onInputChange(value: string): void {
+    this.paletteQuery.set(value);
+  }
+
+  getTagValue = (tag: string): string => tag;
+  getTagLabel = (tag: string): string => tag;
 
   // PAGINATION
   itemsPerPage = signal(10);
@@ -91,7 +108,7 @@ export class ListTemplates implements OnInit {
   }
 
   filteredTags = computed(() => {
-    const query = this.globalSearch().toLowerCase();
+    const query = this.paletteQuery().toLowerCase();
     return this.templateStore.searchTags().filter((tag) => tag.toLowerCase().includes(query));
   });
 
@@ -105,12 +122,6 @@ export class ListTemplates implements OnInit {
         item.tags?.some((tag) => tag.toLowerCase().includes(q)),
     );
   });
-  onInputChange(value: string) {
-    this.globalSearch.set(value);
-    this.currentPage.set(1);
-    this.showDropdown.set(this.filteredTags().length > 0);
-  }
-
   displayedTemplates = computed(() => {
     const start = (this.currentPage() - 1) * this.itemsPerPage();
     return this.filteredTemplatesTags().slice(start, start + this.itemsPerPage());
@@ -123,8 +134,8 @@ export class ListTemplates implements OnInit {
 
   selectTag(tag: string): void {
     this.globalSearch.set(tag);
-    this.showDropdown.set(false);
     this.currentPage.set(1);
+    this.searchOpen.set(false);
   }
 
   clearSearch() {
