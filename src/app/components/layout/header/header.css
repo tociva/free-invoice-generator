@@ -1,5 +1,16 @@
 :host {
   display: block;
+  position: relative;
+  z-index: 50;
+  --tng-z-overlay: 1000;
+}
+
+:host(.app-header--search-open) {
+  z-index: 1000;
+}
+
+tng-command-palette {
+  --tng-z-overlay: 1000;
 }
 
 .app-header {
@@ -90,6 +101,73 @@
   --tng-button-gap: 0;
   border-radius: var(--tng-radius-md);
   box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.app-header-search {
+  display: inline-flex;
+}
+
+.app-header-search tng-button {
+  --tng-button-height-sm: 2.25rem;
+  --tng-button-radius: var(--tng-radius-md);
+  --tng-button-padding-inline-sm: 0.75rem;
+  --tng-button-gap: 0.75rem;
+  --tng-semantic-foreground-primary: var(--tng-semantic-foreground-onBrand);
+  --tng-semantic-background-muted: color-mix(
+    in srgb,
+    var(--tng-semantic-foreground-onBrand) 18%,
+    transparent
+  );
+  --tng-button-focus-ring: 0 0 0 2px
+    color-mix(in srgb, var(--tng-semantic-foreground-onBrand) 40%, transparent);
+  border-radius: var(--tng-radius-md);
+  box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 24%, transparent);
+  background: color-mix(in srgb, var(--tng-semantic-foreground-onBrand) 12%, transparent);
+  color: var(--tng-semantic-foreground-onBrand);
+}
+
+.app-header-search tng-button:hover {
+  background: color-mix(in srgb, var(--tng-semantic-foreground-onBrand) 20%, transparent);
+}
+
+.app-header-search-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.app-header-search-label {
+  font-size: var(--tng-typography-textSm);
+  font-weight: 500;
+}
+
+.app-header-search-shortcut {
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 0.25rem;
+  color: inherit;
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 0.15rem 0.35rem;
+  opacity: 0.9;
+}
+
+.app-header-mobile-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  padding-block: 0.25rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.app-header-mobile-search-btn:hover {
+  border-color: color-mix(in srgb, currentColor 45%, transparent);
 }
 
 .app-theme-toggle {
@@ -192,6 +270,18 @@
 
   .app-header-brand a {
     display: block;
+  }
+
+  .app-header-search-label,
+  .app-header-search-shortcut {
+    display: none;
+  }
+
+  .app-header-search tng-button {
+    --tng-button-width: 2.25rem;
+    --tng-button-min-width: 2.25rem;
+    --tng-button-padding-inline-sm: 0;
+    --tng-button-gap: 0;
   }
 }
 

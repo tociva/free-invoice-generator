@@ -6,6 +6,34 @@ import { initialInvoiceState } from '../invoice.states';
 import { createInvoice } from '../models/invoice-form.factory';
 import { InvoiceCalculationService } from './calculation.services';
 
+describe('InvoiceCalculationService amount formatting', () => {
+  it('switches between international and Indian digit grouping', () => {
+    const calc = TestBed.inject(InvoiceCalculationService);
+    calc.decimalPlaces.set(2);
+
+    calc.hasInternational.set(true);
+    expect(calc.formatAmount(1234567)).toBe('1,234,567.00');
+
+    calc.hasInternational.set(false);
+    expect(calc.formatAmount(1234567)).toBe('12,34,567.00');
+  });
+
+  it('updates grouping when the form international numbering checkbox changes', () => {
+    const form = createInvoice(new FormBuilder(), initialInvoiceState.invoice);
+    const calc = TestBed.inject(InvoiceCalculationService);
+    form.controls.items.at(0).controls.grandTotal.setValue(1234567);
+    form.controls.items.at(1).controls.grandTotal.setValue(0);
+
+    calc.initFormSubscriptions(form);
+
+    form.controls.internationalNumbering.setValue(true);
+    expect(calc.formatAmount(form.controls.grandTotal.value)).toBe('1,234,567.00');
+
+    form.controls.internationalNumbering.setValue(false);
+    expect(calc.formatAmount(form.controls.grandTotal.value)).toBe('12,34,567.00');
+  });
+});
+
 for (const component of [InvoiceItemsComponent, InvoiceItemsMobileComponent]) {
   describe(`${component.name} calculation regression`, () => {
     function setup(discount = true) {

@@ -26,6 +26,16 @@ export class InvoiceCalculationService {
     ),
   );
 
+  formatAmount(value: number | null | undefined): string {
+    const decimalPlaces = this.decimalPlaces();
+    const amount = Number(value ?? 0);
+
+    return new Intl.NumberFormat(this.hasInternational() ? 'en-US' : 'en-IN', {
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces,
+    }).format(Number.isFinite(amount) ? amount : 0);
+  }
+
   private activeForm?: FormGroup<InvoiceForm>;
   private subscriptions = new Subscription();
   constructor() {
