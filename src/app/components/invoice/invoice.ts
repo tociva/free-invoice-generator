@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TngButtonComponent } from '@tailng-ui/components';
+import {
+  TngButtonComponent,
+  TngStepperComponent,
+  type TngStepperStep,
+} from '@tailng-ui/components';
 import { TngIcon } from '@tailng-ui/icons';
 import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
@@ -28,6 +32,8 @@ import { InvoiceCalculationService } from './store/services/calculation.services
 import { TemplateItem } from './store/template/template.model';
 import { templateStore } from './store/template/template.store';
 
+import { ADVANCED_INVOICE_STEPS } from './invoice-steps';
+
 @Component({
   selector: 'app-invoice',
   imports: [
@@ -43,6 +49,7 @@ import { templateStore } from './store/template/template.store';
     InvoiceLogoComponent,
     InvoiceTermsNotesComponent,
     TngIcon,
+    TngStepperComponent,
   ],
   templateUrl: './invoice.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -54,14 +61,15 @@ export class Invoice implements OnInit {
   store = inject(invoiceStore);
   router = inject(Router);
   route = inject(ActivatedRoute);
-  steps = [
-    { id: 1, label: 'My Organization Info & Logo' },
-    { id: 2, label: 'Customer Details' },
-    { id: 3, label: 'Invoice Details' },
-    { id: 4, label: 'Items and Summary' },
-    { id: 5, label: 'Select a template' },
-    { id: 6, label: 'Preview and Download' },
-  ];
+  steps = ADVANCED_INVOICE_STEPS;
+
+  stepperSteps = computed<readonly TngStepperStep[]>(() =>
+    this.steps.map((step) => ({
+      value: step.id,
+      label: step.label,
+      completed: step.id < this.currentStep(),
+    })),
+  );
 
   isFirstStep = computed(() => this.currentStep() === 1);
   isLastStep = computed(() => this.currentStep() === this.steps.length);
@@ -86,6 +94,10 @@ export class Invoice implements OnInit {
       queryParams: { step: stepId },
       queryParamsHandling: 'merge',
     });
+  }
+
+  onStepperValueChange(value: string | number): void {
+    this.goToStep(Number(value));
   }
 
   formInvoice = inject(InvoiceFormService).form;

@@ -38,6 +38,9 @@
   padding-top: 1.5rem;
   border-top: 1px solid var(--tng-semantic-border-subtle);
 }
+.app-invoice-navigation--end {
+  justify-content: flex-end;
+}
 .app-invoice-config {
   display: grid;
   gap: 1rem;
