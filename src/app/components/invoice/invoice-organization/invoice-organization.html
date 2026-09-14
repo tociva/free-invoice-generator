@@ -54,25 +54,15 @@
         [value]="countryKeyOf(InvoiceOrganizationForm().get('country')?.value ?? null)"
         (valueChange)="onCountryValueChange($event)"
       >
-        <ng-template
-          #tngAutocompleteOptionTpl
-          let-option="option"
-          let-label="label"
-        >
+        <ng-template #tngAutocompleteOptionTpl let-option="option" let-label="label">
           <span class="country-option">
-            <span
-              [class]="countryFlagClass(option)"
-              aria-hidden="true"
-            ></span>
+            <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
             <span class="country-option-label">{{ label }}</span>
           </span>
         </ng-template>
 
         <ng-template #tngAutocompleteSelectedTpl let-option="option">
-          <span
-            [class]="countryFlagClass(option)"
-            aria-hidden="true"
-          ></span>
+          <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
         </ng-template>
       </tng-autocomplete>
     </div>
@@ -135,8 +125,9 @@
     <div class="app-form-row">
       <div class="app-form-options">
         <label for="organization-authorityName" class="app-field-label">Authority</label>
-        <!-- Tooltip Icon -->
-        <tng-tooltip text="Authority Name" triggerLabel="About authority name" />
+        <tng-tooltip text="Authority Name" ariaLabel="About authority name">
+          <tng-icon trigger icon="circle-help" size="0.875rem" />
+        </tng-tooltip>
       </div>
       <tng-input-field class="app-field" size="sm"
         ><input
@@ -153,8 +144,9 @@
     <div class="app-form-row">
       <div class="app-form-options">
         <label for="organization-authorityDesignation" class="app-field-label">Designation</label>
-        <!-- Tooltip Icon -->
-        <tng-tooltip text="Authority Designation" triggerLabel="About authority designation" />
+        <tng-tooltip text="Authority Designation" ariaLabel="About authority designation">
+          <tng-icon trigger icon="circle-help" size="0.875rem" />
+        </tng-tooltip>
       </div>
       <tng-input-field class="app-field" size="sm"
         ><input
