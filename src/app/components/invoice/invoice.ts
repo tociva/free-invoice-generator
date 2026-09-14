@@ -32,6 +32,8 @@ import { InvoiceCalculationService } from './store/services/calculation.services
 import { TemplateItem } from './store/template/template.model';
 import { templateStore } from './store/template/template.store';
 
+import { ADVANCED_INVOICE_STEPS } from './invoice-steps';
+
 @Component({
   selector: 'app-invoice',
   imports: [
@@ -59,14 +61,7 @@ export class Invoice implements OnInit {
   store = inject(invoiceStore);
   router = inject(Router);
   route = inject(ActivatedRoute);
-  steps = [
-    { id: 1, label: 'My Organization Info & Logo' },
-    { id: 2, label: 'Customer Details' },
-    { id: 3, label: 'Invoice Details' },
-    { id: 4, label: 'Items and Summary' },
-    { id: 5, label: 'Select a template' },
-    { id: 6, label: 'Preview and Download' },
-  ];
+  steps = ADVANCED_INVOICE_STEPS;
 
   stepperSteps = computed<readonly TngStepperStep[]>(() =>
     this.steps.map((step) => ({

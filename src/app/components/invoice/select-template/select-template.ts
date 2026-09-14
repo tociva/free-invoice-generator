@@ -50,13 +50,14 @@ export class SelectTemplateComponent {
   paletteQuery = signal('');
   searchOpen = signal(false);
 
-  @HostListener('document:keydown', ['$event'])
-  onGlobalSearchShortcut(event: KeyboardEvent): void {
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-      event.preventDefault();
-      this.openSearch();
-    }
-  }
+  // Temporarily commented out to avoid conflict with global header search shortcut (Ctrl+K / Cmd+K)
+  // @HostListener('document:keydown', ['$event'])
+  // onGlobalSearchShortcut(event: KeyboardEvent): void {
+  //   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+  //     event.preventDefault();
+  //     this.openSearch();
+  //   }
+  // }
 
   openSearch(): void {
     this.paletteQuery.set('');
