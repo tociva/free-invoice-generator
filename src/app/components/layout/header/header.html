@@ -30,6 +30,26 @@
     </nav>
 
     <div class="app-header-actions">
+      <div class="app-header-search">
+        <tng-button
+          size="sm"
+          tone="neutral"
+          appearance="ghost"
+          type="button"
+          (click)="openSearch()"
+          aria-haspopup="dialog"
+          [ariaExpanded]="searchOpen()"
+          aria-label="Search"
+          [title]="'Search (' + shortcutLabel + ')'"
+        >
+          <span class="app-header-search-inner">
+            <tng-icon icon="search" />
+            <span class="app-header-search-label">Search</span>
+          </span>
+          <kbd class="app-header-search-shortcut">{{ shortcutLabel }}</kbd>
+        </tng-button>
+      </div>
+
       <tng-button
         size="sm"
         tone="neutral"
@@ -65,6 +85,14 @@
       class="app-header-mobile page-container"
       aria-label="Mobile navigation"
     >
+      <button
+        type="button"
+        class="app-header-mobile-search-btn"
+        (click)="closeMenu(); openSearch()"
+      >
+        <tng-icon icon="search" />
+        <span>Search ({{ shortcutLabel }})</span>
+      </button>
       <a
         routerLink="/home"
         routerLinkActive="app-nav-link--active"
@@ -100,3 +128,20 @@
     </nav>
   }
 </header>
+
+@if (searchOpen()) {
+  <tng-command-palette
+    [open]="true"
+    [query]="paletteQuery()"
+    [options]="filteredResults()"
+    placeholder="Search pages, invoice steps..."
+    ariaLabel="Global search"
+    emptyText="No matching results"
+    [getOptionValue]="getOptionValue"
+    [getOptionLabel]="getOptionLabel"
+    [getOptionDescription]="getOptionDescription"
+    (openChange)="onSearchOpenChange($event)"
+    (queryChange)="onInputChange($event)"
+    (optionSelect)="selectResult($event.option)"
+  />
+}

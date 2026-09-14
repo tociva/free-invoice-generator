@@ -35,6 +35,7 @@ import { Invoice } from '../store/models/invoice-model';
 import { InvoiceCalculationService } from '../store/services/calculation.services';
 import { TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
+import { SIMPLE_INVOICE_STEPS } from '../invoice-steps';
 
 @Component({
   selector: 'app-simple-invoice',
@@ -81,11 +82,7 @@ export class SimpleInvoice implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   currentStep = signal(1);
 
-  steps = [
-    { id: 1, label: 'Fill invoice details' },
-    { id: 2, label: 'Select a template' },
-    { id: 3, label: 'Preview and Download' },
-  ];
+  steps = SIMPLE_INVOICE_STEPS;
 
   stepperSteps = computed<readonly TngStepperStep[]>(() =>
     this.steps.map((step) => ({

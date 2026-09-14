@@ -24,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'simple-invoice',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
