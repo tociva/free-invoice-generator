@@ -5,15 +5,9 @@ import {
   TngAutocompleteComponent,
 } from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { Country, countryFlagClass } from '../store/country/country.model';
 import { countryStore } from '../store/country/country.store';
@@ -27,6 +21,7 @@ import { OrganizationForm } from '../store/models/invoice-form.model';
     TngCardComponent,
     TngInputFieldComponent,
     TngAutocompleteComponent,
+    TngIcon,
     TngInput,
     ReactiveFormsModule,
     CommonModule,
@@ -60,8 +55,7 @@ export class InvoiceOrganizationComponent {
   // String() so a numeric 91 and a string "91" are treated as the same key
   readonly countryValue = (c: Country) => String(c.code);
 
-  readonly countryFlagClass = (country: Country): string =>
-    countryFlagClass(country.code);
+  readonly countryFlagClass = (country: Country): string => countryFlagClass(country.code);
 
   // ---------------------------------------------------------------------
   // Resolve the form's country object to the store's matching option:
@@ -75,8 +69,7 @@ export class InvoiceOrganizationComponent {
     }
     const list = this.countryStore.countries();
     const byCode = list.find((c) => String(c.code) === String(value.code));
-    const match =
-      byCode ?? (value.name ? list.find((c) => c.name === value.name) : undefined);
+    const match = byCode ?? (value.name ? list.find((c) => c.name === value.name) : undefined);
     return match ? String(match.code) : null;
   }
 

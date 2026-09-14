@@ -1,18 +1,21 @@
 <div class="app-invoice-summary">
   <!-- Amount and Numbering -->
   <tng-card padding="md" class="app-summary-amount" [formGroup]="InvoiceSummary()">
-    <label class="app-form-options">
+    <div class="app-form-options">
       <tng-checkbox tngAngularForms formControlName="internationalNumbering"
         >International Numbering</tng-checkbox
       >
-    </label>
+      <tng-tooltip
+        text="International: 1,234,567.00. Indian: 12,34,567.00."
+        ariaLabel="About international numbering"
+      >
+        <tng-icon trigger icon="circle-help" size="0.875rem" />
+      </tng-tooltip>
+    </div>
     <div class="app-summary-value">
       <div class="app-summary-total">
         {{ invoiceService.symbol() }}
-        {{
-          InvoiceSummary().controls.grandTotal.value
-            | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
-        }}
+        {{ invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value) }}
       </div>
       <div class="app-supporting-text">
         {{ InvoiceSummary().get('grandTotalInWords')?.value }}
@@ -24,34 +27,24 @@
   <tng-card padding="md" class="app-summary-breakdown" [formGroup]="InvoiceSummary()">
     <div class="app-summary-row">
       <span>Item Total</span>
-      <span>{{
-        InvoiceSummary().controls.itemTotal.value
-          | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
-      }}</span>
+      <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.itemTotal.value) }}</span>
     </div>
     @if (advanced() && hasItemDiscount()) {
       <div class="app-summary-row">
         <span>Discount Total</span>
         <span>{{
-          InvoiceSummary().controls.discountTotal.value
-            | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
+          invoiceService.formatAmount(InvoiceSummary().controls.discountTotal.value)
         }}</span>
       </div>
       <div class="app-summary-row">
         <span>Sub Total</span>
-        <span>{{
-          InvoiceSummary().controls.subTotal.value
-            | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
-        }}</span>
+        <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.subTotal.value) }}</span>
       </div>
     }
     @if (advanced() || selectedTaxOption() == 'CGST & SGST' || selectedTaxOption() == 'IGST') {
       <div class="app-summary-row">
         <span>Tax Total</span>
-        <span>{{
-          InvoiceSummary().controls.taxTotal.value
-            | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
-        }}</span>
+        <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.taxTotal.value) }}</span>
       </div>
     }
     <div class="app-summary-row">
@@ -67,10 +60,7 @@
     </div>
     <div class="app-summary-row app-summary-row--total">
       <span>Grand Total</span>
-      <span>{{
-        InvoiceSummary().controls.grandTotal.value
-          | number: '1.' + invoiceService.decimalPlaces() + '-' + invoiceService.decimalPlaces()
-      }}</span>
+      <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value) }}</span>
     </div>
   </tng-card>
 </div>
