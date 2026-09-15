@@ -24,16 +24,60 @@ tng-command-palette {
   align-items: center;
   justify-content: space-between;
   min-height: 4rem;
-  gap: 1.25rem;
+  gap: 1.5rem;
   padding-block: 0.625rem;
+  padding-right: 0.5rem;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.5rem;
 }
 
 .app-header-brand {
   flex-shrink: 0;
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.app-header-brand:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.app-brand-logo {
+  height: 2.4rem;
+  width: auto;
+  display: block;
+}
+
+.app-brand-sub {
+  fill: currentColor;
+  font-family: var(--tng-typography-fontSans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  opacity: 0.85;
+}
+
+.app-brand-main {
+  fill: currentColor;
   font-family: var(--tng-typography-fontHeading);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.app-header-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1.35rem;
+  white-space: nowrap;
+  font-size: var(--tng-typography-textSm);
 }
 
 .app-header a {
@@ -41,36 +85,18 @@ tng-command-palette {
   text-decoration: none;
 }
 
-.app-header-brand a {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.3rem;
-}
-
-.app-header-brand a:hover {
-  text-decoration: underline;
-}
-
-.app-header-navigation {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  margin-left: auto;
-  white-space: nowrap;
-  font-size: var(--tng-typography-textSm);
-}
-
 .app-header-navigation a,
 .app-header-mobile a {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   min-height: 2.25rem;
   padding-block: 0.25rem;
   border-bottom: 2px solid transparent;
   font-weight: 500;
   transition:
     border-color var(--tng-motion-durationFast),
-    color var(--tng-motion-durationFast);
+    opacity var(--tng-motion-durationFast);
 }
 
 .app-header-navigation a:hover,
@@ -87,20 +113,31 @@ tng-command-palette {
 .app-header-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   flex-shrink: 0;
 }
 
 .app-theme-toggle,
-.app-header-menu {
-  --tng-button-width: 2.25rem;
-  --tng-button-min-width: 2.25rem;
-  --tng-button-height-sm: 2.25rem;
-  --tng-button-padding-inline-sm: 0;
-  --tng-button-radius: var(--tng-radius-md);
-  --tng-button-gap: 0;
+.app-header-menu,
+.app-header-icon-link {
+  width: 2.25rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
   border-radius: var(--tng-radius-md);
-  box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.app-header-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--tng-motion-durationFast),
+    opacity var(--tng-motion-durationFast);
+}
+
+.app-header-icon-link:hover {
+  background: color-mix(in srgb, var(--tng-semantic-foreground-onBrand) 12%, transparent);
+  opacity: 0.9;
 }
 
 .app-header-search {
@@ -109,9 +146,12 @@ tng-command-palette {
 
 .app-header-search tng-button {
   --tng-button-height-sm: 2.25rem;
+  --tng-button-height-sm: 1.85rem;
   --tng-button-radius: var(--tng-radius-md);
   --tng-button-padding-inline-sm: 0.75rem;
   --tng-button-gap: 0.75rem;
+  --tng-button-padding-inline-sm: 0.55rem;
+  --tng-button-gap: 0.5rem;
   --tng-semantic-foreground-primary: var(--tng-semantic-foreground-onBrand);
   --tng-semantic-background-muted: color-mix(
     in srgb,
@@ -134,20 +174,25 @@ tng-command-palette {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .app-header-search-label {
   font-size: var(--tng-typography-textSm);
+  font-size: var(--tng-typography-textXs, 0.75rem);
   font-weight: 500;
 }
 
 .app-header-search-shortcut {
   border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
   border-radius: 0.25rem;
+  border-radius: 0.2rem;
   color: inherit;
   font-size: 0.7rem;
+  font-size: 0.6rem;
   line-height: 1;
   padding: 0.15rem 0.35rem;
+  padding: 0.1rem 0.25rem;
   opacity: 0.9;
 }
 
@@ -256,20 +301,12 @@ tng-command-palette {
     gap: 0.75rem;
   }
 
-  .app-header-brand {
-    flex-shrink: 1;
-    min-width: 0;
-    font-size: 1rem;
+  .app-header-left {
+    gap: 0;
   }
 
-  .app-header-brand span {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  .app-header-brand a {
-    display: block;
+  .app-brand-logo {
+    height: 2rem;
   }
 
   .app-header-search-label,
@@ -280,12 +317,18 @@ tng-command-palette {
   .app-header-search tng-button {
     --tng-button-width: 2.25rem;
     --tng-button-min-width: 2.25rem;
+    --tng-button-width: 1.85rem;
+    --tng-button-min-width: 1.85rem;
     --tng-button-padding-inline-sm: 0;
     --tng-button-gap: 0;
   }
 }
 
 @media (max-width: 480px) {
+  .app-header-icon-link {
+    display: none;
+  }
+
   .app-header-mobile {
     grid-template-columns: 1fr;
   }
