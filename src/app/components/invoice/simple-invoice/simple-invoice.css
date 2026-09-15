@@ -1,0 +1,43 @@
+/* Upload Logos Card Header */
+.upload-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--tng-semantic-border-subtle);
+}
+
+.upload-card-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.upload-card-header-text h2 {
+  font-size: var(--tng-typography-textLg);
+  font-weight: 700;
+  color: var(--tng-semantic-foreground-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.upload-card-header-text p {
+  margin-top: 0.25rem;
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textSm);
+  line-height: 1.45;
+}
+
+.app-logo-card-content {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.app-logo-card-content app-invoice-logo {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+

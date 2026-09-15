@@ -1,249 +1,326 @@
-@if (!isMobile()) {
-  <tng-table
-    ariaLabel="Invoice items"
-    density="compact"
-    scrollAxis="x"
-    [columns]="tableColumns()"
-    [items]="InvoiceItemForm().controls"
-  >
-    <ng-template tngTableCellTemplate="name" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Item name"
-            tngInput
-            formControlName="name"
-            class="app-field-control"
-            placeholder="Enter item name"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+<tng-card padding="md">
 
-    <ng-template tngTableCellTemplate="description" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Description"
-            tngInput
-            formControlName="description"
-            class="app-field-control"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+  <!-- ── Card header ───────────────────────────────────────────────── -->
+  <div class="items-card-header">
+    <div class="app-icon-box app-icon-box--small">
+      <tng-icon icon="receipt" size="1.1rem" />
+    </div>
+    <div class="items-card-header-text">
+      <h2>Items and Summary</h2>
+      <p>Add invoice items, taxes, quantities, and pricing details.</p>
+    </div>
+  </div>
 
-    <ng-template tngTableCellTemplate="price" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Price"
-            tngInput
-            formControlName="price"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+  <!-- ── Responsive table container ────────────────────────────────── -->
+  <div class="items-table-scroll">
+    <tng-table
+      ariaLabel="Invoice items"
+      density="compact"
+      layout="fixed"
+      scrollAxis="y"
+      [columns]="tableColumns()"
+      [items]="InvoiceItemForm().controls"
+    >
+      <!-- ── Grouped Column Header Templates ──────────────────────────── -->
+      <ng-template tngTableHeaderTemplate="quantity">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">Quantity</span>
+          <span class="header-group-sub">Qty / Total</span>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="quantity" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Quantity"
-            tngInput
-            formControlName="quantity"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableHeaderTemplate="discount">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">Discount</span>
+          <span class="header-group-sub">% / Amount</span>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="itemTotal" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Item total"
-            tngInput
-            formControlName="itemTotal"
-            readonly
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableHeaderTemplate="subTotal">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">Taxable</span>
+          <span class="header-group-sub">Amount</span>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="discPercentage" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Discount percentage"
-            tngInput
-            formControlName="discPercentage"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            placeholder="%"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableHeaderTemplate="cgst">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">CGST</span>
+          <span class="header-group-sub">% / Amount</span>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="discountAmount" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Discount amount"
-            tngInput
-            formControlName="discountAmount"
-            readonly
-            placeholder="Value"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableHeaderTemplate="sgst">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">SGST</span>
+          <span class="header-group-sub">% / Amount</span>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="subTotal" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Subtotal"
-            tngInput
+      <ng-template tngTableHeaderTemplate="igst">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">IGST</span>
+          <span class="header-group-sub">% / Amount</span>
+        </div>
+      </ng-template>
+
+      <ng-template tngTableHeaderTemplate="grandTotal">
+        <div class="table-header-grouped table-header-grouped--end">
+          <span class="header-group-title">Grand Total</span>
+        </div>
+      </ng-template>
+
+      <ng-template tngTableHeaderTemplate="action">
+        <div class="table-header-grouped table-header-grouped--center">
+          <span class="header-group-title">Action</span>
+        </div>
+      </ng-template>
+
+      <!-- ── Body Cell Templates ──────────────────────────────────────── -->
+      <ng-template tngTableCellTemplate="index" let-rowIndex="rowIndex">
+        <div class="col-index-cell">
+          {{ rowIndex + 1 }}
+        </div>
+      </ng-template>
+
+      <ng-template tngTableCellTemplate="item" let-row="row">
+        <div [formGroup]="$any(row)" class="col-item-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Item name"
+                tngInput
+                formControlName="name"
+                class="app-field-control table-input"
+                placeholder="Enter item name"
+              />
+            </tng-input-field>
+          </div>
+          @if (hasItemDescription()) {
+            <div class="compact-input-wrap compact-desc-wrap">
+              <tng-input-field size="sm">
+                <input
+                  aria-label="Description"
+                  tngInput
+                  formControlName="description"
+                  class="app-field-control table-input table-input--desc"
+                  placeholder="Description (optional)"
+                />
+              </tng-input-field>
+            </div>
+          }
+        </div>
+      </ng-template>
+
+      <ng-template tngTableCellTemplate="price" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="compact-input-wrap">
+          <tng-input-field size="sm">
+            <input
+              aria-label="Price"
+              tngInput
+              formControlName="price"
+              type="number"
+              (input)="updateItemTotal(rowIndex)"
+              (change)="updateItemTotal(rowIndex)"
+              class="app-field-control app-field-control--numeric table-input"
+            />
+          </tng-input-field>
+        </div>
+      </ng-template>
+
+      <ng-template tngTableCellTemplate="quantity" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="col-stacked-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Quantity"
+                tngInput
+                formControlName="quantity"
+                type="number"
+                (input)="updateItemTotal(rowIndex)"
+                (change)="updateItemTotal(rowIndex)"
+                class="app-field-control app-field-control--numeric table-input"
+              />
+            </tng-input-field>
+          </div>
+          <div class="compact-value-wrap">
+            <input
+              aria-label="Item total"
+              formControlName="itemTotal"
+              readonly
+              tabindex="-1"
+              class="table-calc-readonly"
+            />
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template tngTableCellTemplate="discount" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="col-stacked-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Discount percentage"
+                tngInput
+                formControlName="discPercentage"
+                type="number"
+                (input)="updateItemTotal(rowIndex)"
+                (change)="updateItemTotal(rowIndex)"
+                placeholder="%"
+                class="app-field-control app-field-control--numeric table-input"
+              />
+            </tng-input-field>
+          </div>
+          <div class="compact-value-wrap">
+            <input
+              aria-label="Discount amount"
+              formControlName="discountAmount"
+              readonly
+              tabindex="-1"
+              class="table-calc-readonly"
+            />
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template tngTableCellTemplate="subTotal" let-row="row">
+        <div [formGroup]="$any(row)" class="compact-value-wrap compact-value-wrap--solo">
+          <input
+            aria-label="Taxable amount"
             formControlName="subTotal"
             readonly
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+            tabindex="-1"
+            class="table-calc-readonly table-calc-taxable"
+          />
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="tax1Percentage" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="CGST percentage"
-            tngInput
-            formControlName="tax1Percentage"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            placeholder="%"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableCellTemplate="cgst" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="col-stacked-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="CGST percentage"
+                tngInput
+                formControlName="tax1Percentage"
+                type="number"
+                (input)="updateItemTotal(rowIndex)"
+                (change)="updateItemTotal(rowIndex)"
+                placeholder="%"
+                class="app-field-control app-field-control--numeric table-input"
+              />
+            </tng-input-field>
+          </div>
+          <div class="compact-value-wrap">
+            <input
+              aria-label="CGST amount"
+              formControlName="tax1Amount"
+              readonly
+              tabindex="-1"
+              class="table-calc-readonly"
+            />
+          </div>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="tax1Amount" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="CGST value"
-            tngInput
-            formControlName="tax1Amount"
-            readonly
-            placeholder="Value"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableCellTemplate="sgst" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="col-stacked-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="SGST percentage"
+                tngInput
+                formControlName="tax2Percentage"
+                type="number"
+                (input)="updateItemTotal(rowIndex)"
+                (change)="updateItemTotal(rowIndex)"
+                placeholder="%"
+                class="app-field-control app-field-control--numeric table-input"
+              />
+            </tng-input-field>
+          </div>
+          <div class="compact-value-wrap">
+            <input
+              aria-label="SGST amount"
+              formControlName="tax2Amount"
+              readonly
+              tabindex="-1"
+              class="table-calc-readonly"
+            />
+          </div>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="tax2Percentage" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="SGST percentage"
-            tngInput
-            formControlName="tax2Percentage"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            placeholder="%"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+      <ng-template tngTableCellTemplate="igst" let-row="row" let-rowIndex="rowIndex">
+        <div [formGroup]="$any(row)" class="col-stacked-cell">
+          <div class="compact-input-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="IGST percentage"
+                tngInput
+                formControlName="tax3Percentage"
+                type="number"
+                (input)="updateItemTotal(rowIndex)"
+                (change)="updateItemTotal(rowIndex)"
+                placeholder="%"
+                class="app-field-control app-field-control--numeric table-input"
+              />
+            </tng-input-field>
+          </div>
+          <div class="compact-value-wrap">
+            <input
+              aria-label="IGST amount"
+              formControlName="tax3Amount"
+              readonly
+              tabindex="-1"
+              class="table-calc-readonly"
+            />
+          </div>
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="tax2Amount" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="SGST value"
-            tngInput
-            formControlName="tax2Amount"
-            readonly
-            placeholder="Value"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
-
-    <ng-template tngTableCellTemplate="tax3Percentage" let-row="row" let-rowIndex="rowIndex">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="IGST percentage"
-            tngInput
-            formControlName="tax3Percentage"
-            type="number"
-            (change)="updateItemTotal(rowIndex)"
-            placeholder="%"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
-
-    <ng-template tngTableCellTemplate="tax3Amount" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="IGST value"
-            tngInput
-            formControlName="tax3Amount"
-            readonly
-            placeholder="Value"
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
-
-    <ng-template tngTableCellTemplate="taxTotal" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
-            aria-label="Tax total"
-            tngInput
-            formControlName="taxTotal"
-            readonly
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
-
-    <ng-template tngTableCellTemplate="grandTotal" let-row="row">
-      <div [formGroup]="$any(row)">
-        <tng-input-field class="app-field" size="sm"
-          ><input
+      <ng-template tngTableCellTemplate="grandTotal" let-row="row">
+        <div [formGroup]="$any(row)" class="compact-value-wrap compact-value-wrap--solo">
+          <input
             aria-label="Grand total"
-            tngInput
             formControlName="grandTotal"
             readonly
-            class="app-field-control app-field-control--numeric"
-        /></tng-input-field>
-      </div>
-    </ng-template>
+            tabindex="-1"
+            class="table-calc-readonly table-calc-grand-total"
+          />
+          <input type="hidden" formControlName="taxTotal" />
+        </div>
+      </ng-template>
 
-    <ng-template tngTableCellTemplate="action" let-rowIndex="rowIndex">
-      <tng-button
-        size="sm"
-        tone="danger"
-        appearance="solid"
-        type="button"
-        (click)="removeItem(rowIndex)"
-      >
-        <tng-icon icon="trash" />
-        <span class="app-sr-only">Remove item</span>
-      </tng-button>
-    </ng-template>
-  </tng-table>
+      <ng-template tngTableCellTemplate="action" let-rowIndex="rowIndex">
+        <div class="col-action-cell">
+          <tng-button
+            size="sm"
+            tone="danger"
+            appearance="ghost"
+            type="button"
+            (click)="removeItem(rowIndex)"
+          >
+            <tng-icon icon="trash" />
+            <span class="app-sr-only">Remove item</span>
+          </tng-button>
+        </div>
+      </ng-template>
+    </tng-table>
+  </div>
 
-  <div class="app-item-actions">
-    <tng-button size="sm" tone="primary" appearance="solid" type="button" (click)="addItem()">
-      <tng-icon icon="plus-circle" /> Add Item
+  <!-- ── Add Item button directly below table ─────────────────────── -->
+  <div class="add-item-action-wrapper">
+    <tng-button
+      size="sm"
+      tone="primary"
+      appearance="solid"
+      type="button"
+      (click)="addItem()"
+    >
+      <tng-icon icon="plus" />
+      <span>Add Item</span>
     </tng-button>
   </div>
-}
+
+</tng-card>

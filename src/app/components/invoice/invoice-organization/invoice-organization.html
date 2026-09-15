@@ -1,162 +1,243 @@
-<tng-card padding="md" class="app-invoice-fields" [formGroup]="InvoiceOrganizationForm()">
-  <!-- My Name -->
-  <div class="app-form-row">
-    <label
-      for="invoice-organization-name"
-      id="invoice-organization-name-label"
-      class="app-field-label"
-      >My Name</label
-    >
-    <tng-input-field class="app-field" size="sm"
-      ><input
-        tngInput
-        id="invoice-organization-name"
-        formControlName="name"
-        placeholder="My name"
-        class="app-field-control"
-    /></tng-input-field>
+<tng-card padding="md">
+  <!-- ── Card header ───────────────────────────────────────────────── -->
+  <div class="org-card-header">
+    <div class="app-icon-box app-icon-box--small">
+      <tng-icon icon="building" size="1.1rem" />
+    </div>
+    <div class="org-card-header-text">
+      <h2>Organization Information</h2>
+      <p>Enter your business details that will appear on the invoice.</p>
+    </div>
   </div>
 
-  <!-- My Address -->
-  <div class="app-form-row">
-    <label
-      for="invoice-organization-address"
-      id="invoice-organization-address-label"
-      class="app-field-label"
-      >My Address</label
+  <!-- ── Form grid ─────────────────────────────────────────────────── -->
+  <div class="org-form-grid" [formGroup]="InvoiceOrganizationForm()">
+    <!-- ── Row 1: My Name (left) | Country (right when advanced) ───── -->
+    <div
+      [ngClass]="
+        advanced() ? 'org-field-wrapper org-field-half' : 'org-field-wrapper org-field-full'
+      "
     >
-    <tng-input-field class="app-field" size="sm">
-      <textarea
-        tngInput
-        id="invoice-organization-address"
-        formControlName="address"
-        placeholder="My address"
-        rows="2"
-        class="app-field-control app-notes-control"
-      ></textarea>
-    </tng-input-field>
+      <label
+        for="invoice-organization-name"
+        id="invoice-organization-name-label"
+        class="org-field-label"
+        >My Name</label
+      >
+      <div class="org-field-input-row">
+        <div class="org-field-icon-prefix" aria-hidden="true">
+          <tng-icon icon="user" size="0.875rem" />
+        </div>
+        <div class="org-field-control-wrap">
+          <tng-input-field size="sm">
+            <input
+              tngInput
+              id="invoice-organization-name"
+              formControlName="name"
+              placeholder="My name"
+              class="app-field-control"
+            />
+          </tng-input-field>
+        </div>
+      </div>
+    </div>
+
+    @if (advanced()) {
+      <!-- ── Country (right of Name) ───────────────────────────────── -->
+      <div class="org-field-wrapper org-field-half">
+        <label id="invoice-organization-country-label" class="org-field-label">Country</label>
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="globe" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-autocomplete
+              labelId="invoice-organization-country-label"
+              placeholder="Search country..."
+              ariaLabel="Country"
+              [options]="filteredCountries()"
+              [getOptionValue]="countryValue"
+              [getOptionLabel]="countryLabel"
+              [query]="countryQuery()"
+              (queryChange)="countryQuery.set($event)"
+              (openChange)="onCountryOpenChange($event)"
+              [value]="countryKeyOf(InvoiceOrganizationForm().get('country')?.value ?? null)"
+              (valueChange)="onCountryValueChange($event)"
+            >
+              <ng-template #tngAutocompleteOptionTpl let-option="option" let-label="label">
+                <span class="country-option">
+                  <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
+                  <span class="country-option-label">{{ label }}</span>
+                </span>
+              </ng-template>
+
+              <ng-template #tngAutocompleteSelectedTpl let-option="option">
+                <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
+              </ng-template>
+            </tng-autocomplete>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ── Row 2: My Address ── full width, compact ──────────────────── -->
+    <div class="org-field-wrapper org-field-full">
+      <label
+        for="invoice-organization-address"
+        id="invoice-organization-address-label"
+        class="org-field-label"
+        >My Address</label
+      >
+      <div class="org-field-input-row">
+        <div class="org-field-icon-prefix" aria-hidden="true">
+          <tng-icon icon="map-pin" size="0.875rem" />
+        </div>
+        <div class="org-field-control-wrap">
+          <tng-input-field size="sm">
+            <textarea
+              tngInput
+              id="invoice-organization-address"
+              formControlName="address"
+              placeholder="My address"
+              rows="2"
+              class="app-field-control org-address-compact"
+            ></textarea>
+          </tng-input-field>
+        </div>
+      </div>
+    </div>
+
+    @if (advanced()) {
+      <!-- ── Row 3: Email | Mobile ─────────────────────────────────── -->
+      <div class="org-field-wrapper org-field-half">
+        <label
+          for="invoice-organization-email"
+          id="invoice-organization-email-label"
+          class="org-field-label"
+          >Email</label
+        >
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="mail" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-organization-email"
+                formControlName="email"
+                placeholder="Email address"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-field-wrapper org-field-half">
+        <label
+          for="invoice-organization-phone"
+          id="invoice-organization-phone-label"
+          class="org-field-label"
+          >Mobile</label
+        >
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="phone" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-organization-phone"
+                formControlName="phone"
+                placeholder="Phone number"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Row 4: GSTIN | Authority ──────────────────────────────── -->
+      <div class="org-field-wrapper org-field-half">
+        <label
+          for="invoice-organization-gstin"
+          id="invoice-organization-gstin-label"
+          class="org-field-label"
+          >GSTIN</label
+        >
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="file-text" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-organization-gstin"
+                formControlName="gstin"
+                placeholder="GSTIN number"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-field-wrapper org-field-half">
+        <div class="org-field-label-row">
+          <label for="organization-authorityName" class="org-field-label">Authority</label>
+          <tng-tooltip text="Authority Name" ariaLabel="About authority name">
+            <tng-icon trigger icon="circle-help" size="0.875rem" />
+          </tng-tooltip>
+        </div>
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="user" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Authority Name"
+                tngInput
+                id="organization-authorityName"
+                formControlName="authorityName"
+                placeholder="Authority Name"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Row 5: Designation ── half width ──────────────────────── -->
+      <div class="org-field-wrapper org-field-half">
+        <div class="org-field-label-row">
+          <label for="organization-authorityDesignation" class="org-field-label">Designation</label>
+          <tng-tooltip text="Authority Designation" ariaLabel="About authority designation">
+            <tng-icon trigger icon="circle-help" size="0.875rem" />
+          </tng-tooltip>
+        </div>
+        <div class="org-field-input-row">
+          <div class="org-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="briefcase" size="0.875rem" />
+          </div>
+          <div class="org-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Authority Designation"
+                tngInput
+                id="organization-authorityDesignation"
+                formControlName="authorityDesignation"
+                placeholder="Authority Designation"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+    }
   </div>
-
-  @if (advanced()) {
-    <!-- Country -->
-    <div class="app-form-row">
-      <label id="invoice-organization-country-label" class="app-field-label">Country</label>
-      <tng-autocomplete
-        labelId="invoice-organization-country-label"
-        placeholder="Search country..."
-        ariaLabel="Country"
-        [options]="filteredCountries()"
-        [getOptionValue]="countryValue"
-        [getOptionLabel]="countryLabel"
-        [query]="countryQuery()"
-        (queryChange)="countryQuery.set($event)"
-        (openChange)="onCountryOpenChange($event)"
-        [value]="countryKeyOf(InvoiceOrganizationForm().get('country')?.value ?? null)"
-        (valueChange)="onCountryValueChange($event)"
-      >
-        <ng-template #tngAutocompleteOptionTpl let-option="option" let-label="label">
-          <span class="country-option">
-            <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
-            <span class="country-option-label">{{ label }}</span>
-          </span>
-        </ng-template>
-
-        <ng-template #tngAutocompleteSelectedTpl let-option="option">
-          <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
-        </ng-template>
-      </tng-autocomplete>
-    </div>
-
-    <!-- Email -->
-    <div class="app-form-row">
-      <label
-        for="invoice-organization-email"
-        id="invoice-organization-email-label"
-        class="app-field-label"
-        >Email</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-organization-email"
-          formControlName="email"
-          placeholder="OrganizationForm email Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Mobile -->
-    <div class="app-form-row">
-      <label
-        for="invoice-organization-phone"
-        id="invoice-organization-phone-label"
-        class="app-field-label"
-        >Mobile</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-organization-phone"
-          formControlName="phone"
-          placeholder="OrganizationForm Phone Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- GSTIN -->
-    <div class="app-form-row">
-      <label
-        for="invoice-organization-gstin"
-        id="invoice-organization-gstin-label"
-        class="app-field-label"
-        >GSTIN</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-organization-gstin"
-          formControlName="gstin"
-          placeholder="OrganizationForm gstin Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Authority Name -->
-    <div class="app-form-row">
-      <div class="app-form-options">
-        <label for="organization-authorityName" class="app-field-label">Authority</label>
-        <tng-tooltip text="Authority Name" ariaLabel="About authority name">
-          <tng-icon trigger icon="circle-help" size="0.875rem" />
-        </tng-tooltip>
-      </div>
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          aria-label="Authority Name"
-          tngInput
-          id="organization-authorityName"
-          formControlName="authorityName"
-          placeholder="Authority Name"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Authority Designation -->
-    <div class="app-form-row">
-      <div class="app-form-options">
-        <label for="organization-authorityDesignation" class="app-field-label">Designation</label>
-        <tng-tooltip text="Authority Designation" ariaLabel="About authority designation">
-          <tng-icon trigger icon="circle-help" size="0.875rem" />
-        </tng-tooltip>
-      </div>
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          aria-label="Authority Designation"
-          tngInput
-          id="organization-authorityDesignation"
-          formControlName="authorityDesignation"
-          placeholder="Authority Designation"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-  }
+  <!-- /.org-form-grid -->
 </tng-card>

@@ -1,299 +1,299 @@
-<tng-stepper
-  ariaLabel="Advanced invoice steps"
-  orientation="horizontal"
-  [steps]="stepperSteps()"
-  [value]="currentStep()"
-  (valueChange)="onStepperValueChange($event)"
-/>
+<!-- ============================================================
+     Invoice page – two-column layout: main content + stepper
+     ============================================================ -->
+<div class="invoice-layout-outer">
+  <!-- ── Main content column ─────────────────────────────────────────── -->
+  <div class="invoice-main-col">
+    <!-- ────────────────────────── STEP 1 ────────────────────────────── -->
+    @if (currentStep() === 1) {
+      <div class="invoice-step-section">
+        <!-- Organization Information (tng-card lives inside the component) -->
+        <app-invoice-organization
+          [InvoiceOrganizationForm]="formInvoice.controls.organization"
+          [advanced]="true"
+        ></app-invoice-organization>
 
-<!-- STEP CONTENT -->
-<div class="app-page">
-  @if (currentStep() === 1) {
-    <div class="app-invoice-section">
-      <div class="app-invoice-columns">
-        <!-- Center: My Organization -->
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <app-invoice-organization
-              [InvoiceOrganizationForm]="formInvoice.controls.organization"
-              [advanced]="true"
-            ></app-invoice-organization>
-          </div>
-        </div>
-
-        <!-- Right Column: Logo Uploads -->
-        <div class="app-invoice-aside">
-          <div class="app-card-content">
-            <div class="app-field">
-              <app-invoice-logo
-                [InvoiceLogo]="formInvoice"
-                [advanced]="true"
-                logoField="smallLogo"
-                [logoField]="'smallLogo'"
-              ></app-invoice-logo>
+        <!-- Upload Logos card -->
+        <div class="upload-card">
+          <div class="upload-card-header">
+            <div class="app-icon-box app-icon-box--small">
+              <tng-icon icon="image-up" size="1.1rem" />
             </div>
-            <div class="app-field">
-              <app-invoice-logo
-                [InvoiceLogo]="formInvoice"
-                [advanced]="true"
-                [logoField]="'largeLogo'"
-                logoField="largeLogo"
-              ></app-invoice-logo>
+            <div class="upload-card-header-text">
+              <h2>Upload Logos</h2>
+              <p>Add your business logo and an optional larger logo.</p>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Navigation Button -->
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation app-invoice-navigation--end">
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() + 1)"
-                [disabled]="isLastStep()"
-              >
-                <span>Next</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
+          <div class="upload-grid">
+            <div class="upload-item">
+              <div class="upload-item-label">Small Logo</div>
+              <div class="file-upload-wrapper">
+                <app-invoice-logo
+                  [InvoiceLogo]="formInvoice"
+                  [advanced]="true"
+                  [logoField]="'smallLogo'"
+                ></app-invoice-logo>
+              </div>
+            </div>
+
+            <div class="upload-item">
+              <div class="upload-item-label">Large Logo</div>
+              <div class="file-upload-wrapper">
+                <app-invoice-logo
+                  [InvoiceLogo]="formInvoice"
+                  [advanced]="true"
+                  [logoField]="'largeLogo'"
+                ></app-invoice-logo>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  }
-  @if (currentStep() === 2) {
-    <div class="app-invoice-section">
-      <div class="app-invoice-columns">
-        <!-- Center: Customer Details -->
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <app-invoice-customer
-              [InvoiceCustomerForm]="formInvoice.controls.customer"
-              [advanced]="true"
-            ></app-invoice-customer>
+
+        <!-- Step navigation -->
+        <div class="invoice-step-nav invoice-step-nav--end">
+          <div class="next-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="primary"
+              appearance="solid"
+              type="button"
+              (click)="goToStep(currentStep() + 1)"
+              [disabled]="isLastStep()"
+            >
+              <span>Next</span>
+              <tng-icon icon="chevron-right" />
+            </tng-button>
           </div>
         </div>
       </div>
+    }
 
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation">
-              <tng-button
-                size="sm"
-                tone="neutral"
-                appearance="outline"
-                type="button"
-                (click)="goToStep(currentStep() - 1)"
-                [disabled]="isFirstStep()"
-              >
-                <tng-icon icon="chevron-left" />
-                <span>Back</span>
-              </tng-button>
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() + 1)"
-                [disabled]="isLastStep()"
-              >
-                <span>Next</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
-            </div>
+    <!-- ────────────────────────── STEP 2 ────────────────────────────── -->
+    @if (currentStep() === 2) {
+      <div class="invoice-step-section">
+        <app-invoice-customer
+          [InvoiceCustomerForm]="formInvoice.controls.customer"
+          [advanced]="true"
+        ></app-invoice-customer>
+
+        <!-- Step navigation -->
+        <div class="invoice-step-nav page-actions">
+          <div class="back-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="neutral"
+              appearance="outline"
+              type="button"
+              (click)="goToStep(currentStep() - 1)"
+              [disabled]="isFirstStep()"
+            >
+              <tng-icon icon="chevron-left" />
+              <span>Back</span>
+            </tng-button>
+          </div>
+
+          <div class="next-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="primary"
+              appearance="solid"
+              type="button"
+              (click)="goToStep(currentStep() + 1)"
+              [disabled]="isLastStep()"
+            >
+              <span>Next</span>
+              <tng-icon icon="chevron-right" />
+            </tng-button>
           </div>
         </div>
       </div>
-    </div>
-  }
-  @if (currentStep() === 3) {
-    <div class="app-invoice-section">
-      <div class="app-invoice-columns">
-        <!-- Center: Invoice Details and Terms -->
-        <div class="app-invoice-main">
-          <div class="app-invoice-form app-card-content">
-            <app-invoice-details
-              [InvoiceDetailsForm]="formInvoice"
-              [advanced]="true"
-            ></app-invoice-details>
-            <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
+    }
+
+    <!-- ────────────────────────── STEP 3 ────────────────────────────── -->
+    @if (currentStep() === 3) {
+      <div class="invoice-step-section">
+        <app-invoice-details
+          [InvoiceDetailsForm]="formInvoice"
+          [advanced]="true"
+        ></app-invoice-details>
+
+        <!-- Step navigation -->
+        <div class="invoice-step-nav page-actions">
+          <div class="back-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="neutral"
+              appearance="outline"
+              type="button"
+              (click)="goToStep(currentStep() - 1)"
+              [disabled]="isFirstStep()"
+            >
+              <tng-icon icon="chevron-left" />
+              <span>Back</span>
+            </tng-button>
+          </div>
+
+          <div class="next-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="primary"
+              appearance="solid"
+              type="button"
+              (click)="goToStep(currentStep() + 1)"
+              [disabled]="isLastStep()"
+            >
+              <span>Next</span>
+              <tng-icon icon="chevron-right" />
+            </tng-button>
           </div>
         </div>
       </div>
+    }
 
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation">
-              <tng-button
-                size="sm"
-                tone="neutral"
-                appearance="outline"
-                type="button"
-                (click)="goToStep(currentStep() - 1)"
-                [disabled]="isFirstStep()"
-              >
-                <tng-icon icon="chevron-left" />
-                <span>Back</span>
-              </tng-button>
+    <!-- ────────────────────────── STEP 4 ────────────────────────────── -->
+    @if (currentStep() === 4) {
+      <div class="invoice-step-section">
+        <app-invoice-items
+          [InvoiceItemForm]="formInvoice.controls.items"
+          [advanced]="true"
+          [hasItemDescription]="hasItemDescription()"
+          [hasItemDiscount]="hasItemDiscount()"
+          [selectedTaxOption]="selectedTaxOption()"
+        ></app-invoice-items>
 
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() + 1)"
-                [disabled]="isLastStep()"
-              >
-                <span>Next</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
-            </div>
+        <app-invoice-summary
+          [InvoiceSummary]="formInvoice"
+          [advanced]="true"
+          [hasItemDiscount]="hasItemDiscount()"
+          [selectedTaxOption]="selectedTaxOption()"
+        ></app-invoice-summary>
+
+        <!-- Step navigation -->
+        <div class="invoice-step-nav page-actions">
+          <div class="back-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="neutral"
+              appearance="outline"
+              type="button"
+              (click)="goToStep(currentStep() - 1)"
+              [disabled]="isFirstStep()"
+            >
+              <tng-icon icon="chevron-left" />
+              <span>Back</span>
+            </tng-button>
+          </div>
+
+          <div class="next-action-wrapper">
+            <tng-button
+              size="sm"
+              tone="primary"
+              appearance="solid"
+              type="button"
+              (click)="goToStep(currentStep() + 1)"
+              [disabled]="isLastStep()"
+            >
+              <span>Next</span>
+              <tng-icon icon="chevron-right" />
+            </tng-button>
           </div>
         </div>
       </div>
-    </div>
-  }
-  @if (currentStep() === 4) {
-    <div class="app-invoice-section">
-      <app-invoice-items
-        [InvoiceItemForm]="formInvoice.controls.items"
-        [advanced]="true"
-        [hasItemDescription]="hasItemDescription()"
-        [hasItemDiscount]="hasItemDiscount()"
-        [selectedTaxOption]="selectedTaxOption()"
-      >
-      </app-invoice-items>
+    }
 
-      <app-invoice-items-mobile
-        [InvoiceItemForm]="formInvoice.controls.items"
-        [advanced]="true"
-        [hasItemDescription]="hasItemDescription()"
-        [hasItemDiscount]="hasItemDiscount()"
-        [selectedTaxOption]="selectedTaxOption()"
-      >
-      </app-invoice-items-mobile>
+    <!-- ────────────────────────── STEP 5 ────────────────────────────── -->
+    @if (currentStep() === 5) {
+      <div class="app-invoice-section">
+        <app-select-template
+          (templateSelected)="onTemplateSelected($event)"
+          [templates]="templates()"
+          [selectedTemplate]="selectedTemplate()"
+        ></app-select-template>
 
-      <app-invoice-summary
-        [InvoiceSummary]="formInvoice"
-        [advanced]="true"
-        [hasItemDiscount]="hasItemDiscount()"
-      ></app-invoice-summary>
+        <div class="app-invoice-columns">
+          <div class="app-invoice-main">
+            <div class="app-invoice-form">
+              <div class="app-invoice-navigation">
+                <tng-button
+                  size="sm"
+                  tone="neutral"
+                  appearance="outline"
+                  type="button"
+                  (click)="goToStep(currentStep() - 1)"
+                  [disabled]="isFirstStep()"
+                >
+                  <tng-icon icon="chevron-left" />
+                  <span>Back</span>
+                </tng-button>
 
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation">
-              <tng-button
-                size="sm"
-                tone="neutral"
-                appearance="outline"
-                type="button"
-                (click)="goToStep(currentStep() - 1)"
-                [disabled]="isFirstStep()"
-              >
-                <tng-icon icon="chevron-left" />
-                <span>Back</span>
-              </tng-button>
-
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() + 1)"
-                [disabled]="isLastStep()"
-              >
-                <span>Next</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  }
-  @if (currentStep() === 5) {
-    <div class="app-invoice-section">
-      <app-select-template
-        (templateSelected)="onTemplateSelected($event)"
-        [templates]="templates()"
-        [selectedTemplate]="selectedTemplate()"
-      ></app-select-template>
-
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation">
-              <tng-button
-                size="sm"
-                tone="neutral"
-                appearance="outline"
-                type="button"
-                (click)="goToStep(currentStep() - 1)"
-                [disabled]="isFirstStep()"
-              >
-                <tng-icon icon="chevron-left" />
-                <span>Back</span>
-              </tng-button>
-
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() + 1)"
-                [disabled]="isLastStep()"
-              >
-                <span>Next</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
+                <tng-button
+                  size="sm"
+                  tone="primary"
+                  appearance="solid"
+                  type="button"
+                  (click)="goToStep(currentStep() + 1)"
+                  [disabled]="isLastStep()"
+                >
+                  <span>Next</span>
+                  <tng-icon icon="chevron-right" />
+                </tng-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  }
-  @if (currentStep() === 6) {
-    <div class="app-invoice-section">
-      <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
+    }
 
-      <div class="app-invoice-columns">
-        <div class="app-invoice-main">
-          <div class="app-invoice-form">
-            <div class="app-invoice-navigation">
-              <tng-button
-                size="sm"
-                tone="neutral"
-                appearance="outline"
-                type="button"
-                (click)="goToStep(currentStep() - 1)"
-                [disabled]="isFirstStep()"
-              >
-                <tng-icon icon="chevron-left" />
-                <span>Back</span>
-              </tng-button>
+    <!-- ────────────────────────── STEP 6 ────────────────────────────── -->
+    @if (currentStep() === 6) {
+      <div class="app-invoice-section">
+        <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
 
-              <tng-button
-                size="sm"
-                tone="primary"
-                appearance="solid"
-                type="button"
-                (click)="goToStep(currentStep() - 5)"
-              >
-                <span>Finish - Create another Invoice</span>
-                <tng-icon icon="chevron-right" />
-              </tng-button>
+        <div class="app-invoice-columns">
+          <div class="app-invoice-main">
+            <div class="app-invoice-form">
+              <div class="app-invoice-navigation">
+                <tng-button
+                  size="sm"
+                  tone="neutral"
+                  appearance="outline"
+                  type="button"
+                  (click)="goToStep(currentStep() - 1)"
+                  [disabled]="isFirstStep()"
+                >
+                  <tng-icon icon="chevron-left" />
+                  <span>Back</span>
+                </tng-button>
+
+                <tng-button
+                  size="sm"
+                  tone="primary"
+                  appearance="solid"
+                  type="button"
+                  (click)="goToStep(currentStep() - 5)"
+                >
+                  <span>Finish - Create another Invoice</span>
+                  <tng-icon icon="chevron-right" />
+                </tng-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  }
+    }
+  </div>
+  <!-- /.invoice-main-col -->
+
+  <!-- ── Vertical stepper column (no card, no border, no shadow) ─────── -->
+  <aside class="invoice-stepper-col">
+    <tng-stepper
+      ariaLabel="Advanced invoice steps"
+      orientation="vertical"
+      [steps]="stepperSteps()"
+      [value]="currentStep()"
+      (valueChange)="onStepperValueChange($event)"
+    />
+  </aside>
 </div>
+<!-- /.invoice-layout-outer -->

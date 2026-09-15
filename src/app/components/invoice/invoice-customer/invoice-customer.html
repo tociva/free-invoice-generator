@@ -1,122 +1,192 @@
-<tng-card padding="md" class="app-invoice-fields" [formGroup]="InvoiceCustomerForm()">
-  <!-- Customer Name -->
-  <div class="app-form-row">
-    <label for="invoice-customer-name" id="invoice-customer-name-label" class="app-field-label"
-      >Customer Name</label
-    >
-    <tng-input-field class="app-field" size="sm"
-      ><input
-        tngInput
-        id="invoice-customer-name"
-        formControlName="name"
-        placeholder="Customer name"
-        class="app-field-control"
-    /></tng-input-field>
+<tng-card padding="md">
+  <!-- ── Card header ───────────────────────────────────────────────── -->
+  <div class="customer-card-header">
+    <div class="app-icon-box app-icon-box--small">
+      <tng-icon icon="user" size="1.1rem" />
+    </div>
+    <div class="customer-card-header-text">
+      <h2>Customer Details</h2>
+      <p>Enter the customer information that will appear on the invoice.</p>
+    </div>
   </div>
 
-  <!-- Address -->
-  <div class="app-form-row">
-    <label
-      for="invoice-customer-address"
-      id="invoice-customer-address-label"
-      class="app-field-label"
-      >Address</label
+  <!-- ── Form grid ─────────────────────────────────────────────────── -->
+  <div class="customer-form-grid" [formGroup]="InvoiceCustomerForm()">
+    <!-- ── Row 1: Customer Name (left) | Country (right when advanced) ───── -->
+    <div
+      [ngClass]="
+        advanced()
+          ? 'customer-field-wrapper customer-field-half'
+          : 'customer-field-wrapper customer-field-full'
+      "
     >
-    <tng-input-field class="app-field" size="sm">
-      <textarea
-        tngInput
-        id="invoice-customer-address"
-        formControlName="address"
-        placeholder="Customer address"
-        rows="2"
-        class="app-field-control app-notes-control"
-      ></textarea>
-    </tng-input-field>
-  </div>
-
-  @if (advanced()) {
-    <!-- Country -->
-    <div class="app-form-row">
-      <label id="invoice-customer-country-label" class="app-field-label">Country</label>
-      <tng-autocomplete
-        labelId="invoice-customer-country-label"
-        placeholder="Search country..."
-        ariaLabel="Country"
-        [options]="filteredCountries()"
-        [getOptionValue]="countryValue"
-        [getOptionLabel]="countryLabel"
-        [query]="countryQuery()"
-        (queryChange)="countryQuery.set($event)"
-        (openChange)="onCountryOpenChange($event)"
-        [value]="countryKeyOf(InvoiceCustomerForm().get('country')?.value ?? null)"
-        (valueChange)="onCountryValueChange($event)"
+      <label
+        for="invoice-customer-name"
+        id="invoice-customer-name-label"
+        class="customer-field-label"
+        >Customer Name</label
       >
-        <ng-template
-          #tngAutocompleteOptionTpl
-          let-option="option"
-          let-label="label"
+      <div class="customer-field-input-row">
+        <div class="customer-field-icon-prefix" aria-hidden="true">
+          <tng-icon icon="user" size="0.875rem" />
+        </div>
+        <div class="customer-field-control-wrap">
+          <tng-input-field size="sm">
+            <input
+              tngInput
+              id="invoice-customer-name"
+              formControlName="name"
+              placeholder="Customer name"
+              class="app-field-control"
+            />
+          </tng-input-field>
+        </div>
+      </div>
+    </div>
+
+    @if (advanced()) {
+      <!-- ── Country (right of Customer Name) ────────────────────── -->
+      <div class="customer-field-wrapper customer-field-half">
+        <label id="invoice-customer-country-label" class="customer-field-label">Country</label>
+        <div class="customer-field-input-row">
+          <div class="customer-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="globe" size="0.875rem" />
+          </div>
+          <div class="customer-field-control-wrap">
+            <tng-autocomplete
+              labelId="invoice-customer-country-label"
+              placeholder="Search country..."
+              ariaLabel="Country"
+              [options]="filteredCountries()"
+              [getOptionValue]="countryValue"
+              [getOptionLabel]="countryLabel"
+              [query]="countryQuery()"
+              (queryChange)="countryQuery.set($event)"
+              (openChange)="onCountryOpenChange($event)"
+              [value]="countryKeyOf(InvoiceCustomerForm().get('country')?.value ?? null)"
+              (valueChange)="onCountryValueChange($event)"
+            >
+              <ng-template #tngAutocompleteOptionTpl let-option="option" let-label="label">
+                <span class="country-option">
+                  <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
+                  <span class="country-option-label">{{ label }}</span>
+                </span>
+              </ng-template>
+
+              <ng-template #tngAutocompleteSelectedTpl let-option="option">
+                <span [class]="countryFlagClass(option)" aria-hidden="true"></span>
+              </ng-template>
+            </tng-autocomplete>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ── Row 2: Address ── full width, compact ──────────────────── -->
+    <div class="customer-field-wrapper customer-field-full">
+      <label
+        for="invoice-customer-address"
+        id="invoice-customer-address-label"
+        class="customer-field-label"
+        >Address</label
+      >
+      <div class="customer-field-input-row">
+        <div class="customer-field-icon-prefix" aria-hidden="true">
+          <tng-icon icon="map-pin" size="0.875rem" />
+        </div>
+        <div class="customer-field-control-wrap">
+          <tng-input-field size="sm">
+            <textarea
+              tngInput
+              id="invoice-customer-address"
+              formControlName="address"
+              placeholder="Customer address"
+              rows="2"
+              class="app-field-control customer-address-compact"
+            ></textarea>
+          </tng-input-field>
+        </div>
+      </div>
+    </div>
+
+    @if (advanced()) {
+      <!-- ── Row 3: Mobile | Email ID ──────────────────────────────── -->
+      <div class="customer-field-wrapper customer-field-half">
+        <label
+          for="invoice-customer-phone"
+          id="invoice-customer-phone-label"
+          class="customer-field-label"
+          >Mobile</label
         >
-          <span class="country-option">
-            <span
-              [class]="countryFlagClass(option)"
-              aria-hidden="true"
-            ></span>
-            <span class="country-option-label">{{ label }}</span>
-          </span>
-        </ng-template>
+        <div class="customer-field-input-row">
+          <div class="customer-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="phone" size="0.875rem" />
+          </div>
+          <div class="customer-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-customer-phone"
+                formControlName="phone"
+                placeholder="Customer Phone Number"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
 
-        <ng-template #tngAutocompleteSelectedTpl let-option="option">
-          <span
-            [class]="countryFlagClass(option)"
-            aria-hidden="true"
-          ></span>
-        </ng-template>
-      </tng-autocomplete>
-    </div>
+      <div class="customer-field-wrapper customer-field-half">
+        <label
+          for="invoice-customer-email"
+          id="invoice-customer-email-label"
+          class="customer-field-label"
+          >Email ID</label
+        >
+        <div class="customer-field-input-row">
+          <div class="customer-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="mail" size="0.875rem" />
+          </div>
+          <div class="customer-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-customer-email"
+                formControlName="email"
+                placeholder="Customer email"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
 
-    <!-- Mobile -->
-    <div class="app-form-row">
-      <label for="invoice-customer-phone" id="invoice-customer-phone-label" class="app-field-label"
-        >Mobile</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-customer-phone"
-          formControlName="phone"
-          placeholder="Customer Phone Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Email ID -->
-    <div class="app-form-row">
-      <label for="invoice-customer-email" id="invoice-customer-email-label" class="app-field-label"
-        >Email ID</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-customer-email"
-          formControlName="email"
-          placeholder="Customer email"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- GSTIN -->
-    <div class="app-form-row">
-      <label for="invoice-customer-gstin" id="invoice-customer-gstin-label" class="app-field-label"
-        >GSTIN</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-customer-gstin"
-          formControlName="gstin"
-          placeholder="GSTIN Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-  }
+      <!-- ── Row 4: GSTIN ── half width ────────────────────────────── -->
+      <div class="customer-field-wrapper customer-field-half">
+        <label
+          for="invoice-customer-gstin"
+          id="invoice-customer-gstin-label"
+          class="customer-field-label"
+          >GSTIN</label
+        >
+        <div class="customer-field-input-row">
+          <div class="customer-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="file-text" size="0.875rem" />
+          </div>
+          <div class="customer-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                id="invoice-customer-gstin"
+                formControlName="gstin"
+                placeholder="GSTIN Number"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <!-- /.customer-form-grid -->
 </tng-card>

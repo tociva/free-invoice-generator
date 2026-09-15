@@ -1,253 +1,412 @@
-<tng-card padding="md" class="app-invoice-fields" [formGroup]="InvoiceDetailsForm()">
-  <!-- Invoice Number -->
-  <div class="app-form-row">
-    <label
-      for="invoice-details-invoiceNo"
-      id="invoice-details-invoiceNo-label"
-      class="app-field-label"
-      >Invoice Number</label
-    >
-    <tng-input-field class="app-field" size="sm"
-      ><input
-        tngInput
-        type="text"
-        id="invoice-details-invoiceNo"
-        formControlName="invoiceNo"
-        required
-        aria-describedby="invoice-number-error"
-        [ariaInvalid]="
+<tng-card padding="md">
+
+  <!-- ── Card header ───────────────────────────────────────────────── -->
+  <div class="invoice-card-header">
+    <div class="app-icon-box app-icon-box--small">
+      <tng-icon icon="file-text" size="1.1rem" />
+    </div>
+    <div class="invoice-card-header-text">
+      <h2>Invoice Details</h2>
+      <p>Set your invoice preferences, tax settings, and payment details.</p>
+    </div>
+  </div>
+
+  <div [formGroup]="InvoiceDetailsForm()">
+
+    <!-- ── GROUP 1 — INVOICE SETTINGS ──────────────────────────────── -->
+    <div class="invoice-form-grid">
+
+      <!-- Row 1: Invoice Number | Invoice Date -->
+      <div class="invoice-field-wrapper invoice-field-half">
+        <label
+          for="invoice-details-invoiceNo"
+          id="invoice-details-invoiceNo-label"
+          class="invoice-field-label"
+        >Invoice Number</label>
+        <div class="invoice-field-input-row">
+          <div class="invoice-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="file-text" size="0.875rem" />
+          </div>
+          <div class="invoice-field-control-wrap">
+            <tng-input-field size="sm">
+              <input
+                tngInput
+                type="text"
+                id="invoice-details-invoiceNo"
+                formControlName="invoiceNo"
+                required
+                aria-describedby="invoice-number-error"
+                [ariaInvalid]="
+                  InvoiceDetailsForm().controls.invoiceNo.invalid &&
+                  InvoiceDetailsForm().controls.invoiceNo.touched
+                "
+                placeholder="Enter invoice number"
+                class="app-field-control"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+        @if (
           InvoiceDetailsForm().controls.invoiceNo.invalid &&
           InvoiceDetailsForm().controls.invoiceNo.touched
-        "
-        placeholder="Enter invoice number"
-        class="app-field-control"
-    /></tng-input-field>
-  </div>
-
-  @if (
-    InvoiceDetailsForm().controls.invoiceNo.invalid &&
-    InvoiceDetailsForm().controls.invoiceNo.touched
-  ) {
-    <p id="invoice-number-error" role="alert" class="app-form-error">Invoice number is required.</p>
-  }
-  <!-- Invoice Date and Due Date -->
-  <div class="app-form-row">
-    <label
-      for="invoice-details-invoiceDate"
-      id="invoice-details-invoiceDate-label"
-      class="app-field-label"
-      >Invoice Date</label
-    >
-    <tng-datepicker
-      [value]="invoiceDateValue('invoiceDate')"
-      [disabled]="InvoiceDetailsForm().controls.invoiceDate.disabled"
-      inputAriaLabel="Invoice Date"
-      id="invoice-details-invoiceDate"
-      [required]="true"
-      [fullWidth]="true"
-      [invalid]="
-        InvoiceDetailsForm().controls.invoiceDate.invalid &&
-        InvoiceDetailsForm().controls.invoiceDate.touched
-      "
-      (valueChange)="onInvoiceDateValueChange('invoiceDate', $event)"
-      (closed)="markInvoiceDateTouched('invoiceDate')"
-      (focusout)="markInvoiceDateTouched('invoiceDate')"
-    />
-  </div>
-
-  <div class="app-form-row">
-    <label
-      for="invoice-details-invoiceDueDate"
-      id="invoice-details-invoiceDueDate-label"
-      class="app-field-label"
-      >Due Date</label
-    >
-    <tng-datepicker
-      [value]="invoiceDateValue('invoiceDueDate')"
-      [disabled]="InvoiceDetailsForm().controls.invoiceDueDate.disabled"
-      inputAriaLabel="Due Date"
-      id="invoice-details-invoiceDueDate"
-      [required]="true"
-      [fullWidth]="true"
-      [invalid]="
-        InvoiceDetailsForm().controls.invoiceDueDate.invalid &&
-        InvoiceDetailsForm().controls.invoiceDueDate.touched
-      "
-      (valueChange)="onInvoiceDateValueChange('invoiceDueDate', $event)"
-      (closed)="markInvoiceDateTouched('invoiceDueDate')"
-      (focusout)="markInvoiceDateTouched('invoiceDueDate')"
-    />
-  </div>
-  @if (advanced()) {
-    <!-- Currency -->
-    <div class="app-form-row">
-      <label id="invoice-details-currency-label" class="app-field-label">Currency</label>
-      <tng-autocomplete
-        labelId="invoice-details-currency-label"
-        placeholder="Search currency..."
-        ariaLabel="Currency"
-        [options]="filteredCurrencies()"
-        [getOptionValue]="currencyValue"
-        [getOptionLabel]="currencyLabel"
-        [query]="currencyQuery()"
-        (queryChange)="currencyQuery.set($event)"
-        (openChange)="onCurrencyOpenChange($event)"
-        [value]="currencyKeyOf(InvoiceDetailsForm().get('currency')?.value ?? null)"
-        (valueChange)="onCurrencyValueChange($event)"
-      />
-    </div>
-
-    <!-- Decimal Places -->
-    <div class="app-form-row">
-      <label
-        for="invoice-details-decimalPlaces"
-        id="invoice-details-decimalPlaces-label"
-        class="app-field-label"
-        >Decimal Places</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-details-decimalPlaces"
-          formControlName="decimalPlaces"
-          type="number"
-          min="0"
-          max="5"
-          placeholder="Decimal Places"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Delivery State -->
-    <div class="app-form-row">
-      <label
-        for="invoice-details-deliveryState"
-        id="invoice-details-deliveryState-label"
-        class="app-field-label"
-        >Delivery State</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-details-deliveryState"
-          formControlName="deliveryState"
-          type="text"
-          placeholder="Delivery State"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-
-    <!-- Tax Option -->
-    <div class="app-form-row">
-      <label id="invoice-details-taxOption-label" class="app-field-label">Tax Option</label>
-      <tng-autocomplete
-        labelId="invoice-details-taxOption-label"
-        placeholder="Search tax option..."
-        ariaLabel="Tax Option"
-        [options]="filteredTaxOptions()"
-        [getOptionValue]="taxValue"
-        [getOptionLabel]="taxLabel"
-        [query]="taxOptionQuery()"
-        (queryChange)="taxOptionQuery.set($event)"
-        (openChange)="onTaxOptionOpenChange($event)"
-        [value]="taxKeyOf(InvoiceDetailsForm().get('taxOption')?.value ?? null)"
-        (valueChange)="onTaxOptionValueChange($event)"
-      />
-    </div>
-
-    <!-- Show Item Description -->
-    <div class="app-form-row">
-      <div class="app-field-label">Item Description</div>
-      <div class="app-form-options">
-        <tng-checkbox tngAngularForms formControlName="hasItemDescription"
-          >Show Item Description</tng-checkbox
-        >
+        ) {
+          <p id="invoice-number-error" role="alert" class="app-form-error">Invoice number is required.</p>
+        }
       </div>
-    </div>
 
-    <!-- Show Item Discount -->
-    <div class="app-form-row">
-      <div class="app-field-label">Item Discount</div>
-      <div class="app-form-options">
-        <tng-checkbox tngAngularForms formControlName="hasItemDiscount"
-          >Show Item Discount</tng-checkbox
-        >
+      <div class="invoice-field-wrapper invoice-field-half">
+        <label
+          for="invoice-details-invoiceDate"
+          id="invoice-details-invoiceDate-label"
+          class="invoice-field-label"
+        >Invoice Date</label>
+        <div class="invoice-field-input-row">
+          <div class="invoice-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="calendar" size="0.875rem" />
+          </div>
+          <div class="invoice-field-control-wrap">
+            <tng-datepicker
+              [value]="invoiceDateValue('invoiceDate')"
+              [disabled]="InvoiceDetailsForm().controls.invoiceDate.disabled"
+              inputAriaLabel="Invoice Date"
+              id="invoice-details-invoiceDate"
+              [required]="true"
+              [fullWidth]="true"
+              [invalid]="
+                InvoiceDetailsForm().controls.invoiceDate.invalid &&
+                InvoiceDetailsForm().controls.invoiceDate.touched
+              "
+              (valueChange)="onInvoiceDateValueChange('invoiceDate', $event)"
+              (closed)="markInvoiceDateTouched('invoiceDate')"
+              (focusout)="markInvoiceDateTouched('invoiceDate')"
+            />
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Date Format -->
-    <div class="app-form-row">
-      <label id="invoice-details-dateFormat-label" class="app-field-label">Date Format</label>
-      <tng-autocomplete
-        labelId="invoice-details-dateFormat-label"
-        placeholder="Search date format..."
-        ariaLabel="Date Format"
-        [options]="filteredDateFormats()"
-        [getOptionValue]="dateFormatValue"
-        [getOptionLabel]="dateFormatLabel"
-        [query]="dateFormatQuery()"
-        (queryChange)="dateFormatQuery.set($event)"
-        (openChange)="onDateFormatOpenChange($event)"
-        [value]="dateFormatKeyOf(InvoiceDetailsForm().get('dateFormat')?.value ?? null)"
-        (valueChange)="onDateFormatValueChange($event)"
-      />
-    </div>
+      <!-- Row 2: Due Date | Currency -->
+      <div class="invoice-field-wrapper invoice-field-half">
+        <label
+          for="invoice-details-invoiceDueDate"
+          id="invoice-details-invoiceDueDate-label"
+          class="invoice-field-label"
+        >Due Date</label>
+        <div class="invoice-field-input-row">
+          <div class="invoice-field-icon-prefix" aria-hidden="true">
+            <tng-icon icon="calendar" size="0.875rem" />
+          </div>
+          <div class="invoice-field-control-wrap">
+            <tng-datepicker
+              [value]="invoiceDateValue('invoiceDueDate')"
+              [disabled]="InvoiceDetailsForm().controls.invoiceDueDate.disabled"
+              inputAriaLabel="Due Date"
+              id="invoice-details-invoiceDueDate"
+              [required]="true"
+              [fullWidth]="true"
+              [invalid]="
+                InvoiceDetailsForm().controls.invoiceDueDate.invalid &&
+                InvoiceDetailsForm().controls.invoiceDueDate.touched
+              "
+              (valueChange)="onInvoiceDateValueChange('invoiceDueDate', $event)"
+              (closed)="markInvoiceDateTouched('invoiceDueDate')"
+              (focusout)="markInvoiceDateTouched('invoiceDueDate')"
+            />
+          </div>
+        </div>
+      </div>
 
-    <!-- Account Number -->
-    <div class="app-form-row">
-      <label
-        for="invoice-details-accountNumber"
-        id="invoice-details-accountNumber-label"
-        class="app-field-label"
-        >Account Number</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-details-accountNumber"
-          formControlName="accountNumber"
-          type="text"
-          placeholder="Account Number"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
+      @if (advanced()) {
+        <div class="invoice-field-wrapper invoice-field-half">
+          <label id="invoice-details-currency-label" class="invoice-field-label">Currency</label>
+          <div class="invoice-field-input-row">
+            <div class="invoice-field-icon-prefix" aria-hidden="true">
+              <tng-icon icon="banknote" size="0.875rem" />
+            </div>
+            <div class="invoice-field-control-wrap">
+              <tng-autocomplete
+                labelId="invoice-details-currency-label"
+                placeholder="Search currency..."
+                ariaLabel="Currency"
+                [options]="filteredCurrencies()"
+                [getOptionValue]="currencyValue"
+                [getOptionLabel]="currencyLabel"
+                [query]="currencyQuery()"
+                (queryChange)="currencyQuery.set($event)"
+                (openChange)="onCurrencyOpenChange($event)"
+                [value]="currencyKeyOf(InvoiceDetailsForm().get('currency')?.value ?? null)"
+                (valueChange)="onCurrencyValueChange($event)"
+              />
+            </div>
+          </div>
+        </div>
 
-    <!-- Account Name -->
-    <div class="app-form-row">
-      <label
-        for="invoice-details-accountName"
-        id="invoice-details-accountName-label"
-        class="app-field-label"
-        >Account Name</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-details-accountName"
-          formControlName="accountName"
-          type="text"
-          placeholder="Account Name"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
+        <!-- Row 3: Decimal Places | Delivery State -->
+        <div class="invoice-field-wrapper invoice-field-half">
+          <label
+            for="invoice-details-decimalPlaces"
+            id="invoice-details-decimalPlaces-label"
+            class="invoice-field-label"
+          >Decimal Places</label>
+          <div class="invoice-field-input-row">
+            <div class="invoice-field-icon-prefix" aria-hidden="true">
+              <tng-icon icon="hash" size="0.875rem" />
+            </div>
+            <div class="invoice-field-control-wrap">
+              <tng-input-field size="sm">
+                <input
+                  tngInput
+                  id="invoice-details-decimalPlaces"
+                  formControlName="decimalPlaces"
+                  type="number"
+                  min="0"
+                  max="5"
+                  placeholder="Decimal Places"
+                  class="app-field-control"
+                />
+              </tng-input-field>
+            </div>
+          </div>
+        </div>
 
-    <!-- Bank Name -->
-    <div class="app-form-row">
-      <label
-        for="invoice-details-bankName"
-        id="invoice-details-bankName-label"
-        class="app-field-label"
-        >Bank Name</label
-      >
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          tngInput
-          id="invoice-details-bankName"
-          formControlName="bankName"
-          type="text"
-          placeholder="Bank Name"
-          class="app-field-control"
-      /></tng-input-field>
-    </div>
-  }
+        <div class="invoice-field-wrapper invoice-field-half">
+          <label
+            for="invoice-details-deliveryState"
+            id="invoice-details-deliveryState-label"
+            class="invoice-field-label"
+          >Delivery State</label>
+          <div class="invoice-field-input-row">
+            <div class="invoice-field-icon-prefix" aria-hidden="true">
+              <tng-icon icon="map-pin" size="0.875rem" />
+            </div>
+            <div class="invoice-field-control-wrap">
+              <tng-input-field size="sm">
+                <input
+                  tngInput
+                  id="invoice-details-deliveryState"
+                  formControlName="deliveryState"
+                  type="text"
+                  placeholder="Delivery State"
+                  class="app-field-control"
+                />
+              </tng-input-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Tax Option | Date Format -->
+        <div class="invoice-field-wrapper invoice-field-half">
+          <label id="invoice-details-taxOption-label" class="invoice-field-label">Tax Option</label>
+          <div class="invoice-field-input-row">
+            <div class="invoice-field-icon-prefix" aria-hidden="true">
+              <tng-icon icon="receipt" size="0.875rem" />
+            </div>
+            <div class="invoice-field-control-wrap">
+              <tng-autocomplete
+                labelId="invoice-details-taxOption-label"
+                placeholder="Search tax option..."
+                ariaLabel="Tax Option"
+                [options]="filteredTaxOptions()"
+                [getOptionValue]="taxValue"
+                [getOptionLabel]="taxLabel"
+                [query]="taxOptionQuery()"
+                (queryChange)="taxOptionQuery.set($event)"
+                (openChange)="onTaxOptionOpenChange($event)"
+                [value]="taxKeyOf(InvoiceDetailsForm().get('taxOption')?.value ?? null)"
+                (valueChange)="onTaxOptionValueChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice-field-wrapper invoice-field-half">
+          <label id="invoice-details-dateFormat-label" class="invoice-field-label">Date Format</label>
+          <div class="invoice-field-input-row">
+            <div class="invoice-field-icon-prefix" aria-hidden="true">
+              <tng-icon icon="calendar" size="0.875rem" />
+            </div>
+            <div class="invoice-field-control-wrap">
+              <tng-autocomplete
+                labelId="invoice-details-dateFormat-label"
+                placeholder="Search date format..."
+                ariaLabel="Date Format"
+                [options]="filteredDateFormats()"
+                [getOptionValue]="dateFormatValue"
+                [getOptionLabel]="dateFormatLabel"
+                [query]="dateFormatQuery()"
+                (queryChange)="dateFormatQuery.set($event)"
+                (openChange)="onDateFormatOpenChange($event)"
+                [value]="dateFormatKeyOf(InvoiceDetailsForm().get('dateFormat')?.value ?? null)"
+                (valueChange)="onDateFormatValueChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+      }
+
+    </div><!-- /.invoice-form-grid -->
+
+    @if (advanced()) {
+      <!-- ── GROUP 2 — ITEM DISPLAY OPTIONS ────────────────────────── -->
+      <div class="invoice-section-divider"></div>
+
+      <div class="invoice-subsection">
+        <h3 class="invoice-subsection-title">Item Display Options</h3>
+        <div class="invoice-checkbox-row">
+          <div class="invoice-checkbox-wrapper">
+            <tng-checkbox tngAngularForms formControlName="hasItemDescription">
+              Show Item Description
+            </tng-checkbox>
+          </div>
+          <div class="invoice-checkbox-wrapper">
+            <tng-checkbox tngAngularForms formControlName="hasItemDiscount">
+              Show Item Discount
+            </tng-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GROUP 3 — PAYMENT / BANK DETAILS ──────────────────────── -->
+      <div class="invoice-section-divider"></div>
+
+      <div class="invoice-subsection">
+        <h3 class="invoice-subsection-title">Payment / Bank Details</h3>
+        <div class="invoice-form-grid">
+          <!-- Row 1: Account Number | Account Name -->
+          <div class="invoice-field-wrapper invoice-field-half">
+            <label
+              for="invoice-details-accountNumber"
+              id="invoice-details-accountNumber-label"
+              class="invoice-field-label"
+            >Account Number</label>
+            <div class="invoice-field-input-row">
+              <div class="invoice-field-icon-prefix" aria-hidden="true">
+                <tng-icon icon="credit-card" size="0.875rem" />
+              </div>
+              <div class="invoice-field-control-wrap">
+                <tng-input-field size="sm">
+                  <input
+                    tngInput
+                    id="invoice-details-accountNumber"
+                    formControlName="accountNumber"
+                    type="text"
+                    placeholder="Account Number"
+                    class="app-field-control"
+                  />
+                </tng-input-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="invoice-field-wrapper invoice-field-half">
+            <label
+              for="invoice-details-accountName"
+              id="invoice-details-accountName-label"
+              class="invoice-field-label"
+            >Account Name</label>
+            <div class="invoice-field-input-row">
+              <div class="invoice-field-icon-prefix" aria-hidden="true">
+                <tng-icon icon="user" size="0.875rem" />
+              </div>
+              <div class="invoice-field-control-wrap">
+                <tng-input-field size="sm">
+                  <input
+                    tngInput
+                    id="invoice-details-accountName"
+                    formControlName="accountName"
+                    type="text"
+                    placeholder="Account Name"
+                    class="app-field-control"
+                  />
+                </tng-input-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Bank Name (half width) -->
+          <div class="invoice-field-wrapper invoice-field-half">
+            <label
+              for="invoice-details-bankName"
+              id="invoice-details-bankName-label"
+              class="invoice-field-label"
+            >Bank Name</label>
+            <div class="invoice-field-input-row">
+              <div class="invoice-field-icon-prefix" aria-hidden="true">
+                <tng-icon icon="building" size="0.875rem" />
+              </div>
+              <div class="invoice-field-control-wrap">
+                <tng-input-field size="sm">
+                  <input
+                    tngInput
+                    id="invoice-details-bankName"
+                    formControlName="bankName"
+                    type="text"
+                    placeholder="Bank Name"
+                    class="app-field-control"
+                  />
+                </tng-input-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ── GROUP 4 — ADDITIONAL INFORMATION (NOTES & TERMS) ────────── -->
+    @if (!simple()) {
+      <div class="invoice-section-divider"></div>
+
+      <div class="invoice-subsection">
+        <h3 class="invoice-subsection-title">Additional Information</h3>
+        <div class="invoice-form-grid">
+          <!-- Left: Additional Notes -->
+          <div class="invoice-field-wrapper invoice-field-half">
+            <label for="invoice-notes" class="invoice-field-label">Additional Notes</label>
+            <div class="invoice-field-input-row invoice-textarea-row">
+              <div class="invoice-field-icon-prefix invoice-textarea-icon" aria-hidden="true">
+                <tng-icon icon="file-text" size="0.875rem" />
+              </div>
+              <div class="invoice-field-control-wrap">
+                <tng-input-field size="sm">
+                  <textarea
+                    aria-label="Additional Notes"
+                    tngInput
+                    id="invoice-notes"
+                    formControlName="notes"
+                    rows="3"
+                    class="app-field-control invoice-notes-textarea"
+                    placeholder="Type additional notes here"
+                  ></textarea>
+                </tng-input-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Terms & Conditions -->
+          <div class="invoice-field-wrapper invoice-field-half">
+            <label for="invoice-terms" class="invoice-field-label">Terms & Conditions</label>
+            <div class="invoice-field-input-row invoice-textarea-row">
+              <div class="invoice-field-icon-prefix invoice-textarea-icon" aria-hidden="true">
+                <tng-icon icon="file-check" size="0.875rem" />
+              </div>
+              <div class="invoice-field-control-wrap">
+                <tng-input-field size="sm">
+                  <textarea
+                    aria-label="Terms & Conditions"
+                    tngInput
+                    id="invoice-terms"
+                    formControlName="terms"
+                    rows="3"
+                    class="app-field-control invoice-notes-textarea"
+                    placeholder="Type terms and conditions here"
+                  ></textarea>
+                </tng-input-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div><!-- /[formGroup] -->
+
 </tng-card>

@@ -1,1 +1,154 @@
 /* Shared application compositions are defined in src/styles/invoice.css. */
+
+/* ── Card header: icon box + title/subtitle ── */
+.invoice-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-bottom: 1.375rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--tng-semantic-border-subtle);
+}
+
+.invoice-card-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.invoice-card-header-text h2 {
+  font-size: var(--tng-typography-textLg);
+  font-weight: 700;
+  color: var(--tng-semantic-foreground-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.invoice-card-header-text p {
+  margin-top: 0.25rem;
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textSm);
+  line-height: 1.45;
+}
+
+/* ── Section dividers and subsection headings ── */
+.invoice-section-divider {
+  height: 1px;
+  background: var(--tng-semantic-border-subtle);
+  margin: 1.375rem 0 1.25rem;
+}
+
+.invoice-subsection {
+  margin-bottom: 0.25rem;
+}
+
+.invoice-subsection-title {
+  font-size: var(--tng-typography-textMd, 1rem);
+  font-weight: 600;
+  color: var(--tng-semantic-foreground-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+/* ── Checkbox row for item display options ── */
+.invoice-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.invoice-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ============================================================
+   Invoice form – modern stacked two-column grid layout
+   ============================================================ */
+
+.invoice-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+/* Field positioning */
+.invoice-field-full {
+  grid-column: 1 / -1;
+}
+
+.invoice-field-half {
+  grid-column: span 1;
+}
+
+/* Individual field container */
+.invoice-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+/* Label */
+.invoice-field-label {
+  display: block;
+  font-size: var(--tng-typography-textSm);
+  font-weight: 500;
+  color: var(--tng-semantic-foreground-secondary);
+  line-height: 1.4;
+}
+
+/* Flex row: icon prefix + field control */
+.invoice-field-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.invoice-textarea-row {
+  align-items: flex-start;
+}
+
+.invoice-textarea-icon {
+  margin-top: 0.5rem;
+}
+
+/* Leading icon */
+.invoice-field-icon-prefix {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--tng-semantic-foreground-muted);
+}
+
+/* Control takes remaining width */
+.invoice-field-control-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Compact notes & terms textarea */
+.invoice-notes-textarea {
+  min-height: 5.5rem;
+  max-height: 7rem;
+  resize: vertical;
+}
+
+/* ── Mobile ── */
+@media (max-width: 639px) {
+  .invoice-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .invoice-field-half {
+    grid-column: 1 / -1;
+  }
+
+  .invoice-checkbox-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
