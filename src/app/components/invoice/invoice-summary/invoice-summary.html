@@ -1,66 +1,104 @@
-<div class="app-invoice-summary">
-  <!-- Amount and Numbering -->
-  <tng-card padding="md" class="app-summary-amount" [formGroup]="InvoiceSummary()">
-    <div class="app-form-options">
-      <tng-checkbox tngAngularForms formControlName="internationalNumbering"
-        >International Numbering</tng-checkbox
-      >
-      <tng-tooltip
-        text="International: 1,234,567.00. Indian: 12,34,567.00."
-        ariaLabel="About international numbering"
-      >
-        <tng-icon trigger icon="circle-help" size="0.875rem" />
-      </tng-tooltip>
-    </div>
-    <div class="app-summary-value">
-      <div class="app-summary-total">
-        {{ invoiceService.symbol() }}
-        {{ invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value) }}
-      </div>
-      <div class="app-supporting-text">
-        {{ InvoiceSummary().get('grandTotalInWords')?.value }}
-      </div>
-    </div>
-  </tng-card>
+<div class="invoice-summary-grid">
 
-  <!-- Totals -->
-  <tng-card padding="md" class="app-summary-breakdown" [formGroup]="InvoiceSummary()">
-    <div class="app-summary-row">
-      <span>Item Total</span>
-      <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.itemTotal.value) }}</span>
-    </div>
-    @if (advanced() && hasItemDiscount()) {
-      <div class="app-summary-row">
-        <span>Discount Total</span>
-        <span>{{
-          invoiceService.formatAmount(InvoiceSummary().controls.discountTotal.value)
-        }}</span>
+  <!-- ── Left Summary Card: Amount Preview & Numbering ─────────── -->
+  <div class="summary-card-col summary-card-col--left">
+    <tng-card padding="md">
+      <div class="summary-amount-card-content" [formGroup]="InvoiceSummary()">
+        <div class="summary-numbering-row">
+          <div class="summary-checkbox-wrapper">
+            <tng-checkbox tngAngularForms formControlName="internationalNumbering">
+              International Numbering
+            </tng-checkbox>
+          </div>
+          <div class="summary-tooltip-wrapper">
+            <tng-tooltip
+              text="International: 1,234,567.00. Indian: 12,34,567.00."
+              ariaLabel="About international numbering"
+            >
+              <tng-icon trigger icon="circle-help" size="0.875rem" />
+            </tng-tooltip>
+          </div>
+        </div>
+
+        <div class="summary-amount-display">
+          <div class="summary-amount-label">Grand Total Amount</div>
+          <div class="summary-amount-total">
+            <span class="summary-currency-symbol">{{ invoiceService.symbol() }}</span>
+            <span class="summary-amount-number">{{
+              invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value)
+            }}</span>
+          </div>
+          @if (InvoiceSummary().get('grandTotalInWords')?.value) {
+            <div class="summary-amount-words">
+              {{ InvoiceSummary().get('grandTotalInWords')?.value }}
+            </div>
+          }
+        </div>
       </div>
-      <div class="app-summary-row">
-        <span>Sub Total</span>
-        <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.subTotal.value) }}</span>
+    </tng-card>
+  </div>
+
+  <!-- ── Right Summary Card: Totals Breakdown ──────────────────── -->
+  <div class="summary-card-col summary-card-col--right">
+    <tng-card padding="md">
+      <div class="summary-totals-card-content" [formGroup]="InvoiceSummary()">
+        <div class="summary-row">
+          <span class="summary-row-label">Item Total</span>
+          <span class="summary-row-value">{{
+            invoiceService.formatAmount(InvoiceSummary().controls.itemTotal.value)
+          }}</span>
+        </div>
+
+        @if (advanced() && hasItemDiscount()) {
+          <div class="summary-row">
+            <span class="summary-row-label">Discount Total</span>
+            <span class="summary-row-value">{{
+              invoiceService.formatAmount(InvoiceSummary().controls.discountTotal.value)
+            }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row-label">Sub Total</span>
+            <span class="summary-row-value">{{
+              invoiceService.formatAmount(InvoiceSummary().controls.subTotal.value)
+            }}</span>
+          </div>
+        }
+
+        @if (advanced() || selectedTaxOption() == 'CGST & SGST' || selectedTaxOption() == 'IGST') {
+          <div class="summary-row">
+            <span class="summary-row-label">Tax Total</span>
+            <span class="summary-row-value">{{
+              invoiceService.formatAmount(InvoiceSummary().controls.taxTotal.value)
+            }}</span>
+          </div>
+        }
+
+        <div class="summary-row summary-roundoff-row">
+          <span class="summary-row-label">Round Off</span>
+          <div class="summary-roundoff-control">
+            <tng-input-field size="sm">
+              <input
+                aria-label="Round off"
+                tngInput
+                formControlName="roundOff"
+                type="number"
+                class="app-field-control app-field-control--numeric summary-roundoff-input"
+              />
+            </tng-input-field>
+          </div>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row summary-row--grand-total">
+          <span class="summary-grand-total-label">Grand Total</span>
+          <span class="summary-grand-total-value">
+            {{ invoiceService.symbol() }}
+            {{ invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value) }}
+          </span>
+        </div>
       </div>
-    }
-    @if (advanced() || selectedTaxOption() == 'CGST & SGST' || selectedTaxOption() == 'IGST') {
-      <div class="app-summary-row">
-        <span>Tax Total</span>
-        <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.taxTotal.value) }}</span>
-      </div>
-    }
-    <div class="app-summary-row">
-      <span>Round Off</span>
-      <tng-input-field class="app-field" size="sm"
-        ><input
-          aria-label="Round off"
-          tngInput
-          formControlName="roundOff"
-          type="number"
-          class="app-field-control app-field-control--numeric"
-      /></tng-input-field>
-    </div>
-    <div class="app-summary-row app-summary-row--total">
-      <span>Grand Total</span>
-      <span>{{ invoiceService.formatAmount(InvoiceSummary().controls.grandTotal.value) }}</span>
-    </div>
-  </tng-card>
+    </tng-card>
+  </div>
+
 </div>

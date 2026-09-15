@@ -17,6 +17,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { Currency } from '../store/currency/currency.model';
 import { currencyStore } from '../store/currency/currency.store';
@@ -36,6 +37,7 @@ type InvoiceDateField = 'invoiceDate' | 'invoiceDueDate';
     TngInputFieldComponent,
     TngCheckboxComponent,
     TngCheckboxAngularFormsAdapter,
+    TngIcon,
     TngInput,
     ReactiveFormsModule,
     CommonModule,
@@ -46,6 +48,7 @@ type InvoiceDateField = 'invoiceDate' | 'invoiceDueDate';
 })
 export class InvoiceDetailsComponent implements OnInit {
   advanced = input<boolean>(false);
+  simple = input<boolean>(false);
   currencyStore = inject(currencyStore);
   dateFormatStore = inject(dateFormatStore);
 

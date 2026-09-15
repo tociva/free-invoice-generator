@@ -16,13 +16,29 @@
         <tng-card padding="md" class="app-invoice-editor">
           <div class="app-grid-2">
             <div class="app-field">
-              <app-invoice-logo
-                [InvoiceLogo]="formInvoice"
-                logoField="smallLogo"
-              ></app-invoice-logo>
+              <tng-card padding="md">
+                <div class="upload-card-header">
+                  <div class="app-icon-box app-icon-box--small">
+                    <tng-icon icon="image-up" size="1.1rem" />
+                  </div>
+                  <div class="upload-card-header-text">
+                    <h2>Upload Logos</h2>
+                    <p>Add your business logo</p>
+                  </div>
+                </div>
+                <div class="app-logo-card-content">
+                  <app-invoice-logo
+                    [InvoiceLogo]="formInvoice"
+                    logoField="smallLogo"
+                  ></app-invoice-logo>
+                </div>
+              </tng-card>
             </div>
             <div class="app-field">
-              <app-invoice-details [InvoiceDetailsForm]="formInvoice"></app-invoice-details>
+              <app-invoice-details
+                [InvoiceDetailsForm]="formInvoice"
+                [simple]="true"
+              ></app-invoice-details>
             </div>
           </div>
 

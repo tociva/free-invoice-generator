@@ -18,12 +18,10 @@ import {
 import { TngIcon } from '@tailng-ui/icons';
 import { InvoiceCustomerComponent } from './invoice-customer/invoice-customer';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details';
-import { InvoiceItemsMobileComponent } from './invoice-items-mobile/invoice-items-mobile';
 import { InvoiceItemsComponent } from './invoice-items/invoice-items';
 import { InvoiceLogoComponent } from './invoice-logo/invoice-logo';
 import { InvoiceOrganizationComponent } from './invoice-organization/invoice-organization';
 import { InvoiceSummaryComponent } from './invoice-summary/invoice-summary';
-import { InvoiceTermsNotesComponent } from './invoice-terms-notes/invoice-terms-notes';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice';
 import { SelectTemplateComponent } from './select-template/select-template';
 import { invoiceStore } from './store/invoice.store';
@@ -42,12 +40,10 @@ import { ADVANCED_INVOICE_STEPS } from './invoice-steps';
     InvoiceCustomerComponent,
     InvoiceDetailsComponent,
     InvoiceItemsComponent,
-    InvoiceItemsMobileComponent,
     SelectTemplateComponent,
     PreviewInvoiceComponent,
     InvoiceSummaryComponent,
     InvoiceLogoComponent,
-    InvoiceTermsNotesComponent,
     TngIcon,
     TngStepperComponent,
   ],
@@ -64,11 +60,15 @@ export class Invoice implements OnInit {
   steps = ADVANCED_INVOICE_STEPS;
 
   stepperSteps = computed<readonly TngStepperStep[]>(() =>
-    this.steps.map((step) => ({
-      value: step.id,
-      label: step.label,
-      completed: step.id < this.currentStep(),
-    })),
+    this.steps.map(
+      (step) =>
+        ({
+          value: step.id,
+          label: step.label,
+          completed: step.id < this.currentStep(),
+          description: step.description,
+        }) as TngStepperStep,
+    ),
   );
 
   isFirstStep = computed(() => this.currentStep() === 1);
