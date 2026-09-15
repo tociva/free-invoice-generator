@@ -1,33 +1,45 @@
 <header class="app-header site-header">
   <div class="app-header-inner site-header__inner page-container">
-    <div class="app-header-brand">
-      <a routerLink="/home">Free Invoice Generator <span>by Daybook.Cloud</span></a>
-    </div>
+    <div class="app-header-left">
+      <a class="app-header-brand" routerLink="/home" aria-label="Free Invoice Generator by Daybook.Cloud">
+        <svg class="app-brand-logo" viewBox="0 0 155 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <text x="0" y="12" class="app-brand-sub">Free Invoice Generator</text>
+          <text x="0" y="33" class="app-brand-main">Daybook.Cloud</text>
+        </svg>
+      </a>
 
-    <nav class="app-header-navigation" aria-label="Main navigation">
-      <a routerLink="/home" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
-        >Home</a
-      >
-      <a
-        routerLink="/simple-invoice"
-        routerLinkActive="app-nav-link--active"
-        ariaCurrentWhenActive="page"
-        >SimpleInvoice</a
-      >
-      <a routerLink="/invoice" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page"
-        >Advanced Invoice</a
-      >
-      <!-- <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener"
-        >GitHub</a
-      > -->
-      <a
-        routerLink="/templates"
-        routerLinkActive="app-nav-link--active"
-        ariaCurrentWhenActive="page"
-        >Templates</a
-      >
-      <!-- <a href="/docs/index.html">Docs</a> -->
-    </nav>
+      <nav class="app-header-navigation" aria-label="Main navigation">
+        <a routerLink="/home" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page">
+          Home
+        </a>
+        <a
+          routerLink="/simple-invoice"
+          routerLinkActive="app-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          Simple Invoice
+        </a>
+        <a
+          routerLink="/invoice"
+          routerLinkActive="app-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          Advanced Invoice
+        </a>
+        <a
+          routerLink="/templates"
+          routerLinkActive="app-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          Templates
+        </a>
+        <a
+          href="/docs/index.html"
+        >
+          Docs
+        </a>
+      </nav>
+    </div>
 
     <div class="app-header-actions">
       <div class="app-header-search">
@@ -61,6 +73,18 @@
       >
         <tng-icon [icon]="theme.darkMode() ? 'sun' : 'moon'" size="1.25rem" />
       </tng-button>
+
+      <a
+        class="app-header-icon-link"
+        href="https://github.com/tociva/free-invoice-generator"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub"
+        title="GitHub"
+      >
+        <tng-icon icon="github" size="1.25rem" />
+      </a>
+
       <tng-button
         size="sm"
         tone="neutral"
@@ -98,33 +122,40 @@
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >Home</a
       >
+        Home
+      </a>
       <a
         routerLink="/simple-invoice"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >SimpleInvoice</a
       >
+        Simple Invoice
+      </a>
       <a
         routerLink="/invoice"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >Advanced Invoice</a
       >
-      <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener"
-        >GitHub</a
-      >
+        Advanced Invoice
+      </a>
       <a
         routerLink="/templates"
         routerLinkActive="app-nav-link--active"
         ariaCurrentWhenActive="page"
         (click)="closeMenu()"
-        >Templates</a
       >
-      <a href="/docs/index.html" (click)="closeMenu()">Docs</a>
+        Templates
+      </a>
+      <a href="https://github.com/tociva/free-invoice-generator" target="_blank" rel="noopener">
+        <tng-icon icon="github" />
+        GitHub
+      </a>
+      <a href="/docs/index.html" (click)="closeMenu()">
+        Docs
+      </a>
     </nav>
   }
 </header>
