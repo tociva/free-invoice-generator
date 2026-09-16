@@ -128,9 +128,9 @@
 
           <tng-select
             class="app-page-size"
-            [options]="['5', '10', '15', '20']"
+            [options]="pageSizeOptionStrings()"
             [value]="itemsPerPage().toString()"
-            (valueChange)="changePageSize($event?.toString() ?? '10')"
+            (valueChange)="changePageSize($event)"
             labelId="page-size-label"
           />
 
