@@ -23,6 +23,75 @@ export const routes: Routes = [
     loadComponent: () => import('./components/invoice/invoice').then((m) => m.Invoice),
   },
   {
+    path: 'docs/index.html',
+    redirectTo: 'docs',
+    pathMatch: 'full',
+  },
+  {
+    path: 'docs/create-unlimited-free-invoices.html',
+    redirectTo: 'docs/create-invoices',
+    pathMatch: 'full',
+  },
+  {
+    path: 'docs/customize-invoice-template.html',
+    redirectTo: 'docs/customize-templates',
+    pathMatch: 'full',
+  },
+  {
+    path: 'docs/free-opensource-invoice-templates',
+    redirectTo: 'docs/template-library',
+    pathMatch: 'full',
+  },
+  {
+    path: 'docs/free-opensource-invoice-templates/**',
+    redirectTo: 'docs/template-library',
+  },
+  {
+    path: 'docs',
+    loadComponent: () => import('./components/docs/docs').then((m) => m.Docs),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        title: 'Invoice Generator Help & Documentation - Daybook.Cloud',
+        loadComponent: () =>
+          import('./components/docs/docs-overview/docs-overview').then((m) => m.DocsOverview),
+      },
+      {
+        path: 'create-invoices',
+        title: 'Create Unlimited Free Invoices - Daybook.Cloud',
+        loadComponent: () =>
+          import('./components/docs/docs-create-invoices/docs-create-invoices').then(
+            (m) => m.DocsCreateInvoices,
+          ),
+      },
+      {
+        path: 'customize-templates',
+        title: 'Customizing Invoice Templates - Daybook.Cloud',
+        loadComponent: () =>
+          import('./components/docs/docs-customize-templates/docs-customize-templates').then(
+            (m) => m.DocsCustomizeTemplates,
+          ),
+      },
+      {
+        path: 'template-library',
+        title: 'Free Open Source Invoice Templates - Daybook.Cloud',
+        loadComponent: () =>
+          import('./components/docs/docs-template-library/docs-template-library').then(
+            (m) => m.DocsTemplateLibrary,
+          ),
+      },
+      {
+        path: 'template-library/:slug',
+        title: 'Invoice Template Details - Daybook.Cloud',
+        loadComponent: () =>
+          import('./components/docs/docs-template-library/docs-template-library').then(
+            (m) => m.DocsTemplateLibrary,
+          ),
+      },
+    ],
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

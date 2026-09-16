@@ -1,0 +1,101 @@
+@if (loading()) {
+  <div class="app-state app-state--bare" role="status">
+    <tng-progress-spinner ariaLabel="Loading documentation templates" [indeterminate]="true" />
+    <p class="app-state-description">Loading template library…</p>
+  </div>
+} @else if (error()) {
+  <div class="app-form-error" role="alert">{{ error() }}</div>
+} @else if (slug()) {
+  @if (selectedTemplate(); as template) {
+    <a class="app-docs-library-back" routerLink="/docs/template-library">
+      <tng-icon icon="arrow-left" />
+      Back to templates
+    </a>
+    <header class="app-docs-article-header">
+      <h2>{{ template.name }}</h2>
+      @if (template.documentationTitle) {
+        <p>{{ template.documentationTitle }}</p>
+      }
+    </header>
+    @if (template.image) {
+      <img
+        class="app-docs-library-preview"
+        [src]="template.image"
+        [alt]="template.name + ' invoice template preview'"
+      />
+    }
+    <section class="app-docs-section app-docs-library-description">
+      <p>{{ template.documentation }}</p>
+    </section>
+  } @else {
+    <div class="app-state">
+      <h2 class="app-state-title">Template not found</h2>
+      <a routerLink="/docs/template-library">Return to the template library</a>
+    </div>
+  }
+} @else {
+  <header class="app-docs-article-header">
+    <h2>List of all templates</h2>
+    <p>Browse the free, open-source invoice template library.</p>
+  </header>
+
+  <label class="app-docs-library-search">
+    <span class="app-sr-only">Search documentation templates</span>
+    <tng-icon icon="search" />
+    <input
+      type="search"
+      placeholder="Search templates…"
+      [value]="query()"
+      (input)="updateSearch($event)"
+    />
+  </label>
+
+  @if (displayedTemplates().length) {
+    <div class="app-docs-library-grid">
+      @for (template of displayedTemplates(); track template.slug) {
+        <a [routerLink]="template.slug" class="app-docs-library-card">
+          <tng-card padding="none" [interactive]="true">
+            @if (template.image) {
+              <img
+                [src]="template.image"
+                [alt]="template.name + ' invoice template preview'"
+                loading="lazy"
+              />
+            } @else {
+              <div class="app-docs-library-image-missing" aria-hidden="true">
+                <tng-icon icon="file-text" size="2rem" />
+              </div>
+            }
+            <h3>{{ template.name }}</h3>
+          </tng-card>
+        </a>
+      }
+    </div>
+    <div class="app-docs-library-pagination" aria-label="Template library pagination">
+      <tng-button
+        size="sm"
+        tone="neutral"
+        appearance="outline"
+        [disabled]="page() === 1"
+        (click)="previousPage()"
+      >
+        Previous
+      </tng-button>
+      <span>Page {{ page() }} of {{ pageCount() }}</span>
+      <tng-button
+        size="sm"
+        tone="neutral"
+        appearance="outline"
+        [disabled]="page() === pageCount()"
+        (click)="nextPage()"
+      >
+        Next
+      </tng-button>
+    </div>
+  } @else {
+    <div class="app-state">
+      <h2 class="app-state-title">No matching templates</h2>
+      <p class="app-state-description">Try a different template name or description.</p>
+    </div>
+  }
+}

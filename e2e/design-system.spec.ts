@@ -99,10 +99,30 @@ for (const width of [390, 768, 1280]) {
 test('empty and validation error compositions remain usable', async ({ page }) => {
   await page.goto('/templates');
   await expect(page.locator('app-list-templates iframe').first()).toBeVisible();
-  await page.getByRole('textbox', { name: 'Search templates' }).fill('no-template-matches-this');
+  const catalogPagination = page.locator('app-list-templates .app-pagination');
+  await catalogPagination.scrollIntoViewIfNeeded();
+  const catalogScrollPosition = await page.evaluate(() => window.scrollY);
+  await page.getByRole('button', { name: 'Next page' }).click();
+  await expect(page.locator('app-list-templates tng-button[aria-current="page"]')).toContainText(
+    '2',
+  );
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(catalogScrollPosition);
+
+  const openTemplateSearch = page
+    .locator('app-list-templates')
+    .getByRole('button', { name: 'Search', exact: true });
+  await openTemplateSearch.click();
+  const templateSearch = page.getByRole('textbox', { name: 'Search templates' });
+  await templateSearch.fill('no-template-matches-this');
+  await templateSearch.press('Escape');
   await expect(page.getByRole('heading', { name: 'No matching templates' })).toBeVisible();
   await page.getByRole('button', { name: 'Clear search', exact: true }).last().click();
   await expect(page.locator('app-list-templates iframe').first()).toBeVisible();
+
+  await openTemplateSearch.click();
+  await expect(page.getByRole('textbox', { name: 'Search templates' })).toHaveValue('');
+  await page.keyboard.press('Escape');
+
   await page.goto('/simple-invoice');
   const invoice = page.getByLabel('Invoice Number', { exact: true });
   await invoice.fill('');

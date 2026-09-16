@@ -155,8 +155,7 @@ export class Header {
         category: 'Page',
         description: 'Documentation and guides',
         icon: 'book-open',
-        url: '/docs/index.html',
-        external: false,
+        route: '/docs',
         keywords: ['docs', 'documentation', 'guide', 'help', 'api', 'reference'],
       },
       {
