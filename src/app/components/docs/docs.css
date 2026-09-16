@@ -1,0 +1,236 @@
+.app-docs-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.5rem 0 2rem;
+  border-bottom: 1px solid var(--tng-semantic-border-subtle);
+}
+
+.app-docs-layout {
+  display: grid;
+  grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+  padding-top: 2rem;
+}
+
+.app-docs-sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.app-docs-nav-title {
+  margin-bottom: 0.625rem;
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textXs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.app-docs-nav {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.app-docs-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--tng-radius-md);
+  color: var(--tng-semantic-foreground-secondary);
+  font-size: var(--tng-typography-textSm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.app-docs-nav a:hover {
+  background: var(--tng-semantic-background-muted);
+  color: var(--tng-semantic-foreground-primary);
+}
+
+.app-docs-nav .app-docs-nav-link--active {
+  background: var(--app-brand-tint-10);
+  color: var(--tng-semantic-accent-brand);
+  font-weight: 700;
+}
+
+.app-docs-content {
+  min-width: 0;
+  max-width: 52rem;
+}
+
+.app-docs-article-header {
+  margin-bottom: 1.75rem;
+}
+
+.app-docs-article-header h2 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.app-docs-article-header p {
+  max-width: 68ch;
+  margin-top: 0.75rem;
+  color: var(--tng-semantic-foreground-secondary);
+  font-size: var(--tng-typography-textLg);
+}
+
+.app-docs-section,
+.app-docs-toc,
+.app-docs-callout {
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--tng-semantic-border-subtle);
+  border-radius: var(--tng-radius-lg);
+  background: var(--tng-semantic-background-surface);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.app-docs-section h3,
+.app-docs-toc h3 {
+  margin-bottom: 1rem;
+  font-size: var(--tng-typography-textLg);
+}
+
+.app-docs-section p + p,
+.app-docs-section p + ul,
+.app-docs-section p + ol,
+.app-docs-section ul + p,
+.app-docs-section ol + p,
+.app-docs-section tng-code-block + p,
+.app-docs-section p + tng-code-block {
+  margin-top: 1rem;
+}
+
+.app-docs-section p,
+.app-docs-section li,
+.app-docs-callout {
+  line-height: 1.7;
+}
+
+.app-docs-section ul,
+.app-docs-section ol {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.app-docs-section ul {
+  list-style: disc;
+}
+
+.app-docs-section li + li {
+  margin-top: 0.55rem;
+}
+
+.app-docs a:not(.app-docs-nav a) {
+  color: var(--tng-semantic-accent-brand);
+  font-weight: 600;
+}
+
+.app-docs-toc {
+  background: var(--tng-semantic-background-muted);
+}
+
+.app-docs-toc nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.25rem;
+}
+
+.app-docs-toc a {
+  padding-block: 0.25rem;
+  text-decoration: none;
+}
+
+.app-docs-toc a:hover {
+  text-decoration: underline;
+}
+
+.app-docs code:not([data-slot]) {
+  border: 1px solid var(--tng-semantic-border-subtle);
+  border-radius: 0.3rem;
+  background: var(--tng-semantic-background-muted);
+  padding: 0.1em 0.35em;
+  color: var(--tng-semantic-foreground-primary);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}
+
+.app-docs tng-code-block {
+  display: block;
+  max-width: 100%;
+}
+
+.app-docs-callout {
+  border-left: 4px solid var(--tng-semantic-accent-brand);
+  background: var(--app-brand-tint-10);
+}
+
+.app-docs-callout--success {
+  border-left-color: var(--tng-semantic-accent-success);
+  background: var(--app-success-tint-10);
+}
+
+.app-docs-callout--warning {
+  border-left-color: var(--tng-semantic-accent-warning);
+  background: var(--app-warning-tint-10);
+}
+
+.app-docs-feature-list {
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.app-docs-feature-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.app-docs-feature-list tng-icon {
+  margin-top: 0.2rem;
+  color: var(--tng-semantic-accent-brand);
+}
+
+.app-docs-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .app-docs-hero .app-icon-box {
+    display: none;
+  }
+
+  .app-docs-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .app-docs-sidebar {
+    position: static;
+    min-width: 0;
+  }
+
+  .app-docs-nav-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .app-docs-nav {
+    display: flex;
+    padding-bottom: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .app-docs-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .app-docs-toc nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

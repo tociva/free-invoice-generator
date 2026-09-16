@@ -1,0 +1,59 @@
+<div class="app-page app-docs">
+  <header class="app-docs-hero">
+    <div class="app-icon-box app-icon-box--large" aria-hidden="true">
+      <tng-icon icon="book-open" size="1.5rem" />
+    </div>
+    <div>
+      <p class="app-eyebrow app-eyebrow--brand">Help center</p>
+      <h1 class="app-page-title">Invoice Generator Documentation</h1>
+      <p class="app-page-description">
+        Guides for creating invoices, managing invoice data, and building custom templates.
+      </p>
+    </div>
+  </header>
+
+  <div class="app-docs-layout">
+    <aside class="app-docs-sidebar" aria-label="Documentation navigation">
+      <p class="app-docs-nav-title">Documentation</p>
+      <nav class="app-docs-nav">
+        <a
+          routerLink="/docs"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="app-docs-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          <tng-icon icon="home" />
+          Overview
+        </a>
+        <a
+          routerLink="/docs/create-invoices"
+          routerLinkActive="app-docs-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          <tng-icon icon="file-text" />
+          Create invoices
+        </a>
+        <a
+          routerLink="/docs/customize-templates"
+          routerLinkActive="app-docs-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          <tng-icon icon="code" />
+          Customize templates
+        </a>
+        <a
+          routerLink="/docs/template-library"
+          routerLinkActive="app-docs-nav-link--active"
+          ariaCurrentWhenActive="page"
+        >
+          <tng-icon icon="layout" />
+          Template library
+        </a>
+      </nav>
+    </aside>
+
+    <article class="app-docs-content">
+      <router-outlet />
+    </article>
+  </div>
+</div>

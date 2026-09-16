@@ -1,8 +1,17 @@
 <header class="app-header site-header">
   <div class="app-header-inner site-header__inner page-container">
     <div class="app-header-left">
-      <a class="app-header-brand" routerLink="/home" aria-label="Free Invoice Generator by Daybook.Cloud">
-        <svg class="app-brand-logo" viewBox="0 0 155 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <a
+        class="app-header-brand"
+        routerLink="/home"
+        aria-label="Free Invoice Generator by Daybook.Cloud"
+      >
+        <svg
+          class="app-brand-logo"
+          viewBox="0 0 155 38"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
           <text x="0" y="12" class="app-brand-sub">Free Invoice Generator</text>
           <text x="0" y="33" class="app-brand-main">Daybook.Cloud</text>
         </svg>
@@ -33,9 +42,7 @@
         >
           Templates
         </a>
-        <a
-          href="/docs/index.html"
-        >
+        <a routerLink="/docs" routerLinkActive="app-nav-link--active" ariaCurrentWhenActive="page">
           Docs
         </a>
       </nav>
@@ -153,7 +160,12 @@
         <tng-icon icon="github" />
         GitHub
       </a>
-      <a href="/docs/index.html" (click)="closeMenu()">
+      <a
+        routerLink="/docs"
+        routerLinkActive="app-nav-link--active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+      >
         Docs
       </a>
     </nav>

@@ -1,0 +1,124 @@
+<header class="app-docs-article-header">
+  <h2>Customizing Your Invoice Template</h2>
+  <p>Use HTML, CSS, and supported placeholders to create your own invoice design.</p>
+</header>
+
+<section class="app-docs-section">
+  <h3>What is an Invoice Template?</h3>
+  <p>
+    An invoice template is an HTML file that defines the design and layout of your invoice. You can
+    fully customize it with your own branding, styles, and layout while using special
+    <strong>placeholders</strong> to insert dynamic invoice data.
+  </p>
+</section>
+
+<section class="app-docs-section">
+  <h3>How Placeholders Work</h3>
+  <p>
+    Placeholders are special tags inside your HTML that get replaced automatically with your actual
+    invoice data when generating the final invoice. For example:
+  </p>
+  <tng-code-block
+    [code]="placeholderExample"
+    language="html"
+    title="Template HTML"
+    [showLineNumbers]="false"
+  />
+  <p>When rendered, this becomes:</p>
+  <tng-code-block
+    [code]="renderedExample"
+    language="html"
+    title="Rendered HTML"
+    [showLineNumbers]="false"
+  />
+</section>
+
+<section class="app-docs-section">
+  <h3>Available Placeholders</h3>
+  <p>Here is a complete list of supported placeholders you can use in your HTML template:</p>
+  <ul>
+    <li><code>[[invoice_number]]</code> – Invoice number</li>
+    <li><code>[[invoice_date]]</code> – Invoice date (formatted)</li>
+    <li><code>[[payment_due_date]]</code> – Payment due date (formatted)</li>
+    <li><code>[[customer_name]]</code> – Customer's name</li>
+    <li><code>[[customer_address]]</code> – Customer's address</li>
+    <li><code>[[customer_phone]]</code> – Customer's phone</li>
+    <li><code>[[customer_email]]</code> – Customer's email</li>
+    <li><code>[[org_name]]</code> – Your organization name</li>
+    <li><code>[[org_address]]</code> – Your organization address</li>
+    <li><code>[[org_phone]]</code> – Your organization phone</li>
+    <li><code>[[org_email]]</code> – Your organization email</li>
+    <li><code>[[org_authority_name]]</code> – Authorized signatory name</li>
+    <li><code>[[org_authority_designation]]</code> – Authorized signatory designation</li>
+    <li><code>[[account_number]]</code> – Bank account number</li>
+    <li><code>[[account_name]]</code> – Bank account holder name</li>
+    <li><code>[[bank_name]]</code> – Bank name</li>
+    <li><code>[[terms_and_conditions]]</code> – Terms and conditions text</li>
+    <li><code>[[notes]]</code> – Additional invoice notes</li>
+    <li><code>[[itemtotal]]</code> – Total of item prices before discount</li>
+    <li><code>[[discount]]</code> – Discount amount</li>
+    <li><code>[[subtotal]]</code> – Subtotal after discount</li>
+    <li><code>[[tax_amount]]</code> – Total tax amount</li>
+    <li><code>[[roundoff]]</code> – Round off value</li>
+    <li><code>[[grand_total]]</code> – Grand total amount</li>
+    <li><code>[[grand_total_inwords]]</code> – Grand total in words</li>
+    <li><code>[[logo_small_src]]</code> – Small logo image source URL</li>
+    <li><code>[[logo_large_src]]</code> – Large logo image source URL</li>
+    <li><code>[[currency_symbol]]</code> – Currency symbol (e.g. $ for USD, ₹ for INR)</li>
+  </ul>
+</section>
+
+<section class="app-docs-section">
+  <h3>Item Table Placeholders</h3>
+  <p>
+    For listing multiple items, use a special block between <code>[[items_start]]</code> and
+    <code>[[items_end]]</code>. Your template should include a repeating row template like this:
+  </p>
+  <tng-code-block
+    [code]="itemTableExample"
+    language="html"
+    title="Repeating item rows"
+    [showLineNumbers]="false"
+    [wrap]="true"
+  />
+  <p>
+    When generating the invoice, all items will be inserted between
+    <code>[[items_start]]</code> and <code>[[items_end]]</code> using the row template inside.
+  </p>
+  <p>The following placeholders can be used within each repeating item row:</p>
+  <ul>
+    <li><code>[[items_start]]</code> – Marks the start of the repeating line items block</li>
+    <li><code>[[items_end]]</code> – Marks the end of the repeating line items block</li>
+    <li><code>[[item_name]]</code> – Item name or description</li>
+    <li><code>[[item_quantity]]</code> – Quantity of the item</li>
+    <li><code>[[item_price]]</code> – Unit price of the item</li>
+    <li><code>[[item_cgst]]</code> – CGST tax amount for the item</li>
+    <li><code>[[item_sgst]]</code> – SGST tax amount for the item</li>
+    <li><code>[[item_igst]]</code> – IGST tax amount for the item</li>
+    <li><code>[[item_amount]]</code> – Total calculated amount for the item</li>
+  </ul>
+</section>
+
+<section class="app-docs-section">
+  <h3>Tips for Designing Your Template</h3>
+  <ul>
+    <li>Use CSS to style your invoice as you like.</li>
+    <li>
+      Include your logo with <code>[[logo_small_src]]</code> or <code>[[logo_large_src]]</code>.
+    </li>
+    <li>
+      Keep the <code>[[items_start]]</code> and <code>[[items_end]]</code> block intact for item
+      listing.
+    </li>
+    <li>Use base-64 encoded values if you want to use images in your template.</li>
+    <li>Test your template by generating sample invoices.</li>
+  </ul>
+</section>
+
+<section class="app-docs-section">
+  <h3>Need Help?</h3>
+  <p>
+    If you have any questions about customizing your template or using placeholders, reach out to us
+    at <a href="mailto:prince.francis@tociva.com">prince.francis@tociva.com</a>.
+  </p>
+</section>
