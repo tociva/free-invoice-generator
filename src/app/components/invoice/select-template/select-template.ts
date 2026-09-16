@@ -10,11 +10,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   HostListener,
   inject,
   input,
+  OnInit,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { TngIcon } from '@tailng-ui/icons';
 import { invoiceStore } from '../store/invoice.store';
@@ -38,7 +41,7 @@ import { templateStore } from '../store/template/template.store';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./select-template.css'],
 })
-export class SelectTemplateComponent {
+export class SelectTemplateComponent implements OnInit {
   templateService = inject(TemplateService);
   templateStore = inject(templateStore);
 
@@ -83,6 +86,30 @@ export class SelectTemplateComponent {
   templateSelected = output<TemplateItem>();
   isSelected = signal(false);
 
+  // CONFIGURABLE PAGINATION INPUTS
+  pageSizeOptions = input<readonly (number | string)[]>([5, 10, 15, 20]);
+  defaultPageSize = input<number>(10);
+  pageSize = input<number | undefined>(undefined);
+
+  normalizedPageSizeOptions = computed<readonly number[]>(() => {
+    const raw = this.pageSizeOptions();
+    const parsed = raw.map((v) => Number(v)).filter((n) => !Number.isNaN(n) && n > 0);
+    return parsed.length > 0 ? parsed : [5, 10, 15, 20];
+  });
+
+  pageSizeOptionStrings = computed<readonly string[]>(() =>
+    this.normalizedPageSizeOptions().map((opt) => opt.toString()),
+  );
+
+  effectiveDefaultPageSize = computed<number>(() => {
+    const requested = this.pageSize() ?? this.defaultPageSize();
+    const options = this.normalizedPageSizeOptions();
+    if (options.includes(requested)) {
+      return requested;
+    }
+    return options[0] ?? 10;
+  });
+
   selectTemplate(item: TemplateItem) {
     // this.selectedTemplate.set(item);
     // this.isSelected.set(true);
@@ -102,6 +129,39 @@ export class SelectTemplateComponent {
   itemsPerPage = signal(10);
   currentPage = signal(1);
 
+  constructor() {
+    effect(() => {
+      const defaultSize = this.effectiveDefaultPageSize();
+      untracked(() => {
+        this.itemsPerPage.set(defaultSize);
+        this.currentPage.set(1);
+      });
+    });
+
+    effect(() => {
+      // Reset to page 1 whenever search query changes
+      this.globalSearch();
+      untracked(() => {
+        this.currentPage.set(1);
+      });
+    });
+
+    effect(() => {
+      // Prevent stale page when total pages shrinks
+      const total = this.pages();
+      if (this.currentPage() > total) {
+        untracked(() => {
+          this.currentPage.set(1);
+        });
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.itemsPerPage.set(this.effectiveDefaultPageSize());
+    this.currentPage.set(1);
+  }
+
   filteredTemplates = computed(() => {
     const q = this.globalSearch().toLowerCase().trim();
     if (!q) return this.templates();
@@ -113,15 +173,26 @@ export class SelectTemplateComponent {
     );
   });
 
+  totalItems = computed(() => this.filteredTemplates().length);
+  pages = computed(() => Math.max(1, Math.ceil(this.totalItems() / this.itemsPerPage())));
+
+  // Safe page index ensures template slice and indexes never use a stale/out-of-bounds page
+  safeCurrentPage = computed(() => Math.max(1, Math.min(this.currentPage(), this.pages())));
+
   displayedTemplates = computed(() => {
-    const start = (this.currentPage() - 1) * this.itemsPerPage();
+    const start = (this.safeCurrentPage() - 1) * this.itemsPerPage();
     return this.filteredTemplates().slice(start, start + this.itemsPerPage());
   });
 
-  totalItems = computed(() => this.filteredTemplates().length);
-  pages = computed(() => Math.max(1, Math.ceil(this.totalItems() / this.itemsPerPage())));
-  startIndex = computed(() => (this.currentPage() - 1) * this.itemsPerPage() + 1);
-  endIndex = computed(() => Math.min(this.currentPage() * this.itemsPerPage(), this.totalItems()));
+  startIndex = computed(() => {
+    if (this.totalItems() === 0) return 0;
+    return (this.safeCurrentPage() - 1) * this.itemsPerPage() + 1;
+  });
+
+  endIndex = computed(() => {
+    if (this.totalItems() === 0) return 0;
+    return Math.min(this.safeCurrentPage() * this.itemsPerPage(), this.totalItems());
+  });
 
   selectTag(tag: string): void {
     this.globalSearch.set(tag);
@@ -141,9 +212,10 @@ export class SelectTemplateComponent {
   prevPage() {
     this.currentPage.update((p) => Math.max(1, p - 1));
   }
+
   pageNumbers = computed(() => {
     const total = this.pages();
-    const current = this.currentPage();
+    const current = this.safeCurrentPage();
     const pages: (number | string)[] = [];
 
     if (total <= 7) {
@@ -182,13 +254,23 @@ export class SelectTemplateComponent {
     if (page >= 1 && page <= this.pages()) {
       this.currentPage.set(page);
       // Optimistic scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        try {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch {
+          // Ignore in test/unsupported environments
+        }
+      }
     }
   }
 
-  changePageSize(value: string) {
-    this.itemsPerPage.set(Number(value));
-    this.currentPage.set(1);
+  changePageSize(value: string | number | null | undefined): void {
+    if (value === null || value === undefined || value === '') return;
+    const size = Number(value);
+    if (!Number.isNaN(size) && this.normalizedPageSizeOptions().includes(size)) {
+      this.itemsPerPage.set(size);
+      this.currentPage.set(1);
+    }
   }
 
   goToFirstPage() {

@@ -120,6 +120,19 @@
 .app-page-size {
   width: 5rem;
 }
+
+/* Ensure only actually selected options in select dropdowns show selected styling */
+[data-slot='select-option']:not([data-selected]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+[data-slot='select-option']:not([data-selected]):hover {
+  background: var(--tng-semantic-background-muted, rgba(0, 0, 0, 0.05)) !important;
+  border-color: transparent !important;
+}
 @media (max-width: 639px) {
   .app-pagination-mobile {
     display: block;

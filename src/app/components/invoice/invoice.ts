@@ -115,6 +115,8 @@ export class Invoice implements OnInit {
       null,
   );
   templateStore = inject(templateStore);
+  readonly pageSizeOptions = [6, 12, 18, 24] as const;
+  readonly defaultPageSize = 12;
 
   async ngOnInit() {
     this.formInvoice
