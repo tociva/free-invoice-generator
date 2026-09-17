@@ -1,14 +1,10 @@
 name: Build and Deploy to Development
 
 on:
-  pull_request:
-    types: [closed]
-    branches: [development]
   workflow_dispatch:
 
 jobs:
   build-and-deploy-development:
-    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment: development
     env:
