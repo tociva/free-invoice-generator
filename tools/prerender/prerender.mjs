@@ -1,6 +1,8 @@
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
-import path from 'node:path';
 import http from 'node:http';
+import os from 'node:os';
+import path from 'node:path';
 import serveHandler from 'serve-handler';
 import puppeteer from 'puppeteer';
 import { isKnownNonFatalBrowserError } from './prerender-diagnostics.mjs';
@@ -183,13 +185,142 @@ if (serverAddress === null || typeof serverAddress === 'string') {
 const serverPort = serverAddress.port;
 console.log(`prerender: server = http://${HOST}:${serverPort}`);
 
-const chromeExecutablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
-if (chromeExecutablePath && !fs.existsSync(chromeExecutablePath)) {
-  throw new Error(`PUPPETEER_EXECUTABLE_PATH does not exist: ${chromeExecutablePath}`);
-}
-console.log(
-  `prerender: browser executable = ${chromeExecutablePath ?? 'puppeteer-managed default'}`,
-);
+const puppeteerCli = () =>
+  path.join(
+    process.cwd(),
+    'node_modules',
+    '.bin',
+    process.platform === 'win32' ? 'puppeteer.cmd' : 'puppeteer',
+  );
+
+const chromeCandidatesInVersionDir = (versionDir) => [
+  path.join(
+    versionDir,
+    'chrome-mac-arm64',
+    'Google Chrome for Testing.app',
+    'Contents',
+    'MacOS',
+    'Google Chrome for Testing',
+  ),
+  path.join(
+    versionDir,
+    'chrome-mac-x64',
+    'Google Chrome for Testing.app',
+    'Contents',
+    'MacOS',
+    'Google Chrome for Testing',
+  ),
+  path.join(versionDir, 'chrome-linux64', 'chrome'),
+  path.join(versionDir, 'chrome-linux', 'chrome'),
+  path.join(versionDir, 'chrome-win64', 'chrome.exe'),
+  path.join(versionDir, 'chrome-headless-shell-mac-arm64', 'chrome-headless-shell'),
+  path.join(versionDir, 'chrome-headless-shell-mac-x64', 'chrome-headless-shell'),
+  path.join(versionDir, 'chrome-headless-shell-linux64', 'chrome-headless-shell'),
+];
+
+const findChromeInCache = (cacheDir) => {
+  if (!cacheDir || !fs.existsSync(cacheDir)) {
+    return null;
+  }
+
+  for (const browser of ['chrome', 'chrome-headless-shell']) {
+    const root = path.join(cacheDir, browser);
+    if (!fs.existsSync(root)) {
+      continue;
+    }
+
+    const versions = fs
+      .readdirSync(root, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .sort((left, right) => right.name.localeCompare(left.name, undefined, { numeric: true }));
+
+    for (const version of versions) {
+      const versionDir = path.join(root, version.name);
+      for (const candidate of chromeCandidatesInVersionDir(versionDir)) {
+        if (fs.existsSync(candidate)) {
+          return candidate;
+        }
+      }
+    }
+  }
+
+  return null;
+};
+
+const cacheDirectories = () =>
+  [
+    process.env.PUPPETEER_CACHE_DIR,
+    path.join(os.homedir(), '.cache', 'puppeteer'),
+  ].filter((directory, index, all) => directory && all.indexOf(directory) === index);
+
+const resolveInstalledChrome = () => {
+  try {
+    const executablePath = puppeteer.executablePath();
+    if (executablePath && fs.existsSync(executablePath)) {
+      return executablePath;
+    }
+  } catch {
+    // Puppeteer throws when the pinned Chrome build is missing from its cache.
+  }
+
+  for (const cacheDir of cacheDirectories()) {
+    const cachedPath = findChromeInCache(cacheDir);
+    if (cachedPath !== null) {
+      return cachedPath;
+    }
+  }
+
+  return null;
+};
+
+const installChrome = () => {
+  console.log('prerender: Chrome not found, installing...');
+  const result = spawnSync(puppeteerCli(), ['browsers', 'install', 'chrome'], {
+    encoding: 'utf8',
+    env: process.env,
+  });
+  if (result.stdout) {
+    process.stdout.write(result.stdout);
+  }
+  if (result.stderr) {
+    process.stderr.write(result.stderr);
+  }
+  if (result.status !== 0) {
+    throw new Error(
+      'Failed to install Chrome for prerender. Run: pnpm exec puppeteer browsers install chrome',
+    );
+  }
+
+  const installedFromOutput = result.stdout?.match(/chrome@\S+\s+(\/\S+)/)?.[1];
+  if (installedFromOutput && fs.existsSync(installedFromOutput)) {
+    return installedFromOutput;
+  }
+
+  return null;
+};
+
+const ensureChrome = () => {
+  const explicitPath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  if (explicitPath) {
+    if (!fs.existsSync(explicitPath)) {
+      throw new Error(`PUPPETEER_EXECUTABLE_PATH does not exist: ${explicitPath}`);
+    }
+    return explicitPath;
+  }
+
+  let installedPath = resolveInstalledChrome();
+  if (installedPath === null) {
+    installedPath = installChrome() ?? resolveInstalledChrome();
+  }
+
+  if (installedPath === null) {
+    throw new Error(
+      'Chrome was installed but Puppeteer still cannot find it. Set PUPPETEER_EXECUTABLE_PATH.',
+    );
+  }
+
+  return installedPath;
+};
 
 const absolutizeAssets = (html) =>
   html.replace(
@@ -352,11 +483,14 @@ const closeServer = async () => {
 
 let browser;
 try {
+  const chromeExecutablePath = ensureChrome();
+  console.log(`prerender: browser executable = ${chromeExecutablePath}`);
+
   browser = await puppeteer.launch({
     headless: true,
     timeout: LAUNCH_TIMEOUT_MS,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    ...(chromeExecutablePath ? { executablePath: chromeExecutablePath } : {}),
+    executablePath: chromeExecutablePath,
   });
 
   const workerCount = Math.min(PRERENDER_CONCURRENCY, routes.length);

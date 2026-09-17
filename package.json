@@ -13,6 +13,7 @@
     "test": "ng test",
     "test:e2e": "playwright test",
     "prerender": "node tools/prerender/prerender.mjs",
+    "prerender:chrome": "puppeteer browsers install chrome",
     "seo": "pnpm build --configuration production && pnpm prerender",
     "format": "prettier --write src e2e playwright.config.ts package.json angular.json tsconfig*.json pnpm-workspace.yaml"
   },
