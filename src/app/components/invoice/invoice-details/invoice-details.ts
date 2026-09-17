@@ -1,5 +1,4 @@
 import {
-  TngCardComponent,
   TngDatepickerComponent,
   TngCheckboxAngularFormsAdapter,
   TngCheckboxComponent,
@@ -17,7 +16,6 @@ import {
   signal,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { Currency } from '../store/currency/currency.model';
 import { currencyStore } from '../store/currency/currency.store';
@@ -31,13 +29,11 @@ type InvoiceDateField = 'invoiceDate' | 'invoiceDueDate';
 @Component({
   selector: 'app-invoice-details',
   imports: [
-    TngCardComponent,
     TngAutocompleteComponent,
     TngDatepickerComponent,
     TngInputFieldComponent,
     TngCheckboxComponent,
     TngCheckboxAngularFormsAdapter,
-    TngIcon,
     TngInput,
     ReactiveFormsModule,
     CommonModule,

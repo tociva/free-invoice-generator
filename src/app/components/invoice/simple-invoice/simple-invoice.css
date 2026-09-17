@@ -1,43 +1,128 @@
-/* Upload Logos Card Header */
-.upload-card-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.875rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--tng-semantic-border-subtle);
-}
-
-.upload-card-header-text {
+.invoice-editor-shell {
   flex: 1;
   min-width: 0;
 }
 
-.upload-card-header-text h2 {
-  font-size: var(--tng-typography-textLg);
-  font-weight: 700;
-  color: var(--tng-semantic-foreground-primary);
-  line-height: 1.3;
-  margin: 0;
+.invoice-document {
+  --invoice-hairline-border: color-mix(in srgb, var(--tng-semantic-border-subtle) 62%, transparent);
+  --tng-control-border: var(--invoice-hairline-border);
+  --tng-input-border: var(--invoice-hairline-border);
+  --tng-table-border: var(--invoice-hairline-border);
+  display: grid;
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(0.85rem, 1.5vw, 1.25rem);
+  border: 0.5px solid var(--invoice-hairline-border);
+  border-radius: var(--tng-radius-lg);
+  background: var(--tng-semantic-background-surface);
+  box-shadow: var(--app-shadow-sm, none);
 }
 
-.upload-card-header-text p {
-  margin-top: 0.25rem;
-  color: var(--tng-semantic-foreground-muted);
-  font-size: var(--tng-typography-textSm);
-  line-height: 1.45;
+.invoice-document-header {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(12rem, 0.85fr) minmax(36rem, 1.2fr);
+  gap: clamp(0.85rem, 2vw, 1.5rem);
+  align-items: start;
 }
 
-.app-logo-card-content {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-  min-height: 0;
+.invoice-logo-field {
+  width: 6.5rem;
+  --app-upload-min-height: 4.75rem;
+  --app-upload-padding: 0.5rem;
 }
 
-.app-logo-card-content app-invoice-logo {
-  display: flex;
-  flex: 1;
+.invoice-header-organization {
+  min-width: 0;
+}
+
+.invoice-meta-block {
+  display: grid;
+  gap: 0.7rem;
+  justify-items: end;
+  min-width: 0;
+}
+
+.invoice-meta-block app-invoice-details {
   width: 100%;
 }
 
+.invoice-header-customer {
+  width: 100%;
+  min-width: 0;
+}
+
+.invoice-section-rule {
+  height: 0.5px;
+  background: var(--invoice-hairline-border);
+}
+
+.invoice-settings-panel {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border-left: 0.5px solid var(--tng-semantic-border-subtle);
+  background: var(--tng-semantic-background-canvas);
+}
+
+.invoice-settings-heading h2 {
+  margin: 0;
+  color: var(--tng-semantic-foreground-primary);
+  font-size: var(--tng-typography-textBase);
+  font-weight: 700;
+}
+
+.invoice-settings-heading p {
+  margin: 0.2rem 0 0;
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textXs);
+}
+
+.invoice-aside-action {
+  display: flex;
+  justify-content: stretch;
+}
+
+@media (max-width: 1023px) {
+  .invoice-settings-panel {
+    border-left: 0;
+    border-top: 0.5px solid var(--tng-semantic-border-subtle);
+  }
+}
+
+:host ::ng-deep .invoice-document tng-input-group,
+:host ::ng-deep .invoice-document .tng-input-field,
+:host ::ng-deep .invoice-document [data-slot='input-group'] {
+  border-width: 0.5px;
+  border-color: var(--invoice-hairline-border);
+}
+
+:host ::ng-deep .invoice-document input[tngInput],
+:host ::ng-deep .invoice-document textarea[tngInput] {
+  border-width: 0;
+}
+
+:host ::ng-deep .invoice-document .tng-datepicker,
+:host ::ng-deep .invoice-document .tng-datepicker-trigger,
+:host ::ng-deep .invoice-document .tng-autocomplete,
+:host ::ng-deep .invoice-document [data-slot='datepicker'],
+:host ::ng-deep .invoice-document [data-slot='autocomplete'] {
+  --tng-control-border: var(--invoice-hairline-border);
+  --tng-input-border: var(--invoice-hairline-border);
+  border-width: 0.5px;
+  border-color: var(--invoice-hairline-border);
+}
+
+@media (max-width: 760px) {
+  .invoice-document-header {
+    grid-template-columns: 1fr;
+  }
+
+  .invoice-meta-block {
+    justify-items: start;
+  }
+
+  .invoice-logo-field {
+    width: min(100%, 10rem);
+  }
+}

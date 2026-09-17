@@ -1,15 +1,6 @@
-<tng-card padding="md">
-
+<section class="items-section">
   <!-- ── Card header ───────────────────────────────────────────────── -->
-  <div class="items-card-header">
-    <div class="app-icon-box app-icon-box--small">
-      <tng-icon icon="receipt" size="1.1rem" />
-    </div>
-    <div class="items-card-header-text">
-      <h2>Items and Summary</h2>
-      <p>Add invoice items, taxes, quantities, and pricing details.</p>
-    </div>
-  </div>
+  <div class="items-section-label">Items</div>
 
   <!-- ── Responsive table container ────────────────────────────────── -->
   <div class="items-table-scroll">
@@ -297,7 +288,7 @@
           <tng-button
             size="sm"
             tone="danger"
-            appearance="ghost"
+            appearance="solid"
             type="button"
             (click)="removeItem(rowIndex)"
           >
@@ -311,16 +302,9 @@
 
   <!-- ── Add Item button directly below table ─────────────────────── -->
   <div class="add-item-action-wrapper">
-    <tng-button
-      size="sm"
-      tone="primary"
-      appearance="solid"
-      type="button"
-      (click)="addItem()"
-    >
+    <tng-button size="sm" tone="primary" appearance="solid" type="button" (click)="addItem()">
       <tng-icon icon="plus" />
       <span>Add Item</span>
     </tng-button>
   </div>
-
-</tng-card>
+</section>
