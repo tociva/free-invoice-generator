@@ -64,12 +64,12 @@
             (keydown.enter)="selectTemplate(item)"
             (keydown.space)="$event.preventDefault(); selectTemplate(item)"
             class="app-template-card app-template-card--selectable"
-            [class.app-template-card--selected]="selectedTemplate() === item"
+            [class.app-template-card--selected]="selectedTemplate()?.path === item.path"
           >
             <!-- Card Header with Title -->
             <div class="app-template-heading">
               <span class="app-template-title">{{ item.name }}</span>
-              @if (selectedTemplate() === item) {
+              @if (selectedTemplate()?.path === item.path) {
                 <div class="app-template-selected">
                   <tng-icon icon="check-circle" />
                 </div>
@@ -86,12 +86,9 @@
                   [attr.title]="item.name"
                   class="app-template-frame"
                   frameborder="0"
-                  style="
-                    transform: scale(0.4);
-                    transform-origin: top left;
-                    width: 250%;
-                    height: 250%;
-                  "
+                  scrolling="no"
+                  tabindex="-1"
+                  aria-hidden="true"
                 ></iframe>
               } @else {
                 <div class="app-template-loading">

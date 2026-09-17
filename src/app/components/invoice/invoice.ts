@@ -149,6 +149,7 @@ export class Invoice implements OnInit {
     this.calcService.initFormSubscriptions(this.formInvoice);
 
     this.calcService.calculateTotals(this.formInvoice);
+    this.saveCurrentStepState();
     await this.templateStore.loadTemplates();
   }
 

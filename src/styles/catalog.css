@@ -74,16 +74,27 @@
 }
 .app-template-preview {
   position: relative;
-  height: 14rem;
+  height: 18.5rem;
   overflow: hidden;
   background: var(--tng-semantic-background-canvas);
+  contain: paint;
 }
 .app-template-frame {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 420%;
+  height: 420%;
+  transform: scale(0.238);
+  transform-origin: top left;
   border: 0;
   pointer-events: none;
   color-scheme: light;
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.app-template-frame::-webkit-scrollbar {
+  display: none;
 }
 .app-template-loading {
   display: flex;
