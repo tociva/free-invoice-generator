@@ -12,6 +12,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:e2e": "playwright test",
+    "prerender": "node tools/prerender/prerender.mjs",
+    "seo": "pnpm build --configuration production && pnpm prerender",
     "format": "prettier --write src e2e playwright.config.ts package.json angular.json tsconfig*.json pnpm-workspace.yaml"
   },
   "prettier": {
@@ -59,6 +61,8 @@
     "@types/jspdf": "^2.0.0",
     "jsdom": "^27.1.0",
     "prettier": "^3.9.6",
+    "puppeteer": "^25.11.0",
+    "serve-handler": "^6.1.7",
     "typescript": "~6.0.3",
     "vitest": "^4.0.8"
   }

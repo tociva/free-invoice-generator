@@ -1,0 +1,6 @@
+/
+/home
+/docs
+/docs/create-invoices
+/docs/customize-templates
+/docs/template-library

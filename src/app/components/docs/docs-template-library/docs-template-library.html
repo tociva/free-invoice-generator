@@ -1,5 +1,5 @@
 @if (loading()) {
-  <div class="app-state app-state--bare" role="status">
+  <div class="app-state app-state--bare" role="status" aria-busy="true">
     <tng-progress-spinner ariaLabel="Loading documentation templates" [indeterminate]="true" />
     <p class="app-state-description">Loading template library…</p>
   </div>

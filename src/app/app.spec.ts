@@ -4,10 +4,15 @@ import { testProviders } from './testing/test-providers';
 
 describe('App', () => {
   beforeEach(async () => {
+    delete document.documentElement.dataset['routeReady'];
     await TestBed.configureTestingModule({
       providers: testProviders,
       imports: [App],
     }).compileComponents();
+  });
+
+  afterEach(() => {
+    delete document.documentElement.dataset['routeReady'];
   });
 
   it('should create the app', () => {

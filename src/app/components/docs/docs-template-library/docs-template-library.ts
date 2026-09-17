@@ -5,9 +5,11 @@ import {
   Injectable,
   OnInit,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   TngButtonComponent,
@@ -15,7 +17,7 @@ import {
   TngProgressSpinnerComponent,
 } from '@tailng-ui/components';
 import { TngIcon } from '@tailng-ui/icons';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SeoService } from '../../../services/seo.service';
 
 interface DocumentationTemplate {
   slug: string;
@@ -59,6 +61,7 @@ export class DocsTemplateLibrary implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
   private readonly state = inject(DocsTemplateLibraryService);
+  private readonly seo = inject(SeoService);
 
   readonly templates = this.state.templates;
   readonly loading = this.state.loading;
@@ -98,6 +101,22 @@ export class DocsTemplateLibrary implements OnInit {
   constructor() {
     this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
       this.slug.set(params.get('slug'));
+    });
+
+    effect(() => {
+      const slug = this.slug();
+      const template = this.selectedTemplate();
+      if (!slug || this.loading() || !template) {
+        return;
+      }
+
+      const description =
+        template.documentationTitle?.trim() ||
+        template.documentation.replace(/\s+/g, ' ').trim().slice(0, 160);
+      this.seo.setTags({
+        title: `${template.name} Invoice Template - Daybook.Cloud`,
+        description,
+      });
     });
   }
 

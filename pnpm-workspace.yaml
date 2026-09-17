@@ -4,6 +4,7 @@ onlyBuiltDependencies:
   - esbuild
   - lmdb
   - msgpackr-extract
+  - puppeteer
 
 # TailNG currently declares Angular 21; Angular 22 integration is regression-tested locally.
 peerDependencyRules:

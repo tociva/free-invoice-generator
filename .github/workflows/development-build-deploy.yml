@@ -31,6 +31,12 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
 
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
+
       - name: Increment version
         run: pnpm version patch --no-git-tag-version
 
@@ -66,8 +72,14 @@ jobs:
       - name: Install dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
+      - name: Install Chrome for prerender
+        run: pnpm exec puppeteer browsers install chrome
+
       - name: Build Angular App (production)
         run: pnpm build --configuration production
+
+      - name: Prerender SEO HTML
+        run: pnpm prerender
             
       - name: Add deployment info to info.txt
         run: |
