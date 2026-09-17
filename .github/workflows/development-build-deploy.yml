@@ -11,6 +11,8 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment: development
+    env:
+      PUPPETEER_CACHE_DIR: ${{ github.workspace }}/.cache/puppeteer
 
     steps:
       - name: Set Git User
@@ -34,7 +36,7 @@ jobs:
       - name: Cache Puppeteer browser
         uses: actions/cache@v4
         with:
-          path: ~/.cache/puppeteer
+          path: ${{ github.workspace }}/.cache/puppeteer
           key: puppeteer-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Increment version
@@ -73,32 +75,37 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Chrome for prerender
-        run: pnpm exec puppeteer browsers install chrome
+        run: pnpm prerender:chrome
 
-      - name: Build Angular App (production)
-        run: pnpm build --configuration production
+      - name: Build and prerender SEO HTML
+        run: pnpm seo
 
-      - name: Prerender SEO HTML
-        run: pnpm prerender
-            
+      - name: Verify prerendered HTML
+        run: |
+          test -f dist/free-invoice-generator/browser/index.html
+          test -f dist/free-invoice-generator/browser/home/index.html
+          test -f dist/free-invoice-generator/browser/docs/index.html
+          test -f dist/free-invoice-generator/browser/docs/create-invoices/index.html
+          test -f dist/free-invoice-generator/browser/docs/template-library/index.html
+          grep -q 'ng-version' dist/free-invoice-generator/browser/docs/index.html
+          grep -q 'Create Professional' dist/free-invoice-generator/browser/index.html
+
       - name: Add deployment info to info.txt
         run: |
           mkdir -p dist/free-invoice-generator/browser
-          
-          # Write info.txt
           echo "branch : $BRANCH_NAME" > dist/free-invoice-generator/browser/info.txt
           echo "version : $VERSION" >> dist/free-invoice-generator/browser/info.txt
           echo "version_full : $VERSION_FULL" >> dist/free-invoice-generator/browser/info.txt
           echo "time : $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> dist/free-invoice-generator/browser/info.txt
 
-      - name: Deploy to Cloudflare Pages with Wrangler
+      - name: Deploy prerendered build to Cloudflare Pages
         run: |
           pnpm dlx wrangler pages deploy dist/free-invoice-generator/browser \
             --project-name ${{ secrets.CF_PROJECT_NAME }} \
             --branch $BRANCH_NAME
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID:        ${{ secrets.CF_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
 
       - name: Create and Push Tag
         run: |
