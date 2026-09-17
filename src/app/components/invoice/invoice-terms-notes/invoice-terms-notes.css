@@ -1,1 +1,27 @@
 /* Shared application compositions are defined in src/styles/invoice.css. */
+
+.invoice-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.5rem);
+}
+
+.invoice-notes-field {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.invoice-notes-label {
+  color: var(--tng-semantic-foreground-muted);
+  font-size: var(--tng-typography-textXs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .invoice-notes-grid {
+    grid-template-columns: 1fr;
+  }
+}

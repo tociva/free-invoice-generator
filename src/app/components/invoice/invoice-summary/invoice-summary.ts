@@ -1,5 +1,4 @@
 import {
-  TngCardComponent,
   TngCheckboxAngularFormsAdapter,
   TngCheckboxComponent,
   TngInputFieldComponent,
@@ -17,7 +16,6 @@ import { InvoiceCalculationService } from '../store/services/calculation.service
   selector: 'app-invoice-summary',
   standalone: true,
   imports: [
-    TngCardComponent,
     TngInputFieldComponent,
     TngCheckboxComponent,
     TngCheckboxAngularFormsAdapter,

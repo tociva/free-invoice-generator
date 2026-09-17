@@ -1,5 +1,4 @@
 import {
-  TngCardComponent,
   TngInputFieldComponent,
   TngTooltipComponent,
   TngAutocompleteComponent,
@@ -18,7 +17,6 @@ import { OrganizationForm } from '../store/models/invoice-form.model';
   standalone: true,
   imports: [
     TngTooltipComponent,
-    TngCardComponent,
     TngInputFieldComponent,
     TngAutocompleteComponent,
     TngIcon,
@@ -32,6 +30,7 @@ import { OrganizationForm } from '../store/models/invoice-form.model';
 })
 export class InvoiceOrganizationComponent {
   advanced = input<boolean>(false);
+  showSectionLabel = input<boolean>(true);
   public countryStore = inject(countryStore);
 
   public InvoiceOrganizationForm = input.required<FormGroup<OrganizationForm>>();

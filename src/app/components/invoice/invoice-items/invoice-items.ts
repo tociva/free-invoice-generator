@@ -10,7 +10,6 @@ import {
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   TngButtonComponent,
-  TngCardComponent,
   TngInputFieldComponent,
   TngTableCellTemplate,
   TngTableHeaderTemplate,
@@ -29,7 +28,6 @@ type InvoiceItemRow = FormGroup<InvoiceItemForm>;
   standalone: true,
   imports: [
     TngButtonComponent,
-    TngCardComponent,
     TngInputFieldComponent,
     TngTableComponent,
     TngTableCellTemplate,

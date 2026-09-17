@@ -1,32 +1,20 @@
-<tng-card padding="md">
-
-  <!-- ── Card header ───────────────────────────────────────────────── -->
-  <div class="invoice-card-header">
-    <div class="app-icon-box app-icon-box--small">
-      <tng-icon icon="file-text" size="1.1rem" />
+<section class="invoice-details-section">
+  @if (!simple()) {
+    <div class="invoice-section-heading">
+      <span>Invoice Details</span>
     </div>
-    <div class="invoice-card-header-text">
-      <h2>Invoice Details</h2>
-      <p>Set your invoice preferences, tax settings, and payment details.</p>
-    </div>
-  </div>
+  }
 
   <div [formGroup]="InvoiceDetailsForm()">
-
-    <!-- ── GROUP 1 — INVOICE SETTINGS ──────────────────────────────── -->
-    <div class="invoice-form-grid">
-
-      <!-- Row 1: Invoice Number | Invoice Date -->
+    <div class="invoice-form-grid" [class.invoice-form-grid--simple]="simple()">
       <div class="invoice-field-wrapper invoice-field-half">
         <label
           for="invoice-details-invoiceNo"
           id="invoice-details-invoiceNo-label"
           class="invoice-field-label"
-        >Invoice Number</label>
+          >Invoice Number</label
+        >
         <div class="invoice-field-input-row">
-          <div class="invoice-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="file-text" size="0.875rem" />
-          </div>
           <div class="invoice-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -50,7 +38,9 @@
           InvoiceDetailsForm().controls.invoiceNo.invalid &&
           InvoiceDetailsForm().controls.invoiceNo.touched
         ) {
-          <p id="invoice-number-error" role="alert" class="app-form-error">Invoice number is required.</p>
+          <p id="invoice-number-error" role="alert" class="app-form-error">
+            Invoice number is required.
+          </p>
         }
       </div>
 
@@ -59,11 +49,9 @@
           for="invoice-details-invoiceDate"
           id="invoice-details-invoiceDate-label"
           class="invoice-field-label"
-        >Invoice Date</label>
+          >Invoice Date</label
+        >
         <div class="invoice-field-input-row">
-          <div class="invoice-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="calendar" size="0.875rem" />
-          </div>
           <div class="invoice-field-control-wrap">
             <tng-datepicker
               [value]="invoiceDateValue('invoiceDate')"
@@ -84,17 +72,14 @@
         </div>
       </div>
 
-      <!-- Row 2: Due Date | Currency -->
       <div class="invoice-field-wrapper invoice-field-half">
         <label
           for="invoice-details-invoiceDueDate"
           id="invoice-details-invoiceDueDate-label"
           class="invoice-field-label"
-        >Due Date</label>
+          >Due Date</label
+        >
         <div class="invoice-field-input-row">
-          <div class="invoice-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="calendar" size="0.875rem" />
-          </div>
           <div class="invoice-field-control-wrap">
             <tng-datepicker
               [value]="invoiceDateValue('invoiceDueDate')"
@@ -119,9 +104,6 @@
         <div class="invoice-field-wrapper invoice-field-half">
           <label id="invoice-details-currency-label" class="invoice-field-label">Currency</label>
           <div class="invoice-field-input-row">
-            <div class="invoice-field-icon-prefix" aria-hidden="true">
-              <tng-icon icon="banknote" size="0.875rem" />
-            </div>
             <div class="invoice-field-control-wrap">
               <tng-autocomplete
                 labelId="invoice-details-currency-label"
@@ -140,17 +122,14 @@
           </div>
         </div>
 
-        <!-- Row 3: Decimal Places | Delivery State -->
         <div class="invoice-field-wrapper invoice-field-half">
           <label
             for="invoice-details-decimalPlaces"
             id="invoice-details-decimalPlaces-label"
             class="invoice-field-label"
-          >Decimal Places</label>
+            >Decimal Places</label
+          >
           <div class="invoice-field-input-row">
-            <div class="invoice-field-icon-prefix" aria-hidden="true">
-              <tng-icon icon="hash" size="0.875rem" />
-            </div>
             <div class="invoice-field-control-wrap">
               <tng-input-field size="sm">
                 <input
@@ -173,11 +152,9 @@
             for="invoice-details-deliveryState"
             id="invoice-details-deliveryState-label"
             class="invoice-field-label"
-          >Delivery State</label>
+            >Delivery State</label
+          >
           <div class="invoice-field-input-row">
-            <div class="invoice-field-icon-prefix" aria-hidden="true">
-              <tng-icon icon="map-pin" size="0.875rem" />
-            </div>
             <div class="invoice-field-control-wrap">
               <tng-input-field size="sm">
                 <input
@@ -193,13 +170,9 @@
           </div>
         </div>
 
-        <!-- Row 4: Tax Option | Date Format -->
         <div class="invoice-field-wrapper invoice-field-half">
           <label id="invoice-details-taxOption-label" class="invoice-field-label">Tax Option</label>
           <div class="invoice-field-input-row">
-            <div class="invoice-field-icon-prefix" aria-hidden="true">
-              <tng-icon icon="receipt" size="0.875rem" />
-            </div>
             <div class="invoice-field-control-wrap">
               <tng-autocomplete
                 labelId="invoice-details-taxOption-label"
@@ -219,11 +192,10 @@
         </div>
 
         <div class="invoice-field-wrapper invoice-field-half">
-          <label id="invoice-details-dateFormat-label" class="invoice-field-label">Date Format</label>
+          <label id="invoice-details-dateFormat-label" class="invoice-field-label"
+            >Date Format</label
+          >
           <div class="invoice-field-input-row">
-            <div class="invoice-field-icon-prefix" aria-hidden="true">
-              <tng-icon icon="calendar" size="0.875rem" />
-            </div>
             <div class="invoice-field-control-wrap">
               <tng-autocomplete
                 labelId="invoice-details-dateFormat-label"
@@ -242,11 +214,9 @@
           </div>
         </div>
       }
-
-    </div><!-- /.invoice-form-grid -->
+    </div>
 
     @if (advanced()) {
-      <!-- ── GROUP 2 — ITEM DISPLAY OPTIONS ────────────────────────── -->
       <div class="invoice-section-divider"></div>
 
       <div class="invoice-subsection">
@@ -265,23 +235,19 @@
         </div>
       </div>
 
-      <!-- ── GROUP 3 — PAYMENT / BANK DETAILS ──────────────────────── -->
       <div class="invoice-section-divider"></div>
 
       <div class="invoice-subsection">
         <h3 class="invoice-subsection-title">Payment / Bank Details</h3>
         <div class="invoice-form-grid">
-          <!-- Row 1: Account Number | Account Name -->
           <div class="invoice-field-wrapper invoice-field-half">
             <label
               for="invoice-details-accountNumber"
               id="invoice-details-accountNumber-label"
               class="invoice-field-label"
-            >Account Number</label>
+              >Account Number</label
+            >
             <div class="invoice-field-input-row">
-              <div class="invoice-field-icon-prefix" aria-hidden="true">
-                <tng-icon icon="credit-card" size="0.875rem" />
-              </div>
               <div class="invoice-field-control-wrap">
                 <tng-input-field size="sm">
                   <input
@@ -302,11 +268,9 @@
               for="invoice-details-accountName"
               id="invoice-details-accountName-label"
               class="invoice-field-label"
-            >Account Name</label>
+              >Account Name</label
+            >
             <div class="invoice-field-input-row">
-              <div class="invoice-field-icon-prefix" aria-hidden="true">
-                <tng-icon icon="user" size="0.875rem" />
-              </div>
               <div class="invoice-field-control-wrap">
                 <tng-input-field size="sm">
                   <input
@@ -322,17 +286,14 @@
             </div>
           </div>
 
-          <!-- Row 2: Bank Name (half width) -->
           <div class="invoice-field-wrapper invoice-field-half">
             <label
               for="invoice-details-bankName"
               id="invoice-details-bankName-label"
               class="invoice-field-label"
-            >Bank Name</label>
+              >Bank Name</label
+            >
             <div class="invoice-field-input-row">
-              <div class="invoice-field-icon-prefix" aria-hidden="true">
-                <tng-icon icon="building" size="0.875rem" />
-              </div>
               <div class="invoice-field-control-wrap">
                 <tng-input-field size="sm">
                   <input
@@ -351,20 +312,15 @@
       </div>
     }
 
-    <!-- ── GROUP 4 — ADDITIONAL INFORMATION (NOTES & TERMS) ────────── -->
     @if (!simple()) {
       <div class="invoice-section-divider"></div>
 
       <div class="invoice-subsection">
         <h3 class="invoice-subsection-title">Additional Information</h3>
         <div class="invoice-form-grid">
-          <!-- Left: Additional Notes -->
           <div class="invoice-field-wrapper invoice-field-half">
             <label for="invoice-notes" class="invoice-field-label">Additional Notes</label>
             <div class="invoice-field-input-row invoice-textarea-row">
-              <div class="invoice-field-icon-prefix invoice-textarea-icon" aria-hidden="true">
-                <tng-icon icon="file-text" size="0.875rem" />
-              </div>
               <div class="invoice-field-control-wrap">
                 <tng-input-field size="sm">
                   <textarea
@@ -381,13 +337,9 @@
             </div>
           </div>
 
-          <!-- Right: Terms & Conditions -->
           <div class="invoice-field-wrapper invoice-field-half">
             <label for="invoice-terms" class="invoice-field-label">Terms & Conditions</label>
             <div class="invoice-field-input-row invoice-textarea-row">
-              <div class="invoice-field-icon-prefix invoice-textarea-icon" aria-hidden="true">
-                <tng-icon icon="file-check" size="0.875rem" />
-              </div>
               <div class="invoice-field-control-wrap">
                 <tng-input-field size="sm">
                   <textarea
@@ -406,7 +358,5 @@
         </div>
       </div>
     }
-
-  </div><!-- /[formGroup] -->
-
-</tng-card>
+  </div>
+</section>
