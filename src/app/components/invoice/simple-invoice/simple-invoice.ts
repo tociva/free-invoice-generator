@@ -106,12 +106,8 @@ export class SimpleInvoice implements OnInit {
 
   goToStep(stepId: number): void {
     if (!Number.isInteger(stepId) || stepId < 1 || stepId > this.steps.length) return;
-    if (stepId >= 1 && stepId <= this.steps.length) {
-      if (stepId > this.currentStep()) {
-        this.saveInvoiceState();
-      }
-      this.currentStep.set(stepId);
-    }
+    this.saveInvoiceState();
+    this.currentStep.set(stepId);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { step: stepId },
@@ -133,6 +129,7 @@ export class SimpleInvoice implements OnInit {
     this.calcService.initFormSubscriptions(this.formInvoice);
 
     this.calcService.calculateTotals(this.formInvoice);
+    this.saveInvoiceState();
     await this.templateStore.loadTemplates();
   }
 

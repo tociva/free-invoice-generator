@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { testProviders } from '../../../testing/test-providers';
+import { invoiceStore } from '../store/invoice.store';
 import { TemplateItem } from '../store/template/template.model';
 import { SelectTemplateComponent } from './select-template';
 
@@ -180,6 +181,127 @@ describe('SelectTemplateComponent', () => {
       component.prevPage();
       expect(component.currentPage()).toBe(2);
       expect(component.displayedTemplates()[0].name).toBe('Template 13');
+    });
+  });
+
+  describe('Live invoice data preview', () => {
+    it('renders template previews using current invoice data rather than sample data', () => {
+      const store = TestBed.inject(invoiceStore);
+      store.setInvoice({
+        invoiceNo: 'LIVE-INV-777',
+        customer: {
+          name: 'Custom Live Client Corp',
+          address: '123 Live Street',
+          country: {
+            name: 'India',
+            code: '91',
+            iso: 'IN',
+            phone: '91',
+            currencycode: 'INR',
+            dateformat: 'DD-MM-YYYY',
+            currency: {
+              code: 'INR',
+              name: 'Indian Rupee',
+              symbol: '₹',
+              numericcode: 356,
+              minorunit: 2,
+              fraction: 'Paisa',
+            },
+            dateFormat: {
+              name: '24-06-2025',
+              value: 'DD-MM-YYYY',
+            },
+          },
+          email: 'client@live.com',
+          phone: '9876543210',
+          gstin: 'GSTIN12345',
+        },
+      });
+
+      const mockTemplatesWithHtml: TemplateItem[] = [
+        {
+          name: 'Classic Template',
+          path: 'classic',
+          tags: ['Business'],
+          color: 'Blue',
+          html: '<div><span class="inv-num">[[invoice_number]]</span><span class="cust-name">[[customer_name]]</span></div>',
+        },
+      ];
+
+      fixture.componentRef.setInput('templates', mockTemplatesWithHtml);
+      fixture.detectChanges();
+
+      const displayed = component.displayedTemplates();
+      expect(displayed.length).toBe(1);
+      expect(displayed[0].safeHTML).toBeTruthy();
+
+      // Convert SafeHtml to string for checking
+      const htmlStr = String((displayed[0].safeHTML as unknown as { changingThisBreaksApplicationSecurity?: string })?.changingThisBreaksApplicationSecurity ?? displayed[0].safeHTML);
+      expect(htmlStr).toContain('LIVE-INV-777');
+      expect(htmlStr).toContain('Custom Live Client Corp');
+    });
+
+    it('updates displayed template previews when invoiceStore changes', () => {
+      const store = TestBed.inject(invoiceStore);
+      store.setInvoice({ invoiceNo: 'FIRST-001' });
+
+      const mockTemplates: TemplateItem[] = [
+        {
+          name: 'Test Template',
+          path: 'test-1',
+          tags: ['Tech'],
+          color: 'Blue',
+          html: '<p>Invoice ID: [[invoice_number]]</p>',
+        },
+      ];
+
+      fixture.componentRef.setInput('templates', mockTemplates);
+      fixture.detectChanges();
+
+      let displayed = component.displayedTemplates();
+      let htmlStr = String((displayed[0].safeHTML as unknown as { changingThisBreaksApplicationSecurity?: string })?.changingThisBreaksApplicationSecurity ?? displayed[0].safeHTML);
+      expect(htmlStr).toContain('FIRST-001');
+
+      // Update invoice in store
+      store.setInvoice({ invoiceNo: 'UPDATED-002' });
+      fixture.detectChanges();
+
+      displayed = component.displayedTemplates();
+      htmlStr = String((displayed[0].safeHTML as unknown as { changingThisBreaksApplicationSecurity?: string })?.changingThisBreaksApplicationSecurity ?? displayed[0].safeHTML);
+      expect(htmlStr).toContain('UPDATED-002');
+    });
+
+    it('highlights selected template card by path and renders iframe with scrolling="no"', () => {
+      const mockTemplates: TemplateItem[] = [
+        {
+          name: 'Template One',
+          path: 'tpl-1',
+          tags: ['Tag'],
+          color: 'Blue',
+          html: '<div>Tpl 1</div>',
+        },
+        {
+          name: 'Template Two',
+          path: 'tpl-2',
+          tags: ['Tag'],
+          color: 'Blue',
+          html: '<div>Tpl 2</div>',
+        },
+      ];
+
+      fixture.componentRef.setInput('templates', mockTemplates);
+      fixture.componentRef.setInput('selectedTemplate', mockTemplates[1]);
+      fixture.detectChanges();
+
+      const cards = fixture.nativeElement.querySelectorAll('.app-template-card');
+      expect(cards.length).toBe(2);
+      expect(cards[0].classList.contains('app-template-card--selected')).toBe(false);
+      expect(cards[1].classList.contains('app-template-card--selected')).toBe(true);
+
+      const iframes = fixture.nativeElement.querySelectorAll('.app-template-frame');
+      expect(iframes.length).toBe(2);
+      expect(iframes[0].getAttribute('scrolling')).toBe('no');
+      expect(iframes[0].getAttribute('tabindex')).toBe('-1');
     });
   });
 });

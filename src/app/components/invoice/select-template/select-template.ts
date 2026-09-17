@@ -24,6 +24,7 @@ import { invoiceStore } from '../store/invoice.store';
 import { TemplateService } from '../store/services/template.services';
 import { TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
+import { TemplateUtil } from '../utils/templates.utils';
 
 @Component({
   selector: 'app-select-template',
@@ -180,8 +181,20 @@ export class SelectTemplateComponent implements OnInit {
   safeCurrentPage = computed(() => Math.max(1, Math.min(this.currentPage(), this.pages())));
 
   displayedTemplates = computed(() => {
+    const currentInvoice = this.store.invoice();
     const start = (this.safeCurrentPage() - 1) * this.itemsPerPage();
-    return this.filteredTemplates().slice(start, start + this.itemsPerPage());
+    const slice = this.filteredTemplates().slice(start, start + this.itemsPerPage());
+    return slice.map((item) => {
+      if (!item.html) {
+        return item;
+      }
+      return {
+        ...item,
+        safeHTML: this.templateService.createWrappedSafeHtml(
+          TemplateUtil.fillTemplate(item.html, currentInvoice),
+        ),
+      };
+    });
   });
 
   startIndex = computed(() => {

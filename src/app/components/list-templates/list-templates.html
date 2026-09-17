@@ -102,7 +102,9 @@
                 [attr.srcdoc]="item.safeHTML"
                 [attr.title]="item.name"
                 class="app-template-frame"
-                style="transform: scale(0.4); transform-origin: top left; width: 250%; height: 250%"
+                scrolling="no"
+                tabindex="-1"
+                aria-hidden="true"
               ></iframe>
             } @else {
               <div class="app-template-loading">
