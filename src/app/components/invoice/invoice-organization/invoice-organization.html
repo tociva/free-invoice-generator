@@ -1,18 +1,9 @@
-<tng-card padding="md">
-  <!-- ── Card header ───────────────────────────────────────────────── -->
-  <div class="org-card-header">
-    <div class="app-icon-box app-icon-box--small">
-      <tng-icon icon="building" size="1.1rem" />
-    </div>
-    <div class="org-card-header-text">
-      <h2>Organization Information</h2>
-      <p>Enter your business details that will appear on the invoice.</p>
-    </div>
-  </div>
+<section class="org-section">
+  @if (showSectionLabel()) {
+    <div class="org-section-label">{{ advanced() ? 'Organization Information' : 'From' }}</div>
+  }
 
-  <!-- ── Form grid ─────────────────────────────────────────────────── -->
   <div class="org-form-grid" [formGroup]="InvoiceOrganizationForm()">
-    <!-- ── Row 1: My Name (left) | Country (right when advanced) ───── -->
     <div
       [ngClass]="
         advanced() ? 'org-field-wrapper org-field-half' : 'org-field-wrapper org-field-full'
@@ -22,19 +13,16 @@
         for="invoice-organization-name"
         id="invoice-organization-name-label"
         class="org-field-label"
-        >My Name</label
+        >{{ advanced() ? 'My Name' : 'Organization Name' }}</label
       >
       <div class="org-field-input-row">
-        <div class="org-field-icon-prefix" aria-hidden="true">
-          <tng-icon icon="user" size="0.875rem" />
-        </div>
         <div class="org-field-control-wrap">
           <tng-input-field size="sm">
             <input
               tngInput
               id="invoice-organization-name"
               formControlName="name"
-              placeholder="My name"
+              placeholder="Organization name"
               class="app-field-control"
             />
           </tng-input-field>
@@ -43,13 +31,9 @@
     </div>
 
     @if (advanced()) {
-      <!-- ── Country (right of Name) ───────────────────────────────── -->
       <div class="org-field-wrapper org-field-half">
         <label id="invoice-organization-country-label" class="org-field-label">Country</label>
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="globe" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-autocomplete
               labelId="invoice-organization-country-label"
@@ -80,25 +64,21 @@
       </div>
     }
 
-    <!-- ── Row 2: My Address ── full width, compact ──────────────────── -->
     <div class="org-field-wrapper org-field-full">
       <label
         for="invoice-organization-address"
         id="invoice-organization-address-label"
         class="org-field-label"
-        >My Address</label
+        >Organization Address</label
       >
       <div class="org-field-input-row">
-        <div class="org-field-icon-prefix" aria-hidden="true">
-          <tng-icon icon="map-pin" size="0.875rem" />
-        </div>
         <div class="org-field-control-wrap">
           <tng-input-field size="sm">
             <textarea
               tngInput
               id="invoice-organization-address"
               formControlName="address"
-              placeholder="My address"
+              placeholder="Organization address"
               rows="2"
               class="app-field-control org-address-compact"
             ></textarea>
@@ -108,7 +88,6 @@
     </div>
 
     @if (advanced()) {
-      <!-- ── Row 3: Email | Mobile ─────────────────────────────────── -->
       <div class="org-field-wrapper org-field-half">
         <label
           for="invoice-organization-email"
@@ -117,9 +96,6 @@
           >Email</label
         >
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="mail" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -142,9 +118,6 @@
           >Mobile</label
         >
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="phone" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -159,7 +132,6 @@
         </div>
       </div>
 
-      <!-- ── Row 4: GSTIN | Authority ──────────────────────────────── -->
       <div class="org-field-wrapper org-field-half">
         <label
           for="invoice-organization-gstin"
@@ -168,9 +140,6 @@
           >GSTIN</label
         >
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="file-text" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -193,9 +162,6 @@
           </tng-tooltip>
         </div>
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="user" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -211,7 +177,6 @@
         </div>
       </div>
 
-      <!-- ── Row 5: Designation ── half width ──────────────────────── -->
       <div class="org-field-wrapper org-field-half">
         <div class="org-field-label-row">
           <label for="organization-authorityDesignation" class="org-field-label">Designation</label>
@@ -220,9 +185,6 @@
           </tng-tooltip>
         </div>
         <div class="org-field-input-row">
-          <div class="org-field-icon-prefix" aria-hidden="true">
-            <tng-icon icon="briefcase" size="0.875rem" />
-          </div>
           <div class="org-field-control-wrap">
             <tng-input-field size="sm">
               <input
@@ -239,5 +201,4 @@
       </div>
     }
   </div>
-  <!-- /.org-form-grid -->
-</tng-card>
+</section>

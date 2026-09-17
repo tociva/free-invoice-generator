@@ -1,146 +1,104 @@
 @if (isMobile()) {
   <div class="app-card-content">
     @for (item of InvoiceItemForm().controls; track $index) {
-      <tng-card padding="md" [formGroup]="item" class="app-mobile-item">
-        <!-- Item Header with Delete Button -->
-        <div class="app-card-heading">
-          <h3 class="app-strong">Item #{{ $index + 1 }}</h3>
-          <tng-button
-            size="sm"
-            tone="danger"
-            appearance="solid"
-            type="button"
-            (click)="removeItem($index)"
-          >
-            <tng-icon icon="trash" />
-            <span class="app-sr-only">Remove item</span></tng-button
-          >
-        </div>
-
-        <div class="app-card-content">
-          <!-- Item Name -->
-          <div class="app-form-row">
-            <label class="app-field-label">Name</label>
-            <tng-input-field class="app-field" size="sm"
-              ><input
-                aria-label="Item name"
-                tngInput
-                formControlName="name"
-                class="app-field-control"
-                placeholder="Item name"
-            /></tng-input-field>
+      <div class="app-mobile-item" [formGroup]="item">
+        <tng-card padding="md">
+          <!-- Item Header with Delete Button -->
+          <div class="app-card-heading">
+            <h3 class="app-strong">Item #{{ $index + 1 }}</h3>
+            <tng-button
+              size="sm"
+              tone="danger"
+              appearance="solid"
+              type="button"
+              (click)="removeItem($index)"
+            >
+              <tng-icon icon="trash" />
+              <span class="app-sr-only">Remove item</span></tng-button
+            >
           </div>
 
-          <!-- Description -->
-          @if (advanced() && hasItemDescription()) {
+          <div class="app-card-content">
+            <!-- Item Name -->
             <div class="app-form-row">
-              <label class="app-field-label">Description</label>
-              <tng-input-field class="app-field" size="sm"
+              <label class="app-field-label">Name</label>
+              <tng-input-field size="sm"
                 ><input
-                  aria-label="description"
+                  aria-label="Item name"
                   tngInput
-                  formControlName="description"
+                  formControlName="name"
                   class="app-field-control"
-                  placeholder="Description"
+                  placeholder="Item name"
               /></tng-input-field>
             </div>
-          }
 
-          <!-- Quantity -->
-          <div class="app-form-row">
-            <label class="app-field-label">Quantity</label>
-            <tng-input-field class="app-field" size="sm"
-              ><input
-                aria-label="Quantity"
-                tngInput
-                formControlName="quantity"
-                type="number"
-                (change)="updateItemTotal($index)"
-                class="app-field-control app-field-control--numeric"
-                placeholder="1"
-            /></tng-input-field>
-          </div>
+            <!-- Description -->
+            @if (advanced() && hasItemDescription()) {
+              <div class="app-form-row">
+                <label class="app-field-label">Description</label>
+                <tng-input-field size="sm"
+                  ><input
+                    aria-label="description"
+                    tngInput
+                    formControlName="description"
+                    class="app-field-control"
+                    placeholder="Description"
+                /></tng-input-field>
+              </div>
+            }
 
-          <!-- Price -->
-          <div class="app-form-row">
-            <label class="app-field-label">Price</label>
-            <tng-input-field class="app-field" size="sm"
-              ><input
-                aria-label="Price"
-                tngInput
-                formControlName="price"
-                type="number"
-                (change)="updateItemTotal($index)"
-                class="app-field-control app-field-control--numeric"
-                placeholder="0"
-            /></tng-input-field>
-          </div>
-
-          <!-- Total -->
-          <div class="app-form-row">
-            <label class="app-field-label">Total</label>
-            <tng-input-field class="app-field" size="sm"
-              ><input
-                aria-label="Item total"
-                tngInput
-                formControlName="itemTotal"
-                readonly
-                class="app-field-control app-field-control--numeric"
-            /></tng-input-field>
-          </div>
-
-          <!-- Discount -->
-          @if (advanced() && hasItemDiscount()) {
+            <!-- Quantity -->
             <div class="app-form-row">
-              <label class="app-field-label">Discount %</label>
-              <tng-input-field class="app-field" size="sm"
+              <label class="app-field-label">Quantity</label>
+              <tng-input-field size="sm"
                 ><input
-                  aria-label="Discount percentage"
+                  aria-label="Quantity"
                   tngInput
-                  formControlName="discPercentage"
+                  formControlName="quantity"
                   type="number"
                   (change)="updateItemTotal($index)"
+                  class="app-field-control app-field-control--numeric"
+                  placeholder="1"
+              /></tng-input-field>
+            </div>
+
+            <!-- Price -->
+            <div class="app-form-row">
+              <label class="app-field-label">Price</label>
+              <tng-input-field size="sm"
+                ><input
+                  aria-label="Price"
+                  tngInput
+                  formControlName="price"
+                  type="number"
+                  (change)="updateItemTotal($index)"
+                  class="app-field-control app-field-control--numeric"
                   placeholder="0"
-                  class="app-field-control app-field-control--numeric"
               /></tng-input-field>
             </div>
 
+            <!-- Total -->
             <div class="app-form-row">
-              <label class="app-field-label">Discount Value</label>
-              <tng-input-field class="app-field" size="sm"
+              <label class="app-field-label">Total</label>
+              <tng-input-field size="sm"
                 ><input
-                  aria-label="Discount amount"
+                  aria-label="Item total"
                   tngInput
-                  formControlName="discountAmount"
-                  readonly
-                  placeholder="0"
-                  class="app-field-control app-field-control--numeric"
-              /></tng-input-field>
-            </div>
-
-            <div class="app-form-row">
-              <label class="app-field-label">SubTotal</label>
-              <tng-input-field class="app-field" size="sm"
-                ><input
-                  aria-label="Subtotal"
-                  tngInput
-                  formControlName="subTotal"
+                  formControlName="itemTotal"
                   readonly
                   class="app-field-control app-field-control--numeric"
               /></tng-input-field>
             </div>
-          }
 
-          <!-- Taxes -->
-          @if (advanced()) {
-            @if (selectedTaxOption() == 'CGST & SGST') {
+            <!-- Discount -->
+            @if (advanced() && hasItemDiscount()) {
               <div class="app-form-row">
-                <label class="app-field-label">CGST %</label>
-                <tng-input-field class="app-field" size="sm"
+                <label class="app-field-label">Discount %</label>
+                <tng-input-field size="sm"
                   ><input
-                    aria-label="CGST percentage"
+                    aria-label="Discount percentage"
                     tngInput
-                    formControlName="tax1Percentage"
+                    formControlName="discPercentage"
                     type="number"
                     (change)="updateItemTotal($index)"
                     placeholder="0"
@@ -149,12 +107,12 @@
               </div>
 
               <div class="app-form-row">
-                <label class="app-field-label">CGST Value</label>
-                <tng-input-field class="app-field" size="sm"
+                <label class="app-field-label">Discount Value</label>
+                <tng-input-field size="sm"
                   ><input
-                    aria-label="CGST value"
+                    aria-label="Discount amount"
                     tngInput
-                    formControlName="tax1Amount"
+                    formControlName="discountAmount"
                     readonly
                     placeholder="0"
                     class="app-field-control app-field-control--numeric"
@@ -162,104 +120,141 @@
               </div>
 
               <div class="app-form-row">
-                <label class="app-field-label">SGST %</label>
-                <tng-input-field class="app-field" size="sm"
+                <label class="app-field-label">SubTotal</label>
+                <tng-input-field size="sm"
                   ><input
-                    aria-label="SGST percentage"
+                    aria-label="Subtotal"
                     tngInput
-                    formControlName="tax2Percentage"
-                    type="number"
-                    (change)="updateItemTotal($index)"
-                    placeholder="0"
-                    class="app-field-control app-field-control--numeric"
-                /></tng-input-field>
-              </div>
-
-              <div class="app-form-row">
-                <label class="app-field-label">SGST Value</label>
-                <tng-input-field class="app-field" size="sm"
-                  ><input
-                    aria-label="SGST value"
-                    tngInput
-                    formControlName="tax2Amount"
-                    readonly
-                    placeholder="0"
-                    class="app-field-control app-field-control--numeric"
-                /></tng-input-field>
-              </div>
-            }
-
-            @if (selectedTaxOption() == 'IGST') {
-              <div class="app-form-row">
-                <label class="app-field-label">IGST %</label>
-                <tng-input-field class="app-field" size="sm"
-                  ><input
-                    aria-label="IGST percentage"
-                    tngInput
-                    formControlName="tax3Percentage"
-                    type="number"
-                    (change)="updateItemTotal($index)"
-                    placeholder="0"
-                    class="app-field-control app-field-control--numeric"
-                /></tng-input-field>
-              </div>
-
-              <div class="app-form-row">
-                <label class="app-field-label">IGST Value</label>
-                <tng-input-field class="app-field" size="sm"
-                  ><input
-                    aria-label="IGST value"
-                    tngInput
-                    formControlName="tax3Amount"
-                    readonly
-                    placeholder="0"
-                    class="app-field-control app-field-control--numeric"
-                /></tng-input-field>
-              </div>
-            }
-
-            @if (selectedTaxOption() == 'IGST' || selectedTaxOption() == 'CGST & SGST') {
-              <div class="app-form-row">
-                <label class="app-field-label">Tax Total</label>
-                <tng-input-field class="app-field" size="sm"
-                  ><input
-                    aria-label="Tax total"
-                    tngInput
-                    formControlName="taxTotal"
+                    formControlName="subTotal"
                     readonly
                     class="app-field-control app-field-control--numeric"
                 /></tng-input-field>
               </div>
             }
-          }
 
-          @if (advanced() && selectedTaxOption() != 'Non Taxable') {
-            <div class="app-form-row">
-              <label class="app-field-label">Grand Total</label>
-              <tng-input-field class="app-field" size="sm"
-                ><input
-                  aria-label="Grand total"
-                  tngInput
-                  formControlName="grandTotal"
-                  readonly
-                  class="app-field-control app-field-control--numeric"
-              /></tng-input-field>
-            </div>
-          }
-        </div>
-      </tng-card>
+            <!-- Taxes -->
+            @if (advanced()) {
+              @if (selectedTaxOption() == 'CGST & SGST') {
+                <div class="app-form-row">
+                  <label class="app-field-label">CGST %</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="CGST percentage"
+                      tngInput
+                      formControlName="tax1Percentage"
+                      type="number"
+                      (change)="updateItemTotal($index)"
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+
+                <div class="app-form-row">
+                  <label class="app-field-label">CGST Value</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="CGST value"
+                      tngInput
+                      formControlName="tax1Amount"
+                      readonly
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+
+                <div class="app-form-row">
+                  <label class="app-field-label">SGST %</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="SGST percentage"
+                      tngInput
+                      formControlName="tax2Percentage"
+                      type="number"
+                      (change)="updateItemTotal($index)"
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+
+                <div class="app-form-row">
+                  <label class="app-field-label">SGST Value</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="SGST value"
+                      tngInput
+                      formControlName="tax2Amount"
+                      readonly
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+              }
+
+              @if (selectedTaxOption() == 'IGST') {
+                <div class="app-form-row">
+                  <label class="app-field-label">IGST %</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="IGST percentage"
+                      tngInput
+                      formControlName="tax3Percentage"
+                      type="number"
+                      (change)="updateItemTotal($index)"
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+
+                <div class="app-form-row">
+                  <label class="app-field-label">IGST Value</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="IGST value"
+                      tngInput
+                      formControlName="tax3Amount"
+                      readonly
+                      placeholder="0"
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+              }
+
+              @if (selectedTaxOption() == 'IGST' || selectedTaxOption() == 'CGST & SGST') {
+                <div class="app-form-row">
+                  <label class="app-field-label">Tax Total</label>
+                  <tng-input-field size="sm"
+                    ><input
+                      aria-label="Tax total"
+                      tngInput
+                      formControlName="taxTotal"
+                      readonly
+                      class="app-field-control app-field-control--numeric"
+                  /></tng-input-field>
+                </div>
+              }
+            }
+
+            @if (advanced() && selectedTaxOption() != 'Non Taxable') {
+              <div class="app-form-row">
+                <label class="app-field-label">Grand Total</label>
+                <tng-input-field size="sm"
+                  ><input
+                    aria-label="Grand total"
+                    tngInput
+                    formControlName="grandTotal"
+                    readonly
+                    class="app-field-control app-field-control--numeric"
+                /></tng-input-field>
+              </div>
+            }
+          </div>
+        </tng-card>
+      </div>
     }
 
     <!-- ADD ITEM -->
     <div class="app-item-actions">
-      <tng-button
-        size="sm"
-        tone="primary"
-        appearance="solid"
-        type="button"
-        (click)="addItem()"
-        class="app-item-add"
-      >
+      <tng-button size="sm" tone="primary" appearance="solid" type="button" (click)="addItem()">
         <tng-icon icon="plus-circle" />
         <span>Add Item</span>
       </tng-button>

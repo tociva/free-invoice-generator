@@ -1,12 +1,7 @@
-import {
-  TngCardComponent,
-  TngInputFieldComponent,
-  TngAutocompleteComponent,
-} from '@tailng-ui/components';
+import { TngInputFieldComponent, TngAutocompleteComponent } from '@tailng-ui/components';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TngIcon } from '@tailng-ui/icons';
 import { TngInput } from '@tailng-ui/primitives';
 import { Country, countryFlagClass } from '../store/country/country.model';
 import { countryStore } from '../store/country/country.store';
@@ -16,10 +11,8 @@ import { CustomerForm } from '../store/models/invoice-form.model';
   selector: 'app-invoice-customer',
   standalone: true,
   imports: [
-    TngCardComponent,
     TngInputFieldComponent,
     TngAutocompleteComponent,
-    TngIcon,
     TngInput,
     ReactiveFormsModule,
     CommonModule,

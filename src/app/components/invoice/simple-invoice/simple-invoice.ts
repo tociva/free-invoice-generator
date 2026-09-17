@@ -1,6 +1,5 @@
 import {
   TngButtonComponent,
-  TngCardComponent,
   TngProgressSpinnerComponent,
   TngStepperComponent,
   type TngStepperStep,
@@ -42,7 +41,6 @@ import { SIMPLE_INVOICE_STEPS } from '../invoice-steps';
   standalone: true,
   imports: [
     TngProgressSpinnerComponent,
-    TngCardComponent,
     TngButtonComponent,
     InvoiceLogoComponent,
     InvoiceDetailsComponent,

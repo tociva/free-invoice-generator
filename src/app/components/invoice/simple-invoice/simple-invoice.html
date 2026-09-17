@@ -1,4 +1,3 @@
-
 <tng-stepper
   ariaLabel="Invoice steps"
   orientation="horizontal"
@@ -13,67 +12,67 @@
   @if (currentStep() === 1) {
     <div class="app-invoice-section">
       <div class="app-invoice-columns">
-        <tng-card padding="md" class="app-invoice-editor">
-          <div class="app-grid-2">
-            <div class="app-field">
-              <tng-card padding="md">
-                <div class="upload-card-header">
-                  <div class="app-icon-box app-icon-box--small">
-                    <tng-icon icon="image-up" size="1.1rem" />
-                  </div>
-                  <div class="upload-card-header-text">
-                    <h2>Upload Logos</h2>
-                    <p>Add your business logo</p>
-                  </div>
+        <div class="invoice-editor-shell">
+          <div class="invoice-document">
+            <header class="invoice-document-header">
+              <div class="invoice-logo-field" aria-label="Upload Logo">
+                <app-invoice-logo
+                  [InvoiceLogo]="formInvoice"
+                  logoField="smallLogo"
+                ></app-invoice-logo>
+              </div>
+
+              <div class="invoice-header-organization">
+                <app-invoice-organization
+                  [InvoiceOrganizationForm]="formInvoice.controls.organization"
+                  [showSectionLabel]="false"
+                ></app-invoice-organization>
+              </div>
+
+              <div class="invoice-meta-block">
+                <app-invoice-details
+                  [InvoiceDetailsForm]="formInvoice"
+                  [simple]="true"
+                ></app-invoice-details>
+
+                <div class="invoice-header-customer">
+                  <app-invoice-customer
+                    [InvoiceCustomerForm]="formInvoice.controls.customer"
+                  ></app-invoice-customer>
                 </div>
-                <div class="app-logo-card-content">
-                  <app-invoice-logo
-                    [InvoiceLogo]="formInvoice"
-                    logoField="smallLogo"
-                  ></app-invoice-logo>
-                </div>
-              </tng-card>
-            </div>
-            <div class="app-field">
-              <app-invoice-details
-                [InvoiceDetailsForm]="formInvoice"
-                [simple]="true"
-              ></app-invoice-details>
-            </div>
+              </div>
+            </header>
+
+            <div class="invoice-section-rule"></div>
+
+            <app-invoice-items [InvoiceItemForm]="formInvoice.controls.items"></app-invoice-items>
+            <app-invoice-items-mobile
+              [InvoiceItemForm]="formInvoice.controls.items"
+            ></app-invoice-items-mobile>
+
+            <app-invoice-summary [InvoiceSummary]="formInvoice"></app-invoice-summary>
+
+            <div class="invoice-section-rule"></div>
+
+            <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
           </div>
-
-          <div class="app-grid-2">
-            <app-invoice-organization
-              [InvoiceOrganizationForm]="formInvoice.controls.organization"
-            ></app-invoice-organization>
-            <app-invoice-customer
-              [InvoiceCustomerForm]="formInvoice.controls.customer"
-            ></app-invoice-customer>
-          </div>
-
-          <app-invoice-items [InvoiceItemForm]="formInvoice.controls.items"></app-invoice-items>
-          <app-invoice-items-mobile
-            [InvoiceItemForm]="formInvoice.controls.items"
-          ></app-invoice-items-mobile>
-          <app-invoice-summary [InvoiceSummary]="formInvoice"></app-invoice-summary>
-          <app-invoice-terms-notes [InvoiceTermsNotes]="formInvoice"></app-invoice-terms-notes>
-        </tng-card>
-        <div class="app-invoice-aside">
-          <!-- Invoice Config Component -->
-          <app-simple-invoice-config [InvoiceConfiq]="formInvoice"></app-simple-invoice-config>
-
-          <!-- Button -->
-          <tng-button
-            size="sm"
-            tone="primary"
-            appearance="ghost"
-            class="app-invoice-download"
-            (click)="temp()"
-          >
-            <tng-icon icon="check-circle"></tng-icon>
-            Preview and Download
-          </tng-button>
         </div>
+        <aside class="app-invoice-aside" aria-label="Invoice settings">
+          <div class="invoice-settings-panel">
+            <div class="invoice-settings-heading">
+              <h2>Settings</h2>
+              <p>Output preferences</p>
+            </div>
+            <app-simple-invoice-config [InvoiceConfiq]="formInvoice"></app-simple-invoice-config>
+          </div>
+
+          <div class="invoice-aside-action">
+            <tng-button size="sm" tone="primary" appearance="solid" (click)="temp()">
+              <tng-icon icon="check-circle"></tng-icon>
+              Preview and Download
+            </tng-button>
+          </div>
+        </aside>
       </div>
 
       <!-- Navigation -->
