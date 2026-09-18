@@ -1,6 +1,6 @@
 {
   "name": "free-invoice-generator-2.0",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "engines": {
     "node": ">=22.22.3 <23",
     "pnpm": "10.34.5"
