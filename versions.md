@@ -1,4 +1,10 @@
 # Version Details
+## Version: 0.0.9
+## Date: 2026-09-18
+BRANCH_NAME=development
+BUILD_VERSION=v0.0.9-development
+
+# Version Details
 ## Version: 0.0.8
 ## Date: 2026-09-17
 BRANCH_NAME=development
