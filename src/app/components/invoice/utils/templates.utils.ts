@@ -21,6 +21,23 @@ export class TemplateUtil {
   }
 
   /**
+   * Replaces a logo placeholder, or removes its image when the invoice has no logo.
+   * An empty src can show a broken-image icon, so the image element itself must not
+   * survive in the rendered template.
+   */
+  private static fillLogo(html: string, placeholder: string, logo: string | null): string {
+    const value = safeLogo(logo);
+    if (value) {
+      return html.replaceAll(placeholder, () => this.escapeHtml(value));
+    }
+
+    const escapedPlaceholder = placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return html
+      .replace(new RegExp(`<img\\b[^>]*${escapedPlaceholder}[^>]*>`, 'gi'), '')
+      .replaceAll(placeholder, '');
+  }
+
+  /**
    * Fills an invoice template with actual invoice data
    */
   public static fillTemplate(html: string, invoice: Invoice): string {
@@ -44,6 +61,8 @@ export class TemplateUtil {
 
     const itemsRegex = /\[\[items_start\]\][\s\S]*?\[\[items_end\]\]/;
     let result = html.replace(itemsRegex, () => filledItems);
+    result = this.fillLogo(result, '[[logo_small_src]]', invoice.smallLogo);
+    result = this.fillLogo(result, '[[logo_large_src]]', invoice.largeLogo);
 
     // Replace other placeholders
     const replacements: Record<string, string> = {
@@ -70,8 +89,6 @@ export class TemplateUtil {
       '[[roundoff]]': invoice.roundOff.toFixed(decimal),
       '[[grand_total]]': invoice.grandTotal.toFixed(decimal),
       '[[grand_total_inwords]]': invoice.grandTotalInWords ?? '',
-      '[[logo_small_src]]': safeLogo(invoice.smallLogo),
-      '[[logo_large_src]]': safeLogo(invoice.largeLogo),
       '[[account_number]]': invoice.accountNumber ?? '',
       '[[account_name]]': invoice.accountName ?? '',
       '[[bank_name]]': invoice.bankName ?? '',
