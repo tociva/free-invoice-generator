@@ -21,35 +21,68 @@
 
 .invoice-document-header {
   display: grid;
-  grid-template-columns: 6.5rem minmax(12rem, 0.85fr) minmax(36rem, 1.2fr);
-  gap: clamp(0.85rem, 2vw, 1.5rem);
+  grid-template-columns:
+    minmax(24rem, 1.1fr)
+    auto
+    minmax(18rem, 0.9fr)
+    auto
+    minmax(16rem, 0.7fr);
+  gap: clamp(1rem, 2vw, 1.6rem);
+  align-items: start;
+  padding: clamp(1rem, 2.4vw, 1.6rem);
+  border: 0.5px solid var(--invoice-hairline-border);
+  border-radius: var(--tng-radius-lg);
+}
+
+.invoice-header-section {
+  min-width: 0;
+}
+
+.invoice-header-section--organization {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.8vw, 1.35rem);
   align-items: start;
 }
 
 .invoice-logo-field {
-  width: 6.5rem;
-  --app-upload-min-height: 4.75rem;
-  --app-upload-padding: 0.5rem;
+  width: 7.5rem;
+  --app-upload-min-height: 7rem;
+  --app-upload-padding: 0.6rem;
 }
 
-.invoice-header-organization {
+.invoice-header-organization,
+.invoice-header-section--customer,
+.invoice-header-section--details {
   min-width: 0;
 }
 
-.invoice-meta-block {
-  display: grid;
-  gap: 0.7rem;
-  justify-items: end;
-  min-width: 0;
+.invoice-header-section--customer {
+  max-width: 24rem;
 }
 
-.invoice-meta-block app-invoice-details {
-  width: 100%;
+.invoice-header-section--details {
+  max-width: 20rem;
+  justify-self: end;
 }
 
-.invoice-header-customer {
-  width: 100%;
-  min-width: 0;
+.invoice-header-separator--vertical {
+  display: flex;
+  align-self: stretch;
+  justify-content: center;
+  min-height: 14rem;
+}
+
+.invoice-header-separator--horizontal {
+  display: none;
+}
+
+:host ::ng-deep .invoice-header-separator--vertical tng-separator {
+  transform: scaleX(0.5);
+}
+
+:host ::ng-deep .invoice-header-separator--horizontal tng-separator {
+  transform: scaleY(0.5);
 }
 
 .invoice-section-rule {
@@ -113,16 +146,54 @@
   border-color: var(--invoice-hairline-border);
 }
 
+:host ::ng-deep .invoice-document-header .org-form-grid,
+:host ::ng-deep .invoice-document-header .customer-form-grid,
+:host ::ng-deep .invoice-document-header .invoice-form-grid--simple {
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+
+:host ::ng-deep .invoice-document-header .invoice-section-heading {
+  display: none;
+}
+
 @media (max-width: 760px) {
   .invoice-document-header {
     grid-template-columns: 1fr;
   }
 
-  .invoice-meta-block {
-    justify-items: start;
+  .invoice-header-section--organization {
+    grid-template-columns: minmax(7rem, 8rem) minmax(0, 1fr);
+  }
+
+  .invoice-header-section--customer,
+  .invoice-header-section--details {
+    max-width: none;
+  }
+
+  .invoice-header-section--details {
+    justify-self: stretch;
+  }
+
+  .invoice-header-separator--vertical {
+    display: none;
+  }
+
+  .invoice-header-separator--horizontal {
+    display: block;
   }
 
   .invoice-logo-field {
-    width: min(100%, 10rem);
+    width: min(100%, 8rem);
+  }
+}
+
+@media (max-width: 520px) {
+  .invoice-header-section--organization {
+    grid-template-columns: 1fr;
+  }
+
+  .invoice-logo-field {
+    width: min(100%, 9rem);
   }
 }

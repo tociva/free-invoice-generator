@@ -1,6 +1,7 @@
 import {
   TngButtonComponent,
   TngProgressSpinnerComponent,
+  TngSeparatorComponent,
   TngStepperComponent,
   type TngStepperStep,
 } from '@tailng-ui/components';
@@ -54,6 +55,7 @@ import { SIMPLE_INVOICE_STEPS } from '../invoice-steps';
     PreviewInvoiceComponent,
     InvoiceItemsMobileComponent,
     TngIcon,
+    TngSeparatorComponent,
     TngStepperComponent,
   ],
   templateUrl: './simple-invoice.html',
