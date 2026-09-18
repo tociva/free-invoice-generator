@@ -1,8 +1,12 @@
 import { TemplateUtil } from '../../utils/templates.utils';
-import { initialInvoiceState } from '../invoice.states';
+import { sampleInvoice } from '../../../list-templates/template.utils';
+import { DEFAULT_INVOICE_LOGO_URL, initialInvoiceState } from '../invoice.states';
 import { parseInvoiceJson } from './invoice-import';
 
 describe('Invoice JSON import and rendering', () => {
+  it('starts the default invoice with the existing default logo', () => {
+    expect(initialInvoiceState.invoice.smallLogo).toBe(DEFAULT_INVOICE_LOGO_URL);
+  });
   it('round-trips the current JSON export format and restores dates', () => {
     const invoice = parseInvoiceJson(JSON.stringify(initialInvoiceState.invoice));
     expect(invoice).toEqual(initialInvoiceState.invoice);
@@ -49,5 +53,38 @@ describe('Invoice JSON import and rendering', () => {
         invoice,
       ),
     ).toBe('2025-06-2418.00');
+  });
+  it('renders valid small and large logos in their template image elements', () => {
+    const invoice = structuredClone(initialInvoiceState.invoice);
+    invoice.smallLogo = DEFAULT_INVOICE_LOGO_URL;
+    invoice.largeLogo = 'data:image/png;base64,YWJj';
+
+    const html = TemplateUtil.fillTemplate(
+      '<img class="small" src="[[logo_small_src]]"><img src="[[logo_large_src]]" class="large">',
+      invoice,
+    );
+
+    expect(html).toContain(`src="${DEFAULT_INVOICE_LOGO_URL}"`);
+    expect(html).toContain('src="data:image/png;base64,YWJj"');
+  });
+  it('removes logo image elements when their corresponding logo is empty', () => {
+    const invoice = structuredClone(initialInvoiceState.invoice);
+    invoice.smallLogo = '';
+    invoice.largeLogo = null;
+
+    const html = TemplateUtil.fillTemplate(
+      '<div class="small"><img alt="Logo" src="[[logo_small_src]]"></div><div class="large"><img\n src="[[logo_large_src]]" alt="logo" /></div>',
+      invoice,
+    );
+
+    expect(html).toBe('<div class="small"></div><div class="large"></div>');
+    expect(html).not.toContain('<img');
+    expect(html).not.toMatch(/Logo|logo/);
+  });
+  it('uses the existing default logo in Template List sample previews', () => {
+    expect(sampleInvoice.smallLogo).toBe(DEFAULT_INVOICE_LOGO_URL);
+    expect(TemplateUtil.fillTemplate('<img src="[[logo_small_src]]">', sampleInvoice)).toContain(
+      `src="${DEFAULT_INVOICE_LOGO_URL}"`,
+    );
   });
 });

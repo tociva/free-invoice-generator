@@ -1,4 +1,5 @@
 import { Invoice, TaxOption } from '../invoice/store/models/invoice-model';
+import { DEFAULT_INVOICE_LOGO_URL } from '../invoice/store/invoice.states';
 
 export const sampleInvoice: Invoice = {
   invoiceNo: 'INV-1',
@@ -129,6 +130,6 @@ export const sampleInvoice: Invoice = {
   terms:
     'Payment is due within 15 days of the invoice date. Late payments may incur interest. Please contact us within 7 days regarding any discrepancies.',
   notes: 'Type aditional notes here',
-  smallLogo: '',
+  smallLogo: DEFAULT_INVOICE_LOGO_URL,
   largeLogo: '',
 };
