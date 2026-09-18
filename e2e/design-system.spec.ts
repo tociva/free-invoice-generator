@@ -133,7 +133,7 @@ test('empty and validation error compositions remain usable', async ({ page }) =
 
 test('file upload is keyboard accessible', async ({ page }) => {
   await page.goto('/home');
-  const upload = page.locator('[appFileSelect]');
+  const upload = page.locator('[tngFileUpload]');
   await upload.focus();
   await expect(upload).toBeFocused();
   const chooser = page.waitForEvent('filechooser');

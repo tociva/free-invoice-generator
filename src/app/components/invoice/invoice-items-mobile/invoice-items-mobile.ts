@@ -34,7 +34,6 @@ import { InvoiceItem } from '../store/models/invoice-model';
     CommonModule,
   ],
   templateUrl: './invoice-items-mobile.html',
-  styleUrls: ['./invoice-items-mobile.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class InvoiceItemsMobileComponent implements OnInit {

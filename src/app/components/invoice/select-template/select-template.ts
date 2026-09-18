@@ -11,7 +11,6 @@ import {
   Component,
   computed,
   effect,
-  HostListener,
   inject,
   input,
   OnInit,
@@ -40,28 +39,15 @@ import { TemplateUtil } from '../utils/templates.utils';
   ],
   templateUrl: './select-template.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./select-template.css'],
 })
 export class SelectTemplateComponent implements OnInit {
   templateService = inject(TemplateService);
   templateStore = inject(templateStore);
 
-  // SOURCE DATA
-  // templates = signal<TemplateItem[]>([]);
-
   // UI STATE
   globalSearch = signal('');
   paletteQuery = signal('');
   searchOpen = signal(false);
-
-  // Temporarily commented out to avoid conflict with global header search shortcut (Ctrl+K / Cmd+K)
-  // @HostListener('document:keydown', ['$event'])
-  // onGlobalSearchShortcut(event: KeyboardEvent): void {
-  //   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-  //     event.preventDefault();
-  //     this.openSearch();
-  //   }
-  // }
 
   openSearch(): void {
     this.paletteQuery.set('');
@@ -112,8 +98,6 @@ export class SelectTemplateComponent implements OnInit {
   });
 
   selectTemplate(item: TemplateItem) {
-    // this.selectedTemplate.set(item);
-    // this.isSelected.set(true);
     this.templateSelected.emit(item);
   }
   filteredTags = computed(() => {

@@ -116,12 +116,6 @@ export class SimpleInvoice implements OnInit {
   onStepperValueChange(value: string | number): void {
     this.goToStep(Number(value));
   }
-  // selectedTemplate = computed(() => this.templates().find(item => item.path === this.templateStore.selectedTemplatePath()) ?? this.templates()[0] ?? null);
-
-  // onTemplateSelected(template: TemplateItem) {
-  //   this.selectedTemplate.set(template);
-
-  // }
 
   async ngOnInit() {
     this.calcService.initFormSubscriptions(this.formInvoice);
@@ -147,7 +141,5 @@ export class SimpleInvoice implements OnInit {
   saveInvoiceState() {
     const invoice = this.formInvoice.getRawValue() as Invoice;
     this.store.setInvoice(invoice);
-    // this.store.resetInvoice();
-    // this.router.navigate(['/Testing']);
   }
 }

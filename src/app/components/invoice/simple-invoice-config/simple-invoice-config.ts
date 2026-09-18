@@ -21,7 +21,6 @@ import { InvoiceForm } from '../store/models/invoice-form.model';
   imports: [TngAutocompleteComponent, ReactiveFormsModule],
   templateUrl: './simple-invoice-config.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  styleUrls: ['./simple-invoice-config.css'],
 })
 export class SimpleInvoiceConfig implements OnInit {
 

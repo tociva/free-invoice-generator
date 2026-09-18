@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  HostListener,
   OnInit,
   computed,
   inject,
@@ -42,7 +41,6 @@ import { sampleInvoice } from './template.utils';
   ],
   templateUrl: './list-templates.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./list-templates.css'],
 })
 export class ListTemplates implements OnInit {
   templateService = inject(TemplateService);
@@ -65,15 +63,6 @@ export class ListTemplates implements OnInit {
   globalSearch = signal('');
   paletteQuery = signal('');
   searchOpen = signal(false);
-
-  // Temporarily commented out to avoid conflict with global header search shortcut (Ctrl+K / Cmd+K)
-  // @HostListener('document:keydown', ['$event'])
-  // onGlobalSearchShortcut(event: KeyboardEvent): void {
-  //   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-  //     event.preventDefault();
-  //     this.openSearch();
-  //   }
-  // }
 
   openSearch(): void {
     this.paletteQuery.set('');
