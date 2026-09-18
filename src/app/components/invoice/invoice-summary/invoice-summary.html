@@ -1,20 +1,22 @@
 <section class="invoice-summary-grid" [formGroup]="InvoiceSummary()">
   <div class="summary-amount-block">
-    <div class="summary-numbering-row">
-      <div class="summary-checkbox-wrapper">
-        <tng-checkbox tngAngularForms formControlName="internationalNumbering">
-          International Numbering
-        </tng-checkbox>
+    @if (advanced()) {
+      <div class="summary-numbering-row">
+        <div class="summary-checkbox-wrapper">
+          <tng-checkbox tngAngularForms formControlName="internationalNumbering">
+            International Numbering
+          </tng-checkbox>
+        </div>
+        <div class="summary-tooltip-wrapper">
+          <tng-tooltip
+            text="International: 1,234,567.00. Indian: 12,34,567.00."
+            ariaLabel="About international numbering"
+          >
+            <tng-icon trigger icon="circle-help" size="0.875rem" />
+          </tng-tooltip>
+        </div>
       </div>
-      <div class="summary-tooltip-wrapper">
-        <tng-tooltip
-          text="International: 1,234,567.00. Indian: 12,34,567.00."
-          ariaLabel="About international numbering"
-        >
-          <tng-icon trigger icon="circle-help" size="0.875rem" />
-        </tng-tooltip>
-      </div>
-    </div>
+    }
 
     <div class="summary-amount-words-block">
       <div class="summary-amount-label">Amount in Words</div>

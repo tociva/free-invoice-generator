@@ -15,32 +15,62 @@
         <div class="invoice-editor-shell">
           <div class="invoice-document">
             <header class="invoice-document-header">
-              <div class="invoice-logo-field" aria-label="Upload Logo">
-                <app-invoice-logo
-                  [InvoiceLogo]="formInvoice"
-                  logoField="smallLogo"
-                ></app-invoice-logo>
+              <section class="invoice-header-section invoice-header-section--organization">
+                <div class="invoice-logo-field" aria-label="Upload Logo">
+                  <app-invoice-logo
+                    [InvoiceLogo]="formInvoice"
+                    logoField="smallLogo"
+                  ></app-invoice-logo>
+                </div>
+
+                <div class="invoice-header-organization">
+                  <app-invoice-organization
+                    [InvoiceOrganizationForm]="formInvoice.controls.organization"
+                    [showSectionLabel]="false"
+                  ></app-invoice-organization>
+                </div>
+              </section>
+
+              <div
+                class="invoice-header-separator invoice-header-separator--vertical"
+                aria-hidden="true"
+              >
+                <tng-separator [decorative]="true" orientation="vertical" />
               </div>
 
-              <div class="invoice-header-organization">
-                <app-invoice-organization
-                  [InvoiceOrganizationForm]="formInvoice.controls.organization"
-                  [showSectionLabel]="false"
-                ></app-invoice-organization>
+              <div
+                class="invoice-header-separator invoice-header-separator--horizontal"
+                aria-hidden="true"
+              >
+                <tng-separator [decorative]="true" orientation="horizontal" />
               </div>
 
-              <div class="invoice-meta-block">
+              <section class="invoice-header-section invoice-header-section--customer">
+                <app-invoice-customer
+                  [InvoiceCustomerForm]="formInvoice.controls.customer"
+                ></app-invoice-customer>
+              </section>
+
+              <div
+                class="invoice-header-separator invoice-header-separator--vertical"
+                aria-hidden="true"
+              >
+                <tng-separator [decorative]="true" orientation="vertical" />
+              </div>
+
+              <div
+                class="invoice-header-separator invoice-header-separator--horizontal"
+                aria-hidden="true"
+              >
+                <tng-separator [decorative]="true" orientation="horizontal" />
+              </div>
+
+              <section class="invoice-header-section invoice-header-section--details">
                 <app-invoice-details
                   [InvoiceDetailsForm]="formInvoice"
                   [simple]="true"
                 ></app-invoice-details>
-
-                <div class="invoice-header-customer">
-                  <app-invoice-customer
-                    [InvoiceCustomerForm]="formInvoice.controls.customer"
-                  ></app-invoice-customer>
-                </div>
-              </div>
+              </section>
             </header>
 
             <div class="invoice-section-rule"></div>

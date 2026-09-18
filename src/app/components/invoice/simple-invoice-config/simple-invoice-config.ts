@@ -8,7 +8,13 @@ import {
   signal,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TngAutocompleteComponent } from '@tailng-ui/components';
+import {
+  TngAutocompleteComponent,
+  TngCheckboxAngularFormsAdapter,
+  TngCheckboxComponent,
+  TngTooltipComponent,
+} from '@tailng-ui/components';
+import { TngIcon } from '@tailng-ui/icons';
 import { Currency } from '../store/currency/currency.model';
 import { currencyStore } from '../store/currency/currency.store';
 import { DateFormat } from '../store/date-format/date-format.model';
@@ -18,12 +24,18 @@ import { InvoiceForm } from '../store/models/invoice-form.model';
 @Component({
   selector: 'app-simple-invoice-config',
   standalone: true,
-  imports: [TngAutocompleteComponent, ReactiveFormsModule],
+  imports: [
+    TngAutocompleteComponent,
+    TngCheckboxComponent,
+    TngCheckboxAngularFormsAdapter,
+    TngTooltipComponent,
+    TngIcon,
+    ReactiveFormsModule,
+  ],
   templateUrl: './simple-invoice-config.html',
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SimpleInvoiceConfig implements OnInit {
-
   public currencyStore = inject(currencyStore);
   public dateFormatStore = inject(dateFormatStore);
 
@@ -42,9 +54,7 @@ export class SimpleInvoiceConfig implements OnInit {
     if (!q) {
       return list;
     }
-    return list.filter((c) =>
-      this.stringFields(c).some((t) => t.toLowerCase().startsWith(q)),
-    );
+    return list.filter((c) => this.stringFields(c).some((t) => t.toLowerCase().startsWith(q)));
   });
 
   readonly filteredDateFormats = computed<readonly DateFormat[]>(() => {
@@ -72,14 +82,17 @@ export class SimpleInvoiceConfig implements OnInit {
 
   onCurrencyValueChange(key: string | null) {
     const match = this.currencyStore.currencies().find((c) => this.currencyText(c) === key);
-    this.InvoiceConfiq().get('currency')?.setValue(match ?? null);
+    this.InvoiceConfiq()
+      .get('currency')
+      ?.setValue(match ?? null);
   }
 
   onDateFormatValueChange(key: string | null) {
     const match = this.dateFormatStore.dateFormat().find((f) => f.value === key);
-    this.InvoiceConfiq().get('dateFormat')?.setValue(match ?? null);
+    this.InvoiceConfiq()
+      .get('dateFormat')
+      ?.setValue(match ?? null);
   }
-
 
   private currencyText(c: Currency): string {
     return `${c.symbol} ${c.name}`;
