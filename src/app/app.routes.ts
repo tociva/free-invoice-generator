@@ -12,11 +12,6 @@ export const routes: Routes = [
     loadComponent: () => import('./components/home/home').then((m) => m.Home),
   },
   {
-    path: 'Testing',
-    pathMatch: 'full',
-    loadComponent: () => import('./components/invoice/testing/testing').then((m) => m.Testing),
-  },
-  {
     path: 'simple-invoice',
     pathMatch: 'full',
     loadComponent: () =>
@@ -26,30 +21,6 @@ export const routes: Routes = [
     path: 'invoice',
     pathMatch: 'full',
     loadComponent: () => import('./components/invoice/invoice').then((m) => m.Invoice),
-  },
-  {
-    path: 'docs/index.html',
-    redirectTo: 'docs',
-    pathMatch: 'full',
-  },
-  {
-    path: 'docs/create-unlimited-free-invoices.html',
-    redirectTo: 'docs/create-invoices',
-    pathMatch: 'full',
-  },
-  {
-    path: 'docs/customize-invoice-template.html',
-    redirectTo: 'docs/customize-templates',
-    pathMatch: 'full',
-  },
-  {
-    path: 'docs/free-opensource-invoice-templates',
-    redirectTo: 'docs/template-library',
-    pathMatch: 'full',
-  },
-  {
-    path: 'docs/free-opensource-invoice-templates/**',
-    redirectTo: 'docs/template-library',
   },
   {
     path: 'docs',

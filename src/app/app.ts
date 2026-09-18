@@ -11,7 +11,6 @@ import { SeoService } from './services/seo.service';
   imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('free-invoice-generator-2.0');

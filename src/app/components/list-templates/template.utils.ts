@@ -1,7 +1,7 @@
 import { Invoice, TaxOption } from '../invoice/store/models/invoice-model';
 
 export const sampleInvoice: Invoice = {
-  invoiceNo: 'INV-0001',
+  invoiceNo: 'INV-1',
   invoiceDate: new Date('2025-06-24'),
   invoiceDueDate: new Date('2025-07-01'),
   currency: {

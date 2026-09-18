@@ -5,7 +5,6 @@ for (const [route, content] of [
   ['/simple-invoice', 'app-simple-invoice'],
   ['/invoice?step=3', 'app-invoice'],
   ['/templates', 'app-list-templates'],
-  ['/Testing', 'app-testing'],
 ]) {
   test(`restores dark mode on direct entry to ${route}`, async ({ page }) => {
     await page.addInitScript(() => {

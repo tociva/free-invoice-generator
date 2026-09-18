@@ -23,7 +23,6 @@ export interface InvoicePreviewDialogData {
   imports: [CommonModule, TngDialogComponent],
   templateUrl: './invoice-preview-dialog.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./invoice-preview-dialog.css'],
 })
 export class InvoicePreviewDialogComponent {
   // Two-way binding for dialog open state
