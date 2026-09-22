@@ -1,4 +1,91 @@
 import { Invoice, TaxOption } from './invoice-model';
+import { CurrencyUtil } from '../currency/currency.util';
+
+export type InvoiceType = 'simple' | 'advanced';
+
+export interface InvoiceJsonEnvelope {
+  version: 1;
+  invoiceType: InvoiceType;
+  templatePath: string | null;
+  invoice: unknown;
+}
+
+export interface ImportedInvoice {
+  invoiceType: InvoiceType;
+  templatePath: string | null;
+  invoice: Invoice;
+}
+
+const emptyCountry = {
+  code: '',
+  name: '',
+  iso: '',
+  phone: '',
+  currencycode: '',
+  dateformat: '',
+};
+
+function simpleInvoiceData(invoice: Invoice) {
+  const items = invoice.items.map((item) => {
+    const itemTotal = item.price * item.quantity;
+    return {
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      itemTotal,
+      subTotal: itemTotal,
+      grandTotal: itemTotal,
+    };
+  });
+  const itemTotal = items.reduce((total, item) => total + item.itemTotal, 0);
+  const grandTotal = itemTotal + invoice.roundOff;
+
+  return {
+    invoiceNo: invoice.invoiceNo,
+    invoiceDate: invoice.invoiceDate,
+    invoiceDueDate: invoice.invoiceDueDate,
+    currency: invoice.currency,
+    decimalPlaces: invoice.decimalPlaces,
+    dateFormat: invoice.dateFormat,
+    internationalNumbering: invoice.internationalNumbering,
+    terms: invoice.terms,
+    notes: invoice.notes,
+    organization: invoice.organization
+      ? { name: invoice.organization.name, address: invoice.organization.address }
+      : null,
+    customer: invoice.customer
+      ? { name: invoice.customer.name, address: invoice.customer.address }
+      : null,
+    items,
+    itemTotal,
+    discountTotal: 0,
+    subTotal: itemTotal,
+    taxTotal: 0,
+    roundOff: invoice.roundOff,
+    grandTotal,
+    grandTotalInWords: CurrencyUtil.numberToWords(
+      grandTotal,
+      invoice.currency?.code || 'INR',
+      invoice.currency?.fraction || '',
+      invoice.decimalPlaces ?? 2,
+      invoice.internationalNumbering,
+    ),
+    smallLogo: invoice.smallLogo,
+  };
+}
+
+export function createInvoiceJsonEnvelope(
+  invoiceType: InvoiceType,
+  invoice: Invoice,
+  templatePath: string | null,
+): InvoiceJsonEnvelope {
+  return {
+    version: 1,
+    invoiceType,
+    templatePath,
+    invoice: invoiceType === 'simple' ? simpleInvoiceData(invoice) : structuredClone(invoice),
+  };
+}
 
 function record(value: unknown, path: string): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value))
@@ -40,15 +127,72 @@ export function safeLogo(value: string | null): string {
     : '';
 }
 
-/** Validate before updating either the form or store; JSON dates are restored as Dates. */
-export function parseInvoiceJson(text: string): Invoice {
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(text);
-  } catch {
-    throw new Error('The file is not valid JSON.');
-  }
-  const value = record(parsed, 'Invoice');
+function hydrateSimpleInvoice(raw: unknown): Record<string, unknown> {
+  const value = record(raw, 'Invoice');
+  const organization =
+    value['organization'] === null ? null : record(value['organization'], 'organization');
+  const customer = value['customer'] === null ? null : record(value['customer'], 'customer');
+  if (!Array.isArray(value['items'])) throw new Error('Invoice items must be an array.');
+
+  return {
+    ...value,
+    taxOption: TaxOption.NON_TAXABLE,
+    hasItemDescription: false,
+    hasItemDiscount: false,
+    accountNumber: '',
+    accountName: '',
+    bankName: '',
+    deliveryState: '',
+    organization:
+      organization === null
+        ? null
+        : {
+            name: organization['name'],
+            address: organization['address'],
+            country: emptyCountry,
+            email: '',
+            phone: '',
+            gstin: '',
+            authorityName: '',
+            authorityDesignation: '',
+          },
+    customer:
+      customer === null
+        ? null
+        : {
+            name: customer['name'],
+            address: customer['address'],
+            country: emptyCountry,
+            email: '',
+            phone: '',
+            gstin: '',
+          },
+    items: value['items'].map((rawItem) => {
+      const item = record(rawItem, 'Item');
+      return {
+        name: item['name'],
+        description: null,
+        quantity: item['quantity'],
+        price: item['price'],
+        itemTotal: item['itemTotal'],
+        discountAmount: 0,
+        discPercentage: 0,
+        subTotal: item['subTotal'],
+        tax1Amount: 0,
+        tax1Percentage: 0,
+        tax2Amount: 0,
+        tax2Percentage: 0,
+        tax3Amount: 0,
+        tax3Percentage: 0,
+        taxTotal: 0,
+        grandTotal: item['grandTotal'],
+      };
+    }),
+    largeLogo: '',
+  };
+}
+
+function validateInvoice(value: Record<string, unknown>): Invoice {
   strings(
     value,
     [
@@ -157,4 +301,94 @@ export function parseInvoiceJson(text: string): Invoice {
       throw new Error(`${field} must be an image URL or a PNG, JPEG, GIF or WebP data URL.`);
   }
   return value as unknown as Invoice;
+}
+
+function recalculateInvoice(invoice: Invoice, invoiceType: InvoiceType): Invoice {
+  const items = invoice.items.map((item) => {
+    const itemTotal = item.price * item.quantity;
+    const discountAmount = invoiceType === 'advanced' ? itemTotal * (item.discPercentage / 100) : 0;
+    const subTotal = itemTotal - discountAmount;
+    const tax1Amount =
+      invoiceType === 'advanced' && invoice.taxOption === TaxOption.CGST_SGST
+        ? subTotal * (item.tax1Percentage / 100)
+        : 0;
+    const tax2Amount =
+      invoiceType === 'advanced' && invoice.taxOption === TaxOption.CGST_SGST
+        ? subTotal * (item.tax2Percentage / 100)
+        : 0;
+    const tax3Amount =
+      invoiceType === 'advanced' && invoice.taxOption === TaxOption.IGST
+        ? subTotal * (item.tax3Percentage / 100)
+        : 0;
+    const taxTotal = tax1Amount + tax2Amount + tax3Amount;
+
+    return {
+      ...item,
+      itemTotal: Number(itemTotal.toFixed(2)),
+      discountAmount: Number(discountAmount.toFixed(2)),
+      subTotal: Number(subTotal.toFixed(2)),
+      tax1Amount: Number(tax1Amount.toFixed(2)),
+      tax2Amount: Number(tax2Amount.toFixed(2)),
+      tax3Amount: Number(tax3Amount.toFixed(2)),
+      taxTotal: Number(taxTotal.toFixed(2)),
+      grandTotal: Number((subTotal + taxTotal).toFixed(2)),
+    };
+  });
+  const sum = (field: 'itemTotal' | 'discountAmount' | 'subTotal' | 'taxTotal' | 'grandTotal') =>
+    items.reduce((total, item) => total + item[field], 0);
+  const grandTotal = sum('grandTotal') + invoice.roundOff;
+
+  return {
+    ...invoice,
+    items,
+    itemTotal: sum('itemTotal'),
+    discountTotal: sum('discountAmount'),
+    subTotal: sum('subTotal'),
+    taxTotal: sum('taxTotal'),
+    grandTotal,
+    grandTotalInWords: CurrencyUtil.numberToWords(
+      grandTotal,
+      invoice.currency?.code || 'INR',
+      invoice.currency?.fraction || '',
+      invoice.decimalPlaces ?? 2,
+      invoice.internationalNumbering,
+    ),
+  };
+}
+
+/** Validate before updating either the form or store; JSON dates are restored as Dates. */
+export function parseInvoiceJson(text: string): ImportedInvoice {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    throw new Error('The file is not valid JSON.');
+  }
+
+  const envelope = record(parsed, 'Invoice file');
+  if (!('version' in envelope) && !('invoiceType' in envelope) && !('invoice' in envelope)) {
+    throw new Error(
+      'This legacy invoice JSON has no invoiceType, so it cannot be safely identified as Simple or Advanced. Re-export it with the current app.',
+    );
+  }
+  if (envelope['version'] !== 1) throw new Error('Unsupported invoice JSON version.');
+  if (envelope['invoiceType'] !== 'simple' && envelope['invoiceType'] !== 'advanced') {
+    throw new Error('invoiceType must be "simple" or "advanced".');
+  }
+  const templatePath = envelope['templatePath'];
+  if (templatePath !== null && typeof templatePath !== 'string') {
+    throw new Error('templatePath must be text or null.');
+  }
+
+  const invoiceType = envelope['invoiceType'];
+  const invoiceValue =
+    invoiceType === 'simple'
+      ? hydrateSimpleInvoice(envelope['invoice'])
+      : record(envelope['invoice'], 'Invoice');
+
+  return {
+    invoiceType,
+    templatePath,
+    invoice: recalculateInvoice(validateInvoice(invoiceValue), invoiceType),
+  };
 }

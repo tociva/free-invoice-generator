@@ -179,7 +179,10 @@
   @if (currentStep() === 3) {
     <div class="app-card-content">
       @defer (on immediate) {
-        <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
+        <app-preview-invoice
+          invoiceType="simple"
+          [selectedTemplate]="selectedTemplate()"
+        ></app-preview-invoice>
       } @placeholder {
         <div class="app-state app-state--bare">
           <tng-progress-spinner ariaLabel="Loading preview" [indeterminate]="true" />

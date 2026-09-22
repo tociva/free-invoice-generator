@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
+
+declare const require: (id: string) => any;
+declare const Buffer: { from(data: string): any };
+const { readFile }: any = require('node:fs/promises');
 
 test('simple invoice: edit, select, preview, export, refresh and history', async ({ page }) => {
   const errors: string[] = [];
@@ -24,6 +27,14 @@ test('simple invoice: edit, select, preview, export, refresh and history', async
     expect(await result.failure()).toBeNull();
     const content = await readFile((await result.path())!);
     if (name === 'HTML' || name === 'JSON') expect(content.toString()).toContain('REGRESSION-42');
+    if (name === 'JSON') {
+      const exported = JSON.parse(content.toString());
+      expect(exported).toMatchObject({ version: 1, invoiceType: 'simple' });
+      expect(exported.templatePath).toEqual(expect.any(String));
+      expect(exported.invoice).not.toHaveProperty('accountNumber');
+      expect(exported.invoice).not.toHaveProperty('largeLogo');
+      expect(exported.invoice.items[0]).not.toHaveProperty('tax1Percentage');
+    }
     if (name === 'PDF') expect(content.subarray(0, 5).toString()).toBe('%PDF-');
   }
   await page.goBack();
@@ -55,6 +66,39 @@ test('advanced invoice restores steps and edits discounted items', async ({ page
   await expect(row.locator('[formControlName="subTotal"]')).toHaveValue('180');
   await page.reload();
   await expect(page.locator('app-invoice-items')).toBeVisible();
+});
+
+test('advanced JSON preserves advanced data and imports into the advanced flow', async ({
+  page,
+}) => {
+  await page.goto('/invoice?step=3');
+  await page.getByLabel('Invoice Number', { exact: true }).fill('ADVANCED-IMPORT-7');
+  await page.getByLabel('Account Number', { exact: true }).fill('99887766');
+  await page.getByRole('button', { name: 'Next', exact: true }).last().click();
+  await page.goto('/invoice?step=6');
+
+  const downloaded = page.waitForEvent('download');
+  await page.locator('app-preview-invoice').getByRole('button', { name: /JSON/ }).click();
+  const json = JSON.parse(await readFile((await (await downloaded).path())!, 'utf8'));
+  expect(json).toMatchObject({
+    version: 1,
+    invoiceType: 'advanced',
+    invoice: { invoiceNo: 'ADVANCED-IMPORT-7', accountNumber: '99887766' },
+  });
+  expect(json.invoice).toHaveProperty('largeLogo');
+  expect(json.invoice.items[0]).toHaveProperty('tax1Percentage');
+
+  await page.goto('/home');
+  await page.locator('input[type=file]').setInputFiles({
+    name: 'advanced.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(json)),
+  });
+  await expect(page).toHaveURL(/\/invoice\?step=6/);
+  await expect(page.locator('app-preview-invoice')).toBeVisible();
+  await page.goto('/invoice?step=3');
+  await expect(page.getByLabel('Invoice Number', { exact: true })).toHaveValue('ADVANCED-IMPORT-7');
+  await expect(page.getByLabel('Account Number', { exact: true })).toHaveValue('99887766');
 });
 
 for (const width of [390, 768, 1280]) {
@@ -92,12 +136,20 @@ test('JSON import validates failures and updates an already initialized editor',
   const downloaded = page.waitForEvent('download');
   await page.locator('app-preview-invoice').getByRole('button', { name: /JSON/ }).click();
   const json = JSON.parse(await readFile((await (await downloaded).path())!, 'utf8'));
-  json.invoiceNo = 'IMPORTED-99';
+  expect(json.invoiceType).toBe('simple');
+  json.invoice.invoiceNo = 'IMPORTED-99';
   await page.getByRole('link', { name: 'Home', exact: true }).click();
   await page.locator('input[type=file]').setInputFiles({
     name: 'invalid.json',
     mimeType: 'application/json',
-    buffer: Buffer.from('{"invoiceNo":"bad"}'),
+    buffer: Buffer.from(
+      JSON.stringify({
+        version: 1,
+        invoiceType: 'simple',
+        templatePath: null,
+        invoice: { invoiceNo: 'bad' },
+      }),
+    ),
   });
   await expect(page.getByRole('alert')).toContainText('must be');
   await expect(page).toHaveURL(/home/);
@@ -106,8 +158,8 @@ test('JSON import validates failures and updates an already initialized editor',
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(json)),
   });
-  await expect(page.getByLabel('Invoice Number', { exact: true })).toHaveValue('IMPORTED-99');
-  await page.getByRole('button', { name: 'Preview and Download', exact: true }).click();
+  await expect(page).toHaveURL(/\/simple-invoice\?step=3/);
+  await expect(page.locator('app-preview-invoice')).toBeVisible();
   await expect(page.frameLocator('app-preview-invoice iframe').locator('body')).toContainText(
     'IMPORTED-99',
   );

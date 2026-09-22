@@ -9,6 +9,7 @@ import {
 import { invoiceStore } from '../invoice/store/invoice.store';
 import { InvoiceFormService } from '../invoice/store/models/invoice-form';
 import { parseInvoiceJson } from '../invoice/store/models/invoice-import';
+import { templateStore } from '../invoice/store/template/template.store';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class Home {
   router = inject(Router);
   jsonFile = signal<string>('');
   store = inject(invoiceStore);
+  private readonly templates = inject(templateStore);
   private readonly invoiceForm = inject(InvoiceFormService);
   errorMessage = signal<string>('');
   successMessage = signal<string>('');
@@ -67,12 +69,18 @@ export class Home {
       const reader = new FileReader();
       reader.onload = () => {
         try {
-          const invoice = parseInvoiceJson(String(reader.result ?? ''));
-          this.invoiceForm.replaceInvoice(invoice);
-          this.store.setInvoice(invoice);
+          const imported = parseInvoiceJson(String(reader.result ?? ''));
+          this.invoiceForm.replaceInvoice(imported.invoice);
+          this.store.setInvoice(imported.invoice);
+          if (imported.templatePath) {
+            this.templates.selectTemplate(imported.templatePath);
+          }
           this.errorMessage.set('');
           this.successMessage.set('Invoice imported successfully.');
-          this.router.navigate(['/simple-invoice']);
+          this.router.navigate(
+            [imported.invoiceType === 'simple' ? '/simple-invoice' : '/invoice'],
+            { queryParams: { step: imported.invoiceType === 'simple' ? 3 : 6 } },
+          );
         } catch (err) {
           this.successMessage.set('');
           this.errorMessage.set(

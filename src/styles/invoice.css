@@ -275,3 +275,46 @@
     align-items: stretch;
   }
 }
+
+/* Tooltip trigger - icon-only appearance (Authority, Designation, International Numbering) */
+tng-tooltip {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+tng-tooltip .tng-tooltip-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--tng-radius-sm, 0.25rem) !important;
+  box-shadow: none !important;
+  color: var(--tng-semantic-foreground-muted);
+  cursor: pointer;
+  line-height: 1 !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  transition: color var(--tng-duration-fast, 0.15s) ease;
+}
+
+tng-tooltip .tng-tooltip-trigger:hover,
+tng-tooltip .tng-tooltip-trigger[data-state='open'] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: var(--tng-semantic-foreground-primary);
+}
+
+tng-tooltip .tng-tooltip-trigger:focus-visible {
+  outline: 2px solid var(--tng-semantic-focus-ring, currentColor) !important;
+  outline-offset: 2px;
+}
+
+.tng-tooltip-content {
+  box-shadow: var(--app-shadow-overlay, 0 4px 12px rgba(0, 0, 0, 0.12));
+}
