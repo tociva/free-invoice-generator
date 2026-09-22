@@ -250,7 +250,10 @@
     <!-- ────────────────────────── STEP 6 ────────────────────────────── -->
     @if (currentStep() === 6) {
       <div class="app-invoice-section">
-        <app-preview-invoice [selectedTemplate]="selectedTemplate()"></app-preview-invoice>
+        <app-preview-invoice
+          invoiceType="advanced"
+          [selectedTemplate]="selectedTemplate()"
+        ></app-preview-invoice>
 
         <div class="app-invoice-columns">
           <div class="app-invoice-main">

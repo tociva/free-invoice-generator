@@ -1,19 +1,69 @@
 import { TemplateUtil } from '../../utils/templates.utils';
 import { sampleInvoice } from '../../../list-templates/template.utils';
 import { DEFAULT_INVOICE_LOGO_URL, initialInvoiceState } from '../invoice.states';
-import { parseInvoiceJson } from './invoice-import';
+import { createInvoiceJsonEnvelope, parseInvoiceJson } from './invoice-import';
 
 describe('Invoice JSON import and rendering', () => {
   it('starts the default invoice with the existing default logo', () => {
     expect(initialInvoiceState.invoice.smallLogo).toBe(DEFAULT_INVOICE_LOGO_URL);
   });
-  it('round-trips the current JSON export format and restores dates', () => {
-    const invoice = parseInvoiceJson(JSON.stringify(initialInvoiceState.invoice));
-    expect(invoice).toEqual(initialInvoiceState.invoice);
-    expect(invoice.invoiceDate).toBeInstanceOf(Date);
+  it('round-trips an advanced invoice and restores its type, template and dates', () => {
+    const imported = parseInvoiceJson(
+      JSON.stringify(
+        createInvoiceJsonEnvelope(
+          'advanced',
+          initialInvoiceState.invoice,
+          'invoice-templates/test.html',
+        ),
+      ),
+    );
+    expect(imported.invoiceType).toBe('advanced');
+    expect(imported.templatePath).toBe('invoice-templates/test.html');
+    expect(imported.invoice).toEqual(initialInvoiceState.invoice);
+    expect(imported.invoice.invoiceDate).toBeInstanceOf(Date);
+  });
+  it('exports only Simple fields and hydrates a complete Simple form on import', () => {
+    const source = structuredClone(initialInvoiceState.invoice);
+    source.items[0].discPercentage = 10;
+    source.items[0].tax1Percentage = 9;
+    source.items[0].tax1Amount = 900;
+    source.items[0].grandTotal = 10800;
+    source.discountTotal = 1000;
+    source.taxTotal = 900;
+    source.grandTotal = 29900;
+    const envelope = createInvoiceJsonEnvelope('simple', source, 'invoice-templates/simple.html');
+    const data = envelope.invoice as Record<string, unknown>;
+    const organization = data['organization'] as Record<string, unknown>;
+    const item = (data['items'] as Record<string, unknown>[])[0];
+
+    expect(envelope.invoiceType).toBe('simple');
+    expect(data).not.toHaveProperty('accountNumber');
+    expect(data).not.toHaveProperty('taxOption');
+    expect(data).not.toHaveProperty('largeLogo');
+    expect(organization).toEqual({
+      name: initialInvoiceState.invoice.organization?.name,
+      address: initialInvoiceState.invoice.organization?.address,
+    });
+    expect(item).not.toHaveProperty('discPercentage');
+    expect(item).not.toHaveProperty('tax1Percentage');
+    expect(data['discountTotal']).toBe(0);
+    expect(data['taxTotal']).toBe(0);
+    expect(item['grandTotal']).toBe(10000);
+
+    const imported = parseInvoiceJson(JSON.stringify(envelope));
+    expect(imported.invoiceType).toBe('simple');
+    expect(imported.invoice.taxOption).toBe('Non Taxable');
+    expect(imported.invoice.accountNumber).toBe('');
+    expect(imported.invoice.largeLogo).toBe('');
+    expect(imported.invoice.items[0].grandTotal).toBe(10000);
   });
   it.each(['{', '{}', 'null', '[]'])('rejects malformed or incomplete JSON: %s', (json) => {
     expect(() => parseInvoiceJson(json)).toThrow();
+  });
+  it('rejects ambiguous legacy exports rather than guessing an invoice type', () => {
+    expect(() => parseInvoiceJson(JSON.stringify(initialInvoiceState.invoice))).toThrow(
+      /legacy invoice JSON has no invoiceType/,
+    );
   });
   it.each([
     { invoiceNo: '' },
@@ -26,9 +76,42 @@ describe('Invoice JSON import and rendering', () => {
     { smallLogo: 'javascript:alert(1)' },
     { taxOption: 'unknown' },
   ])('rejects invalid critical fields: %j', (change) => {
+    const envelope = createInvoiceJsonEnvelope('advanced', initialInvoiceState.invoice, null);
     expect(() =>
-      parseInvoiceJson(JSON.stringify({ ...initialInvoiceState.invoice, ...change })),
+      parseInvoiceJson(
+        JSON.stringify({
+          ...envelope,
+          invoice: { ...(envelope.invoice as object), ...change },
+        }),
+      ),
     ).toThrow();
+  });
+  it('recalculates derived item and invoice totals from imported source fields', () => {
+    const invoice = structuredClone(initialInvoiceState.invoice);
+    invoice.taxOption = 'IGST' as never;
+    invoice.items = [
+      {
+        ...invoice.items[0],
+        quantity: 2,
+        price: 100,
+        discPercentage: 10,
+        tax3Percentage: 18,
+        itemTotal: 1,
+        grandTotal: 1,
+      },
+    ];
+    const imported = parseInvoiceJson(
+      JSON.stringify(createInvoiceJsonEnvelope('advanced', invoice, null)),
+    ).invoice;
+
+    expect(imported.items[0]).toMatchObject({
+      itemTotal: 200,
+      discountAmount: 20,
+      subTotal: 180,
+      tax3Amount: 32.4,
+      grandTotal: 212.4,
+    });
+    expect(imported.grandTotal).toBe(212.4);
   });
   it('renders user text literally without executable markup or replacement-string expansion', () => {
     const invoice = structuredClone(initialInvoiceState.invoice);

@@ -17,6 +17,7 @@ import { SafeHtml } from '@angular/platform-browser';
 import { TngIcon } from '@tailng-ui/icons';
 import { invoiceStore } from '../store/invoice.store';
 import { Invoice } from '../store/models/invoice-model';
+import { createInvoiceJsonEnvelope, type InvoiceType } from '../store/models/invoice-import';
 import { TemplateService } from '../store/services/template.services';
 import { TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
@@ -32,6 +33,7 @@ import { TemplateUtil } from '../utils/templates.utils';
 })
 export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedTemplate = input<TemplateItem | null>(null);
+  invoiceType = input.required<InvoiceType>();
   previewHtml = signal<SafeHtml | null>(null);
   previewScale = signal(1);
   readonly baseWidth = 794;
@@ -109,7 +111,12 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
   handleDownloadJSON(): void {
     const invoiceData = this.invoiceStore.invoice();
     if (!invoiceData) return;
-    const blob = new Blob([JSON.stringify(invoiceData, null, 2)], { type: 'application/json' });
+    const exportData = createInvoiceJsonEnvelope(
+      this.invoiceType(),
+      invoiceData,
+      this.templateStore.selectedTemplatePath(),
+    );
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'invoice.json';

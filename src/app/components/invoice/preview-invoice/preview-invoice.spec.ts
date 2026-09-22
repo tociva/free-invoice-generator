@@ -14,6 +14,7 @@ describe('PreviewInvoiceComponent', () => {
 
     fixture = TestBed.createComponent(PreviewInvoiceComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('invoiceType', 'simple');
     vi.stubGlobal(
       'ResizeObserver',
       class {

@@ -33,12 +33,16 @@
   </div>
   <div class="flex items-start gap-2">
     <tng-checkbox tngAngularForms formControlName="internationalNumbering">
-      <span class="inline-flex items-start gap-3">
+      <span
+        class="inline-flex items-start"
+        style="display: inline-flex; align-items: start; gap: 4px"
+      >
         <span class="leading-tight">International<br />Numbering</span>
-        <span class="inline-flex pt-0.5">
+        <span class="inline-flex pt-0.5" style="display: inline-flex">
           <tng-tooltip
             text="International: 1,234,567.00. Indian: 12,34,567.00."
             ariaLabel="About international numbering"
+            (click)="$event.stopPropagation()"
           >
             <tng-icon trigger icon="circle-help" size="0.875rem" />
           </tng-tooltip>
