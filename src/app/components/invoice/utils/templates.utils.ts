@@ -157,8 +157,33 @@ export class TemplateUtil {
   /**
    * Download a TemplateItem as HTML
    */
-  public static downloadTemplateAsHTML(item: TemplateItem): void {
-    const blob = new Blob([item.html ?? ''], { type: 'text/html' });
+  public static async downloadTemplateAsHTML(item: TemplateItem): Promise<void> {
+    let html = item.html ?? '';
+    // App-relative images cannot resolve when the download is opened via file://.
+    // Embed them without changing template markup or already embedded uploads.
+    const images = [...html.matchAll(/<img\b[^>]*\ssrc\s*=\s*(["'])(\/[^"']*)\1[^>]*>/gi)];
+    const embedded = new Map<string, string>();
+    for (const match of images) {
+      const src = match[2];
+      if (!safeLogo(src) || src.startsWith('//')) continue;
+      let dataUrl = embedded.get(src);
+      if (!dataUrl) {
+        const response = await fetch(src);
+        if (!response.ok) throw new Error(`Unable to load invoice image: ${response.status}`);
+        const image = await response.blob();
+        dataUrl = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(image);
+        });
+        embedded.set(src, dataUrl);
+      }
+      html = html.replace(match[0], () =>
+        match[0].replace(`${match[1]}${src}${match[1]}`, () => `${match[1]}${dataUrl}${match[1]}`),
+      );
+    }
+    const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement('a');

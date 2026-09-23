@@ -44,6 +44,13 @@
       border-radius: 50%;
     }
 
+    /* Keep the native missing-image icon and alt text readable in Code exports. */
+    .logo-circle img[src*="logo_small_src"] {
+      width: auto;
+      height: auto;
+      border-radius: 0;
+    }
+
     .billing-info,
     .invoice-info {
       margin-bottom: 20px;
@@ -137,6 +144,45 @@
 
     .footer div {
       line-height: 1.6;
+    }
+
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 277mm; /* A4 height minus the two 10mm page margins. */
+        box-sizing: border-box;
+      }
+
+      body > * {
+        flex-shrink: 0;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      .totals {
+        width: 100%;
+        margin-bottom: 24px;
+      }
+
+      .footer {
+        margin-top: auto;
+      }
+
+      tr,
+      .totals,
+      .footer {
+        break-inside: avoid;
+      }
     }
   </style>
 </head>
