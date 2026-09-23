@@ -138,6 +138,7 @@
       @defer (on immediate) {
         <app-select-template
           (templateSelected)="onTemplateSelected($event)"
+          invoiceType="simple"
           [templates]="templates()"
           [selectedTemplate]="selectedTemplate()"
         ></app-select-template>

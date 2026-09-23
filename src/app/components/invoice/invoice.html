@@ -207,6 +207,7 @@
       <div class="app-invoice-section">
         <app-select-template
           (templateSelected)="onTemplateSelected($event)"
+          invoiceType="advanced"
           [templates]="templates()"
           [selectedTemplate]="selectedTemplate()"
           [pageSizeOptions]="pageSizeOptions"

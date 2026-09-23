@@ -3,7 +3,34 @@ import { safeLogo } from '../store/models/invoice-import';
 import { Invoice } from '../store/models/invoice-model';
 import { TemplateItem } from '../store/template/template.model';
 
+export type TemplateRenderMode = 'simple' | 'advanced';
+
 export class TemplateUtil {
+  private static readonly simpleSupportedPlaceholders = new Set([
+    '[[logo_small_src]]',
+    '[[org_name]]',
+    '[[org_address]]',
+    '[[customer_name]]',
+    '[[customer_address]]',
+    '[[invoice_number]]',
+    '[[invoice_date]]',
+    '[[payment_due_date]]',
+    '[[items_start]]',
+    '[[item_name]]',
+    '[[item_quantity]]',
+    '[[item_price]]',
+    '[[item_amount]]',
+    '[[items_end]]',
+    '[[itemtotal]]',
+    '[[subtotal]]',
+    '[[roundoff]]',
+    '[[grand_total]]',
+    '[[grand_total_inwords]]',
+    '[[notes]]',
+    '[[terms_and_conditions]]',
+    '[[currency_symbol]]',
+  ]);
+
   private static escapeHtml(value: string): string {
     return value.replace(
       /[&<>"']/g,
@@ -37,12 +64,135 @@ export class TemplateUtil {
       .replaceAll(placeholder, '');
   }
 
+  private static simpleValue(placeholder: string, value: string): string {
+    return this.simpleSupportedPlaceholders.has(placeholder) ? value : '';
+  }
+
+  private static stripUnsupportedSimplePlaceholders(html: string): string {
+    return html.replace(/\[\[[a-zA-Z0-9_]+\]\]/g, (placeholder) =>
+      this.simpleSupportedPlaceholders.has(placeholder) ? placeholder : '',
+    );
+  }
+
+  private static stripSimpleAdvancedContactFields(html: string): string {
+    const contactPlaceholder = String.raw`\[\[(?:customer_phone|customer_email|org_phone|org_email)\]\]`;
+    const contactIcon = String.raw`(?:\u260e|\u2709|\u{1f4de}|\u{1f4f1}|\u{1f4e7})\ufe0f?`;
+    const contactLabel = String.raw`(?:(?:Phone|Mobile|Tel|Email|E-mail|Mail)\s*:?\s*)?`;
+    const contactOnlyElementPattern = new RegExp(
+      String.raw`^\s*(?:${contactIcon}\s*)?${contactLabel}${contactPlaceholder}\s*$`,
+      'iu',
+    );
+
+    if (typeof DOMParser === 'undefined') {
+      return html.replace(
+        new RegExp(
+          String.raw`(?:\s*(?:[|,;/-]\s*)?${contactLabel}(?:${contactIcon}\s*)?${contactPlaceholder})+`,
+          'giu',
+        ),
+        '',
+      );
+    }
+
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const contactIconPattern = /^(?:\s|[\u260e\u2709]|\u{1f4de}|\u{1f4f1}|\u{1f4e7}|\ufe0f)+$/u;
+
+    document.querySelectorAll('span, div, p, li, td').forEach((element) => {
+      const text = element.textContent?.trim() ?? '';
+      if (!contactOnlyElementPattern.test(text)) {
+        return;
+      }
+
+      const previous = element.previousElementSibling;
+      const next = element.nextElementSibling;
+
+      if (previous && contactIconPattern.test(previous.textContent?.trim() ?? '')) {
+        previous.remove();
+      }
+
+      if (next && contactIconPattern.test(next.textContent?.trim() ?? '')) {
+        next.remove();
+      }
+
+      element.remove();
+    });
+
+    return document.documentElement.outerHTML.replace(
+      new RegExp(
+        String.raw`(?:\s*(?:[|,;/-]\s*)?${contactLabel}(?:${contactIcon}\s*)?${contactPlaceholder})+`,
+        'giu',
+      ),
+      '',
+    );
+  }
+
+  private static stripSimpleAdvancedSections(html: string): string {
+    if (typeof DOMParser === 'undefined') {
+      return html
+        .replace(
+          /<([a-z][\w:-]*)\b[^>]*(?:class|id)=["'][^"']*(?:payment-info|bank|account|signature)[^"']*["'][^>]*>[\s\S]*?<\/\1>/gi,
+          '',
+        )
+        .replace(
+          /<p\b[^>]*>[\s\S]*?(?:A\/C Name|Account Name|Account Number|Bank Name|Bank:)[\s\S]*?<\/p>/gi,
+          '',
+        );
+    }
+
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const advancedOnlySelector = [
+      '[class*="payment-info" i]',
+      '[id*="payment-info" i]',
+      '[class*="payment-method" i]',
+      '[id*="payment-method" i]',
+      '[class*="payment-title" i]',
+      '[id*="payment-title" i]',
+      '[class*="bank" i]',
+      '[id*="bank" i]',
+      '[class*="account" i]',
+      '[id*="account" i]',
+      '[class*="signature" i]',
+      '[id*="signature" i]',
+      '[class*="authorized" i]',
+      '[id*="authorized" i]',
+    ].join(',');
+
+    document.querySelectorAll(advancedOnlySelector).forEach((element) => element.remove());
+
+    document.querySelectorAll('p, li, tr').forEach((element) => {
+      const text = element.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+      if (/\b(A\/C Name|Account Name|Account Number|Bank Name|Bank:)\b/i.test(text)) {
+        element.remove();
+      }
+    });
+
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((element) => {
+      const text = element.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+      if (
+        /\b(Payment Info|Payment Method|Payment Methods|Payment Details|Bank Details)\b/i.test(text)
+      ) {
+        const section = element.closest('div, section, article, aside');
+        if (section && section !== document.body && section !== document.documentElement) {
+          section.remove();
+        } else {
+          element.remove();
+        }
+      }
+    });
+
+    return document.documentElement.outerHTML;
+  }
+
   /**
    * Fills an invoice template with actual invoice data
    */
-  public static fillTemplate(html: string, invoice: Invoice): string {
+  public static fillTemplate(
+    html: string,
+    invoice: Invoice,
+    mode: TemplateRenderMode = 'advanced',
+  ): string {
     const decimal = invoice.decimalPlaces ?? 2;
     const dateFormat = invoice.dateFormat?.value ?? 'DD-MM-YYYY';
+    const isSimple = mode === 'simple';
 
     // Fill items
     const itemRowTemplate = this.extractItemsSection(html);
@@ -52,9 +202,9 @@ export class TemplateUtil {
           .replaceAll('[[item_name]]', () => this.escapeHtml(item.name))
           .replaceAll('[[item_quantity]]', item.quantity.toFixed(decimal))
           .replaceAll('[[item_price]]', item.price.toFixed(decimal))
-          .replaceAll('[[item_cgst]]', (item.tax1Amount ?? 0).toFixed(decimal))
-          .replaceAll('[[item_igst]]', (item.tax3Amount ?? 0).toFixed(decimal))
-          .replaceAll('[[item_sgst]]', (item.tax2Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_cgst]]', isSimple ? '' : (item.tax1Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_igst]]', isSimple ? '' : (item.tax3Amount ?? 0).toFixed(decimal))
+          .replaceAll('[[item_sgst]]', isSimple ? '' : (item.tax2Amount ?? 0).toFixed(decimal))
           .replaceAll('[[item_amount]]', item.grandTotal.toFixed(decimal)),
       )
       .join('');
@@ -62,7 +212,7 @@ export class TemplateUtil {
     const itemsRegex = /\[\[items_start\]\][\s\S]*?\[\[items_end\]\]/;
     let result = html.replace(itemsRegex, () => filledItems);
     result = this.fillLogo(result, '[[logo_small_src]]', invoice.smallLogo);
-    result = this.fillLogo(result, '[[logo_large_src]]', invoice.largeLogo);
+    result = this.fillLogo(result, '[[logo_large_src]]', isSimple ? '' : invoice.largeLogo);
 
     // Replace other placeholders
     const replacements: Record<string, string> = {
@@ -97,8 +247,18 @@ export class TemplateUtil {
     };
 
     // Replace all placeholders
+    if (isSimple) {
+      result = this.stripSimpleAdvancedContactFields(result);
+    }
+
     for (const [placeholder, value] of Object.entries(replacements)) {
-      result = result.replaceAll(placeholder, () => this.escapeHtml(value));
+      const renderValue = isSimple ? this.simpleValue(placeholder, value) : value;
+      result = result.replaceAll(placeholder, () => this.escapeHtml(renderValue));
+    }
+
+    if (isSimple) {
+      result = this.stripSimpleAdvancedSections(result);
+      result = this.stripUnsupportedSimplePlaceholders(result);
     }
 
     return result;
