@@ -85,7 +85,7 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
   private renderPreviewHtml(templateHtml: string, data: Invoice): void {
-    const filledHtml = TemplateUtil.fillTemplate(templateHtml, data);
+    const filledHtml = TemplateUtil.fillTemplate(templateHtml, data, this.invoiceType());
     const safeHTML = this.templateService.createWrappedSafeHtml(filledHtml);
     this.previewHtml.set(safeHTML);
   }
@@ -104,7 +104,11 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
     if (!item?.safeHTML) return;
     TemplateUtil.downloadTemplateAsPDF({
       ...item,
-      html: TemplateUtil.fillTemplate(item.html ?? '', this.invoiceStore.invoice()),
+      html: TemplateUtil.fillTemplate(
+        item.html ?? '',
+        this.invoiceStore.invoice(),
+        this.invoiceType(),
+      ),
     });
   }
 
@@ -128,7 +132,11 @@ export class PreviewInvoiceComponent implements OnInit, AfterViewInit, OnDestroy
     if (!item?.safeHTML) return;
     TemplateUtil.downloadTemplateAsHTML({
       ...item,
-      html: TemplateUtil.fillTemplate(item.html ?? '', this.invoiceStore.invoice()),
+      html: TemplateUtil.fillTemplate(
+        item.html ?? '',
+        this.invoiceStore.invoice(),
+        this.invoiceType(),
+      ),
     });
   }
 

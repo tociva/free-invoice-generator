@@ -23,7 +23,7 @@ import { invoiceStore } from '../store/invoice.store';
 import { TemplateService } from '../store/services/template.services';
 import { TemplateItem } from '../store/template/template.model';
 import { templateStore } from '../store/template/template.store';
-import { TemplateUtil } from '../utils/templates.utils';
+import { TemplateUtil, type TemplateRenderMode } from '../utils/templates.utils';
 
 @Component({
   selector: 'app-select-template',
@@ -70,6 +70,7 @@ export class SelectTemplateComponent implements OnInit {
 
   templates = input<TemplateItem[]>([]);
   selectedTemplate = input<TemplateItem | null>(null);
+  invoiceType = input<TemplateRenderMode>('advanced');
   templateSelected = output<TemplateItem>();
   isSelected = signal(false);
 
@@ -175,7 +176,7 @@ export class SelectTemplateComponent implements OnInit {
       return {
         ...item,
         safeHTML: this.templateService.createWrappedSafeHtml(
-          TemplateUtil.fillTemplate(item.html, currentInvoice),
+          TemplateUtil.fillTemplate(item.html, currentInvoice, this.invoiceType()),
         ),
       };
     });
