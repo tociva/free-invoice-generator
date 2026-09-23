@@ -1,18 +1,18 @@
 <div class="app-preview">
   <!-- Preview Content -->
   <div class="app-preview-content">
-    <tng-card padding="none" class="app-preview-card">
-      <!-- Header with Template Name and Action Buttons -->
-      <div class="app-preview-toolbar">
-        <div class="app-page-heading">
-          <!-- Left: Template Name -->
-          <div>
-            <h1 class="app-preview-title">
-              {{ selectedTemplate()?.name || 'Coral Breeze' }}
-            </h1>
+    <tng-card padding="none">
+      <!-- Toolbar Header -->
+      <header class="app-preview-toolbar">
+        <div class="app-preview-header-main">
+          <div class="app-preview-title-group">
+            <h1 class="app-preview-title">Preview &amp; Download</h1>
+            <p class="app-preview-description">
+              Review your invoice before downloading or printing.
+            </p>
           </div>
 
-          <!-- Right: Action Buttons -->
+          <!-- Actions toolbar -->
           <div class="app-actions">
             <!-- Print Button -->
             <tng-button
@@ -34,7 +34,7 @@
               appearance="outline"
               type="button"
               (click)="handleDownloadPDF(selectedTemplate())"
-              title="Download PDF"
+              title="PDF"
             >
               <tng-icon icon="file-text" />
               <span class="app-export-label">PDF</span>
@@ -80,10 +80,24 @@
             </tng-button>
           </div>
         </div>
-      </div>
+      </header>
 
-      <!-- Invoice Preview Container -->
-      <div class="app-preview-canvas">
+      <!-- Invoice Preview Workspace Canvas -->
+      <section class="app-preview-canvas" aria-label="Invoice Document Preview">
+        <div class="app-preview-document-meta">
+          <div class="app-preview-meta-badge">
+            <span class="app-preview-meta-dot" aria-hidden="true"></span>
+            <span class="app-preview-meta-title">Invoice Preview</span>
+          </div>
+          <div class="app-preview-meta-details">
+            <span class="app-preview-pill app-preview-pill--format">A4 Document</span>
+            <span class="app-preview-pill app-preview-pill--template">
+              <tng-icon icon="file-text" size="0.75rem" />
+              <span>{{ selectedTemplate()?.name || 'Coral Breeze' }}</span>
+            </span>
+          </div>
+        </div>
+
         <div #previewViewport class="app-preview-viewport">
           <div
             class="app-preview-paper"
@@ -92,7 +106,7 @@
           >
             <div
               class="app-preview-transform"
-              [style.transform]="'scale(' + previewScale() + ')'"
+              [style.zoom]="previewScale()"
               [style.width.px]="baseWidth"
               [style.height.px]="baseHeight"
             >
@@ -106,7 +120,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </tng-card>
   </div>
 </div>
